@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WoonPeek – Huurwoningen & Koophuizen in Nederland</title>
+    <meta name="description" content="Vind huurwoningen en koophuizen in Eindhoven, Rotterdam, Amsterdam en meer. WoonPeek – het woningplatform voor heel Nederland." />
+    <meta name="author" content="WoonPeek" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.woonpeek.nl/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://uszlfqgxjvceugrpavde.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+    <link rel="preconnect" href="https://images.weserv.nl" crossorigin />
+    <!-- Preload LCP hero image for faster First Contentful Paint -->
+    <link
+      rel="preload"
+      as="image"
+      href="/src/assets/hero-bg.webp"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+    <link rel="help" type="text/plain" href="/llms.txt" title="LLM-friendly site description" />
+    <link rel="help" type="text/plain" href="/llms-full.txt" title="LLM-friendly full site description" />
+    <link rel="alternate" type="text/plain" href="/ai.txt" title="AI information" />
+    <link rel="alternate" type="application/json" href="/.well-known/ai-plugin.json" title="AI plugin manifest" />
+
+    <!-- Critical CSS: above-the-fold styles inlined to eliminate render-blocking on first paint.
+         Matches the Tailwind output for hero/header so LCP renders before main CSS arrives. -->
+    <style>
+      *,*::before,*::after{box-sizing:border-box;border:0 solid;margin:0;padding:0}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif}
+      body{margin:0;line-height:inherit;background:#fff;color:#0f172a;font-family:inherit;-webkit-font-smoothing:antialiased}
+      img,svg{display:block;max-width:100%;height:auto}
+      a{color:inherit;text-decoration:inherit}
+      button{font:inherit;cursor:pointer;background:none}
+      h1,h2,h3,p{font-size:inherit;font-weight:inherit}
+      #root{min-height:100vh}
+      /* Hero shell – prevents layout shift while React hydrates */
+      .hero-fallback{position:relative;min-height:480px;background:linear-gradient(180deg,#1B4332 0%,#288a51 100%);overflow:hidden}
+      @media(min-width:768px){.hero-fallback{min-height:640px}}
+    </style>
+
+    <meta property="og:title" content="WoonPeek – Huurwoningen & Koophuizen in Nederland" />
+    <meta property="og:description" content="Zoek tussen duizenden huurwoningen en koophuizen in heel Nederland. WoonPeek – snel, eenvoudig en betrouwbaar." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.woonpeek.nl/" />
+    <meta property="og:image" content="/favicon.png" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:site_name" content="WoonPeek" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="WoonPeek – Huurwoningen & Koophuizen" />
+    <meta name="twitter:description" content="Vind jouw droomwoning op WoonPeek. Huurwoningen en koophuizen in heel Nederland." />
+    <meta name="twitter:image" content="/favicon.png" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "WoonPeek",
+      "alternateName": ["Woonpeek", "Woon Peek", "woonpeek.nl"],
+      "url": "https://www.woonpeek.nl",
+      "description": "Woningplatform voor huur- en koopwoningen in Nederland",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.woonpeek.nl/zoeken?locatie={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script>
+      // Defer AdSense to after page interactive (saves ~300ms on FCP/LCP)
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          var s = document.createElement("script");
+          s.async = true;
+          s.crossOrigin = "anonymous";
+          s.src =
+            "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3573780897509976";
+          document.head.appendChild(s);
+        }, 1500);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="root">
+      <!-- Hero placeholder shown until React hydrates: prevents flash of blank page,
+           matches HeroSection background gradient so LCP feels instant. -->
+      <div class="hero-fallback" aria-hidden="true"></div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

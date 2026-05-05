@@ -1,0 +1,451 @@
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Database } from "@/integrations/supabase/types";
+import { useAuth } from "@/contexts/AuthContext";
+import { useState, useEffect } from "react";
+
+export const useIsAdmin = () => {
+  const { user } = useAuth();
+
+  return useQuery({
+    queryKey: ["is-admin", user?.id],
+    queryFn: async () => {
+      if (!user) return false;
+      const { data, error } = await supabase.rpc("has_role", {
+        _user_id: user.id,
+        _role: "admin",
+      });
+      if (error) {
+        console.error("Error checking admin role:", error);
+        return false;
+      }
+      return data === true;
+    },
+    enabled: !!user,
+  });
+};
+
+export const useAllProperties = () => {
+  return useQuery({
+    queryKey: ["all-properties"],
+    queryFn: async () => {
+      const pageSize = 1000;
+      let from = 0;
+      const allProperties: Database["public"]["Tables"]["properties"]["Row"][] = [];
+
+      while (true) {
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .range(from, from + pageSize - 1);
+
+        if (error) throw error;
+        if (!data || data.length === 0) break;
+        allProperties.push(...data);
+        if (data.length < pageSize) break;
+        from += pageSize;
+      }
+
+      return allProperties;
+    },
+  });
+};
+
+export const useAdminPropertiesPaginated = (
+  page: number,
+  pageSize: number,
+  filters: {
+    search?: string;
+    source?: string;
+    status?: string;
+    sortColumn?: string;
+    sortAscending?: boolean;
+  }
+) => {
+  return useQuery({
+    queryKey: ["admin-properties-paginated", page, pageSize, filters],
+    queryFn: async () => {
+      const from = page * pageSize;
+      const to = from + pageSize - 1;
+
+      const sortCol = filters.sortColumn || "created_at";
+      const sortAsc = filters.sortAscending ?? false;
+
+      // Build count query
+      let countQuery = supabase
+        .from("properties")
+        .select("id", { count: "exact", head: true });
+
+      // Build data query
+      let dataQuery = supabase
+        .from("properties")
+        .select("*")
+        .order(sortCol, { ascending: sortAsc })
+        .range(from, to);
+
+      // Apply filters to both queries
+      if (filters.status && filters.status !== "all") {
+        countQuery = countQuery.eq("status", filters.status as "actief" | "inactief" | "verhuurd" | "verkocht");
+        dataQuery = dataQuery.eq("status", filters.status as "actief" | "inactief" | "verhuurd" | "verkocht");
+      }
+      if (filters.source && filters.source !== "all") {
+        if (filters.source === "user") {
+          countQuery = countQuery.is("source_site", null);
+          dataQuery = dataQuery.is("source_site", null);
+        } else {
+          countQuery = countQuery.eq("source_site", filters.source);
+          dataQuery = dataQuery.eq("source_site", filters.source);
+        }
+      }
+      if (filters.search && filters.search.trim()) {
+        const s = `%${filters.search.trim()}%`;
+        countQuery = countQuery.or(`title.ilike.${s},city.ilike.${s},street.ilike.${s}`);
+        dataQuery = dataQuery.or(`title.ilike.${s},city.ilike.${s},street.ilike.${s}`);
+      }
+
+      const [{ count, error: countError }, { data, error: dataError }] = await Promise.all([
+        countQuery,
+        dataQuery,
+      ]);
+
+      if (countError) throw countError;
+      if (dataError) throw dataError;
+
+      return {
+        properties: data || [],
+        totalCount: count || 0,
+        totalPages: Math.ceil((count || 0) / pageSize),
+      };
+    },
+    placeholderData: (prev) => prev,
+  });
+};
+
+export const useUpdatePropertyAdmin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string; [key: string]: unknown }) => {
+      const { data, error } = await supabase
+        .from("properties")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-properties"] });
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+    },
+  });
+};
+
+export const useDeletePropertyAdmin = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from("properties").delete().eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-properties"] });
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+    },
+  });
+};
+
+export const useDailyAlertSubscribers = () => {
+  return useQuery({
+    queryKey: ["daily-alert-subscribers"],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from("daily_alert_subscribers")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data as any[];
+    },
+  });
+};
+
+export const usePostToFacebook = () => {
+  return useMutation({
+    mutationFn: async (propertyId: string) => {
+      const { data, error } = await supabase.functions.invoke("post-to-facebook", {
+        body: { property_id: propertyId },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data;
+    },
+  });
+};
+
+// Daisycon hooks
+export const useDaisyconStatus = () => {
+  return useQuery({
+    queryKey: ["daisycon-status"],
+    queryFn: async () => {
+      const { data, error } = await supabase.functions.invoke("daisycon-auth", {
+        body: { action: "status" },
+      });
+      if (error) throw error;
+      return data as { connected: boolean; expires_at?: string; last_refreshed?: string };
+    },
+  });
+};
+
+export const useDaisyconFeeds = () => {
+  return useQuery({
+    queryKey: ["daisycon-feeds"],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from("daisycon_feeds")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return data as any[];
+    },
+  });
+};
+
+export const useAddDaisyconFeed = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (feed: { name: string; program_id: number; media_id: number; feed_url?: string }) => {
+      const { data, error } = await (supabase as any)
+        .from("daisycon_feeds")
+        .insert(feed)
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["daisycon-feeds"] });
+    },
+  });
+};
+
+export const useToggleDaisyconFeed = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, is_active }: { id: string; is_active: boolean }) => {
+      const { error } = await (supabase as any)
+        .from("daisycon_feeds")
+        .update({ is_active })
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["daisycon-feeds"] });
+    },
+  });
+};
+
+export const useDeleteDaisyconFeed = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await (supabase as any)
+        .from("daisycon_feeds")
+        .delete()
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["daisycon-feeds"] });
+    },
+  });
+};
+
+export const useRunDaisyconImport = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (feedId?: string) => {
+      const { data, error } = await supabase.functions.invoke("daisycon-import", {
+        body: feedId ? { feed_id: feedId } : {},
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["daisycon-feeds"] });
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+      queryClient.invalidateQueries({ queryKey: ["all-properties"] });
+    },
+  });
+};
+
+export const useDaisyconAuth = () => {
+  return useMutation({
+    mutationFn: async ({ action, code, code_verifier }: { action: string; code?: string; code_verifier?: string }) => {
+      const { data, error } = await supabase.functions.invoke("daisycon-auth", {
+        body: { action, code, code_verifier },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data;
+    },
+  });
+};
+
+export const useUpdateDaisyconFeed = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string; name?: string; logo_url?: string | null; feed_url?: string | null }) => {
+      const { error } = await (supabase as any)
+        .from("daisycon_feeds")
+        .update(updates)
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["daisycon-feeds"] });
+    },
+  });
+};
+
+export const useUploadFeedLogo = () => {
+  return useMutation({
+    mutationFn: async ({ feedId, file }: { feedId: string; file: File }) => {
+      const ext = file.name.split(".").pop();
+      const path = `feed-logos/${feedId}.${ext}`;
+      const { error } = await supabase.storage
+        .from("property-images")
+        .upload(path, file, { upsert: true });
+      if (error) throw error;
+      const { data: urlData } = supabase.storage
+        .from("property-images")
+        .getPublicUrl(path);
+      return urlData.publicUrl;
+    },
+  });
+};
+
+export const useDaisyconPrograms = () => {
+  return useQuery({
+    queryKey: ["daisycon-programs"],
+    queryFn: async () => {
+      const { data, error } = await supabase.functions.invoke("daisycon-auth", {
+        body: { action: "programs" },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data as { subscriptions: any[]; media: any[]; program_names?: Record<number, string>; feed_availability?: Record<number, boolean> };
+    },
+    enabled: false, // only fetch on demand
+  });
+};
+
+// Wooniezie hooks
+export const useRunWooniezieImport = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (includeKoop?: boolean) => {
+      const { data, error } = await supabase.functions.invoke("wooniezie-import", {
+        body: { include_koop: includeKoop || false },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data as { imported: number; skipped: number; errors: number };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+      queryClient.invalidateQueries({ queryKey: ["all-properties"] });
+      queryClient.invalidateQueries({ queryKey: ["wooniezie-stats"] });
+    },
+  });
+};
+
+export const useWooniezieStats = () => {
+  return useQuery({
+    queryKey: ["wooniezie-stats"],
+    queryFn: async () => {
+      // Count wooniezie properties
+      const { count, error } = await supabase
+        .from("properties")
+        .select("id", { count: "exact", head: true })
+        .eq("source_site", "Wooniezie");
+      if (error) throw error;
+
+      // Get scraper record
+      const { data: scraper } = await supabase
+        .from("scrapers")
+        .select("*")
+        .ilike("name", "%wooniezie%")
+        .maybeSingle();
+
+      return {
+        totalProperties: count || 0,
+        lastRun: scraper?.last_run_at || null,
+        lastStatus: scraper?.last_run_status || null,
+      };
+    },
+  });
+};
+
+// Import job progress tracking
+export interface ImportJob {
+  id: string;
+  type: string;
+  status: string;
+  feed_id: string | null;
+  feed_name: string | null;
+  total_feeds: number;
+  processed_feeds: number;
+  imported: number;
+  updated: number;
+  skipped: number;
+  errors: number;
+  message: string | null;
+  started_at: string;
+  completed_at: string | null;
+}
+
+export const useActiveImportJob = () => {
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [isPolling, setIsPolling] = useState(false);
+
+  const query = useQuery({
+    queryKey: ["import-job", jobId],
+    queryFn: async () => {
+      if (!jobId) return null;
+      const { data, error } = await (supabase as any)
+        .from("import_jobs")
+        .select("*")
+        .eq("id", jobId)
+        .single();
+      if (error) return null;
+      return data as ImportJob;
+    },
+    enabled: !!jobId && isPolling,
+    refetchInterval: isPolling ? 2000 : false,
+  });
+
+  // Stop polling when job is completed
+  useEffect(() => {
+    if (query.data?.status === "completed" || query.data?.status === "error") {
+      // Keep showing for a few seconds then stop
+      const timer = setTimeout(() => setIsPolling(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [query.data?.status]);
+
+  const startTracking = (id: string) => {
+    setJobId(id);
+    setIsPolling(true);
+  };
+
+  const dismiss = () => {
+    setIsPolling(false);
+    setJobId(null);
+  };
+
+  return { job: query.data, isPolling, startTracking, dismiss };
+};

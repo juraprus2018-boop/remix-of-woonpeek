@@ -1,0 +1,207 @@
+/**
+ * Plaatst een foto-carrousel (max 35 foto's) naar TikTok als draft (MEDIA_UPLOAD).
+ * In Sandbox-mode komt deze in de Inbox/Drafts, gebruiker tikt zelf op "Post".
+ * Body: { property_id?: string }
+ */
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { buildCaption, getValidTikTokToken } from "../_shared/tiktok.ts";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+interface PropertyRow {
+  id: string;
+  city: string;
+  price: number;
+  listing_type: string;
+  property_type: string | null;
+  surface_area: number | null;
+  bedrooms: number | null;
+  street: string | null;
+  house_number: string | null;
+  images: string[] | null;
+  slug: string | null;
+}
+
+/**
+ * Kopieert externe foto's naar de tiktok-media bucket en geeft publieke URLs terug.
+ * TikTok eist dat alle PULL_FROM_URL bronnen op een geverifieerd domain staan.
+ * Foto's die al op supabase.co staan worden direct doorgegeven.
+ */
+async function rehostPhotos(
+  sb: ReturnType<typeof createClient>,
+  propertyId: string,
+  urls: string[],
+): Promise<string[]> {
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const out: string[] = [];
+  for (let i = 0; i < urls.length; i++) {
+    const src = urls[i];
+    // Already on our domain? Skip rehost.
+    if (src.includes(".supabase.co/storage/")) {
+      out.push(src);
+      continue;
+    }
+    try {
+      const res = await fetch(src, {
+        headers: { "User-Agent": "Mozilla/5.0 WoonPeek/1.0" },
+      });
+      if (!res.ok) continue;
+      const ct = res.headers.get("content-type") || "image/jpeg";
+      const ext = ct.includes("png") ? "png" : ct.includes("webp") ? "webp" : "jpg";
+      const buf = new Uint8Array(await res.arrayBuffer());
+      const path = `${propertyId}/${Date.now()}-${i}.${ext}`;
+      const { error } = await sb.storage
+        .from("tiktok-media")
+        .upload(path, buf, { contentType: ct, upsert: true });
+      if (error) {
+        console.error("rehost upload err", path, error.message);
+        continue;
+      }
+      out.push(`${supabaseUrl}/storage/v1/object/public/tiktok-media/${path}`);
+    } catch (e) {
+      console.error("rehost fetch err", src, e instanceof Error ? e.message : e);
+    }
+  }
+  return out;
+}
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const sb = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
+
+  let propertyId: string | null = null;
+  if (req.method === "POST") {
+    try {
+      const body = await req.json();
+      propertyId = body?.property_id ?? null;
+    } catch {
+      // ignore
+    }
+  }
+
+  try {
+    // Pick property
+    let prop: PropertyRow | null = null;
+    if (propertyId) {
+      const { data } = await sb.from("properties").select("*").eq("id", propertyId).maybeSingle();
+      prop = data as PropertyRow | null;
+    } else {
+      const { data: posted } = await sb.from("tiktok_posts").select("property_id");
+      const excluded = (posted ?? []).map((r: { property_id: string }) => r.property_id);
+      let q = sb
+        .from("properties")
+        .select("*")
+        .eq("status", "actief")
+        .order("created_at", { ascending: false })
+        .limit(30);
+      if (excluded.length) q = q.not("id", "in", `(${excluded.join(",")})`);
+      const { data } = await q;
+      prop = ((data as PropertyRow[] | null) ?? []).find((p) => (p.images?.length ?? 0) >= 2) ?? null;
+    }
+
+    if (!prop) throw new Error("No suitable property to post");
+    const sourcePhotos = (prop.images ?? []).slice(0, 35); // TikTok max 35
+    if (sourcePhotos.length < 2) throw new Error(`Property ${prop.id} has fewer than 2 images`);
+
+    // Rehost externe foto's naar tiktok-media bucket (TikTok URL ownership eis)
+    const photos = await rehostPhotos(sb, prop.id, sourcePhotos);
+    if (photos.length < 2) {
+      throw new Error(`Could not rehost enough photos (got ${photos.length})`);
+    }
+
+    // Get TikTok token
+    const token = await getValidTikTokToken(supabaseUrl, serviceKey);
+
+    const caption = buildCaption({
+      city: prop.city,
+      price: Number(prop.price),
+      listing_type: prop.listing_type,
+      surface_area: prop.surface_area,
+      bedrooms: prop.bedrooms,
+      property_type: prop.property_type,
+    });
+
+    const title =
+      prop.listing_type === "huur"
+        ? `Te huur in ${prop.city}`
+        : `Te koop in ${prop.city}`;
+
+    // DIRECT_POST: publiceert direct op het profiel zonder draft.
+    // Vereist Direct Post toggle aan in TikTok Developer Portal.
+    // Niet-audited apps: privacy_level MOET SELF_ONLY zijn (alleen jij ziet 'm).
+    // Na app audit: zet env var TIKTOK_PRIVACY_LEVEL=PUBLIC_TO_EVERYONE.
+    const PRIVACY_LEVEL = Deno.env.get("TIKTOK_PRIVACY_LEVEL") || "SELF_ONLY";
+    const initRes = await fetch("https://open.tiktokapis.com/v2/post/publish/content/init/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token.access_token}`,
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        post_info: {
+          title,
+          description: caption,
+          disable_comment: false,
+          privacy_level: PRIVACY_LEVEL,
+          auto_add_music: true,
+        },
+        source_info: {
+          source: "PULL_FROM_URL",
+          photo_cover_index: 0,
+          photo_images: photos,
+        },
+        post_mode: "DIRECT_POST",
+        media_type: "PHOTO",
+      }),
+    });
+    const initJson = await initRes.json();
+    if (!initRes.ok || initJson?.error?.code !== "ok") {
+      throw new Error(`TikTok photo init failed: ${JSON.stringify(initJson)}`);
+    }
+
+    const publishId: string = initJson.data?.publish_id ?? "unknown";
+
+    await sb.from("tiktok_posts").insert({
+      property_id: prop.id,
+      caption,
+      publish_id: publishId,
+      status: "uploaded_to_inbox",
+      notes: `photo carousel (${photos.length} foto's)`,
+    });
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        property_id: prop.id,
+        publish_id: publishId,
+        photo_count: photos.length,
+        message:
+          PRIVACY_LEVEL === "PUBLIC_TO_EVERYONE"
+            ? "Foto-carrousel direct gepubliceerd op TikTok."
+            : "Foto-carrousel direct geplaatst (privé / SELF_ONLY zichtbaar tot app audit).",
+      }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+    );
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Unknown error";
+    console.error("[tiktok-post-photo]", msg);
+    if (propertyId) {
+      await sb.from("tiktok_posts").insert({
+        property_id: propertyId,
+        status: "failed",
+        error_message: msg,
+        notes: "photo carousel",
+      });
+    }
+    return new Response(JSON.stringify({ success: false, error: msg }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+});

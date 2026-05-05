@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 
+  WoonPeek Design System
+  Colors: Deep forest green primary, emerald accents
+  Inspired by the WoonPeek brand identity
+*/
+
+@layer base {
+  :root {
+    --background: 150 10% 98%;
+    --foreground: 160 30% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 160 30% 8%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 30% 8%;
+
+    /* Deep forest green - brand primary */
+    --primary: 160 40% 14%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light sage for secondary elements */
+    --secondary: 150 15% 95%;
+    --secondary-foreground: 160 30% 15%;
+
+    --muted: 150 10% 94%;
+    --muted-foreground: 160 10% 45%;
+
+    /* Emerald green accent */
+    --accent: 145 55% 35%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 15% 89%;
+    --input: 150 15% 89%;
+    --ring: 145 55% 35%;
+
+    --radius: 0.625rem;
+
+    /* Custom tokens */
+    --success: 145 65% 42%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Brand palette: just 3 colors.
+       1. primary (deep forest green) — buttons, headings, brand
+       2. terracotta (warm earth accent) — highlights, badges, CTAs
+       3. surface-cream (warm off-white) — alternating section backgrounds */
+    --terracotta: 16 70% 52%;
+    --terracotta-foreground: 0 0% 100%;
+    --terracotta-soft: 18 65% 95%;
+
+    --surface-cream: 38 45% 96%;
+    --surface-cream-deep: 38 40% 92%;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(160 30% 8% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(160 30% 8% / 0.1), 0 2px 4px -2px hsl(160 30% 8% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(160 30% 8% / 0.1), 0 4px 6px -4px hsl(160 30% 8% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(160 30% 8% / 0.1), 0 8px 10px -6px hsl(160 30% 8% / 0.1);
+
+    --sidebar-background: 160 40% 12%;
+    --sidebar-foreground: 150 15% 92%;
+    --sidebar-primary: 145 55% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 35% 18%;
+    --sidebar-accent-foreground: 150 15% 95%;
+    --sidebar-border: 160 30% 20%;
+    --sidebar-ring: 145 55% 35%;
+  }
+
+  .dark {
+    --background: 160 30% 6%;
+    --foreground: 150 15% 95%;
+
+    --card: 160 25% 10%;
+    --card-foreground: 150 15% 95%;
+
+    --popover: 160 25% 10%;
+    --popover-foreground: 150 15% 95%;
+
+    --primary: 145 50% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 160 20% 15%;
+    --secondary-foreground: 150 15% 95%;
+
+    --muted: 160 20% 15%;
+    --muted-foreground: 150 10% 55%;
+
+    --accent: 145 45% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 20% 18%;
+    --input: 160 20% 18%;
+    --ring: 145 50% 40%;
+
+    --success: 145 55% 50%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 85% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    --sidebar-background: 160 30% 8%;
+    --sidebar-foreground: 150 15% 90%;
+    --sidebar-primary: 145 50% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 20% 15%;
+    --sidebar-accent-foreground: 150 15% 95%;
+    --sidebar-border: 160 20% 18%;
+    --sidebar-ring: 145 50% 40%;
+
+    --terracotta: 16 65% 55%;
+    --terracotta-foreground: 0 0% 100%;
+    --terracotta-soft: 16 30% 18%;
+
+    --surface-cream: 160 25% 9%;
+    --surface-cream-deep: 160 25% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 500;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply font-semibold tracking-tight;
+  }
+
+  p {
+    @apply text-[1.0625rem] leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
