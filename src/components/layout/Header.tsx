@@ -6,6 +6,7 @@ import {
   ChevronRight, Handshake, MessageCircle, Zap
 } from "lucide-react";
 import logoWoonpeek from "@/assets/logo-woonpeek-v2.png";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -346,6 +347,7 @@ const Header = () => {
               </Link>
             </>
           )}
+          <LanguageSwitcher />
         </div>
 
         {/* Mobile Menu */}
