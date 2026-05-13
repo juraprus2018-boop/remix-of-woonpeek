@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import logoWoonpeek from "@/assets/logo-woonpeek-v2.png";
+import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
 
 const Register = () => {
@@ -91,7 +91,7 @@ const Register = () => {
         <Card className="w-full max-w-md border-0 shadow-none bg-transparent">
           <CardHeader className="text-center">
             <Link to="/" className="mx-auto mb-4">
-              <img src={logoWoonpeek} alt="Domora" className="h-[250px]" />
+              <Logo size="h-10" />
             </Link>
             <CardTitle className="text-2xl">Registreren</CardTitle>
             <CardDescription>
