@@ -5,7 +5,7 @@ import {
   MapPin, CalendarDays, Home, Building2, DoorOpen, BedDouble, ChevronDown,
   ChevronRight, Handshake, MessageCircle, Zap
 } from "lucide-react";
-import logoWoonpeek from "@/assets/logo-woonpeek-v2.png";
+import Logo from "@/components/brand/Logo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
@@ -106,8 +106,8 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-          <img src={logoWoonpeek} alt="Logo Domora" className="h-[250px]" />
+        <Link to="/" className="flex items-center transition-opacity hover:opacity-80" aria-label="Domora home">
+          <Logo size="h-6" />
         </Link>
 
         {/* Desktop Navigation */}
