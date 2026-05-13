@@ -137,9 +137,9 @@ const Index = () => {
                   className="group block"
                 >
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
-                    {heroProperty.cover_image && (
+                    {heroProperty.images?.[0] && (
                       <img
-                        src={heroProperty.cover_image}
+                        src={heroProperty.images[0]}
                         alt={heroProperty.title || ""}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
@@ -216,9 +216,9 @@ const Index = () => {
                     {p ? (
                       <Link to={`/woning/${p.slug || p.id}`}>
                         <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
-                          {p.cover_image && (
+                          {p.images?.[0] && (
                             <img
-                              src={p.cover_image}
+                              src={p.images[0]}
                               alt={p.title || ""}
                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                             />
