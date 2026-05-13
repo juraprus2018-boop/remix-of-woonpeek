@@ -23,8 +23,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
-        display: ["Plus Jakarta Sans", "sans-serif"],
+        sans: ["Manrope", "Plus Jakarta Sans", "system-ui", "sans-serif"],
+        display: ["Manrope", "Plus Jakarta Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
