@@ -560,6 +560,15 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  if (FACEBOOK_POSTING_DISABLED) {
+    console.log("[post-to-facebook] disabled: skipping invocation");
+    return new Response(
+      JSON.stringify({ success: false, disabled: true, message: "Facebook/Instagram posting is uitgeschakeld." }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
+
   const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
   let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID");
 
