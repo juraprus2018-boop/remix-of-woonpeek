@@ -1,12 +1,12 @@
 /**
  * Centrale brand-constanten. Wijzig hier 1x om de hele site te rebranden.
  */
-export const BRAND_NAME = "Domora";
+export const BRAND_NAME = "Stekly";
 export const BRAND_TAGLINE = "Wonen vinden, eenvoudig gemaakt";
-export const SUPPORT_EMAIL = "info@domora.com";
+export const SUPPORT_EMAIL = "info@stekly.nl";
 
 /** Canonieke host zonder protocol/trailing slash. Leeg laten zolang er nog geen domein is. */
-export const CANONICAL_HOST = "domora.com";
+export const CANONICAL_HOST = "stekly.nl";
 export const CANONICAL_URL = CANONICAL_HOST ? `https://${CANONICAL_HOST}` : "";
 
 export const SUPPORTED_LOCALES = ["nl", "en", "de", "fr"] as const;

@@ -84,7 +84,7 @@ export function addBlogAutoLinks(html: string): string {
       const lastCloseTag = before.lastIndexOf(">");
       if (lastOpenTag > lastCloseTag) continue; // inside a tag
 
-      result = `${before}<a href="https://domora.com${href}" title="${term} op Domora">${match[0]}</a>${after}`;
+      result = `${before}<a href="https://stekly.nl${href}" title="${term} op Stekly">${match[0]}</a>${after}`;
       linkedTerms.add(term);
     }
   }

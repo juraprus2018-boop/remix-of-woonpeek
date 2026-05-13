@@ -45,14 +45,14 @@ const Index = () => {
     name: BRAND_NAME,
     url: CANONICAL_URL,
     description:
-      "Domora verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek.",
+      "Stekly verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek.",
     email: SUPPORT_EMAIL,
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SEOHead
-        title="Domora. Wonen vinden, eenvoudig gemaakt."
+        title="Stekly. Wonen vinden, eenvoudig gemaakt."
         description="Het nieuwste woningaanbod uit heel Nederland, dagelijks bijgewerkt. Huren en kopen in één rustig overzicht."
         canonical="/"
       />
@@ -173,7 +173,7 @@ const Index = () => {
         <section className="border-b border-border bg-foreground text-background">
           <div className="container flex flex-wrap items-center justify-between gap-6 py-6">
             <p className="text-xs font-medium uppercase tracking-[0.25em] opacity-70">
-              Vandaag in Domora
+              Vandaag in Stekly
             </p>
             <div className="flex flex-wrap gap-x-10 gap-y-3 text-sm">
               <span><span className="font-semibold">Dagelijks</span> bijgewerkt</span>
@@ -305,7 +305,7 @@ const Index = () => {
           <div className="container grid grid-cols-1 gap-12 py-20 md:py-28 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                § Waarom Domora
+                § Waarom Stekly
               </p>
             </div>
             <div className="lg:col-span-8">

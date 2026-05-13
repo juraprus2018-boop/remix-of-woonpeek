@@ -9,7 +9,7 @@ const benefits = [
   {
     icon: Search,
     title: "Alles op een plek",
-    description: "Geen tientallen websites doorzoeken. Domora combineert het aanbod van meerdere bronnen.",
+    description: "Geen tientallen websites doorzoeken. Stekly combineert het aanbod van meerdere bronnen.",
   },
   {
     icon: Bell,
@@ -39,7 +39,7 @@ const WhyUsSection = () => {
       <div className="container">
         <div className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-            Waarom Domora?
+            Waarom Stekly?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
             Ontdek nieuwe woningen sneller dan anderen

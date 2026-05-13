@@ -11,7 +11,7 @@ interface LogoProps {
 }
 
 /**
- * Domora wordmark. Ultra-clean Swiss: lowercase, tight tracking,
+ * Stekly wordmark. Ultra-clean Swiss: lowercase, tight tracking,
  * een opvallende elektrisch-limoen punt achter de naam als signatuur.
  */
 export function Logo({
@@ -29,10 +29,10 @@ export function Logo({
         text,
         className
       )}
-      aria-label="Domora"
+      aria-label="Stekly"
     >
       <span className="text-[1.5em]" style={{ letterSpacing: "-0.04em" }}>
-        domora
+        stekly
       </span>
       {withDot && (
         <span

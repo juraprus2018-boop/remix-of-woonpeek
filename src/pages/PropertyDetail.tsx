@@ -119,7 +119,7 @@ const PropertyDetail = () => {
 
   const handleShare = async () => {
     const url = window.location.href;
-    const title = property?.title || "Woning op Domora";
+    const title = property?.title || "Woning op Stekly";
     if (navigator.share) {
       try { await navigator.share({ title, url }); } catch {}
     }
@@ -210,7 +210,7 @@ const PropertyDetail = () => {
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
   // Meta Title: [Woningtype] in [stad] – [kamers] – €[prijs]
-  const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Domora`;
+  const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Stekly`;
 
   // Meta Description
   const seoDescription = `Bekijk deze ${property.property_type} in ${property.city}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? "/mnd" : ""}. Bekijk foto's, informatie en vraag direct meer info aan.`;
@@ -224,16 +224,16 @@ const PropertyDetail = () => {
     "@type": "Product",
     "name": property.title,
     "description": property.description || seoDescription,
-    "url": `https://domora.com/woning/${property.slug}`,
+    "url": `https://stekly.nl/woning/${property.slug}`,
     "image": property.images?.length ? property.images : undefined,
-    "brand": { "@type": "Brand", "name": "Domora" },
+    "brand": { "@type": "Brand", "name": "Stekly" },
     "category": `${typeLabel} te ${property.listing_type}`,
     "offers": {
       "@type": "Offer",
       "price": property.price,
       "priceCurrency": "EUR",
       "availability": property.status === "actief" ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
-      "url": `https://domora.com/woning/${property.slug}`,
+      "url": `https://stekly.nl/woning/${property.slug}`,
       "validFrom": property.created_at,
     },
     "additionalProperty": [
@@ -261,7 +261,7 @@ const PropertyDetail = () => {
     "@type": "RealEstateListing",
     "name": property.title,
     "description": property.description || `${typeLabel} te ${property.listing_type} in ${property.city}`,
-    "url": `https://domora.com/woning/${property.slug}`,
+    "url": `https://stekly.nl/woning/${property.slug}`,
     "datePosted": property.created_at,
     "image": property.images?.length ? property.images : undefined,
   };
@@ -284,8 +284,8 @@ const PropertyDetail = () => {
     {
       question: `Is ${property.street} ${property.house_number} in ${property.city} nog beschikbaar?`,
       answer: property.status === "actief"
-        ? `Ja, deze woning is momenteel actief beschikbaar op Domora. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
-        : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Domora.`,
+        ? `Ja, deze woning is momenteel actief beschikbaar op Stekly. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
+        : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Stekly.`,
     },
   ];
 
@@ -318,7 +318,7 @@ const PropertyDetail = () => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonical={`https://domora.com/woning/${property.slug}`}
+        canonical={`https://stekly.nl/woning/${property.slug}`}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="article"
       />
@@ -685,7 +685,7 @@ const PropertyDetail = () => {
                 <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
                   <p>
                     {property.city} biedt een divers woningaanbod, van appartementen en studio's tot ruime eengezinswoningen. 
-                    Of je nu op zoek bent naar een huurwoning of koopwoning in {property.city}, Domora helpt je om het 
+                    Of je nu op zoek bent naar een huurwoning of koopwoning in {property.city}, Stekly helpt je om het 
                     actuele aanbod overzichtelijk te vergelijken.
                   </p>
                   <p>
@@ -963,7 +963,7 @@ const PropertyDetail = () => {
           <div className="container text-center">
             <h2 className="font-display text-2xl font-bold mb-3">Op zoek naar een woning?</h2>
             <p className="mx-auto max-w-lg text-muted-foreground mb-6">
-              Ontdek duizenden huurwoningen en koopwoningen door heel Nederland op Domora.
+              Ontdek duizenden huurwoningen en koopwoningen door heel Nederland op Stekly.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">

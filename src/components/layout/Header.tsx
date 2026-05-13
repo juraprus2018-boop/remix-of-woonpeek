@@ -106,7 +106,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center transition-opacity hover:opacity-80" aria-label="Domora home">
+        <Link to="/" className="flex items-center transition-opacity hover:opacity-80" aria-label="Stekly home">
           <Logo size="h-6" />
         </Link>
 

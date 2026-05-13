@@ -74,4 +74,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://domora.com/sitemap.xml
+Sitemap: https://stekly.nl/sitemap.xml

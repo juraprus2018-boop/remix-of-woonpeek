@@ -45,7 +45,7 @@ const Register = () => {
     } else {
       supabase.functions.invoke("send-email", {
         body: {
-          to: "info@domora.com",
+          to: "info@stekly.nl",
           subject: `Nieuwe registratie: ${displayName || email}`,
           html: `<h2>Nieuwe gebruiker geregistreerd</h2>
             <p><strong>Naam:</strong> ${displayName || "Niet opgegeven"}</p>
@@ -70,14 +70,14 @@ const Register = () => {
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}
-          alt="Domora platform"
+          alt="Stekly platform"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/60" />
         <div className="absolute inset-0 flex items-end p-12">
           <div>
             <h2 className="font-display text-3xl font-bold text-white">
-              Word lid van Domora
+              Word lid van Stekly
             </h2>
             <p className="mt-2 text-lg text-white/80">
               Maak gratis een account aan en ontdek duizenden woningen in heel Nederland.
