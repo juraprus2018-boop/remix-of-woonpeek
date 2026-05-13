@@ -10,67 +10,70 @@
 
 @layer base {
   :root {
-    /* Bijna-wit canvas, bijna-zwart tekst */
-    --background: 0 0% 99%;
-    --foreground: 220 15% 12%;
+    /* Wit canvas, donkere navy tekst */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 12%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 12%;
+    --popover-foreground: 222 47% 11%;
 
-    /* Monochroom primary (bijna-zwart) */
-    --primary: 220 15% 12%;
+    /* Diep navy primary (Rentbird-stijl) */
+    --primary: 222 47% 14%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 14% 96%;
-    --secondary-foreground: 220 15% 12%;
+    --secondary-foreground: 222 47% 14%;
 
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
 
-    /* Elektrisch limoen accent: spaarzaam gebruiken */
-    --accent: 75 90% 50%;
-    --accent-foreground: 220 15% 12%;
+    /* Warm oranje accent */
+    --accent: 22 95% 55%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 75 90% 50%;
+    --ring: 22 95% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.625rem;
 
     --success: 142 70% 45%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
-    --warning-foreground: 220 15% 12%;
+    --warning-foreground: 222 47% 11%;
 
-    /* Legacy tokens hergemapped naar nieuw monochroom palet
-       zodat bestaande componenten niet breken */
-    --terracotta: 75 90% 50%;
-    --terracotta-foreground: 220 15% 12%;
-    --terracotta-soft: 75 70% 95%;
+    /* Legacy tokens hergemapped naar nieuw oranje accent */
+    --terracotta: 22 95% 55%;
+    --terracotta-foreground: 0 0% 100%;
+    --terracotta-soft: 22 95% 95%;
 
     --surface-cream: 220 14% 97%;
-    --surface-cream-deep: 220 13% 93%;
+    --surface-cream-deep: 222 30% 96%;
 
-    /* Subtiele schaduwen, geen zware drop-shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(220 15% 12% / 0.04);
-    --shadow-md: 0 2px 8px -2px hsl(220 15% 12% / 0.06);
-    --shadow-lg: 0 8px 24px -8px hsl(220 15% 12% / 0.08);
-    --shadow-xl: 0 16px 40px -12px hsl(220 15% 12% / 0.1);
+    /* Donker navy tint voor hero/header secties */
+    --hero: 222 47% 14%;
+    --hero-foreground: 0 0% 100%;
+    --hero-muted: 222 30% 70%;
 
-    --sidebar-background: 220 15% 12%;
+    --shadow-sm: 0 1px 2px 0 hsl(222 47% 11% / 0.04);
+    --shadow-md: 0 2px 8px -2px hsl(222 47% 11% / 0.08);
+    --shadow-lg: 0 12px 28px -10px hsl(222 47% 11% / 0.12);
+    --shadow-xl: 0 24px 48px -16px hsl(222 47% 11% / 0.18);
+
+    --sidebar-background: 222 47% 14%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 75 90% 50%;
-    --sidebar-primary-foreground: 220 15% 12%;
-    --sidebar-accent: 220 15% 18%;
+    --sidebar-primary: 22 95% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 40% 20%;
     --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 220 15% 20%;
-    --sidebar-ring: 75 90% 50%;
+    --sidebar-border: 222 40% 22%;
+    --sidebar-ring: 22 95% 55%;
   }
 
   .dark {
