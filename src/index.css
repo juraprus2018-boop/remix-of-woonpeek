@@ -10,121 +10,118 @@
 
 @layer base {
   :root {
-    --background: 150 10% 98%;
-    --foreground: 160 30% 8%;
+    /* Bijna-wit canvas, bijna-zwart tekst */
+    --background: 0 0% 99%;
+    --foreground: 220 15% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 160 30% 8%;
+    --card-foreground: 220 15% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 160 30% 8%;
+    --popover-foreground: 220 15% 12%;
 
-    /* Deep forest green - brand primary */
-    --primary: 160 40% 14%;
+    /* Monochroom primary (bijna-zwart) */
+    --primary: 220 15% 12%;
     --primary-foreground: 0 0% 100%;
 
-    /* Light sage for secondary elements */
-    --secondary: 150 15% 95%;
-    --secondary-foreground: 160 30% 15%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 15% 12%;
 
-    --muted: 150 10% 94%;
-    --muted-foreground: 160 10% 45%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    /* Emerald green accent */
-    --accent: 145 55% 35%;
-    --accent-foreground: 0 0% 100%;
+    /* Elektrisch limoen accent: spaarzaam gebruiken */
+    --accent: 75 90% 50%;
+    --accent-foreground: 220 15% 12%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 15% 89%;
-    --input: 150 15% 89%;
-    --ring: 145 55% 35%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 75 90% 50%;
 
-    --radius: 0.625rem;
+    --radius: 0.5rem;
 
-    /* Custom tokens */
-    --success: 145 65% 42%;
+    --success: 142 70% 45%;
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --warning-foreground: 220 15% 12%;
 
-    /* Brand palette: just 3 colors.
-       1. primary (deep forest green) — buttons, headings, brand
-       2. terracotta (warm earth accent) — highlights, badges, CTAs
-       3. surface-cream (warm off-white) — alternating section backgrounds */
-    --terracotta: 16 70% 52%;
-    --terracotta-foreground: 0 0% 100%;
-    --terracotta-soft: 18 65% 95%;
+    /* Legacy tokens hergemapped naar nieuw monochroom palet
+       zodat bestaande componenten niet breken */
+    --terracotta: 75 90% 50%;
+    --terracotta-foreground: 220 15% 12%;
+    --terracotta-soft: 75 70% 95%;
 
-    --surface-cream: 38 45% 96%;
-    --surface-cream-deep: 38 40% 92%;
+    --surface-cream: 220 14% 97%;
+    --surface-cream-deep: 220 13% 93%;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(160 30% 8% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(160 30% 8% / 0.1), 0 2px 4px -2px hsl(160 30% 8% / 0.1);
-    --shadow-lg: 0 10px 15px -3px hsl(160 30% 8% / 0.1), 0 4px 6px -4px hsl(160 30% 8% / 0.1);
-    --shadow-xl: 0 20px 25px -5px hsl(160 30% 8% / 0.1), 0 8px 10px -6px hsl(160 30% 8% / 0.1);
+    /* Subtiele schaduwen, geen zware drop-shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 15% 12% / 0.04);
+    --shadow-md: 0 2px 8px -2px hsl(220 15% 12% / 0.06);
+    --shadow-lg: 0 8px 24px -8px hsl(220 15% 12% / 0.08);
+    --shadow-xl: 0 16px 40px -12px hsl(220 15% 12% / 0.1);
 
-    --sidebar-background: 160 40% 12%;
-    --sidebar-foreground: 150 15% 92%;
-    --sidebar-primary: 145 55% 35%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 160 35% 18%;
-    --sidebar-accent-foreground: 150 15% 95%;
-    --sidebar-border: 160 30% 20%;
-    --sidebar-ring: 145 55% 35%;
+    --sidebar-background: 220 15% 12%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 75 90% 50%;
+    --sidebar-primary-foreground: 220 15% 12%;
+    --sidebar-accent: 220 15% 18%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 75 90% 50%;
   }
 
   .dark {
-    --background: 160 30% 6%;
-    --foreground: 150 15% 95%;
+    --background: 220 15% 8%;
+    --foreground: 0 0% 96%;
 
-    --card: 160 25% 10%;
-    --card-foreground: 150 15% 95%;
+    --card: 220 15% 11%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 160 25% 10%;
-    --popover-foreground: 150 15% 95%;
+    --popover: 220 15% 11%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 145 50% 40%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 220 15% 12%;
 
-    --secondary: 160 20% 15%;
-    --secondary-foreground: 150 15% 95%;
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 160 20% 15%;
-    --muted-foreground: 150 10% 55%;
+    --muted: 220 15% 16%;
+    --muted-foreground: 220 9% 65%;
 
-    --accent: 145 45% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 75 90% 55%;
+    --accent-foreground: 220 15% 12%;
 
-    --destructive: 0 70% 45%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 160 20% 18%;
-    --input: 160 20% 18%;
-    --ring: 145 50% 40%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 75 90% 55%;
 
-    --success: 145 55% 50%;
+    --success: 142 65% 50%;
     --success-foreground: 0 0% 100%;
     --warning: 38 85% 55%;
-    --warning-foreground: 0 0% 100%;
+    --warning-foreground: 220 15% 12%;
 
-    --sidebar-background: 160 30% 8%;
-    --sidebar-foreground: 150 15% 90%;
-    --sidebar-primary: 145 50% 40%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 160 20% 15%;
-    --sidebar-accent-foreground: 150 15% 95%;
-    --sidebar-border: 160 20% 18%;
-    --sidebar-ring: 145 50% 40%;
+    --sidebar-background: 220 15% 6%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 75 90% 55%;
+    --sidebar-primary-foreground: 220 15% 12%;
+    --sidebar-accent: 220 15% 14%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 220 15% 18%;
+    --sidebar-ring: 75 90% 55%;
 
-    --terracotta: 16 65% 55%;
-    --terracotta-foreground: 0 0% 100%;
-    --terracotta-soft: 16 30% 18%;
+    --terracotta: 75 90% 55%;
+    --terracotta-foreground: 220 15% 12%;
+    --terracotta-soft: 75 30% 18%;
 
-    --surface-cream: 160 25% 9%;
-    --surface-cream-deep: 160 25% 12%;
+    --surface-cream: 220 15% 10%;
+    --surface-cream-deep: 220 15% 13%;
   }
 }
 
@@ -135,21 +132,23 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-    font-weight: 500;
+    font-family: 'Manrope', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
     @apply font-semibold tracking-tight;
+    letter-spacing: -0.02em;
   }
 
   p {
-    @apply text-[1.0625rem] leading-relaxed;
+    @apply text-base leading-relaxed;
   }
 }
 
