@@ -1,5 +1,10 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
+// ─── KILL SWITCH ────────────────────────────────────────────────────
+// Facebook + Instagram posting is fully disabled per user request.
+// Any invocation returns immediately without contacting the Graph API.
+const FACEBOOK_POSTING_DISABLED = true;
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -554,6 +559,15 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
+  if (FACEBOOK_POSTING_DISABLED) {
+    console.log("[post-to-facebook] disabled: skipping invocation");
+    return new Response(
+      JSON.stringify({ success: false, disabled: true, message: "Facebook/Instagram posting is uitgeschakeld." }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
 
   const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
   let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID");
