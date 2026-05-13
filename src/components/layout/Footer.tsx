@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Facebook, Linkedin, Instagram } from "lucide-react";
-import logoWoonpeek from "@/assets/logo-woonpeek-v2.png";
+import Logo from "@/components/brand/Logo";
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <img src={logoWoonpeek} alt="Logo Domora" className="h-[250px]" />
+              <Logo size="h-7" />
             </Link>
             <p className="text-sm text-muted-foreground">
               Vind jouw droomwoning of plaats je eigen woning op Domora. 

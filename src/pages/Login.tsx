@@ -9,7 +9,7 @@ import { Loader2, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
-import logoWoonpeek from "@/assets/logo-woonpeek-v2.png";
+import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
 
 const Login = () => {
@@ -141,7 +141,7 @@ const Login = () => {
         <Card className="w-full max-w-md border-0 shadow-none bg-transparent">
           <CardHeader className="text-center">
             <Link to="/" className="mx-auto mb-4">
-              <img src={logoWoonpeek} alt="Domora" className="h-[250px]" />
+              <Logo size="h-10" />
             </Link>
             <CardTitle className="text-2xl">Inloggen</CardTitle>
             <CardDescription>
