@@ -9,13 +9,13 @@ const SEOContentSection = () => {
             Woningen zoeken in Nederland
           </h2>
           <p>
-            Op zoek naar een <strong>woning</strong> in Nederland? WoonPeek verzamelt dagelijks het
+            Op zoek naar een <strong>woning</strong> in Nederland? Domora verzamelt dagelijks het
             nieuwste aanbod van <Link to="/huurwoningen" className="text-primary hover:underline">huurwoningen</Link>,{" "}
             <Link to="/appartementen" className="text-primary hover:underline">appartementen</Link>,
             studio's en <Link to="/koopwoningen" className="text-primary hover:underline">koopwoningen</Link> uit heel Nederland op een overzichtelijke plek. Of je nu een
             starter bent die een eerste huurwoning zoekt, een gezin dat een ruimer
             huis wil kopen, of een student op zoek naar een betaalbare{" "}
-            <Link to="/kamers" className="text-primary hover:underline">kamer</Link>: bij WoonPeek vind je
+            <Link to="/kamers" className="text-primary hover:underline">kamer</Link>: bij Domora vind je
             snel wat je zoekt.
           </p>
           <p>
@@ -47,7 +47,7 @@ const SEOContentSection = () => {
             voor tips over woningen zoeken, de woningmarkt en huurprijzen. Of bekijk de{" "}
             <Link to="/huurprijsmonitor" className="text-primary hover:underline">huurprijsmonitor</Link>{" "}
             voor actuele huurprijzen per stad. Start vandaag nog met{" "}
-            <strong>woning zoeken</strong> via WoonPeek. Het is volledig gratis.
+            <strong>woning zoeken</strong> via Domora. Het is volledig gratis.
           </p>
         </div>
       </div>

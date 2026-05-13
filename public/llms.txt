@@ -1,10 +1,10 @@
-# WoonPeek
+# Domora
 
-> WoonPeek is het gratis woningplatform van Nederland. We verzamelen dagelijks het nieuwste aanbod van huurwoningen, koopwoningen, appartementen, studio's en kamers uit heel Nederland op één plek. Website: https://www.woonpeek.nl
+> Domora is het gratis woningplatform van Nederland. We verzamelen dagelijks het nieuwste aanbod van huurwoningen, koopwoningen, appartementen, studio's en kamers uit heel Nederland op één plek. Website: https://domora.com
 
-## Wat is WoonPeek?
+## Wat is Domora?
 
-WoonPeek is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is WoonPeek volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
+Domora is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Domora volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
 
 ## Kernfeatures
 
@@ -17,53 +17,53 @@ WoonPeek is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen 
 
 ## Beschikbare woningtypes
 
-- Huurwoningen: https://www.woonpeek.nl/huurwoningen
-- Koopwoningen: https://www.woonpeek.nl/koopwoningen
-- Appartementen: https://www.woonpeek.nl/appartementen
-- Huizen: https://www.woonpeek.nl/huizen
-- Studio's: https://www.woonpeek.nl/studios
-- Kamers: https://www.woonpeek.nl/kamers
+- Huurwoningen: https://domora.com/huurwoningen
+- Koopwoningen: https://domora.com/koopwoningen
+- Appartementen: https://domora.com/appartementen
+- Huizen: https://domora.com/huizen
+- Studio's: https://domora.com/studios
+- Kamers: https://domora.com/kamers
 
 ## Populaire steden
 
-- Huurwoningen Amsterdam: https://www.woonpeek.nl/huurwoningen/amsterdam
-- Huurwoningen Rotterdam: https://www.woonpeek.nl/huurwoningen/rotterdam
-- Huurwoningen Utrecht: https://www.woonpeek.nl/huurwoningen/utrecht
-- Huurwoningen Den Haag: https://www.woonpeek.nl/huurwoningen/den-haag
-- Huurwoningen Eindhoven: https://www.woonpeek.nl/huurwoningen/eindhoven
-- Huurwoningen Groningen: https://www.woonpeek.nl/huurwoningen/groningen
-- Huurwoningen Tilburg: https://www.woonpeek.nl/huurwoningen/tilburg
-- Huurwoningen Breda: https://www.woonpeek.nl/huurwoningen/breda
-- Huurwoningen Nijmegen: https://www.woonpeek.nl/huurwoningen/nijmegen
-- Huurwoningen Almere: https://www.woonpeek.nl/huurwoningen/almere
-- Huurwoningen Helmond: https://www.woonpeek.nl/huurwoningen/helmond
-- Huurwoningen Arnhem: https://www.woonpeek.nl/huurwoningen/arnhem
-- Huurwoningen Haarlem: https://www.woonpeek.nl/huurwoningen/haarlem
-- Huurwoningen Enschede: https://www.woonpeek.nl/huurwoningen/enschede
-- Huurwoningen Apeldoorn: https://www.woonpeek.nl/huurwoningen/apeldoorn
-- Huurwoningen Amersfoort: https://www.woonpeek.nl/huurwoningen/amersfoort
-- Huurwoningen Den Bosch: https://www.woonpeek.nl/huurwoningen/s-hertogenbosch
-- Huurwoningen Zwolle: https://www.woonpeek.nl/huurwoningen/zwolle
-- Huurwoningen Leiden: https://www.woonpeek.nl/huurwoningen/leiden
-- Huurwoningen Maastricht: https://www.woonpeek.nl/huurwoningen/maastricht
+- Huurwoningen Amsterdam: https://domora.com/huurwoningen/amsterdam
+- Huurwoningen Rotterdam: https://domora.com/huurwoningen/rotterdam
+- Huurwoningen Utrecht: https://domora.com/huurwoningen/utrecht
+- Huurwoningen Den Haag: https://domora.com/huurwoningen/den-haag
+- Huurwoningen Eindhoven: https://domora.com/huurwoningen/eindhoven
+- Huurwoningen Groningen: https://domora.com/huurwoningen/groningen
+- Huurwoningen Tilburg: https://domora.com/huurwoningen/tilburg
+- Huurwoningen Breda: https://domora.com/huurwoningen/breda
+- Huurwoningen Nijmegen: https://domora.com/huurwoningen/nijmegen
+- Huurwoningen Almere: https://domora.com/huurwoningen/almere
+- Huurwoningen Helmond: https://domora.com/huurwoningen/helmond
+- Huurwoningen Arnhem: https://domora.com/huurwoningen/arnhem
+- Huurwoningen Haarlem: https://domora.com/huurwoningen/haarlem
+- Huurwoningen Enschede: https://domora.com/huurwoningen/enschede
+- Huurwoningen Apeldoorn: https://domora.com/huurwoningen/apeldoorn
+- Huurwoningen Amersfoort: https://domora.com/huurwoningen/amersfoort
+- Huurwoningen Den Bosch: https://domora.com/huurwoningen/s-hertogenbosch
+- Huurwoningen Zwolle: https://domora.com/huurwoningen/zwolle
+- Huurwoningen Leiden: https://domora.com/huurwoningen/leiden
+- Huurwoningen Maastricht: https://domora.com/huurwoningen/maastricht
 
 ## Hoofdpagina's
 
-- Home: https://www.woonpeek.nl
-- Zoeken: https://www.woonpeek.nl/zoeken
-- Alle steden: https://www.woonpeek.nl/steden
-- Verkennen (kaart): https://www.woonpeek.nl/verkennen
-- Nieuw aanbod: https://www.woonpeek.nl/nieuw-aanbod
-- Blog: https://www.woonpeek.nl/blog
-- Over WoonPeek: https://www.woonpeek.nl/over-woonpeek
-- FAQ: https://www.woonpeek.nl/veelgestelde-vragen
-- Dagelijkse alert: https://www.woonpeek.nl/dagelijkse-alert
+- Home: https://domora.com
+- Zoeken: https://domora.com/zoeken
+- Alle steden: https://domora.com/steden
+- Verkennen (kaart): https://domora.com/verkennen
+- Nieuw aanbod: https://domora.com/nieuw-aanbod
+- Blog: https://domora.com/blog
+- Over Domora: https://domora.com/over-woonpeek
+- FAQ: https://domora.com/veelgestelde-vragen
+- Dagelijkse alert: https://domora.com/dagelijkse-alert
 
 ## Contact
 
-- Website: https://www.woonpeek.nl
-- Over ons: https://www.woonpeek.nl/over-woonpeek
+- Website: https://domora.com
+- Over ons: https://domora.com/over-woonpeek
 
 ## Uitgebreide documentatie
 
-- [llms-full.txt](https://www.woonpeek.nl/llms-full.txt): Volledige technische documentatie met alle pagina's, URL-patronen, steden en features
+- [llms-full.txt](https://domora.com/llms-full.txt): Volledige technische documentatie met alle pagina's, URL-patronen, steden en features

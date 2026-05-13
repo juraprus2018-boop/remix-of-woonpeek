@@ -7,14 +7,14 @@ import bannerFaq from "@/assets/banner-faq.jpg";
 
 const FAQ_ITEMS = [
   {
-    question: "Wat is WoonPeek?",
+    question: "Wat is Domora?",
     answer:
-      "WoonPeek is een woningplatform dat dagelijks het nieuwste aanbod van huurwoningen en koophuizen verzamelt uit meerdere bronnen. Zo heb je in één overzicht alle beschikbare woningen in Nederland.",
+      "Domora is een woningplatform dat dagelijks het nieuwste aanbod van huurwoningen en koophuizen verzamelt uit meerdere bronnen. Zo heb je in één overzicht alle beschikbare woningen in Nederland.",
   },
   {
-    question: "Is WoonPeek gratis?",
+    question: "Is Domora gratis?",
     answer:
-      "Ja, WoonPeek is volledig gratis te gebruiken. Je kunt onbeperkt zoeken, filteren en woningen bekijken zonder kosten.",
+      "Ja, Domora is volledig gratis te gebruiken. Je kunt onbeperkt zoeken, filteren en woningen bekijken zonder kosten.",
   },
   {
     question: "Hoe vaak wordt het woningaanbod bijgewerkt?",
@@ -29,22 +29,22 @@ const FAQ_ITEMS = [
   {
     question: "Hoe kan ik contact opnemen met de verhuurder of verkoper?",
     answer:
-      "Bij elke woning vind je een link naar de originele advertentie bij de aanbieder. Daar kun je rechtstreeks contact opnemen. Bij woningen die direct op WoonPeek zijn geplaatst, kun je via ons contactformulier een bericht sturen.",
+      "Bij elke woning vind je een link naar de originele advertentie bij de aanbieder. Daar kun je rechtstreeks contact opnemen. Bij woningen die direct op Domora zijn geplaatst, kun je via ons contactformulier een bericht sturen.",
   },
   {
-    question: "Uit welke bronnen haalt WoonPeek woningen?",
+    question: "Uit welke bronnen haalt Domora woningen?",
     answer:
-      "WoonPeek verzamelt woningen van meerdere gerenommeerde platforms en makelaars in Nederland. We breiden onze bronnen continu uit om het meest complete overzicht te bieden.",
+      "Domora verzamelt woningen van meerdere gerenommeerde platforms en makelaars in Nederland. We breiden onze bronnen continu uit om het meest complete overzicht te bieden.",
   },
   {
-    question: "Kan ik zelf een woning plaatsen op WoonPeek?",
+    question: "Kan ik zelf een woning plaatsen op Domora?",
     answer:
       "Ja, als je een account hebt kun je zelf woningen plaatsen. Dit is handig voor particuliere verhuurders of verkopers die hun woning extra onder de aandacht willen brengen.",
   },
   {
     question: "In welke steden kan ik woningen vinden?",
     answer:
-      "WoonPeek heeft woningen in steden door heel Nederland, waaronder Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag, Groningen en nog veel meer. We dekken zowel grote als kleinere steden.",
+      "Domora heeft woningen in steden door heel Nederland, waaronder Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag, Groningen en nog veel meer. We dekken zowel grote als kleinere steden.",
   },
   {
     question: "Hoe werken de filters op de zoekpagina?",
@@ -75,9 +75,9 @@ const FAQPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Veelgestelde vragen | WoonPeek"
-        description="Antwoorden op veelgestelde vragen over WoonPeek. Lees hoe ons woningplatform werkt, hoe je zoekt en hoe je zoekalerts instelt."
-        canonical="https://www.woonpeek.nl/veelgestelde-vragen"
+        title="Veelgestelde vragen | Domora"
+        description="Antwoorden op veelgestelde vragen over Domora. Lees hoe ons woningplatform werkt, hoe je zoekt en hoe je zoekalerts instelt."
+        canonical="https://domora.com/veelgestelde-vragen"
       />
       <script
         type="application/ld+json"
@@ -96,7 +96,7 @@ const FAQPage = () => {
             Veelgestelde vragen
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Alles wat je wilt weten over WoonPeek en ons woningaanbod
+            Alles wat je wilt weten over Domora en ons woningaanbod
           </p>
         </PageBanner>
 

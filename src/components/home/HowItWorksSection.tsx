@@ -27,7 +27,7 @@ const HowItWorksSection = () => {
       <div className="container">
         <div className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-            Hoe werkt WoonPeek?
+            Hoe werkt Domora?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
             In drie stappen sneller bij je nieuwe woning

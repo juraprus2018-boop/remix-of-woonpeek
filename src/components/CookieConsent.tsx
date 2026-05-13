@@ -94,7 +94,7 @@ const CookieConsent = () => {
               </button>
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              WoonPeek gebruikt cookies voor het functioneren van de website en,
+              Domora gebruikt cookies voor het functioneren van de website en,
               met jouw toestemming, voor analyse en advertenties. Lees meer in
               ons{" "}
               <Link

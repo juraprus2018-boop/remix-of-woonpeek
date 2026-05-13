@@ -42,17 +42,17 @@ const PostcodePage = () => {
   }
 
   const cityLabel = stats?.cities[0] || "";
-  const title = `Woningen in postcode ${postcode}${cityLabel ? ` (${cityLabel})` : ""} | WoonPeek`;
+  const title = `Woningen in postcode ${postcode}${cityLabel ? ` (${cityLabel})` : ""} | Domora`;
   const description = stats?.count
     ? `${stats.count} woningen te huur en koop in postcode ${postcode}${cityLabel ? `, ${cityLabel}` : ""}. Gemiddelde prijs €${stats.avgPrice.toLocaleString("nl-NL")}. Bekijk het actuele aanbod.`
-    : `Woningen zoeken in postcode ${postcode}. Bekijk huur en koopwoningen, prijzen en buurtinfo op WoonPeek.`;
+    : `Woningen zoeken in postcode ${postcode}. Bekijk huur en koopwoningen, prijzen en buurtinfo op Domora.`;
 
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://www.woonpeek.nl/woningen-postcode-${postcode}`}
+        canonical={`https://domora.com/woningen-postcode-${postcode}`}
       />
       <Header />
 

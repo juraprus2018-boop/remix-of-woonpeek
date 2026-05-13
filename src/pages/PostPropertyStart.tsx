@@ -21,9 +21,9 @@ const PostPropertyStart = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Woning plaatsen op WoonPeek | Gratis starten"
-        description="Maak gratis een account aan en plaats je woning op WoonPeek. Snel online en direct zichtbaar voor woningzoekers."
-        canonical="https://www.woonpeek.nl/woning-plaatsen"
+        title="Woning plaatsen op Domora | Gratis starten"
+        description="Maak gratis een account aan en plaats je woning op Domora. Snel online en direct zichtbaar voor woningzoekers."
+        canonical="https://domora.com/woning-plaatsen"
       />
       <Header />
       <main className="flex-1">
@@ -34,7 +34,7 @@ const PostPropertyStart = () => {
                 <div className="space-y-2">
                   <h1 className="font-display text-3xl font-bold">Plaats je woning gratis</h1>
                   <p className="text-muted-foreground">
-                    Maak een gratis account aan en plaats direct je huur- of koopwoning op WoonPeek.
+                    Maak een gratis account aan en plaats direct je huur- of koopwoning op Domora.
                   </p>
                 </div>
 

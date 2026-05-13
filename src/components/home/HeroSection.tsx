@@ -80,7 +80,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base text-white/80 sm:text-lg md:text-xl">
-            WoonPeek helpt je nieuwe woningen te ontdekken zodra ze beschikbaar komen. Huurwoningen, koopwoningen en meer dagelijks bijgewerkt.
+            Domora helpt je nieuwe woningen te ontdekken zodra ze beschikbaar komen. Huurwoningen, koopwoningen en meer dagelijks bijgewerkt.
           
           </p>
 

@@ -94,7 +94,7 @@ const Login = () => {
           supabase.from("profiles").update({ last_login_at: new Date().toISOString() }).eq("user_id", data.user.id).then(() => {});
           supabase.functions.invoke("send-email", {
             body: {
-              to: "info@woonpeek.nl",
+              to: "info@domora.com",
               subject: `Gebruiker ingelogd: ${data.user.email}`,
               html: `<h2>Gebruiker ingelogd</h2>
                 <p><strong>E-mail:</strong> ${data.user.email}</p>
@@ -120,7 +120,7 @@ const Login = () => {
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}
-          alt="WoonPeek platform"
+          alt="Domora platform"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/60" />
@@ -141,7 +141,7 @@ const Login = () => {
         <Card className="w-full max-w-md border-0 shadow-none bg-transparent">
           <CardHeader className="text-center">
             <Link to="/" className="mx-auto mb-4">
-              <img src={logoWoonpeek} alt="WoonPeek" className="h-[250px]" />
+              <img src={logoWoonpeek} alt="Domora" className="h-[250px]" />
             </Link>
             <CardTitle className="text-2xl">Inloggen</CardTitle>
             <CardDescription>

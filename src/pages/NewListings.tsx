@@ -78,9 +78,9 @@ const NewListings = () => {
   const totalCount = data?.totalCount ?? 0;
   const totalPages = Math.max(Math.ceil(totalCount / pageSize), 1);
 
-  const title = "Nieuw aanbod vandaag | WoonPeek";
-  const description = `Bekijk ${totalCount} nieuwe actieve woningen van vandaag (${dateLabel}) op WoonPeek.`;
-  const canonical = "https://www.woonpeek.nl/nieuw-aanbod";
+  const title = "Nieuw aanbod vandaag | Domora";
+  const description = `Bekijk ${totalCount} nieuwe actieve woningen van vandaag (${dateLabel}) op Domora.`;
+  const canonical = "https://domora.com/nieuw-aanbod";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -91,7 +91,7 @@ const NewListings = () => {
     itemListElement: properties.slice(0, 10).map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://www.woonpeek.nl/woning/${p.slug || p.id}`,
+      url: `https://domora.com/woning/${p.slug || p.id}`,
     })),
   };
 
@@ -176,11 +176,11 @@ const NewListings = () => {
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>
                 Op deze pagina vind je uitsluitend het nieuwe actieve woningaanbod dat vandaag is toegevoegd 
-                op WoonPeek. Zo zie je direct welke huurwoningen en koopwoningen als eerste online zijn 
+                op Domora. Zo zie je direct welke huurwoningen en koopwoningen als eerste online zijn 
                 gekomen en kun je snel reageren.
               </p>
               <p>
-                WoonPeek scant dagelijks meerdere woningplatforms en makelaarswebsites in heel Nederland. 
+                Domora scant dagelijks meerdere woningplatforms en makelaarswebsites in heel Nederland. 
                 Nieuwe woningen worden automatisch verwerkt en verschijnen op deze pagina zodra ze 
                 beschikbaar zijn. Het aanbod wordt doorlopend ververst gedurende de dag.
               </p>

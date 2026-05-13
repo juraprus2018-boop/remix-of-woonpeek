@@ -177,13 +177,13 @@ const SearchPage = () => {
     else if (filters.listingType === "koop") parts.push("Koophuizen");
     else parts.push("Woningen");
     if (debouncedCity) parts.push(`in ${debouncedCity}`);
-    return `${parts.join(" ")} | WoonPeek`;
+    return `${parts.join(" ")} | Domora`;
   }, [debouncedCity, filters.listingType]);
 
   const seoDescription = useMemo(() => {
     const type = filters.listingType === "huur" ? "huurwoningen" : filters.listingType === "koop" ? "koophuizen" : "woningen";
     const location = debouncedCity ? ` in ${debouncedCity}` : "";
-    return `Bekijk ${totalCount} ${type}${location} op WoonPeek. Filter op prijs, type en meer.`;
+    return `Bekijk ${totalCount} ${type}${location} op Domora. Filter op prijs, type en meer.`;
   }, [debouncedCity, filters.listingType, totalCount]);
 
   const canonicalUrl = useMemo(() => {
@@ -191,7 +191,7 @@ const SearchPage = () => {
     if (debouncedCity) params.set("locatie", debouncedCity);
     if (filters.listingType) params.set("aanbod", filters.listingType);
     const qs = params.toString();
-    return `https://www.woonpeek.nl/zoeken${qs ? `?${qs}` : ""}`;
+    return `https://domora.com/zoeken${qs ? `?${qs}` : ""}`;
   }, [debouncedCity, filters.listingType]);
 
   return (
@@ -275,7 +275,7 @@ const SearchPage = () => {
                     const title = `Woningen zoeken${debouncedCity ? ` in ${debouncedCity}` : ""}`;
                     if (navigator.share) {
                       try {
-                        await navigator.share({ title, text: "Bekijk deze zoekopdracht op WoonPeek", url });
+                        await navigator.share({ title, text: "Bekijk deze zoekopdracht op Domora", url });
                         return;
                       } catch {
                         // user cancelled - fall through to clipboard

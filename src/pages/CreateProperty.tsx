@@ -140,7 +140,7 @@ const CreateProperty = () => {
       }
       supabase.functions.invoke("send-email", {
         body: {
-          to: "info@woonpeek.nl",
+          to: "info@domora.com",
           subject: `Nieuwe woning geplaatst: ${title}`,
           html: `<h2>Nieuwe woning geplaatst</h2><p><strong>Titel:</strong> ${title}</p><p><strong>Adres:</strong> ${street} ${houseNumber}, ${postalCode} ${city}</p><p><strong>Type:</strong> ${propertyType} (${listingType})</p><p><strong>Prijs:</strong> €${numericPrice.toLocaleString("nl-NL")}</p><p><strong>Geplaatst door:</strong> ${user.email}</p>`,
         },
@@ -160,7 +160,7 @@ const CreateProperty = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-muted/30">
-      <SEOHead title="Woning plaatsen | WoonPeek" description="Plaats gratis je huur- of koopwoning op WoonPeek." canonical="https://www.woonpeek.nl/plaatsen" />
+      <SEOHead title="Woning plaatsen | Domora" description="Plaats gratis je huur- of koopwoning op Domora." canonical="https://domora.com/plaatsen" />
       <Header />
       <main className="flex-1">
         <div className="container py-8 md:py-12">
@@ -197,7 +197,7 @@ const CreateProperty = () => {
               {step === 0 && (
                 <div className="space-y-6">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-primary">Je woning plaatsen op WoonPeek</p>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-primary">Je woning plaatsen op Domora</p>
                     <h1 className="mt-1 font-display text-2xl font-bold text-foreground md:text-3xl">Begin met je advertentie</h1>
                   </div>
 
@@ -237,7 +237,7 @@ const CreateProperty = () => {
                   </div>
 
                   <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                    <h3 className="font-display text-sm font-semibold text-foreground">Voordelen van plaatsen op WoonPeek</h3>
+                    <h3 className="font-display text-sm font-semibold text-foreground">Voordelen van plaatsen op Domora</h3>
                     <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
                       <li>✓ Volledig gratis, geen makelaarskosten</li>
                       <li>✓ Direct zichtbaar voor duizenden woningzoekers</li>

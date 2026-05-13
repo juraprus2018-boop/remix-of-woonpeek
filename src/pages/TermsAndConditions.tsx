@@ -15,24 +15,24 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">1. Definities</h2>
             <p className="leading-relaxed text-muted-foreground">
-              In deze algemene voorwaarden wordt verstaan onder: <strong>WoonPeek</strong>: het online woningplatform bereikbaar via woonpeek.nl; 
-              <strong> Gebruiker</strong>: iedere bezoeker of geregistreerde gebruiker van WoonPeek; 
-              <strong> Adverteerder</strong>: een gebruiker die een woning aanbiedt via WoonPeek.
+              In deze algemene voorwaarden wordt verstaan onder: <strong>Domora</strong>: het online woningplatform bereikbaar via domora.com; 
+              <strong> Gebruiker</strong>: iedere bezoeker of geregistreerde gebruiker van Domora; 
+              <strong> Adverteerder</strong>: een gebruiker die een woning aanbiedt via Domora.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">2. Toepasselijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Deze voorwaarden zijn van toepassing op elk gebruik van WoonPeek. Door het platform te gebruiken, ga je akkoord met deze voorwaarden. 
-              WoonPeek behoudt zich het recht voor om deze voorwaarden te wijzigen.
+              Deze voorwaarden zijn van toepassing op elk gebruik van Domora. Door het platform te gebruiken, ga je akkoord met deze voorwaarden. 
+              Domora behoudt zich het recht voor om deze voorwaarden te wijzigen.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">3. Gebruik van het platform</h2>
             <p className="leading-relaxed text-muted-foreground">
-              WoonPeek is een platform dat woningaanbod verzamelt en toont. Gebruikers kunnen woningen zoeken, opslaan en aanbieden. 
+              Domora is een platform dat woningaanbod verzamelt en toont. Gebruikers kunnen woningen zoeken, opslaan en aanbieden. 
               Het is niet toegestaan om het platform te gebruiken voor illegale of misleidende doeleinden.
             </p>
           </section>
@@ -41,14 +41,14 @@ const TermsAndConditions = () => {
             <h2 className="font-display text-xl font-semibold text-foreground">4. Advertenties en inhoud</h2>
             <p className="leading-relaxed text-muted-foreground">
               Adverteerders zijn zelf verantwoordelijk voor de juistheid en volledigheid van de geplaatste woninginformatie. 
-              WoonPeek behoudt zich het recht voor om advertenties te verwijderen die in strijd zijn met deze voorwaarden of de wet.
+              Domora behoudt zich het recht voor om advertenties te verwijderen die in strijd zijn met deze voorwaarden of de wet.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">5. Intellectueel eigendom</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Alle content op WoonPeek, inclusief teksten, afbeeldingen, logo's en software, is eigendom van WoonPeek of haar licentiegevers. 
+              Alle content op Domora, inclusief teksten, afbeeldingen, logo's en software, is eigendom van Domora of haar licentiegevers. 
               Het is niet toegestaan om deze content te kopiëren of te verspreiden zonder schriftelijke toestemming.
             </p>
           </section>
@@ -56,8 +56,8 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">6. Aansprakelijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              WoonPeek is een bemiddelingsplatform en is niet aansprakelijk voor de inhoud van advertenties, transacties tussen gebruikers, 
-              of schade die voortvloeit uit het gebruik van het platform. WoonPeek garandeert niet dat de informatie op het platform altijd 
+              Domora is een bemiddelingsplatform en is niet aansprakelijk voor de inhoud van advertenties, transacties tussen gebruikers, 
+              of schade die voortvloeit uit het gebruik van het platform. Domora garandeert niet dat de informatie op het platform altijd 
               juist, volledig of actueel is.
             </p>
           </section>
@@ -65,7 +65,7 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">7. Privacy</h2>
             <p className="leading-relaxed text-muted-foreground">
-              WoonPeek verwerkt persoonsgegevens conform de Algemene Verordening Gegevensbescherming (AVG). 
+              Domora verwerkt persoonsgegevens conform de Algemene Verordening Gegevensbescherming (AVG). 
               Zie ons <a href="/privacy" className="text-primary underline hover:text-primary/80">privacybeleid</a> voor meer informatie.
             </p>
           </section>
