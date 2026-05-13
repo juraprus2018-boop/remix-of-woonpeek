@@ -279,7 +279,7 @@ const Index = () => {
                             {p.price && (
                               <p className="mt-2 text-sm text-muted-foreground">
                                 €{Number(p.price).toLocaleString("nl-NL")}
-                                {p.listing_type === "rent" ? " p/m" : ""}
+                                {p.listing_type === "huur" ? " p/m" : ""}
                               </p>
                             )}
                           </div>
