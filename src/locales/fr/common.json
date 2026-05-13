@@ -1,0 +1,28 @@
+{
+  "common": {
+    "search": "Rechercher",
+    "rent": "Louer",
+    "buy": "Acheter",
+    "cities": "Villes",
+    "blog": "Blog",
+    "agents": "Agents",
+    "alerts": "Alertes",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "language": "Langue",
+    "more": "Plus",
+    "loading": "Chargement...",
+    "back": "Retour",
+    "viewAll": "Tout voir"
+  },
+  "nav": {
+    "home": "Accueil",
+    "explore": "Explorer",
+    "favorites": "Favoris",
+    "account": "Compte"
+  },
+  "footer": {
+    "tagline": "Trouver un logement, simplement.",
+    "rights": "Tous droits réservés."
+  }
+}
