@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
+/*
   Stekly Design System
-  Colors: Deep forest green primary, emerald accents
-  Inspired by the Stekly brand identity
+  Primary: deep navy. Accent: warm orange. Inspired by Rentbird-stijl.
 */
 
 @layer base {
