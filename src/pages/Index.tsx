@@ -63,242 +63,232 @@ const Index = () => {
       <Header />
 
       <main className="flex-1">
-        {/* ============== HERO (Rentbird-style) ============== */}
+        {/* ============== HERO + LISTINGS CARD (Rentbird-style) ============== */}
         <section className="relative bg-[hsl(var(--hero))] text-[hsl(var(--hero-foreground))]">
-          {/* Subtiele radial glow op de achtergrond */}
+          {/* Subtiele radial glow */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-40"
+            className="pointer-events-none absolute inset-0 opacity-50"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 20% 0%, hsl(var(--accent) / 0.18), transparent 55%), radial-gradient(circle at 90% 100%, hsl(var(--accent) / 0.10), transparent 50%)",
+                "radial-gradient(circle at 15% 0%, hsl(var(--accent) / 0.18), transparent 55%), radial-gradient(circle at 85% 30%, hsl(var(--accent) / 0.10), transparent 50%)",
             }}
           />
 
-          <div className="container relative py-16 md:py-24 lg:py-28">
-            <div className="mx-auto max-w-3xl text-center">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-white/80 backdrop-blur">
-                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))]" />
-                Dagelijks vers aanbod uit heel Nederland
-              </span>
-
-              <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
-                Vind sneller jouw{" "}
-                <span className="text-[hsl(var(--accent))]">droomwoning</span>
-                <br className="hidden sm:block" /> in Nederland.
-              </h1>
-
-              <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
-                Eén overzichtelijke plek voor huur en koop. Geen ruis, geen
-                eindeloos klikken: direct het nieuwste aanbod, gefilterd op
-                stad, type en budget.
-              </p>
-            </div>
-
-            {/* Witte search card */}
-            <form
-              onSubmit={onSearch}
-              className="mx-auto mt-10 w-full max-w-3xl rounded-2xl bg-white p-3 shadow-2xl ring-1 ring-black/5 md:p-4"
+          <div className="container relative pb-40 pt-12 md:pb-56 md:pt-20">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-8 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/70"
             >
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <div className="flex flex-1 items-center gap-3 rounded-xl bg-secondary px-4 py-3 sm:bg-transparent sm:px-2">
-                  <svg
-                    className="h-5 w-5 shrink-0 text-muted-foreground"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden
-                  >
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <Input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Zoek op stad, wijk of postcode"
-                    className="h-11 flex-1 border-0 bg-transparent px-0 text-base text-foreground shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="h-12 gap-2 rounded-xl bg-[hsl(var(--accent))] px-6 text-base font-semibold text-white hover:bg-[hsl(var(--accent))]/90"
-                >
-                  Zoeken
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </div>
-            </form>
+              <Link to="/" className="hover:text-white">Stekly</Link>
+              <ChevronRight className="h-3.5 w-3.5 opacity-60" />
+              <Link to="/huurwoningen" className="hover:text-white">Huurwoningen</Link>
+              <ChevronRight className="h-3.5 w-3.5 opacity-60" />
+              <Link to="/koopwoningen" className="hover:text-white">Koopwoningen</Link>
+              <ChevronRight className="h-3.5 w-3.5 opacity-60" />
+              <span className="text-white">Heel Nederland</span>
+            </nav>
 
-            {/* Quick chips */}
-            <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-2 text-sm">
-              <span className="text-xs uppercase tracking-wider text-white/50">
-                Snel naar:
-              </span>
-              {POPULAR_CITIES.slice(0, 6).map((c) => (
-                <Link
-                  key={c}
-                  to={`/woningen-${cityToSlug(c)}`}
-                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-white/85 transition-colors hover:border-[hsl(var(--accent))] hover:text-white"
-                >
-                  {c}
-                </Link>
-              ))}
-            </div>
-
-            {/* Stats strip */}
-            <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 border-t border-white/10 pt-8 text-center md:grid-cols-4">
-              <div>
-                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
-                  Dagelijks
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
-                  Bijgewerkt
-                </p>
+            {/* Headline + description (2-col Rentbird style) */}
+            <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <div className="lg:col-span-8">
+                <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-[5rem]">
+                  Vind sneller jouw{" "}
+                  <span className="text-[hsl(var(--accent))]">droomwoning</span>{" "}
+                  in Nederland
+                </h1>
               </div>
-              <div>
-                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
-                  {POPULAR_CITIES.length}+
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
-                  Grote steden
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
-                  Huur · Koop
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
-                  In één feed
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
-                  100%
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
-                  Gratis voor jou
+              <div className="flex items-end lg:col-span-4">
+                <p className="text-base leading-relaxed text-white/75 md:text-lg">
+                  Op zoek naar een huur- of koopwoning? Stekly bundelt dagelijks
+                  het actuele aanbod van honderden makelaars en woningcorporaties
+                  in één overzicht.
                 </p>
               </div>
             </div>
           </div>
+
+          {/* Witte content-card overlap met afgeschuinde top */}
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute inset-x-0 top-0 h-12 bg-background md:h-20"
+              style={{ clipPath: "polygon(0 100%, 100% 0, 100% 100%, 0 100%)" }}
+            />
+          </div>
         </section>
 
-        {/* Featured hero property strip onder de hero */}
-        {heroProperty && !isLoading && (
-          <section className="border-b border-border bg-secondary/40">
-            <div className="container py-10">
-              <Link
-                to={`/woning/${heroProperty.slug || heroProperty.id}`}
-                className="group grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-center"
+        {/* CONTENT CARD (lift omhoog op de navy) */}
+        <section className="bg-background">
+          <div className="container -mt-32 md:-mt-44">
+            <div className="rounded-2xl bg-background shadow-xl ring-1 ring-border md:p-8">
+              {/* Search + filter bar */}
+              <form
+                onSubmit={onSearch}
+                className="flex flex-col gap-3 p-4 md:p-0"
               >
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-muted">
-                  {heroProperty.images?.[0] && (
-                    <img
-                      src={heroProperty.images[0]}
-                      alt={heroProperty.title || ""}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                  <div className="flex flex-1 items-center gap-3 rounded-xl bg-secondary px-4 py-3">
+                    <svg
+                      className="h-5 w-5 shrink-0 text-muted-foreground"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <Input
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Zoek op stad, wijk of postcode"
+                      className="h-11 flex-1 border-0 bg-transparent px-0 text-base text-foreground shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0"
                     />
-                  )}
-                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
-                    Uitgelicht
                   </div>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="h-12 gap-2 rounded-xl bg-[hsl(var(--accent))] px-6 text-base font-semibold text-white hover:bg-[hsl(var(--accent))]/90"
+                  >
+                    Zoeken
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
                 </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    {heroProperty.city}
-                  </p>
-                  <h3 className="mt-2 font-display text-2xl font-bold leading-tight md:text-3xl">
-                    {heroProperty.title}
-                  </h3>
-                  {heroProperty.price && (
-                    <p className="mt-3 text-lg font-semibold text-[hsl(var(--accent))]">
-                      €{Number(heroProperty.price).toLocaleString("nl-NL")}
-                      {heroProperty.listing_type === "huur" ? " p/m" : ""}
-                    </p>
-                  )}
-                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:text-[hsl(var(--accent))]">
-                    Bekijk woning
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </div>
-              </Link>
-            </div>
-          </section>
-        )}
 
-        {/* ============== LATEST GRID ============== */}
-        <section className="border-b border-border">
-          <div className="container py-20 md:py-28">
-            <div className="mb-12 grid grid-cols-1 items-end gap-6 lg:grid-cols-12">
-              <div className="lg:col-span-8">
-                <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                  § Nieuw aanbod
-                </p>
-                <h2 className="font-display text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-                  Vers binnen, nog niet door iedereen gezien.
-                </h2>
-              </div>
-              <div className="lg:col-span-4 lg:text-right">
+                {/* Snelle stadschips */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Snel naar:
+                  </span>
+                  {POPULAR_CITIES.slice(0, 6).map((c) => (
+                    <Link
+                      key={c}
+                      to={`/woningen-${cityToSlug(c)}`}
+                      className="rounded-full border border-border bg-secondary px-3 py-1 text-sm text-foreground transition-colors hover:border-[hsl(var(--accent))] hover:text-[hsl(var(--accent))]"
+                    >
+                      {c}
+                    </Link>
+                  ))}
+                </div>
+              </form>
+
+              {/* Listings header */}
+              <div className="mt-8 flex flex-wrap items-end justify-between gap-4 px-4 md:mt-10 md:px-0">
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[hsl(var(--accent))]">
+                    Nieuw aanbod
+                  </p>
+                  <h2 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
+                    Vandaag toegevoegd
+                  </h2>
+                </div>
                 <Link
                   to="/zoeken"
-                  className="inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-medium hover:border-accent hover:text-foreground"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-[hsl(var(--accent))]"
                 >
                   Volledig aanbod
-                  <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-              {(isLoading ? Array.from({ length: 3 }) : sideProperties.concat(featured.slice(0, 1))).map(
-                (p: any, i) => (
-                  <article key={p?.id ?? i} className="group">
+              {/* Property grid Rentbird-style */}
+              <div className="mt-6 grid grid-cols-1 gap-5 p-4 sm:grid-cols-2 md:p-0 lg:grid-cols-3">
+                {(isLoading
+                  ? Array.from({ length: 6 })
+                  : (properties?.slice(0, 6) ?? [])
+                ).map((p: any, i) => (
+                  <article
+                    key={p?.id ?? i}
+                    className="group overflow-hidden rounded-2xl bg-secondary/60 ring-1 ring-border transition-all hover:-translate-y-1 hover:shadow-xl"
+                  >
                     {p ? (
-                      <Link to={`/woning/${p.slug || p.id}`}>
+                      <Link to={`/woning/${p.slug || p.id}`} className="block">
                         <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
                           {p.images?.[0] && (
                             <img
                               src={p.images[0]}
                               alt={p.title || ""}
+                              loading="lazy"
                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                             />
                           )}
+                          <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--accent))] shadow-sm">
+                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))]" />
+                            Nieuw
+                          </span>
                         </div>
-                        <div className="mt-4 flex items-start justify-between gap-4">
+                        <div className="space-y-3 p-4">
                           <div>
-                            <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-                              {String(i + 1).padStart(2, "0")} · {p.city}
-                            </p>
-                            <h3 className="mt-1.5 font-display text-lg font-semibold leading-snug">
+                            <h3 className="font-display text-lg font-semibold leading-tight text-foreground line-clamp-1">
                               {p.title}
                             </h3>
+                            <p className="mt-0.5 text-xs text-muted-foreground">
+                              {p.created_at
+                                ? new Date(p.created_at).toLocaleDateString("nl-NL", {
+                                    day: "numeric",
+                                    month: "short",
+                                  })
+                                : ""}{" "}
+                              {p.source_site ? `· ${p.source_site}` : ""}
+                            </p>
+                          </div>
+
+                          {/* Icon-chips */}
+                          <div className="flex flex-wrap items-center gap-2 text-xs">
+                            {p.city && (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 font-medium">
+                                <MapPin className="h-3 w-3 text-[hsl(var(--accent))]" />
+                                {p.city}
+                              </span>
+                            )}
+                            {p.bedrooms != null && (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 font-medium">
+                                <Bed className="h-3 w-3 text-[hsl(var(--accent))]" />
+                                {p.bedrooms}
+                              </span>
+                            )}
+                            {p.surface_area && (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 font-medium">
+                                <Ruler className="h-3 w-3 text-[hsl(var(--accent))]" />
+                                {p.surface_area}m²
+                              </span>
+                            )}
                             {p.price && (
-                              <p className="mt-2 text-sm text-muted-foreground">
+                              <span className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2.5 py-1 font-semibold">
+                                <Tag className="h-3 w-3 text-[hsl(var(--accent))]" />
                                 €{Number(p.price).toLocaleString("nl-NL")}
-                                {p.listing_type === "huur" ? " p/m" : ""}
-                              </p>
+                                {p.listing_type === "huur" ? "/m" : ""}
+                              </span>
                             )}
                           </div>
-                          <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" strokeWidth={1.5} />
                         </div>
                       </Link>
                     ) : (
                       <>
-                        <Skeleton className="aspect-[4/3] w-full rounded-none" />
-                        <Skeleton className="mt-4 h-4 w-24" />
-                        <Skeleton className="mt-2 h-5 w-3/4" />
+                        <Skeleton className="aspect-[4/3] w-full" />
+                        <div className="space-y-2 p-4">
+                          <Skeleton className="h-5 w-3/4" />
+                          <Skeleton className="h-3 w-1/3" />
+                          <div className="flex gap-2">
+                            <Skeleton className="h-6 w-20 rounded-full" />
+                            <Skeleton className="h-6 w-14 rounded-full" />
+                            <Skeleton className="h-6 w-16 rounded-full" />
+                          </div>
+                        </div>
                       </>
                     )}
                   </article>
-                )
-              )}
+                ))}
+              </div>
             </div>
           </div>
         </section>
+
 
         {/* ============== CITIES INDEX ============== */}
         <section className="border-b border-border">
