@@ -1,5 +1,10 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
+// ─── KILL SWITCH ────────────────────────────────────────────────────
+// Facebook + Instagram posting is fully disabled per user request.
+// Any invocation returns immediately without contacting the Graph API.
+const FACEBOOK_POSTING_DISABLED = true;
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
