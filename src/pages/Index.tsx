@@ -217,7 +217,7 @@ const Index = () => {
                   {heroProperty.price && (
                     <p className="mt-3 text-lg font-semibold text-[hsl(var(--accent))]">
                       €{Number(heroProperty.price).toLocaleString("nl-NL")}
-                      {heroProperty.listing_type === "rent" ? " p/m" : ""}
+                      {heroProperty.listing_type === "huur" ? " p/m" : ""}
                     </p>
                   )}
                   <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:text-[hsl(var(--accent))]">
