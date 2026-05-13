@@ -137,9 +137,9 @@ const Index = () => {
                   className="group block"
                 >
                   <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
-                    {heroProperty.cover_image && (
+                    {heroProperty.images?.[0] && (
                       <img
-                        src={heroProperty.cover_image}
+                        src={heroProperty.images[0]}
                         alt={heroProperty.title || ""}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
