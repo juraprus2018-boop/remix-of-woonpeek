@@ -102,7 +102,7 @@ const MakelaarKoppelen = () => {
 
   const steps = [
     { icon: ClipboardList, title: "Vul je gegevens in", desc: "Laat je kantoorinfo en feed URL achter." },
-    { icon: Link2, title: "Voeg je XML feed of CRM toe", desc: "Wij koppelen jouw systeem aan WoonPeek." },
+    { icon: Link2, title: "Voeg je XML feed of CRM toe", desc: "Wij koppelen jouw systeem aan Domora." },
     { icon: Rocket, title: "Je woningen staan automatisch live", desc: "Alles wordt realtime bijgewerkt." },
   ];
 
@@ -130,8 +130,8 @@ const MakelaarKoppelen = () => {
   return (
     <>
       <SEOHead
-        title="Makelaar woningen koppelen – Automatisch plaatsen op WoonPeek"
-        description="Koppel je XML feed of makelaarssoftware en toon al je woningen automatisch op WoonPeek. Geen handmatig invoeren, binnen 2 minuten geregeld."
+        title="Makelaar woningen koppelen – Automatisch plaatsen op Domora"
+        description="Koppel je XML feed of makelaarssoftware en toon al je woningen automatisch op Domora. Geen handmatig invoeren, binnen 2 minuten geregeld."
       />
       <Header />
 
@@ -146,7 +146,7 @@ const MakelaarKoppelen = () => {
               </Badge>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
                 Plaats je woningaanbod{" "}
-                <span className="text-accent">automatisch</span> op WoonPeek
+                <span className="text-accent">automatisch</span> op Domora
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
                 Koppel je XML feed of API en toon al je woningen automatisch.
@@ -246,7 +246,7 @@ const MakelaarKoppelen = () => {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl md:text-4xl font-bold text-foreground text-center mb-12">
-              Waarom makelaars voor WoonPeek kiezen
+              Waarom makelaars voor Domora kiezen
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {voordelen.map((v, i) => (

@@ -73,7 +73,7 @@ function drawWatermark(ctx: CanvasRenderingContext2D) {
   ctx.fillStyle = "rgba(255,255,255,0.85)";
   ctx.font = "600 32px 'Plus Jakarta Sans', system-ui, sans-serif";
   ctx.textAlign = "right";
-  ctx.fillText("WoonPeek.nl", W - 60, H - 60);
+  ctx.fillText("Domora.nl", W - 60, H - 60);
   ctx.textAlign = "left";
 }
 
@@ -232,7 +232,7 @@ async function slideStats(p: SlideProperty): Promise<Blob> {
   ctx.fillStyle = FOREST;
   ctx.font = "800 56px 'Plus Jakarta Sans', system-ui, sans-serif";
   ctx.textAlign = "center";
-  ctx.fillText("Bekijk op WoonPeek.nl", W / 2, H - 195);
+  ctx.fillText("Bekijk op Domora.nl", W / 2, H - 195);
 
   ctx.font = "500 32px 'Plus Jakarta Sans', system-ui, sans-serif";
   ctx.fillText("Link in bio", W / 2, H - 150);
@@ -284,7 +284,7 @@ export function buildTikTokCaption(p: SlideProperty): string {
     `🏡 ${type} in ${p.city}`,
     `💰 ${price}${p.surface_area ? ` · ${p.surface_area} m²` : ""}${p.bedrooms != null ? ` · ${p.bedrooms} slpk` : ""}`,
     "",
-    "👉 Volledige info & reageren via WoonPeek.nl (link in bio)",
+    "👉 Volledige info & reageren via Domora.nl (link in bio)",
     "",
     buildHashtags(p),
   ];

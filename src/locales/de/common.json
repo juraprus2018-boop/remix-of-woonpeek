@@ -1,0 +1,28 @@
+{
+  "common": {
+    "search": "Suchen",
+    "rent": "Mieten",
+    "buy": "Kaufen",
+    "cities": "Städte",
+    "blog": "Blog",
+    "agents": "Makler",
+    "alerts": "Benachrichtigungen",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "language": "Sprache",
+    "more": "Mehr",
+    "loading": "Laden...",
+    "back": "Zurück",
+    "viewAll": "Alle ansehen"
+  },
+  "nav": {
+    "home": "Start",
+    "explore": "Entdecken",
+    "favorites": "Favoriten",
+    "account": "Konto"
+  },
+  "footer": {
+    "tagline": "Wohnen finden, einfach gemacht.",
+    "rights": "Alle Rechte vorbehalten."
+  }
+}

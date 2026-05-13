@@ -8,20 +8,20 @@ import { Button } from "@/components/ui/button";
 
 const ABOUT_FAQ = [
   {
-    question: "Is WoonPeek echt gratis?",
-    answer: "Ja, WoonPeek is 100% gratis. Zoeken, alerts instellen en je eigen woning plaatsen kost niets. Er zijn geen verborgen kosten of abonnementen.",
+    question: "Is Domora echt gratis?",
+    answer: "Ja, Domora is 100% gratis. Zoeken, alerts instellen en je eigen woning plaatsen kost niets. Er zijn geen verborgen kosten of abonnementen.",
   },
   {
-    question: "Hoe verdient WoonPeek geld?",
-    answer: "WoonPeek verdient geld via samenwerkingen met makelaars en woningplatforms. De kosten worden gedragen door partners, niet door woningzoekers.",
+    question: "Hoe verdient Domora geld?",
+    answer: "Domora verdient geld via samenwerkingen met makelaars en woningplatforms. De kosten worden gedragen door partners, niet door woningzoekers.",
   },
   {
-    question: "Hoeveel woningen staan er op WoonPeek?",
-    answer: "WoonPeek heeft dagelijks meer dan 6.000 actieve woningen online uit heel Nederland, afkomstig van meerdere bronnen en makelaars.",
+    question: "Hoeveel woningen staan er op Domora?",
+    answer: "Domora heeft dagelijks meer dan 6.000 actieve woningen online uit heel Nederland, afkomstig van meerdere bronnen en makelaars.",
   },
   {
-    question: "Kan ik zelf een woning plaatsen op WoonPeek?",
-    answer: "Ja, als particuliere verhuurder of verkoper kun je gratis je woning adverteren op WoonPeek en duizenden woningzoekers bereiken.",
+    question: "Kan ik zelf een woning plaatsen op Domora?",
+    answer: "Ja, als particuliere verhuurder of verkoper kun je gratis je woning adverteren op Domora en duizenden woningzoekers bereiken.",
   },
 ];
 
@@ -37,7 +37,7 @@ const usps = [
     icon: Home,
     title: "Groot en divers aanbod",
     description:
-      "WoonPeek verzamelt woningen uit meerdere bronnen op één plek. Van huurwoningen en koopwoningen tot studio's en kamers: je vindt het allemaal bij ons. Geen eindeloos zoeken op tientallen websites meer.",
+      "Domora verzamelt woningen uit meerdere bronnen op één plek. Van huurwoningen en koopwoningen tot studio's en kamers: je vindt het allemaal bij ons. Geen eindeloos zoeken op tientallen websites meer.",
   },
   {
     icon: RefreshCw,
@@ -49,7 +49,7 @@ const usps = [
     icon: Heart,
     title: "100% gratis platform",
     description:
-      "In tegenstelling tot andere woningplatforms is WoonPeek volledig gratis. Zoeken, alerts instellen én zelfs je eigen woning plaatsen: het kost je niets. Geen verborgen kosten, geen abonnementen.",
+      "In tegenstelling tot andere woningplatforms is Domora volledig gratis. Zoeken, alerts instellen én zelfs je eigen woning plaatsen: het kost je niets. Geen verborgen kosten, geen abonnementen.",
   },
   {
     icon: Bell,
@@ -63,14 +63,14 @@ const About = () => {
   const aboutLd = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: "Over WoonPeek",
+    name: "Over Domora",
     description:
-      "WoonPeek is een gratis woningplatform dat dagelijks het nieuwste huur- en koopaanbod verzamelt uit heel Nederland.",
-    url: "https://www.woonpeek.nl/over-woonpeek",
+      "Domora is een gratis woningplatform dat dagelijks het nieuwste huur- en koopaanbod verzamelt uit heel Nederland.",
+    url: "https://domora.com/over-woonpeek",
     mainEntity: {
       "@type": "Organization",
-      name: "WoonPeek",
-      url: "https://www.woonpeek.nl",
+      name: "Domora",
+      url: "https://domora.com",
     },
   };
 
@@ -90,9 +90,9 @@ const About = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Over WoonPeek – Gratis woningplatform met dagelijks actueel aanbod"
-        description="WoonPeek verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek. Volledig gratis zoeken, alerts instellen en woningen plaatsen."
-        canonical="https://www.woonpeek.nl/over-woonpeek"
+        title="Over Domora – Gratis woningplatform met dagelijks actueel aanbod"
+        description="Domora verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek. Volledig gratis zoeken, alerts instellen en woningen plaatsen."
+        canonical="https://domora.com/over-woonpeek"
       />
       <script
         type="application/ld+json"
@@ -122,15 +122,15 @@ const About = () => {
                 <Breadcrumbs
                   items={[
                     { label: "Home", href: "/" },
-                    { label: "Over WoonPeek" },
+                    { label: "Over Domora" },
                   ]}
                 />
               </div>
               <h1 className="font-display text-3xl font-bold text-primary-foreground md:text-5xl">
-                Over WoonPeek
+                Over Domora
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-                WoonPeek is hét gratis woningplatform van Nederland. Wij
+                Domora is hét gratis woningplatform van Nederland. Wij
                 verzamelen dagelijks het nieuwste huur- en koopaanbod uit
                 meerdere bronnen, zodat jij sneller vindt wat je zoekt.
               </p>
@@ -160,7 +160,7 @@ const About = () => {
         <section className="py-16 md:py-20">
           <div className="container">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl">
-              Waarom WoonPeek?
+              Waarom Domora?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
               Dit maakt ons anders dan andere woningplatforms
@@ -196,14 +196,14 @@ const About = () => {
               <p className="text-center leading-relaxed text-muted-foreground">
                 De woningmarkt in Nederland is krap en onoverzichtelijk.
                 Woningzoekers moeten dagelijks tientallen websites checken om
-                niets te missen. Dat kan beter. WoonPeek brengt al het aanbod
+                niets te missen. Dat kan beter. Domora brengt al het aanbod
                 samen op één plek, volledig gratis en dagelijks bijgewerkt.
               </p>
               <p className="text-center leading-relaxed text-muted-foreground">
                 Wij geloven dat iedereen eerlijke en snelle toegang verdient tot
                 het woningaanbod. Daarom rekenen wij geen kosten voor het
                 zoeken, het instellen van alerts of het plaatsen van een woning.
-                WoonPeek is er voor iedereen.
+                Domora is er voor iedereen.
               </p>
             </div>
           </div>
@@ -217,7 +217,7 @@ const About = () => {
                 Gratis je woning plaatsen
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                Heb je een woning te huur of te koop? Op WoonPeek kun je
+                Heb je een woning te huur of te koop? Op Domora kun je
                 kosteloos je woning adverteren. Bereik duizenden woningzoekers
                 zonder advertentiekosten, anders dan bij veel andere platforms.
               </p>
@@ -243,7 +243,7 @@ const About = () => {
         <section className="border-t bg-muted/30 py-16 md:py-20">
           <div className="container max-w-3xl">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl mb-8">
-              Veelgestelde vragen over WoonPeek
+              Veelgestelde vragen over Domora
             </h2>
             <div className="space-y-6">
               {ABOUT_FAQ.map((item, i) => (

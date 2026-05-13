@@ -22,10 +22,10 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
       };
       // Google requires `item` (URL) for every breadcrumb except the last
       if (item.href) {
-        entry.item = `https://www.woonpeek.nl${item.href}`;
+        entry.item = `https://domora.com${item.href}`;
       } else if (i < items.length - 1) {
         // Non-last items without explicit href: use current page URL as fallback
-        entry.item = `https://www.woonpeek.nl`;
+        entry.item = `https://domora.com`;
       }
       return entry;
     }),

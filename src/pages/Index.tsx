@@ -22,24 +22,24 @@ const Index = () => {
   const organizationLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "WoonPeek",
-    url: "https://www.woonpeek.nl",
-    logo: "https://www.woonpeek.nl/favicon.png",
+    name: "Domora",
+    url: "https://domora.com",
+    logo: "https://domora.com/favicon.png",
     sameAs: ["https://www.facebook.com/woonpeek"],
     description:
-      "WoonPeek verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek.",
+      "Domora verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek.",
   };
 
   const websiteLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "WoonPeek",
-    url: "https://www.woonpeek.nl",
+    name: "Domora",
+    url: "https://domora.com",
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://www.woonpeek.nl/zoeken?city={search_term_string}",
+        urlTemplate: "https://domora.com/zoeken?city={search_term_string}",
       },
       "query-input": "required name=search_term_string",
     },
@@ -48,9 +48,9 @@ const Index = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="WoonPeek – Huurwoningen & Koophuizen in Nederland"
-        description="Ontdek nieuwe huurwoningen en koopwoningen zodra ze online komen. WoonPeek verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek."
-        canonical="https://www.woonpeek.nl"
+        title="Domora – Huurwoningen & Koophuizen in Nederland"
+        description="Ontdek nieuwe huurwoningen en koopwoningen zodra ze online komen. Domora verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek."
+        canonical="https://domora.com"
       />
       <script
         type="application/ld+json"

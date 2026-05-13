@@ -10,10 +10,10 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <img src={logoWoonpeek} alt="Logo WoonPeek" className="h-[250px]" />
+              <img src={logoWoonpeek} alt="Logo Domora" className="h-[250px]" />
             </Link>
             <p className="text-sm text-muted-foreground">
-              Vind jouw droomwoning of plaats je eigen woning op WoonPeek. 
+              Vind jouw droomwoning of plaats je eigen woning op Domora. 
               Eenvoudig, snel en betrouwbaar.
             </p>
           </div>
@@ -90,7 +90,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/over-woonpeek" className="text-muted-foreground transition-colors hover:text-foreground">
-                  Over WoonPeek
+                  Over Domora
                 </Link>
               </li>
               <li>
@@ -112,7 +112,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Mail className="h-4 w-4" />
-                info@woonpeek.nl
+                info@domora.com
               </li>
               <li>
                 <a
@@ -187,7 +187,7 @@ const Footer = () => {
 
         <div className="mt-6 border-t pt-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} WoonPeek. Alle rechten voorbehouden.
+            © {new Date().getFullYear()} Domora. Alle rechten voorbehouden.
           </p>
         </div>
       </div>

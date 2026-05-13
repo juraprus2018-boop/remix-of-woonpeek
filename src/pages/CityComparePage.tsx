@@ -71,7 +71,7 @@ const CityComparePage = () => {
   const currentMonth = new Date().toLocaleString("nl-NL", { month: "long" });
   const currentYear = new Date().getFullYear();
 
-  const pageTitle = `Huurprijzen ${cityName1} vs ${cityName2}: vergelijking woningmarkt (${currentMonth} ${currentYear}) | WoonPeek`;
+  const pageTitle = `Huurprijzen ${cityName1} vs ${cityName2}: vergelijking woningmarkt (${currentMonth} ${currentYear}) | Domora`;
   const pageDescription = `Vergelijk huurprijzen en woningaanbod in ${cityName1} en ${cityName2}. ${s1.total} woningen in ${cityName1}, ${s2.total} in ${cityName2}. Actuele data ${currentMonth} ${currentYear}.`;
 
   const chartData = [
@@ -118,7 +118,7 @@ const CityComparePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={`https://www.woonpeek.nl/vergelijk/${slug1}-vs-${slug2}`} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={`https://domora.com/vergelijk/${slug1}-vs-${slug2}`} />
       <Header />
       <main className="flex-1">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

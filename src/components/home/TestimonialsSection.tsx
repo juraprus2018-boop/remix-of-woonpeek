@@ -28,10 +28,10 @@ const TestimonialsSection = () => {
       <div className="container">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
-            Wat zoekers over WoonPeek zeggen
+            Wat zoekers over Domora zeggen
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Ervaringen van mensen die via WoonPeek hun nieuwe woning ontdekten.
+            Ervaringen van mensen die via Domora hun nieuwe woning ontdekten.
           </p>
         </div>
 

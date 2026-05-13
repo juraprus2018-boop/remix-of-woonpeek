@@ -105,9 +105,9 @@ const WoonQuiz = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Woonquiz: vind jouw ideale woning | WoonPeek"
+        title="Woonquiz: vind jouw ideale woning | Domora"
         description="Beantwoord 5 korte vragen en ontdek welke woningen het beste bij jou passen. Direct gefilterd aanbod in heel Nederland."
-        canonical="https://www.woonpeek.nl/woonquiz"
+        canonical="https://domora.com/woonquiz"
       />
       <Header />
       <main className="flex-1 py-10 lg:py-16">

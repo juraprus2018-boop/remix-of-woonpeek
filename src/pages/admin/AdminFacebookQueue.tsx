@@ -29,7 +29,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const SITE_URL = "https://www.woonpeek.nl";
+const SITE_URL = "https://domora.com";
 
 function formatPrice(price: number, listingType: string): string {
   const formatted = new Intl.NumberFormat("nl-NL", {
@@ -76,7 +76,7 @@ interface FacebookGroup {
 function buildPostText(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const propertyUrl = `https://www.woonpeek.nl/woning/${property.slug || property.id}`;
+  const propertyUrl = `https://domora.com/woning/${property.slug || property.id}`;
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
 
   const lines: string[] = [];
@@ -103,7 +103,7 @@ function buildPostText(property: Property): string {
     }
   }
 
-  lines.push(`👉 Bekijk deze woning op WoonPeek:`);
+  lines.push(`👉 Bekijk deze woning op Domora:`);
   lines.push(propertyUrl);
   lines.push("");
 

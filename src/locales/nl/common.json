@@ -1,0 +1,28 @@
+{
+  "common": {
+    "search": "Zoeken",
+    "rent": "Huren",
+    "buy": "Kopen",
+    "cities": "Steden",
+    "blog": "Blog",
+    "agents": "Makelaars",
+    "alerts": "Alerts",
+    "login": "Inloggen",
+    "register": "Registreren",
+    "language": "Taal",
+    "more": "Meer",
+    "loading": "Laden...",
+    "back": "Terug",
+    "viewAll": "Bekijk alles"
+  },
+  "nav": {
+    "home": "Home",
+    "explore": "Ontdek",
+    "favorites": "Favorieten",
+    "account": "Account"
+  },
+  "footer": {
+    "tagline": "Wonen vinden, eenvoudig gemaakt.",
+    "rights": "Alle rechten voorbehouden."
+  }
+}

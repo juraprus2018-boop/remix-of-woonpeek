@@ -117,9 +117,9 @@ const BudgetTool = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? "/mnd" : ""}? | WoonPeek`}
+        title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? "/mnd" : ""}? | Domora`}
         description={`Ontdek wat je kunt ${isHuur ? "huren" : "kopen"} met een budget van ${formatPrice(budget)}${isHuur ? " per maand" : ""}. Vergelijk steden op gemiddeld oppervlak, kamers en beschikbaarheid.`}
-        canonical="https://www.woonpeek.nl/budget-tool"
+        canonical="https://domora.com/budget-tool"
       />
       <Header />
 
@@ -261,7 +261,7 @@ const BudgetTool = () => {
               kunt verwachten per stad.
             </p>
             <p>
-              WoonPeek verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland. De getoonde
+              Domora verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland. De getoonde
               cijfers zijn gebaseerd op het actuele aanbod en worden dagelijks bijgewerkt. Stel een{" "}
               <Link to="/dagelijkse-alert" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
               in om direct een melding te ontvangen wanneer er een woning binnen je budget beschikbaar komt.

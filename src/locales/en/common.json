@@ -1,0 +1,28 @@
+{
+  "common": {
+    "search": "Search",
+    "rent": "Rent",
+    "buy": "Buy",
+    "cities": "Cities",
+    "blog": "Blog",
+    "agents": "Agents",
+    "alerts": "Alerts",
+    "login": "Log in",
+    "register": "Sign up",
+    "language": "Language",
+    "more": "More",
+    "loading": "Loading...",
+    "back": "Back",
+    "viewAll": "View all"
+  },
+  "nav": {
+    "home": "Home",
+    "explore": "Explore",
+    "favorites": "Favorites",
+    "account": "Account"
+  },
+  "footer": {
+    "tagline": "Finding a home, made simple.",
+    "rights": "All rights reserved."
+  }
+}

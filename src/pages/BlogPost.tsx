@@ -86,7 +86,7 @@ const BlogPostPage = () => {
     );
   }
 
-  const canonicalUrl = `https://www.woonpeek.nl/blog/${post.slug}`;
+  const canonicalUrl = `https://domora.com/blog/${post.slug}`;
 
   // Rich Article schema
   const articleJsonLd = {
@@ -102,20 +102,20 @@ const BlogPostPage = () => {
     },
     author: {
       "@type": "Organization",
-      name: "WoonPeek",
-      url: "https://www.woonpeek.nl",
+      name: "Domora",
+      url: "https://domora.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.woonpeek.nl/favicon.png",
+        url: "https://domora.com/favicon.png",
       },
     },
     publisher: {
       "@type": "Organization",
-      name: "WoonPeek",
-      url: "https://www.woonpeek.nl",
+      name: "Domora",
+      url: "https://domora.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.woonpeek.nl/favicon.png",
+        url: "https://domora.com/favicon.png",
       },
     },
     ...(post.cover_image ? { image: post.cover_image } : {}),
@@ -147,13 +147,13 @@ const BlogPostPage = () => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.woonpeek.nl",
+        item: "https://domora.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://www.woonpeek.nl/blog",
+        item: "https://domora.com/blog",
       },
       {
         "@type": "ListItem",
@@ -167,7 +167,7 @@ const BlogPostPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title={post.meta_title || `${post.title} | WoonPeek Blog`}
+        title={post.meta_title || `${post.title} | Domora Blog`}
         description={seoMeta.description || post.excerpt || post.title}
         canonical={canonicalUrl}
         ogImage={post.cover_image || undefined}

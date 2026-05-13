@@ -52,7 +52,7 @@ const IncomeLandingPage = () => {
   const formattedIncome = `€${incomeNum.toLocaleString("nl-NL")}`;
   const formattedMaxRent = `€${maxRent.toLocaleString("nl-NL")}`;
 
-  const title = `Huurwoningen bij ${formattedIncome} bruto inkomen in ${cityName} | WoonPeek`;
+  const title = `Huurwoningen bij ${formattedIncome} bruto inkomen in ${cityName} | Domora`;
   const description = stats?.count
     ? `${stats.count} huurwoningen tot ${formattedMaxRent}/mnd in ${cityName} bij een bruto inkomen van ${formattedIncome}. Voldoet aan de 3x huur regel van verhuurders.`
     : `Bereken welke huurwoningen in ${cityName} passen bij ${formattedIncome} bruto inkomen. Volgens de 3x huur regel maximaal ${formattedMaxRent} per maand.`;
@@ -93,7 +93,7 @@ const IncomeLandingPage = () => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://www.woonpeek.nl/huur-bij-inkomen-${incomeNum}-${city}`}
+        canonical={`https://domora.com/huur-bij-inkomen-${incomeNum}-${city}`}
       />
       <Header />
 
