@@ -39,9 +39,9 @@ const DailyAlert = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Wekelijkse Woningalert – Ontvang nieuw aanbod per e-mail | Domora"
-        description="Schrijf je gratis in voor de Domora wekelijkse alert en ontvang elke maandag een e-mail met het nieuwste woningaanbod in Nederland."
-        canonical="https://domora.com/dagelijkse-alert"
+        title="Wekelijkse Woningalert – Ontvang nieuw aanbod per e-mail | Stekly"
+        description="Schrijf je gratis in voor de Stekly wekelijkse alert en ontvang elke maandag een e-mail met het nieuwste woningaanbod in Nederland."
+        canonical="https://stekly.nl/dagelijkse-alert"
       />
       <script
         type="application/ld+json"
@@ -67,10 +67,10 @@ const DailyAlert = () => {
         <section className="border-t bg-muted/30 py-12">
           <div className="container max-w-3xl space-y-6 text-sm text-muted-foreground leading-relaxed">
             <h2 className="font-display text-2xl font-bold text-foreground">
-              Wekelijkse woningalert van Domora
+              Wekelijkse woningalert van Stekly
             </h2>
             <p>
-              Met de wekelijkse woningalert van Domora ontvang je elke maandag een overzichtelijke e-mail 
+              Met de wekelijkse woningalert van Stekly ontvang je elke maandag een overzichtelijke e-mail 
               met het nieuwste woningaanbod van de afgelopen week in Nederland. Of je nu op zoek bent naar een huurwoning, 
               koopwoning, studio of kamer: onze alert houdt je op de hoogte zonder dat je zelf hoeft te zoeken.
             </p>
@@ -88,7 +88,7 @@ const DailyAlert = () => {
             <ul className="list-disc pl-6 space-y-2">
               <li>
                 <strong>Bespaar tijd</strong>: Je hoeft niet meer dagelijks meerdere websites af te speuren. 
-                Domora doet het werk en stuurt je een handig overzicht.
+                Stekly doet het werk en stuurt je een handig overzicht.
               </li>
               <li>
                 <strong>Reageer sneller</strong>: In een krappe woningmarkt is snelheid cruciaal. 
@@ -96,7 +96,7 @@ const DailyAlert = () => {
               </li>
               <li>
                 <strong>Mis niets</strong>: Onze scrapers doorzoeken dagelijks meerdere bronnen. 
-                Woningen die je op andere platforms zou missen, vind je wel op Domora.
+                Woningen die je op andere platforms zou missen, vind je wel op Stekly.
               </li>
               <li>
                 <strong>Gratis en vrijblijvend</strong>: Inschrijven is gratis en je kunt je op elk 

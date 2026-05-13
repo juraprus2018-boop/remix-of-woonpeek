@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">1. Wie zijn wij?</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Domora is een online woningplatform dat woningaanbod verzamelt en beschikbaar stelt. 
+              Stekly is een online woningplatform dat woningaanbod verzamelt en beschikbaar stelt. 
               Wij hechten groot belang aan de bescherming van jouw persoonsgegevens.
             </p>
           </section>
@@ -61,14 +61,14 @@ const PrivacyPolicy = () => {
             <p className="leading-relaxed text-muted-foreground">
               Je hebt het recht op inzage, correctie en verwijdering van je persoonsgegevens. 
               Ook kun je bezwaar maken tegen de verwerking of een klacht indienen bij de Autoriteit Persoonsgegevens. 
-              Neem contact met ons op via <strong>privacy@domora.com</strong>.
+              Neem contact met ons op via <strong>privacy@stekly.nl</strong>.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">7. Cookies</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Domora maakt gebruik van functionele cookies om het platform goed te laten werken. 
+              Stekly maakt gebruik van functionele cookies om het platform goed te laten werken. 
               Analytische cookies worden alleen geplaatst met jouw toestemming.
             </p>
           </section>

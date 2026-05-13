@@ -41,7 +41,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website" }:
     setMeta("og:type", ogType);
     if (canonical) setMeta("og:url", canonical);
     if (ogImage) setMeta("og:image", ogImage);
-    setMeta("og:site_name", "Domora");
+    setMeta("og:site_name", "Stekly");
 
     // Twitter Card
     setMeta("twitter:card", ogImage ? "summary_large_image" : "summary");

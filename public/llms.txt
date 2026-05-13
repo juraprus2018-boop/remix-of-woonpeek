@@ -1,10 +1,10 @@
-# Domora
+# Stekly
 
-> Domora is het gratis woningplatform van Nederland. We verzamelen dagelijks het nieuwste aanbod van huurwoningen, koopwoningen, appartementen, studio's en kamers uit heel Nederland op één plek. Website: https://domora.com
+> Stekly is het gratis woningplatform van Nederland. We verzamelen dagelijks het nieuwste aanbod van huurwoningen, koopwoningen, appartementen, studio's en kamers uit heel Nederland op één plek. Website: https://stekly.nl
 
-## Wat is Domora?
+## Wat is Stekly?
 
-Domora is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Domora volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
+Stekly is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Stekly volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
 
 ## Kernfeatures
 
@@ -17,53 +17,53 @@ Domora is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en
 
 ## Beschikbare woningtypes
 
-- Huurwoningen: https://domora.com/huurwoningen
-- Koopwoningen: https://domora.com/koopwoningen
-- Appartementen: https://domora.com/appartementen
-- Huizen: https://domora.com/huizen
-- Studio's: https://domora.com/studios
-- Kamers: https://domora.com/kamers
+- Huurwoningen: https://stekly.nl/huurwoningen
+- Koopwoningen: https://stekly.nl/koopwoningen
+- Appartementen: https://stekly.nl/appartementen
+- Huizen: https://stekly.nl/huizen
+- Studio's: https://stekly.nl/studios
+- Kamers: https://stekly.nl/kamers
 
 ## Populaire steden
 
-- Huurwoningen Amsterdam: https://domora.com/huurwoningen/amsterdam
-- Huurwoningen Rotterdam: https://domora.com/huurwoningen/rotterdam
-- Huurwoningen Utrecht: https://domora.com/huurwoningen/utrecht
-- Huurwoningen Den Haag: https://domora.com/huurwoningen/den-haag
-- Huurwoningen Eindhoven: https://domora.com/huurwoningen/eindhoven
-- Huurwoningen Groningen: https://domora.com/huurwoningen/groningen
-- Huurwoningen Tilburg: https://domora.com/huurwoningen/tilburg
-- Huurwoningen Breda: https://domora.com/huurwoningen/breda
-- Huurwoningen Nijmegen: https://domora.com/huurwoningen/nijmegen
-- Huurwoningen Almere: https://domora.com/huurwoningen/almere
-- Huurwoningen Helmond: https://domora.com/huurwoningen/helmond
-- Huurwoningen Arnhem: https://domora.com/huurwoningen/arnhem
-- Huurwoningen Haarlem: https://domora.com/huurwoningen/haarlem
-- Huurwoningen Enschede: https://domora.com/huurwoningen/enschede
-- Huurwoningen Apeldoorn: https://domora.com/huurwoningen/apeldoorn
-- Huurwoningen Amersfoort: https://domora.com/huurwoningen/amersfoort
-- Huurwoningen Den Bosch: https://domora.com/huurwoningen/s-hertogenbosch
-- Huurwoningen Zwolle: https://domora.com/huurwoningen/zwolle
-- Huurwoningen Leiden: https://domora.com/huurwoningen/leiden
-- Huurwoningen Maastricht: https://domora.com/huurwoningen/maastricht
+- Huurwoningen Amsterdam: https://stekly.nl/huurwoningen/amsterdam
+- Huurwoningen Rotterdam: https://stekly.nl/huurwoningen/rotterdam
+- Huurwoningen Utrecht: https://stekly.nl/huurwoningen/utrecht
+- Huurwoningen Den Haag: https://stekly.nl/huurwoningen/den-haag
+- Huurwoningen Eindhoven: https://stekly.nl/huurwoningen/eindhoven
+- Huurwoningen Groningen: https://stekly.nl/huurwoningen/groningen
+- Huurwoningen Tilburg: https://stekly.nl/huurwoningen/tilburg
+- Huurwoningen Breda: https://stekly.nl/huurwoningen/breda
+- Huurwoningen Nijmegen: https://stekly.nl/huurwoningen/nijmegen
+- Huurwoningen Almere: https://stekly.nl/huurwoningen/almere
+- Huurwoningen Helmond: https://stekly.nl/huurwoningen/helmond
+- Huurwoningen Arnhem: https://stekly.nl/huurwoningen/arnhem
+- Huurwoningen Haarlem: https://stekly.nl/huurwoningen/haarlem
+- Huurwoningen Enschede: https://stekly.nl/huurwoningen/enschede
+- Huurwoningen Apeldoorn: https://stekly.nl/huurwoningen/apeldoorn
+- Huurwoningen Amersfoort: https://stekly.nl/huurwoningen/amersfoort
+- Huurwoningen Den Bosch: https://stekly.nl/huurwoningen/s-hertogenbosch
+- Huurwoningen Zwolle: https://stekly.nl/huurwoningen/zwolle
+- Huurwoningen Leiden: https://stekly.nl/huurwoningen/leiden
+- Huurwoningen Maastricht: https://stekly.nl/huurwoningen/maastricht
 
 ## Hoofdpagina's
 
-- Home: https://domora.com
-- Zoeken: https://domora.com/zoeken
-- Alle steden: https://domora.com/steden
-- Verkennen (kaart): https://domora.com/verkennen
-- Nieuw aanbod: https://domora.com/nieuw-aanbod
-- Blog: https://domora.com/blog
-- Over Domora: https://domora.com/over-woonpeek
-- FAQ: https://domora.com/veelgestelde-vragen
-- Dagelijkse alert: https://domora.com/dagelijkse-alert
+- Home: https://stekly.nl
+- Zoeken: https://stekly.nl/zoeken
+- Alle steden: https://stekly.nl/steden
+- Verkennen (kaart): https://stekly.nl/verkennen
+- Nieuw aanbod: https://stekly.nl/nieuw-aanbod
+- Blog: https://stekly.nl/blog
+- Over Stekly: https://stekly.nl/over-woonpeek
+- FAQ: https://stekly.nl/veelgestelde-vragen
+- Dagelijkse alert: https://stekly.nl/dagelijkse-alert
 
 ## Contact
 
-- Website: https://domora.com
-- Over ons: https://domora.com/over-woonpeek
+- Website: https://stekly.nl
+- Over ons: https://stekly.nl/over-woonpeek
 
 ## Uitgebreide documentatie
 
-- [llms-full.txt](https://domora.com/llms-full.txt): Volledige technische documentatie met alle pagina's, URL-patronen, steden en features
+- [llms-full.txt](https://stekly.nl/llms-full.txt): Volledige technische documentatie met alle pagina's, URL-patronen, steden en features

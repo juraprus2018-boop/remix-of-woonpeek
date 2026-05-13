@@ -24,9 +24,9 @@ const Samenwerking = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Samenwerking – Onze partners | Domora"
-        description="Domora werkt samen met toonaangevende woningplatformen in Nederland. Bekijk onze partners en aanbieders."
-        canonical="https://domora.com/samenwerking"
+        title="Samenwerking – Onze partners | Stekly"
+        description="Stekly werkt samen met toonaangevende woningplatformen in Nederland. Bekijk onze partners en aanbieders."
+        canonical="https://stekly.nl/samenwerking"
       />
       <Header />
       <main className="flex-1">
@@ -40,7 +40,7 @@ const Samenwerking = () => {
               Onze partners &amp; aanbieders
             </h1>
             <p className="mt-3 text-muted-foreground">
-              Domora werkt samen met betrouwbare woningplatformen in heel Nederland.
+              Stekly werkt samen met betrouwbare woningplatformen in heel Nederland.
               Via ons partnernetwerk verzamelen we dagelijks het nieuwste woningaanbod,
               zodat jij alles op één plek kunt vinden.
             </p>
@@ -102,7 +102,7 @@ const Samenwerking = () => {
               Hoe werkt onze samenwerking?
             </h2>
             <p>
-              Domora werkt samen met diverse woningplatformen en aanbieders in heel Nederland.
+              Stekly werkt samen met diverse woningplatformen en aanbieders in heel Nederland.
               Dankzij ons partnernetwerk verzamelen we dagelijks duizenden woningen en tonen
               we deze op één overzichtelijke plek.
             </p>
@@ -112,13 +112,13 @@ const Samenwerking = () => {
               recente aanbod ziet, zonder zelf tientallen websites af te hoeven zoeken.
             </p>
             <h3 className="font-display pt-2 text-xl font-semibold text-foreground">
-              Zelf samenwerken met Domora?
+              Zelf samenwerken met Stekly?
             </h3>
             <p>
-              Ben je een woningplatform of makelaar en wil je jouw aanbod op Domora tonen?
+              Ben je een woningplatform of makelaar en wil je jouw aanbod op Stekly tonen?
               Neem dan contact met ons op via{" "}
-              <a href="mailto:info@domora.com" className="font-medium text-primary underline underline-offset-2">
-                info@domora.com
+              <a href="mailto:info@stekly.nl" className="font-medium text-primary underline underline-offset-2">
+                info@stekly.nl
               </a>{" "}
               of bekijk onze{" "}
               <a href="/makelaar-koppelen" className="font-medium text-primary underline underline-offset-2">

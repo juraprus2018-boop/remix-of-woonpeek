@@ -4,7 +4,7 @@ const SCRIPT_SRC = "https://daisycon.tools/energy-nl/app.js";
 const SCRIPT_ID = "daisycon-energy-nl-script";
 
 interface DaisyconEnergyWidgetProps {
-  /** Daisycon mediaId – default is Domora's account. */
+  /** Daisycon mediaId – default is Stekly's account. */
   mediaId?: number;
   /** Locale, default nl-NL. */
   locale?: string;

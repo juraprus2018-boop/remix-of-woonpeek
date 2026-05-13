@@ -106,7 +106,7 @@ const UserChat = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title="Berichten – Domora" description="Stuur ons een bericht" />
+      <SEOHead title="Berichten – Stekly" description="Stuur ons een bericht" />
       <Header />
       <main className="flex-1 container py-6">
         <div className="flex items-center justify-between mb-4">
@@ -207,7 +207,7 @@ const UserChat = () => {
                                   <Shield className="h-3 w-3" />
                                 )}
                                 <span className="text-[10px] opacity-70">
-                                  {!isMe && "Domora · "}
+                                  {!isMe && "Stekly · "}
                                   {format(new Date(msg.created_at), "HH:mm")}
                                 </span>
                               </div>

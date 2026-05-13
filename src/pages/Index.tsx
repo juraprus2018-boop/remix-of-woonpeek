@@ -45,14 +45,14 @@ const Index = () => {
     name: BRAND_NAME,
     url: CANONICAL_URL,
     description:
-      "Domora verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek.",
+      "Stekly verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek.",
     email: SUPPORT_EMAIL,
   };
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SEOHead
-        title="Domora. Wonen vinden, eenvoudig gemaakt."
+        title="Stekly. Wonen vinden, eenvoudig gemaakt."
         description="Het nieuwste woningaanbod uit heel Nederland, dagelijks bijgewerkt. Huren en kopen in één rustig overzicht."
         canonical="/"
       />
@@ -63,128 +63,172 @@ const Index = () => {
       <Header />
 
       <main className="flex-1">
-        {/* ============== EDITORIAL HERO SPLIT ============== */}
-        <section className="border-b border-border">
-          <div className="container grid grid-cols-1 gap-0 lg:grid-cols-12 lg:gap-12 py-16 md:py-24 lg:py-32">
-            {/* LEFT: statement + search */}
-            <div className="lg:col-span-7 flex flex-col justify-between">
-              <div>
-                <p className="mb-8 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                  <span className="inline-block h-px w-8 bg-foreground/30" />
-                  Index № 01 · {new Date().getFullYear()}
-                </p>
+        {/* ============== HERO (Rentbird-style) ============== */}
+        <section className="relative bg-[hsl(var(--hero))] text-[hsl(var(--hero-foreground))]">
+          {/* Subtiele radial glow op de achtergrond */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 opacity-40"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 0%, hsl(var(--accent) / 0.18), transparent 55%), radial-gradient(circle at 90% 100%, hsl(var(--accent) / 0.10), transparent 50%)",
+            }}
+          />
 
-                <h1 className="font-display text-5xl font-bold leading-[0.95] tracking-tight text-foreground md:text-7xl lg:text-[5.5rem]">
-                  Wonen vinden,
-                  <br />
-                  <span className="inline-flex items-baseline">
-                    eenvoudig
-                    <span className="ml-3 inline-block h-3 w-3 rounded-full bg-accent md:h-4 md:w-4" aria-hidden />
-                  </span>
-                  <br />
-                  gemaakt.
-                </h1>
+          <div className="container relative py-16 md:py-24 lg:py-28">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-white/80 backdrop-blur">
+                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))]" />
+                Dagelijks vers aanbod uit heel Nederland
+              </span>
 
-                <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
-                  Eén rustig overzicht van het nieuwste huur- en koopaanbod uit
-                  heel Nederland. Geen ruis, geen overbodige filters, alleen
-                  woningen die er toe doen.
-                </p>
-              </div>
+              <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+                Vind sneller jouw{" "}
+                <span className="text-[hsl(var(--accent))]">droomwoning</span>
+                <br className="hidden sm:block" /> in Nederland.
+              </h1>
 
-              {/* Search */}
-              <form onSubmit={onSearch} className="mt-12 max-w-xl">
-                <label className="mb-3 block text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                  Begin in een stad
-                </label>
-                <div className="flex items-center gap-0 border-b-2 border-foreground pb-2">
+              <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 md:text-lg">
+                Eén overzichtelijke plek voor huur en koop. Geen ruis, geen
+                eindeloos klikken: direct het nieuwste aanbod, gefilterd op
+                stad, type en budget.
+              </p>
+            </div>
+
+            {/* Witte search card */}
+            <form
+              onSubmit={onSearch}
+              className="mx-auto mt-10 w-full max-w-3xl rounded-2xl bg-white p-3 shadow-2xl ring-1 ring-black/5 md:p-4"
+            >
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                <div className="flex flex-1 items-center gap-3 rounded-xl bg-secondary px-4 py-3 sm:bg-transparent sm:px-2">
+                  <svg
+                    className="h-5 w-5 shrink-0 text-muted-foreground"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
                   <Input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Amsterdam, Utrecht, Groningen..."
-                    className="h-12 flex-1 border-0 bg-transparent px-0 text-lg shadow-none placeholder:text-muted-foreground/60 focus-visible:ring-0"
+                    placeholder="Zoek op stad, wijk of postcode"
+                    className="h-11 flex-1 border-0 bg-transparent px-0 text-base text-foreground shadow-none placeholder:text-muted-foreground/70 focus-visible:ring-0"
                   />
-                  <Button
-                    type="submit"
-                    size="icon"
-                    className="h-12 w-12 rounded-full bg-foreground text-background hover:bg-foreground/90"
-                  >
-                    <ArrowRight className="h-5 w-5" strokeWidth={1.5} />
-                  </Button>
                 </div>
-                <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span className="text-xs uppercase tracking-wider">Snel naar:</span>
-                  {POPULAR_CITIES.slice(0, 5).map((c) => (
-                    <Link
-                      key={c}
-                      to={`/woningen-${cityToSlug(c)}`}
-                      className="border-b border-transparent text-sm text-foreground transition-colors hover:border-accent hover:text-foreground"
-                    >
-                      {c}
-                    </Link>
-                  ))}
-                </div>
-              </form>
-            </div>
-
-            {/* RIGHT: hero listing */}
-            <aside className="lg:col-span-5 mt-16 lg:mt-0">
-              {isLoading ? (
-                <Skeleton className="aspect-[4/5] w-full rounded-none" />
-              ) : heroProperty ? (
-                <Link
-                  to={`/woning/${heroProperty.slug || heroProperty.id}`}
-                  className="group block"
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="h-12 gap-2 rounded-xl bg-[hsl(var(--accent))] px-6 text-base font-semibold text-white hover:bg-[hsl(var(--accent))]/90"
                 >
-                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
-                    {heroProperty.images?.[0] && (
-                      <img
-                        src={heroProperty.images[0]}
-                        alt={heroProperty.title || ""}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                      />
-                    )}
-                    <div className="absolute left-4 top-4 flex items-center gap-2 bg-background px-3 py-1.5 text-xs font-medium uppercase tracking-wider">
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
-                      Uitgelicht
-                    </div>
-                  </div>
-                  <div className="mt-4 flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                        {heroProperty.city}
-                      </p>
-                      <h3 className="mt-1 font-display text-xl font-semibold leading-tight">
-                        {heroProperty.title}
-                      </h3>
-                    </div>
-                    <ArrowUpRight
-                      className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                </Link>
-              ) : null}
-            </aside>
-          </div>
-        </section>
+                  Zoeken
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </form>
 
-        {/* ============== INDEX TICKER ============== */}
-        <section className="border-b border-border bg-foreground text-background">
-          <div className="container flex flex-wrap items-center justify-between gap-6 py-6">
-            <p className="text-xs font-medium uppercase tracking-[0.25em] opacity-70">
-              Vandaag in Domora
-            </p>
-            <div className="flex flex-wrap gap-x-10 gap-y-3 text-sm">
-              <span><span className="font-semibold">Dagelijks</span> bijgewerkt</span>
-              <span><span className="font-semibold">{POPULAR_CITIES.length}+</span> grote steden</span>
-              <span><span className="font-semibold">Huur · Koop</span> in één feed</span>
-              <span className="hidden md:inline">
-                <span className="font-semibold">Geen</span> verborgen kosten
+            {/* Quick chips */}
+            <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-2 text-sm">
+              <span className="text-xs uppercase tracking-wider text-white/50">
+                Snel naar:
               </span>
+              {POPULAR_CITIES.slice(0, 6).map((c) => (
+                <Link
+                  key={c}
+                  to={`/woningen-${cityToSlug(c)}`}
+                  className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-white/85 transition-colors hover:border-[hsl(var(--accent))] hover:text-white"
+                >
+                  {c}
+                </Link>
+              ))}
+            </div>
+
+            {/* Stats strip */}
+            <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-6 border-t border-white/10 pt-8 text-center md:grid-cols-4">
+              <div>
+                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
+                  Dagelijks
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
+                  Bijgewerkt
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
+                  {POPULAR_CITIES.length}+
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
+                  Grote steden
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
+                  Huur · Koop
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
+                  In één feed
+                </p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-[hsl(var(--accent))] md:text-3xl">
+                  100%
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-white/60">
+                  Gratis voor jou
+                </p>
+              </div>
             </div>
           </div>
         </section>
+
+        {/* Featured hero property strip onder de hero */}
+        {heroProperty && !isLoading && (
+          <section className="border-b border-border bg-secondary/40">
+            <div className="container py-10">
+              <Link
+                to={`/woning/${heroProperty.slug || heroProperty.id}`}
+                className="group grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-center"
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-muted">
+                  {heroProperty.images?.[0] && (
+                    <img
+                      src={heroProperty.images[0]}
+                      alt={heroProperty.title || ""}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  )}
+                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-[hsl(var(--accent))] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+                    Uitgelicht
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                    {heroProperty.city}
+                  </p>
+                  <h3 className="mt-2 font-display text-2xl font-bold leading-tight md:text-3xl">
+                    {heroProperty.title}
+                  </h3>
+                  {heroProperty.price && (
+                    <p className="mt-3 text-lg font-semibold text-[hsl(var(--accent))]">
+                      €{Number(heroProperty.price).toLocaleString("nl-NL")}
+                      {heroProperty.listing_type === "huur" ? " p/m" : ""}
+                    </p>
+                  )}
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground group-hover:text-[hsl(var(--accent))]">
+                    Bekijk woning
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* ============== LATEST GRID ============== */}
         <section className="border-b border-border">
@@ -235,7 +279,7 @@ const Index = () => {
                             {p.price && (
                               <p className="mt-2 text-sm text-muted-foreground">
                                 €{Number(p.price).toLocaleString("nl-NL")}
-                                {p.listing_type === "rent" ? " p/m" : ""}
+                                {p.listing_type === "huur" ? " p/m" : ""}
                               </p>
                             )}
                           </div>
@@ -305,7 +349,7 @@ const Index = () => {
           <div className="container grid grid-cols-1 gap-12 py-20 md:py-28 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                § Waarom Domora
+                § Waarom Stekly
               </p>
             </div>
             <div className="lg:col-span-8">
