@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl">
+<html lang="nl" data-brand="domora">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -52,7 +52,7 @@
          Matches the Tailwind output for hero/header so LCP renders before main CSS arrives. -->
     <style>
       *,*::before,*::after{box-sizing:border-box;border:0 solid;margin:0;padding:0}
-      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif}
+      html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:'Manrope','Plus Jakarta Sans',ui-sans-serif,system-ui,sans-serif}
       body{margin:0;line-height:inherit;background:#fff;color:#0f172a;font-family:inherit;-webkit-font-smoothing:antialiased}
       img,svg{display:block;max-width:100%;height:auto}
       a{color:inherit;text-decoration:inherit}
@@ -60,7 +60,7 @@
       h1,h2,h3,p{font-size:inherit;font-weight:inherit}
       #root{min-height:100vh}
       /* Hero shell – prevents layout shift while React hydrates */
-      .hero-fallback{position:relative;min-height:480px;background:linear-gradient(180deg,#1B4332 0%,#288a51 100%);overflow:hidden}
+      .hero-fallback{position:relative;min-height:480px;background:linear-gradient(180deg,#fafafa 0%,#f1f5f9 100%);overflow:hidden}
       @media(min-width:768px){.hero-fallback{min-height:640px}}
     </style>
 
