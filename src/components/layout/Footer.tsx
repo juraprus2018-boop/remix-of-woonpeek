@@ -4,16 +4,31 @@ import Logo from "@/components/brand/Logo";
 
 const Footer = () => {
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <Logo size="h-7" />
+    <footer className="border-t border-border/60 bg-cream-deep">
+      <div className="container py-16">
+        {/* Editorial top strip */}
+        <div className="mb-12 grid gap-8 border-b border-border pb-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <Link to="/" className="inline-flex items-center gap-2">
+              <Logo size="h-8" />
             </Link>
+            <p className="mt-5 max-w-md font-serif-display text-2xl leading-snug text-foreground md:text-3xl">
+              Vind jouw <span className="italic text-[hsl(var(--accent))]">stek</span> in
+              Nederland. Eenvoudig, rustig, dagelijks vers.
+            </p>
+          </div>
+          <div className="flex items-end lg:col-span-7 lg:justify-end">
+            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              info@stekly.nl · stekly.nl
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand quick block reused as fallback */}
+          <div className="space-y-4 lg:hidden">
             <p className="text-sm text-muted-foreground">
-              Vind jouw droomwoning of plaats je eigen woning op Stekly. 
+              Vind jouw droomwoning of plaats je eigen woning op Stekly.
               Eenvoudig, snel en betrouwbaar.
             </p>
           </div>
