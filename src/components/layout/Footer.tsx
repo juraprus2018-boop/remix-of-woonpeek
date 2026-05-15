@@ -4,23 +4,38 @@ import Logo from "@/components/brand/Logo";
 
 const Footer = () => {
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <Logo size="h-7" />
+    <footer className="border-t border-border/60 bg-cream-deep">
+      <div className="container py-16">
+        {/* Editorial top strip */}
+        <div className="mb-12 grid gap-8 border-b border-border pb-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <Link to="/" className="inline-flex items-center gap-2">
+              <Logo size="h-8" />
             </Link>
+            <p className="mt-5 max-w-md font-serif-display text-2xl leading-snug text-foreground md:text-3xl">
+              Vind jouw <span className="italic text-[hsl(var(--accent))]">stek</span> in
+              Nederland. Eenvoudig, rustig, dagelijks vers.
+            </p>
+          </div>
+          <div className="flex items-end lg:col-span-7 lg:justify-end">
+            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+              info@stekly.nl · stekly.nl
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand quick block reused as fallback */}
+          <div className="space-y-4 lg:hidden">
             <p className="text-sm text-muted-foreground">
-              Vind jouw droomwoning of plaats je eigen woning op Stekly. 
+              Vind jouw droomwoning of plaats je eigen woning op Stekly.
               Eenvoudig, snel en betrouwbaar.
             </p>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="font-display text-sm font-semibold">Snelle links</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Snelle links</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/zoeken" className="text-muted-foreground transition-colors hover:text-foreground">Woningen zoeken</Link></li>
               <li><Link to="/huurwoningen" className="text-muted-foreground transition-colors hover:text-foreground">Huurwoningen</Link></li>
@@ -36,7 +51,7 @@ const Footer = () => {
 
           {/* Popular searches */}
           <div className="space-y-4">
-            <h4 className="font-display text-sm font-semibold">Populaire zoekopdrachten</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Populaire zoekopdrachten</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/appartementen/amsterdam" className="text-muted-foreground transition-colors hover:text-foreground">Appartementen Amsterdam</Link></li>
               <li><Link to="/huurwoningen/rotterdam" className="text-muted-foreground transition-colors hover:text-foreground">Huurwoningen Rotterdam</Link></li>
@@ -51,7 +66,7 @@ const Footer = () => {
 
           {/* Stadsgidsen & budget landingspaginas */}
           <div className="space-y-4">
-            <h4 className="font-display text-sm font-semibold">Stadsgidsen & budget</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Stadsgidsen & budget</h4>
             <ul className="space-y-2 text-sm">
               <li><Link to="/verhuizen-naar-amsterdam" className="text-muted-foreground transition-colors hover:text-foreground">Verhuizen naar Amsterdam</Link></li>
               <li><Link to="/verhuizen-naar-rotterdam" className="text-muted-foreground transition-colors hover:text-foreground">Verhuizen naar Rotterdam</Link></li>
@@ -66,7 +81,7 @@ const Footer = () => {
 
           {/* Support */}
           <div className="space-y-4">
-            <h4 className="font-display text-sm font-semibold">Ondersteuning</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Ondersteuning</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/veelgestelde-vragen" className="text-muted-foreground transition-colors hover:text-foreground">
@@ -108,7 +123,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h4 className="font-display text-sm font-semibold">Contact</h4>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Mail className="h-4 w-4" />
@@ -153,7 +168,7 @@ const Footer = () => {
 
         {/* Popular cities row for SEO crawlability */}
         <div className="mt-8 border-t pt-6">
-          <h4 className="font-display text-sm font-semibold mb-3">Woningen per stad</h4>
+          <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Woningen per stad</h4>
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
             {[
               { label: "Amsterdam", href: "/woningen-amsterdam" },

@@ -3,131 +3,131 @@
 @tailwind utilities;
 
 /*
-  Stekly Design System
-  Primary: deep navy. Accent: warm orange. Inspired by Rentbird-stijl.
+  Stekly Design System — Editorial Warm
+  Cream canvas, deep ink, terracotta accent. Outfit (display) + Figtree (body) + DM Serif Display (editorial).
 */
 
 @layer base {
   :root {
-    /* Wit canvas, donkere navy tekst */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    /* Warm cream canvas, deep ink ink */
+    --background: 40 33% 97%;
+    --foreground: 0 0% 16%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 0 0% 16%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 0 0% 16%;
 
-    /* Diep navy primary (Rentbird-stijl) */
-    --primary: 222 47% 14%;
-    --primary-foreground: 0 0% 100%;
+    /* Deep ink primary (editorial) */
+    --primary: 0 0% 13%;
+    --primary-foreground: 40 33% 97%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 14%;
+    --secondary: 36 28% 92%;
+    --secondary-foreground: 0 0% 16%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 36 24% 93%;
+    --muted-foreground: 30 6% 38%;
 
-    /* Warm oranje accent */
-    --accent: 22 95% 55%;
-    --accent-foreground: 0 0% 100%;
+    /* Warm terracotta accent */
+    --accent: 13 49% 53%;
+    --accent-foreground: 40 33% 97%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 65% 48%;
+    --destructive-foreground: 40 33% 97%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 22 95% 55%;
+    --border: 36 18% 86%;
+    --input: 36 18% 86%;
+    --ring: 13 49% 53%;
 
-    --radius: 0.625rem;
+    --radius: 0.75rem;
 
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 222 47% 11%;
+    --success: 145 45% 38%;
+    --success-foreground: 40 33% 97%;
+    --warning: 32 90% 50%;
+    --warning-foreground: 0 0% 16%;
 
-    /* Legacy tokens hergemapped naar nieuw oranje accent */
-    --terracotta: 22 95% 55%;
-    --terracotta-foreground: 0 0% 100%;
-    --terracotta-soft: 22 95% 95%;
+    /* Legacy tokens */
+    --terracotta: 13 49% 53%;
+    --terracotta-foreground: 40 33% 97%;
+    --terracotta-soft: 24 67% 88%;
 
-    --surface-cream: 220 14% 97%;
-    --surface-cream-deep: 222 30% 96%;
+    --surface-cream: 40 33% 97%;
+    --surface-cream-deep: 36 28% 92%;
 
-    /* Donker navy tint voor hero/header secties */
-    --hero: 222 47% 14%;
-    --hero-foreground: 0 0% 100%;
-    --hero-muted: 222 30% 70%;
+    /* Editorial dark hero (deep ink) */
+    --hero: 0 0% 13%;
+    --hero-foreground: 40 33% 97%;
+    --hero-muted: 30 8% 65%;
 
-    --shadow-sm: 0 1px 2px 0 hsl(222 47% 11% / 0.04);
-    --shadow-md: 0 2px 8px -2px hsl(222 47% 11% / 0.08);
-    --shadow-lg: 0 12px 28px -10px hsl(222 47% 11% / 0.12);
-    --shadow-xl: 0 24px 48px -16px hsl(222 47% 11% / 0.18);
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 16% / 0.04);
+    --shadow-md: 0 2px 8px -2px hsl(0 0% 16% / 0.08);
+    --shadow-lg: 0 12px 28px -10px hsl(0 0% 16% / 0.12);
+    --shadow-xl: 0 24px 48px -16px hsl(0 0% 16% / 0.18);
 
-    --sidebar-background: 222 47% 14%;
-    --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 22 95% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 40% 20%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 222 40% 22%;
-    --sidebar-ring: 22 95% 55%;
+    --sidebar-background: 0 0% 13%;
+    --sidebar-foreground: 40 25% 92%;
+    --sidebar-primary: 13 49% 53%;
+    --sidebar-primary-foreground: 40 33% 97%;
+    --sidebar-accent: 0 0% 18%;
+    --sidebar-accent-foreground: 40 25% 92%;
+    --sidebar-border: 0 0% 22%;
+    --sidebar-ring: 13 49% 53%;
   }
 
   .dark {
-    --background: 222 47% 8%;
-    --foreground: 0 0% 96%;
+    --background: 0 0% 10%;
+    --foreground: 40 33% 95%;
 
-    --card: 222 47% 11%;
-    --card-foreground: 0 0% 96%;
+    --card: 0 0% 14%;
+    --card-foreground: 40 33% 95%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 0 0% 14%;
+    --popover-foreground: 40 33% 95%;
 
-    --primary: 0 0% 96%;
-    --primary-foreground: 222 47% 14%;
+    --primary: 40 33% 95%;
+    --primary-foreground: 0 0% 13%;
 
-    --secondary: 222 30% 16%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 40 33% 95%;
 
-    --muted: 222 30% 16%;
-    --muted-foreground: 220 9% 65%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 30 6% 65%;
 
-    --accent: 22 95% 58%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 13 55% 58%;
+    --accent-foreground: 40 33% 97%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 40 33% 97%;
 
-    --border: 222 30% 20%;
-    --input: 222 30% 20%;
-    --ring: 22 95% 58%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 13 55% 58%;
 
-    --success: 142 65% 50%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 85% 55%;
-    --warning-foreground: 222 47% 11%;
+    --success: 145 45% 45%;
+    --success-foreground: 40 33% 97%;
+    --warning: 32 90% 55%;
+    --warning-foreground: 0 0% 13%;
 
-    --hero: 222 47% 8%;
-    --hero-foreground: 0 0% 100%;
-    --hero-muted: 222 20% 65%;
+    --hero: 0 0% 8%;
+    --hero-foreground: 40 33% 95%;
+    --hero-muted: 30 8% 60%;
 
-    --sidebar-background: 222 47% 6%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 22 95% 58%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 30% 14%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 222 30% 18%;
-    --sidebar-ring: 22 95% 58%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 40 25% 90%;
+    --sidebar-primary: 13 55% 58%;
+    --sidebar-primary-foreground: 40 33% 97%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 40 25% 92%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 13 55% 58%;
 
-    --terracotta: 22 95% 58%;
-    --terracotta-foreground: 0 0% 100%;
-    --terracotta-soft: 22 30% 18%;
+    --terracotta: 13 55% 58%;
+    --terracotta-foreground: 40 33% 97%;
+    --terracotta-soft: 0 0% 18%;
 
-    --surface-cream: 222 47% 10%;
-    --surface-cream-deep: 222 47% 13%;
+    --surface-cream: 0 0% 12%;
+    --surface-cream-deep: 0 0% 16%;
   }
 }
 
@@ -138,19 +138,24 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Manrope', 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Figtree', 'Outfit', system-ui, sans-serif;
     font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
     font-size: 1rem;
-    line-height: 1.6;
-    font-feature-settings: "ss01", "cv11";
+    line-height: 1.65;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Outfit', 'Figtree', sans-serif;
     @apply font-semibold tracking-tight;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+  }
+
+  .font-serif-display {
+    font-family: 'DM Serif Display', 'Outfit', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
 
   p {
@@ -161,6 +166,12 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .bg-cream {
+    background-color: hsl(var(--surface-cream));
+  }
+  .bg-cream-deep {
+    background-color: hsl(var(--surface-cream-deep));
   }
 }
 
