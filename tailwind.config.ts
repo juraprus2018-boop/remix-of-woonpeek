@@ -23,9 +23,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Figtree", "Outfit", "system-ui", "sans-serif"],
-        display: ["Outfit", "Figtree", "sans-serif"],
-        serif: ["DM Serif Display", "Outfit", "serif"],
+        sans: ["Hind", "Inter", "system-ui", "sans-serif"],
+        display: ["Archivo Black", "Hind", "sans-serif"],
+        serif: ["Fraunces", "Hind", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",

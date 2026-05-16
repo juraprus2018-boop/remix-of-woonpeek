@@ -3,131 +3,138 @@
 @tailwind utilities;
 
 /*
-  Stekly Design System — Editorial Warm
-  Cream canvas, deep ink, terracotta accent. Outfit (display) + Figtree (body) + DM Serif Display (editorial).
+  Stekly Design System — Fresh Botanical (Bold Edition)
+  Cream canvas, deep forest ink, sage mid, leaf accent.
+  Display: Archivo Black (heavy, expressive). Body: Hind (clean, humanist).
+  Editorial accents: Fraunces serif for italic highlights.
 */
 
 @layer base {
   :root {
-    /* Warm cream canvas, deep ink ink */
-    --background: 40 33% 97%;
-    --foreground: 0 0% 16%;
+    /* Warm cream canvas, deep forest ink */
+    --background: 36 33% 94%;
+    --foreground: 150 28% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 16%;
+    --card-foreground: 150 28% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 16%;
+    --popover-foreground: 150 28% 12%;
 
-    /* Deep ink primary (editorial) */
-    --primary: 0 0% 13%;
-    --primary-foreground: 40 33% 97%;
+    /* Deep forest primary */
+    --primary: 140 33% 18%;
+    --primary-foreground: 36 33% 94%;
 
-    --secondary: 36 28% 92%;
-    --secondary-foreground: 0 0% 16%;
+    --secondary: 96 21% 87%;
+    --secondary-foreground: 150 28% 12%;
 
-    --muted: 36 24% 93%;
-    --muted-foreground: 30 6% 38%;
+    --muted: 96 18% 90%;
+    --muted-foreground: 150 10% 32%;
 
-    /* Warm terracotta accent */
-    --accent: 13 49% 53%;
-    --accent-foreground: 40 33% 97%;
+    /* Leaf/sage accent */
+    --accent: 138 33% 27%;
+    --accent-foreground: 36 33% 94%;
 
-    --destructive: 0 65% 48%;
-    --destructive-foreground: 40 33% 97%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 36 33% 94%;
 
-    --border: 36 18% 86%;
-    --input: 36 18% 86%;
-    --ring: 13 49% 53%;
+    --border: 96 16% 80%;
+    --input: 96 16% 80%;
+    --ring: 138 33% 27%;
 
-    --radius: 0.75rem;
+    --radius: 0.25rem;
 
-    --success: 145 45% 38%;
-    --success-foreground: 40 33% 97%;
+    --success: 140 45% 32%;
+    --success-foreground: 36 33% 94%;
     --warning: 32 90% 50%;
-    --warning-foreground: 0 0% 16%;
+    --warning-foreground: 150 28% 12%;
 
-    /* Legacy tokens */
-    --terracotta: 13 49% 53%;
-    --terracotta-foreground: 40 33% 97%;
-    --terracotta-soft: 24 67% 88%;
+    /* Legacy tokens kept for downstream components */
+    --terracotta: 138 33% 27%;
+    --terracotta-foreground: 36 33% 94%;
+    --terracotta-soft: 108 22% 78%;
 
-    --surface-cream: 40 33% 97%;
-    --surface-cream-deep: 36 28% 92%;
+    --surface-cream: 36 33% 94%;
+    --surface-cream-deep: 96 21% 87%;
 
-    /* Editorial dark hero (deep ink) */
-    --hero: 0 0% 13%;
-    --hero-foreground: 40 33% 97%;
-    --hero-muted: 30 8% 65%;
+    --hero: 140 33% 14%;
+    --hero-foreground: 36 33% 94%;
+    --hero-muted: 96 12% 70%;
 
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 16% / 0.04);
-    --shadow-md: 0 2px 8px -2px hsl(0 0% 16% / 0.08);
-    --shadow-lg: 0 12px 28px -10px hsl(0 0% 16% / 0.12);
-    --shadow-xl: 0 24px 48px -16px hsl(0 0% 16% / 0.18);
+    /* Botanical aliases */
+    --leaf: 108 22% 60%;
+    --sage: 96 21% 87%;
+    --forest: 140 33% 18%;
+    --moss: 108 30% 35%;
 
-    --sidebar-background: 0 0% 13%;
-    --sidebar-foreground: 40 25% 92%;
-    --sidebar-primary: 13 49% 53%;
-    --sidebar-primary-foreground: 40 33% 97%;
-    --sidebar-accent: 0 0% 18%;
-    --sidebar-accent-foreground: 40 25% 92%;
-    --sidebar-border: 0 0% 22%;
-    --sidebar-ring: 13 49% 53%;
+    --shadow-sm: 0 1px 2px 0 hsl(150 28% 12% / 0.05);
+    --shadow-md: 0 4px 12px -2px hsl(150 28% 12% / 0.10);
+    --shadow-lg: 0 18px 36px -12px hsl(150 28% 12% / 0.16);
+    --shadow-xl: 0 32px 64px -16px hsl(150 28% 12% / 0.22);
+
+    --sidebar-background: 140 33% 14%;
+    --sidebar-foreground: 36 25% 92%;
+    --sidebar-primary: 108 28% 55%;
+    --sidebar-primary-foreground: 140 33% 14%;
+    --sidebar-accent: 140 30% 20%;
+    --sidebar-accent-foreground: 36 25% 92%;
+    --sidebar-border: 140 22% 26%;
+    --sidebar-ring: 108 28% 55%;
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 40 33% 95%;
+    --background: 150 22% 9%;
+    --foreground: 36 30% 94%;
 
-    --card: 0 0% 14%;
-    --card-foreground: 40 33% 95%;
+    --card: 150 20% 13%;
+    --card-foreground: 36 30% 94%;
 
-    --popover: 0 0% 14%;
-    --popover-foreground: 40 33% 95%;
+    --popover: 150 20% 13%;
+    --popover-foreground: 36 30% 94%;
 
-    --primary: 40 33% 95%;
-    --primary-foreground: 0 0% 13%;
+    --primary: 108 28% 65%;
+    --primary-foreground: 150 28% 12%;
 
-    --secondary: 0 0% 18%;
-    --secondary-foreground: 40 33% 95%;
+    --secondary: 150 18% 18%;
+    --secondary-foreground: 36 30% 94%;
 
-    --muted: 0 0% 18%;
-    --muted-foreground: 30 6% 65%;
+    --muted: 150 18% 18%;
+    --muted-foreground: 96 10% 68%;
 
-    --accent: 13 55% 58%;
-    --accent-foreground: 40 33% 97%;
+    --accent: 108 32% 55%;
+    --accent-foreground: 150 28% 10%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 40 33% 97%;
+    --destructive-foreground: 36 30% 94%;
 
-    --border: 0 0% 22%;
-    --input: 0 0% 22%;
-    --ring: 13 55% 58%;
+    --border: 150 18% 22%;
+    --input: 150 18% 22%;
+    --ring: 108 32% 55%;
 
-    --success: 145 45% 45%;
-    --success-foreground: 40 33% 97%;
+    --success: 140 45% 45%;
+    --success-foreground: 36 30% 94%;
     --warning: 32 90% 55%;
-    --warning-foreground: 0 0% 13%;
+    --warning-foreground: 150 28% 12%;
 
-    --hero: 0 0% 8%;
-    --hero-foreground: 40 33% 95%;
-    --hero-muted: 30 8% 60%;
+    --hero: 150 25% 7%;
+    --hero-foreground: 36 30% 94%;
+    --hero-muted: 96 10% 65%;
 
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 40 25% 90%;
-    --sidebar-primary: 13 55% 58%;
-    --sidebar-primary-foreground: 40 33% 97%;
-    --sidebar-accent: 0 0% 14%;
-    --sidebar-accent-foreground: 40 25% 92%;
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 13 55% 58%;
+    --sidebar-background: 150 25% 7%;
+    --sidebar-foreground: 36 25% 90%;
+    --sidebar-primary: 108 32% 55%;
+    --sidebar-primary-foreground: 150 28% 10%;
+    --sidebar-accent: 150 20% 13%;
+    --sidebar-accent-foreground: 36 25% 92%;
+    --sidebar-border: 150 18% 18%;
+    --sidebar-ring: 108 32% 55%;
 
-    --terracotta: 13 55% 58%;
-    --terracotta-foreground: 40 33% 97%;
-    --terracotta-soft: 0 0% 18%;
+    --terracotta: 108 32% 55%;
+    --terracotta-foreground: 150 28% 10%;
+    --terracotta-soft: 150 18% 18%;
 
-    --surface-cream: 0 0% 12%;
-    --surface-cream-deep: 0 0% 16%;
+    --surface-cream: 150 22% 11%;
+    --surface-cream-deep: 150 20% 15%;
   }
 }
 
@@ -138,24 +145,31 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Figtree', 'Outfit', system-ui, sans-serif;
+    font-family: 'Hind', 'Inter', system-ui, sans-serif;
     font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Outfit', 'Figtree', sans-serif;
-    @apply font-semibold tracking-tight;
+    font-family: 'Archivo Black', 'Hind', sans-serif;
+    @apply font-normal tracking-tight;
     letter-spacing: -0.025em;
+    line-height: 1.02;
   }
 
   .font-serif-display {
-    font-family: 'DM Serif Display', 'Outfit', serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-family: 'Fraunces', 'Hind', serif;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    font-style: italic;
+  }
+
+  .font-display {
+    font-family: 'Archivo Black', sans-serif;
+    letter-spacing: -0.03em;
   }
 
   p {
@@ -173,10 +187,37 @@
   .bg-cream-deep {
     background-color: hsl(var(--surface-cream-deep));
   }
+  .bg-forest {
+    background-color: hsl(var(--forest));
+  }
+  .text-forest {
+    color: hsl(var(--forest));
+  }
+  .bg-sage {
+    background-color: hsl(var(--sage));
+  }
+  .bg-leaf {
+    background-color: hsl(var(--leaf));
+  }
+  .editorial-rule {
+    background-image: linear-gradient(to right, hsl(var(--foreground)) 50%, transparent 50%);
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    height: 1px;
+  }
 }
 
 @keyframes wiggle {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(-12deg); }
   75% { transform: rotate(12deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 35s linear infinite;
 }
