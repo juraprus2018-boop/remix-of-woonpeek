@@ -4,21 +4,27 @@ import Logo from "@/components/brand/Logo";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border/60 bg-cream-deep">
-      <div className="container py-16">
+    <footer className="border-t-2 border-foreground bg-forest text-background">
+      <div className="container py-20">
         {/* Editorial top strip */}
-        <div className="mb-12 grid gap-8 border-b border-border pb-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+        <div className="mb-14 grid gap-8 border-b-2 border-background/30 pb-12 lg:grid-cols-12">
+          <div className="lg:col-span-7">
             <Link to="/" className="inline-flex items-center gap-2">
-              <Logo size="h-8" />
+              <Logo size="h-9" variant="light" />
             </Link>
-            <p className="mt-5 max-w-md font-serif-display text-2xl leading-snug text-foreground md:text-3xl">
-              Vind jouw <span className="italic text-[hsl(var(--accent))]">stek</span> in
-              Nederland. Eenvoudig, rustig, dagelijks vers.
+            <p className="mt-6 max-w-xl font-display text-4xl leading-[0.95] md:text-5xl">
+              VIND&nbsp;JOUW{" "}
+              <span className="font-serif-display italic" style={{ color: "hsl(var(--leaf))" }}>
+                stekje.
+              </span>
+            </p>
+            <p className="mt-4 max-w-md text-sm opacity-80">
+              Eén rustige plek voor het nieuwste huur- en koopaanbod in heel Nederland.
+              Dagelijks vers, altijd zonder kosten.
             </p>
           </div>
-          <div className="flex items-end lg:col-span-7 lg:justify-end">
-            <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
+          <div className="flex items-end lg:col-span-5 lg:justify-end">
+            <p className="text-xs uppercase tracking-[0.28em] opacity-80">
               info@stekly.nl · stekly.nl
             </p>
           </div>
