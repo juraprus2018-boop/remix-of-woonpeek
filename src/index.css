@@ -3,138 +3,124 @@
 @tailwind utilities;
 
 /*
-  Stekly Design System — Fresh Botanical (Bold Edition)
-  Cream canvas, deep forest ink, sage mid, leaf accent.
-  Display: Archivo Black (heavy, expressive). Body: Hind (clean, humanist).
-  Editorial accents: Fraunces serif for italic highlights.
+  Stekly Design System — Sunny Yellow
+  Wit canvas, diepe ink, fel zonnegeel accent. Vriendelijk, helder, modern.
+  Display: Nunito (rounded, friendly). Body: Plus Jakarta Sans.
 */
 
 @layer base {
   :root {
-    /* Warm cream canvas, deep forest ink */
-    --background: 36 33% 94%;
-    --foreground: 150 28% 12%;
+    /* Crisp white canvas */
+    --background: 0 0% 100%;
+    --foreground: 215 35% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 150 28% 12%;
+    --card-foreground: 215 35% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 150 28% 12%;
+    --popover-foreground: 215 35% 12%;
 
-    /* Deep forest primary */
-    --primary: 140 33% 18%;
-    --primary-foreground: 36 33% 94%;
+    /* Deep ink as primary */
+    --primary: 215 35% 12%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 96 21% 87%;
-    --secondary-foreground: 150 28% 12%;
+    --secondary: 50 100% 95%;
+    --secondary-foreground: 215 35% 12%;
 
-    --muted: 96 18% 90%;
-    --muted-foreground: 150 10% 32%;
+    --muted: 210 16% 96%;
+    --muted-foreground: 215 14% 40%;
 
-    /* Leaf/sage accent */
-    --accent: 138 33% 27%;
-    --accent-foreground: 36 33% 94%;
+    /* Sunny yellow accent */
+    --accent: 48 100% 52%;
+    --accent-foreground: 215 35% 12%;
 
-    --destructive: 0 65% 45%;
-    --destructive-foreground: 36 33% 94%;
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 96 16% 80%;
-    --input: 96 16% 80%;
-    --ring: 138 33% 27%;
+    --border: 210 16% 90%;
+    --input: 210 16% 88%;
+    --ring: 48 100% 52%;
 
-    --radius: 0.25rem;
+    --radius: 0.875rem;
 
-    --success: 140 45% 32%;
-    --success-foreground: 36 33% 94%;
-    --warning: 32 90% 50%;
-    --warning-foreground: 150 28% 12%;
+    --success: 145 55% 38%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 95% 52%;
+    --warning-foreground: 215 35% 12%;
 
-    /* Legacy tokens kept for downstream components */
-    --terracotta: 138 33% 27%;
-    --terracotta-foreground: 36 33% 94%;
-    --terracotta-soft: 108 22% 78%;
+    /* Legacy aliases kept so existing components keep theming correctly */
+    --terracotta: 48 100% 52%;
+    --terracotta-foreground: 215 35% 12%;
+    --terracotta-soft: 50 100% 90%;
 
-    --surface-cream: 36 33% 94%;
-    --surface-cream-deep: 96 21% 87%;
+    --surface-cream: 50 100% 97%;
+    --surface-cream-deep: 48 100% 88%;
 
-    --hero: 140 33% 14%;
-    --hero-foreground: 36 33% 94%;
-    --hero-muted: 96 12% 70%;
+    --hero: 215 38% 10%;
+    --hero-foreground: 0 0% 100%;
+    --hero-muted: 215 10% 72%;
 
-    /* Botanical aliases */
-    --leaf: 108 22% 60%;
-    --sage: 96 21% 87%;
-    --forest: 140 33% 18%;
-    --moss: 108 30% 35%;
+    /* Brand yellow aliases */
+    --sun: 48 100% 52%;
+    --sun-soft: 50 100% 88%;
+    --sun-tint: 50 100% 96%;
+    --ink: 215 38% 10%;
+    --leaf: 48 100% 52%;
+    --sage: 50 100% 95%;
+    --forest: 215 38% 10%;
+    --moss: 215 25% 25%;
 
-    --shadow-sm: 0 1px 2px 0 hsl(150 28% 12% / 0.05);
-    --shadow-md: 0 4px 12px -2px hsl(150 28% 12% / 0.10);
-    --shadow-lg: 0 18px 36px -12px hsl(150 28% 12% / 0.16);
-    --shadow-xl: 0 32px 64px -16px hsl(150 28% 12% / 0.22);
+    --shadow-sm: 0 1px 2px 0 hsl(215 30% 12% / 0.06);
+    --shadow-md: 0 6px 18px -4px hsl(215 30% 12% / 0.10);
+    --shadow-lg: 0 22px 44px -16px hsl(215 30% 12% / 0.18);
+    --shadow-xl: 0 38px 72px -20px hsl(215 30% 12% / 0.22);
 
-    --sidebar-background: 140 33% 14%;
-    --sidebar-foreground: 36 25% 92%;
-    --sidebar-primary: 108 28% 55%;
-    --sidebar-primary-foreground: 140 33% 14%;
-    --sidebar-accent: 140 30% 20%;
-    --sidebar-accent-foreground: 36 25% 92%;
-    --sidebar-border: 140 22% 26%;
-    --sidebar-ring: 108 28% 55%;
+    --sidebar-background: 215 38% 10%;
+    --sidebar-foreground: 50 30% 94%;
+    --sidebar-primary: 48 100% 52%;
+    --sidebar-primary-foreground: 215 38% 10%;
+    --sidebar-accent: 215 30% 16%;
+    --sidebar-accent-foreground: 50 30% 94%;
+    --sidebar-border: 215 25% 22%;
+    --sidebar-ring: 48 100% 52%;
   }
 
   .dark {
-    --background: 150 22% 9%;
-    --foreground: 36 30% 94%;
+    --background: 215 38% 8%;
+    --foreground: 50 25% 94%;
 
-    --card: 150 20% 13%;
-    --card-foreground: 36 30% 94%;
+    --card: 215 32% 12%;
+    --card-foreground: 50 25% 94%;
 
-    --popover: 150 20% 13%;
-    --popover-foreground: 36 30% 94%;
+    --popover: 215 32% 12%;
+    --popover-foreground: 50 25% 94%;
 
-    --primary: 108 28% 65%;
-    --primary-foreground: 150 28% 12%;
+    --primary: 48 100% 56%;
+    --primary-foreground: 215 38% 8%;
 
-    --secondary: 150 18% 18%;
-    --secondary-foreground: 36 30% 94%;
+    --secondary: 215 28% 16%;
+    --secondary-foreground: 50 25% 94%;
 
-    --muted: 150 18% 18%;
-    --muted-foreground: 96 10% 68%;
+    --muted: 215 28% 16%;
+    --muted-foreground: 215 12% 68%;
 
-    --accent: 108 32% 55%;
-    --accent-foreground: 150 28% 10%;
+    --accent: 48 100% 56%;
+    --accent-foreground: 215 38% 8%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 36 30% 94%;
+    --destructive-foreground: 50 25% 94%;
 
-    --border: 150 18% 22%;
-    --input: 150 18% 22%;
-    --ring: 108 32% 55%;
+    --border: 215 25% 20%;
+    --input: 215 25% 20%;
+    --ring: 48 100% 56%;
 
-    --success: 140 45% 45%;
-    --success-foreground: 36 30% 94%;
-    --warning: 32 90% 55%;
-    --warning-foreground: 150 28% 12%;
+    --hero: 215 40% 6%;
+    --hero-foreground: 50 25% 94%;
 
-    --hero: 150 25% 7%;
-    --hero-foreground: 36 30% 94%;
-    --hero-muted: 96 10% 65%;
-
-    --sidebar-background: 150 25% 7%;
-    --sidebar-foreground: 36 25% 90%;
-    --sidebar-primary: 108 32% 55%;
-    --sidebar-primary-foreground: 150 28% 10%;
-    --sidebar-accent: 150 20% 13%;
-    --sidebar-accent-foreground: 36 25% 92%;
-    --sidebar-border: 150 18% 18%;
-    --sidebar-ring: 108 32% 55%;
-
-    --terracotta: 108 32% 55%;
-    --terracotta-foreground: 150 28% 10%;
-    --terracotta-soft: 150 18% 18%;
-
-    --surface-cream: 150 22% 11%;
-    --surface-cream-deep: 150 20% 15%;
+    --surface-cream: 215 32% 12%;
+    --surface-cream-deep: 215 30% 16%;
+    --sun-tint: 215 32% 12%;
+    --sun-soft: 215 30% 16%;
   }
 }
 
@@ -145,7 +131,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Hind', 'Inter', system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
     font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -154,22 +140,22 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Archivo Black', 'Hind', sans-serif;
-    @apply font-normal tracking-tight;
-    letter-spacing: -0.025em;
-    line-height: 1.02;
+    font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+    @apply font-extrabold tracking-tight;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .font-serif-display {
-    font-family: 'Fraunces', 'Hind', serif;
-    font-weight: 500;
-    letter-spacing: -0.015em;
-    font-style: italic;
+    font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
   }
 
   .font-display {
-    font-family: 'Archivo Black', sans-serif;
-    letter-spacing: -0.03em;
+    font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.025em;
   }
 
   p {
@@ -178,27 +164,17 @@
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  .bg-cream {
-    background-color: hsl(var(--surface-cream));
-  }
-  .bg-cream-deep {
-    background-color: hsl(var(--surface-cream-deep));
-  }
-  .bg-forest {
-    background-color: hsl(var(--forest));
-  }
-  .text-forest {
-    color: hsl(var(--forest));
-  }
-  .bg-sage {
-    background-color: hsl(var(--sage));
-  }
-  .bg-leaf {
-    background-color: hsl(var(--leaf));
-  }
+  .text-balance { text-wrap: balance; }
+  .bg-cream { background-color: hsl(var(--sun-tint)); }
+  .bg-cream-deep { background-color: hsl(var(--sun-soft)); }
+  .bg-forest { background-color: hsl(var(--ink)); }
+  .text-forest { color: hsl(var(--ink)); }
+  .bg-sage { background-color: hsl(var(--sun-tint)); }
+  .bg-leaf { background-color: hsl(var(--sun)); }
+  .bg-sun { background-color: hsl(var(--sun)); }
+  .text-sun { color: hsl(var(--sun)); }
+  .bg-sun-tint { background-color: hsl(var(--sun-tint)); }
+  .bg-sun-soft { background-color: hsl(var(--sun-soft)); }
   .editorial-rule {
     background-image: linear-gradient(to right, hsl(var(--foreground)) 50%, transparent 50%);
     background-size: 8px 1px;
@@ -208,16 +184,14 @@
   }
 }
 
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25% { transform: rotate(-12deg); }
-  75% { transform: rotate(12deg); }
-}
-
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-.animate-marquee {
-  animation: marquee 35s linear infinite;
+.animate-marquee { animation: marquee 35s linear infinite; }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
