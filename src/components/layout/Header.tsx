@@ -103,11 +103,11 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b-2 border-foreground bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/85">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center transition-opacity hover:opacity-80" aria-label="Stekly home">
-          <Logo size="h-7" />
+          <Logo size="h-8" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -262,9 +262,8 @@ const Header = () => {
           {/* Woning plaatsen CTA */}
           <Link to="/woning-plaatsen">
             <Button
-              variant={!user ? "default" : "ghost"}
               size="sm"
-              className={!user ? "ml-1 gap-1.5 bg-accent text-accent-foreground hover:bg-accent/90" : "ml-1 gap-1.5"}
+              className="ml-2 gap-1.5 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90"
             >
               <PlusCircle className="h-4 w-4" />
               Woning plaatsen
@@ -341,7 +340,7 @@ const Header = () => {
                 </Button>
               </Link>
               <Link to="/registreren">
-                <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                <Button size="sm" className="rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90">
                   Registreren
                 </Button>
               </Link>

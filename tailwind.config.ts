@@ -23,9 +23,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Hind", "Inter", "system-ui", "sans-serif"],
-        display: ["Archivo Black", "Hind", "sans-serif"],
-        serif: ["Fraunces", "Hind", "serif"],
+        sans: ["Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
+        display: ["Nunito", "Plus Jakarta Sans", "sans-serif"],
+        serif: ["Nunito", "Plus Jakarta Sans", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

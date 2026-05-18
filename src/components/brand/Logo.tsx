@@ -3,54 +3,40 @@ import { BRAND_NAME } from "@/lib/brand";
 
 interface LogoProps {
   className?: string;
-  /** Hoogte in tailwind units, bijv. "h-7" */
   size?: string;
-  /** Donker logo (op licht canvas) of licht (op donker canvas) */
   variant?: "dark" | "light";
 }
 
 /**
- * Stekly botanical wordmark: heavy display + sage leaf glyph.
+ * Stekly sunny wordmark: rounded heavy display + yellow house glyph.
  */
-export function Logo({
-  className,
-  size = "h-7",
-  variant = "dark",
-}: LogoProps) {
+export function Logo({ className, size = "h-7", variant = "dark" }: LogoProps) {
   const text = variant === "dark" ? "text-foreground" : "text-background";
-  const leafFill = variant === "dark" ? "hsl(var(--accent))" : "hsl(var(--background))";
+  const ink = variant === "dark" ? "hsl(var(--foreground))" : "hsl(var(--background))";
   return (
     <span
-      className={cn(
-        "inline-flex items-center gap-2 leading-none",
-        size,
-        text,
-        className
-      )}
+      className={cn("inline-flex items-center gap-2 leading-none", size, text, className)}
       aria-label={BRAND_NAME}
     >
       <svg
-        viewBox="0 0 32 32"
+        viewBox="0 0 36 36"
         aria-hidden
-        className="h-[1.1em] w-[1.1em] shrink-0"
+        className="h-[1.25em] w-[1.25em] shrink-0"
         fill="none"
       >
+        {/* Rounded yellow square */}
+        <rect x="2" y="2" width="32" height="32" rx="9" fill="hsl(var(--sun))" />
+        {/* House silhouette */}
         <path
-          d="M16 3C9 3 4 9 4 16c0 7 5 13 12 13 0-7-2-13-2-13s5 0 9-4c4-4 3-9 3-9s-5-0-10 0z"
-          fill={leafFill}
+          d="M10 20l8-7 8 7v7a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 10 27v-7z"
+          fill={ink}
         />
-        <path
-          d="M14 29c0-7 4-13 12-18"
-          stroke="hsl(var(--background))"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          opacity="0.55"
-        />
+        {/* Door */}
+        <rect x="16.5" y="22.5" width="3" height="6" rx="0.6" fill="hsl(var(--sun))" />
       </svg>
-      <span
-        className="font-display text-[1.25em] lowercase tracking-[-0.04em]"
-      >
+      <span className="font-display text-[1.35em] lowercase tracking-[-0.045em]">
         {BRAND_NAME.toLowerCase()}
+        <span className="text-sun">.</span>
       </span>
     </span>
   );

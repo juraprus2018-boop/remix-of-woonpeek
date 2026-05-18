@@ -4,29 +4,26 @@ import Logo from "@/components/brand/Logo";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-foreground bg-forest text-background">
-      <div className="container py-20">
+    <footer className="border-t border-border bg-foreground text-background">
+      <div className="container py-16">
         {/* Editorial top strip */}
-        <div className="mb-14 grid gap-8 border-b-2 border-background/30 pb-12 lg:grid-cols-12">
+        <div className="mb-12 grid gap-8 border-b border-background/15 pb-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Link to="/" className="inline-flex items-center gap-2">
               <Logo size="h-9" variant="light" />
             </Link>
-            <p className="mt-6 max-w-xl font-display text-4xl leading-[0.95] md:text-5xl">
-              VIND&nbsp;JOUW{" "}
-              <span className="font-serif-display italic" style={{ color: "hsl(var(--leaf))" }}>
-                stekje.
-              </span>
+            <p className="mt-6 max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
+              Vind jouw <span className="text-sun">stekje.</span>
             </p>
-            <p className="mt-4 max-w-md text-sm opacity-80">
+            <p className="mt-3 max-w-md text-sm text-background/70">
               Eén rustige plek voor het nieuwste huur- en koopaanbod in heel Nederland.
-              Dagelijks vers, altijd zonder kosten.
+              Dagelijks vers, altijd gratis.
             </p>
           </div>
           <div className="flex items-end lg:col-span-5 lg:justify-end">
-            <p className="text-xs uppercase tracking-[0.28em] opacity-80">
+            <span className="rounded-full bg-sun px-4 py-2 text-xs font-bold text-foreground">
               info@stekly.nl · stekly.nl
-            </p>
+            </span>
           </div>
         </div>
 
