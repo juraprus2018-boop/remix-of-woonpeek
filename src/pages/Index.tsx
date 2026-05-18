@@ -62,23 +62,12 @@ const Index = () => {
 
   const featured = properties?.slice(0, 6) ?? [];
 
-  const organizationLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: BRAND_NAME,
-    url: CANONICAL_URL,
-    description:
-      "Stekly verzamelt dagelijks het nieuwste huur- en koopaanbod uit heel Nederland op één plek.",
-    email: SUPPORT_EMAIL,
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Stekly – Vind eenvoudig jouw huur- of koopwoning in Nederland"
         description="Dagelijks vers huur- en koopaanbod uit heel Nederland. Zoek per stad, type en budget. Stel een gratis alert in en mis geen enkele woning meer."
         canonical="/"
-        jsonLd={organizationLd}
       />
 
       {/* Trust bar */}
