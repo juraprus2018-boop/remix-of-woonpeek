@@ -34,7 +34,7 @@ export function buildCaption(p: {
 }): string {
   const cleanCity = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
   const tags = [
-    "#woonpeek",
+    "#huurbaasje",
     "#woningnederland",
     p.listing_type === "huur" ? "#huurwoning" : "#koopwoning",
     p.listing_type === "huur" ? "#tehuur" : "#tekoop",

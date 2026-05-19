@@ -94,7 +94,7 @@ const Login = () => {
           supabase.from("profiles").update({ last_login_at: new Date().toISOString() }).eq("user_id", data.user.id).then(() => {});
           supabase.functions.invoke("send-email", {
             body: {
-              to: "info@stekly.nl",
+              to: "info@huurbaasje.nl",
               subject: `Gebruiker ingelogd: ${data.user.email}`,
               html: `<h2>Gebruiker ingelogd</h2>
                 <p><strong>E-mail:</strong> ${data.user.email}</p>
@@ -120,7 +120,7 @@ const Login = () => {
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}
-          alt="Stekly platform"
+          alt="Huurbaasje platform"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/60" />

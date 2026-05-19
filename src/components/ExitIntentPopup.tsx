@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-const DISMISSED_KEY = "woonpeek_exit_popup_dismissed";
+const DISMISSED_KEY = "huurbaasje_exit_popup_dismissed";
 const COOLDOWN_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
 
 const ExitIntentPopup = () => {

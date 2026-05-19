@@ -79,9 +79,9 @@ const NewListingsCity = () => {
   const totalPages = Math.max(Math.ceil(totalCount / pageSize), 1);
 
   const h1 = `Nieuw aanbod in ${cityName} vandaag`;
-  const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Stekly`;
-  const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Stekly.`;
-  const canonical = `https://stekly.nl/nieuw-aanbod/${citySlug}`;
+  const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Huurbaasje`;
+  const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Huurbaasje.`;
+  const canonical = `https://huurbaasje.nl/nieuw-aanbod/${citySlug}`;
 
   const jsonLd = useMemo(() => [
     {
@@ -90,7 +90,7 @@ const NewListingsCity = () => {
       name: h1,
       description: pageDescription,
       url: canonical,
-      isPartOf: { "@type": "WebSite", name: "Stekly", url: "https://stekly.nl" },
+      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
     },
     {
       "@context": "https://schema.org",
@@ -100,7 +100,7 @@ const NewListingsCity = () => {
       itemListElement: properties.slice(0, 10).map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `https://stekly.nl/woning/${p.slug || p.id}`,
+        url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
         name: p.title,
       })),
     },
@@ -214,7 +214,7 @@ const NewListingsCity = () => {
                 Zo zie je direct welke <strong>huurwoningen in {cityName}</strong> en <strong>koopwoningen in {cityName}</strong> als eerste online zijn gekomen.
               </p>
               <p>
-                Stekly scant dagelijks meerdere woningplatforms in heel Nederland. Nieuwe woningen in {cityName} worden
+                Huurbaasje scant dagelijks meerdere woningplatforms in heel Nederland. Nieuwe woningen in {cityName} worden
                 automatisch verwerkt en verschijnen op deze pagina zodra ze beschikbaar zijn.
               </p>
               <p>

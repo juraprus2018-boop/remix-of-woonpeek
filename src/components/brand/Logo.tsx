@@ -8,7 +8,7 @@ interface LogoProps {
 }
 
 /**
- * Stekly sunny wordmark: rounded heavy display + yellow house glyph.
+ * Huurbaasje sunny wordmark: rounded heavy display + yellow house glyph.
  */
 export function Logo({ className, size = "h-7", variant = "dark" }: LogoProps) {
   const text = variant === "dark" ? "text-foreground" : "text-background";

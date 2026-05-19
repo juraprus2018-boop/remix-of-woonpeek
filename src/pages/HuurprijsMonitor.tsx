@@ -83,7 +83,7 @@ const HuurprijsMonitor = () => {
   const currentMonth = new Date().toLocaleString("nl-NL", { month: "long" });
   const currentYear = new Date().getFullYear();
 
-  const pageTitle = `Gemiddelde huurprijs ${cityName} ${currentMonth} ${currentYear}: actueel overzicht | Stekly`;
+  const pageTitle = `Gemiddelde huurprijs ${cityName} ${currentMonth} ${currentYear}: actueel overzicht | Huurbaasje`;
   const pageDescription = `De gemiddelde huurprijs in ${cityName} is ${stats ? formatEuro(stats.avgHuur) : "..."} per maand (${currentMonth} ${currentYear}). Bekijk huurprijzen per woningtype en vergelijk.`;
 
   const faqItems = [
@@ -113,7 +113,7 @@ const HuurprijsMonitor = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={`https://stekly.nl/huurprijzen/${citySlug}`} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={`https://huurbaasje.nl/huurprijzen/${citySlug}`} />
       <Header />
       <main className="flex-1">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

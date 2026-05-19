@@ -105,9 +105,9 @@ const WoonQuiz = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Woonquiz: vind jouw ideale woning | Stekly"
+        title="Woonquiz: vind jouw ideale woning | Huurbaasje"
         description="Beantwoord 5 korte vragen en ontdek welke woningen het beste bij jou passen. Direct gefilterd aanbod in heel Nederland."
-        canonical="https://stekly.nl/woonquiz"
+        canonical="https://huurbaasje.nl/woonquiz"
       />
       <Header />
       <main className="flex-1 py-10 lg:py-16">

@@ -41,7 +41,7 @@ const VARIANT_CONFIG: Record<BestOfVariant, {
     h1: (city) => `De 10 goedkoopste huurwoningen in ${city}`,
     intro: (city) =>
       `Op zoek naar een betaalbare huurwoning in ${city}? Deze top 10 van goedkoopste huurwoningen wordt dagelijks bijgewerkt en toont het meest voordelige actuele aanbod. Reageer snel: betaalbare woningen in ${city} zijn vaak binnen enkele dagen weg.`,
-    metaTitle: (city, count) => `Top 10 goedkoopste huurwoningen ${city} (${new Date().getFullYear()}) | Stekly`,
+    metaTitle: (city, count) => `Top 10 goedkoopste huurwoningen ${city} (${new Date().getFullYear()}) | Huurbaasje`,
     metaDesc: (city, count) =>
       `${count > 0 ? `Bekijk de ${Math.min(10, count)} goedkoopste huurwoningen in ${city}` : `De goedkoopste huurwoningen in ${city}`}. Dagelijks bijgewerkt aanbod, direct reageren bij verhuurder.`,
     icon: TrendingDown,
@@ -51,8 +51,8 @@ const VARIANT_CONFIG: Record<BestOfVariant, {
     pathPrefix: "grootste-huurwoningen",
     h1: (city) => `De 10 grootste huurwoningen in ${city}`,
     intro: (city) =>
-      `Veel ruimte nodig in ${city}? Deze top 10 van grootste huurwoningen toont het ruimste aanbod op Stekly. Ideaal voor gezinnen, woongroepen of wie thuis wil werken zonder concessies.`,
-    metaTitle: (city, count) => `Top 10 grootste huurwoningen ${city} (${new Date().getFullYear()}) | Stekly`,
+      `Veel ruimte nodig in ${city}? Deze top 10 van grootste huurwoningen toont het ruimste aanbod op Huurbaasje. Ideaal voor gezinnen, woongroepen of wie thuis wil werken zonder concessies.`,
+    metaTitle: (city, count) => `Top 10 grootste huurwoningen ${city} (${new Date().getFullYear()}) | Huurbaasje`,
     metaDesc: (city, count) =>
       `${count > 0 ? `Bekijk de ${Math.min(10, count)} ruimste huurwoningen in ${city}` : `De grootste huurwoningen in ${city}`} qua oppervlakte. Dagelijks bijgewerkt.`,
     icon: Maximize2,
@@ -63,7 +63,7 @@ const VARIANT_CONFIG: Record<BestOfVariant, {
     h1: (city) => `De 10 beste buurten van ${city} om te wonen`,
     intro: (city) =>
       `Welke wijk past bij jou in ${city}? Deze top 10 buurten is samengesteld op basis van het actieve woningaanbod, gemiddelde huur- en koopprijzen en variatie in woningtypes. Vergelijk de wijken en vind jouw perfecte plek.`,
-    metaTitle: (city, count) => `Top 10 beste buurten van ${city} om te wonen (${new Date().getFullYear()}) | Stekly`,
+    metaTitle: (city, count) => `Top 10 beste buurten van ${city} om te wonen (${new Date().getFullYear()}) | Huurbaasje`,
     metaDesc: (city, count) =>
       `Vergelijk de ${count > 0 ? Math.min(10, count) : "beste"} buurten in ${city}: gemiddelde prijs, aantal woningen en woningtypes. Vind de wijk die bij jou past.`,
     icon: Trophy,
@@ -163,11 +163,11 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
           question: `Wat is de goedkoopste huurwoning in ${validCityName}?`,
           answer: cheapest
             ? `Op dit moment is de goedkoopste huurwoning in ${validCityName} ${formatEuro(Number(cheapest.price))} per maand. Het aanbod wordt dagelijks bijgewerkt, dus deze prijs kan veranderen.`
-            : `Er zijn momenteel geen actieve huurwoningen in ${validCityName} op Stekly. Stel een gratis alert in om direct bericht te krijgen zodra een betaalbare woning beschikbaar komt.`,
+            : `Er zijn momenteel geen actieve huurwoningen in ${validCityName} op Huurbaasje. Stel een gratis alert in om direct bericht te krijgen zodra een betaalbare woning beschikbaar komt.`,
         },
         {
           question: `Hoe vind ik een betaalbare huurwoning in ${validCityName}?`,
-          answer: `Reageer snel op nieuw aanbod. Stekly bundelt dagelijks woningen uit tientallen bronnen. Stel een dagelijkse e-mailalert in zodat je nooit een goedkope huurwoning in ${validCityName} mist.`,
+          answer: `Reageer snel op nieuw aanbod. Huurbaasje bundelt dagelijks woningen uit tientallen bronnen. Stel een dagelijkse e-mailalert in zodat je nooit een goedkope huurwoning in ${validCityName} mist.`,
         },
         {
           question: `Worden goedkope huurwoningen snel verhuurd?`,
@@ -210,7 +210,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
 
   const cityName = validCityName ?? "";
   const Icon = config.icon;
-  const canonical = `https://stekly.nl/${config.pathPrefix}/${citySlug}`;
+  const canonical = `https://huurbaasje.nl/${config.pathPrefix}/${citySlug}`;
 
   // ItemList JSON-LD for SEO
   const itemListJsonLd = useMemo(() => {
@@ -224,7 +224,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
         : properties.slice(0, 10).map((p, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `https://stekly.nl/woning/${p.slug || p.id}`,
+            url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
             name: p.title,
           }));
 

@@ -74,4 +74,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://stekly.nl/sitemap.xml
+Sitemap: https://huurbaasje.nl/sitemap.xml

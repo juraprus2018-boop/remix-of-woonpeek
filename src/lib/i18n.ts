@@ -26,7 +26,7 @@ void i18n
     interpolation: { escapeValue: false },
     detection: {
       order: ["path", "localStorage", "navigator", "htmlTag"],
-      lookupLocalStorage: "stekly_locale",
+      lookupLocalStorage: "huurbaasje_locale",
       caches: ["localStorage"],
     },
     react: { useSuspense: false },

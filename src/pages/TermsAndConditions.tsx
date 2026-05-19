@@ -15,24 +15,24 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">1. Definities</h2>
             <p className="leading-relaxed text-muted-foreground">
-              In deze algemene voorwaarden wordt verstaan onder: <strong>Stekly</strong>: het online woningplatform bereikbaar via stekly.nl; 
-              <strong> Gebruiker</strong>: iedere bezoeker of geregistreerde gebruiker van Stekly; 
-              <strong> Adverteerder</strong>: een gebruiker die een woning aanbiedt via Stekly.
+              In deze algemene voorwaarden wordt verstaan onder: <strong>Huurbaasje</strong>: het online woningplatform bereikbaar via huurbaasje.nl; 
+              <strong> Gebruiker</strong>: iedere bezoeker of geregistreerde gebruiker van Huurbaasje; 
+              <strong> Adverteerder</strong>: een gebruiker die een woning aanbiedt via Huurbaasje.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">2. Toepasselijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Deze voorwaarden zijn van toepassing op elk gebruik van Stekly. Door het platform te gebruiken, ga je akkoord met deze voorwaarden. 
-              Stekly behoudt zich het recht voor om deze voorwaarden te wijzigen.
+              Deze voorwaarden zijn van toepassing op elk gebruik van Huurbaasje. Door het platform te gebruiken, ga je akkoord met deze voorwaarden. 
+              Huurbaasje behoudt zich het recht voor om deze voorwaarden te wijzigen.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">3. Gebruik van het platform</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly is een platform dat woningaanbod verzamelt en toont. Gebruikers kunnen woningen zoeken, opslaan en aanbieden. 
+              Huurbaasje is een platform dat woningaanbod verzamelt en toont. Gebruikers kunnen woningen zoeken, opslaan en aanbieden. 
               Het is niet toegestaan om het platform te gebruiken voor illegale of misleidende doeleinden.
             </p>
           </section>
@@ -41,14 +41,14 @@ const TermsAndConditions = () => {
             <h2 className="font-display text-xl font-semibold text-foreground">4. Advertenties en inhoud</h2>
             <p className="leading-relaxed text-muted-foreground">
               Adverteerders zijn zelf verantwoordelijk voor de juistheid en volledigheid van de geplaatste woninginformatie. 
-              Stekly behoudt zich het recht voor om advertenties te verwijderen die in strijd zijn met deze voorwaarden of de wet.
+              Huurbaasje behoudt zich het recht voor om advertenties te verwijderen die in strijd zijn met deze voorwaarden of de wet.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">5. Intellectueel eigendom</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Alle content op Stekly, inclusief teksten, afbeeldingen, logo's en software, is eigendom van Stekly of haar licentiegevers. 
+              Alle content op Huurbaasje, inclusief teksten, afbeeldingen, logo's en software, is eigendom van Huurbaasje of haar licentiegevers. 
               Het is niet toegestaan om deze content te kopiëren of te verspreiden zonder schriftelijke toestemming.
             </p>
           </section>
@@ -56,8 +56,8 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">6. Aansprakelijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly is een bemiddelingsplatform en is niet aansprakelijk voor de inhoud van advertenties, transacties tussen gebruikers, 
-              of schade die voortvloeit uit het gebruik van het platform. Stekly garandeert niet dat de informatie op het platform altijd 
+              Huurbaasje is een bemiddelingsplatform en is niet aansprakelijk voor de inhoud van advertenties, transacties tussen gebruikers, 
+              of schade die voortvloeit uit het gebruik van het platform. Huurbaasje garandeert niet dat de informatie op het platform altijd 
               juist, volledig of actueel is.
             </p>
           </section>
@@ -65,7 +65,7 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">7. Privacy</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly verwerkt persoonsgegevens conform de Algemene Verordening Gegevensbescherming (AVG). 
+              Huurbaasje verwerkt persoonsgegevens conform de Algemene Verordening Gegevensbescherming (AVG). 
               Zie ons <a href="/privacy" className="text-primary underline hover:text-primary/80">privacybeleid</a> voor meer informatie.
             </p>
           </section>

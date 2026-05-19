@@ -1,10 +1,10 @@
-# Stekly
+# Huurbaasje
 
-> Stekly is het gratis woningplatform van Nederland. We verzamelen dagelijks het nieuwste aanbod van huurwoningen, koopwoningen, appartementen, studio's en kamers uit heel Nederland op één plek. Website: https://stekly.nl
+> Huurbaasje is het gratis woningplatform van Nederland. We verzamelen dagelijks het nieuwste aanbod van huurwoningen, koopwoningen, appartementen, studio's en kamers uit heel Nederland op één plek. Website: https://huurbaasje.nl
 
-## Wat is Stekly?
+## Wat is Huurbaasje?
 
-Stekly is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Stekly volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
+Huurbaasje is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Huurbaasje volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
 
 ## Kernfeatures
 
@@ -17,53 +17,53 @@ Stekly is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en
 
 ## Beschikbare woningtypes
 
-- Huurwoningen: https://stekly.nl/huurwoningen
-- Koopwoningen: https://stekly.nl/koopwoningen
-- Appartementen: https://stekly.nl/appartementen
-- Huizen: https://stekly.nl/huizen
-- Studio's: https://stekly.nl/studios
-- Kamers: https://stekly.nl/kamers
+- Huurwoningen: https://huurbaasje.nl/huurwoningen
+- Koopwoningen: https://huurbaasje.nl/koopwoningen
+- Appartementen: https://huurbaasje.nl/appartementen
+- Huizen: https://huurbaasje.nl/huizen
+- Studio's: https://huurbaasje.nl/studios
+- Kamers: https://huurbaasje.nl/kamers
 
 ## Populaire steden
 
-- Huurwoningen Amsterdam: https://stekly.nl/huurwoningen/amsterdam
-- Huurwoningen Rotterdam: https://stekly.nl/huurwoningen/rotterdam
-- Huurwoningen Utrecht: https://stekly.nl/huurwoningen/utrecht
-- Huurwoningen Den Haag: https://stekly.nl/huurwoningen/den-haag
-- Huurwoningen Eindhoven: https://stekly.nl/huurwoningen/eindhoven
-- Huurwoningen Groningen: https://stekly.nl/huurwoningen/groningen
-- Huurwoningen Tilburg: https://stekly.nl/huurwoningen/tilburg
-- Huurwoningen Breda: https://stekly.nl/huurwoningen/breda
-- Huurwoningen Nijmegen: https://stekly.nl/huurwoningen/nijmegen
-- Huurwoningen Almere: https://stekly.nl/huurwoningen/almere
-- Huurwoningen Helmond: https://stekly.nl/huurwoningen/helmond
-- Huurwoningen Arnhem: https://stekly.nl/huurwoningen/arnhem
-- Huurwoningen Haarlem: https://stekly.nl/huurwoningen/haarlem
-- Huurwoningen Enschede: https://stekly.nl/huurwoningen/enschede
-- Huurwoningen Apeldoorn: https://stekly.nl/huurwoningen/apeldoorn
-- Huurwoningen Amersfoort: https://stekly.nl/huurwoningen/amersfoort
-- Huurwoningen Den Bosch: https://stekly.nl/huurwoningen/s-hertogenbosch
-- Huurwoningen Zwolle: https://stekly.nl/huurwoningen/zwolle
-- Huurwoningen Leiden: https://stekly.nl/huurwoningen/leiden
-- Huurwoningen Maastricht: https://stekly.nl/huurwoningen/maastricht
+- Huurwoningen Amsterdam: https://huurbaasje.nl/huurwoningen/amsterdam
+- Huurwoningen Rotterdam: https://huurbaasje.nl/huurwoningen/rotterdam
+- Huurwoningen Utrecht: https://huurbaasje.nl/huurwoningen/utrecht
+- Huurwoningen Den Haag: https://huurbaasje.nl/huurwoningen/den-haag
+- Huurwoningen Eindhoven: https://huurbaasje.nl/huurwoningen/eindhoven
+- Huurwoningen Groningen: https://huurbaasje.nl/huurwoningen/groningen
+- Huurwoningen Tilburg: https://huurbaasje.nl/huurwoningen/tilburg
+- Huurwoningen Breda: https://huurbaasje.nl/huurwoningen/breda
+- Huurwoningen Nijmegen: https://huurbaasje.nl/huurwoningen/nijmegen
+- Huurwoningen Almere: https://huurbaasje.nl/huurwoningen/almere
+- Huurwoningen Helmond: https://huurbaasje.nl/huurwoningen/helmond
+- Huurwoningen Arnhem: https://huurbaasje.nl/huurwoningen/arnhem
+- Huurwoningen Haarlem: https://huurbaasje.nl/huurwoningen/haarlem
+- Huurwoningen Enschede: https://huurbaasje.nl/huurwoningen/enschede
+- Huurwoningen Apeldoorn: https://huurbaasje.nl/huurwoningen/apeldoorn
+- Huurwoningen Amersfoort: https://huurbaasje.nl/huurwoningen/amersfoort
+- Huurwoningen Den Bosch: https://huurbaasje.nl/huurwoningen/s-hertogenbosch
+- Huurwoningen Zwolle: https://huurbaasje.nl/huurwoningen/zwolle
+- Huurwoningen Leiden: https://huurbaasje.nl/huurwoningen/leiden
+- Huurwoningen Maastricht: https://huurbaasje.nl/huurwoningen/maastricht
 
 ## Hoofdpagina's
 
-- Home: https://stekly.nl
-- Zoeken: https://stekly.nl/zoeken
-- Alle steden: https://stekly.nl/steden
-- Verkennen (kaart): https://stekly.nl/verkennen
-- Nieuw aanbod: https://stekly.nl/nieuw-aanbod
-- Blog: https://stekly.nl/blog
-- Over Stekly: https://stekly.nl/over-woonpeek
-- FAQ: https://stekly.nl/veelgestelde-vragen
-- Dagelijkse alert: https://stekly.nl/dagelijkse-alert
+- Home: https://huurbaasje.nl
+- Zoeken: https://huurbaasje.nl/zoeken
+- Alle steden: https://huurbaasje.nl/steden
+- Verkennen (kaart): https://huurbaasje.nl/verkennen
+- Nieuw aanbod: https://huurbaasje.nl/nieuw-aanbod
+- Blog: https://huurbaasje.nl/blog
+- Over Huurbaasje: https://huurbaasje.nl/over-huurbaasje
+- FAQ: https://huurbaasje.nl/veelgestelde-vragen
+- Dagelijkse alert: https://huurbaasje.nl/dagelijkse-alert
 
 ## Contact
 
-- Website: https://stekly.nl
-- Over ons: https://stekly.nl/over-woonpeek
+- Website: https://huurbaasje.nl
+- Over ons: https://huurbaasje.nl/over-huurbaasje
 
 ## Uitgebreide documentatie
 
-- [llms-full.txt](https://stekly.nl/llms-full.txt): Volledige technische documentatie met alle pagina's, URL-patronen, steden en features
+- [llms-full.txt](https://huurbaasje.nl/llms-full.txt): Volledige technische documentatie met alle pagina's, URL-patronen, steden en features

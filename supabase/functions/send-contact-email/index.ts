@@ -82,11 +82,11 @@ Deno.serve(async (req) => {
 
     const smtpClient = new SMTPClient({
       connection: {
-        hostname: "woonpeek.nl",
+        hostname: "huurbaasje.nl",
         port: 465,
         tls: true,
         auth: {
-          username: "info@woonpeek.nl",
+          username: "info@huurbaasje.nl",
           password: Deno.env.get("SMTP_PASSWORD") || "",
         },
       },
@@ -94,7 +94,7 @@ Deno.serve(async (req) => {
 
     // Send to owner
     await smtpClient.send({
-      from: "WoonPeek <info@woonpeek.nl>",
+      from: "WoonPeek <info@huurbaasje.nl>",
       to: ownerEmail,
       subject: `Nieuw bericht over: ${property.title}`,
       content: "text/html",
@@ -103,8 +103,8 @@ Deno.serve(async (req) => {
 
     // Send copy to WoonPeek
     await smtpClient.send({
-      from: "WoonPeek <info@woonpeek.nl>",
-      to: "info@woonpeek.nl",
+      from: "WoonPeek <info@huurbaasje.nl>",
+      to: "info@huurbaasje.nl",
       subject: `[Kopie] Contactbericht: ${property.title}`,
       content: "text/html",
       html,

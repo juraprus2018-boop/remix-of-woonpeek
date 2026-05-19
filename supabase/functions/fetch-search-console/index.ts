@@ -6,7 +6,7 @@ const corsHeaders = {
 };
 
 const SEARCH_CONSOLE_API = "https://www.googleapis.com/webmasters/v3/sites";
-const SITE_URL = "https://www.woonpeek.nl/";
+const SITE_URL = "https://www.huurbaasje.nl/";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -84,18 +84,18 @@ Deno.serve(async (req) => {
     const sitesData = await sitesRes.json();
     console.log("Available Search Console sites:", JSON.stringify(sitesData));
 
-    // Find the woonpeek site (could be domain property or URL prefix)
-    const woonpeekSite = sitesData.siteEntry?.find((s: any) =>
-      s.siteUrl.includes("woonpeek.nl")
+    // Find the huurbaasje site (could be domain property or URL prefix)
+    const huurbaasjeSite = sitesData.siteEntry?.find((s: any) =>
+      s.siteUrl.includes("huurbaasje.nl")
     );
 
-    if (!woonpeekSite) {
+    if (!huurbaasjeSite) {
       throw new Error(
-        `woonpeek.nl not found in Search Console. Available sites: ${JSON.stringify(sitesData.siteEntry?.map((s: any) => s.siteUrl) || [])}`
+        `huurbaasje.nl not found in Search Console. Available sites: ${JSON.stringify(sitesData.siteEntry?.map((s: any) => s.siteUrl) || [])}`
       );
     }
 
-    const siteUrl = woonpeekSite.siteUrl;
+    const siteUrl = huurbaasjeSite.siteUrl;
     console.log("Using site URL:", siteUrl);
 
     // Fetch Search Console data for yesterday (data is usually 2-3 days delayed)
@@ -137,15 +137,15 @@ Deno.serve(async (req) => {
 
     // Filter for relevant landing pages (city pages, listing type pages)
     const relevantPatterns = [
-      /woonpeek\.nl\/woningen-/,
-      /woonpeek\.nl\/huurwoningen\//,
-      /woonpeek\.nl\/koopwoningen\//,
-      /woonpeek\.nl\/appartementen\//,
-      /woonpeek\.nl\/kamers\//,
-      /woonpeek\.nl\/studios\//,
-      /woonpeek\.nl\/woning\//,
-      /woonpeek\.nl\/blog\//,
-      /woonpeek\.nl\/?$/,
+      /huurbaasje\.nl\/woningen-/,
+      /huurbaasje\.nl\/huurwoningen\//,
+      /huurbaasje\.nl\/koopwoningen\//,
+      /huurbaasje\.nl\/appartementen\//,
+      /huurbaasje\.nl\/kamers\//,
+      /huurbaasje\.nl\/studios\//,
+      /huurbaasje\.nl\/woning\//,
+      /huurbaasje\.nl\/blog\//,
+      /huurbaasje\.nl\/?$/,
     ];
 
     const trackingEntries: Array<{
@@ -172,7 +172,7 @@ Deno.serve(async (req) => {
         "huurwoning", "huurwoningen", "koopwoning", "koopwoningen",
         "appartement", "appartementen", "kamer", "kamers", "studio",
         "woning", "woningen", "huis", "huizen", "huren", "kopen",
-        "te huur", "te koop", "woonpeek",
+        "te huur", "te koop", "huurbaasje",
       ];
       const queryLower = query.toLowerCase();
       const isHousingQuery = housingKeywords.some((k) => queryLower.includes(k));

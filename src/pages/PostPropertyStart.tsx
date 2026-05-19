@@ -21,9 +21,9 @@ const PostPropertyStart = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Woning plaatsen op Stekly | Gratis starten"
-        description="Maak gratis een account aan en plaats je woning op Stekly. Snel online en direct zichtbaar voor woningzoekers."
-        canonical="https://stekly.nl/woning-plaatsen"
+        title="Woning plaatsen op Huurbaasje | Gratis starten"
+        description="Maak gratis een account aan en plaats je woning op Huurbaasje. Snel online en direct zichtbaar voor woningzoekers."
+        canonical="https://huurbaasje.nl/woning-plaatsen"
       />
       <Header />
       <main className="flex-1">
@@ -34,7 +34,7 @@ const PostPropertyStart = () => {
                 <div className="space-y-2">
                   <h1 className="font-display text-3xl font-bold">Plaats je woning gratis</h1>
                   <p className="text-muted-foreground">
-                    Maak een gratis account aan en plaats direct je huur- of koopwoning op Stekly.
+                    Maak een gratis account aan en plaats direct je huur- of koopwoning op Huurbaasje.
                   </p>
                 </div>
 

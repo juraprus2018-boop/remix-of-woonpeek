@@ -473,7 +473,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
       const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
       let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID");
       const GRAPH_API = "https://graph.facebook.com/v21.0";
-      const siteUrl = "https://www.woonpeek.nl";
+      const siteUrl = "https://www.huurbaasje.nl";
 
       if (PAGE_ACCESS_TOKEN) {
         if (!PAGE_ID) {
@@ -494,7 +494,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
             "Juridisch & financieel": ["#huurrecht", "#belasting", "#financieel"],
             "Duurzaamheid": ["#duurzaam", "#energielabel", "#verduurzaming"],
           };
-          const baseTags = ["#woningmarkt", "#woonpeek", "#vastgoed", "#Nederland"];
+          const baseTags = ["#woningmarkt", "#huurbaasje", "#vastgoed", "#Nederland"];
           const extraTags = categoryTags[topicCategory] || [];
           const allTags = [...new Set([...extraTags, ...baseTags])].slice(0, 6);
 

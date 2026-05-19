@@ -57,11 +57,11 @@ Deno.serve(async (req) => {
 
     const smtpClient = new SMTPClient({
       connection: {
-        hostname: "woonpeek.nl",
+        hostname: "huurbaasje.nl",
         port: 465,
         tls: true,
         auth: {
-          username: "info@woonpeek.nl",
+          username: "info@huurbaasje.nl",
           password: Deno.env.get("SMTP_PASSWORD") || "",
         },
       },
@@ -104,11 +104,11 @@ Deno.serve(async (req) => {
         const { data: userData } = await supabase.auth.admin.getUserById(alert.user_id);
         if (!userData?.user?.email) continue;
 
-        const html = buildEmailHtml(properties, `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", "https://www.woonpeek.nl/zoeken", null);
+        const html = buildEmailHtml(properties, `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", "https://www.huurbaasje.nl/zoeken", null);
 
         try {
           await smtpClient.send({
-            from: "WoonPeek <info@woonpeek.nl>",
+            from: "WoonPeek <info@huurbaasje.nl>",
             to: userData.user.email,
             subject: `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`,
             content: "text/html",
@@ -177,12 +177,12 @@ Deno.serve(async (req) => {
       if (!latestProperties || latestProperties.length === 0) continue;
 
       const cityLabel = subscriberCity || "Nederland";
-      const unsubscribeUrl = `https://www.woonpeek.nl/alerts/afmelden/${subscriber.id}`;
+      const unsubscribeUrl = `https://www.huurbaasje.nl/alerts/afmelden/${subscriber.id}`;
       const html = buildEmailHtml(
         latestProperties,
         `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel}!`,
         `Hier is je wekelijks overzicht van het nieuwste woningaanbod in ${cityLabel}.`,
-        `https://www.woonpeek.nl/nieuw-aanbod`,
+        `https://www.huurbaasje.nl/nieuw-aanbod`,
         unsubscribeUrl,
         filteredCount
       );
@@ -190,7 +190,7 @@ Deno.serve(async (req) => {
       // Send email
       try {
         await smtpClient.send({
-          from: "WoonPeek <info@woonpeek.nl>",
+          from: "WoonPeek <info@huurbaasje.nl>",
           to: subscriber.email,
           subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – WoonPeek`,
           content: "text/html",
@@ -205,10 +205,10 @@ Deno.serve(async (req) => {
       if (subscriber.whatsapp_enabled && subscriber.phone_number) {
         const propertyList = latestProperties.slice(0, 3).map((p: any) => {
           const price = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(p.price);
-          return `🏠 ${p.title}\n💰 ${price}${p.listing_type === 'huur' ? '/mnd' : ''}\n🔗 https://www.woonpeek.nl/woning/${p.slug || p.id}`;
+          return `🏠 ${p.title}\n💰 ${price}${p.listing_type === 'huur' ? '/mnd' : ''}\n🔗 https://www.huurbaasje.nl/woning/${p.slug || p.id}`;
         }).join("\n\n");
 
-        const whatsappMessage = `🏠 *WoonPeek Alert – ${cityLabel}*\n\n${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} gevonden!\n\n${propertyList}\n\n👉 Bekijk alles: https://www.woonpeek.nl/nieuw-aanbod`;
+        const whatsappMessage = `🏠 *WoonPeek Alert – ${cityLabel}*\n\n${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} gevonden!\n\n${propertyList}\n\n👉 Bekijk alles: https://www.huurbaasje.nl/nieuw-aanbod`;
 
         const sent = await sendWhatsApp(subscriber.phone_number, whatsappMessage);
         if (sent) whatsappNotificationsSent++;
@@ -252,7 +252,7 @@ function buildEmailHtml(
   const propertyCardsHtml = properties
     .map((p) => {
       const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(p.price);
-      const url = `https://www.woonpeek.nl/woning/${p.slug || p.id}`;
+      const url = `https://www.huurbaasje.nl/woning/${p.slug || p.id}`;
       const image = p.images && p.images.length > 0 ? p.images[0] : "";
       const details: string[] = [];
       if (p.surface_area) details.push(`${p.surface_area} m²`);
@@ -303,7 +303,7 @@ function buildEmailHtml(
       <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
       <p style="color:#999;font-size:11px;text-align:center;">
         Je ontvangt dit bericht omdat je een woningalert hebt ingesteld op WoonPeek.
-        ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#999;">Afmelden</a>` : `<a href="https://www.woonpeek.nl/zoekalerts" style="color:#999;">Beheer alerts</a>`}
+        ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#999;">Afmelden</a>` : `<a href="https://www.huurbaasje.nl/zoekalerts" style="color:#999;">Beheer alerts</a>`}
       </p>
     </div>
   `;

@@ -42,17 +42,17 @@ const PostcodePage = () => {
   }
 
   const cityLabel = stats?.cities[0] || "";
-  const title = `Woningen in postcode ${postcode}${cityLabel ? ` (${cityLabel})` : ""} | Stekly`;
+  const title = `Woningen in postcode ${postcode}${cityLabel ? ` (${cityLabel})` : ""} | Huurbaasje`;
   const description = stats?.count
     ? `${stats.count} woningen te huur en koop in postcode ${postcode}${cityLabel ? `, ${cityLabel}` : ""}. Gemiddelde prijs €${stats.avgPrice.toLocaleString("nl-NL")}. Bekijk het actuele aanbod.`
-    : `Woningen zoeken in postcode ${postcode}. Bekijk huur en koopwoningen, prijzen en buurtinfo op Stekly.`;
+    : `Woningen zoeken in postcode ${postcode}. Bekijk huur en koopwoningen, prijzen en buurtinfo op Huurbaasje.`;
 
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://stekly.nl/woningen-postcode-${postcode}`}
+        canonical={`https://huurbaasje.nl/woningen-postcode-${postcode}`}
       />
       <Header />
 

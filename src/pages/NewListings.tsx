@@ -78,9 +78,9 @@ const NewListings = () => {
   const totalCount = data?.totalCount ?? 0;
   const totalPages = Math.max(Math.ceil(totalCount / pageSize), 1);
 
-  const title = "Nieuw aanbod vandaag | Stekly";
-  const description = `Bekijk ${totalCount} nieuwe actieve woningen van vandaag (${dateLabel}) op Stekly.`;
-  const canonical = "https://stekly.nl/nieuw-aanbod";
+  const title = "Nieuw aanbod vandaag | Huurbaasje";
+  const description = `Bekijk ${totalCount} nieuwe actieve woningen van vandaag (${dateLabel}) op Huurbaasje.`;
+  const canonical = "https://huurbaasje.nl/nieuw-aanbod";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -91,7 +91,7 @@ const NewListings = () => {
     itemListElement: properties.slice(0, 10).map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://stekly.nl/woning/${p.slug || p.id}`,
+      url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
     })),
   };
 
@@ -176,11 +176,11 @@ const NewListings = () => {
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>
                 Op deze pagina vind je uitsluitend het nieuwe actieve woningaanbod dat vandaag is toegevoegd 
-                op Stekly. Zo zie je direct welke huurwoningen en koopwoningen als eerste online zijn 
+                op Huurbaasje. Zo zie je direct welke huurwoningen en koopwoningen als eerste online zijn 
                 gekomen en kun je snel reageren.
               </p>
               <p>
-                Stekly scant dagelijks meerdere woningplatforms en makelaarswebsites in heel Nederland. 
+                Huurbaasje scant dagelijks meerdere woningplatforms en makelaarswebsites in heel Nederland. 
                 Nieuwe woningen worden automatisch verwerkt en verschijnen op deze pagina zodra ze 
                 beschikbaar zijn. Het aanbod wordt doorlopend ververst gedurende de dag.
               </p>

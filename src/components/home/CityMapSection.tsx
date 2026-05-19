@@ -80,7 +80,7 @@ const fetchCityPoints = async (): Promise<CityPoint[]> => {
 const buildIcon = (count: number) => {
   const size = count >= 100 ? 52 : count >= 25 ? 46 : count >= 5 ? 40 : 34;
   return L.divIcon({
-    className: "woonpeek-city-marker",
+    className: "huurbaasje-city-marker",
     html: `<div style="
       width:${size}px;height:${size}px;border-radius:9999px;
       background:hsl(var(--primary));color:hsl(var(--primary-foreground));
@@ -95,7 +95,7 @@ const buildIcon = (count: number) => {
 
 const triggerAlertPrefill = (city: string) => {
   // Notify the alert section to prefill the city
-  window.dispatchEvent(new CustomEvent("woonpeek:prefill-alert", { detail: { city } }));
+  window.dispatchEvent(new CustomEvent("huurbaasje:prefill-alert", { detail: { city } }));
   const el = document.getElementById("daily-alert");
   if (el) {
     el.scrollIntoView({ behavior: "smooth", block: "start" });
