@@ -891,26 +891,31 @@ const PropertyDetail = () => {
 
         {/* ── Similar Properties ── */}
         {similarProperties && similarProperties.length > 0 && (
-          <section className="border-t bg-muted/30 py-12 lg:py-16">
+          <section className="border-y-2 border-foreground bg-sun-tint py-12 lg:py-16">
             <div className="container">
-              <h2 className="font-display text-2xl font-bold mb-2">
-                Vergelijkbare woningen in {property.city}
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Bekijk andere {property.listing_type === "huur" ? "huurwoningen" : "koopwoningen"} in {property.city}
-              </p>
+              <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <span className="inline-block rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground ring-2 ring-foreground">
+                    Vergelijkbaar aanbod
+                  </span>
+                  <h2 className="mt-3 font-display text-2xl font-bold md:text-3xl">
+                    Meer {property.listing_type === "huur" ? "huurwoningen" : "koopwoningen"} in {property.city}
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Handpicked op basis van locatie, type en prijsklasse.
+                  </p>
+                </div>
+                <Button asChild variant="outline" size="sm" className="border-2 border-foreground bg-background hover:bg-sun">
+                  <Link to={cityPath(property.city)}>
+                    Bekijk alles
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {similarProperties.map((p) => (
                   <PropertyCard key={p.id} property={p} />
                 ))}
-              </div>
-              <div className="mt-8 text-center">
-                <Button asChild variant="outline" size="lg">
-                  <Link to={cityPath(property.city)}>
-                    Alle woningen in {property.city}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
               </div>
             </div>
           </section>
