@@ -360,57 +360,57 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Photo Gallery ── */}
-        <section ref={galleryRef} className="relative bg-muted">
-          <div className="cursor-pointer" onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}>
-            {images.length >= 3 ? (
-              <div className="mx-auto grid h-[300px] max-w-screen-2xl grid-cols-4 gap-1 md:h-[480px]">
-                <div className="col-span-2 row-span-2 overflow-hidden">
-                  <img src={images[0]} alt={property.title} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                </div>
-                <div className="col-span-1 overflow-hidden">
-                  <img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                </div>
-                <div className="col-span-1 overflow-hidden">
-                  <img src={images[2]} alt={`${property.title} - foto 3`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                </div>
-                {images.length >= 5 ? (
-                  <>
-                    <div className="col-span-1 overflow-hidden">
-                      <img src={images[3]} alt={`${property.title} - foto 4`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                    </div>
-                    <div className="relative col-span-1 overflow-hidden">
-                      <img src={images[4]} alt={`${property.title} - foto 5`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                      {images.length > 5 && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-lg font-semibold text-white">
-                          +{images.length - 5} foto's
-                        </div>
-                      )}
-                    </div>
-                  </>
-                ) : images.length === 4 ? (
-                  <>
+        <section ref={galleryRef} className="bg-sun-tint">
+          <div className="mx-auto max-w-screen-2xl px-2 pt-4 pb-2 md:px-4 md:pt-6">
+            <div className="relative cursor-pointer overflow-hidden rounded-2xl border-2 border-foreground shadow-[6px_6px_0_hsl(var(--sun))]" onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}>
+              {images.length >= 3 ? (
+                <div className="grid h-[300px] grid-cols-4 gap-1 md:h-[480px]">
+                  <div className="col-span-2 row-span-2 overflow-hidden">
+                    <img src={images[0]} alt={property.title} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                  </div>
+                  <div className="col-span-1 overflow-hidden">
+                    <img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                  </div>
+                  <div className="col-span-1 overflow-hidden">
+                    <img src={images[2]} alt={`${property.title} - foto 3`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                  </div>
+                  {images.length >= 5 ? (
+                    <>
+                      <div className="col-span-1 overflow-hidden">
+                        <img src={images[3]} alt={`${property.title} - foto 4`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                      </div>
+                      <div className="relative col-span-1 overflow-hidden">
+                        <img src={images[4]} alt={`${property.title} - foto 5`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                        {images.length > 5 && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-foreground/75 text-lg font-bold text-sun">
+                            +{images.length - 5} foto's
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  ) : images.length === 4 ? (
                     <div className="col-span-2 overflow-hidden">
                       <img src={images[3]} alt={`${property.title} - foto 4`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                     </div>
-                  </>
-                ) : null}
-              </div>
-            ) : images.length === 2 ? (
-              <div className="mx-auto grid h-[300px] max-w-screen-2xl grid-cols-2 gap-1 md:h-[480px]">
-                <div className="overflow-hidden"><img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
-                <div className="overflow-hidden"><img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
-              </div>
-            ) : (
-              <div className="mx-auto h-[300px] max-w-screen-2xl overflow-hidden md:h-[480px]">
-                <img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-              </div>
-            )}
-            {images.length > 1 && (
-              <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-background/90 px-4 py-2 text-sm font-medium text-foreground shadow-lg backdrop-blur-sm">
-                <Camera className="h-4 w-4" />
-                Alle {images.length} foto's
-              </div>
-            )}
+                  ) : null}
+                </div>
+              ) : images.length === 2 ? (
+                <div className="grid h-[300px] grid-cols-2 gap-1 md:h-[480px]">
+                  <div className="overflow-hidden"><img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
+                  <div className="overflow-hidden"><img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
+                </div>
+              ) : (
+                <div className="h-[300px] overflow-hidden md:h-[480px]">
+                  <img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                </div>
+              )}
+              {images.length > 1 && (
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-sun px-4 py-2 text-sm font-bold text-foreground shadow-lg ring-2 ring-foreground">
+                  <Camera className="h-4 w-4" />
+                  Alle {images.length} foto's
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
@@ -609,15 +609,18 @@ const PropertyDetail = () => {
 
               {/* ── Kenmerken ── */}
               <section>
-                <h2 className="font-display text-xl font-semibold mb-4 break-words">Kenmerken van deze woning in {property.city}</h2>
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="inline-block h-6 w-1.5 rounded-full bg-sun" />
+                  <h2 className="font-display text-xl font-bold break-words">Kernpunten van deze woning</h2>
+                </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                   {kenmerken.map(({ icon: Icon, label, value }) => (
-                    <div key={label} className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 text-center">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
+                    <div key={label} className="group flex flex-col items-center gap-2 rounded-xl border-2 border-foreground/10 bg-card p-4 text-center transition-all hover:border-foreground hover:shadow-[4px_4px_0_hsl(var(--sun))]">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sun text-foreground ring-2 ring-foreground/90">
+                        <Icon className="h-5 w-5" strokeWidth={2.5} />
                       </div>
-                      <span className="text-xs text-muted-foreground">{label}</span>
-                      <span className="text-sm font-semibold">{value}</span>
+                      <span className="text-[11px] uppercase tracking-wide text-muted-foreground">{label}</span>
+                      <span className="text-sm font-bold">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -632,38 +635,57 @@ const PropertyDetail = () => {
                 propertyType={property.property_type}
               />
 
-              {/* ── Map ── */}
+              {/* ── Map + Address ── */}
               {property.latitude && property.longitude && (
                 <section>
-                  <h2 className="font-display text-xl font-semibold mb-4 flex items-center gap-2">
-                    <MapPin className="h-5 w-5" /> Locatie
-                  </h2>
-                  <div className="h-[350px] overflow-hidden rounded-xl border">
-                    <PropertyMap
-                      latitude={Number(property.latitude)}
-                      longitude={Number(property.longitude)}
-                      title={property.title}
-                    />
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="inline-block h-6 w-1.5 rounded-full bg-sun" />
+                    <h2 className="font-display text-xl font-bold">Adres & locatie</h2>
                   </div>
-                  <div className="mt-3 flex gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${property.latitude},${property.longitude}&heading=0&pitch=0&fov=90`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Camera className="mr-1.5 h-4 w-4" /> Street View bekijken
-                      </a>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${property.latitude},${property.longitude}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="mr-1.5 h-4 w-4" /> Bekijk op Google Maps
-                      </a>
-                    </Button>
+                  <div className="overflow-hidden rounded-2xl border-2 border-foreground/90 shadow-[6px_6px_0_hsl(var(--sun))]">
+                    <div className="flex flex-col gap-3 border-b-2 border-foreground/90 bg-sun-tint p-5 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sun text-foreground ring-2 ring-foreground">
+                          <MapPin className="h-5 w-5" strokeWidth={2.5} />
+                        </div>
+                        <div>
+                          <p className="font-display text-base font-bold leading-tight">
+                            {property.street} {property.house_number}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {property.postal_code} {property.city}
+                            {property.neighborhood ? ` • ${property.neighborhood}` : ""}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Button variant="outline" size="sm" className="border-2 border-foreground bg-background hover:bg-sun" asChild>
+                          <a
+                            href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${property.latitude},${property.longitude}&heading=0&pitch=0&fov=90`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Camera className="mr-1.5 h-4 w-4" /> Street View
+                          </a>
+                        </Button>
+                        <Button variant="outline" size="sm" className="border-2 border-foreground bg-background hover:bg-sun" asChild>
+                          <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${property.latitude},${property.longitude}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MapPin className="mr-1.5 h-4 w-4" /> Routebeschrijving
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="h-[350px]">
+                      <PropertyMap
+                        latitude={Number(property.latitude)}
+                        longitude={Number(property.longitude)}
+                        title={property.title}
+                      />
+                    </div>
                   </div>
                 </section>
               )}
@@ -869,26 +891,31 @@ const PropertyDetail = () => {
 
         {/* ── Similar Properties ── */}
         {similarProperties && similarProperties.length > 0 && (
-          <section className="border-t bg-muted/30 py-12 lg:py-16">
+          <section className="border-y-2 border-foreground bg-sun-tint py-12 lg:py-16">
             <div className="container">
-              <h2 className="font-display text-2xl font-bold mb-2">
-                Vergelijkbare woningen in {property.city}
-              </h2>
-              <p className="text-muted-foreground mb-8">
-                Bekijk andere {property.listing_type === "huur" ? "huurwoningen" : "koopwoningen"} in {property.city}
-              </p>
+              <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <span className="inline-block rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground ring-2 ring-foreground">
+                    Vergelijkbaar aanbod
+                  </span>
+                  <h2 className="mt-3 font-display text-2xl font-bold md:text-3xl">
+                    Meer {property.listing_type === "huur" ? "huurwoningen" : "koopwoningen"} in {property.city}
+                  </h2>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Handpicked op basis van locatie, type en prijsklasse.
+                  </p>
+                </div>
+                <Button asChild variant="outline" size="sm" className="border-2 border-foreground bg-background hover:bg-sun">
+                  <Link to={cityPath(property.city)}>
+                    Bekijk alles
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {similarProperties.map((p) => (
                   <PropertyCard key={p.id} property={p} />
                 ))}
-              </div>
-              <div className="mt-8 text-center">
-                <Button asChild variant="outline" size="lg">
-                  <Link to={cityPath(property.city)}>
-                    Alle woningen in {property.city}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
               </div>
             </div>
           </section>
