@@ -635,38 +635,57 @@ const PropertyDetail = () => {
                 propertyType={property.property_type}
               />
 
-              {/* ── Map ── */}
+              {/* ── Map + Address ── */}
               {property.latitude && property.longitude && (
                 <section>
-                  <h2 className="font-display text-xl font-semibold mb-4 flex items-center gap-2">
-                    <MapPin className="h-5 w-5" /> Locatie
-                  </h2>
-                  <div className="h-[350px] overflow-hidden rounded-xl border">
-                    <PropertyMap
-                      latitude={Number(property.latitude)}
-                      longitude={Number(property.longitude)}
-                      title={property.title}
-                    />
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="inline-block h-6 w-1.5 rounded-full bg-sun" />
+                    <h2 className="font-display text-xl font-bold">Adres & locatie</h2>
                   </div>
-                  <div className="mt-3 flex gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${property.latitude},${property.longitude}&heading=0&pitch=0&fov=90`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Camera className="mr-1.5 h-4 w-4" /> Street View bekijken
-                      </a>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href={`https://www.google.com/maps/search/?api=1&query=${property.latitude},${property.longitude}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="mr-1.5 h-4 w-4" /> Bekijk op Google Maps
-                      </a>
-                    </Button>
+                  <div className="overflow-hidden rounded-2xl border-2 border-foreground/90 shadow-[6px_6px_0_hsl(var(--sun))]">
+                    <div className="flex flex-col gap-3 border-b-2 border-foreground/90 bg-sun-tint p-5 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sun text-foreground ring-2 ring-foreground">
+                          <MapPin className="h-5 w-5" strokeWidth={2.5} />
+                        </div>
+                        <div>
+                          <p className="font-display text-base font-bold leading-tight">
+                            {property.street} {property.house_number}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {property.postal_code} {property.city}
+                            {property.neighborhood ? ` • ${property.neighborhood}` : ""}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <Button variant="outline" size="sm" className="border-2 border-foreground bg-background hover:bg-sun" asChild>
+                          <a
+                            href={`https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${property.latitude},${property.longitude}&heading=0&pitch=0&fov=90`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Camera className="mr-1.5 h-4 w-4" /> Street View
+                          </a>
+                        </Button>
+                        <Button variant="outline" size="sm" className="border-2 border-foreground bg-background hover:bg-sun" asChild>
+                          <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${property.latitude},${property.longitude}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <MapPin className="mr-1.5 h-4 w-4" /> Routebeschrijving
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="h-[350px]">
+                      <PropertyMap
+                        latitude={Number(property.latitude)}
+                        longitude={Number(property.longitude)}
+                        title={property.title}
+                      />
+                    </div>
                   </div>
                 </section>
               )}
