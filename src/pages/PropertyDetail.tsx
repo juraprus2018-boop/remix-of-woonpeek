@@ -609,15 +609,18 @@ const PropertyDetail = () => {
 
               {/* ── Kenmerken ── */}
               <section>
-                <h2 className="font-display text-xl font-semibold mb-4 break-words">Kenmerken van deze woning in {property.city}</h2>
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="inline-block h-6 w-1.5 rounded-full bg-sun" />
+                  <h2 className="font-display text-xl font-bold break-words">Kernpunten van deze woning</h2>
+                </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
                   {kenmerken.map(({ icon: Icon, label, value }) => (
-                    <div key={label} className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 text-center">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <Icon className="h-5 w-5" />
+                    <div key={label} className="group flex flex-col items-center gap-2 rounded-xl border-2 border-foreground/10 bg-card p-4 text-center transition-all hover:border-foreground hover:shadow-[4px_4px_0_hsl(var(--sun))]">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-sun text-foreground ring-2 ring-foreground/90">
+                        <Icon className="h-5 w-5" strokeWidth={2.5} />
                       </div>
-                      <span className="text-xs text-muted-foreground">{label}</span>
-                      <span className="text-sm font-semibold">{value}</span>
+                      <span className="text-[11px] uppercase tracking-wide text-muted-foreground">{label}</span>
+                      <span className="text-sm font-bold">{value}</span>
                     </div>
                   ))}
                 </div>
