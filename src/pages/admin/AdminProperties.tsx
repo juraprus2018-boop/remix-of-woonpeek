@@ -120,7 +120,7 @@ const AdminProperties = () => {
       property.surface_area ? `📐 ${property.surface_area} m²` : null,
       shortDescription ? `\n${shortDescription}` : null,
       `\n🔗 Bekijk de woning: ${propertyUrl}`,
-      ["#woonpeek", listingTag, cityTag].filter(Boolean).join(" "),
+      ["#huurbaasje", listingTag, cityTag].filter(Boolean).join(" "),
     ]
       .filter(Boolean)
       .join("\n");

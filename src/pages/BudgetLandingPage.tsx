@@ -60,7 +60,7 @@ const BudgetLandingPage = ({ listingType }: BudgetLandingPageProps) => {
   const priceUnit = listingType === "huur" ? "per maand" : "";
   const formattedBudget = `€${budgetNum.toLocaleString("nl-NL")}`;
 
-  const title = `${listingType === "huur" ? "Huurwoningen" : "Koopwoningen"} onder ${formattedBudget} in ${cityName} | Stekly`;
+  const title = `${listingType === "huur" ? "Huurwoningen" : "Koopwoningen"} onder ${formattedBudget} in ${cityName} | Huurbaasje`;
   const description = stats?.count
     ? `${stats.count} ${listingType === "huur" ? "huurwoningen" : "koopwoningen"} onder ${formattedBudget} ${priceUnit} in ${cityName}. Gemiddeld ${stats.avgSurface}m². Bekijk het actuele aanbod.`
     : `${listingType === "huur" ? "Huurwoningen" : "Koopwoningen"} onder ${formattedBudget} in ${cityName} zoeken. Vergelijk aanbod, prijzen en m². Direct contact met aanbieders.`;
@@ -94,11 +94,11 @@ const BudgetLandingPage = ({ listingType }: BudgetLandingPageProps) => {
         },
         {
           question: `Hoe vind ik snel een huurwoning onder ${formattedBudget} in ${cityName}?`,
-          answer: `Het aanbod van betaalbare huurwoningen in ${cityName} is competitief: woningen worden vaak binnen enkele dagen verhuurd. Stel een gratis dagelijkse alert in op Stekly zodat je direct een e-mail krijgt zodra een passende woning online komt.`,
+          answer: `Het aanbod van betaalbare huurwoningen in ${cityName} is competitief: woningen worden vaak binnen enkele dagen verhuurd. Stel een gratis dagelijkse alert in op Huurbaasje zodat je direct een e-mail krijgt zodra een passende woning online komt.`,
         },
         {
           question: "Hoe vaak wordt het aanbod bijgewerkt?",
-          answer: "Stekly verzamelt dagelijks het nieuwste woningaanbod uit tientallen bronnen. Nieuw aanbod is meestal binnen enkele uren na publicatie zichtbaar op de site.",
+          answer: "Huurbaasje verzamelt dagelijks het nieuwste woningaanbod uit tientallen bronnen. Nieuw aanbod is meestal binnen enkele uren na publicatie zichtbaar op de site.",
         },
       ]
     : [
@@ -121,8 +121,8 @@ const BudgetLandingPage = ({ listingType }: BudgetLandingPageProps) => {
           answer: `Voor ${formattedBudget} bestaat het koopaanbod in ${cityName} meestal uit appartementen, hoekwoningen en kleinere tussenwoningen.${stats?.avgSurface ? ` Gemiddeld is dat ${stats.avgSurface} m² woonoppervlak.` : ""}`,
         },
         {
-          question: "Worden bezichtigingen via Stekly geregeld?",
-          answer: "Nee, Stekly is een aggregator: we tonen het aanbod en verwijzen direct door naar de aanbieder of makelaar. Bezichtigingen plan je rechtstreeks via de oorspronkelijke aanbieder.",
+          question: "Worden bezichtigingen via Huurbaasje geregeld?",
+          answer: "Nee, Huurbaasje is een aggregator: we tonen het aanbod en verwijzen direct door naar de aanbieder of makelaar. Bezichtigingen plan je rechtstreeks via de oorspronkelijke aanbieder.",
         },
       ];
 
@@ -131,7 +131,7 @@ const BudgetLandingPage = ({ listingType }: BudgetLandingPageProps) => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://stekly.nl/${listingType === "huur" ? "huurwoningen" : "koopwoningen"}-onder-${budgetNum}-${city}`}
+        canonical={`https://huurbaasje.nl/${listingType === "huur" ? "huurwoningen" : "koopwoningen"}-onder-${budgetNum}-${city}`}
       />
       <Header />
 

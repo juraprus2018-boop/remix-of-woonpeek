@@ -86,7 +86,7 @@ const BlogPostPage = () => {
     );
   }
 
-  const canonicalUrl = `https://stekly.nl/blog/${post.slug}`;
+  const canonicalUrl = `https://huurbaasje.nl/blog/${post.slug}`;
 
   // Rich Article schema
   const articleJsonLd = {
@@ -102,20 +102,20 @@ const BlogPostPage = () => {
     },
     author: {
       "@type": "Organization",
-      name: "Stekly",
-      url: "https://stekly.nl",
+      name: "Huurbaasje",
+      url: "https://huurbaasje.nl",
       logo: {
         "@type": "ImageObject",
-        url: "https://stekly.nl/favicon.png",
+        url: "https://huurbaasje.nl/favicon.png",
       },
     },
     publisher: {
       "@type": "Organization",
-      name: "Stekly",
-      url: "https://stekly.nl",
+      name: "Huurbaasje",
+      url: "https://huurbaasje.nl",
       logo: {
         "@type": "ImageObject",
-        url: "https://stekly.nl/favicon.png",
+        url: "https://huurbaasje.nl/favicon.png",
       },
     },
     ...(post.cover_image ? { image: post.cover_image } : {}),
@@ -147,13 +147,13 @@ const BlogPostPage = () => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://stekly.nl",
+        item: "https://huurbaasje.nl",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://stekly.nl/blog",
+        item: "https://huurbaasje.nl/blog",
       },
       {
         "@type": "ListItem",
@@ -167,7 +167,7 @@ const BlogPostPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title={post.meta_title || `${post.title} | Stekly Blog`}
+        title={post.meta_title || `${post.title} | Huurbaasje Blog`}
         description={seoMeta.description || post.excerpt || post.title}
         canonical={canonicalUrl}
         ogImage={post.cover_image || undefined}

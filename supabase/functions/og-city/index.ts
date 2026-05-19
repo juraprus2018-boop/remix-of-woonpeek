@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SITE_URL = "https://www.woonpeek.nl";
+const SITE_URL = "https://www.huurbaasje.nl";
 
 function escapeHtml(str: string): string {
   return str
@@ -83,7 +83,7 @@ Deno.serve(async (req) => {
 
   const pageUrl = `${SITE_URL}/woningen-${citySlug}`;
   const title = `Huurwoningen ${cityName} - ${totalCount} te huur en te koop in ${cityName} | ${monthYear}`;
-  const description = `${priceContext} in ${cityName}. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ Appartementen, huizen en studio's. Bekijk het aanbod op WoonPeek.`;
+  const description = `${priceContext} in ${cityName}. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ Appartementen, huizen en studio's. Bekijk het aanbod op Huurbaasje.`;
 
   const html = `<!DOCTYPE html>
 <html lang="nl">
@@ -98,7 +98,7 @@ Deno.serve(async (req) => {
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="${escapeHtml(pageUrl)}">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="WoonPeek">
+  <meta property="og:site_name" content="Huurbaasje">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">

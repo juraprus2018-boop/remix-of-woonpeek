@@ -5,7 +5,7 @@ import { Loader2, Globe, ExternalLink, Hash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cityToSlug } from "@/lib/cities";
 
-const SITE_URL = "https://stekly.nl";
+const SITE_URL = "https://huurbaasje.nl";
 
 interface PagePattern {
   label: string;
@@ -31,7 +31,7 @@ const STATIC_PAGES: PagePattern[] = [
   { label: "Dagelijkse alert", pattern: "/dagelijkse-alert", example: "/dagelijkse-alert", description: "Alert aanmeldpagina", category: "Statisch" },
   { label: "Budget tool", pattern: "/budget-tool", example: "/budget-tool", description: "Huurbudget calculator", category: "Statisch" },
   { label: "FAQ", pattern: "/veelgestelde-vragen", example: "/veelgestelde-vragen", description: "Veelgestelde vragen", category: "Statisch" },
-  { label: "Over Stekly", pattern: "/over-woonpeek", example: "/over-woonpeek", description: "Over ons", category: "Statisch" },
+  { label: "Over Huurbaasje", pattern: "/over-huurbaasje", example: "/over-huurbaasje", description: "Over ons", category: "Statisch" },
   { label: "Makelaar koppelen", pattern: "/makelaar-koppelen", example: "/makelaar-koppelen", description: "Makelaar aanmeldformulier", category: "Statisch" },
   { label: "Samenwerking", pattern: "/samenwerking", example: "/samenwerking", description: "Samenwerkingspagina", category: "Statisch" },
   { label: "Woning plaatsen", pattern: "/woning-plaatsen", example: "/woning-plaatsen", description: "Woning plaatsen start", category: "Statisch" },
@@ -154,7 +154,7 @@ const AdminPageTypes = () => {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Paginatypen Overzicht</h1>
           <p className="text-sm text-muted-foreground">
-            Alle URL-patronen en SEO-landingspagina's die Stekly genereert
+            Alle URL-patronen en SEO-landingspagina's die Huurbaasje genereert
           </p>
         </div>
 

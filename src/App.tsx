@@ -163,7 +163,7 @@ const App = () => (
               <Route path="/nieuw-aanbod" element={<NewListings />} />
               <Route path="/nieuw-aanbod/:city" element={<NewListingsCity />} />
               <Route path="/dagelijkse-alert" element={<DailyAlert />} />
-              <Route path="/over-woonpeek" element={<About />} />
+              <Route path="/over-huurbaasje" element={<About />} />
               <Route path="/makelaar-koppelen" element={<MakelaarKoppelen />} />
               <Route path="/samenwerking" element={<Samenwerking />} />
               <Route path="/budget-tool" element={<BudgetTool />} />

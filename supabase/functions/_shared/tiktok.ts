@@ -34,7 +34,7 @@ export function buildCaption(p: {
 }): string {
   const cleanCity = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
   const tags = [
-    "#woonpeek",
+    "#huurbaasje",
     "#woningnederland",
     p.listing_type === "huur" ? "#huurwoning" : "#koopwoning",
     p.listing_type === "huur" ? "#tehuur" : "#tekoop",
@@ -50,7 +50,7 @@ export function buildCaption(p: {
     `🏡 ${type} in ${p.city}`,
     `💰 ${fmtPriceNL(p.price, p.listing_type)}${p.surface_area ? ` · ${p.surface_area} m²` : ""}${p.bedrooms != null ? ` · ${p.bedrooms} slpk` : ""}`,
     "",
-    "👉 Volledige info via WoonPeek.nl (link in bio)",
+    "👉 Volledige info via Huurbaasje.nl (link in bio)",
     "",
     tags,
   ].join("\n");

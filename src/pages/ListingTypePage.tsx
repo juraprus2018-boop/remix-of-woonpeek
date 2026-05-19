@@ -84,16 +84,16 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   // SEO metadata - keyword-first titles matching search intent
   const pageTitle = cityName
-    ? `${label.plural} ${cityName}: ${hasListings ? `${totalCount} woningen` : "aanbod"} te ${listingType} (${currentMonth} ${currentYear}) | Stekly`
-    : `${label.plural} Nederland: actueel aanbod te ${listingType} | Stekly`;
+    ? `${label.plural} ${cityName}: ${hasListings ? `${totalCount} woningen` : "aanbod"} te ${listingType} (${currentMonth} ${currentYear}) | Huurbaasje`
+    : `${label.plural} Nederland: actueel aanbod te ${listingType} | Huurbaasje`;
 
   const pageDesc = cityName
     ? `${hasListings ? totalCount : "Alle"} ${label.plural.toLowerCase()} in ${cityName}. Bekijk ${listingType === "huur" ? "huurprijzen" : "koopprijzen"}, foto's en details van beschikbare woningen. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`
-    : `Bekijk ${hasListings ? totalCount : "alle"} ${label.plural.toLowerCase()} in heel Nederland. Vergelijk prijzen, bekijk foto's en vind jouw ${label.singular} op Stekly.`;
+    : `Bekijk ${hasListings ? totalCount : "alle"} ${label.plural.toLowerCase()} in heel Nederland. Vergelijk prijzen, bekijk foto's en vind jouw ${label.singular} op Huurbaasje.`;
 
   const canonical = cityName
-    ? `https://stekly.nl/${label.slug}/${citySlug}`
-    : `https://stekly.nl/${label.slug}`;
+    ? `https://huurbaasje.nl/${label.slug}/${citySlug}`
+    : `https://huurbaasje.nl/${label.slug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -111,7 +111,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
       {
         question: `Hoeveel ${label.plural.toLowerCase()} zijn er in ${locationLabel}?`,
         answer: hasListings
-          ? `Op dit moment staan er ${totalCount} ${label.plural.toLowerCase()} in ${locationLabel} op Stekly. Het aanbod wordt dagelijks bijgewerkt uit meerdere bronnen.`
+          ? `Op dit moment staan er ${totalCount} ${label.plural.toLowerCase()} in ${locationLabel} op Huurbaasje. Het aanbod wordt dagelijks bijgewerkt uit meerdere bronnen.`
           : `Momenteel zijn er geen ${label.plural.toLowerCase()} beschikbaar in ${locationLabel}. Het aanbod wordt dagelijks bijgewerkt, dus stel een alert in om als eerste op de hoogte te zijn.`,
       },
       {
@@ -120,7 +120,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
       },
       {
         question: `Hoe vind ik snel een ${label.singular} in ${locationLabel}?`,
-        answer: `Stekly verzamelt dagelijks nieuw woningaanbod uit meerdere bronnen. Stel een gratis dagelijkse alert in om als eerste te reageren op nieuwe ${label.plural.toLowerCase()} in ${locationLabel}.`,
+        answer: `Huurbaasje verzamelt dagelijks nieuw woningaanbod uit meerdere bronnen. Stel een gratis dagelijkse alert in om als eerste te reageren op nieuwe ${label.plural.toLowerCase()} in ${locationLabel}.`,
       },
       {
         question: `Kan ik een alert instellen voor ${label.plural.toLowerCase()} in ${locationLabel}?`,
@@ -135,7 +135,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
     } else {
       items.push({
         question: `Is het een goed moment om een woning te kopen in ${locationLabel}?`,
-        answer: `De koopwoningmarkt in ${locationLabel} is dynamisch. Bekijk het actuele aanbod en vergelijk prijzen om een goed beeld te krijgen. Stekly toont dagelijks nieuw aanbod zodat je geen kans mist.`,
+        answer: `De koopwoningmarkt in ${locationLabel} is dynamisch. Bekijk het actuele aanbod en vergelijk prijzen om een goed beeld te krijgen. Huurbaasje toont dagelijks nieuw aanbod zodat je geen kans mist.`,
       });
     }
     return items;
@@ -150,7 +150,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         name: `${label.plural} in ${locationLabel}`,
         description: pageDesc,
         url: canonical,
-        isPartOf: { "@type": "WebSite", name: "Stekly", url: "https://stekly.nl" },
+        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
       },
       {
         "@context": "https://schema.org",
@@ -160,7 +160,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://stekly.nl/woning/${p.slug || p.id}`,
+          url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),
@@ -198,7 +198,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 {hasListings
                   ? `Bekijk ${totalCount} beschikbare ${label.plural.toLowerCase()} met ${listingType === "huur" ? "huurprijzen" : "koopprijzen"}, foto's en details.`
                   : `Er zijn momenteel geen ${label.plural.toLowerCase()} beschikbaar, maar het aanbod wordt dagelijks bijgewerkt.`}{" "}
-                Stekly verzamelt dagelijks het nieuwste aanbod uit tientallen bronnen, zodat je sneller vindt wat je zoekt.
+                Huurbaasje verzamelt dagelijks het nieuwste aanbod uit tientallen bronnen, zodat je sneller vindt wat je zoekt.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 {hasListings && (
@@ -313,7 +313,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
             </h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
-                Op Stekly vind je het meest actuele aanbod van <strong>{label.plural.toLowerCase()} in {locationLabel}</strong>.
+                Op Huurbaasje vind je het meest actuele aanbod van <strong>{label.plural.toLowerCase()} in {locationLabel}</strong>.
                 We verzamelen dagelijks het nieuwste woningaanbod van meerdere bronnen zodat je niets mist.
                 {hasListings ? (
                   <>Momenteel zijn er <strong>{totalCount} {label.plural.toLowerCase()}</strong> beschikbaar{cityName ? ` in ${cityName}` : ""}.</>
@@ -326,7 +326,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <p>
                     De huurwoningmarkt {cityName ? `in ${cityName}` : "in Nederland"} is competitief.
                     Veel <strong>huurwoningen{cityName ? ` in ${cityName}` : ""}</strong> zijn binnen enkele dagen verhuurd.
-                    Daarom is het belangrijk om snel te reageren op nieuwe advertenties. Met Stekly heb je een
+                    Daarom is het belangrijk om snel te reageren op nieuwe advertenties. Met Huurbaasje heb je een
                     voorsprong: onze scrapers doorzoeken dagelijks meerdere woningplatforms en tonen het nieuwste
                     aanbod direct op onze website.
                   </p>
@@ -345,7 +345,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <p>
                     De koopwoningmarkt {cityName ? `in ${cityName}` : "in Nederland"} biedt kansen voor
                     zowel starters als doorstromers. Of je nu op zoek bent naar een betaalbaar <strong>appartement
-                    {cityName ? ` in ${cityName}` : ""}</strong> of een ruime gezinswoning, op Stekly vind je
+                    {cityName ? ` in ${cityName}` : ""}</strong> of een ruime gezinswoning, op Huurbaasje vind je
                     dagelijks nieuwe koopwoningen uit meerdere bronnen.
                   </p>
                   <p>
@@ -358,7 +358,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
               )}
               {cityName && (
                 <p>
-                  Naast {label.plural.toLowerCase()} vind je op Stekly ook{" "}
+                  Naast {label.plural.toLowerCase()} vind je op Huurbaasje ook{" "}
                   <Link to={`/appartementen/${citySlug}`} className="text-primary underline hover:no-underline">
                     appartementen in {cityName}
                   </Link>,{" "}

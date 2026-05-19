@@ -15,7 +15,7 @@ const Disclaimer = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">Geen garantie op juistheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              De informatie op Stekly wordt met de grootst mogelijke zorg samengesteld. Desondanks kunnen wij niet garanderen 
+              De informatie op Huurbaasje wordt met de grootst mogelijke zorg samengesteld. Desondanks kunnen wij niet garanderen 
               dat alle informatie altijd juist, volledig en actueel is. Woninginformatie wordt deels automatisch verzameld van 
               externe bronnen en kan afwijken van de werkelijkheid.
             </p>
@@ -24,15 +24,15 @@ const Disclaimer = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">Geen partij bij transacties</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly is uitsluitend een informatieplatform en is geen partij bij overeenkomsten die tot stand komen 
-              tussen gebruikers onderling. Stekly treedt niet op als makelaar, bemiddelaar of adviseur.
+              Huurbaasje is uitsluitend een informatieplatform en is geen partij bij overeenkomsten die tot stand komen 
+              tussen gebruikers onderling. Huurbaasje treedt niet op als makelaar, bemiddelaar of adviseur.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">Externe bronnen</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly verzamelt woningaanbod van diverse externe websites. Wij zijn niet verantwoordelijk voor de inhoud, 
+              Huurbaasje verzamelt woningaanbod van diverse externe websites. Wij zijn niet verantwoordelijk voor de inhoud, 
               beschikbaarheid of het privacybeleid van deze externe bronnen. Controleer de informatie altijd bij de originele bron.
             </p>
           </section>
@@ -40,7 +40,7 @@ const Disclaimer = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">Aansprakelijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly is niet aansprakelijk voor enige directe of indirecte schade die voortvloeit uit het gebruik van het platform, 
+              Huurbaasje is niet aansprakelijk voor enige directe of indirecte schade die voortvloeit uit het gebruik van het platform, 
               waaronder maar niet beperkt tot financiële schade, gemiste kansen of onjuiste beslissingen op basis van de getoonde informatie.
             </p>
           </section>
@@ -48,7 +48,7 @@ const Disclaimer = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">Wijzigingen</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Stekly behoudt zich het recht voor om deze disclaimer op elk moment te wijzigen. 
+              Huurbaasje behoudt zich het recht voor om deze disclaimer op elk moment te wijzigen. 
               Het is de verantwoordelijkheid van de gebruiker om regelmatig te controleren of er wijzigingen zijn doorgevoerd.
             </p>
           </section>
@@ -57,7 +57,7 @@ const Disclaimer = () => {
             <h2 className="font-display text-xl font-semibold text-foreground">Contact</h2>
             <p className="leading-relaxed text-muted-foreground">
               Heb je vragen over deze disclaimer? Neem dan contact met ons op via{" "}
-              <strong>info@stekly.nl</strong>.
+              <strong>info@huurbaasje.nl</strong>.
             </p>
           </section>
         </div>

@@ -100,7 +100,7 @@ Deno.serve(async (req) => {
 
     // Submit property URLs
     for (const prop of newProperties) {
-      const url = `https://www.woonpeek.nl/woning/${prop.slug}`;
+      const url = `https://www.huurbaasje.nl/woning/${prop.slug}`;
       try {
         const res = await fetch(INDEXING_API_URL, {
           method: "POST",
@@ -147,7 +147,7 @@ Deno.serve(async (req) => {
     const uniqueCities = [...new Set(newProperties.map((p) => p.city))];
     for (const city of uniqueCities.slice(0, 20)) {
       const citySlug = city.toLowerCase().replace(/\s+/g, "-");
-      const url = `https://www.woonpeek.nl/woningen-${citySlug}`;
+      const url = `https://www.huurbaasje.nl/woningen-${citySlug}`;
       try {
         const res = await fetch(INDEXING_API_URL, {
           method: "POST",

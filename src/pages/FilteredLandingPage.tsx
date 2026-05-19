@@ -122,10 +122,10 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     : `${typePrefix} in ${cityName} ${filterLabel}`;
 
   const pageTitle = isPriceFilter
-    ? `${typePrefix} ${cityName} onder ${formatEuro(parsed.maxPrice!)}: ${totalCount} beschikbaar (${currentMonth} ${currentYear}) | Stekly`
+    ? `${typePrefix} ${cityName} onder ${formatEuro(parsed.maxPrice!)}: ${totalCount} beschikbaar (${currentMonth} ${currentYear}) | Huurbaasje`
     : isBedroomFilter
-    ? `${parsed.minBedrooms}-kamer ${typePrefixLower} ${cityName}: ${totalCount} beschikbaar (${currentMonth} ${currentYear}) | Stekly`
-    : `${typePrefix} ${cityName} ${filterLabel}: ${totalCount} beschikbaar (${currentMonth} ${currentYear}) | Stekly`;
+    ? `${parsed.minBedrooms}-kamer ${typePrefixLower} ${cityName}: ${totalCount} beschikbaar (${currentMonth} ${currentYear}) | Huurbaasje`
+    : `${typePrefix} ${cityName} ${filterLabel}: ${totalCount} beschikbaar (${currentMonth} ${currentYear}) | Huurbaasje`;
 
   const pageDescription = isPriceFilter
     ? `${totalCount} ${typePrefixLower} in ${cityName} onder ${formatEuro(parsed.maxPrice!)}. Gemiddelde prijs: ${formatEuro(avgPrice)}. ✓ Dagelijks bijgewerkt ✓ ${currentMonth} ${currentYear}`
@@ -135,12 +135,12 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   // Build canonical based on route type
   const canonicalBase = typeLabel
-    ? `https://stekly.nl/${typeLabel.slug}/${citySlug}/${filter}`
+    ? `https://huurbaasje.nl/${typeLabel.slug}/${citySlug}/${filter}`
     : listingLabel === "huur"
-    ? `https://stekly.nl/huurwoningen/${citySlug}/${filter}`
+    ? `https://huurbaasje.nl/huurwoningen/${citySlug}/${filter}`
     : listingLabel === "koop"
-    ? `https://stekly.nl/koopwoningen/${citySlug}/${filter}`
-    : `https://stekly.nl/woningen/${citySlug}/${filter}`;
+    ? `https://huurbaasje.nl/koopwoningen/${citySlug}/${filter}`
+    : `https://huurbaasje.nl/woningen/${citySlug}/${filter}`;
   const canonical = canonicalBase;
 
   const breadcrumbs = [
@@ -162,7 +162,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       },
       {
         question: `Hoe kan ik een betaalbare woning vinden in ${cityName}?`,
-        answer: `Stel een gratis dagelijkse alert in op Stekly. Je ontvangt dan elke dag een overzicht van nieuwe woningen in ${cityName} onder ${formatEuro(parsed.maxPrice!)} zodra ze online komen.`,
+        answer: `Stel een gratis dagelijkse alert in op Huurbaasje. Je ontvangt dan elke dag een overzicht van nieuwe woningen in ${cityName} onder ${formatEuro(parsed.maxPrice!)} zodra ze online komen.`,
       },
     ];
     if (isBedroomFilter) return [
@@ -182,7 +182,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     return [
       {
         question: `Hoeveel woningen zijn er in ${cityName} ${filterLabel}?`,
-        answer: `Op dit moment zijn er ${totalCount} woningen beschikbaar in ${cityName} ${filterLabel}. Het aanbod wordt dagelijks bijgewerkt op Stekly.`,
+        answer: `Op dit moment zijn er ${totalCount} woningen beschikbaar in ${cityName} ${filterLabel}. Het aanbod wordt dagelijks bijgewerkt op Huurbaasje.`,
       },
       {
         question: `Hoe vind ik snel een woning in ${cityName} ${filterLabel}?`,
@@ -203,7 +203,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         name: h1,
         description: pageDescription,
         url: canonical,
-        isPartOf: { "@type": "WebSite", name: "Stekly", url: "https://stekly.nl" },
+        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
       },
       {
         "@context": "https://schema.org",
@@ -213,7 +213,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://stekly.nl/woning/${p.slug || p.id}`,
+          url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),
@@ -341,7 +341,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                   <p>
                     {cityName} biedt een divers woningaanbod voor elke woningzoeker. Of je nu zoekt naar een
                     <strong> betaalbare huurwoning in {cityName}</strong>, een <strong>appartement in {cityName}</strong> of
-                    een <strong>ruim huis</strong>: op Stekly vind je dagelijks nieuw aanbod uit meerdere bronnen.
+                    een <strong>ruim huis</strong>: op Huurbaasje vind je dagelijks nieuw aanbod uit meerdere bronnen.
                   </p>
                   <p>
                     Stel een{" "}

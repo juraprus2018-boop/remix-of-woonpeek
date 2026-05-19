@@ -8,20 +8,20 @@ import { Button } from "@/components/ui/button";
 
 const ABOUT_FAQ = [
   {
-    question: "Is Stekly echt gratis?",
-    answer: "Ja, Stekly is 100% gratis. Zoeken, alerts instellen en je eigen woning plaatsen kost niets. Er zijn geen verborgen kosten of abonnementen.",
+    question: "Is Huurbaasje echt gratis?",
+    answer: "Ja, Huurbaasje is 100% gratis. Zoeken, alerts instellen en je eigen woning plaatsen kost niets. Er zijn geen verborgen kosten of abonnementen.",
   },
   {
-    question: "Hoe verdient Stekly geld?",
-    answer: "Stekly verdient geld via samenwerkingen met makelaars en woningplatforms. De kosten worden gedragen door partners, niet door woningzoekers.",
+    question: "Hoe verdient Huurbaasje geld?",
+    answer: "Huurbaasje verdient geld via samenwerkingen met makelaars en woningplatforms. De kosten worden gedragen door partners, niet door woningzoekers.",
   },
   {
-    question: "Hoeveel woningen staan er op Stekly?",
-    answer: "Stekly heeft dagelijks meer dan 6.000 actieve woningen online uit heel Nederland, afkomstig van meerdere bronnen en makelaars.",
+    question: "Hoeveel woningen staan er op Huurbaasje?",
+    answer: "Huurbaasje heeft dagelijks meer dan 6.000 actieve woningen online uit heel Nederland, afkomstig van meerdere bronnen en makelaars.",
   },
   {
-    question: "Kan ik zelf een woning plaatsen op Stekly?",
-    answer: "Ja, als particuliere verhuurder of verkoper kun je gratis je woning adverteren op Stekly en duizenden woningzoekers bereiken.",
+    question: "Kan ik zelf een woning plaatsen op Huurbaasje?",
+    answer: "Ja, als particuliere verhuurder of verkoper kun je gratis je woning adverteren op Huurbaasje en duizenden woningzoekers bereiken.",
   },
 ];
 
@@ -37,7 +37,7 @@ const usps = [
     icon: Home,
     title: "Groot en divers aanbod",
     description:
-      "Stekly verzamelt woningen uit meerdere bronnen op één plek. Van huurwoningen en koopwoningen tot studio's en kamers: je vindt het allemaal bij ons. Geen eindeloos zoeken op tientallen websites meer.",
+      "Huurbaasje verzamelt woningen uit meerdere bronnen op één plek. Van huurwoningen en koopwoningen tot studio's en kamers: je vindt het allemaal bij ons. Geen eindeloos zoeken op tientallen websites meer.",
   },
   {
     icon: RefreshCw,
@@ -49,7 +49,7 @@ const usps = [
     icon: Heart,
     title: "100% gratis platform",
     description:
-      "In tegenstelling tot andere woningplatforms is Stekly volledig gratis. Zoeken, alerts instellen én zelfs je eigen woning plaatsen: het kost je niets. Geen verborgen kosten, geen abonnementen.",
+      "In tegenstelling tot andere woningplatforms is Huurbaasje volledig gratis. Zoeken, alerts instellen én zelfs je eigen woning plaatsen: het kost je niets. Geen verborgen kosten, geen abonnementen.",
   },
   {
     icon: Bell,
@@ -63,14 +63,14 @@ const About = () => {
   const aboutLd = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: "Over Stekly",
+    name: "Over Huurbaasje",
     description:
-      "Stekly is een gratis woningplatform dat dagelijks het nieuwste huur- en koopaanbod verzamelt uit heel Nederland.",
-    url: "https://stekly.nl/over-woonpeek",
+      "Huurbaasje is een gratis woningplatform dat dagelijks het nieuwste huur- en koopaanbod verzamelt uit heel Nederland.",
+    url: "https://huurbaasje.nl/over-huurbaasje",
     mainEntity: {
       "@type": "Organization",
-      name: "Stekly",
-      url: "https://stekly.nl",
+      name: "Huurbaasje",
+      url: "https://huurbaasje.nl",
     },
   };
 
@@ -90,9 +90,9 @@ const About = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Over Stekly – Gratis woningplatform met dagelijks actueel aanbod"
-        description="Stekly verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek. Volledig gratis zoeken, alerts instellen en woningen plaatsen."
-        canonical="https://stekly.nl/over-woonpeek"
+        title="Over Huurbaasje – Gratis woningplatform met dagelijks actueel aanbod"
+        description="Huurbaasje verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek. Volledig gratis zoeken, alerts instellen en woningen plaatsen."
+        canonical="https://huurbaasje.nl/over-huurbaasje"
       />
       <script
         type="application/ld+json"
@@ -122,15 +122,15 @@ const About = () => {
                 <Breadcrumbs
                   items={[
                     { label: "Home", href: "/" },
-                    { label: "Over Stekly" },
+                    { label: "Over Huurbaasje" },
                   ]}
                 />
               </div>
               <h1 className="font-display text-3xl font-bold text-primary-foreground md:text-5xl">
-                Over Stekly
+                Over Huurbaasje
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-                Stekly is hét gratis woningplatform van Nederland. Wij
+                Huurbaasje is hét gratis woningplatform van Nederland. Wij
                 verzamelen dagelijks het nieuwste huur- en koopaanbod uit
                 meerdere bronnen, zodat jij sneller vindt wat je zoekt.
               </p>
@@ -160,7 +160,7 @@ const About = () => {
         <section className="py-16 md:py-20">
           <div className="container">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl">
-              Waarom Stekly?
+              Waarom Huurbaasje?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
               Dit maakt ons anders dan andere woningplatforms
@@ -196,14 +196,14 @@ const About = () => {
               <p className="text-center leading-relaxed text-muted-foreground">
                 De woningmarkt in Nederland is krap en onoverzichtelijk.
                 Woningzoekers moeten dagelijks tientallen websites checken om
-                niets te missen. Dat kan beter. Stekly brengt al het aanbod
+                niets te missen. Dat kan beter. Huurbaasje brengt al het aanbod
                 samen op één plek, volledig gratis en dagelijks bijgewerkt.
               </p>
               <p className="text-center leading-relaxed text-muted-foreground">
                 Wij geloven dat iedereen eerlijke en snelle toegang verdient tot
                 het woningaanbod. Daarom rekenen wij geen kosten voor het
                 zoeken, het instellen van alerts of het plaatsen van een woning.
-                Stekly is er voor iedereen.
+                Huurbaasje is er voor iedereen.
               </p>
             </div>
           </div>
@@ -217,7 +217,7 @@ const About = () => {
                 Gratis je woning plaatsen
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                Heb je een woning te huur of te koop? Op Stekly kun je
+                Heb je een woning te huur of te koop? Op Huurbaasje kun je
                 kosteloos je woning adverteren. Bereik duizenden woningzoekers
                 zonder advertentiekosten, anders dan bij veel andere platforms.
               </p>
@@ -243,7 +243,7 @@ const About = () => {
         <section className="border-t bg-muted/30 py-16 md:py-20">
           <div className="container max-w-3xl">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl mb-8">
-              Veelgestelde vragen over Stekly
+              Veelgestelde vragen over Huurbaasje
             </h2>
             <div className="space-y-6">
               {ABOUT_FAQ.map((item, i) => (

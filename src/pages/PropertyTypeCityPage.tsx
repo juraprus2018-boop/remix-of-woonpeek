@@ -98,14 +98,14 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
 
   // SEO
   const pageTitle = cityName
-    ? `${label.plural} ${cityName}: ${totalCount} ${label.plural.toLowerCase()} te huur & koop (${currentMonth} ${currentYear}) | Stekly`
-    : `${label.plural} Nederland: huur en koop aanbod | Stekly`;
+    ? `${label.plural} ${cityName}: ${totalCount} ${label.plural.toLowerCase()} te huur & koop (${currentMonth} ${currentYear}) | Huurbaasje`
+    : `${label.plural} Nederland: huur en koop aanbod | Huurbaasje`;
   const pageDescription = cityName
     ? `${totalCount} ${label.plural.toLowerCase()} in ${cityName}. Bekijk huurprijzen, foto's en details. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`
-    : `Op zoek naar een ${label.singular}? Bekijk het actuele aanbod van ${label.plural.toLowerCase()} in heel Nederland op Stekly.`;
+    : `Op zoek naar een ${label.singular}? Bekijk het actuele aanbod van ${label.plural.toLowerCase()} in heel Nederland op Huurbaasje.`;
   const canonical = citySlug
-    ? `https://stekly.nl/${label.slug}/${citySlug}`
-    : `https://stekly.nl/${label.slug}`;
+    ? `https://huurbaasje.nl/${label.slug}/${citySlug}`
+    : `https://huurbaasje.nl/${label.slug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -121,7 +121,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
   const faqItems = useMemo(() => [
     {
       question: `Hoeveel ${label.plural.toLowerCase()} zijn er beschikbaar in ${locationLabel}?`,
-      answer: `Op dit moment staan er ${totalCount} ${label.plural.toLowerCase()} in ${locationLabel} op Stekly. Het aanbod wordt dagelijks bijgewerkt.`,
+      answer: `Op dit moment staan er ${totalCount} ${label.plural.toLowerCase()} in ${locationLabel} op Huurbaasje. Het aanbod wordt dagelijks bijgewerkt.`,
     },
     {
       question: `Wat kost een ${label.singular} in ${locationLabel}?`,
@@ -129,7 +129,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
     },
     {
       question: `Hoe vind ik snel een ${label.singular} in ${locationLabel}?`,
-      answer: `Stekly verzamelt dagelijks nieuw woningaanbod. Stel een dagelijkse alert in om als eerste te reageren op nieuwe ${label.plural.toLowerCase()} in ${locationLabel}.`,
+      answer: `Huurbaasje verzamelt dagelijks nieuw woningaanbod. Stel een dagelijkse alert in om als eerste te reageren op nieuwe ${label.plural.toLowerCase()} in ${locationLabel}.`,
     },
     {
       question: `Kan ik een alert instellen voor ${label.plural.toLowerCase()} in ${locationLabel}?`,
@@ -146,7 +146,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
         name: `${label.plural} in ${locationLabel}`,
         description: pageDescription,
         url: canonical,
-        isPartOf: { "@type": "WebSite", name: "Stekly", url: "https://stekly.nl" },
+        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
       },
       {
         "@context": "https://schema.org",
@@ -156,7 +156,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://stekly.nl/woning/${p.slug || p.id}`,
+          url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),
@@ -187,7 +187,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                 Zoek je een <strong>{label.singular} in {locationLabel}</strong>? Bekijk {totalCount} beschikbare{" "}
                 {label.plural.toLowerCase()} met prijzen, foto's en details. Of je nu een{" "}
-                <strong>{label.singular} wilt huren</strong> of <strong>kopen in {locationLabel}</strong>, Stekly
+                <strong>{label.singular} wilt huren</strong> of <strong>kopen in {locationLabel}</strong>, Huurbaasje
                 bundelt dagelijks het nieuwste aanbod uit tientallen bronnen.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -313,13 +313,13 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
             </h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
-                Op Stekly vind je het meest actuele aanbod van <strong>{label.plural.toLowerCase()} in {locationLabel}</strong>.
+                Op Huurbaasje vind je het meest actuele aanbod van <strong>{label.plural.toLowerCase()} in {locationLabel}</strong>.
                 Of je nu een <strong>{label.singular} huren in {locationLabel}</strong> zoekt of een{" "}
                 <strong>{label.singular} kopen in {locationLabel}</strong>, wij verzamelen dagelijks nieuw aanbod uit
                 meerdere bronnen zodat jij niets mist. Zo vind je sneller een woning dan op andere platforms.
               </p>
               <p>
-                Momenteel staan er <strong>{totalCount} {label.plural.toLowerCase()}</strong> in {locationLabel} op Stekly.
+                Momenteel staan er <strong>{totalCount} {label.plural.toLowerCase()}</strong> in {locationLabel} op Huurbaasje.
                 Gebruik de filters om direct te filteren op prijs, aantal kamers en oppervlakte.
                 {cityName && (
                   <> De woningmarkt in {cityName} is vaak krap, waardoor het belangrijk is om snel te reageren op
@@ -333,7 +333,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               </p>
               {cityName && (
                 <p>
-                  Naast {label.plural.toLowerCase()} vind je op Stekly ook{" "}
+                  Naast {label.plural.toLowerCase()} vind je op Huurbaasje ook{" "}
                   {(["appartement", "huis", "studio", "kamer"] as PropertyType[])
                     .filter((t) => t !== propertyType)
                     .slice(0, 3)
@@ -357,7 +357,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
             <div className="mt-3 space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
                 De vraag naar <strong>{label.plural.toLowerCase()} in {locationLabel}</strong> is groot. Het is daarom
-                verstandig om meerdere kanalen te gebruiken. Stekly bundelt het aanbod van verschillende websites,
+                verstandig om meerdere kanalen te gebruiken. Huurbaasje bundelt het aanbod van verschillende websites,
                 zodat je geen enkele woning mist. Hieronder een paar tips:
               </p>
               <ul className="list-disc space-y-2 pl-5">
@@ -385,7 +385,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               <p>
                 Op{" "}
                 <Link to="/" className="text-primary underline hover:no-underline">
-                  Stekly
+                  Huurbaasje
                 </Link>{" "}
                 kun je volledig gratis zoeken naar {label.plural.toLowerCase()} in {locationLabel} en door heel Nederland.
                 Begin vandaag nog met zoeken en vind jouw ideale {label.singular}.

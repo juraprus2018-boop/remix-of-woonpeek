@@ -92,7 +92,7 @@ const CityGuidePage = () => {
     return <Navigate to="/niet-gevonden" replace />;
   }
 
-  const title = guide?.meta_title || `Verhuizen naar ${validCity}: Complete gids 2025 | Stekly`;
+  const title = guide?.meta_title || `Verhuizen naar ${validCity}: Complete gids 2025 | Huurbaasje`;
   const description = guide?.meta_description || `Alles over verhuizen naar ${validCity}: inschrijven gemeente, parkeervergunning, scholen, OV en woningmarkt. Praktische gids voor nieuwe inwoners.`;
 
   const faqItems: FAQItem[] = [
@@ -110,7 +110,7 @@ const CityGuidePage = () => {
     },
     {
       question: `Hoe vind ik een woning in ${validCity}?`,
-      answer: `Stekly bundelt dagelijks nieuw aanbod uit tientallen bronnen voor ${validCity}. Stel een gratis dagelijkse alert in zodat je direct bericht krijgt zodra een passende woning online komt.`,
+      answer: `Huurbaasje bundelt dagelijks nieuw aanbod uit tientallen bronnen voor ${validCity}. Stel een gratis dagelijkse alert in zodat je direct bericht krijgt zodra een passende woning online komt.`,
     },
     {
       question: `Welke scholen zijn er in ${validCity}?`,
@@ -123,7 +123,7 @@ const CityGuidePage = () => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://stekly.nl/verhuizen-naar-${city}`}
+        canonical={`https://huurbaasje.nl/verhuizen-naar-${city}`}
       />
       <Header />
 

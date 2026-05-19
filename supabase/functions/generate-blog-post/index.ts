@@ -118,7 +118,7 @@ async function fetchNuNlNews(): Promise<{ title: string; description: string; li
   for (const rssUrl of RSS_URLS) {
     try {
       const res = await fetch(rssUrl, {
-        headers: { "User-Agent": "WoonPeek-BlogBot/1.0" },
+        headers: { "User-Agent": "Huurbaasje-BlogBot/1.0" },
       });
       if (!res.ok) continue;
       const xml = await res.text();
@@ -151,7 +151,7 @@ async function fetchNuNlNews(): Promise<{ title: string; description: string; li
   return allArticles.slice(0, 5);
 }
 
-const SYSTEM_PROMPT = `Je bent een ervaren Nederlandse journalist en woningmarkt-redacteur die al 12 jaar schrijft voor vakbladen en consumentenmedia. Je hebt een eigen column op WoonPeek.nl.
+const SYSTEM_PROMPT = `Je bent een ervaren Nederlandse journalist en woningmarkt-redacteur die al 12 jaar schrijft voor vakbladen en consumentenmedia. Je hebt een eigen column op Huurbaasje.nl.
 
 TONE OF VOICE (CRUCIAAL):
 - Schrijf zoals een mens schrijft: met af en toe een korte zin. En dan weer een langere.
@@ -473,7 +473,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
       const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
       let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID");
       const GRAPH_API = "https://graph.facebook.com/v21.0";
-      const siteUrl = "https://www.woonpeek.nl";
+      const siteUrl = "https://www.huurbaasje.nl";
 
       if (PAGE_ACCESS_TOKEN) {
         if (!PAGE_ID) {
@@ -494,7 +494,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
             "Juridisch & financieel": ["#huurrecht", "#belasting", "#financieel"],
             "Duurzaamheid": ["#duurzaam", "#energielabel", "#verduurzaming"],
           };
-          const baseTags = ["#woningmarkt", "#woonpeek", "#vastgoed", "#Nederland"];
+          const baseTags = ["#woningmarkt", "#huurbaasje", "#vastgoed", "#Nederland"];
           const extraTags = categoryTags[topicCategory] || [];
           const allTags = [...new Set([...extraTags, ...baseTags])].slice(0, 6);
 

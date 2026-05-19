@@ -50,9 +50,9 @@ const AlertUnsubscribe = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Alert afmelden | Stekly"
-        description="Meld je af voor wekelijkse e-mailalerts van Stekly."
-        canonical="https://stekly.nl/alerts/afmelden"
+        title="Alert afmelden | Huurbaasje"
+        description="Meld je af voor wekelijkse e-mailalerts van Huurbaasje."
+        canonical="https://huurbaasje.nl/alerts/afmelden"
       />
       <Header />
       <main className="flex flex-1 items-center justify-center p-4">

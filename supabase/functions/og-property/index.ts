@@ -6,7 +6,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SITE_URL = "https://www.woonpeek.nl";
+const SITE_URL = "https://www.huurbaasje.nl";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -58,11 +58,11 @@ Deno.serve(async (req) => {
   }).format(property.price);
   const priceLabel = property.listing_type === "huur" ? `${priceFormatted} p/m` : priceFormatted;
 
-  const title = `${property.title} - ${priceLabel} | WoonPeek`;
+  const title = `${property.title} - ${priceLabel} | Huurbaasje`;
   const descParts = [`${property.street} ${property.house_number}, ${property.city}`];
   if (property.surface_area) descParts.push(`${property.surface_area} m²`);
   if (property.bedrooms) descParts.push(`${property.bedrooms} slaapkamer${property.bedrooms > 1 ? "s" : ""}`);
-  descParts.push(`Bekijk op WoonPeek`);
+  descParts.push(`Bekijk op Huurbaasje`);
   const description = descParts.join(" • ");
 
   const html = `<!DOCTYPE html>
@@ -79,7 +79,7 @@ Deno.serve(async (req) => {
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="${escapeHtml(pageUrl)}">
   <meta property="og:type" content="article">
-  <meta property="og:site_name" content="WoonPeek">
+  <meta property="og:site_name" content="Huurbaasje">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">

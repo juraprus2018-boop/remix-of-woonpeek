@@ -65,7 +65,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Stekly – Vind eenvoudig jouw huur- of koopwoning in Nederland"
+        title="Huurbaasje – Vind eenvoudig jouw huur- of koopwoning in Nederland"
         description="Dagelijks vers huur- en koopaanbod uit heel Nederland. Zoek per stad, type en budget. Stel een gratis alert in en mis geen enkele woning meer."
         canonical="/"
       />
@@ -87,7 +87,7 @@ const Index = () => {
               Heel Nederland
             </span>
           </div>
-          <span className="text-foreground/60">info@stekly.nl</span>
+          <span className="text-foreground/60">info@huurbaasje.nl</span>
         </div>
       </div>
 

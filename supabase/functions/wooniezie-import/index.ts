@@ -12,14 +12,14 @@ const WOONIEZIE_BASE = "https://www.wooniezie.nl";
 const SOURCE_SITE = "Wooniezie";
 const SYSTEM_USER_ID = "0d02a609-fde3-435a-9154-078fdce7ed34";
 
-const SITE_URL = "https://www.woonpeek.nl";
+const SITE_URL = "https://www.huurbaasje.nl";
 const INDEXNOW_KEY = "b8f3e2a1d4c5f6e7a9b0c1d2e3f4a5b6";
 
 async function submitToIndexNow(urls: string[]) {
   if (urls.length === 0) return;
   try {
     const body = {
-      host: "www.woonpeek.nl",
+      host: "www.huurbaasje.nl",
       key: INDEXNOW_KEY,
       keyLocation: `${SITE_URL}/${INDEXNOW_KEY}.txt`,
       urlList: urls.slice(0, 10000),

@@ -29,7 +29,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const SITE_URL = "https://stekly.nl";
+const SITE_URL = "https://huurbaasje.nl";
 
 function formatPrice(price: number, listingType: string): string {
   const formatted = new Intl.NumberFormat("nl-NL", {
@@ -76,7 +76,7 @@ interface FacebookGroup {
 function buildPostText(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const propertyUrl = `https://stekly.nl/woning/${property.slug || property.id}`;
+  const propertyUrl = `https://huurbaasje.nl/woning/${property.slug || property.id}`;
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
 
   const lines: string[] = [];
@@ -103,7 +103,7 @@ function buildPostText(property: Property): string {
     }
   }
 
-  lines.push(`👉 Bekijk deze woning op Stekly:`);
+  lines.push(`👉 Bekijk deze woning op Huurbaasje:`);
   lines.push(propertyUrl);
   lines.push("");
 
@@ -112,7 +112,7 @@ function buildPostText(property: Property): string {
   tags.push(property.listing_type === "huur" ? "#tehuur" : "#tekoop");
   tags.push(`#${property.property_type.toLowerCase()}`);
   tags.push(`#${property.city.toLowerCase().replace(/[^a-z0-9]/g, "")}`);
-  tags.push("#woning", "#woonpeek", "#woningmarkt");
+  tags.push("#woning", "#huurbaasje", "#woningmarkt");
   lines.push([...new Set(tags)].slice(0, 8).join(" "));
 
   return lines.join("\n");

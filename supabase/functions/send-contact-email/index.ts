@@ -76,17 +76,17 @@ Deno.serve(async (req) => {
         </div>
         <p style="color:#666;font-size:14px;">Je kunt direct reageren door te antwoorden op ${sender_email}.</p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0;"/>
-        <p style="color:#999;font-size:12px;">Dit bericht is verzonden via WoonPeek.</p>
+        <p style="color:#999;font-size:12px;">Dit bericht is verzonden via Huurbaasje.</p>
       </div>
     `;
 
     const smtpClient = new SMTPClient({
       connection: {
-        hostname: "woonpeek.nl",
+        hostname: "huurbaasje.nl",
         port: 465,
         tls: true,
         auth: {
-          username: "info@woonpeek.nl",
+          username: "info@huurbaasje.nl",
           password: Deno.env.get("SMTP_PASSWORD") || "",
         },
       },
@@ -94,17 +94,17 @@ Deno.serve(async (req) => {
 
     // Send to owner
     await smtpClient.send({
-      from: "WoonPeek <info@woonpeek.nl>",
+      from: "Huurbaasje <info@huurbaasje.nl>",
       to: ownerEmail,
       subject: `Nieuw bericht over: ${property.title}`,
       content: "text/html",
       html,
     });
 
-    // Send copy to WoonPeek
+    // Send copy to Huurbaasje
     await smtpClient.send({
-      from: "WoonPeek <info@woonpeek.nl>",
-      to: "info@woonpeek.nl",
+      from: "Huurbaasje <info@huurbaasje.nl>",
+      to: "info@huurbaasje.nl",
       subject: `[Kopie] Contactbericht: ${property.title}`,
       content: "text/html",
       html,

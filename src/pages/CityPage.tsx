@@ -137,17 +137,17 @@ const CityPage = () => {
 
   const pageTitle = `Huurwoningen ${cityName} - ${totalCount} te huur en te koop in ${cityName} | ${currentMonth} ${currentYear}`;
   const pageDescription = `Bekijk ${huurCount} huurwoningen en ${koopCount} koopwoningen in ${cityName}. Appartementen, huizen, studio's en kamers. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
-  const canonical = `https://stekly.nl${cityPath(cityName)}`;
+  const canonical = `https://huurbaasje.nl${cityPath(cityName)}`;
 
   // ── City FAQ items ──
   const cityFaqItems = useMemo(() => [
     {
       question: `Hoeveel woningen zijn er beschikbaar in ${cityName}?`,
-      answer: `Op dit moment staan er ${totalCount} woningen in ${cityName} op Stekly, waarvan ${huurCount} huurwoningen en ${koopCount} koopwoningen. Het aanbod wordt dagelijks bijgewerkt.`,
+      answer: `Op dit moment staan er ${totalCount} woningen in ${cityName} op Huurbaasje, waarvan ${huurCount} huurwoningen en ${koopCount} koopwoningen. Het aanbod wordt dagelijks bijgewerkt.`,
     },
     {
       question: `Wat kost een huurwoning in ${cityName}?`,
-      answer: `De huurprijzen in ${cityName} variëren per woningtype en locatie. Gebruik de filters op deze pagina om te zoeken op jouw maximale budget. Stekly toont ${huurCount} huurwoningen in ${cityName}.`,
+      answer: `De huurprijzen in ${cityName} variëren per woningtype en locatie. Gebruik de filters op deze pagina om te zoeken op jouw maximale budget. Huurbaasje toont ${huurCount} huurwoningen in ${cityName}.`,
     },
     {
       question: `Kan ik een woningalert instellen voor ${cityName}?`,
@@ -159,7 +159,7 @@ const CityPage = () => {
     },
     {
       question: `Hoe vind ik snel een woning in ${cityName}?`,
-      answer: `Stekly verzamelt dagelijks nieuw woningaanbod uit meerdere bronnen. Stel een dagelijkse alert in om als eerste te reageren op nieuwe woningen in ${cityName}. Je kunt ook filteren op prijs, kamers en oppervlakte.`,
+      answer: `Huurbaasje verzamelt dagelijks nieuw woningaanbod uit meerdere bronnen. Stel een dagelijkse alert in om als eerste te reageren op nieuwe woningen in ${cityName}. Je kunt ook filteren op prijs, kamers en oppervlakte.`,
     },
   ], [cityName, totalCount, huurCount, koopCount]);
 
@@ -175,8 +175,8 @@ const CityPage = () => {
         url: canonical,
         isPartOf: {
           "@type": "WebSite",
-          name: "Stekly",
-          url: "https://stekly.nl",
+          name: "Huurbaasje",
+          url: "https://huurbaasje.nl",
         },
       },
       // ItemList / Carousel (Google-supported rich result)
@@ -188,7 +188,7 @@ const CityPage = () => {
         itemListElement: filteredProperties.slice(0, 10).map((property, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          url: `https://stekly.nl/woning/${property.slug || property.id}`,
+          url: `https://huurbaasje.nl/woning/${property.slug || property.id}`,
           name: property.title,
           ...(property.images?.length ? { image: property.images[0] } : {}),
         })),
@@ -270,7 +270,7 @@ const CityPage = () => {
                   De woningmarkt in {cityName} is dynamisch en het aanbod wisselt snel. Of je nu zoekt naar een{" "}
                   <strong>huurwoning in {cityName}</strong>, een <strong>appartement te huur in {cityName}</strong>,
                   een ruim <strong>huis huren in {cityName}</strong> of een <strong>koopwoning in {cityName}</strong>:
-                  Stekly bundelt dagelijks het nieuwste aanbod van tientallen bronnen op een plek.
+                  Huurbaasje bundelt dagelijks het nieuwste aanbod van tientallen bronnen op een plek.
                 </p>
                 <p>
                   Op dit moment zijn er <strong>{totalCount} woningen in {cityName}</strong> beschikbaar,
@@ -549,7 +549,7 @@ const CityPage = () => {
               <p>
                 Zoek je een <strong>huurwoning in {cityName}</strong>? De huurwoningmarkt in {cityName} is competitief:
                 populaire woningen zijn vaak binnen enkele dagen verhuurd. Daarom is het belangrijk om snel te reageren.
-                Stekly doorzoekt dagelijks tientallen bronnen en toont het nieuwste aanbod
+                Huurbaasje doorzoekt dagelijks tientallen bronnen en toont het nieuwste aanbod
                 van <Link to={`/huurwoningen/${citySlug}`} className="text-primary underline hover:no-underline">huurwoningen in {cityName}</Link> direct
                 op deze pagina. Momenteel staan er <strong>{huurCount} huurwoningen in {cityName}</strong> online.
               </p>

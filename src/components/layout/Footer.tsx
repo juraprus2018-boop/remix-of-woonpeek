@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
           <div className="flex items-end lg:col-span-5 lg:justify-end">
             <span className="rounded-full bg-sun px-4 py-2 text-xs font-bold text-foreground">
-              info@stekly.nl · stekly.nl
+              info@huurbaasje.nl · huurbaasje.nl
             </span>
           </div>
         </div>
@@ -31,7 +31,7 @@ const Footer = () => {
           {/* Brand quick block reused as fallback */}
           <div className="space-y-4 lg:hidden">
             <p className="text-sm text-muted-foreground">
-              Vind jouw droomwoning of plaats je eigen woning op Stekly.
+              Vind jouw droomwoning of plaats je eigen woning op Huurbaasje.
               Eenvoudig, snel en betrouwbaar.
             </p>
           </div>
@@ -107,8 +107,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/over-woonpeek" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Over Stekly
+                <Link to="/over-huurbaasje" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                  Over Huurbaasje
                 </Link>
               </li>
               <li>
@@ -130,7 +130,7 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-background/80">
                 <Mail className="h-4 w-4" />
-                info@stekly.nl
+                info@huurbaasje.nl
               </li>
               <li>
                 <a
@@ -145,7 +145,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/woonpeek"
+                  href="https://www.instagram.com/huurbaasje"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
@@ -156,7 +156,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://www.linkedin.com/company/woonpeek/"
+                  href="https://www.linkedin.com/company/huurbaasje/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
@@ -205,7 +205,7 @@ const Footer = () => {
 
         <div className="mt-6 border-t-2 border-background/30 pt-6">
           <p className="text-center text-xs uppercase tracking-[0.22em] text-background/70">
-            © {new Date().getFullYear()} Stekly. Alle rechten voorbehouden.
+            © {new Date().getFullYear()} Huurbaasje. Alle rechten voorbehouden.
           </p>
         </div>
       </div>
