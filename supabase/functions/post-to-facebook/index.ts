@@ -204,7 +204,7 @@ function buildCaption(property: Property): string {
   }
 
   // CTA
-  lines.push(`👉 Bekijk deze woning op WoonPeek:`);
+  lines.push(`👉 Bekijk deze woning op Huurbaasje:`);
   lines.push(propertyUrl);
   lines.push("");
 

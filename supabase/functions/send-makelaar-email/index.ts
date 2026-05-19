@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
         });
 
         await client.send({
-          from: "WoonPeek <info@huurbaasje.nl>",
+          from: "Huurbaasje <info@huurbaasje.nl>",
           to: recipient.email,
           subject,
           content: "auto",

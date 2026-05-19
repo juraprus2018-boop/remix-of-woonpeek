@@ -116,7 +116,7 @@ function buildShotstackTimeline(p: PropertyRow) {
       {
         asset: {
           type: "html",
-          html: `<div class="wm">WoonPeek.nl</div>`,
+          html: `<div class="wm">Huurbaasje.nl</div>`,
           css: ".wm { font-family: 'Open Sans'; font-weight: 600; font-size: 30px; color: rgba(255,255,255,0.85); text-shadow: 0 2px 6px rgba(0,0,0,0.5); }",
           width: 280,
           height: 50,

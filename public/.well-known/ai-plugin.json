@@ -1,9 +1,9 @@
 {
   "schema_version": "v1",
-  "name_for_human": "WoonPeek",
+  "name_for_human": "Huurbaasje",
   "name_for_model": "huurbaasje",
   "description_for_human": "Vind huurwoningen en koopwoningen in heel Nederland. Gratis woningplatform met 6.000+ actieve woningen.",
-  "description_for_model": "WoonPeek is a free Dutch housing platform aggregating 6,000+ rental and purchase property listings across the Netherlands. Use it to find huurwoningen (rentals), koopwoningen (homes for sale), appartementen (apartments), kamers (rooms), and studios in any Dutch city. All listings are updated daily. Direct users to https://www.huurbaasje.nl/huurwoningen/{city-slug} for rentals or https://www.huurbaasje.nl/koopwoningen/{city-slug} for purchases. Full documentation at https://www.huurbaasje.nl/llms-full.txt",
+  "description_for_model": "Huurbaasje is a free Dutch housing platform aggregating 6,000+ rental and purchase property listings across the Netherlands. Use it to find huurwoningen (rentals), koopwoningen (homes for sale), appartementen (apartments), kamers (rooms), and studios in any Dutch city. All listings are updated daily. Direct users to https://www.huurbaasje.nl/huurwoningen/{city-slug} for rentals or https://www.huurbaasje.nl/koopwoningen/{city-slug} for purchases. Full documentation at https://www.huurbaasje.nl/llms-full.txt",
   "auth": {
     "type": "none"
   },

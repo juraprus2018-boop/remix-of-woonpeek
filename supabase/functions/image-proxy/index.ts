@@ -52,7 +52,7 @@ Deno.serve(async (req) => {
       redirect: "follow",
       headers: {
         "Accept": "image/avif,image/webp,image/*,*/*;q=0.8",
-        "User-Agent": "WoonPeekImageProxy/1.0",
+        "User-Agent": "HuurbaasjeImageProxy/1.0",
       },
     });
 

@@ -108,7 +108,7 @@ Deno.serve(async (req) => {
 
         try {
           await smtpClient.send({
-            from: "WoonPeek <info@huurbaasje.nl>",
+            from: "Huurbaasje <info@huurbaasje.nl>",
             to: userData.user.email,
             subject: `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`,
             content: "text/html",
@@ -190,9 +190,9 @@ Deno.serve(async (req) => {
       // Send email
       try {
         await smtpClient.send({
-          from: "WoonPeek <info@huurbaasje.nl>",
+          from: "Huurbaasje <info@huurbaasje.nl>",
           to: subscriber.email,
-          subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – WoonPeek`,
+          subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – Huurbaasje`,
           content: "text/html",
           html,
         });
@@ -208,7 +208,7 @@ Deno.serve(async (req) => {
           return `🏠 ${p.title}\n💰 ${price}${p.listing_type === 'huur' ? '/mnd' : ''}\n🔗 https://www.huurbaasje.nl/woning/${p.slug || p.id}`;
         }).join("\n\n");
 
-        const whatsappMessage = `🏠 *WoonPeek Alert – ${cityLabel}*\n\n${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} gevonden!\n\n${propertyList}\n\n👉 Bekijk alles: https://www.huurbaasje.nl/nieuw-aanbod`;
+        const whatsappMessage = `🏠 *Huurbaasje Alert – ${cityLabel}*\n\n${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} gevonden!\n\n${propertyList}\n\n👉 Bekijk alles: https://www.huurbaasje.nl/nieuw-aanbod`;
 
         const sent = await sendWhatsApp(subscriber.phone_number, whatsappMessage);
         if (sent) whatsappNotificationsSent++;
@@ -287,7 +287,7 @@ function buildEmailHtml(
   return `
     <div style="font-family:'Segoe UI',Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9fafb;padding:20px;border-radius:12px;">
       <div style="text-align:center;margin-bottom:16px;">
-        <h1 style="color:#0f766e;font-size:22px;margin:0;">🏠 WoonPeek</h1>
+        <h1 style="color:#0f766e;font-size:22px;margin:0;">🏠 Huurbaasje</h1>
       </div>
       <h2 style="color:#1a1a1a;font-size:20px;text-align:center;margin-bottom:4px;">${heading}</h2>
       <p style="color:#666;text-align:center;margin-bottom:16px;font-size:14px;">${subheading}</p>
@@ -302,7 +302,7 @@ function buildEmailHtml(
       </p>
       <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
       <p style="color:#999;font-size:11px;text-align:center;">
-        Je ontvangt dit bericht omdat je een woningalert hebt ingesteld op WoonPeek.
+        Je ontvangt dit bericht omdat je een woningalert hebt ingesteld op Huurbaasje.
         ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#999;">Afmelden</a>` : `<a href="https://www.huurbaasje.nl/zoekalerts" style="color:#999;">Beheer alerts</a>`}
       </p>
     </div>

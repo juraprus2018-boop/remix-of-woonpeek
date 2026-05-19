@@ -118,7 +118,7 @@ async function fetchNuNlNews(): Promise<{ title: string; description: string; li
   for (const rssUrl of RSS_URLS) {
     try {
       const res = await fetch(rssUrl, {
-        headers: { "User-Agent": "WoonPeek-BlogBot/1.0" },
+        headers: { "User-Agent": "Huurbaasje-BlogBot/1.0" },
       });
       if (!res.ok) continue;
       const xml = await res.text();
@@ -151,7 +151,7 @@ async function fetchNuNlNews(): Promise<{ title: string; description: string; li
   return allArticles.slice(0, 5);
 }
 
-const SYSTEM_PROMPT = `Je bent een ervaren Nederlandse journalist en woningmarkt-redacteur die al 12 jaar schrijft voor vakbladen en consumentenmedia. Je hebt een eigen column op WoonPeek.nl.
+const SYSTEM_PROMPT = `Je bent een ervaren Nederlandse journalist en woningmarkt-redacteur die al 12 jaar schrijft voor vakbladen en consumentenmedia. Je hebt een eigen column op Huurbaasje.nl.
 
 TONE OF VOICE (CRUCIAAL):
 - Schrijf zoals een mens schrijft: met af en toe een korte zin. En dan weer een langere.

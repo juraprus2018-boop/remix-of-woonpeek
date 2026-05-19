@@ -157,7 +157,7 @@ Deno.serve(async (req) => {
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
       await client.send({
-        from: "WoonPeek <info@huurbaasje.nl>",
+        from: "Huurbaasje <info@huurbaasje.nl>",
         to: "info@huurbaasje.nl",
         subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`,
         content: "text/html",
