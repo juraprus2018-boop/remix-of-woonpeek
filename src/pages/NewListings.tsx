@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { CalendarDays } from "lucide-react";
+import StockBanner from "@/components/layout/StockBanner";
 import type { Database } from "@/integrations/supabase/types";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
@@ -105,24 +106,13 @@ const NewListings = () => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <section className="border-b bg-gradient-to-b from-primary/5 to-background py-12">
-          <div className="container">
-            <div className="mb-4">
-              <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Nieuw aanbod" }]} />
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <CalendarDays className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="font-display text-3xl font-bold text-foreground">Nieuw aanbod van vandaag</h1>
-                <p className="text-muted-foreground">
-                  {isLoading ? "Laden..." : `${totalCount} actieve woningen toegevoegd op ${dateLabel}`}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <StockBanner
+          seed={`new-${dateLabel}`}
+          title="Nieuw aanbod van vandaag"
+          subtitle={isLoading ? "Laden..." : `${totalCount} actieve woningen toegevoegd op ${dateLabel}`}
+        >
+          <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Nieuw aanbod" }]} />
+        </StockBanner>
 
         <section className="container py-8">
           {isLoading ? (

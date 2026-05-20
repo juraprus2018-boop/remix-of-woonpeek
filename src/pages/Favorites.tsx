@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -83,20 +84,20 @@ const Favorites = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
+        <StockBanner
+          seed="favorites"
+          title="Mijn favorieten"
+          subtitle={
+            isLoading
+              ? "Laden..."
+              : `${favorites?.length || 0} opgeslagen ${favorites?.length === 1 ? "woning" : "woningen"}`
+          }
+        />
         <div className="container py-6 md:py-8">
           {/* Header with sort */}
           <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h1 className="font-display text-2xl font-bold md:text-3xl">
-                Mijn favorieten
-              </h1>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {isLoading
-                  ? "Laden..."
-                  : `${favorites?.length || 0} opgeslagen ${
-                      favorites?.length === 1 ? "woning" : "woningen"
-                    }`}
-              </p>
+            <div className="sr-only">
+              <h2>Favorieten</h2>
             </div>
 
             {favorites && favorites.length > 1 && (

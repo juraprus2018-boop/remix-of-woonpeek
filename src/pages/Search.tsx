@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useInfiniteProperties, useFilterFacets, useMapProperties } from "@/hooks/useProperties";
 import { Search, SlidersHorizontal, List, Map as MapIcon, Loader2, Share2, Check } from "lucide-react";
+import StockBanner from "@/components/layout/StockBanner";
 import ExploreMap from "@/components/explore/ExploreMap";
 import {
   Sheet,
@@ -199,24 +200,27 @@ const SearchPage = () => {
       <SEOHead title={seoTitle} description={seoDescription} canonical={canonicalUrl} />
       <Header />
       <main className="flex-1">
+        {/* Stock photo banner */}
+        <StockBanner
+          seed={`search-${debouncedCity || "all"}`}
+          title={debouncedCity ? `Woningen in ${debouncedCity}` : "Woningen zoeken"}
+          subtitle={isLoading ? "Laden..." : `${totalCount} resultaten gevonden`}
+        >
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Zoeken" },
+              ...(debouncedCity ? [{ label: debouncedCity }] : []),
+            ]}
+          />
+        </StockBanner>
+
         {/* Search Header */}
         <div className="border-b bg-card">
           <div className="container py-4">
-            <div className="mb-3">
-              <Breadcrumbs items={[
-                { label: "Home", href: "/" },
-                { label: "Zoeken" },
-                ...(debouncedCity ? [{ label: debouncedCity }] : []),
-              ]} />
-            </div>
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div>
-                <h1 className="font-display text-2xl font-bold">
-                  Woningen zoeken
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  {isLoading ? "Laden..." : `${totalCount} resultaten gevonden`}
-                </p>
+              <div className="sr-only">
+                <h2>Filters</h2>
               </div>
               <div className="flex items-center gap-2">
                 {/* Mobile filter button */}

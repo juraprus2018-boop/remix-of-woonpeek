@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -88,13 +89,15 @@ const SearchAlerts = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
+        <StockBanner
+          seed="search-alerts"
+          title="Zoekalerts"
+          subtitle="Ontvang een e-mail als er nieuwe woningen zijn die aan jouw criteria voldoen."
+        />
         <div className="container py-8">
           <div className="mx-auto max-w-2xl">
-            <div className="mb-6 flex items-center justify-between">
-              <div>
-                <h1 className="font-display text-2xl font-bold">Zoekalerts</h1>
-                <p className="text-sm text-muted-foreground">Ontvang een e-mail als er nieuwe woningen zijn die aan jouw criteria voldoen.</p>
-              </div>
+            <div className="mb-6 flex items-center justify-end">
+              <div className="sr-only"><h2>Acties</h2></div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                   <Button><Plus className="mr-2 h-4 w-4" />Nieuwe alert</Button>

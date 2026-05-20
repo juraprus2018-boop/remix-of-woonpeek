@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
 import { useAuth } from "@/contexts/AuthContext";
 import { useUserProperties, useDeleteProperty } from "@/hooks/useProperties";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -52,16 +53,16 @@ const MyProperties = () => {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
+        <StockBanner
+          seed="my-properties"
+          title="Mijn woningen"
+          subtitle="Beheer je geplaatste woningen en bekijk hoe ze op het platform staan."
+        />
         <section className="container py-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h1 className="font-display text-3xl font-bold text-foreground">Mijn woningen</h1>
-              <p className="mt-1 text-muted-foreground">
-                Beheer je geplaatste woningen en bekijk hoe ze op het platform staan.
-              </p>
-            </div>
+            <div className="sr-only"><h2>Acties</h2></div>
 
-            <Link to="/plaatsen">
+            <Link to="/plaatsen" className="ml-auto">
               <Button className="gap-2">
                 <PlusCircle className="h-4 w-4" />
                 Woning plaatsen
