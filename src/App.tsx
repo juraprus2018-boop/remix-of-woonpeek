@@ -3,8 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ReactElement } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
+import LocaleSync from "@/components/LocaleSync";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -104,8 +105,104 @@ const LegacyCityRedirect = () => {
 
 const RouterSideEffects = () => {
   usePageTracking();
-  return <ScrollToTop />;
+  return (
+    <>
+      <ScrollToTop />
+      <LocaleSync />
+    </>
+  );
 };
+
+// All site routes defined once. Rendered 4x with locale prefixes.
+type RouteDef = { path: string; element: ReactElement };
+
+const PAGES: RouteDef[] = [
+  { path: "/", element: <Index /> },
+  { path: "/inloggen", element: <Login /> },
+  { path: "/registreren", element: <Register /> },
+  { path: "/zoeken", element: <Search /> },
+  { path: "/verkennen", element: <Explore /> },
+  { path: "/kaart", element: <Explore /> },
+  { path: "/woning/:slug", element: <PropertyDetail /> },
+  { path: "/favorieten", element: <Favorites /> },
+  { path: "/mijn-woningen", element: <MyProperties /> },
+  { path: "/woning-plaatsen", element: <PostPropertyStart /> },
+  { path: "/plaatsen", element: <CreateProperty /> },
+  { path: "/woning/:id/bewerken", element: <EditProperty /> },
+  { path: "/voorwaarden", element: <TermsAndConditions /> },
+  { path: "/privacy", element: <PrivacyPolicy /> },
+  { path: "/disclaimer", element: <Disclaimer /> },
+  { path: "/veelgestelde-vragen", element: <FAQ /> },
+  { path: "/blog", element: <BlogPage /> },
+  { path: "/blog/:slug", element: <BlogPostPage /> },
+  { path: "/zoekalerts", element: <SearchAlerts /> },
+  { path: "/profiel", element: <Profile /> },
+  { path: "/berichten", element: <UserChat /> },
+  { path: "/steden", element: <Cities /> },
+  { path: "/nieuw-aanbod", element: <NewListings /> },
+  { path: "/nieuw-aanbod/:city", element: <NewListingsCity /> },
+  { path: "/dagelijkse-alert", element: <DailyAlert /> },
+  { path: "/over-huurbaasje", element: <About /> },
+  { path: "/makelaar-koppelen", element: <MakelaarKoppelen /> },
+  { path: "/samenwerking", element: <Samenwerking /> },
+  { path: "/budget-tool", element: <BudgetTool /> },
+  { path: "/woonquiz", element: <WoonQuiz /> },
+  { path: "/energie-vergelijken", element: <EnergieVergelijken /> },
+  { path: "/vergelijk/:city1-vs-:city2", element: <CityComparePage /> },
+  { path: "/huurprijzen/:city", element: <HuurprijsMonitor /> },
+  { path: "/woningen-postcode-:postcode", element: <PostcodePage /> },
+  { path: "/huurwoningen-onder-:budget-:city", element: <BudgetLandingPage listingType="huur" /> },
+  { path: "/koopwoningen-onder-:budget-:city", element: <BudgetLandingPage listingType="koop" /> },
+  { path: "/huur-bij-inkomen-:income-:city", element: <IncomeLandingPage /> },
+  { path: "/verhuizen-naar-:city", element: <CityGuidePage /> },
+  { path: "/goedkoopste-huurwoningen/:city", element: <BestOfCityPage variant="goedkoopste-huur" /> },
+  { path: "/grootste-huurwoningen/:city", element: <BestOfCityPage variant="grootste-huur" /> },
+  { path: "/beste-buurten/:city", element: <BestOfCityPage variant="beste-buurten" /> },
+  { path: "/alerts/afmelden/:token", element: <AlertUnsubscribe /> },
+  { path: "/huurwoningen/:city/:filter", element: <FilteredLandingPage listingType="huur" /> },
+  { path: "/huurwoningen/:city?", element: <ListingTypePage listingType="huur" /> },
+  { path: "/koopwoningen/:city/:filter", element: <FilteredLandingPage listingType="koop" /> },
+  { path: "/koopwoningen/:city?", element: <ListingTypePage listingType="koop" /> },
+  { path: "/appartementen/:city/:filter", element: <FilteredLandingPage propertyType="appartement" /> },
+  { path: "/appartementen/:city?", element: <PropertyTypeCityPage propertyType="appartement" /> },
+  { path: "/huizen/:city/:filter", element: <FilteredLandingPage propertyType="huis" /> },
+  { path: "/huizen/:city?", element: <PropertyTypeCityPage propertyType="huis" /> },
+  { path: "/studios/:city/:filter", element: <FilteredLandingPage propertyType="studio" /> },
+  { path: "/studios/:city?", element: <PropertyTypeCityPage propertyType="studio" /> },
+  { path: "/kamers/:city/:filter", element: <FilteredLandingPage propertyType="kamer" /> },
+  { path: "/kamers/:city?", element: <PropertyTypeCityPage propertyType="kamer" /> },
+  { path: "/woningen/:city/:filter", element: <FilteredLandingPage /> },
+  { path: "/wijk/:city/:neighborhood", element: <NeighborhoodPage /> },
+  { path: "/:city", element: <LegacyCityRedirect /> },
+  { path: "/niet-gevonden", element: <NotFound /> },
+];
+
+// Admin pages — NL only (admin doesn't need localisation)
+const ADMIN_PAGES: RouteDef[] = [
+  { path: "/admin", element: <AdminDashboard /> },
+  { path: "/admin/woningen", element: <AdminProperties /> },
+  { path: "/admin/scrapers", element: <AdminScrapers /> },
+  { path: "/admin/instellingen", element: <AdminSettings /> },
+  { path: "/admin/advertenties", element: <AdminAds /> },
+  { path: "/admin/site-instellingen", element: <AdminSiteSettings /> },
+  { path: "/admin/blog", element: <AdminBlog /> },
+  { path: "/admin/gebruikers", element: <AdminUsers /> },
+  { path: "/admin/gebruikers/:userId", element: <AdminUserDetail /> },
+  { path: "/admin/dagoverzicht", element: <AdminDailyActivity /> },
+  { path: "/admin/facebook", element: <AdminFacebookQueue /> },
+  { path: "/admin/tiktok", element: <AdminTikTok /> },
+  { path: "/admin/leads", element: <AdminMakelaarLeads /> },
+  { path: "/admin/email", element: <AdminEmailSender /> },
+  { path: "/admin/alerts", element: <AdminAlertSubscribers /> },
+  { path: "/admin/berichten", element: <AdminChat /> },
+  { path: "/admin/reacties", element: <AdminComments /> },
+  { path: "/admin/zoekopdrachten", element: <AdminSearchQueries /> },
+  { path: "/admin/google-ranking", element: <AdminGoogleRanking /> },
+  { path: "/admin/paginatypen", element: <AdminPageTypes /> },
+  { path: "/admin/plaatsen-check", element: <AdminPlaatsenCheck /> },
+];
+
+const LOCALE_PREFIXES = ["", "/en", "/de", "/fr"] as const;
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -117,85 +214,21 @@ const App = () => (
           <RouterSideEffects />
           <Suspense fallback={<RouteFallback />}>
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/inloggen" element={<Login />} />
-              <Route path="/registreren" element={<Register />} />
-              <Route path="/zoeken" element={<Search />} />
-              <Route path="/verkennen" element={<Explore />} />
-              <Route path="/kaart" element={<Explore />} />
-              <Route path="/woning/:slug" element={<PropertyDetail />} />
-              <Route path="/favorieten" element={<Favorites />} />
-              <Route path="/mijn-woningen" element={<MyProperties />} />
-              <Route path="/woning-plaatsen" element={<PostPropertyStart />} />
-              <Route path="/plaatsen" element={<CreateProperty />} />
-              <Route path="/woning/:id/bewerken" element={<EditProperty />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/woningen" element={<AdminProperties />} />
-              <Route path="/admin/scrapers" element={<AdminScrapers />} />
-              <Route path="/admin/instellingen" element={<AdminSettings />} />
-              <Route path="/admin/advertenties" element={<AdminAds />} />
-              <Route path="/admin/site-instellingen" element={<AdminSiteSettings />} />
-              <Route path="/admin/blog" element={<AdminBlog />} />
-              <Route path="/admin/gebruikers" element={<AdminUsers />} />
-              <Route path="/admin/gebruikers/:userId" element={<AdminUserDetail />} />
-              <Route path="/admin/dagoverzicht" element={<AdminDailyActivity />} />
-              <Route path="/admin/facebook" element={<AdminFacebookQueue />} />
-              <Route path="/admin/tiktok" element={<AdminTikTok />} />
-              <Route path="/admin/leads" element={<AdminMakelaarLeads />} />
-              <Route path="/admin/email" element={<AdminEmailSender />} />
-              <Route path="/admin/alerts" element={<AdminAlertSubscribers />} />
-              <Route path="/admin/berichten" element={<AdminChat />} />
-              <Route path="/admin/reacties" element={<AdminComments />} />
-              <Route path="/admin/zoekopdrachten" element={<AdminSearchQueries />} />
-              <Route path="/admin/google-ranking" element={<AdminGoogleRanking />} />
-              <Route path="/admin/paginatypen" element={<AdminPageTypes />} />
-              <Route path="/admin/plaatsen-check" element={<AdminPlaatsenCheck />} />
-              <Route path="/voorwaarden" element={<TermsAndConditions />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="/disclaimer" element={<Disclaimer />} />
-              <Route path="/veelgestelde-vragen" element={<FAQ />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="/zoekalerts" element={<SearchAlerts />} />
-              <Route path="/profiel" element={<Profile />} />
-              <Route path="/berichten" element={<UserChat />} />
-              <Route path="/steden" element={<Cities />} />
-              <Route path="/nieuw-aanbod" element={<NewListings />} />
-              <Route path="/nieuw-aanbod/:city" element={<NewListingsCity />} />
-              <Route path="/dagelijkse-alert" element={<DailyAlert />} />
-              <Route path="/over-huurbaasje" element={<About />} />
-              <Route path="/makelaar-koppelen" element={<MakelaarKoppelen />} />
-              <Route path="/samenwerking" element={<Samenwerking />} />
-              <Route path="/budget-tool" element={<BudgetTool />} />
-              <Route path="/woonquiz" element={<WoonQuiz />} />
-              <Route path="/energie-vergelijken" element={<EnergieVergelijken />} />
-              <Route path="/vergelijk/:city1-vs-:city2" element={<CityComparePage />} />
-              <Route path="/huurprijzen/:city" element={<HuurprijsMonitor />} />
-              <Route path="/woningen-postcode-:postcode" element={<PostcodePage />} />
-              <Route path="/huurwoningen-onder-:budget-:city" element={<BudgetLandingPage listingType="huur" />} />
-              <Route path="/koopwoningen-onder-:budget-:city" element={<BudgetLandingPage listingType="koop" />} />
-              <Route path="/huur-bij-inkomen-:income-:city" element={<IncomeLandingPage />} />
-              <Route path="/verhuizen-naar-:city" element={<CityGuidePage />} />
-              <Route path="/goedkoopste-huurwoningen/:city" element={<BestOfCityPage variant="goedkoopste-huur" />} />
-              <Route path="/grootste-huurwoningen/:city" element={<BestOfCityPage variant="grootste-huur" />} />
-              <Route path="/beste-buurten/:city" element={<BestOfCityPage variant="beste-buurten" />} />
-              <Route path="/alerts/afmelden/:token" element={<AlertUnsubscribe />} />
-              <Route path="/huurwoningen/:city/:filter" element={<FilteredLandingPage listingType="huur" />} />
-              <Route path="/huurwoningen/:city?" element={<ListingTypePage listingType="huur" />} />
-              <Route path="/koopwoningen/:city/:filter" element={<FilteredLandingPage listingType="koop" />} />
-              <Route path="/koopwoningen/:city?" element={<ListingTypePage listingType="koop" />} />
-              <Route path="/appartementen/:city/:filter" element={<FilteredLandingPage propertyType="appartement" />} />
-              <Route path="/appartementen/:city?" element={<PropertyTypeCityPage propertyType="appartement" />} />
-              <Route path="/huizen/:city/:filter" element={<FilteredLandingPage propertyType="huis" />} />
-              <Route path="/huizen/:city?" element={<PropertyTypeCityPage propertyType="huis" />} />
-              <Route path="/studios/:city/:filter" element={<FilteredLandingPage propertyType="studio" />} />
-              <Route path="/studios/:city?" element={<PropertyTypeCityPage propertyType="studio" />} />
-              <Route path="/kamers/:city/:filter" element={<FilteredLandingPage propertyType="kamer" />} />
-              <Route path="/kamers/:city?" element={<PropertyTypeCityPage propertyType="kamer" />} />
-              <Route path="/woningen/:city/:filter" element={<FilteredLandingPage />} />
-              <Route path="/wijk/:city/:neighborhood" element={<NeighborhoodPage />} />
-              <Route path="/:city" element={<LegacyCityRedirect />} />
-              <Route path="/niet-gevonden" element={<NotFound />} />
+              {ADMIN_PAGES.map((r) => (
+                <Route key={r.path} path={r.path} element={r.element} />
+              ))}
+              {LOCALE_PREFIXES.flatMap((prefix) =>
+                PAGES.map((r) => {
+                  // Root "/" → "/en", "/de", "/fr"
+                  const path =
+                    r.path === "/"
+                      ? prefix === ""
+                        ? "/"
+                        : prefix
+                      : prefix + r.path;
+                  return <Route key={prefix + "::" + r.path} path={path} element={r.element} />;
+                }),
+              )}
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
