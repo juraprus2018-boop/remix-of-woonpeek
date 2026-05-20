@@ -392,13 +392,13 @@ const Index = () => {
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Aanbod
+                      Te huur
                     </div>
                     <h3 className="mt-1 text-2xl font-extrabold tracking-tight text-foreground">
                       {c.name}
                     </h3>
                     <div className="mt-2 text-sm font-semibold text-foreground/70">
-                      {c.count} woningen
+                      {c.count} huurwoningen
                     </div>
                   </div>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
