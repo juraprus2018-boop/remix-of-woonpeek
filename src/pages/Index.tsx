@@ -107,7 +107,7 @@ const Index = () => {
             </span>
             <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
               Vind <span className="relative inline-block">
-                <span className="relative z-10">jouw stekje.</span>
+                <span className="relative z-10">jouw woning.</span>
                 <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-sun md:h-5" aria-hidden />
               </span>
               <br />
@@ -320,7 +320,7 @@ const Index = () => {
               Zo werkt het
             </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-              In drie stappen naar jouw stekje
+              In drie stappen naar jouw nieuwe woning
             </h2>
           </div>
 

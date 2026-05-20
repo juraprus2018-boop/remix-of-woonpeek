@@ -1,4 +1,4 @@
-const CACHE_NAME = "woonpeek-v2";
+const CACHE_NAME = "huurbaasje-v1";
 const STATIC_ASSETS = [
   "/favicon.png",
   "/placeholder.svg",
