@@ -1,23 +1,23 @@
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { L as Link } from "@/components/LocalizedLink";
 import { Mail, Facebook, Linkedin, Instagram } from "lucide-react";
 import Logo from "@/components/brand/Logo";
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className="border-t border-border bg-foreground text-background">
       <div className="container py-16">
-        {/* Editorial top strip */}
         <div className="mb-12 grid gap-8 border-b border-background/15 pb-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Link to="/" className="inline-flex items-center gap-2">
               <Logo size="h-9" variant="light" />
             </Link>
             <p className="mt-6 max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
-              Scoor jouw <span className="text-sun">huurwoning.</span>
+              {t("footer.tagline")} <span className="text-sun">{t("footer.taglineEnd")}</span>
             </p>
             <p className="mt-3 max-w-md text-sm text-background/70">
-              De rustigste plek voor verse huurwoningen uit heel NL.
-              Elke dag bij, altijd gratis.
+              {t("footer.intro")}
             </p>
           </div>
           <div className="flex items-end lg:col-span-5 lg:justify-end">
@@ -28,183 +28,95 @@ const Footer = () => {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand quick block reused as fallback */}
-          <div className="space-y-4 lg:hidden">
-            <p className="text-sm text-muted-foreground">
-              Snel een huurwoning vinden of zelf verhuren? Bij Huurbaasje doe je het zonder gedoe.
-            </p>
-          </div>
-
-          {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Snelle links</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.quickLinks")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoning zoeken</Link></li>
-              <li><Link to="/huurwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoningen</Link></li>
-              <li><Link to="/appartementen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Appartementen</Link></li>
-              <li><Link to="/kamers" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Kamers</Link></li>
-              <li><Link to="/studios" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Studio's</Link></li>
-              <li><Link to="/steden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Alle steden</Link></li>
-              <li><Link to="/nieuw-aanbod" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Nieuw aanbod</Link></li>
-              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuur je woning</Link></li>
-              <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Blog</Link></li>
+              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkSearch")}</Link></li>
+              <li><Link to="/huurwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRentals")}</Link></li>
+              <li><Link to="/appartementen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkApartments")}</Link></li>
+              <li><Link to="/kamers" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRooms")}</Link></li>
+              <li><Link to="/studios" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkStudios")}</Link></li>
+              <li><Link to="/steden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAllCities")}</Link></li>
+              <li><Link to="/nieuw-aanbod" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkNew")}</Link></li>
+              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPost")}</Link></li>
+              <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBlog")}</Link></li>
             </ul>
           </div>
 
-          {/* Popular searches */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Populaire zoekopdrachten</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.popularSearches")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/appartementen/amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Appartementen Amsterdam</Link></li>
-              <li><Link to="/huurwoningen/rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoningen Rotterdam</Link></li>
-              <li><Link to="/appartementen/utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Appartementen Utrecht</Link></li>
-              <li><Link to="/kamers/eindhoven" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Kamers Eindhoven</Link></li>
-              <li><Link to="/woningen/den-haag/onder-1000" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Den Haag onder €1.000</Link></li>
-              <li><Link to="/woningen/amsterdam/2-kamers" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Amsterdam 2 kamers</Link></li>
-              <li><Link to="/huurwoningen/groningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoningen Groningen</Link></li>
-              <li><Link to="/dagelijkse-alert" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Wekelijkse alert</Link></li>
+              <li><Link to="/appartementen/amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.apartments")} Amsterdam</Link></li>
+              <li><Link to="/huurwoningen/rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Rotterdam</Link></li>
+              <li><Link to="/appartementen/utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.apartments")} Utrecht</Link></li>
+              <li><Link to="/kamers/eindhoven" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rooms")} Eindhoven</Link></li>
+              <li><Link to="/woningen/den-haag/onder-1000" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Den Haag &lt; €1.000</Link></li>
+              <li><Link to="/huurwoningen/groningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Groningen</Link></li>
+              <li><Link to="/dagelijkse-alert" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAlert")}</Link></li>
             </ul>
           </div>
 
-          {/* Stadsgidsen & budget landingspaginas */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Stadsgidsen & budget</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.support")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/verhuizen-naar-amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuizen naar Amsterdam</Link></li>
-              <li><Link to="/verhuizen-naar-rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuizen naar Rotterdam</Link></li>
-              <li><Link to="/verhuizen-naar-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuizen naar Utrecht</Link></li>
-              <li><Link to="/huurwoningen-onder-1000-amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.000 Amsterdam</Link></li>
-              <li><Link to="/huurwoningen-onder-1500-rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.500 Rotterdam</Link></li>
-              <li><Link to="/huurwoningen-onder-1250-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.250 Utrecht</Link></li>
-              <li><Link to="/huurwoningen-onder-1500-den-haag" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.500 Den Haag</Link></li>
-              <li><Link to="/budget-tool" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Budget tool</Link></li>
+              <li><Link to="/veelgestelde-vragen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkFAQ")}</Link></li>
+              <li><Link to="/voorwaarden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkTerms")}</Link></li>
+              <li><Link to="/privacy" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPrivacy")}</Link></li>
+              <li><Link to="/disclaimer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkDisclaimer")}</Link></li>
+              <li><Link to="/over-huurbaasje" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAbout")}</Link></li>
+              <li><Link to="/samenwerking" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPartner")}</Link></li>
+              <li><Link to="/budget-tool" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBudget")}</Link></li>
             </ul>
           </div>
 
-          {/* Support */}
           <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Ondersteuning</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/veelgestelde-vragen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Veelgestelde vragen
-                </Link>
-              </li>
-              <li>
-                <Link to="/voorwaarden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Algemene voorwaarden
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Privacybeleid
-                </Link>
-              </li>
-              <li>
-                <Link to="/disclaimer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Disclaimer
-                </Link>
-              </li>
-              <li>
-                <Link to="/over-huurbaasje" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Over Huurbaasje
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link to="/samenwerking" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
-                  Samenwerking
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className="space-y-4">
-            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Contact</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.contact")}</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-background/80">
                 <Mail className="h-4 w-4" />
                 info@huurbaasje.nl
               </li>
               <li>
-                <a
-                  href="https://www.facebook.com/huurbaasje"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
-                >
-                  <Facebook className="h-4 w-4" />
-                  Facebook
+                <a href="https://www.facebook.com/huurbaasje" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                  <Facebook className="h-4 w-4" /> Facebook
                 </a>
               </li>
               <li>
-                <a
-                  href="https://www.instagram.com/huurbaasje"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
-                >
-                  <Instagram className="h-4 w-4" />
-                  Instagram
+                <a href="https://www.instagram.com/huurbaasje" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                  <Instagram className="h-4 w-4" /> Instagram
                 </a>
               </li>
               <li>
-                <a
-                  href="https://www.linkedin.com/company/huurbaasje/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  LinkedIn
+                <a href="https://www.linkedin.com/company/huurbaasje/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                  <Linkedin className="h-4 w-4" /> LinkedIn
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Popular cities row for SEO crawlability */}
         <div className="mt-8 border-t-2 border-background/30 pt-6">
-          <h4 className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-background">Woningen per stad</h4>
+          <h4 className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.perCity")}</h4>
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-background/70">
             {[
-              { label: "Amsterdam", href: "/woningen-amsterdam" },
-              { label: "Rotterdam", href: "/woningen-rotterdam" },
-              { label: "Utrecht", href: "/woningen-utrecht" },
-              { label: "Den Haag", href: "/woningen-den-haag" },
-              { label: "Eindhoven", href: "/woningen-eindhoven" },
-              { label: "Groningen", href: "/woningen-groningen" },
-              { label: "Tilburg", href: "/woningen-tilburg" },
-              { label: "Almere", href: "/woningen-almere" },
-              { label: "Breda", href: "/woningen-breda" },
-              { label: "Nijmegen", href: "/woningen-nijmegen" },
-              { label: "Arnhem", href: "/woningen-arnhem" },
-              { label: "Haarlem", href: "/woningen-haarlem" },
-              { label: "Leiden", href: "/woningen-leiden" },
-              { label: "Maastricht", href: "/woningen-maastricht" },
-              { label: "Delft", href: "/woningen-delft" },
-              { label: "Zwolle", href: "/woningen-zwolle" },
-              { label: "Apeldoorn", href: "/woningen-apeldoorn" },
-              { label: "Amersfoort", href: "/woningen-amersfoort" },
+              "Amsterdam", "Rotterdam", "Utrecht", "Den Haag", "Eindhoven",
+              "Groningen", "Tilburg", "Almere", "Breda", "Nijmegen",
+              "Arnhem", "Haarlem", "Leiden", "Maastricht", "Delft",
+              "Zwolle", "Apeldoorn", "Amersfoort"
             ].map((city) => (
-              <Link key={city.href} to={city.href} className="transition-colors hover:text-background hover:underline underline-offset-4">
-                {city.label}
+              <Link key={city} to={`/woningen-${city.toLowerCase().replace(/\s+/g, "-")}`} className="transition-colors hover:text-background hover:underline underline-offset-4">
+                {city}
               </Link>
             ))}
             <Link to="/steden" className="font-semibold text-background transition-colors hover:underline">
-              Alle steden →
+              {t("footer.allCitiesArrow")}
             </Link>
           </div>
         </div>
 
         <div className="mt-6 border-t-2 border-background/30 pt-6">
           <p className="text-center text-xs uppercase tracking-[0.22em] text-background/70">
-            © {new Date().getFullYear()} Huurbaasje. Alle rechten voorbehouden.
+            © {new Date().getFullYear()} Huurbaasje. {t("footer.rights")}
           </p>
         </div>
       </div>

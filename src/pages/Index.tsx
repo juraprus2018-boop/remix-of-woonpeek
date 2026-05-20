@@ -1,4 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { L as Link } from "@/components/LocalizedLink";
 import {
   ArrowRight,
   Search,
@@ -36,15 +38,16 @@ const POPULAR_CITIES = [
   { name: "Haarlem", count: "180+" },
 ];
 
-const TYPES = [
-  { label: "Huurwoningen", href: "/huurwoningen", icon: Home },
-  { label: "Appartementen", href: "/appartementen", icon: Building2 },
-  { label: "Kamers", href: "/kamers", icon: DoorOpen },
-  { label: "Studio's", href: "/studios", icon: BedDouble },
-  { label: "Huizen", href: "/huizen", icon: Home },
+const TYPES_DEF = [
+  { key: "rentals" as const, href: "/huurwoningen", icon: Home },
+  { key: "apartments" as const, href: "/appartementen", icon: Building2 },
+  { key: "rooms" as const, href: "/kamers", icon: DoorOpen },
+  { key: "studios" as const, href: "/studios", icon: BedDouble },
+  { key: "houses" as const, href: "/huizen", icon: Home },
 ];
 
 const Index = () => {
+  const { t } = useTranslation();
   const { data: properties, isLoading } = useFeaturedProperties();
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
@@ -65,8 +68,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Huurbaasje – Snel een huurwoning vinden in heel Nederland"
-        description="Elke dag verse huurwoningen uit heel Nederland op één plek. Filter op stad, prijs en kamers. Zet een alert aan en wees als eerste binnen."
+        title={t("meta.homeTitle")}
+        description={t("meta.homeDesc")}
         canonical="/"
       />
 
@@ -76,15 +79,15 @@ const Index = () => {
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              100% gratis voor huurders
+              {t("trustBar.free")}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              Elke dag nieuwe huurwoningen
+              {t("trustBar.fresh")}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              Heel Nederland
+              {t("trustBar.nl")}
             </span>
           </div>
           <span className="text-foreground/60">info@huurbaasje.nl</span>
@@ -103,19 +106,18 @@ const Index = () => {
           <div className="relative z-10">
             <span className="inline-flex items-center gap-2 rounded-full bg-sun px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground shadow-md">
               <Sparkles className="h-3.5 w-3.5" />
-              Vers binnen vandaag
+              {t("hero.badge")}
             </span>
             <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              Scoor jouw <span className="relative inline-block">
-                <span className="relative z-10">huurwoning.</span>
+              {t("hero.title1")} <span className="relative inline-block">
+                <span className="relative z-10">{t("hero.highlight")}</span>
                 <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-sun md:h-5" aria-hidden />
               </span>
               <br />
-              Sneller. Zonder gedoe.
+              {t("hero.title2")}
             </h1>
             <p className="mt-5 max-w-xl text-lg text-foreground/70">
-              Alle nieuwe huurwoningen van Nederland op één plek. Filter op stad en budget,
-              zet een alert aan en je bent als eerste binnen. Echt gratis, beloofd.
+              {t("hero.subtitle")}
             </p>
 
             {/* SEARCH CARD */}
@@ -129,30 +131,30 @@ const Index = () => {
                   <Input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Plaats, buurt of postcode"
+                    placeholder={t("hero.searchPlaceholder")}
                     className="h-12 rounded-xl border-border bg-background pl-10 text-base"
-                    aria-label="Locatie"
+                    aria-label={t("hero.searchPlaceholder")}
                   />
                 </div>
                 <select
                   value={type}
                   onChange={(e) => setType(e.target.value)}
                   className="h-12 rounded-xl border border-input bg-background px-3 text-base text-foreground"
-                  aria-label="Woningtype"
+                  aria-label={t("hero.type")}
                 >
-                  <option value="">Alle types</option>
-                  <option value="appartement">Appartement</option>
-                  <option value="huis">Huis</option>
-                  <option value="kamer">Kamer</option>
-                  <option value="studio">Studio</option>
+                  <option value="">{t("hero.typeAll")}</option>
+                  <option value="appartement">{t("hero.typeApartment")}</option>
+                  <option value="huis">{t("hero.typeHouse")}</option>
+                  <option value="kamer">{t("hero.typeRoom")}</option>
+                  <option value="studio">{t("hero.typeStudio")}</option>
                 </select>
                 <select
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                   className="h-12 rounded-xl border border-input bg-background px-3 text-base text-foreground"
-                  aria-label="Maximale prijs"
+                  aria-label={t("hero.maxPrice")}
                 >
-                  <option value="">Max prijs</option>
+                  <option value="">{t("hero.maxPrice")}</option>
                   <option value="750">€ 750</option>
                   <option value="1000">€ 1.000</option>
                   <option value="1500">€ 1.500</option>
@@ -164,12 +166,12 @@ const Index = () => {
                   className="h-12 gap-2 rounded-xl bg-sun px-6 text-base font-bold text-foreground shadow-sm hover:bg-sun/90"
                 >
                   <Search className="h-4 w-4" />
-                  Zoeken
+                  {t("hero.searchBtn")}
                 </Button>
               </div>
               <div className="mt-4 flex flex-wrap items-center gap-2 px-1">
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Populair:
+                  {t("hero.popular")}:
                 </span>
                 {POPULAR_CITIES.slice(0, 5).map((c) => (
                   <Link
@@ -213,16 +215,16 @@ const Index = () => {
       <section className="border-y border-border bg-background py-10">
         <div className="container">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-            {TYPES.map((t) => (
+            {TYPES_DEF.map((item) => (
               <Link
-                key={t.href}
-                to={t.href}
+                key={item.href}
+                to={item.href}
                 className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-sun hover:shadow-md"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
-                  <t.icon className="h-5 w-5 text-foreground" />
+                  <item.icon className="h-5 w-5 text-foreground" />
                 </div>
-                <span className="text-sm font-bold text-foreground">{t.label}</span>
+                <span className="text-sm font-bold text-foreground">{t(`nav.categories.${item.key}`)}</span>
               </Link>
             ))}
           </div>
