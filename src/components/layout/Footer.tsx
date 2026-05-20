@@ -13,11 +13,11 @@ const Footer = () => {
               <Logo size="h-9" variant="light" />
             </Link>
             <p className="mt-6 max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
-              Vind jouw <span className="text-sun">woning.</span>
+              Scoor jouw <span className="text-sun">huurwoning.</span>
             </p>
             <p className="mt-3 max-w-md text-sm text-background/70">
-              Eén rustige plek voor het nieuwste huur- en koopaanbod in heel Nederland.
-              Dagelijks vers, altijd gratis.
+              De rustigste plek voor verse huurwoningen uit heel NL.
+              Elke dag bij, altijd gratis.
             </p>
           </div>
           <div className="flex items-end lg:col-span-5 lg:justify-end">
