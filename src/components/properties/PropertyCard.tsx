@@ -104,37 +104,32 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
         property.status !== "actief" && "opacity-75"
       )}>
         <div className="relative aspect-[4/3] overflow-hidden">
-          {property.images?.[0] ? (
-            <picture>
-              {/* WebP via weserv.nl proxy (AVIF saving is no longer supported by weserv) */}
-              <source
-                type="image/webp"
-                srcSet={buildSrcSet(property.images[0], [320, 480, 640], 360, 72, "webp")}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-              />
-              <img
-                src={optimizeImage(property.images[0], { width: 480, height: 360, quality: 72 })}
-                alt={property.title}
-                loading={priority ? "eager" : "lazy"}
-                fetchPriority={priority ? "high" : "auto"}
-                decoding="async"
-                width={400}
-                height={300}
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                onError={(e) => { e.currentTarget.src = propertyPlaceholder; e.currentTarget.srcset = ""; }}
-              />
-            </picture>
-          ) : (
-            <img
-              src={propertyPlaceholder}
-              alt={property.title}
-              loading="lazy"
-              decoding="async"
-              width={400}
-              height={300}
-              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-            />
-          )}
+          {(() => {
+            const heroSrc = property.images?.[0] ?? getStockPropertyImage(property.id);
+            const hasOwn = !!property.images?.[0];
+            return (
+              <picture>
+                {hasOwn && (
+                  <source
+                    type="image/webp"
+                    srcSet={buildSrcSet(heroSrc, [320, 480, 640], 360, 72, "webp")}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+                  />
+                )}
+                <img
+                  src={hasOwn ? optimizeImage(heroSrc, { width: 480, height: 360, quality: 72 }) : heroSrc}
+                  alt={property.title}
+                  loading={priority ? "eager" : "lazy"}
+                  fetchPriority={priority ? "high" : "auto"}
+                  decoding="async"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  onError={(e) => { e.currentTarget.src = propertyPlaceholder; e.currentTarget.srcset = ""; }}
+                />
+              </picture>
+            );
+          })()}
           {/* Badges top-left */}
           <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
             {property.status === "inactief" && (
