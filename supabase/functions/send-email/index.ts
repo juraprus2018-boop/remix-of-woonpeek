@@ -16,7 +16,7 @@ Deno.serve(async (req) => {
 
     const client = new SMTPClient({
       connection: {
-        hostname: "huurbaasje.nl",
+        hostname: "mail.huurbaasje.nl",
         port: 465,
         tls: true,
         auth: {
