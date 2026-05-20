@@ -320,7 +320,7 @@ const Index = () => {
               Zo werkt het
             </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-              In drie stappen naar jouw nieuwe woning
+              Binnen drie stappen in je nieuwe huis.
             </h2>
           </div>
 
@@ -329,19 +329,19 @@ const Index = () => {
               {
                 n: "01",
                 t: "Zoek slim",
-                d: "Filter op stad, type en budget. Bekijk meteen het verse aanbod, zonder pop-ups.",
+                d: "Pak je stad, prik je budget, klaar. Geen onnodige filters waar je gek van wordt.",
                 icon: Search,
               },
               {
                 n: "02",
-                t: "Stel een alert in",
-                d: "Krijg een mail zodra er een woning binnenkomt die bij jouw wensen past.",
+                t: "Zet je alert aan",
+                d: "Plop in je mail zodra er iets binnenkomt dat klopt. Geen spam, eerlijk.",
                 icon: Bell,
               },
               {
                 n: "03",
-                t: "Reageer direct",
-                d: "Ga in één klik naar de oorspronkelijke aanbieder en wees op tijd.",
+                t: "Wees er bij",
+                d: "Eén klik door naar de aanbieder en reageren. Wie eerst komt, eerst maalt.",
                 icon: Heart,
               },
             ].map((s) => (
