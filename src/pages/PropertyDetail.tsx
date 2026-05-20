@@ -185,7 +185,7 @@ const PropertyDetail = () => {
     );
   }
 
-  const images = property.images?.length ? property.images : [propertyPlaceholder];
+  const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
   const sourceInfo = { source_url: property.source_url, source_site: property.source_site };
   const sourceMeta = sourceInfo.source_site
