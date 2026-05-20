@@ -259,7 +259,7 @@ const Header = () => {
               className="ml-2 gap-1.5 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90"
             >
               <PlusCircle className="h-4 w-4" />
-              Woning plaatsen
+              Verhuur je woning
             </Button>
           </Link>
         </div>
