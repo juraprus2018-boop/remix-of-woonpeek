@@ -215,16 +215,16 @@ const Index = () => {
       <section className="border-y border-border bg-background py-10">
         <div className="container">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-            {TYPES.map((t) => (
+            {TYPES_DEF.map((item) => (
               <Link
-                key={t.href}
-                to={t.href}
+                key={item.href}
+                to={item.href}
                 className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-sun hover:shadow-md"
               >
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
-                  <t.icon className="h-5 w-5 text-foreground" />
+                  <item.icon className="h-5 w-5 text-foreground" />
                 </div>
-                <span className="text-sm font-bold text-foreground">{t.label}</span>
+                <span className="text-sm font-bold text-foreground">{t(`nav.categories.${item.key}`)}</span>
               </Link>
             ))}
           </div>
