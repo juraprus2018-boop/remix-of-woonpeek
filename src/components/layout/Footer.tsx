@@ -31,8 +31,7 @@ const Footer = () => {
           {/* Brand quick block reused as fallback */}
           <div className="space-y-4 lg:hidden">
             <p className="text-sm text-muted-foreground">
-              Vind jouw droomwoning of plaats je eigen woning op Huurbaasje.
-              Eenvoudig, snel en betrouwbaar.
+              Snel een huurwoning vinden of zelf verhuren? Bij Huurbaasje doe je het zonder gedoe.
             </p>
           </div>
 
