@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import {
   Search, Heart, PlusCircle, User, Menu, LogOut, Shield, Map, Bell,
   MapPin, CalendarDays, Home, Building2, DoorOpen, BedDouble, ChevronDown,
-  ChevronRight, Handshake, MessageCircle, Zap
+  ChevronRight, Handshake, MessageCircle, Zap, Calculator, Sparkles,
+  TrendingUp, BookOpen, HelpCircle, Mail
 } from "lucide-react";
 import Logo from "@/components/brand/Logo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
