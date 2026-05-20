@@ -38,10 +38,10 @@ const POPULAR_CITIES = [
 
 const TYPES = [
   { label: "Huurwoningen", href: "/huurwoningen", icon: Home },
-  { label: "Koopwoningen", href: "/koopwoningen", icon: Building2 },
   { label: "Appartementen", href: "/appartementen", icon: Building2 },
   { label: "Kamers", href: "/kamers", icon: DoorOpen },
   { label: "Studio's", href: "/studios", icon: BedDouble },
+  { label: "Huizen", href: "/huizen", icon: Home },
 ];
 
 const Index = () => {
