@@ -51,6 +51,8 @@ const TYPES_DEF = [
 const Index = () => {
   const { t } = useTranslation();
   const { data: properties, isLoading } = useFeaturedProperties();
+  const { data: homeStats } = useHomeStats();
+  const { data: newToday } = useNewTodayCount();
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
