@@ -22,6 +22,8 @@ import SEOHead from "@/components/seo/SEOHead";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useFeaturedProperties } from "@/hooks/useProperties";
+import { useHomeStats } from "@/hooks/useHomeStats";
+import { useNewTodayCount } from "@/hooks/useNewTodayCount";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
