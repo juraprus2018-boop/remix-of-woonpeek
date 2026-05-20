@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import {
   Search, Heart, PlusCircle, User, Menu, LogOut, Shield, Map, Bell,
   MapPin, CalendarDays, Home, Building2, DoorOpen, BedDouble, ChevronDown,
-  ChevronRight, Handshake, MessageCircle, Zap
+  ChevronRight, Handshake, MessageCircle, Zap, Calculator, Sparkles,
+  TrendingUp, BookOpen, HelpCircle, Mail
 } from "lucide-react";
 import Logo from "@/components/brand/Logo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -107,18 +108,17 @@ const Header = () => {
         <div className="hidden items-center gap-0.5 lg:flex">
           <NavigationMenu>
             <NavigationMenuList className="gap-0">
-              {/* Woningen Mega Menu */}
+              {/* HUREN — woningtypes + steden */}
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="gap-1.5 bg-transparent text-sm font-medium">
                   <Search className="h-4 w-4" />
-                  Woningen
+                  Huren
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <div className="grid w-[540px] grid-cols-2 gap-0 p-0">
-                    {/* Left column: Categories */}
-                    <div className="border-r p-4">
+                  <div className="grid w-[640px] grid-cols-[1fr_1fr] gap-0 p-0">
+                    <div className="border-r p-5">
                       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                        Woningtype
+                        Type woning
                       </p>
                       <ul className="space-y-1">
                         {woningCategories.map((cat) => (
@@ -139,22 +139,32 @@ const Header = () => {
                           </li>
                         ))}
                       </ul>
+                      <div className="mt-4 border-t pt-3">
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/zoeken"
+                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-primary hover:bg-muted"
+                          >
+                            <Search className="h-4 w-4" />
+                            Geavanceerd zoeken
+                          </Link>
+                        </NavigationMenuLink>
+                      </div>
                     </div>
-                    {/* Right column: Dynamic cities based on hovered category */}
-                    <div className="p-4">
+                    <div className="p-5">
                       <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                        Populaire steden
+                        {hoveredCategory.label} in
                       </p>
-                      <ul className="space-y-0.5">
+                      <ul className="grid grid-cols-2 gap-0.5">
                         {topCities.map((city) => (
                           <li key={city}>
                             <NavigationMenuLink asChild>
                               <Link
                                 to={`${hoveredCategory.cityPrefix}/${cityToSlug(city)}`}
-                                className="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors hover:bg-muted"
+                                className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted"
                               >
                                 <MapPin className="h-3 w-3 text-muted-foreground" />
-                                <span>{hoveredCategory.label} {city}</span>
+                                <span>{city}</span>
                               </Link>
                             </NavigationMenuLink>
                           </li>
@@ -162,7 +172,7 @@ const Header = () => {
                       </ul>
                       <Link
                         to="/steden"
-                        className="mt-3 flex items-center gap-1 px-3 text-xs font-medium text-primary hover:underline"
+                        className="mt-3 flex items-center gap-1 px-2 text-xs font-medium text-primary hover:underline"
                       >
                         Alle steden bekijken
                         <ChevronRight className="h-3 w-3" />
@@ -172,97 +182,120 @@ const Header = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Nieuw aanbod */}
+              {/* ONTDEKKEN */}
               <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/nieuw-aanbod"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                  >
-                    <CalendarDays className="mr-1.5 h-4 w-4" />
-                    Nieuw aanbod
-                  </Link>
-                </NavigationMenuLink>
+                <NavigationMenuTrigger className="gap-1.5 bg-transparent text-sm font-medium">
+                  <Sparkles className="h-4 w-4" />
+                  Ontdekken
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[420px] gap-1 p-3">
+                    {[
+                      { to: "/nieuw-aanbod", icon: CalendarDays, label: "Nieuw aanbod", desc: "De vers geplaatste huurwoningen" },
+                      { to: "/verkennen", icon: Map, label: "Kaartweergave", desc: "Bekijk aanbod op de kaart" },
+                      { to: "/steden", icon: MapPin, label: "Alle steden", desc: "Huurwoningen per stad in Nederland" },
+                      { to: "/dagelijkse-alert", icon: Bell, label: "Daginstellingen alert", desc: "Krijg nieuwe woningen dagelijks per mail" },
+                      { to: "/woonquiz", icon: Sparkles, label: "Woonquiz", desc: "Ontdek welke stad bij jou past" },
+                    ].map((item) => (
+                      <li key={item.to}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to={item.to}
+                            className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-muted"
+                          >
+                            <item.icon className="mt-0.5 h-5 w-5 text-primary" />
+                            <div>
+                              <div className="text-sm font-medium">{item.label}</div>
+                              <p className="text-xs text-muted-foreground">{item.desc}</p>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Kaart */}
+              {/* TOOLS */}
               <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/verkennen"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                  >
-                    <Map className="mr-1.5 h-4 w-4" />
-                    Kaart
-                  </Link>
-                </NavigationMenuLink>
+                <NavigationMenuTrigger className="gap-1.5 bg-transparent text-sm font-medium">
+                  <Calculator className="h-4 w-4" />
+                  Tools
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[420px] gap-1 p-3">
+                    {[
+                      { to: "/budget-tool", icon: Calculator, label: "Budgetcheck", desc: "Wat kun jij maandelijks aan huur kwijt?" },
+                      { to: "/energie-vergelijken", icon: Zap, label: "Energie vergelijken", desc: "Bespaar op je gas en stroom" },
+                      { to: "/huurprijzen/amsterdam", icon: TrendingUp, label: "Huurprijsmonitor", desc: "Gemiddelde huurprijzen per stad" },
+                      { to: "/blog", icon: BookOpen, label: "Blog & tips", desc: "Slim huren, contracten, woonkosten" },
+                    ].map((item) => (
+                      <li key={item.to}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to={item.to}
+                            className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-muted"
+                          >
+                            <item.icon className="mt-0.5 h-5 w-5 text-primary" />
+                            <div>
+                              <div className="text-sm font-medium">{item.label}</div>
+                              <p className="text-xs text-muted-foreground">{item.desc}</p>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
 
-              {/* Steden */}
+              {/* VOOR VERHUURDERS */}
               <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/steden"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                  >
-                    <MapPin className="mr-1.5 h-4 w-4" />
-                    Steden
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              {/* Alert */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/dagelijkse-alert"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                  >
-                    <Bell className="mr-1.5 h-4 w-4" />
-                    Alert
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              {/* Voor makelaars */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/makelaar-koppelen"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                  >
-                    <Handshake className="mr-1.5 h-4 w-4" />
-                    Voor makelaars
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-
-              {/* Energie vergelijken */}
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link
-                    to="/energie-vergelijken"
-                    className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                  >
-                    <Zap className="mr-1.5 h-4 w-4" />
-                    Energie
-                  </Link>
-                </NavigationMenuLink>
+                <NavigationMenuTrigger className="gap-1.5 bg-transparent text-sm font-medium">
+                  <Handshake className="h-4 w-4" />
+                  Verhuren
+                </NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[420px] gap-1 p-3">
+                    {[
+                      { to: "/woning-plaatsen", icon: PlusCircle, label: "Woning plaatsen", desc: "Gratis je huurwoning aanbieden" },
+                      { to: "/makelaar-koppelen", icon: Handshake, label: "Makelaar koppelen", desc: "Koppel je aanbod via XML feed" },
+                      { to: "/samenwerking", icon: Mail, label: "Samenwerken", desc: "Partner worden van Huurbaasje" },
+                      { to: "/over-huurbaasje", icon: HelpCircle, label: "Over ons", desc: "Wie zit er achter Huurbaasje?" },
+                    ].map((item) => (
+                      <li key={item.to}>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to={item.to}
+                            className="flex items-start gap-3 rounded-md p-3 transition-colors hover:bg-muted"
+                          >
+                            <item.icon className="mt-0.5 h-5 w-5 text-primary" />
+                            <div>
+                              <div className="text-sm font-medium">{item.label}</div>
+                              <p className="text-xs text-muted-foreground">{item.desc}</p>
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
 
-          {/* Woning plaatsen CTA */}
+          {/* CTA */}
           <Link to="/woning-plaatsen">
             <Button
               size="sm"
               className="ml-2 gap-1.5 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90"
             >
               <PlusCircle className="h-4 w-4" />
-              Verhuur je woning
+              Plaats gratis
             </Button>
           </Link>
         </div>
+
 
         {/* Desktop Auth Buttons */}
         <div className="hidden items-center gap-2 lg:flex" style={{ minHeight: '40px' }}>
