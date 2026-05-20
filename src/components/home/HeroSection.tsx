@@ -32,7 +32,7 @@ const HeroSection = () => {
   });
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [listingType, setListingType] = useState<string>("");
+  const [listingType] = useState<string>("huur");
   const [maxPrice, setMaxPrice] = useState<string>("");
   const [minBedrooms, setMinBedrooms] = useState<string>("");
   const [grossIncome, setGrossIncome] = useState<string>("");
@@ -76,12 +76,11 @@ const HeroSection = () => {
           </div>
 
           <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            Elke dag het nieuwste <span style={{ color: '#288a51' }}>woningaanbod!</span>
+            Elke dag verse <span style={{ color: '#288a51' }}>huurwoningen!</span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base text-white/80 sm:text-lg md:text-xl">
-            Huurbaasje helpt je nieuwe woningen te ontdekken zodra ze beschikbaar komen. Huurwoningen, koopwoningen en meer dagelijks bijgewerkt.
-          
+            Wij pikken nieuwe huurwoningen op zodra ze online komen. Jij scrolt, klikt en bent als eerste binnen.
           </p>
 
           {/* Search Bar - Extended */}
@@ -100,20 +99,10 @@ const HeroSection = () => {
               </div>
 
               {/* Filter row */}
-              <div className="grid grid-cols-3 divide-x divide-border/50">
-                <Select value={listingType} onValueChange={setListingType}>
-                  <SelectTrigger className="h-12 rounded-none border-0 bg-transparent text-sm shadow-none focus:ring-0">
-                    <SelectValue placeholder="Koop of huur" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="huur">Huur</SelectItem>
-                    <SelectItem value="koop">Koop</SelectItem>
-                  </SelectContent>
-                </Select>
-
+              <div className="grid grid-cols-2 divide-x divide-border/50">
                 <Select value={maxPrice} onValueChange={setMaxPrice}>
                   <SelectTrigger className="h-12 rounded-none border-0 bg-transparent text-sm shadow-none focus:ring-0">
-                    <SelectValue placeholder="Max. prijs" />
+                    <SelectValue placeholder="Max. huur" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="750">Tot €750</SelectItem>
@@ -121,11 +110,10 @@ const HeroSection = () => {
                     <SelectItem value="1250">Tot €1.250</SelectItem>
                     <SelectItem value="1500">Tot €1.500</SelectItem>
                     <SelectItem value="2000">Tot €2.000</SelectItem>
-                    <SelectItem value="250000">Tot €250.000</SelectItem>
-                    <SelectItem value="350000">Tot €350.000</SelectItem>
-                    <SelectItem value="500000">Tot €500.000</SelectItem>
+                    <SelectItem value="2500">Tot €2.500</SelectItem>
                   </SelectContent>
                 </Select>
+
 
                 <Select value={minBedrooms} onValueChange={setMinBedrooms}>
                   <SelectTrigger className="h-12 rounded-none border-0 bg-transparent text-sm shadow-none focus:ring-0">

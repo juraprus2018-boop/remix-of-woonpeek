@@ -13,11 +13,11 @@ const Footer = () => {
               <Logo size="h-9" variant="light" />
             </Link>
             <p className="mt-6 max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
-              Vind jouw <span className="text-sun">woning.</span>
+              Scoor jouw <span className="text-sun">huurwoning.</span>
             </p>
             <p className="mt-3 max-w-md text-sm text-background/70">
-              Eén rustige plek voor het nieuwste huur- en koopaanbod in heel Nederland.
-              Dagelijks vers, altijd gratis.
+              De rustigste plek voor verse huurwoningen uit heel NL.
+              Elke dag bij, altijd gratis.
             </p>
           </div>
           <div className="flex items-end lg:col-span-5 lg:justify-end">
@@ -31,8 +31,7 @@ const Footer = () => {
           {/* Brand quick block reused as fallback */}
           <div className="space-y-4 lg:hidden">
             <p className="text-sm text-muted-foreground">
-              Vind jouw droomwoning of plaats je eigen woning op Huurbaasje.
-              Eenvoudig, snel en betrouwbaar.
+              Snel een huurwoning vinden of zelf verhuren? Bij Huurbaasje doe je het zonder gedoe.
             </p>
           </div>
 
@@ -40,14 +39,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Snelle links</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Woningen zoeken</Link></li>
+              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoning zoeken</Link></li>
               <li><Link to="/huurwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoningen</Link></li>
-              <li><Link to="/koopwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Koopwoningen</Link></li>
               <li><Link to="/appartementen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Appartementen</Link></li>
               <li><Link to="/kamers" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Kamers</Link></li>
+              <li><Link to="/studios" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Studio's</Link></li>
               <li><Link to="/steden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Alle steden</Link></li>
               <li><Link to="/nieuw-aanbod" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Nieuw aanbod</Link></li>
-              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Woning plaatsen</Link></li>
+              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuur je woning</Link></li>
               <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Blog</Link></li>
             </ul>
           </div>
@@ -76,8 +75,8 @@ const Footer = () => {
               <li><Link to="/verhuizen-naar-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuizen naar Utrecht</Link></li>
               <li><Link to="/huurwoningen-onder-1000-amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.000 Amsterdam</Link></li>
               <li><Link to="/huurwoningen-onder-1500-rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.500 Rotterdam</Link></li>
-              <li><Link to="/koopwoningen-onder-300000-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Koop onder €300k Utrecht</Link></li>
-              <li><Link to="/koopwoningen-onder-500000-amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Koop onder €500k Amsterdam</Link></li>
+              <li><Link to="/huurwoningen-onder-1250-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.250 Utrecht</Link></li>
+              <li><Link to="/huurwoningen-onder-1500-den-haag" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.500 Den Haag</Link></li>
               <li><Link to="/budget-tool" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Budget tool</Link></li>
             </ul>
           </div>

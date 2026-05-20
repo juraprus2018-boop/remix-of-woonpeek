@@ -45,42 +45,35 @@ const woningCategories = [
     label: "Huurwoningen",
     href: "/huurwoningen",
     icon: Home,
-    description: "Alle huurwoningen in Nederland",
+    description: "Alle huurwoningen in NL",
     cityPrefix: "/huurwoningen",
-  },
-  {
-    label: "Koopwoningen",
-    href: "/koopwoningen",
-    icon: Home,
-    description: "Alle koopwoningen in Nederland",
-    cityPrefix: "/koopwoningen",
   },
   {
     label: "Appartementen",
     href: "/appartementen",
     icon: Building2,
-    description: "Appartementen huren & kopen",
+    description: "Appartementen te huur",
     cityPrefix: "/appartementen",
   },
   {
     label: "Huizen",
     href: "/huizen",
     icon: Home,
-    description: "Eengezinswoningen & villa's",
+    description: "Eengezinswoningen te huur",
     cityPrefix: "/huizen",
   },
   {
     label: "Kamers",
     href: "/kamers",
     icon: DoorOpen,
-    description: "Kamers voor studenten & starters",
+    description: "Voor studenten & starters",
     cityPrefix: "/kamers",
   },
   {
     label: "Studio's",
     href: "/studios",
     icon: BedDouble,
-    description: "Compacte zelfstandige woonruimtes",
+    description: "Compact en zelfstandig",
     cityPrefix: "/studios",
   },
 ];
@@ -266,7 +259,7 @@ const Header = () => {
               className="ml-2 gap-1.5 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90"
             >
               <PlusCircle className="h-4 w-4" />
-              Woning plaatsen
+              Verhuur je woning
             </Button>
           </Link>
         </div>

@@ -38,10 +38,10 @@ const POPULAR_CITIES = [
 
 const TYPES = [
   { label: "Huurwoningen", href: "/huurwoningen", icon: Home },
-  { label: "Koopwoningen", href: "/koopwoningen", icon: Building2 },
   { label: "Appartementen", href: "/appartementen", icon: Building2 },
   { label: "Kamers", href: "/kamers", icon: DoorOpen },
   { label: "Studio's", href: "/studios", icon: BedDouble },
+  { label: "Huizen", href: "/huizen", icon: Home },
 ];
 
 const Index = () => {
@@ -65,8 +65,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Huurbaasje – Vind eenvoudig jouw huur- of koopwoning in Nederland"
-        description="Dagelijks vers huur- en koopaanbod uit heel Nederland. Zoek per stad, type en budget. Stel een gratis alert in en mis geen enkele woning meer."
+        title="Huurbaasje – Snel een huurwoning vinden in heel Nederland"
+        description="Elke dag verse huurwoningen uit heel Nederland op één plek. Filter op stad, prijs en kamers. Zet een alert aan en wees als eerste binnen."
         canonical="/"
       />
 
@@ -76,11 +76,11 @@ const Index = () => {
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              100% gratis voor woningzoekers
+              100% gratis voor huurders
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              Dagelijks vers aanbod
+              Elke dag nieuwe huurwoningen
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
@@ -103,19 +103,19 @@ const Index = () => {
           <div className="relative z-10">
             <span className="inline-flex items-center gap-2 rounded-full bg-sun px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground shadow-md">
               <Sparkles className="h-3.5 w-3.5" />
-              Dagelijks vers aanbod
+              Vers binnen vandaag
             </span>
             <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              Vind <span className="relative inline-block">
-                <span className="relative z-10">jouw woning.</span>
+              Scoor jouw <span className="relative inline-block">
+                <span className="relative z-10">huurwoning.</span>
                 <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-sun md:h-5" aria-hidden />
               </span>
               <br />
-              Snel, simpel, gratis.
+              Sneller. Zonder gedoe.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-foreground/70">
-              Eén overzichtelijke plek voor het nieuwste huur- en koopaanbod in heel Nederland.
-              Zoek per stad, filter op je budget en ontvang een alert zodra er iets nieuws komt.
+              Alle nieuwe huurwoningen van Nederland op één plek. Filter op stad en budget,
+              zet een alert aan en je bent als eerste binnen. Echt gratis, beloofd.
             </p>
 
             {/* SEARCH CARD */}
@@ -235,13 +235,13 @@ const Index = () => {
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-sun-foreground">
-                <span className="rounded-full bg-sun px-2.5 py-1 text-foreground">Nieuw deze week</span>
+                <span className="rounded-full bg-sun px-2.5 py-1 text-foreground">Net binnen</span>
               </span>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Verse woningen, dagelijks bijgewerkt
+                Verse huurwoningen, elke dag.
               </h2>
               <p className="mt-2 max-w-xl text-muted-foreground">
-                Een selectie uit het nieuwste aanbod. Geen pop-ups, geen abonnement. Klik en bekijk.
+                Een greep uit het laatste aanbod. Geen pop-ups, geen abo, gewoon klikken en kijken.
               </p>
             </div>
             <Link
@@ -320,7 +320,7 @@ const Index = () => {
               Zo werkt het
             </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-              In drie stappen naar jouw nieuwe woning
+              Binnen drie stappen in je nieuwe huis.
             </h2>
           </div>
 
@@ -329,19 +329,19 @@ const Index = () => {
               {
                 n: "01",
                 t: "Zoek slim",
-                d: "Filter op stad, type en budget. Bekijk meteen het verse aanbod, zonder pop-ups.",
+                d: "Pak je stad, prik je budget, klaar. Geen onnodige filters waar je gek van wordt.",
                 icon: Search,
               },
               {
                 n: "02",
-                t: "Stel een alert in",
-                d: "Krijg een mail zodra er een woning binnenkomt die bij jouw wensen past.",
+                t: "Zet je alert aan",
+                d: "Plop in je mail zodra er iets binnenkomt dat klopt. Geen spam, eerlijk.",
                 icon: Bell,
               },
               {
                 n: "03",
-                t: "Reageer direct",
-                d: "Ga in één klik naar de oorspronkelijke aanbieder en wees op tijd.",
+                t: "Wees er bij",
+                d: "Eén klik door naar de aanbieder en reageren. Wie eerst komt, eerst maalt.",
                 icon: Heart,
               },
             ].map((s) => (
@@ -367,10 +367,10 @@ const Index = () => {
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Populaire steden
+                Steden waar het gebeurt
               </h2>
               <p className="mt-2 text-muted-foreground">
-                Bekijk het actuele aanbod in de grootste steden van Nederland.
+                Kijk wat er nu te huur staat in de drukste steden van NL.
               </p>
             </div>
             <Link
@@ -386,19 +386,19 @@ const Index = () => {
             {POPULAR_CITIES.map((c) => (
               <Link
                 key={c.name}
-                to={`/woningen-${cityToSlug(c.name)}`}
+                to={`/huurwoningen/${cityToSlug(c.name)}`}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-sun hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Aanbod
+                      Te huur
                     </div>
                     <h3 className="mt-1 text-2xl font-extrabold tracking-tight text-foreground">
                       {c.name}
                     </h3>
                     <div className="mt-2 text-sm font-semibold text-foreground/70">
-                      {c.count} woningen
+                      {c.count} huurwoningen
                     </div>
                   </div>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
@@ -424,11 +424,11 @@ const Index = () => {
                   Gratis alert
                 </span>
                 <h2 className="mt-5 text-4xl font-extrabold tracking-tight md:text-5xl">
-                  Wees als eerste binnen.
+                  Wees gewoon de eerste.
                 </h2>
                 <p className="mt-4 max-w-md text-background/80">
-                  Krijg een mail zodra er een woning verschijnt die past bij jouw stad, budget en wensen.
-                  Geen spam, één klik om uit te schrijven.
+                  Wij mailen je zodra er een huurwoning binnenkomt die past bij jouw stad en budget.
+                  Geen spam, één klik om eruit.
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">

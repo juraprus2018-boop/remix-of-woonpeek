@@ -9,53 +9,53 @@ import { Button } from "@/components/ui/button";
 const ABOUT_FAQ = [
   {
     question: "Is Huurbaasje echt gratis?",
-    answer: "Ja, Huurbaasje is 100% gratis. Zoeken, alerts instellen en je eigen woning plaatsen kost niets. Er zijn geen verborgen kosten of abonnementen.",
+    answer: "Yep. Zoeken, alerts, je eigen huurwoning plaatsen. Allemaal nul euro. Geen abo, geen kleine lettertjes.",
   },
   {
-    question: "Hoe verdient Huurbaasje geld?",
-    answer: "Huurbaasje verdient geld via samenwerkingen met makelaars en woningplatforms. De kosten worden gedragen door partners, niet door woningzoekers.",
+    question: "Hoe verdienen jullie dan geld?",
+    answer: "Via samenwerkingen met makelaars en verhuurplatforms. Zij betalen, jij niet.",
   },
   {
-    question: "Hoeveel woningen staan er op Huurbaasje?",
-    answer: "Huurbaasje heeft dagelijks meer dan 6.000 actieve woningen online uit heel Nederland, afkomstig van meerdere bronnen en makelaars.",
+    question: "Hoeveel huurwoningen staan er online?",
+    answer: "Elke dag duizenden actieve huurwoningen uit heel Nederland, van meerdere bronnen tegelijk.",
   },
   {
-    question: "Kan ik zelf een woning plaatsen op Huurbaasje?",
-    answer: "Ja, als particuliere verhuurder of verkoper kun je gratis je woning adverteren op Huurbaasje en duizenden woningzoekers bereiken.",
+    question: "Kan ik zelf een huurwoning plaatsen?",
+    answer: "Zeker. Als particuliere verhuurder zet je je woning gratis online en bereik je een hoop zoekers.",
   },
 ];
 
 const stats = [
-  { label: "Woningen online", value: "6.000+" },
-  { label: "Dagelijks bijgewerkt", value: "Elke dag" },
-  { label: "Kosten voor gebruikers", value: "Gratis" },
-  { label: "Actieve steden", value: "100+" },
+  { label: "Huurwoningen online", value: "6.000+" },
+  { label: "Update", value: "Elke dag" },
+  { label: "Voor jou", value: "Gratis" },
+  { label: "Steden", value: "100+" },
 ];
 
 const usps = [
   {
     icon: Home,
-    title: "Groot en divers aanbod",
+    title: "Een berg aanbod",
     description:
-      "Huurbaasje verzamelt woningen uit meerdere bronnen op één plek. Van huurwoningen en koopwoningen tot studio's en kamers: je vindt het allemaal bij ons. Geen eindeloos zoeken op tientallen websites meer.",
+      "Wij trekken huurwoningen uit allerlei platforms naar elkaar toe. Van appartementen en huizen tot studio's en kamers. Geen vijf sites meer openhebben dus.",
   },
   {
     icon: RefreshCw,
-    title: "Dagelijks bijgewerkt",
+    title: "Elke dag bij",
     description:
-      "Ons platform wordt elke dag automatisch bijgewerkt met het nieuwste aanbod. Woningen die niet meer beschikbaar zijn worden verwijderd, zodat je altijd actuele en betrouwbare resultaten ziet.",
+      "Het platform ververst zichzelf elke dag. Weg is weg, nieuw staat er meteen op. Niks meer reageren op iets dat al verhuurd is.",
   },
   {
     icon: Heart,
-    title: "100% gratis platform",
+    title: "Echt gratis",
     description:
-      "In tegenstelling tot andere woningplatforms is Huurbaasje volledig gratis. Zoeken, alerts instellen én zelfs je eigen woning plaatsen: het kost je niets. Geen verborgen kosten, geen abonnementen.",
+      "Geen freemium, geen plus-pakket. Zoeken, alerts en zelf plaatsen kost niks. Punt.",
   },
   {
     icon: Bell,
-    title: "Gratis dagelijkse woningalert",
+    title: "Mail-alerts die werken",
     description:
-      "Ontvang elke dag een overzichtelijke e-mail met het nieuwste woningaanbod. Zo ben je altijd als eerste op de hoogte en hoef je niet zelf te zoeken. Uitschrijven kan op elk moment.",
+      "Elke ochtend een overzicht van wat er bij is gekomen in jouw stad en budget. Bevalt het niet? Eén klik en je bent eruit.",
   },
 ];
 
@@ -65,7 +65,7 @@ const About = () => {
     "@type": "AboutPage",
     name: "Over Huurbaasje",
     description:
-      "Huurbaasje is een gratis woningplatform dat dagelijks het nieuwste huur- en koopaanbod verzamelt uit heel Nederland.",
+      "Huurbaasje is een gratis platform voor huurwoningen. Elke dag vers aanbod uit heel Nederland op één plek.",
     url: "https://huurbaasje.nl/over-huurbaasje",
     mainEntity: {
       "@type": "Organization",
@@ -90,8 +90,8 @@ const About = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Over Huurbaasje – Gratis woningplatform met dagelijks actueel aanbod"
-        description="Huurbaasje verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland op één plek. Volledig gratis zoeken, alerts instellen en woningen plaatsen."
+        title="Over Huurbaasje – Gratis platform voor huurwoningen in heel NL"
+        description="Huurbaasje verzamelt elke dag het verste huuraanbod uit heel Nederland op één plek. Gratis zoeken, alerts en zelf je huurwoning plaatsen."
         canonical="https://huurbaasje.nl/over-huurbaasje"
       />
       <script
@@ -130,9 +130,8 @@ const About = () => {
                 Over Huurbaasje
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-                Huurbaasje is hét gratis woningplatform van Nederland. Wij
-                verzamelen dagelijks het nieuwste huur- en koopaanbod uit
-                meerdere bronnen, zodat jij sneller vindt wat je zoekt.
+                Huurbaasje is het gratis platform voor huurwoningen in Nederland. Wij trekken elke dag
+                het nieuwste huuraanbod van allerlei bronnen naar één plek. Zodat jij niet hoeft te switchen.
               </p>
             </div>
           </div>
@@ -163,7 +162,7 @@ const About = () => {
               Waarom Huurbaasje?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-              Dit maakt ons anders dan andere woningplatforms
+              Dit is waarom wij anders zijn dan de rest.
             </p>
             <div className="mt-12 grid gap-8 md:grid-cols-2">
               {usps.map((usp) => (
@@ -194,16 +193,14 @@ const About = () => {
                 Onze missie
               </h2>
               <p className="text-center leading-relaxed text-muted-foreground">
-                De woningmarkt in Nederland is krap en onoverzichtelijk.
-                Woningzoekers moeten dagelijks tientallen websites checken om
-                niets te missen. Dat kan beter. Huurbaasje brengt al het aanbod
-                samen op één plek, volledig gratis en dagelijks bijgewerkt.
+                De huurmarkt in Nederland is krap. Echt krap. Wie er bovenop wil zitten,
+                checkt elke ochtend tien sites en is dan nog te laat. Dat moet anders.
+                Huurbaasje brengt alles bij elkaar, gratis en elke dag bij.
               </p>
               <p className="text-center leading-relaxed text-muted-foreground">
-                Wij geloven dat iedereen eerlijke en snelle toegang verdient tot
-                het woningaanbod. Daarom rekenen wij geen kosten voor het
-                zoeken, het instellen van alerts of het plaatsen van een woning.
-                Huurbaasje is er voor iedereen.
+                Wij vinden dat iedereen eerlijk bij het aanbod moet kunnen. Geen abo om de beste
+                woningen te zien, geen kosten om een alert aan te zetten. Voor huurders, door mensen
+                die zelf weten hoe vervelend dat zoeken is.
               </p>
             </div>
           </div>
@@ -214,12 +211,11 @@ const About = () => {
           <div className="container">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="font-display text-2xl font-bold text-foreground md:text-3xl">
-                Gratis je woning plaatsen
+                Zelf je huurwoning plaatsen
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                Heb je een woning te huur of te koop? Op Huurbaasje kun je
-                kosteloos je woning adverteren. Bereik duizenden woningzoekers
-                zonder advertentiekosten, anders dan bij veel andere platforms.
+                Heb je een huurwoning beschikbaar? Zet hem hier gratis online en bereik in een paar tellen
+                duizenden zoekers. Geen plaatsingskosten, geen rare voorwaarden.
               </p>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                 <Link to="/woning-plaatsen">
@@ -230,7 +226,7 @@ const About = () => {
                 </Link>
                 <Link to="/dagelijkse-alert">
                   <Button size="lg" variant="outline" className="gap-2">
-                    Stel een gratis alert in
+                    Zet een alert aan
                     <Bell className="h-5 w-5" />
                   </Button>
                 </Link>
