@@ -103,19 +103,19 @@ const Index = () => {
           <div className="relative z-10">
             <span className="inline-flex items-center gap-2 rounded-full bg-sun px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground shadow-md">
               <Sparkles className="h-3.5 w-3.5" />
-              Dagelijks vers aanbod
+              Vers binnen vandaag
             </span>
             <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              Vind <span className="relative inline-block">
-                <span className="relative z-10">jouw woning.</span>
+              Scoor jouw <span className="relative inline-block">
+                <span className="relative z-10">huurwoning.</span>
                 <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-sun md:h-5" aria-hidden />
               </span>
               <br />
-              Snel, simpel, gratis.
+              Sneller. Zonder gedoe.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-foreground/70">
-              Eén overzichtelijke plek voor het nieuwste huur- en koopaanbod in heel Nederland.
-              Zoek per stad, filter op je budget en ontvang een alert zodra er iets nieuws komt.
+              Alle nieuwe huurwoningen van Nederland op één plek. Filter op stad en budget,
+              zet een alert aan en je bent als eerste binnen. Echt gratis, beloofd.
             </p>
 
             {/* SEARCH CARD */}
