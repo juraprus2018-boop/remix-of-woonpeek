@@ -134,7 +134,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://www.facebook.com/profile.php?id=61588380235270"
+                  href="https://www.facebook.com/huurbaasje"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
