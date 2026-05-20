@@ -184,13 +184,28 @@ export const useProperty = (slugOrId: string) => {
   return useQuery({
     queryKey: ["property", slugOrId],
     queryFn: async () => {
-      // Try slug first, fall back to id (for backwards compatibility)
+      const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
       const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
-      
+
+      // URL pattern: /woning/[stad]-[type]-[uuid] → extract trailing UUID and look up by id
+      const embeddedUuid = !isUuid ? slugOrId.match(uuidRegex)?.[0] : null;
+
+      if (isUuid || embeddedUuid) {
+        const id = isUuid ? slugOrId : embeddedUuid!;
+        const { data, error } = await supabase
+          .from("properties")
+          .select("*")
+          .eq("id", id)
+          .maybeSingle();
+        if (error) throw error;
+        if (data) return data as Property;
+      }
+
+      // Fallback: lookup by exact slug (legacy URLs)
       const { data, error } = await supabase
         .from("properties")
         .select("*")
-        .eq(isUuid ? "id" : "slug", slugOrId)
+        .eq("slug", slugOrId)
         .maybeSingle();
 
       if (error) throw error;
