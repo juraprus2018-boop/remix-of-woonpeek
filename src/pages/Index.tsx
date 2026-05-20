@@ -424,11 +424,11 @@ const Index = () => {
                   Gratis alert
                 </span>
                 <h2 className="mt-5 text-4xl font-extrabold tracking-tight md:text-5xl">
-                  Wees als eerste binnen.
+                  Wees gewoon de eerste.
                 </h2>
                 <p className="mt-4 max-w-md text-background/80">
-                  Krijg een mail zodra er een woning verschijnt die past bij jouw stad, budget en wensen.
-                  Geen spam, één klik om uit te schrijven.
+                  Wij mailen je zodra er een huurwoning binnenkomt die past bij jouw stad en budget.
+                  Geen spam, één klik om eruit.
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">
