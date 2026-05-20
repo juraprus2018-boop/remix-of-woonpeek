@@ -99,20 +99,10 @@ const HeroSection = () => {
               </div>
 
               {/* Filter row */}
-              <div className="grid grid-cols-3 divide-x divide-border/50">
-                <Select value={listingType} onValueChange={setListingType}>
-                  <SelectTrigger className="h-12 rounded-none border-0 bg-transparent text-sm shadow-none focus:ring-0">
-                    <SelectValue placeholder="Koop of huur" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="huur">Huur</SelectItem>
-                    <SelectItem value="koop">Koop</SelectItem>
-                  </SelectContent>
-                </Select>
-
+              <div className="grid grid-cols-2 divide-x divide-border/50">
                 <Select value={maxPrice} onValueChange={setMaxPrice}>
                   <SelectTrigger className="h-12 rounded-none border-0 bg-transparent text-sm shadow-none focus:ring-0">
-                    <SelectValue placeholder="Max. prijs" />
+                    <SelectValue placeholder="Max. huur" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="750">Tot €750</SelectItem>
@@ -120,11 +110,10 @@ const HeroSection = () => {
                     <SelectItem value="1250">Tot €1.250</SelectItem>
                     <SelectItem value="1500">Tot €1.500</SelectItem>
                     <SelectItem value="2000">Tot €2.000</SelectItem>
-                    <SelectItem value="250000">Tot €250.000</SelectItem>
-                    <SelectItem value="350000">Tot €350.000</SelectItem>
-                    <SelectItem value="500000">Tot €500.000</SelectItem>
+                    <SelectItem value="2500">Tot €2.500</SelectItem>
                   </SelectContent>
                 </Select>
+
 
                 <Select value={minBedrooms} onValueChange={setMinBedrooms}>
                   <SelectTrigger className="h-12 rounded-none border-0 bg-transparent text-sm shadow-none focus:ring-0">
