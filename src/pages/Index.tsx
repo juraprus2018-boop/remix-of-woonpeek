@@ -202,13 +202,19 @@ const Index = () => {
                   <TrendingUp className="h-5 w-5 text-foreground" />
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Vandaag online</div>
-                  <div className="text-lg font-extrabold leading-none text-foreground">+287</div>
+                  <div className="text-xs text-muted-foreground">Nieuw vandaag</div>
+                  <div className="text-lg font-extrabold leading-none text-foreground">
+                    {newToday !== undefined ? `+${newToday}` : "…"}
+                  </div>
                 </div>
               </div>
               <div className="absolute -right-4 top-10 flex items-center gap-3 rounded-2xl bg-foreground px-4 py-3 text-background shadow-lg">
                 <Heart className="h-5 w-5 fill-sun text-sun" />
-                <div className="text-xs font-medium">3.097 woningen</div>
+                <div className="text-xs font-medium">
+                  {homeStats?.properties_count !== undefined
+                    ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
+                    : "… woningen"}
+                </div>
               </div>
             </div>
           </div>
