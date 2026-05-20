@@ -13,7 +13,7 @@ const Footer = () => {
               <Logo size="h-9" variant="light" />
             </Link>
             <p className="mt-6 max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
-              Vind jouw <span className="text-sun">stekje.</span>
+              Vind jouw <span className="text-sun">woning.</span>
             </p>
             <p className="mt-3 max-w-md text-sm text-background/70">
               Eén rustige plek voor het nieuwste huur- en koopaanbod in heel Nederland.
