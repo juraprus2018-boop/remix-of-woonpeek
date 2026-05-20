@@ -76,12 +76,11 @@ const HeroSection = () => {
           </div>
 
           <h1 className="font-display text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-            Elke dag het nieuwste <span style={{ color: '#288a51' }}>woningaanbod!</span>
+            Elke dag verse <span style={{ color: '#288a51' }}>huurwoningen!</span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-2xl text-base text-white/80 sm:text-lg md:text-xl">
-            Huurbaasje helpt je nieuwe woningen te ontdekken zodra ze beschikbaar komen. Huurwoningen, koopwoningen en meer dagelijks bijgewerkt.
-          
+            Wij pikken nieuwe huurwoningen op zodra ze online komen. Jij scrolt, klikt en bent als eerste binnen.
           </p>
 
           {/* Search Bar - Extended */}

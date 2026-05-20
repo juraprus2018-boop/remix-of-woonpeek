@@ -4,32 +4,32 @@ import { Home, Building2, DoorOpen, BedDouble, Key } from "lucide-react";
 const categories = [
   {
     title: "Huurwoningen",
-    description: "Alle huurwoningen in Nederland",
+    description: "Alle huurwoningen in NL",
     href: "/huurwoningen",
     icon: Key,
   },
   {
     title: "Appartementen",
-    description: "Ruime appartementen in de stad",
-    href: "/zoeken?type=appartement",
+    description: "Lekker stadsleven",
+    href: "/appartementen",
     icon: Building2,
   },
   {
     title: "Studio's",
-    description: "Compacte, zelfstandige woonruimtes",
-    href: "/zoeken?type=studio",
+    description: "Klein maar fijn",
+    href: "/studios",
     icon: DoorOpen,
   },
   {
     title: "Kamers",
-    description: "Kamers in gedeelde woningen",
-    href: "/zoeken?type=kamer",
+    description: "Voor studenten & starters",
+    href: "/kamers",
     icon: BedDouble,
   },
   {
-    title: "Koopwoningen",
-    description: "Woningen te koop in Nederland",
-    href: "/koopwoningen",
+    title: "Huizen",
+    description: "Met tuin en alles erop en eraan",
+    href: "/huizen",
     icon: Home,
   },
 ];
@@ -40,10 +40,10 @@ const CategorySection = () => {
       <div className="container">
         <div className="mb-10 text-center">
           <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Zoek per woningtype
+            Wat zoek je precies?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
-            Kies het type woning dat bij jou past
+            Kies je type en duik er meteen in.
           </p>
         </div>
 

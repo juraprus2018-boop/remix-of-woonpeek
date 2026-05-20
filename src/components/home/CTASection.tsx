@@ -7,7 +7,6 @@ const CTASection = () => {
     <section className="py-16 md:py-20">
       <div className="container">
         <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-16 text-center md:px-12 md:py-20">
-          {/* Subtle pattern overlay */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
@@ -17,11 +16,10 @@ const CTASection = () => {
 
           <div className="relative">
             <h2 className="font-display text-3xl font-bold text-primary-foreground md:text-4xl">
-              Op zoek naar een woning?
+              Klaar om te scoren?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-primary-foreground/80">
-              Bekijk het complete woningaanbod van Nederland op Huurbaasje. Huurwoningen,
-              koopwoningen en meer, elke dag bijgewerkt.
+              Het complete huuraanbod van Nederland, elke dag bij. Eén plek, geen omwegen.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link to="/zoeken">
@@ -39,7 +37,7 @@ const CTASection = () => {
                   variant="outline"
                   className="gap-2 border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
                 >
-                  Stel een alert in
+                  Zet een alert aan
                 </Button>
               </Link>
             </div>

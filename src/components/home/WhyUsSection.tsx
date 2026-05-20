@@ -3,33 +3,33 @@ import { TrendingUp, Search, Bell, Shield, Zap, Heart } from "lucide-react";
 const benefits = [
   {
     icon: Zap,
-    title: "Sneller dan anderen",
-    description: "Ontdek nieuwe woningen zodra ze online komen, nog voordat ze op de grote platforms staan.",
+    title: "Sneller dan de rest",
+    description: "Wij pikken nieuwe huurwoningen op zodra ze online komen. Vaak nog vóór de grote sites.",
   },
   {
     icon: Search,
-    title: "Alles op een plek",
-    description: "Geen tientallen websites doorzoeken. Huurbaasje combineert het aanbod van meerdere bronnen.",
+    title: "Alles op één plek",
+    description: "Geen tien tabbladen meer. Wij trekken het aanbod van overal naar elkaar toe.",
   },
   {
     icon: Bell,
-    title: "Gratis dagelijkse alerts",
-    description: "Ontvang automatisch een e-mail met nieuw woningaanbod in jouw zoekgebied.",
+    title: "Gratis alerts",
+    description: "Mail in je inbox zodra er iets binnenkomt dat in jouw straatje past.",
   },
   {
     icon: Shield,
-    title: "Betrouwbare bronnen",
-    description: "Alle woningen komen van geverifieerde woningplatforms en makelaars.",
+    title: "Geen rare types",
+    description: "Aanbod komt van echte makelaars en verhuurplatforms die we vertrouwen.",
   },
   {
     icon: TrendingUp,
-    title: "Dagelijks bijgewerkt",
-    description: "Ons platform wordt dagelijks geupdatet met de nieuwste huur- en koopwoningen.",
+    title: "Elke dag vers",
+    description: "Wat weg is, gaat weg. Wat erbij komt, zie je meteen.",
   },
   {
     icon: Heart,
-    title: "100% gratis",
-    description: "Zoek onbeperkt, sla favorieten op en stel alerts in. Volledig gratis.",
+    title: "Echt gratis",
+    description: "Zoeken, favorieten, alerts. Nul euro. Geen kleine lettertjes.",
   },
 ];
 
@@ -42,7 +42,7 @@ const WhyUsSection = () => {
             Waarom Huurbaasje?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Ontdek nieuwe woningen sneller dan anderen
+            Omdat huren zoeken al stressvol genoeg is.
           </p>
         </div>
 

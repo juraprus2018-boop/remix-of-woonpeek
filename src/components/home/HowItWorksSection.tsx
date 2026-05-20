@@ -4,20 +4,20 @@ const steps = [
   {
     icon: Search,
     step: "1",
-    title: "Zoek jouw regio",
-    description: "Kies een stad, postcode of regio en stel je filters in op prijs, woningtype en kamers.",
+    title: "Prik je stad",
+    description: "Kies een stad, postcode of buurt en zet je budget en kamers vast.",
   },
   {
     icon: Sparkles,
     step: "2",
-    title: "Ontdek nieuw aanbod",
-    description: "Bekijk dagelijks bijgewerkte woningen van meerdere betrouwbare bronnen op één plek.",
+    title: "Zie wat er is",
+    description: "Verse huurwoningen van meerdere bronnen, allemaal naast elkaar.",
   },
   {
     icon: Bell,
     step: "3",
-    title: "Reageer als eerste",
-    description: "Stel alerts in en ontvang nieuwe woningen direct in je inbox, sneller dan anderen.",
+    title: "Wees er bij",
+    description: "Alert aan, mail in je inbox, jij reageert eerder dan de rest.",
   },
 ];
 
@@ -27,10 +27,10 @@ const HowItWorksSection = () => {
       <div className="container">
         <div className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-            Hoe werkt Huurbaasje?
+            Zo werkt Huurbaasje
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            In drie stappen sneller bij je nieuwe woning
+            Drie stappen, geen gedoe.
           </p>
         </div>
 
