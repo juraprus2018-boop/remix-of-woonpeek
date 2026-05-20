@@ -13,7 +13,7 @@ const Footer = () => {
               <Logo size="h-9" variant="light" />
             </Link>
             <p className="mt-6 max-w-xl text-3xl font-extrabold leading-tight md:text-4xl">
-              Vind jouw <span className="text-sun">stekje.</span>
+              Vind jouw <span className="text-sun">woning.</span>
             </p>
             <p className="mt-3 max-w-md text-sm text-background/70">
               Eén rustige plek voor het nieuwste huur- en koopaanbod in heel Nederland.
@@ -134,7 +134,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="https://www.facebook.com/profile.php?id=61588380235270"
+                  href="https://www.facebook.com/huurbaasje"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4"
