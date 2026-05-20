@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Database } from "@/integrations/supabase/types";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { optimizeImage, buildSrcSet } from "@/lib/imageOptimization";
+import { getStockPropertyImage } from "@/lib/stockImages";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
