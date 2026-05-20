@@ -2,11 +2,37 @@ import { useTranslation } from "react-i18next";
 import { L as Link } from "@/components/LocalizedLink";
 import { Mail, Facebook, Linkedin, Instagram } from "lucide-react";
 import Logo from "@/components/brand/Logo";
+import { getStockPropertyImage } from "@/lib/stockImages";
+
+const FOOTER_PHOTOS = [
+  getStockPropertyImage("footer-1"),
+  getStockPropertyImage("footer-2"),
+  getStockPropertyImage("footer-3"),
+  getStockPropertyImage("footer-4"),
+  getStockPropertyImage("footer-5"),
+  getStockPropertyImage("footer-6"),
+];
 
 const Footer = () => {
   const { t } = useTranslation();
   return (
     <footer className="border-t border-border bg-foreground text-background">
+      {/* Stock photo strip */}
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-px bg-foreground">
+        {FOOTER_PHOTOS.map((src, i) => (
+          <div key={i} className="relative aspect-[4/3] overflow-hidden group">
+            <img
+              src={src}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-foreground/20 group-hover:bg-foreground/0 transition-colors" />
+          </div>
+        ))}
+      </div>
       <div className="container py-16">
         <div className="mb-12 grid gap-8 border-b border-background/15 pb-10 lg:grid-cols-12">
           <div className="lg:col-span-7">
