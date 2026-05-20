@@ -386,7 +386,7 @@ const Index = () => {
             {POPULAR_CITIES.map((c) => (
               <Link
                 key={c.name}
-                to={`/woningen-${cityToSlug(c.name)}`}
+                to={`/huurwoningen/${cityToSlug(c.name)}`}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-sun hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
