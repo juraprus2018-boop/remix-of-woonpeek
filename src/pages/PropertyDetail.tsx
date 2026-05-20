@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
+import { getStockPropertyImage } from "@/lib/stockImages";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
