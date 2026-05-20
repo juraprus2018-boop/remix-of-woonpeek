@@ -65,8 +65,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Huurbaasje – Vind eenvoudig jouw huur- of koopwoning in Nederland"
-        description="Dagelijks vers huur- en koopaanbod uit heel Nederland. Zoek per stad, type en budget. Stel een gratis alert in en mis geen enkele woning meer."
+        title="Huurbaasje – Snel een huurwoning vinden in heel Nederland"
+        description="Elke dag verse huurwoningen uit heel Nederland op één plek. Filter op stad, prijs en kamers. Zet een alert aan en wees als eerste binnen."
         canonical="/"
       />
 
