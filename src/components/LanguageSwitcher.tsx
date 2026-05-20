@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { LOCALE_LABELS, SUPPORTED_LOCALES, type Locale } from "@/lib/brand";
+import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
 
 interface LanguageSwitcherProps {
   variant?: "default" | "ghost" | "outline";
@@ -15,12 +17,15 @@ interface LanguageSwitcherProps {
 }
 
 export function LanguageSwitcher({ variant = "ghost", align = "end" }: LanguageSwitcherProps) {
-  const { i18n, t } = useTranslation();
-  const current = (i18n.resolvedLanguage ?? i18n.language ?? "nl").slice(0, 2) as Locale;
+  const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const current = getLocaleFromPath(location.pathname);
 
   const change = (lng: Locale) => {
-    void i18n.changeLanguage(lng);
-    document.documentElement.lang = lng;
+    const bare = stripLocale(location.pathname);
+    const target = withLocale(bare, lng) + location.search + location.hash;
+    navigate(target);
   };
 
   return (
