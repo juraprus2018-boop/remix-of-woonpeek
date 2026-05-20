@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link, type LinkProps } from "react-router-dom";
-import { forwardRef } from "react";
+import { forwardRef, useCallback } from "react";
 import { withLocale, stripLocale } from "@/lib/locale";
 import type { Locale } from "@/lib/brand";
 
@@ -10,6 +10,16 @@ export function useLocalePath() {
   const { i18n } = useTranslation();
   const locale = (i18n.resolvedLanguage ?? i18n.language ?? "nl").slice(0, 2) as Locale;
   return (path: string) => withLocale(path, locale);
+}
+
+/** Locale-aware navigate(). Pass "/inloggen" — it becomes "/de/inloggen" etc. */
+export function useLocalizedNavigate() {
+  const navigate = useNavigate();
+  const localize = useLocalePath();
+  return useCallback(
+    (to: string, options?: { replace?: boolean }) => navigate(localize(to), options),
+    [navigate, localize],
+  );
 }
 
 /** Locale-aware <Link>. Pass `to="/inloggen"` — it becomes `/de/inloggen` etc. */
@@ -33,3 +43,4 @@ export function useHreflangAlternates() {
     fr: withLocale(bare, "fr"),
   } as Record<Locale, string>;
 }
+
