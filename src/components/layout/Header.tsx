@@ -226,7 +226,6 @@ const Header = () => {
                   <ul className="grid w-[420px] gap-1 p-3">
                     {[
                       { to: "/budget-tool", icon: Calculator, label: "Budgetcheck", desc: "Wat kun jij maandelijks aan huur kwijt?" },
-                      { to: "/energie-vergelijken", icon: Zap, label: "Energie vergelijken", desc: "Bespaar op je gas en stroom" },
                       { to: "/huurprijzen/amsterdam", icon: TrendingUp, label: "Huurprijsmonitor", desc: "Gemiddelde huurprijzen per stad" },
                       { to: "/blog", icon: BookOpen, label: "Blog & tips", desc: "Slim huren, contracten, woonkosten" },
                     ].map((item) => (
@@ -488,14 +487,6 @@ const Header = () => {
                 Voor makelaars
               </Link>
 
-              <Link
-                to="/energie-vergelijken"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted"
-              >
-                <Zap className="h-5 w-5" />
-                Energie vergelijken
-              </Link>
 
               <Link
                 to="/woning-plaatsen"
