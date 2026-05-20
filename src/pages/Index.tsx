@@ -235,13 +235,13 @@ const Index = () => {
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-sun-foreground">
-                <span className="rounded-full bg-sun px-2.5 py-1 text-foreground">Nieuw deze week</span>
+                <span className="rounded-full bg-sun px-2.5 py-1 text-foreground">Net binnen</span>
               </span>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Verse woningen, dagelijks bijgewerkt
+                Verse huurwoningen, elke dag.
               </h2>
               <p className="mt-2 max-w-xl text-muted-foreground">
-                Een selectie uit het nieuwste aanbod. Geen pop-ups, geen abonnement. Klik en bekijk.
+                Een greep uit het laatste aanbod. Geen pop-ups, geen abo, gewoon klikken en kijken.
               </p>
             </div>
             <Link
