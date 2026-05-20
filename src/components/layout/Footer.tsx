@@ -39,14 +39,14 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Snelle links</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Woningen zoeken</Link></li>
+              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoning zoeken</Link></li>
               <li><Link to="/huurwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurwoningen</Link></li>
-              <li><Link to="/koopwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Koopwoningen</Link></li>
               <li><Link to="/appartementen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Appartementen</Link></li>
               <li><Link to="/kamers" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Kamers</Link></li>
+              <li><Link to="/studios" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Studio's</Link></li>
               <li><Link to="/steden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Alle steden</Link></li>
               <li><Link to="/nieuw-aanbod" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Nieuw aanbod</Link></li>
-              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Woning plaatsen</Link></li>
+              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuur je woning</Link></li>
               <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Blog</Link></li>
             </ul>
           </div>
