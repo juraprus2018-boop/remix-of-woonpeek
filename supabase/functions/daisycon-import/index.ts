@@ -8,7 +8,7 @@ const corsHeaders = {
 
 const DAISYCON_TOKEN_URL = "https://login.daisycon.com/oauth/access-token";
 const DAISYCON_CLI_REDIRECT = "https://login.daisycon.com/oauth/cli";
-const SYSTEM_USER_ID = "0d02a609-fde3-435a-9154-078fdce7ed34";
+const SYSTEM_USER_ID = "dbf1773b-5120-458f-8719-590b9fa4c787";
 
 const SITE_URL = "https://www.huurbaasje.nl";
 const INDEXNOW_KEY = "b8f3e2a1d4c5f6e7a9b0c1d2e3f4a5b6";
