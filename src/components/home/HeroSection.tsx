@@ -32,7 +32,7 @@ const HeroSection = () => {
   });
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [listingType, setListingType] = useState<string>("");
+  const [listingType] = useState<string>("huur");
   const [maxPrice, setMaxPrice] = useState<string>("");
   const [minBedrooms, setMinBedrooms] = useState<string>("");
   const [grossIncome, setGrossIncome] = useState<string>("");
