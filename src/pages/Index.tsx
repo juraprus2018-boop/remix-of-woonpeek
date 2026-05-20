@@ -76,11 +76,11 @@ const Index = () => {
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              100% gratis voor woningzoekers
+              100% gratis voor huurders
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
-              Dagelijks vers aanbod
+              Elke dag nieuwe huurwoningen
             </span>
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-foreground" />
