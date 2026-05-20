@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
+import { getStockPropertyImage } from "@/lib/stockImages";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -184,7 +185,7 @@ const PropertyDetail = () => {
     );
   }
 
-  const images = property.images?.length ? property.images : [propertyPlaceholder];
+  const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
   const sourceInfo = { source_url: property.source_url, source_site: property.source_site };
   const sourceMeta = sourceInfo.source_site
