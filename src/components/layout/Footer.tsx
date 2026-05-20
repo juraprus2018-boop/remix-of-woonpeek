@@ -75,8 +75,8 @@ const Footer = () => {
               <li><Link to="/verhuizen-naar-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuizen naar Utrecht</Link></li>
               <li><Link to="/huurwoningen-onder-1000-amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.000 Amsterdam</Link></li>
               <li><Link to="/huurwoningen-onder-1500-rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.500 Rotterdam</Link></li>
-              <li><Link to="/koopwoningen-onder-300000-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Koop onder €300k Utrecht</Link></li>
-              <li><Link to="/koopwoningen-onder-500000-amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Koop onder €500k Amsterdam</Link></li>
+              <li><Link to="/huurwoningen-onder-1250-utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.250 Utrecht</Link></li>
+              <li><Link to="/huurwoningen-onder-1500-den-haag" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huur onder €1.500 Den Haag</Link></li>
               <li><Link to="/budget-tool" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Budget tool</Link></li>
             </ul>
           </div>
