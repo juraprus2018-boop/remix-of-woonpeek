@@ -81,7 +81,7 @@ const NewListings = () => {
 
   const title = "Nieuw aanbod vandaag | Huurbaasje";
   const description = `Bekijk ${totalCount} nieuwe actieve woningen van vandaag (${dateLabel}) op Huurbaasje.`;
-  const canonical = "https://huurbaasje.nl/nieuw-aanbod";
+  const canonical = "https://www.huurbaasje.nl/nieuw-aanbod";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -92,7 +92,7 @@ const NewListings = () => {
     itemListElement: properties.slice(0, 10).map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+      url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
     })),
   };
 

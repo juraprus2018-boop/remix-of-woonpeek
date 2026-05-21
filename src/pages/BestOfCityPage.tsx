@@ -210,7 +210,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
 
   const cityName = validCityName ?? "";
   const Icon = config.icon;
-  const canonical = `https://huurbaasje.nl/${config.pathPrefix}/${citySlug}`;
+  const canonical = `https://www.huurbaasje.nl/${config.pathPrefix}/${citySlug}`;
 
   // ItemList JSON-LD for SEO
   const itemListJsonLd = useMemo(() => {
@@ -224,7 +224,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
         : properties.slice(0, 10).map((p, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+            url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
             name: p.title,
           }));
 

@@ -52,7 +52,7 @@ const PostcodePage = () => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://huurbaasje.nl/woningen-postcode-${postcode}`}
+        canonical={`https://www.huurbaasje.nl/woningen-postcode-${postcode}`}
       />
       <Header />
 

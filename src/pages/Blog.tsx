@@ -18,7 +18,7 @@ const BlogPage = () => {
       <SEOHead
         title="Blog – Tips & Advies over Woningen | Huurbaasje"
         description="Lees onze artikelen over huurwoningen, koophuizen en de woningmarkt in Nederland. Tips, advies en marktinzichten op Huurbaasje."
-        canonical="https://huurbaasje.nl/blog"
+        canonical="https://www.huurbaasje.nl/blog"
       />
       <Header />
       <main className="flex-1">

@@ -32,7 +32,7 @@ const Cities = () => {
       <SEOHead
         title="Alle steden met woningen | Huurbaasje"
         description="Bekijk alle steden waar woningen beschikbaar zijn op Huurbaasje, geordend op aantal beschikbare woningen."
-        canonical="https://huurbaasje.nl/steden"
+        canonical="https://www.huurbaasje.nl/steden"
       />
       <Header />
       <main className="flex-1">

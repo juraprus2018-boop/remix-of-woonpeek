@@ -81,7 +81,7 @@ const NewListingsCity = () => {
   const h1 = `Nieuw aanbod in ${cityName} vandaag`;
   const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Huurbaasje`;
   const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Huurbaasje.`;
-  const canonical = `https://huurbaasje.nl/nieuw-aanbod/${citySlug}`;
+  const canonical = `https://www.huurbaasje.nl/nieuw-aanbod/${citySlug}`;
 
   const jsonLd = useMemo(() => [
     {
@@ -90,7 +90,7 @@ const NewListingsCity = () => {
       name: h1,
       description: pageDescription,
       url: canonical,
-      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
+      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
     },
     {
       "@context": "https://schema.org",
@@ -100,7 +100,7 @@ const NewListingsCity = () => {
       itemListElement: properties.slice(0, 10).map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+        url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
         name: p.title,
       })),
     },

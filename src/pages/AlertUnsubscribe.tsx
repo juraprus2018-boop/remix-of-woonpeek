@@ -52,7 +52,7 @@ const AlertUnsubscribe = () => {
       <SEOHead
         title="Alert afmelden | Huurbaasje"
         description="Meld je af voor wekelijkse e-mailalerts van Huurbaasje."
-        canonical="https://huurbaasje.nl/alerts/afmelden"
+        canonical="https://www.huurbaasje.nl/alerts/afmelden"
       />
       <Header />
       <main className="flex flex-1 items-center justify-center p-4">

@@ -23,7 +23,7 @@ const PostPropertyStart = () => {
       <SEOHead
         title="Woning plaatsen op Huurbaasje | Gratis starten"
         description="Maak gratis een account aan en plaats je woning op Huurbaasje. Snel online en direct zichtbaar voor woningzoekers."
-        canonical="https://huurbaasje.nl/woning-plaatsen"
+        canonical="https://www.huurbaasje.nl/woning-plaatsen"
       />
       <Header />
       <main className="flex-1">

@@ -87,7 +87,7 @@ const NeighborhoodPage = () => {
   const h1 = `Woningen in ${neighborhoodName}, ${cityName}`;
   const pageTitle = `Woningen in ${neighborhoodName}, ${cityName} – beschikbaar aanbod | Huurbaasje`;
   const pageDescription = `Bekijk ${totalCount} woningen in de wijk ${neighborhoodName} in ${cityName}. Vergelijk huurwoningen, appartementen en huizen in ${neighborhoodName}.`;
-  const canonical = `https://huurbaasje.nl/wijk/${citySlug}/${neighborhoodSlug}`;
+  const canonical = `https://www.huurbaasje.nl/wijk/${citySlug}/${neighborhoodSlug}`;
 
   const faqItems = useMemo(() => [
     {
@@ -107,7 +107,7 @@ const NeighborhoodPage = () => {
       name: h1,
       description: pageDescription,
       url: canonical,
-      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
+      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
     },
     {
       "@context": "https://schema.org",
@@ -117,7 +117,7 @@ const NeighborhoodPage = () => {
       itemListElement: properties.slice(0, 10).map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+        url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
         name: p.title,
       })),
     },

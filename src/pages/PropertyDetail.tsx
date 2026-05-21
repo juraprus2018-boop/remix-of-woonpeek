@@ -225,7 +225,7 @@ const PropertyDetail = () => {
     "@type": "Product",
     "name": property.title,
     "description": property.description || seoDescription,
-    "url": `https://huurbaasje.nl/woning/${property.slug}`,
+    "url": `https://www.huurbaasje.nl/woning/${property.slug}`,
     "image": property.images?.length ? property.images : undefined,
     "brand": { "@type": "Brand", "name": "Huurbaasje" },
     "category": `${typeLabel} te ${property.listing_type}`,
@@ -234,7 +234,7 @@ const PropertyDetail = () => {
       "price": property.price,
       "priceCurrency": "EUR",
       "availability": property.status === "actief" ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
-      "url": `https://huurbaasje.nl/woning/${property.slug}`,
+      "url": `https://www.huurbaasje.nl/woning/${property.slug}`,
       "validFrom": property.created_at,
     },
     "additionalProperty": [
@@ -262,7 +262,7 @@ const PropertyDetail = () => {
     "@type": "RealEstateListing",
     "name": property.title,
     "description": property.description || `${typeLabel} te ${property.listing_type} in ${property.city}`,
-    "url": `https://huurbaasje.nl/woning/${property.slug}`,
+    "url": `https://www.huurbaasje.nl/woning/${property.slug}`,
     "datePosted": property.created_at,
     "image": property.images?.length ? property.images : undefined,
   };
@@ -319,7 +319,7 @@ const PropertyDetail = () => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonical={`https://huurbaasje.nl/woning/${property.slug}`}
+        canonical={`https://www.huurbaasje.nl/woning/${property.slug}`}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="article"
       />

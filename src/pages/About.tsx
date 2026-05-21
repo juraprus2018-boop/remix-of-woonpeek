@@ -66,11 +66,11 @@ const About = () => {
     name: "Over Huurbaasje",
     description:
       "Huurbaasje is een gratis platform voor huurwoningen. Elke dag vers aanbod uit heel Nederland op één plek.",
-    url: "https://huurbaasje.nl/over-huurbaasje",
+    url: "https://www.huurbaasje.nl/over-huurbaasje",
     mainEntity: {
       "@type": "Organization",
       name: "Huurbaasje",
-      url: "https://huurbaasje.nl",
+      url: "https://www.huurbaasje.nl",
     },
   };
 
@@ -92,7 +92,7 @@ const About = () => {
       <SEOHead
         title="Over Huurbaasje – Gratis platform voor huurwoningen in heel NL"
         description="Huurbaasje verzamelt elke dag het verste huuraanbod uit heel Nederland op één plek. Gratis zoeken, alerts en zelf je huurwoning plaatsen."
-        canonical="https://huurbaasje.nl/over-huurbaasje"
+        canonical="https://www.huurbaasje.nl/over-huurbaasje"
       />
       <script
         type="application/ld+json"
