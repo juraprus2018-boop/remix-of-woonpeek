@@ -55,7 +55,14 @@ const Favorites = () => {
   if (!user) {
     return (
       <div className="flex min-h-screen flex-col">
+        <SEOHead
+          title="Favoriete woningen | Huurbaasje"
+          description="Bewaar je favoriete woningen op Huurbaasje. Log in om je shortlist te bekijken en te beheren."
+          canonical="https://www.huurbaasje.nl/favorieten"
+          noindex
+        />
         <Header />
+
         <main className="flex flex-1 flex-col items-center justify-center px-4">
           <div className="relative mb-6">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
