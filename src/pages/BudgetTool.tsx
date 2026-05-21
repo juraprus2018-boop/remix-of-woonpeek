@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
+
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { Slider } from "@/components/ui/slider";
