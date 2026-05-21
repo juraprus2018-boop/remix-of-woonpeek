@@ -82,9 +82,11 @@ const TermsAndConditions = () => {
             </p>
           </section>
         </div>
+        </div>
       </main>
       <Footer />
     </div>
+
   );
 };
 
