@@ -6,7 +6,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SITE_URL = "https://www.huurbaasje.nl";
+const SITE_URL = "https://stekly.nl";
 
 function buildSitemapIndex(lastmod: string): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -33,21 +33,21 @@ function buildSitemapIndex(lastmod: string): string {
 function buildPagesSitemap(now: string): string {
   const staticPages = [
     { loc: "/", changefreq: "daily", priority: "1.0" },
-    { loc: "/zoeken", changefreq: "daily", priority: "0.9" },
-    { loc: "/steden", changefreq: "daily", priority: "0.8" },
-    { loc: "/verkennen", changefreq: "daily", priority: "0.7" },
-    { loc: "/nieuw-aanbod", changefreq: "daily", priority: "0.8" },
-    { loc: "/huurwoningen", changefreq: "daily", priority: "0.8" },
-    { loc: "/koopwoningen", changefreq: "daily", priority: "0.8" },
-    { loc: "/appartementen", changefreq: "daily", priority: "0.7" },
-    { loc: "/huizen", changefreq: "daily", priority: "0.7" },
-    { loc: "/studios", changefreq: "daily", priority: "0.7" },
-    { loc: "/kamers", changefreq: "daily", priority: "0.7" },
-    { loc: "/woning-plaatsen", changefreq: "weekly", priority: "0.7" },
-    { loc: "/blog", changefreq: "daily", priority: "0.8" },
-    { loc: "/dagelijkse-alert", changefreq: "monthly", priority: "0.6" },
-    { loc: "/veelgestelde-vragen", changefreq: "monthly", priority: "0.5" },
-    { loc: "/budget-tool", changefreq: "monthly", priority: "0.5" },
+    { loc: "/vinden", changefreq: "daily", priority: "0.9" },
+    { loc: "/plekken", changefreq: "daily", priority: "0.8" },
+    { loc: "/op-kaart", changefreq: "daily", priority: "0.7" },
+    { loc: "/vandaag", changefreq: "daily", priority: "0.8" },
+    { loc: "/huren", changefreq: "daily", priority: "0.8" },
+    { loc: "/kopen", changefreq: "daily", priority: "0.8" },
+    { loc: "/appartement", changefreq: "daily", priority: "0.7" },
+    { loc: "/huis", changefreq: "daily", priority: "0.7" },
+    { loc: "/studio", changefreq: "daily", priority: "0.7" },
+    { loc: "/kamer", changefreq: "daily", priority: "0.7" },
+    { loc: "/plaatsen-start", changefreq: "weekly", priority: "0.7" },
+    { loc: "/journaal", changefreq: "daily", priority: "0.8" },
+    { loc: "/woonradar", changefreq: "monthly", priority: "0.6" },
+    { loc: "/vragen", changefreq: "monthly", priority: "0.5" },
+    { loc: "/budgetcheck", changefreq: "monthly", priority: "0.5" },
   ];
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -82,10 +82,10 @@ function buildCitiesSitemap(
   }
 
   const propertyTypeSlugs = [
-    { slug: "appartementen", type: "appartement" },
-    { slug: "huizen", type: "huis" },
-    { slug: "studios", type: "studio" },
-    { slug: "kamers", type: "kamer" },
+    { slug: "appartement", type: "appartement" },
+    { slug: "huis", type: "huis" },
+    { slug: "studio", type: "studio" },
+    { slug: "kamer", type: "kamer" },
   ];
 
   const cityTypeSet = new Set<string>();
@@ -113,12 +113,12 @@ function buildCitiesSitemap(
     if (q.max_price && q.max_price > 0) {
       const rounded = Math.round(q.max_price);
       if (!defaultPrices.has(rounded)) {
-        extraUrls.add(`${SITE_URL}/woningen/${citySlug}/onder-${rounded}`);
+        extraUrls.add(`${SITE_URL}/aanbod-in/${citySlug}/onder-${rounded}`);
       }
     }
     if (q.min_bedrooms && q.min_bedrooms > 0) {
       if (!defaultBedrooms.has(q.min_bedrooms)) {
-        extraUrls.add(`${SITE_URL}/woningen/${citySlug}/${q.min_bedrooms}-kamers`);
+        extraUrls.add(`${SITE_URL}/aanbod-in/${citySlug}/${q.min_bedrooms}-kamers`);
       }
     }
   }
@@ -129,7 +129,7 @@ function buildCitiesSitemap(
   for (const [citySlug, lastMod] of cityMap) {
     const date = lastMod.split("T")[0];
     xml += `  <url>
-    <loc>${SITE_URL}/woningen-${citySlug}</loc>
+    <loc>${SITE_URL}/stad/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -137,16 +137,16 @@ function buildCitiesSitemap(
 `;
     // Verhuizen-naar gids per stad
     xml += `  <url>
-    <loc>${SITE_URL}/verhuizen-naar-${citySlug}</loc>
+    <loc>${SITE_URL}/stadsgids/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 `;
     // Best-of listicle pages per city
-    for (const slug of ["goedkoopste-huurwoningen", "grootste-huurwoningen", "beste-buurten"]) {
+    for (const slug of ["goedkoop-huur", "grootste-huur", "buurten"]) {
       xml += `  <url>
-    <loc>${SITE_URL}/${slug}/${citySlug}</loc>
+    <loc>${SITE_URL}/toplijst/${citySlug}/${slug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -156,7 +156,7 @@ function buildCitiesSitemap(
     // Budget landingspagina's per stad (huur en koop)
     for (const budget of [750, 1000, 1250, 1500, 2000, 2500]) {
       xml += `  <url>
-    <loc>${SITE_URL}/huurwoningen-onder-${budget}-${citySlug}</loc>
+    <loc>${SITE_URL}/budget-huur/${budget}/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -165,7 +165,7 @@ function buildCitiesSitemap(
     }
     for (const budget of [200000, 300000, 400000, 500000, 750000, 1000000]) {
       xml += `  <url>
-    <loc>${SITE_URL}/koopwoningen-onder-${budget}-${citySlug}</loc>
+    <loc>${SITE_URL}/budget-koop/${budget}/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -175,7 +175,7 @@ function buildCitiesSitemap(
     // Inkomen-landingspagina's per stad (3x huur regel)
     for (const income of [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000]) {
       xml += `  <url>
-    <loc>${SITE_URL}/huur-bij-inkomen-${income}-${citySlug}</loc>
+    <loc>${SITE_URL}/inkomen/${income}/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -183,14 +183,14 @@ function buildCitiesSitemap(
 `;
     }
     xml += `  <url>
-    <loc>${SITE_URL}/huurwoningen/${citySlug}</loc>
+    <loc>${SITE_URL}/huren/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
 `;
     xml += `  <url>
-    <loc>${SITE_URL}/koopwoningen/${citySlug}</loc>
+    <loc>${SITE_URL}/kopen/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -228,7 +228,7 @@ function buildCitiesSitemap(
       }
     }
     // Listing type + price/bedroom combos
-    for (const lt of [{ slug: "huurwoningen" }, { slug: "koopwoningen" }]) {
+    for (const lt of [{ slug: "huren" }, { slug: "kopen" }]) {
       for (const price of [750, 1000, 1250, 1500, 2000]) {
         xml += `  <url>
     <loc>${SITE_URL}/${lt.slug}/${citySlug}/onder-${price}</loc>
@@ -251,7 +251,7 @@ function buildCitiesSitemap(
     // Generic price/bedroom filters (no type/listing prefix)
     for (const price of [750, 1000, 1250, 1500, 2000]) {
       xml += `  <url>
-    <loc>${SITE_URL}/woningen/${citySlug}/onder-${price}</loc>
+    <loc>${SITE_URL}/aanbod-in/${citySlug}/onder-${price}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -260,7 +260,7 @@ function buildCitiesSitemap(
     }
     for (const beds of [1, 2, 3, 4]) {
       xml += `  <url>
-    <loc>${SITE_URL}/woningen/${citySlug}/${beds}-kamers</loc>
+    <loc>${SITE_URL}/aanbod-in/${citySlug}/${beds}-kamers</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
@@ -268,14 +268,14 @@ function buildCitiesSitemap(
 `;
     }
     xml += `  <url>
-    <loc>${SITE_URL}/nieuw-aanbod/${citySlug}</loc>
+    <loc>${SITE_URL}/vandaag/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
 `;
     xml += `  <url>
-    <loc>${SITE_URL}/huurprijzen/${citySlug}</loc>
+    <loc>${SITE_URL}/markt/${citySlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -287,7 +287,7 @@ function buildCitiesSitemap(
       for (const nhSlug of neighborhoods) {
         if (count >= 20) break;
         xml += `  <url>
-    <loc>${SITE_URL}/wijk/${citySlug}/${nhSlug}</loc>
+    <loc>${SITE_URL}/buurt/${citySlug}/${nhSlug}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -313,7 +313,7 @@ function buildCitiesSitemap(
   // Postcode landingspagina's (uniek 4-cijferig)
   for (const pc of postcodes) {
     xml += `  <url>
-    <loc>${SITE_URL}/woningen-postcode-${pc}</loc>
+    <loc>${SITE_URL}/postcode/${pc}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -333,7 +333,7 @@ function buildPropertiesSitemap(
 `;
   for (const p of properties) {
     xml += `  <url>
-    <loc>${SITE_URL}/woning/${p.slug || p.id}</loc>
+    <loc>${SITE_URL}/aanbod/${p.slug || p.id}</loc>
     <lastmod>${p.updated_at.split("T")[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -352,7 +352,7 @@ function buildBlogSitemap(
 `;
   for (const b of blogPosts) {
     xml += `  <url>
-    <loc>${SITE_URL}/blog/${b.slug}</loc>
+    <loc>${SITE_URL}/journaal/${b.slug}</loc>
     <lastmod>${b.updated_at.split("T")[0]}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
