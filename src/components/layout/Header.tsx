@@ -325,102 +325,231 @@ const Header = () => {
         {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild className="lg:hidden">
-            <Button variant="ghost" size="icon">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative h-11 w-11 rounded-2xl border border-border bg-card hover:bg-sun/20"
+            >
               <Menu className="h-5 w-5" />
               <span className="sr-only">{t("common.menu")}</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-80 overflow-y-auto">
-            <nav className="flex flex-col gap-1 pt-8">
-              <Link to="/vinden" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <Search className="h-5 w-5" />{t("common.search")}
-              </Link>
-
-              {woningCategories.map((cat) => (
-                <Collapsible key={cat.href} open={openMobileCategory === cat.href} onOpenChange={(open) => setOpenMobileCategory(open ? cat.href : null)}>
-                  <div className="flex items-center">
-                    <Link to={cat.href} onClick={() => setIsOpen(false)} className="flex flex-1 items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                      <cat.icon className="h-5 w-5" />
-                      {cat.label}
-                    </Link>
-                    <CollapsibleTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0">
-                        <ChevronDown className={`h-4 w-4 transition-transform ${openMobileCategory === cat.href ? 'rotate-180' : ''}`} />
-                      </Button>
-                    </CollapsibleTrigger>
-                  </div>
-                  <CollapsibleContent>
-                    <div className="ml-8 space-y-0.5 pb-2">
-                      {topCities.slice(0, 8).map((city) => (
-                        <Link key={city} to={`${cat.cityPrefix}/${cityToSlug(city)}`} onClick={() => setIsOpen(false)} className="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-                          <MapPin className="h-3 w-3" />
-                          {city}
-                        </Link>
-                      ))}
-                    </div>
-                  </CollapsibleContent>
-                </Collapsible>
-              ))}
-
-              <div className="my-2 border-t" />
-
-              <Link to="/vandaag" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <CalendarDays className="h-5 w-5" />{t("nav.discoverItems.newListings")}
-              </Link>
-              <Link to="/op-kaart" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <Map className="h-5 w-5" />{t("nav.discoverItems.map")}
-              </Link>
-              <Link to="/plekken" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <MapPin className="h-5 w-5" />{t("common.cities")}
-              </Link>
-              <Link to="/woonradar" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <Bell className="h-5 w-5" />{t("nav.discoverItems.dailyAlert")}
-              </Link>
-              <Link to="/opgeslagen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <Heart className="h-5 w-5" />{t("common.viewAll")}
-              </Link>
-              <Link to="/partnerprogramma" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                <Handshake className="h-5 w-5" />{t("nav.lettingItems.agentLink")}
-              </Link>
-              <Link to="/plaatsen-start" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg bg-accent px-3 py-2.5 font-medium text-accent-foreground transition-colors hover:bg-accent/90">
-                <PlusCircle className="h-5 w-5" />{t("nav.lettingItems.post")}
-              </Link>
-
-              <div className="my-2 border-t" />
-
+          <SheetContent
+            side="right"
+            className="flex w-full flex-col gap-0 border-l-0 bg-background p-0 sm:max-w-md"
+          >
+            {/* Header inside menu */}
+            <div className="flex items-center justify-between border-b border-border px-5 pb-4 pt-5">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                {t("common.menu")}
+              </span>
               {user ? (
-                <>
-                  <div className="px-3 py-2 text-sm text-muted-foreground">{user.email}</div>
-                  <Link to="/mijn-aanbod" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+                <Link
+                  to="/account"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2"
+                >
+                  <Avatar className="h-9 w-9 ring-2 ring-sun">
+                    <AvatarFallback className="bg-primary text-xs text-primary-foreground">
+                      {getInitials(user.email || "U")}
+                    </AvatarFallback>
+                  </Avatar>
+                </Link>
+              ) : (
+                <Link to="/login" onClick={() => setIsOpen(false)}>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-9 gap-1.5 rounded-full px-3 text-xs font-bold"
+                  >
+                    <User className="h-4 w-4" />
+                    {t("common.login")}
+                  </Button>
+                </Link>
+              )}
+            </div>
+
+            {/* Search CTA */}
+            <div className="border-b border-border px-5 py-4">
+              <Link
+                to="/vinden"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3 rounded-2xl bg-muted/70 px-4 py-3.5 text-sm text-muted-foreground transition-colors hover:bg-muted"
+              >
+                <Search className="h-4 w-4" />
+                <span className="flex-1">{t("common.search")}…</span>
+                <kbd className="rounded bg-background px-1.5 py-0.5 text-[10px] font-bold">
+                  Go
+                </kbd>
+              </Link>
+            </div>
+
+            {/* Scrollable content */}
+            <div className="flex-1 overflow-y-auto px-5 pb-8 pt-5">
+              {/* Primary tile grid */}
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                {t("nav.rent")}
+              </p>
+              <div className="grid grid-cols-2 gap-2.5">
+                {woningCategories.map((cat) => (
+                  <Link
+                    key={cat.href}
+                    to={cat.href}
+                    onClick={() => setIsOpen(false)}
+                    className="group relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-border bg-card p-4 transition-all active:scale-[0.98] hover:border-sun hover:shadow-sm"
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sun/20 text-foreground transition-colors group-hover:bg-sun">
+                      <cat.icon className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-bold leading-tight text-foreground">
+                      {cat.label}
+                    </span>
+                  </Link>
+                ))}
+                <Link
+                  to="/plaatsen-start"
+                  onClick={() => setIsOpen(false)}
+                  className="group relative col-span-2 flex items-center justify-between overflow-hidden rounded-2xl bg-foreground p-4 text-background transition-all active:scale-[0.98]"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sun text-foreground">
+                      <PlusCircle className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-bold">
+                      {t("nav.lettingItems.post")}
+                    </span>
+                  </div>
+                  <ChevronRight className="h-4 w-4 opacity-60 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+
+              {/* Discover list */}
+              <p className="mb-3 mt-7 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                {t("nav.discover")}
+              </p>
+              <div className="overflow-hidden rounded-2xl border border-border bg-card">
+                {discoverItems.map((item, i) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-muted ${
+                      i !== 0 ? "border-t border-border" : ""
+                    }`}
+                  >
+                    <item.icon className="h-5 w-5 text-primary" />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-semibold text-foreground">
+                        {item.label}
+                      </div>
+                      <p className="line-clamp-1 text-xs text-muted-foreground">
+                        {item.desc}
+                      </p>
+                    </div>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </Link>
+                ))}
+              </div>
+
+              {/* Tools list */}
+              <p className="mb-3 mt-7 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                {t("nav.tools")}
+              </p>
+              <div className="overflow-hidden rounded-2xl border border-border bg-card">
+                {toolsItems.map((item, i) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setIsOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-muted ${
+                      i !== 0 ? "border-t border-border" : ""
+                    }`}
+                  >
+                    <item.icon className="h-5 w-5 text-primary" />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-semibold text-foreground">
+                        {item.label}
+                      </div>
+                      <p className="line-clamp-1 text-xs text-muted-foreground">
+                        {item.desc}
+                      </p>
+                    </div>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </Link>
+                ))}
+              </div>
+
+              {/* Account section */}
+              <p className="mb-3 mt-7 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                {t("common.myAccount")}
+              </p>
+              {user ? (
+                <div className="overflow-hidden rounded-2xl border border-border bg-card">
+                  <div className="border-b border-border px-4 py-3">
+                    <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                      {t("common.login")}
+                    </div>
+                    <div className="truncate text-sm font-semibold text-foreground">
+                      {user.email}
+                    </div>
+                  </div>
+                  <Link to="/mijn-aanbod" onClick={() => setIsOpen(false)} className="flex items-center gap-3 border-b border-border px-4 py-3.5 text-sm font-medium hover:bg-muted">
+                    <Home className="h-4 w-4 text-muted-foreground" />
                     {t("nav.lettingItems.post")}
                   </Link>
-                  <Link to="/account" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                    <User className="h-5 w-5" />{t("common.myAccount")}
+                  <Link to="/opgeslagen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 border-b border-border px-4 py-3.5 text-sm font-medium hover:bg-muted">
+                    <Heart className="h-4 w-4 text-muted-foreground" />
+                    {t("common.viewAll")}
+                  </Link>
+                  <Link to="/radarmeldingen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 border-b border-border px-4 py-3.5 text-sm font-medium hover:bg-muted">
+                    <Bell className="h-4 w-4 text-muted-foreground" />
+                    {t("common.alerts")}
+                  </Link>
+                  <Link to="/chat" onClick={() => setIsOpen(false)} className="flex items-center gap-3 border-b border-border px-4 py-3.5 text-sm font-medium hover:bg-muted">
+                    <MessageCircle className="h-4 w-4 text-muted-foreground" />
+                    {t("common.contact")}
                   </Link>
                   {isAdmin && (
-                    <Link to="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                      <Shield className="h-5 w-5" />{t("common.admin")}
+                    <Link to="/admin" onClick={() => setIsOpen(false)} className="flex items-center gap-3 border-b border-border px-4 py-3.5 text-sm font-medium hover:bg-muted">
+                      <Shield className="h-4 w-4 text-muted-foreground" />
+                      {t("common.admin")}
                     </Link>
                   )}
-                  <button onClick={() => { handleSignOut(); setIsOpen(false); }} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-destructive transition-colors hover:bg-muted">
-                    <LogOut className="h-5 w-5" />{t("common.logout")}
+                  <button
+                    onClick={() => { handleSignOut(); setIsOpen(false); }}
+                    className="flex w-full items-center gap-3 px-4 py-3.5 text-sm font-medium text-destructive hover:bg-muted"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    {t("common.logout")}
                   </button>
-                </>
+                </div>
               ) : (
-                <>
-                  <Link to="/login" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
-                    <User className="h-5 w-5" />{t("common.login")}
+                <div className="grid grid-cols-2 gap-2.5">
+                  <Link to="/login" onClick={() => setIsOpen(false)}>
+                    <Button variant="outline" className="h-12 w-full rounded-2xl border-border text-sm font-bold">
+                      {t("common.login")}
+                    </Button>
                   </Link>
                   <Link to="/aanmelden" onClick={() => setIsOpen(false)}>
-                    <Button className="mt-1 w-full bg-accent text-accent-foreground hover:bg-accent/90">{t("common.register")}</Button>
+                    <Button className="h-12 w-full rounded-2xl bg-sun text-sm font-bold text-foreground hover:bg-sun/90">
+                      {t("common.register")}
+                    </Button>
                   </Link>
-                </>
+                </div>
               )}
 
-              <div className="mt-3 border-t pt-3">
+              {/* Footer row */}
+              <div className="mt-7 flex items-center justify-between border-t border-border pt-5">
+                <Link
+                  to="/over"
+                  onClick={() => setIsOpen(false)}
+                  className="text-xs font-semibold text-muted-foreground hover:text-foreground"
+                >
+                  {t("footer.linkAbout")}
+                </Link>
                 <LanguageSwitcher />
               </div>
-            </nav>
+            </div>
           </SheetContent>
         </Sheet>
       </div>
