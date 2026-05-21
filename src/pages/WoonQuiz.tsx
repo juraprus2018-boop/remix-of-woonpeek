@@ -107,7 +107,7 @@ const WoonQuiz = () => {
       <SEOHead
         title="Woonquiz: vind jouw ideale woning | Huurbaasje"
         description="Beantwoord 5 korte vragen en ontdek welke woningen het beste bij jou passen. Direct gefilterd aanbod in heel Nederland."
-        canonical="https://huurbaasje.nl/woonquiz"
+        canonical="https://www.huurbaasje.nl/woonquiz"
       />
       <Header />
       <main className="flex-1 py-10 lg:py-16">

@@ -77,7 +77,7 @@ const FAQPage = () => {
       <SEOHead
         title="Veelgestelde vragen | Huurbaasje"
         description="Antwoorden op veelgestelde vragen over Huurbaasje. Lees hoe ons woningplatform werkt, hoe je zoekt en hoe je zoekalerts instelt."
-        canonical="https://huurbaasje.nl/veelgestelde-vragen"
+        canonical="https://www.huurbaasje.nl/veelgestelde-vragen"
       />
       <script
         type="application/ld+json"

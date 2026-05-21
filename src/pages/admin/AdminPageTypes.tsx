@@ -5,7 +5,7 @@ import { Loader2, Globe, ExternalLink, Hash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cityToSlug } from "@/lib/cities";
 
-const SITE_URL = "https://huurbaasje.nl";
+const SITE_URL = "https://www.huurbaasje.nl";
 
 interface PagePattern {
   label: string;

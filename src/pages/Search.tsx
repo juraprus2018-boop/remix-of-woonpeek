@@ -192,7 +192,7 @@ const SearchPage = () => {
     if (debouncedCity) params.set("locatie", debouncedCity);
     if (filters.listingType) params.set("aanbod", filters.listingType);
     const qs = params.toString();
-    return `https://huurbaasje.nl/zoeken${qs ? `?${qs}` : ""}`;
+    return `https://www.huurbaasje.nl/zoeken${qs ? `?${qs}` : ""}`;
   }, [debouncedCity, filters.listingType]);
 
   return (

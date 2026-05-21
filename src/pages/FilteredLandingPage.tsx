@@ -135,12 +135,12 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   // Build canonical based on route type
   const canonicalBase = typeLabel
-    ? `https://huurbaasje.nl/${typeLabel.slug}/${citySlug}/${filter}`
+    ? `https://www.huurbaasje.nl/${typeLabel.slug}/${citySlug}/${filter}`
     : listingLabel === "huur"
-    ? `https://huurbaasje.nl/huurwoningen/${citySlug}/${filter}`
+    ? `https://www.huurbaasje.nl/huurwoningen/${citySlug}/${filter}`
     : listingLabel === "koop"
-    ? `https://huurbaasje.nl/koopwoningen/${citySlug}/${filter}`
-    : `https://huurbaasje.nl/woningen/${citySlug}/${filter}`;
+    ? `https://www.huurbaasje.nl/koopwoningen/${citySlug}/${filter}`
+    : `https://www.huurbaasje.nl/woningen/${citySlug}/${filter}`;
   const canonical = canonicalBase;
 
   const breadcrumbs = [
@@ -203,7 +203,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         name: h1,
         description: pageDescription,
         url: canonical,
-        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
+        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
       },
       {
         "@context": "https://schema.org",
@@ -213,7 +213,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+          url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),

@@ -26,7 +26,7 @@ const Samenwerking = () => {
       <SEOHead
         title="Samenwerking – Onze partners | Huurbaasje"
         description="Huurbaasje werkt samen met toonaangevende woningplatformen in Nederland. Bekijk onze partners en aanbieders."
-        canonical="https://huurbaasje.nl/samenwerking"
+        canonical="https://www.huurbaasje.nl/samenwerking"
       />
       <Header />
       <main className="flex-1">

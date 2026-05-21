@@ -104,8 +104,8 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
     ? `${totalCount} ${label.plural.toLowerCase()} in ${cityName}. Bekijk huurprijzen, foto's en details. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`
     : `Op zoek naar een ${label.singular}? Bekijk het actuele aanbod van ${label.plural.toLowerCase()} in heel Nederland op Huurbaasje.`;
   const canonical = citySlug
-    ? `https://huurbaasje.nl/${label.slug}/${citySlug}`
-    : `https://huurbaasje.nl/${label.slug}`;
+    ? `https://www.huurbaasje.nl/${label.slug}/${citySlug}`
+    : `https://www.huurbaasje.nl/${label.slug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -146,7 +146,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
         name: `${label.plural} in ${locationLabel}`,
         description: pageDescription,
         url: canonical,
-        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
+        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
       },
       {
         "@context": "https://schema.org",
@@ -156,7 +156,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+          url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),

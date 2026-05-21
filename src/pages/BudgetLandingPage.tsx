@@ -131,7 +131,7 @@ const BudgetLandingPage = ({ listingType }: BudgetLandingPageProps) => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://huurbaasje.nl/${listingType === "huur" ? "huurwoningen" : "koopwoningen"}-onder-${budgetNum}-${city}`}
+        canonical={`https://www.huurbaasje.nl/${listingType === "huur" ? "huurwoningen" : "koopwoningen"}-onder-${budgetNum}-${city}`}
       />
       <Header />
 

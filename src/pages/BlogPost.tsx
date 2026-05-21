@@ -86,7 +86,7 @@ const BlogPostPage = () => {
     );
   }
 
-  const canonicalUrl = `https://huurbaasje.nl/blog/${post.slug}`;
+  const canonicalUrl = `https://www.huurbaasje.nl/blog/${post.slug}`;
 
   // Rich Article schema
   const articleJsonLd = {
@@ -103,19 +103,19 @@ const BlogPostPage = () => {
     author: {
       "@type": "Organization",
       name: "Huurbaasje",
-      url: "https://huurbaasje.nl",
+      url: "https://www.huurbaasje.nl",
       logo: {
         "@type": "ImageObject",
-        url: "https://huurbaasje.nl/favicon.png",
+        url: "https://www.huurbaasje.nl/favicon.png",
       },
     },
     publisher: {
       "@type": "Organization",
       name: "Huurbaasje",
-      url: "https://huurbaasje.nl",
+      url: "https://www.huurbaasje.nl",
       logo: {
         "@type": "ImageObject",
-        url: "https://huurbaasje.nl/favicon.png",
+        url: "https://www.huurbaasje.nl/favicon.png",
       },
     },
     ...(post.cover_image ? { image: post.cover_image } : {}),
@@ -147,13 +147,13 @@ const BlogPostPage = () => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://huurbaasje.nl",
+        item: "https://www.huurbaasje.nl",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://huurbaasje.nl/blog",
+        item: "https://www.huurbaasje.nl/blog",
       },
       {
         "@type": "ListItem",

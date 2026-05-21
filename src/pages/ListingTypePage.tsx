@@ -92,8 +92,8 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
     : `Bekijk ${hasListings ? totalCount : "alle"} ${label.plural.toLowerCase()} in heel Nederland. Vergelijk prijzen, bekijk foto's en vind jouw ${label.singular} op Huurbaasje.`;
 
   const canonical = cityName
-    ? `https://huurbaasje.nl/${label.slug}/${citySlug}`
-    : `https://huurbaasje.nl/${label.slug}`;
+    ? `https://www.huurbaasje.nl/${label.slug}/${citySlug}`
+    : `https://www.huurbaasje.nl/${label.slug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -150,7 +150,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         name: `${label.plural} in ${locationLabel}`,
         description: pageDesc,
         url: canonical,
-        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://huurbaasje.nl" },
+        isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
       },
       {
         "@context": "https://schema.org",
@@ -160,7 +160,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://huurbaasje.nl/woning/${p.slug || p.id}`,
+          url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),

@@ -6,7 +6,7 @@ export const BRAND_TAGLINE = "Wonen vinden, eenvoudig gemaakt";
 export const SUPPORT_EMAIL = "info@huurbaasje.nl";
 
 /** Canonieke host zonder protocol/trailing slash. Leeg laten zolang er nog geen domein is. */
-export const CANONICAL_HOST = "huurbaasje.nl";
+export const CANONICAL_HOST = "www.huurbaasje.nl";
 export const CANONICAL_URL = CANONICAL_HOST ? `https://${CANONICAL_HOST}` : "";
 
 export const SUPPORTED_LOCALES = ["nl", "en", "de", "fr"] as const;

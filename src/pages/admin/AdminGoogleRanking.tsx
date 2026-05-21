@@ -498,7 +498,7 @@ const AdminGoogleRanking = () => {
               {data.slice(0, 100).map((item) => (
                 <TableRow key={item.url} className="cursor-pointer hover:bg-muted/50" onClick={() => openDetail(item.url)}>
                   <TableCell className="max-w-xs">
-                    <p className="truncate text-sm font-medium">{item.url.replace("https://huurbaasje.nl", "")}</p>
+                    <p className="truncate text-sm font-medium">{item.url.replace("https://www.huurbaasje.nl", "")}</p>
                     <p className="truncate text-xs text-muted-foreground">{item.keywords.slice(0, 2).join(", ")}{item.keywordCount > 2 && ` +${item.keywordCount - 2}`}</p>
                   </TableCell>
                   <TableCell className="text-center">{getPositionBadge(item.latestPosition)}</TableCell>
@@ -529,7 +529,7 @@ const AdminGoogleRanking = () => {
         <div className="flex items-center gap-4">
           <Button variant="ghost" size="sm" onClick={goBack}><ArrowLeft className="mr-2 h-4 w-4" /> Terug</Button>
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-bold truncate">{selectedUrl.replace("https://huurbaasje.nl", "")}</h2>
+            <h2 className="text-lg font-bold truncate">{selectedUrl.replace("https://www.huurbaasje.nl", "")}</h2>
             <a href={selectedUrl} target="_blank" rel="noopener" className="text-xs text-muted-foreground hover:underline flex items-center gap-1">
               <ExternalLink className="h-3 w-3" /> Open in browser
             </a>
@@ -750,7 +750,7 @@ const AdminGoogleRanking = () => {
                   {indexingLog.map((log) => (
                     <TableRow key={log.id}>
                       <TableCell className="max-w-xs">
-                        <p className="truncate text-sm">{log.url.replace("https://huurbaasje.nl", "")}</p>
+                        <p className="truncate text-sm">{log.url.replace("https://www.huurbaasje.nl", "")}</p>
                       </TableCell>
                       <TableCell><Badge variant="outline">{log.url_type}</Badge></TableCell>
                       <TableCell>
@@ -933,7 +933,7 @@ const AdminGoogleRanking = () => {
                   {[...urlSummary].sort((a, b) => b.impressions - a.impressions).slice(0, 50).map((item) => (
                     <TableRow key={item.url} className="cursor-pointer hover:bg-muted/50" onClick={() => openDetail(item.url)}>
                       <TableCell className="max-w-xs">
-                        <p className="truncate text-sm font-medium">{item.url.replace("https://huurbaasje.nl", "")}</p>
+                        <p className="truncate text-sm font-medium">{item.url.replace("https://www.huurbaasje.nl", "")}</p>
                         <p className="truncate text-xs text-muted-foreground">{item.keywords.slice(0, 2).join(", ")}</p>
                       </TableCell>
                       <TableCell className="text-center">{getPositionBadge(item.latestPosition)}</TableCell>

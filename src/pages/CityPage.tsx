@@ -137,7 +137,7 @@ const CityPage = () => {
 
   const pageTitle = `Huurwoningen ${cityName} - ${totalCount} te huur en te koop in ${cityName} | ${currentMonth} ${currentYear}`;
   const pageDescription = `Bekijk ${huurCount} huurwoningen en ${koopCount} koopwoningen in ${cityName}. Appartementen, huizen, studio's en kamers. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
-  const canonical = `https://huurbaasje.nl${cityPath(cityName)}`;
+  const canonical = `https://www.huurbaasje.nl${cityPath(cityName)}`;
 
   // ── City FAQ items ──
   const cityFaqItems = useMemo(() => [
@@ -176,7 +176,7 @@ const CityPage = () => {
         isPartOf: {
           "@type": "WebSite",
           name: "Huurbaasje",
-          url: "https://huurbaasje.nl",
+          url: "https://www.huurbaasje.nl",
         },
       },
       // ItemList / Carousel (Google-supported rich result)
@@ -188,7 +188,7 @@ const CityPage = () => {
         itemListElement: filteredProperties.slice(0, 10).map((property, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          url: `https://huurbaasje.nl/woning/${property.slug || property.id}`,
+          url: `https://www.huurbaasje.nl/woning/${property.slug || property.id}`,
           name: property.title,
           ...(property.images?.length ? { image: property.images[0] } : {}),
         })),

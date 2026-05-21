@@ -74,4 +74,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://huurbaasje.nl/sitemap.xml
+Sitemap: https://www.huurbaasje.nl/sitemap.xml
