@@ -42,7 +42,14 @@ const Profile = () => {
   if (!user) {
     return (
       <div className="flex min-h-screen flex-col">
+        <SEOHead
+          title="Profiel | Huurbaasje"
+          description="Beheer je profiel, accountgegevens en voorkeuren op Huurbaasje."
+          canonical="https://www.huurbaasje.nl/profiel"
+          noindex
+        />
         <Header />
+
         <main className="flex flex-1 flex-col items-center justify-center">
           <User className="mb-4 h-12 w-12 text-muted-foreground" />
           <h1 className="font-display text-2xl font-bold">Inloggen vereist</h1>
