@@ -9,4 +9,5 @@ export const citySlugToName = (slug: string) =>
     .replace(/-/g, " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
-export const cityPath = (city: string) => `/woningen-${cityToSlug(city)}`;
+/** Canonieke stad-URL. Bewust slash-based (anders dan woonpeek's `/woningen-xxx`). */
+export const cityPath = (city: string) => `/stad/${cityToSlug(city)}`;
