@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
+import SEOHead from "@/components/seo/SEOHead";
+
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
 import { useAuth } from "@/contexts/AuthContext";
