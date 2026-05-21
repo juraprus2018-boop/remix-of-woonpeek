@@ -98,7 +98,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/85">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center transition-opacity hover:opacity-80" aria-label="home">
-          <Logo size="h-11 md:h-12" />
+          <Logo size="h-20 md:h-24" />
         </Link>
 
         {/* Desktop Navigation */}
