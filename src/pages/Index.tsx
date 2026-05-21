@@ -277,12 +277,15 @@ const Index = () => {
                     className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                      {p.image_url ? (
+                      {(p.images?.[0] || p.image_url) ? (
                         <img
-                          src={p.image_url}
+                          src={p.images?.[0] || p.image_url}
                           alt={p.title}
                           loading="lazy"
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).style.display = "none";
+                          }}
                         />
                       ) : (
                         <div className="flex h-full items-center justify-center text-muted-foreground">
@@ -292,7 +295,7 @@ const Index = () => {
                       {p.price && (
                         <div className="absolute left-3 top-3 rounded-full bg-sun px-3 py-1 text-xs font-extrabold text-foreground shadow-sm">
                           € {Number(p.price).toLocaleString("nl-NL")}
-                          {p.listing_type === "rent" && <span className="font-medium"> /mnd</span>}
+                          {p.listing_type === "huur" && <span className="font-medium"> /mnd</span>}
                         </div>
                       )}
                     </div>
@@ -305,8 +308,9 @@ const Index = () => {
                       </h3>
                       <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
                         {p.bedrooms && <span>{p.bedrooms} kamers</span>}
-                        {p.size_m2 && <span>{p.size_m2} m²</span>}
+                        {(p.surface_area || p.size_m2) && <span>{p.surface_area || p.size_m2} m²</span>}
                       </div>
+
                     </div>
                   </Link>
                 ))}
