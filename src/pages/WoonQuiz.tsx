@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -110,18 +112,16 @@ const WoonQuiz = () => {
         canonical="https://www.huurbaasje.nl/woonquiz"
       />
       <Header />
+      <StockBanner
+        seed="woonquiz-huurbaasje"
+        eyebrow="Persoonlijk advies"
+        title="Vind jouw ideale woning"
+        subtitle="5 korte vragen, direct passend aanbod in heel Nederland."
+      />
       <main className="flex-1 py-10 lg:py-16">
         <div className="container max-w-2xl">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-3">
-              <Sparkles className="h-3.5 w-3.5" />
-              Persoonlijk advies
-            </div>
-            <h1 className="font-display text-3xl lg:text-4xl font-bold mb-2">Vind jouw ideale woning</h1>
-            <p className="text-muted-foreground">5 korte vragen, direct passend aanbod.</p>
-          </div>
-
           <Progress value={progress} className="mb-8 h-2" />
+
 
           <Card>
             <CardContent className="p-6 lg:p-8">

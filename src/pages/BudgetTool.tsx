@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
+
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { Slider } from "@/components/ui/slider";
@@ -124,21 +126,20 @@ const BudgetTool = () => {
       <Header />
 
       <main className="flex-1">
-        <div className="container py-8 lg:py-12">
+        <StockBanner
+          seed={`budget-tool-${listingType}-${budget}`}
+          eyebrow="Budget tool"
+          title={<>Wat kun je {isHuur ? "huren" : "kopen"} voor {formatPrice(budget)}{isHuur ? "/mnd" : ""}?</>}
+          subtitle="Vergelijk steden en ontdek waar je het meeste waarde krijgt voor je budget."
+        >
           <Breadcrumbs items={[
             { label: "Home", href: "/" },
             { label: "Budget Tool" },
           ]} />
+        </StockBanner>
 
-          <div className="mt-6 mb-10 max-w-2xl">
-            <h1 className="font-display text-3xl font-bold md:text-4xl">
-              Wat kun je <span className="text-primary">{isHuur ? "huren" : "kopen"}</span> voor{" "}
-              <span className="text-primary">{formatPrice(budget)}{isHuur ? "/mnd" : ""}</span>?
-            </h1>
-            <p className="mt-3 text-muted-foreground text-lg">
-              Vergelijk steden en ontdek waar je het meeste waarde krijgt voor je budget.
-            </p>
-          </div>
+        <div className="container py-8 lg:py-12">
+
 
           {/* Controls */}
           <div className="mb-10 rounded-2xl border bg-card p-6 md:p-8">

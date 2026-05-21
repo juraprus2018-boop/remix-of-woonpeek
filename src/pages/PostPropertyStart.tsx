@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
+
 import SEOHead from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -27,22 +29,22 @@ const PostPropertyStart = () => {
       />
       <Header />
       <main className="flex-1">
+        <StockBanner
+          seed="post-property-start"
+          eyebrow="Verhuren"
+          title="Plaats je woning gratis"
+          subtitle="Maak een gratis account aan en plaats direct je huur- of koopwoning op Huurbaasje."
+        />
         <section className="container py-12">
           <div className="mx-auto max-w-2xl">
             <Card>
               <CardContent className="space-y-6 p-8">
-                <div className="space-y-2">
-                  <h1 className="font-display text-3xl font-bold">Plaats je woning gratis</h1>
-                  <p className="text-muted-foreground">
-                    Maak een gratis account aan en plaats direct je huur- of koopwoning op Huurbaasje.
-                  </p>
-                </div>
-
                 <div className="space-y-3 text-sm text-muted-foreground">
                   <p>1. Maak gratis een account aan.</p>
                   <p>2. Vul je woninggegevens en foto's in.</p>
                   <p>3. Je woning staat direct online voor woningzoekers.</p>
                 </div>
+
 
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link to="/aanmelden" className="sm:flex-1">
