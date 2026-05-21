@@ -118,7 +118,13 @@ const Login = () => {
 
   return (
     <div className="flex min-h-screen">
+      <SEOHead
+        title="Inloggen | Huurbaasje"
+        description="Log in op je Huurbaasje-account om woningen op te slaan, alerts te beheren en je eigen woning te plaatsen."
+        canonical="https://www.huurbaasje.nl/inloggen"
+      />
       {/* Left side - image */}
+
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}
