@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import Header from "@/components/layout/Header";
+import SEOHead from "@/components/seo/SEOHead";
+
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
