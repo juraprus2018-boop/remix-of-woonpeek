@@ -9,7 +9,9 @@ interface SEOHeadProps {
   canonical?: string;
   ogImage?: string;
   ogType?: string;
+  noindex?: boolean;
 }
+
 
 const setMeta = (property: string, content: string) => {
   let el = document.querySelector(`meta[property="${property}"]`);
