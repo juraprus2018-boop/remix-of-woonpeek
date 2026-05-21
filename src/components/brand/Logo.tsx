@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { BRAND_NAME } from "@/lib/brand";
-import logoSrc from "@/assets/logo-woonpeek-new.png";
+import logoSrc from "@/assets/logo-woonpeek.png";
 
 interface LogoProps {
   className?: string;
