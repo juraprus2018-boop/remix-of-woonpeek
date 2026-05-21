@@ -4,7 +4,9 @@ import { Home, Search, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/seo/SEOHead";
 import notFoundImg from "@/assets/not-found-illustration.jpg";
+
 
 const NotFound = () => {
   const location = useLocation();
@@ -15,7 +17,13 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead
+        title="Pagina niet gevonden | Huurbaasje"
+        description="Deze pagina bestaat niet (meer). Ga terug naar de homepage of zoek opnieuw naar woningen op Huurbaasje."
+        noindex
+      />
       <Header />
+
       
       <main className="flex-1 flex items-center justify-center px-4 py-20">
         <div className="text-center max-w-lg mx-auto">

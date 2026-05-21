@@ -1,11 +1,18 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
+import SEOHead from "@/components/seo/SEOHead";
 
 const Disclaimer = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <SEOHead
+        title="Disclaimer | Huurbaasje"
+        description="Informatie over de juistheid van woningaanbod, aansprakelijkheid en externe bronnen op Huurbaasje."
+        canonical="https://www.huurbaasje.nl/disclaimer"
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="disclaimer-huurbaasje"

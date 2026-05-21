@@ -10,6 +10,8 @@ import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
+import SEOHead from "@/components/seo/SEOHead";
+
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -66,7 +68,13 @@ const Register = () => {
 
   return (
     <div className="flex min-h-screen">
+      <SEOHead
+        title="Gratis account aanmaken | Huurbaasje"
+        description="Maak gratis een Huurbaasje-account aan. Sla woningen op, ontvang dagelijkse alerts en plaats zelf een woning gratis."
+        canonical="https://www.huurbaasje.nl/aanmelden"
+      />
       {/* Left side - image */}
+
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}

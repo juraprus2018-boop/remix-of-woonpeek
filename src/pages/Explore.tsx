@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import Header from "@/components/layout/Header";
+import SEOHead from "@/components/seo/SEOHead";
+
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -443,7 +445,13 @@ const ExplorePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <SEOHead
+        title="Verken huur en koopwoningen op de kaart | Huurbaasje"
+        description="Ontdek beschikbare huur en koopwoningen in heel Nederland op een interactieve kaart. Filter op stad, prijs en woningtype."
+        canonical="https://www.huurbaasje.nl/verkennen"
+      />
       <Header />
+
       <main className="flex-1">
         <div className="flex h-[calc(100vh-4rem)] flex-col md:flex-row">
           {/* Mobile top bar */}

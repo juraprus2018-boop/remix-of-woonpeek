@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
+import SEOHead from "@/components/seo/SEOHead";
+
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -53,7 +55,14 @@ const Favorites = () => {
   if (!user) {
     return (
       <div className="flex min-h-screen flex-col">
+        <SEOHead
+          title="Favoriete woningen | Huurbaasje"
+          description="Bewaar je favoriete woningen op Huurbaasje. Log in om je shortlist te bekijken en te beheren."
+          canonical="https://www.huurbaasje.nl/favorieten"
+          noindex
+        />
         <Header />
+
         <main className="flex flex-1 flex-col items-center justify-center px-4">
           <div className="relative mb-6">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-muted">
@@ -82,7 +91,14 @@ const Favorites = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <SEOHead
+        title="Mijn favoriete woningen | Huurbaasje"
+        description="Bekijk en beheer je opgeslagen huur- en koopwoningen op Huurbaasje. Sorteer op prijs, stad of recent toegevoegd."
+        canonical="https://www.huurbaasje.nl/favorieten"
+        noindex
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="favorites"

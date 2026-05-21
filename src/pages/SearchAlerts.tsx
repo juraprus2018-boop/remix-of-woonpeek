@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
+import SEOHead from "@/components/seo/SEOHead";
+
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
 import { Button } from "@/components/ui/button";
@@ -50,7 +52,13 @@ const SearchAlerts = () => {
   if (!user) {
     return (
       <div className="flex min-h-screen flex-col">
+        <SEOHead
+          title="Zoekalerts | Huurbaasje"
+          description="Stel zoekalerts in en ontvang dagelijks de nieuwste huur en koopwoningen die bij jouw voorkeuren passen."
+          canonical="https://www.huurbaasje.nl/zoekalerts"
+        />
         <Header />
+
         <main className="flex flex-1 flex-col items-center justify-center">
           <Bell className="mb-4 h-12 w-12 text-muted-foreground" />
           <h1 className="font-display text-2xl font-bold">Inloggen vereist</h1>

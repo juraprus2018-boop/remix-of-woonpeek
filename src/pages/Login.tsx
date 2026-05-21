@@ -11,6 +11,8 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
+import SEOHead from "@/components/seo/SEOHead";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -116,7 +118,13 @@ const Login = () => {
 
   return (
     <div className="flex min-h-screen">
+      <SEOHead
+        title="Inloggen | Huurbaasje"
+        description="Log in op je Huurbaasje-account om woningen op te slaan, alerts te beheren en je eigen woning te plaatsen."
+        canonical="https://www.huurbaasje.nl/inloggen"
+      />
       {/* Left side - image */}
+
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}

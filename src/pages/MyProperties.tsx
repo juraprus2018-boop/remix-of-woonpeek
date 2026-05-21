@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
+import SEOHead from "@/components/seo/SEOHead";
+
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
 import { useAuth } from "@/contexts/AuthContext";
@@ -51,7 +53,14 @@ const MyProperties = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <SEOHead
+        title="Mijn woningen | Huurbaasje"
+        description="Beheer je geplaatste huur en koopwoningen op Huurbaasje. Bewerk, dupliceer of zet woningen op inactief."
+        canonical="https://www.huurbaasje.nl/mijn-woningen"
+        noindex
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="my-properties"

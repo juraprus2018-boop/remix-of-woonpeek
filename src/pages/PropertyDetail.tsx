@@ -319,7 +319,7 @@ const PropertyDetail = () => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonical={`https://www.huurbaasje.nl/woning/${property.slug}`}
+        canonical={`https://www.huurbaasje.nl/aanbod/${property.slug}`}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="article"
       />

@@ -1,11 +1,18 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
+import SEOHead from "@/components/seo/SEOHead";
 
 const PrivacyPolicy = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <SEOHead
+        title="Privacybeleid | Huurbaasje"
+        description="Lees hoe Huurbaasje persoonsgegevens verzamelt, gebruikt en beschermt. Inzage, correctie en verwijdering volgens de AVG."
+        canonical="https://www.huurbaasje.nl/privacybeleid"
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="privacybeleid-huurbaasje"
