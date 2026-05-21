@@ -57,15 +57,15 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.quickLinks")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkSearch")}</Link></li>
-              <li><Link to="/huurwoningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRentals")}</Link></li>
-              <li><Link to="/appartementen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkApartments")}</Link></li>
-              <li><Link to="/kamers" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRooms")}</Link></li>
-              <li><Link to="/studios" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkStudios")}</Link></li>
-              <li><Link to="/steden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAllCities")}</Link></li>
-              <li><Link to="/nieuw-aanbod" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkNew")}</Link></li>
-              <li><Link to="/woning-plaatsen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPost")}</Link></li>
-              <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBlog")}</Link></li>
+              <li><Link to="/vinden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkSearch")}</Link></li>
+              <li><Link to="/huren" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRentals")}</Link></li>
+              <li><Link to="/appartement" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkApartments")}</Link></li>
+              <li><Link to="/kamer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRooms")}</Link></li>
+              <li><Link to="/studio" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkStudios")}</Link></li>
+              <li><Link to="/plekken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAllCities")}</Link></li>
+              <li><Link to="/vandaag" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkNew")}</Link></li>
+              <li><Link to="/plaatsen-start" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPost")}</Link></li>
+              <li><Link to="/journaal" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBlog")}</Link></li>
             </ul>
           </div>
 
@@ -78,20 +78,20 @@ const Footer = () => {
               <li><Link to="/kamers/eindhoven" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rooms")} Eindhoven</Link></li>
               <li><Link to="/woningen/den-haag/onder-1000" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Den Haag &lt; €1.000</Link></li>
               <li><Link to="/huurwoningen/groningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Groningen</Link></li>
-              <li><Link to="/dagelijkse-alert" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAlert")}</Link></li>
+              <li><Link to="/woonradar" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAlert")}</Link></li>
             </ul>
           </div>
 
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.support")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/veelgestelde-vragen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkFAQ")}</Link></li>
+              <li><Link to="/vragen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkFAQ")}</Link></li>
               <li><Link to="/voorwaarden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkTerms")}</Link></li>
               <li><Link to="/privacy" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPrivacy")}</Link></li>
               <li><Link to="/disclaimer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkDisclaimer")}</Link></li>
-              <li><Link to="/over-huurbaasje" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAbout")}</Link></li>
-              <li><Link to="/samenwerking" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPartner")}</Link></li>
-              <li><Link to="/budget-tool" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBudget")}</Link></li>
+              <li><Link to="/over" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAbout")}</Link></li>
+              <li><Link to="/samenwerken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPartner")}</Link></li>
+              <li><Link to="/budgetcheck" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBudget")}</Link></li>
             </ul>
           </div>
 
@@ -134,7 +134,7 @@ const Footer = () => {
                 {city}
               </Link>
             ))}
-            <Link to="/steden" className="font-semibold text-background transition-colors hover:underline">
+            <Link to="/plekken" className="font-semibold text-background transition-colors hover:underline">
               {t("footer.allCitiesArrow")}
             </Link>
           </div>

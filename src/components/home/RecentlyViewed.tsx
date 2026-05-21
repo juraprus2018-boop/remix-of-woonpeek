@@ -19,7 +19,7 @@ const RecentlyViewed = () => {
             <h2 className="font-display text-xl font-bold text-foreground">Recent bekeken</h2>
           </div>
           <Link
-            to="/zoeken"
+            to="/vinden"
             className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
           >
             Meer zoeken <ArrowRight className="h-4 w-4" />

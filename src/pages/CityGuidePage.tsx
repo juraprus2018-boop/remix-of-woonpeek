@@ -293,7 +293,7 @@ const CityGuidePage = () => {
                     <Link to={`/woningen-${city}`}>Woningen in {validCity}</Link>
                   </Button>
                   <Button asChild variant="outline">
-                    <Link to="/dagelijkse-alert">Alert aanmaken</Link>
+                    <Link to="/woonradar">Alert aanmaken</Link>
                   </Button>
                 </div>
               </CardContent>

@@ -45,13 +45,13 @@ const PostPropertyStart = () => {
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
-                  <Link to="/registreren" className="sm:flex-1">
+                  <Link to="/aanmelden" className="sm:flex-1">
                     <Button className="w-full gap-2 bg-accent text-accent-foreground hover:bg-accent/90">
                       <UserPlus className="h-4 w-4" />
                       Gratis account aanmaken
                     </Button>
                   </Link>
-                  <Link to="/inloggen" className="sm:flex-1">
+                  <Link to="/login" className="sm:flex-1">
                     <Button variant="outline" className="w-full gap-2">
                       <Home className="h-4 w-4" />
                       Ik heb al een account
@@ -59,7 +59,7 @@ const PostPropertyStart = () => {
                   </Link>
                 </div>
 
-                <Link to="/inloggen" className="inline-flex items-center gap-2 text-sm text-primary hover:underline">
+                <Link to="/login" className="inline-flex items-center gap-2 text-sm text-primary hover:underline">
                   Klik hier om direct in te loggen
                   <ArrowRight className="h-4 w-4" />
                 </Link>

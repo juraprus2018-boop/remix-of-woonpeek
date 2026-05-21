@@ -161,7 +161,7 @@ const IncomeLandingPage = () => {
                 <CardContent className="space-y-4 p-8 text-center">
                   <p className="text-lg">Geen aanbod tot {formattedMaxRent}/mnd in {cityName}.</p>
                   <Button asChild>
-                    <Link to="/dagelijkse-alert">
+                    <Link to="/woonradar">
                       Alert aanmaken <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>

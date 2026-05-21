@@ -218,13 +218,13 @@ const About = () => {
                 duizenden zoekers. Geen plaatsingskosten, geen rare voorwaarden.
               </p>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <Link to="/woning-plaatsen">
+                <Link to="/plaatsen-start">
                   <Button size="lg" className="gap-2">
                     Plaats gratis je woning
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
-                <Link to="/dagelijkse-alert">
+                <Link to="/woonradar">
                   <Button size="lg" variant="outline" className="gap-2">
                     Zet een alert aan
                     <Bell className="h-5 w-5" />

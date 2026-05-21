@@ -28,7 +28,7 @@ const TopAlertBar = () => {
           Mis geen nieuwe woning meer!{" "}
         </span>
         <Link
-          to="/dagelijkse-alert"
+          to="/woonradar"
           className="underline underline-offset-2 font-semibold hover:opacity-80 transition-opacity"
         >
           Stel een gratis woningalert in

@@ -195,7 +195,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   {totalCount} {label.plural.toLowerCase()} beschikbaar
                 </div>
                 {cityName && (
-                  <Link to="/dagelijkse-alert" className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20">
+                  <Link to="/woonradar" className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20">
                     Dagelijkse alert instellen
                   </Link>
                 )}
@@ -326,7 +326,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   nieuw aanbod. </>
                 )}
                 Stel een{" "}
-                <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">
+                <Link to="/woonradar" className="text-primary underline hover:no-underline">
                   dagelijkse alert
                 </Link>{" "}
                 in om als eerste op de hoogte te zijn van nieuwe {label.plural.toLowerCase()} in {locationLabel}.
@@ -364,7 +364,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                 <li>
                   <strong>Reageer snel</strong>: Nieuwe {label.plural.toLowerCase()} in {locationLabel} zijn vaak
                   binnen een paar dagen verhuurd. Stel een{" "}
-                  <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">
+                  <Link to="/woonradar" className="text-primary underline hover:no-underline">
                     dagelijkse alert
                   </Link>{" "}
                   in om als eerste op de hoogte te zijn.

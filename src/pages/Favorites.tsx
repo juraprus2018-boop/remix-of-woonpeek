@@ -68,10 +68,10 @@ const Favorites = () => {
           </p>
           <div className="mt-6 flex gap-3">
             <Button asChild size="lg">
-              <Link to="/inloggen">Inloggen</Link>
+              <Link to="/login">Inloggen</Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/registreren">Registreren</Link>
+              <Link to="/aanmelden">Registreren</Link>
             </Button>
           </div>
         </main>
@@ -145,13 +145,13 @@ const Favorites = () => {
               </p>
               <div className="mt-6 flex gap-3">
                 <Button asChild>
-                  <Link to="/zoeken">
+                  <Link to="/vinden">
                     <Search className="mr-2 h-4 w-4" />
                     Zoek woningen
                   </Link>
                 </Button>
                 <Button variant="outline" asChild>
-                  <Link to="/verkennen">
+                  <Link to="/op-kaart">
                     <SlidersHorizontal className="mr-2 h-4 w-4" />
                     Verkennen
                   </Link>

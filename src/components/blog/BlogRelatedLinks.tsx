@@ -53,7 +53,7 @@ const BlogRelatedLinks = () => {
               ))}
               <li>
                 <Link
-                  to="/steden"
+                  to="/plekken"
                   className="inline-flex items-center gap-1 text-primary text-sm font-medium hover:underline"
                 >
                   Alle steden <ArrowRight className="h-3 w-3" />
@@ -99,7 +99,7 @@ const BlogRelatedLinks = () => {
               ))}
               <li>
                 <Link
-                  to="/blog"
+                  to="/journaal"
                   className="inline-flex items-center gap-1 text-primary text-sm font-medium hover:underline"
                 >
                   Meer artikelen <ArrowRight className="h-3 w-3" />

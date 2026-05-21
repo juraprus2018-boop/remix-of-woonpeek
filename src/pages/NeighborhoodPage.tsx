@@ -265,7 +265,7 @@ const NeighborhoodPage = () => {
                 Bekijk ook het volledige aanbod van{" "}
                 <Link to={cityPath(cityName)} className="text-primary underline hover:no-underline">woningen in {cityName}</Link>{" "}
                 of stel een{" "}
-                <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
+                <Link to="/woonradar" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
                 in om als eerste op de hoogte te zijn van nieuwe woningen.
               </p>
             </div>

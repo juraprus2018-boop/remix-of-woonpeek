@@ -170,7 +170,7 @@ const HeroSection = () => {
 
           {/* CTA buttons */}
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/dagelijkse-alert">
+            <Link to="/woonradar">
               <Button
                 variant="outline"
                 size="lg"

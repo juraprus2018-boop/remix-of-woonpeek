@@ -180,7 +180,7 @@ const BudgetLandingPage = ({ listingType }: BudgetLandingPageProps) => {
                 <CardContent className="space-y-4 p-8 text-center">
                   <p className="text-lg">Geen aanbod onder {formattedBudget} in {cityName}.</p>
                   <Button asChild>
-                    <Link to="/dagelijkse-alert">
+                    <Link to="/woonradar">
                       Alert aanmaken <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>

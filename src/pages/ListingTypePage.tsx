@@ -208,7 +208,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 )}
                 {cityName && (
                   <Link
-                    to="/dagelijkse-alert"
+                    to="/woonradar"
                     className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20"
                   >
                     Dagelijkse alert instellen
@@ -265,10 +265,10 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   Stel een alert in om als eerste op de hoogte te zijn wanneer er nieuw aanbod komt.
                 </p>
                 <div className="mt-4 flex gap-3">
-                  <Link to="/dagelijkse-alert">
+                  <Link to="/woonradar">
                     <Button>Alert instellen</Button>
                   </Link>
-                  <Link to="/zoeken">
+                  <Link to="/vinden">
                     <Button variant="outline">Alle woningen bekijken</Button>
                   </Link>
                 </div>
@@ -332,7 +332,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </p>
                   <p>
                     Tip: stel een gratis{" "}
-                    <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">
+                    <Link to="/woonradar" className="text-primary underline hover:no-underline">
                       dagelijkse alert
                     </Link>{" "}
                     in en ontvang elke dag een overzicht van nieuwe huurwoningen
@@ -382,7 +382,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 <li>
                   <strong>Reageer snel</strong>: Nieuwe {label.plural.toLowerCase()} in {locationLabel} zijn
                   vaak snel weg. Stel een{" "}
-                  <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">
+                  <Link to="/woonradar" className="text-primary underline hover:no-underline">
                     dagelijkse alert
                   </Link>{" "}
                   in om als eerste op de hoogte te zijn.

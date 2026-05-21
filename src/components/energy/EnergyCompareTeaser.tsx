@@ -58,7 +58,7 @@ const EnergyCompareTeaser = ({ context, variant = "city" }: EnergyCompareTeaserP
               {open ? "Verberg" : "Vergelijk hier"}
             </Button>
             <Button asChild size="sm" className="gap-1.5 bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link to="/energie-vergelijken">
+              <Link to="/energie">
                 Naar vergelijker
                 <ArrowRight className="h-4 w-4" />
               </Link>

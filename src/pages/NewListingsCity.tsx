@@ -196,7 +196,7 @@ const NewListingsCity = () => {
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Kamers in {cityName}</span>
               </Link>
-              <Link to="/dagelijkse-alert" className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to="/woonradar" className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <CalendarDays className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Dagelijkse alert instellen</span>
               </Link>
@@ -219,7 +219,7 @@ const NewListingsCity = () => {
               </p>
               <p>
                 Wil je geen dag missen? Stel een gratis{" "}
-                <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
+                <Link to="/woonradar" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
                 in en ontvang elke dag een e-mail met nieuw aanbod.
               </p>
             </div>

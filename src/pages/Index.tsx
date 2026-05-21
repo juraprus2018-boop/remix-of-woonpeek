@@ -257,7 +257,7 @@ const Index = () => {
               </p>
             </div>
             <Link
-              to="/nieuw-aanbod"
+              to="/vandaag"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
               Alle nieuwe woningen
@@ -314,7 +314,7 @@ const Index = () => {
 
           <div className="mt-8 text-center md:hidden">
             <Link
-              to="/nieuw-aanbod"
+              to="/vandaag"
               className="inline-flex items-center gap-1.5 text-sm font-bold text-foreground"
             >
               Alle nieuwe woningen
@@ -386,7 +386,7 @@ const Index = () => {
               </p>
             </div>
             <Link
-              to="/steden"
+              to="/plekken"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
               Alle steden
@@ -444,7 +444,7 @@ const Index = () => {
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">
-                <Link to="/dagelijkse-alert" className="w-full lg:w-auto">
+                <Link to="/woonradar" className="w-full lg:w-auto">
                   <Button
                     size="lg"
                     className="h-14 w-full gap-2 rounded-xl bg-sun px-8 text-base font-extrabold text-foreground shadow-lg hover:bg-sun/90 lg:w-auto"

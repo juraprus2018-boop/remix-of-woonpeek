@@ -218,7 +218,7 @@ const HuurprijsMonitor = () => {
                   Bekijk alle{" "}
                   <Link to={`/huurwoningen/${citySlug}`} className="text-primary underline hover:no-underline">huurwoningen in {cityName}</Link>
                   {" "}of stel een{" "}
-                  <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>
+                  <Link to="/woonradar" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>
                   {" "}in om als eerste het nieuwste aanbod te ontvangen.
                 </p>
               </div>

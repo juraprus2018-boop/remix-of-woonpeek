@@ -263,7 +263,7 @@ const BudgetTool = () => {
             <p>
               Huurbaasje verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland. De getoonde
               cijfers zijn gebaseerd op het actuele aanbod en worden dagelijks bijgewerkt. Stel een{" "}
-              <Link to="/dagelijkse-alert" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
+              <Link to="/woonradar" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
               in om direct een melding te ontvangen wanneer er een woning binnen je budget beschikbaar komt.
             </p>
           </div>

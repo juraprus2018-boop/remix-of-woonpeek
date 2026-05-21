@@ -146,10 +146,10 @@ const PostcodePage = () => {
                   </p>
                   <div className="flex justify-center gap-3">
                     <Button asChild>
-                      <Link to="/zoeken">Bekijk alle woningen</Link>
+                      <Link to="/vinden">Bekijk alle woningen</Link>
                     </Button>
                     <Button asChild variant="outline">
-                      <Link to="/dagelijkse-alert">
+                      <Link to="/woonradar">
                         Alert aanmaken <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>

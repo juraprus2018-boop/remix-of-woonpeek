@@ -11,16 +11,16 @@ const SEOContentSection = () => {
           <p>
             Op zoek naar een <strong>huurwoning</strong>? Bij Huurbaasje zet je je zoektocht
             in vijf minuten op de rails. Wij verzamelen elke dag verse{" "}
-            <Link to="/huurwoningen" className="text-primary hover:underline">huurwoningen</Link>,{" "}
-            <Link to="/appartementen" className="text-primary hover:underline">appartementen</Link>,{" "}
-            <Link to="/studios" className="text-primary hover:underline">studio's</Link> en{" "}
-            <Link to="/kamers" className="text-primary hover:underline">kamers</Link> op één plek.
+            <Link to="/huren" className="text-primary hover:underline">huurwoningen</Link>,{" "}
+            <Link to="/appartement" className="text-primary hover:underline">appartementen</Link>,{" "}
+            <Link to="/studio" className="text-primary hover:underline">studio's</Link> en{" "}
+            <Link to="/kamer" className="text-primary hover:underline">kamers</Link> op één plek.
             Of je nu starter bent, student of toe aan iets groters: hier vind je wat past.
           </p>
           <p>
             Wij doorlopen meerdere verhuurplatforms en makelaars zodat jij niks mist.
             Filter op stad, prijs, type en kamers en zie meteen de meest relevante{" "}
-            <Link to="/zoeken" className="text-primary hover:underline">huurwoningen</Link>.
+            <Link to="/vinden" className="text-primary hover:underline">huurwoningen</Link>.
             De drukste steden zijn{" "}
             <Link to="/huurwoningen/amsterdam" className="text-primary hover:underline">Amsterdam</Link>,{" "}
             <Link to="/huurwoningen/rotterdam" className="text-primary hover:underline">Rotterdam</Link>,{" "}
@@ -28,22 +28,22 @@ const SEOContentSection = () => {
             <Link to="/huurwoningen/den-haag" className="text-primary hover:underline">Den Haag</Link> en{" "}
             <Link to="/huurwoningen/eindhoven" className="text-primary hover:underline">Eindhoven</Link>.
             Het hele lijstje staat op de{" "}
-            <Link to="/steden" className="text-primary hover:underline">stedenpagina</Link>.
+            <Link to="/plekken" className="text-primary hover:underline">stedenpagina</Link>.
           </p>
           <p>
             Zet onze gratis{" "}
-            <Link to="/dagelijkse-alert" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
+            <Link to="/woonradar" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
             aan en krijg automatisch een mail wanneer er iets binnenkomt dat klopt.
             Check ook even het{" "}
-            <Link to="/nieuw-aanbod" className="text-primary hover:underline">nieuw aanbod van vandaag</Link>{" "}
+            <Link to="/vandaag" className="text-primary hover:underline">nieuw aanbod van vandaag</Link>{" "}
             of de{" "}
-            <Link to="/budget-tool" className="text-primary hover:underline">budget tool</Link>{" "}
+            <Link to="/budgetcheck" className="text-primary hover:underline">budget tool</Link>{" "}
             om te zien wat je kunt betalen. Favorieten opslaan, prijzen vergelijken
             en sneller reageren dan de rest, je doet het hier.
           </p>
           <p>
             Lees onze{" "}
-            <Link to="/blog" className="text-primary hover:underline">blog</Link>{" "}
+            <Link to="/journaal" className="text-primary hover:underline">blog</Link>{" "}
             voor tips over zoeken, bezichtigen en huurprijzen. Of check de{" "}
             <Link to="/huurprijsmonitor" className="text-primary hover:underline">huurprijsmonitor</Link>{" "}
             voor wat normaal is per stad. Begin vandaag met{" "}
