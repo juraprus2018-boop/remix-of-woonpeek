@@ -1,15 +1,20 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import StockBanner from "@/components/layout/StockBanner";
 
 const Disclaimer = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex min-h-screen flex-col bg-background">
       <Header />
-      <main className="container max-w-3xl py-12">
-        <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-          Disclaimer
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">Laatst bijgewerkt: 13 februari 2026</p>
+      <main className="flex-1">
+        <StockBanner
+          seed="disclaimer-huurbaasje"
+          eyebrow="Juridisch"
+          title="Disclaimer"
+          subtitle="Laatst bijgewerkt: 13 februari 2026"
+        />
+        <div className="container max-w-3xl py-12">
+
 
         <div className="mt-8 space-y-8 text-foreground/90">
           <section className="space-y-3">
