@@ -11,6 +11,8 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { supabase } from "@/integrations/supabase/client";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
+import SEOHead from "@/components/seo/SEOHead";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
