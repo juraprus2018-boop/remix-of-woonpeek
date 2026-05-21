@@ -81,7 +81,7 @@ const MyProperties = () => {
                   <PropertyCard property={property} />
                   <div className="absolute bottom-4 right-4 z-10 flex gap-2">
                     <Link
-                      to={`/woning/${property.id}/bewerken`}
+                      to={`/aanbod/${property.id}/bewerken`}
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Button size="sm" variant="secondary" className="gap-1.5 shadow-md">

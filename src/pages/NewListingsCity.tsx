@@ -180,19 +180,19 @@ const NewListingsCity = () => {
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Alle woningen in {cityName}</span>
               </Link>
-              <Link to={`/huurwoningen/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/huren/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Huurwoningen in {cityName}</span>
               </Link>
-              <Link to={`/appartementen/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/appartement/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Appartementen in {cityName}</span>
               </Link>
-              <Link to={`/woningen/${citySlug}/onder-1000`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/aanbod-in/${citySlug}/onder-1000`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Woningen onder €1.000</span>
               </Link>
-              <Link to={`/kamers/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/kamer/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Kamers in {cityName}</span>
               </Link>

@@ -29,7 +29,7 @@ const RecentlyViewed = () => {
           {recentlyViewed.slice(0, 4).map((item) => (
             <Link
               key={item.id}
-              to={`/woning/${item.slug || item.id}`}
+              to={`/aanbod/${item.slug || item.id}`}
               className="group flex items-center gap-3 rounded-xl border bg-card p-3 transition-shadow hover:shadow-md"
             >
               {item.image ? (

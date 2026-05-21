@@ -730,20 +730,20 @@ const PropertyDetail = () => {
                   <Link to={cityPath(property.city)} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Alle woningen in {property.city}
                   </Link>
-                  <Link to={`/huurwoningen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/huren/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Huurwoningen in {property.city}
                   </Link>
-                  <Link to={`/koopwoningen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/kopen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Koopwoningen in {property.city}
                   </Link>
-                  <Link to={`/appartementen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/appartement/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Appartementen in {property.city}
                   </Link>
-                  <Link to={`/woningen/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/aanbod-in/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Woningen onder €1.000
                   </Link>
                   {property.bedrooms && (
-                    <Link to={`/woningen/${citySlugVal}/${property.bedrooms}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                    <Link to={`/aanbod-in/${citySlugVal}/${property.bedrooms}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                       {property.bedrooms} kamers in {property.city}
                     </Link>
                   )}

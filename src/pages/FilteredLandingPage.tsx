@@ -330,7 +330,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                   </p>
                   <p>
                     Bekijk ook{" "}
-                    <Link to={`/huurwoningen/${citySlug}`} className="text-primary underline hover:no-underline">alle huurwoningen in {cityName}</Link>{" "}
+                    <Link to={`/huren/${citySlug}`} className="text-primary underline hover:no-underline">alle huurwoningen in {cityName}</Link>{" "}
                     of ga naar de{" "}
                     <Link to={cityPath(cityName)} className="text-primary underline hover:no-underline">stadspagina van {cityName}</Link>{" "}
                     voor het volledige overzicht.
@@ -371,7 +371,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                 </span>
               </Link>
               <Link
-                to={`/huurwoningen/${citySlug}`}
+                to={`/huren/${citySlug}`}
                 className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
               >
                 <MapPin className="h-5 w-5 text-primary" />
@@ -380,7 +380,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                 </span>
               </Link>
               <Link
-                to={`/appartementen/${citySlug}`}
+                to={`/appartement/${citySlug}`}
                 className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
               >
                 <MapPin className="h-5 w-5 text-primary" />
@@ -392,7 +392,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
               {PRICE_THRESHOLDS.filter((p) => p !== parsed.maxPrice).slice(0, 3).map((price) => (
                 <Link
                   key={`price-${price}`}
-                  to={`/woningen/${citySlug}/onder-${price}`}
+                  to={`/aanbod-in/${citySlug}/onder-${price}`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <MapPin className="h-5 w-5 text-primary" />
@@ -405,7 +405,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
               {BEDROOM_OPTIONS.filter((b) => b !== parsed.minBedrooms).slice(0, 3).map((beds) => (
                 <Link
                   key={`beds-${beds}`}
-                  to={`/woningen/${citySlug}/${beds}-kamers`}
+                  to={`/aanbod-in/${citySlug}/${beds}-kamers`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <MapPin className="h-5 w-5 text-primary" />

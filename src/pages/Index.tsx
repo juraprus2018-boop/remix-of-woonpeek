@@ -180,7 +180,7 @@ const Index = () => {
                 {POPULAR_CITIES.slice(0, 5).map((c) => (
                   <Link
                     key={c.name}
-                    to={`/huurwoningen/${cityToSlug(c.name)}`}
+                    to={`/huren/${cityToSlug(c.name)}`}
                     className="rounded-full bg-sun-tint px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:bg-sun"
                   >
                     {c.name}
@@ -273,7 +273,7 @@ const Index = () => {
               : featured.map((p: any) => (
                   <Link
                     key={p.id}
-                    to={`/woning/${cityToSlug(p.city || "stad")}-${p.property_type || "woning"}-${p.id}`}
+                    to={`/aanbod/${cityToSlug(p.city || "stad")}-${p.property_type || "woning"}-${p.id}`}
                     className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -398,7 +398,7 @@ const Index = () => {
             {POPULAR_CITIES.map((c) => (
               <Link
                 key={c.name}
-                to={`/huurwoningen/${cityToSlug(c.name)}`}
+                to={`/huren/${cityToSlug(c.name)}`}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-sun hover:shadow-md"
               >
                 <div className="flex items-start justify-between">

@@ -46,7 +46,7 @@ const BlogRelatedPosts = ({ currentSlug }: { currentSlug: string }) => {
           {posts.map((post) => (
             <Link
               key={post.slug}
-              to={`/blog/${post.slug}`}
+              to={`/journaal/${post.slug}`}
               className="group overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-lg"
             >
               {post.cover_image && (

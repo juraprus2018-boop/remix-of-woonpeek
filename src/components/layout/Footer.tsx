@@ -130,7 +130,7 @@ const Footer = () => {
               "Arnhem", "Haarlem", "Leiden", "Maastricht", "Delft",
               "Zwolle", "Apeldoorn", "Amersfoort"
             ].map((city) => (
-              <Link key={city} to={`/woningen-${city.toLowerCase().replace(/\s+/g, "-")}`} className="transition-colors hover:text-background hover:underline underline-offset-4">
+              <Link key={city} to={`/stad/${city.toLowerCase().replace(/\s+/g, "-")}`} className="transition-colors hover:text-background hover:underline underline-offset-4">
                 {city}
               </Link>
             ))}

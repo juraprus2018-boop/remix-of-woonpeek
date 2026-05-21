@@ -163,7 +163,7 @@ const CityGuidePage = () => {
                 <CardContent className="p-6 text-center">
                   <p className="text-muted-foreground">{error}</p>
                   <Button asChild className="mt-4">
-                    <Link to={`/woningen-${city}`}>Bekijk woningen in {validCity}</Link>
+                    <Link to={`/stad/${city}`}>Bekijk woningen in {validCity}</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -201,12 +201,12 @@ const CityGuidePage = () => {
                       {renderParagraphs(guide.housing_market_info)}
                       <div className="mt-4 flex flex-wrap gap-2">
                         <Button asChild size="sm">
-                          <Link to={`/woningen-${city}`}>
+                          <Link to={`/stad/${city}`}>
                             Bekijk aanbod <ArrowRight className="ml-2 h-4 w-4" />
                           </Link>
                         </Button>
                         <Button asChild size="sm" variant="outline">
-                          <Link to={`/huurprijzen/${city}`}>Huurprijzen monitor</Link>
+                          <Link to={`/markt/${city}`}>Huurprijzen monitor</Link>
                         </Button>
                       </div>
                     </CardContent>
@@ -290,7 +290,7 @@ const CityGuidePage = () => {
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
                   <Button asChild>
-                    <Link to={`/woningen-${city}`}>Woningen in {validCity}</Link>
+                    <Link to={`/stad/${city}`}>Woningen in {validCity}</Link>
                   </Button>
                   <Button asChild variant="outline">
                     <Link to="/woonradar">Alert aanmaken</Link>

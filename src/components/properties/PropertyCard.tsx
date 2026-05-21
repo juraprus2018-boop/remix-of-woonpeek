@@ -98,7 +98,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
       : null;
 
   return (
-    <Link to={`/woning/${property.slug || property.id}`}>
+    <Link to={`/aanbod/${property.slug || property.id}`}>
       <Card className={cn(
         "group overflow-hidden border transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5",
         property.status !== "actief" && "opacity-75"

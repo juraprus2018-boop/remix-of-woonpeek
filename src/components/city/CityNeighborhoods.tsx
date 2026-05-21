@@ -98,7 +98,7 @@ const CityNeighborhoods = ({ cityName, citySlug }: CityNeighborhoodsProps) => {
           {neighborhoods.map((nb) => (
             <Link
               key={nb.name}
-              to={`/wijk/${citySlug}/${nb.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "")}`}
+              to={`/buurt/${citySlug}/${nb.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+/g, "-").replace(/^-|-$/g, "")}`}
               className="rounded-xl border bg-card p-5 transition-shadow hover:shadow-md"
             >
               <div className="flex items-center justify-between mb-2">
