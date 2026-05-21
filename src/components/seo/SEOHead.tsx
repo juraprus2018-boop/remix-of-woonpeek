@@ -46,7 +46,7 @@ const setHreflangAlternates = (pathname: string) => {
   document.head.appendChild(xDefault);
 };
 
-const SEOHead = ({ title, description, canonical, ogImage, ogType = "website" }: SEOHeadProps) => {
+const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex }: SEOHeadProps) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -54,6 +54,15 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website" }:
 
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute("content", description);
+
+    // Robots: noindex when requested, otherwise ensure default index,follow
+    let robotsEl = document.querySelector('meta[name="robots"]');
+    if (!robotsEl) {
+      robotsEl = document.createElement("meta");
+      robotsEl.setAttribute("name", "robots");
+      document.head.appendChild(robotsEl);
+    }
+    robotsEl.setAttribute("content", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
 
     // Canonical: prefix with current locale so each language has its own canonical
     const locale = getLocaleFromPath(location.pathname);
@@ -87,7 +96,8 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website" }:
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
     if (ogImage) setMeta("twitter:image", ogImage);
-  }, [title, description, canonical, ogImage, ogType, location.pathname]);
+  }, [title, description, canonical, ogImage, ogType, noindex, location.pathname]);
+
 
   return null;
 };
