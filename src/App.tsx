@@ -159,7 +159,7 @@ const PAGES: RouteDef[] = [
   { path: "/stadsgids/:city", element: <CityGuidePage /> },
   { path: "/duel/:city1-vs-:city2", element: <CityComparePage /> },
   { path: "/toplijst/:city/goedkoop-huur", element: <BestOfCityPage variant="goedkoopste-huur" /> },
-  { path: "/toplijst/:city/grootste-huur", element: <BestOfCityPage variant="grostste-huur" /> },
+  { path: "/toplijst/:city/grootste-huur", element: <BestOfCityPage variant="grootste-huur" /> },
   { path: "/toplijst/:city/buurten", element: <BestOfCityPage variant="beste-buurten" /> },
   { path: "/postcode/:postcode", element: <PostcodePage /> },
 
