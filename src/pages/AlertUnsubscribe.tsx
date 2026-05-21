@@ -55,18 +55,26 @@ const AlertUnsubscribe = () => {
         canonical="https://www.huurbaasje.nl/alerts/afmelden"
       />
       <Header />
-      <main className="flex flex-1 items-center justify-center p-4">
-        <Card className="w-full max-w-lg">
-          <CardContent className="space-y-4 p-8 text-center">
-            {loading ? <Loader2 className="mx-auto h-6 w-6 animate-spin text-primary" /> : null}
-            <h1 className="font-display text-2xl font-bold">{isSuccess ? "Afmelding voltooid" : "Afmelding"}</h1>
-            <p className="text-muted-foreground">{message}</p>
-            <Link to="/">
-              <Button>Naar home</Button>
-            </Link>
-          </CardContent>
-        </Card>
+      <main className="flex-1">
+        <StockBanner
+          seed="alert-afmelden"
+          eyebrow="Alerts"
+          title={isSuccess ? "Afmelding voltooid" : "Afmelding"}
+          subtitle="Beheer je e-mailvoorkeuren voor Huurbaasje alerts."
+        />
+        <div className="flex items-center justify-center p-4 py-12">
+          <Card className="w-full max-w-lg">
+            <CardContent className="space-y-4 p-8 text-center">
+              {loading ? <Loader2 className="mx-auto h-6 w-6 animate-spin text-primary" /> : null}
+              <p className="text-muted-foreground">{message}</p>
+              <Link to="/">
+                <Button>Naar home</Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
       </main>
+
       <Footer />
     </div>
   );
