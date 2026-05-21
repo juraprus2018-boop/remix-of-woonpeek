@@ -53,7 +53,14 @@ const MyProperties = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <SEOHead
+        title="Mijn woningen | Huurbaasje"
+        description="Beheer je geplaatste huur en koopwoningen op Huurbaasje. Bewerk, dupliceer of zet woningen op inactief."
+        canonical="https://www.huurbaasje.nl/mijn-woningen"
+        noindex
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="my-properties"
