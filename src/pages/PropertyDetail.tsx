@@ -401,8 +401,20 @@ const PropertyDetail = () => {
                   <div className="overflow-hidden"><img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
                 </div>
               ) : (
-                <div className="h-[300px] overflow-hidden md:h-[480px]">
-                  <img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                <div className="relative h-[300px] overflow-hidden md:h-[480px]">
+                  <img
+                    src={images[0]}
+                    alt=""
+                    aria-hidden
+                    className="absolute inset-0 h-full w-full scale-110 object-cover blur-2xl opacity-60"
+                  />
+                  <div className="absolute inset-0 bg-sun-tint/40" />
+                  <img
+                    src={images[0]}
+                    alt={property.title}
+                    className="relative h-full w-full object-contain"
+                    onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
+                  />
                 </div>
               )}
               {images.length > 1 && (
