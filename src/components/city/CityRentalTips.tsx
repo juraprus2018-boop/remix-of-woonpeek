@@ -31,7 +31,7 @@ const CityRentalTips = ({ cityName, totalCount }: CityRentalTipsProps) => {
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Nieuwe woningen in {cityName} zijn vaak binnen een paar dagen weg. Stel een{" "}
-              <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
+              <Link to="/woonradar" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
               in zodat je direct een melding krijgt bij nieuw aanbod. Op dit moment staan er {totalCount} woningen in {cityName}.
             </p>
           </div>

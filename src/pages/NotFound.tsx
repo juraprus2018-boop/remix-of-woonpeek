@@ -46,7 +46,7 @@ const NotFound = () => {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-              <Link to="/zoeken">
+              <Link to="/vinden">
                 <Search className="w-4 h-4 mr-2" />
                 Woningen zoeken
               </Link>

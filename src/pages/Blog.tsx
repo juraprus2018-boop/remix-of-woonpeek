@@ -56,7 +56,7 @@ const BlogPage = () => {
           ) : posts && posts.length > 0 ? (
             <div className="space-y-6">
               {posts.map((post) => (
-                <Link key={post.id} to={`/blog/${post.slug}`}>
+                <Link key={post.id} to={`/journaal/${post.slug}`}>
                   <Card className="overflow-hidden transition-shadow hover:shadow-lg">
                     <div className="flex flex-col sm:flex-row">
                       {post.cover_image && (

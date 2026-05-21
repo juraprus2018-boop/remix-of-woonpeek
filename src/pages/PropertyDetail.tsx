@@ -178,7 +178,7 @@ const PropertyDetail = () => {
           <Home className="h-12 w-12 text-muted-foreground/40" />
           <h1 className="font-display text-2xl font-bold">Woning niet gevonden</h1>
           <p className="text-muted-foreground">Deze woning bestaat niet of is niet meer beschikbaar.</p>
-          <Button asChild><Link to="/zoeken">Terug naar zoeken</Link></Button>
+          <Button asChild><Link to="/vinden">Terug naar zoeken</Link></Button>
         </main>
         <Footer />
       </div>
@@ -353,7 +353,7 @@ const PropertyDetail = () => {
                 {property.status === "verkocht" && "⚠️ Deze woning is verkocht en niet meer beschikbaar."}
                 {property.status === "inactief" && "⚠️ Deze woning is niet meer beschikbaar. Mogelijk is deze al verhuurd of van de markt gehaald."}
               </p>
-              <Link to="/zoeken" className="mt-1 inline-block text-sm font-semibold text-primary underline underline-offset-2 hover:text-primary/80">
+              <Link to="/vinden" className="mt-1 inline-block text-sm font-semibold text-primary underline underline-offset-2 hover:text-primary/80">
                 Bekijk vergelijkbare woningen →
               </Link>
             </div>
@@ -730,20 +730,20 @@ const PropertyDetail = () => {
                   <Link to={cityPath(property.city)} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Alle woningen in {property.city}
                   </Link>
-                  <Link to={`/huurwoningen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/huren/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Huurwoningen in {property.city}
                   </Link>
-                  <Link to={`/koopwoningen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/kopen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Koopwoningen in {property.city}
                   </Link>
-                  <Link to={`/appartementen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/appartement/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Appartementen in {property.city}
                   </Link>
-                  <Link to={`/woningen/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/aanbod-in/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Woningen onder €1.000
                   </Link>
                   {property.bedrooms && (
-                    <Link to={`/woningen/${citySlugVal}/${property.bedrooms}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                    <Link to={`/aanbod-in/${citySlugVal}/${property.bedrooms}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                       {property.bedrooms} kamers in {property.city}
                     </Link>
                   )}
@@ -995,10 +995,10 @@ const PropertyDetail = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">
-                <Link to="/zoeken">Bekijk het aanbod</Link>
+                <Link to="/vinden">Bekijk het aanbod</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/dagelijkse-alert">Ontvang dagelijkse alerts</Link>
+                <Link to="/woonradar">Ontvang dagelijkse alerts</Link>
               </Button>
             </div>
           </div>

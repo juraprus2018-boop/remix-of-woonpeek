@@ -204,7 +204,7 @@ const Login = () => {
               </Button>
               <p className="text-center text-sm text-muted-foreground">
                 Nog geen account?{" "}
-                <Link to="/registreren" className="text-primary hover:underline">
+                <Link to="/aanmelden" className="text-primary hover:underline">
                   Registreer hier
                 </Link>
               </p>

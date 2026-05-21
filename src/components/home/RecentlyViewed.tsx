@@ -19,7 +19,7 @@ const RecentlyViewed = () => {
             <h2 className="font-display text-xl font-bold text-foreground">Recent bekeken</h2>
           </div>
           <Link
-            to="/zoeken"
+            to="/vinden"
             className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
           >
             Meer zoeken <ArrowRight className="h-4 w-4" />
@@ -29,7 +29,7 @@ const RecentlyViewed = () => {
           {recentlyViewed.slice(0, 4).map((item) => (
             <Link
               key={item.id}
-              to={`/woning/${item.slug || item.id}`}
+              to={`/aanbod/${item.slug || item.id}`}
               className="group flex items-center gap-3 rounded-xl border bg-card p-3 transition-shadow hover:shadow-md"
             >
               {item.image ? (

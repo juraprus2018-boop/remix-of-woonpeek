@@ -74,25 +74,25 @@ const PopularCities = () => {
         </div>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Link to="/steden">
+          <Link to="/plekken">
             <Button variant="outline" className="gap-2">
               Bekijk alle steden
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/huurwoningen">
+          <Link to="/huren">
             <Button variant="outline" className="gap-2">
               Huurwoningen
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/appartementen">
+          <Link to="/appartement">
             <Button variant="outline" className="gap-2">
               Appartementen
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/kamers">
+          <Link to="/kamer">
             <Button variant="outline" className="gap-2">
               Kamers
               <ArrowRight className="h-4 w-4" />

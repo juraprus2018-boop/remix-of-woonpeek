@@ -142,7 +142,7 @@ const Register = () => {
               </Button>
               <p className="text-center text-sm text-muted-foreground">
                 Al een account?{" "}
-                <Link to="/inloggen" className="text-primary hover:underline">
+                <Link to="/login" className="text-primary hover:underline">
                   Log hier in
                 </Link>
               </p>

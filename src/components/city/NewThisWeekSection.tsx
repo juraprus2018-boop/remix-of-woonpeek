@@ -58,7 +58,7 @@ const NewThisWeekSection = ({ properties, cityName, citySlug, minimum = 3 }: New
           </p>
         </div>
         <Button asChild variant="outline" size="sm" className="shrink-0 gap-2">
-          <Link to={`/nieuw-aanbod/${citySlug}`}>
+          <Link to={`/vandaag/${citySlug}`}>
             Alle nieuwe woningen
             <ArrowRight className="h-4 w-4" />
           </Link>

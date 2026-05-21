@@ -146,10 +146,10 @@ const PostcodePage = () => {
                   </p>
                   <div className="flex justify-center gap-3">
                     <Button asChild>
-                      <Link to="/zoeken">Bekijk alle woningen</Link>
+                      <Link to="/vinden">Bekijk alle woningen</Link>
                     </Button>
                     <Button asChild variant="outline">
-                      <Link to="/dagelijkse-alert">
+                      <Link to="/woonradar">
                         Alert aanmaken <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
@@ -166,22 +166,22 @@ const PostcodePage = () => {
               <h2 className="text-2xl font-bold">Meer in {cityLabel}</h2>
               <div className="flex flex-wrap gap-2">
                 <Button asChild variant="outline">
-                  <Link to={`/woningen-${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link to={`/stad/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
                     Alle woningen in {cityLabel}
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link to={`/huurwoningen/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link to={`/huren/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
                     Huurwoningen
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link to={`/koopwoningen/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link to={`/kopen/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
                     Koopwoningen
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link to={`/verhuizen-naar-${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link to={`/stadsgids/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
                     Verhuizen naar {cityLabel}
                   </Link>
                 </Button>

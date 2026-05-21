@@ -216,9 +216,9 @@ const HuurprijsMonitor = () => {
                 </p>
                 <p>
                   Bekijk alle{" "}
-                  <Link to={`/huurwoningen/${citySlug}`} className="text-primary underline hover:no-underline">huurwoningen in {cityName}</Link>
+                  <Link to={`/huren/${citySlug}`} className="text-primary underline hover:no-underline">huurwoningen in {cityName}</Link>
                   {" "}of stel een{" "}
-                  <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>
+                  <Link to="/woonradar" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>
                   {" "}in om als eerste het nieuwste aanbod te ontvangen.
                 </p>
               </div>
@@ -248,7 +248,7 @@ const HuurprijsMonitor = () => {
                     <span className="font-medium text-foreground">Alle woningen in {cityName}</span>
                     <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary" />
                   </Link>
-                  <Link to={`/huurwoningen/${citySlug}`} className="group flex items-center justify-between rounded-xl border bg-card p-5 transition-shadow hover:shadow-md">
+                  <Link to={`/huren/${citySlug}`} className="group flex items-center justify-between rounded-xl border bg-card p-5 transition-shadow hover:shadow-md">
                     <span className="font-medium text-foreground">Huurwoningen in {cityName}</span>
                     <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary" />
                   </Link>

@@ -11,7 +11,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "@/components/CookieConsent";
-import { cityPath } from "@/lib/cities";
+import { paths, LEGACY_REDIRECTS } from "@/lib/routes";
 import { usePageTracking } from "@/hooks/usePageTracking";
 
 // Lazy-load every non-critical route to slash the initial JS bundle.
@@ -94,14 +94,23 @@ const RouteFallback = () => (
   </div>
 );
 
+/**
+ * Wildcard-redirect: vervangt `:param` in `to` met de gematchte waarde uit
+ * `useParams`, preserveert query string. Gebruikt voor old → new bridges.
+ */
+const ParamRedirect = ({ to }: { to: string }) => {
+  const params = useParams();
+  const location = useLocation();
+  const resolved = to.replace(/:([a-zA-Z0-9_]+)/g, (_, key) => params[key] ?? "");
+  return <Navigate to={`${resolved}${location.search}`} replace />;
+};
+
 const LegacyCityRedirect = () => {
   const { city } = useParams<{ city: string }>();
   const location = useLocation();
-
-  if (!city) return <Navigate to="/steden" replace />;
-  if (city.startsWith("woningen-")) return <CityPage />;
-
-  return <Navigate to={`${cityPath(city)}${location.search}`} replace />;
+  if (!city) return <Navigate to="/plekken" replace />;
+  const slug = city.startsWith("woningen-") ? city.slice("woningen-".length) : city;
+  return <Navigate to={`/stad/${slug}${location.search}`} replace />;
 };
 
 const RouterSideEffects = () => {
@@ -115,68 +124,96 @@ const RouterSideEffects = () => {
   );
 };
 
-// All site routes defined once. Rendered 4x with locale prefixes.
 type RouteDef = { path: string; element: ReactElement };
 
+/** Nieuwe canonieke routes. Hiërarchisch (slash-based), bewust niet woonpeek-stijl. */
 const PAGES: RouteDef[] = [
   { path: "/", element: <Index /> },
-  { path: "/inloggen", element: <Login /> },
-  { path: "/registreren", element: <Register /> },
-  { path: "/zoeken", element: <Search /> },
-  { path: "/verkennen", element: <Explore /> },
-  { path: "/kaart", element: <Explore /> },
-  { path: "/woning/:slug", element: <PropertyDetail /> },
-  { path: "/favorieten", element: <Favorites /> },
-  { path: "/mijn-woningen", element: <MyProperties /> },
-  { path: "/woning-plaatsen", element: <PostPropertyStart /> },
-  { path: "/plaatsen", element: <CreateProperty /> },
-  { path: "/woning/:id/bewerken", element: <EditProperty /> },
+
+  // Account / auth
+  { path: "/login", element: <Login /> },
+  { path: "/aanmelden", element: <Register /> },
+  { path: "/account", element: <Profile /> },
+  { path: "/chat", element: <UserChat /> },
+  { path: "/opgeslagen", element: <Favorites /> },
+  { path: "/mijn-aanbod", element: <MyProperties /> },
+  { path: "/plaatsen-start", element: <PostPropertyStart /> },
+  { path: "/aanbod-toevoegen", element: <CreateProperty /> },
+  { path: "/aanbod/:id/bewerken", element: <EditProperty /> },
+
+  // Zoek + ontdek
+  { path: "/vinden", element: <Search /> },
+  { path: "/op-kaart", element: <Explore /> },
+  { path: "/aanbod/:slug", element: <PropertyDetail /> },
+  { path: "/vandaag", element: <NewListings /> },
+  { path: "/vandaag/:city", element: <NewListingsCity /> },
+  { path: "/woonradar", element: <DailyAlert /> },
+  { path: "/radarmeldingen", element: <SearchAlerts /> },
+  { path: "/radarmeldingen/uit/:token", element: <AlertUnsubscribe /> },
+
+  // Stad
+  { path: "/stad/:city", element: <CityPage /> },
+  { path: "/plekken", element: <Cities /> },
+  { path: "/buurt/:city/:neighborhood", element: <NeighborhoodPage /> },
+  { path: "/markt/:city", element: <HuurprijsMonitor /> },
+  { path: "/stadsgids/:city", element: <CityGuidePage /> },
+  { path: "/duel/:city1-vs-:city2", element: <CityComparePage /> },
+  { path: "/toplijst/:city/goedkoop-huur", element: <BestOfCityPage variant="goedkoopste-huur" /> },
+  { path: "/toplijst/:city/grootste-huur", element: <BestOfCityPage variant="grootste-huur" /> },
+  { path: "/toplijst/:city/buurten", element: <BestOfCityPage variant="beste-buurten" /> },
+  { path: "/postcode/:postcode", element: <PostcodePage /> },
+
+  // Listing type (huren / kopen)
+  { path: "/huren", element: <ListingTypePage listingType="huur" /> },
+  { path: "/huren/:city", element: <ListingTypePage listingType="huur" /> },
+  { path: "/huren/:city/:filter", element: <FilteredLandingPage listingType="huur" /> },
+  { path: "/kopen", element: <ListingTypePage listingType="koop" /> },
+  { path: "/kopen/:city", element: <ListingTypePage listingType="koop" /> },
+  { path: "/kopen/:city/:filter", element: <FilteredLandingPage listingType="koop" /> },
+
+  // Property type
+  { path: "/appartement", element: <PropertyTypeCityPage propertyType="appartement" /> },
+  { path: "/appartement/:city", element: <PropertyTypeCityPage propertyType="appartement" /> },
+  { path: "/appartement/:city/:filter", element: <FilteredLandingPage propertyType="appartement" /> },
+  { path: "/huis", element: <PropertyTypeCityPage propertyType="huis" /> },
+  { path: "/huis/:city", element: <PropertyTypeCityPage propertyType="huis" /> },
+  { path: "/huis/:city/:filter", element: <FilteredLandingPage propertyType="huis" /> },
+  { path: "/studio", element: <PropertyTypeCityPage propertyType="studio" /> },
+  { path: "/studio/:city", element: <PropertyTypeCityPage propertyType="studio" /> },
+  { path: "/studio/:city/:filter", element: <FilteredLandingPage propertyType="studio" /> },
+  { path: "/kamer", element: <PropertyTypeCityPage propertyType="kamer" /> },
+  { path: "/kamer/:city", element: <PropertyTypeCityPage propertyType="kamer" /> },
+  { path: "/kamer/:city/:filter", element: <FilteredLandingPage propertyType="kamer" /> },
+  { path: "/aanbod-in/:city/:filter", element: <FilteredLandingPage /> },
+
+  // Budget / inkomen landings
+  { path: "/budget-huur/:budget/:city", element: <BudgetLandingPage listingType="huur" /> },
+  { path: "/budget-koop/:budget/:city", element: <BudgetLandingPage listingType="koop" /> },
+  { path: "/inkomen/:income/:city", element: <IncomeLandingPage /> },
+
+  // Content
+  { path: "/journaal", element: <BlogPage /> },
+  { path: "/journaal/:slug", element: <BlogPostPage /> },
+  { path: "/vragen", element: <FAQ /> },
+  { path: "/over", element: <About /> },
+
+  // Tools
+  { path: "/budgetcheck", element: <BudgetTool /> },
+  { path: "/woonkompas", element: <WoonQuiz /> },
+  { path: "/energie", element: <EnergieVergelijken /> },
+
+  // B2B
+  { path: "/partnerprogramma", element: <MakelaarKoppelen /> },
+  { path: "/samenwerken", element: <Samenwerking /> },
+
+  // Legal
   { path: "/voorwaarden", element: <TermsAndConditions /> },
   { path: "/privacy", element: <PrivacyPolicy /> },
   { path: "/disclaimer", element: <Disclaimer /> },
-  { path: "/veelgestelde-vragen", element: <FAQ /> },
-  { path: "/blog", element: <BlogPage /> },
-  { path: "/blog/:slug", element: <BlogPostPage /> },
-  { path: "/zoekalerts", element: <SearchAlerts /> },
-  { path: "/profiel", element: <Profile /> },
-  { path: "/berichten", element: <UserChat /> },
-  { path: "/steden", element: <Cities /> },
-  { path: "/nieuw-aanbod", element: <NewListings /> },
-  { path: "/nieuw-aanbod/:city", element: <NewListingsCity /> },
-  { path: "/dagelijkse-alert", element: <DailyAlert /> },
-  { path: "/over-huurbaasje", element: <About /> },
-  { path: "/makelaar-koppelen", element: <MakelaarKoppelen /> },
-  { path: "/samenwerking", element: <Samenwerking /> },
-  { path: "/budget-tool", element: <BudgetTool /> },
-  { path: "/woonquiz", element: <WoonQuiz /> },
-  { path: "/energie-vergelijken", element: <EnergieVergelijken /> },
-  { path: "/vergelijk/:city1-vs-:city2", element: <CityComparePage /> },
-  { path: "/huurprijzen/:city", element: <HuurprijsMonitor /> },
-  { path: "/woningen-postcode-:postcode", element: <PostcodePage /> },
-  { path: "/huurwoningen-onder-:budget-:city", element: <BudgetLandingPage listingType="huur" /> },
-  { path: "/koopwoningen-onder-:budget-:city", element: <BudgetLandingPage listingType="koop" /> },
-  { path: "/huur-bij-inkomen-:income-:city", element: <IncomeLandingPage /> },
-  { path: "/verhuizen-naar-:city", element: <CityGuidePage /> },
-  { path: "/goedkoopste-huurwoningen/:city", element: <BestOfCityPage variant="goedkoopste-huur" /> },
-  { path: "/grootste-huurwoningen/:city", element: <BestOfCityPage variant="grootste-huur" /> },
-  { path: "/beste-buurten/:city", element: <BestOfCityPage variant="beste-buurten" /> },
-  { path: "/alerts/afmelden/:token", element: <AlertUnsubscribe /> },
-  { path: "/huurwoningen/:city/:filter", element: <FilteredLandingPage listingType="huur" /> },
-  { path: "/huurwoningen/:city?", element: <ListingTypePage listingType="huur" /> },
-  { path: "/koopwoningen/:city/:filter", element: <FilteredLandingPage listingType="koop" /> },
-  { path: "/koopwoningen/:city?", element: <ListingTypePage listingType="koop" /> },
-  { path: "/appartementen/:city/:filter", element: <FilteredLandingPage propertyType="appartement" /> },
-  { path: "/appartementen/:city?", element: <PropertyTypeCityPage propertyType="appartement" /> },
-  { path: "/huizen/:city/:filter", element: <FilteredLandingPage propertyType="huis" /> },
-  { path: "/huizen/:city?", element: <PropertyTypeCityPage propertyType="huis" /> },
-  { path: "/studios/:city/:filter", element: <FilteredLandingPage propertyType="studio" /> },
-  { path: "/studios/:city?", element: <PropertyTypeCityPage propertyType="studio" /> },
-  { path: "/kamers/:city/:filter", element: <FilteredLandingPage propertyType="kamer" /> },
-  { path: "/kamers/:city?", element: <PropertyTypeCityPage propertyType="kamer" /> },
-  { path: "/woningen/:city/:filter", element: <FilteredLandingPage /> },
-  { path: "/wijk/:city/:neighborhood", element: <NeighborhoodPage /> },
-  { path: "/:city", element: <LegacyCityRedirect /> },
   { path: "/niet-gevonden", element: <NotFound /> },
+
+  // Legacy single-segment city fallback (laatste, vangt /:city)
+  { path: "/:city", element: <LegacyCityRedirect /> },
 ];
 
 // Admin pages — NL only (admin doesn't need localisation)
@@ -219,9 +256,9 @@ const App = () => (
               {ADMIN_PAGES.map((r) => (
                 <Route key={r.path} path={r.path} element={r.element} />
               ))}
-              {LOCALE_PREFIXES.flatMap((prefix) =>
-                PAGES.map((r) => {
-                  // Root "/" → "/en", "/de", "/fr"
+              {LOCALE_PREFIXES.flatMap((prefix) => [
+                // Canonieke nieuwe paden
+                ...PAGES.map((r) => {
                   const path =
                     r.path === "/"
                       ? prefix === ""
@@ -230,8 +267,15 @@ const App = () => (
                       : prefix + r.path;
                   return <Route key={prefix + "::" + r.path} path={path} element={r.element} />;
                 }),
-              )}
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                // Legacy redirects (woonpeek-stijl URLs → nieuwe paden)
+                ...LEGACY_REDIRECTS.map(({ from, to }) => (
+                  <Route
+                    key={prefix + "::legacy::" + from}
+                    path={prefix + from}
+                    element={<ParamRedirect to={prefix + to} />}
+                  />
+                )),
+              ])}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

@@ -271,7 +271,7 @@ const AdminBlog = () => {
                   <div className="flex items-center gap-2 ml-4">
                     {post.status === "published" && (
                       <Button variant="ghost" size="icon" asChild>
-                        <Link to={`/blog/${post.slug}`} target="_blank">
+                        <Link to={`/journaal/${post.slug}`} target="_blank">
                           <ExternalLink className="h-4 w-4" />
                         </Link>
                       </Button>

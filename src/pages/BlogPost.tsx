@@ -78,7 +78,7 @@ const BlogPostPage = () => {
         <main className="flex flex-1 flex-col items-center justify-center">
           <h1 className="font-display text-2xl font-bold">Artikel niet gevonden</h1>
           <Button asChild className="mt-4">
-            <Link to="/blog">Terug naar blog</Link>
+            <Link to="/journaal">Terug naar blog</Link>
           </Button>
         </main>
         <Footer />
@@ -202,7 +202,7 @@ const BlogPostPage = () => {
               ]}
             />
             <Button variant="ghost" asChild className="mt-4 mb-4 -ml-3 text-foreground/80 hover:text-foreground">
-              <Link to="/blog">
+              <Link to="/journaal">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Terug naar blog
               </Link>

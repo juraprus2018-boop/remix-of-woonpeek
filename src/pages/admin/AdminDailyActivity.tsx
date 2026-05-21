@@ -283,7 +283,7 @@ const SourceGroup = ({
         {shown.map((p) => (
           <Link
             key={p.id}
-            to={`/woning/${p.slug || p.id}`}
+            to={`/aanbod/${p.slug || p.id}`}
             className={cn(
               "flex items-center justify-between rounded px-2 py-1.5 text-sm transition-colors hover:bg-muted",
               variant === "deactivated" && "opacity-75"

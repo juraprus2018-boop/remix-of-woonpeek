@@ -52,39 +52,39 @@ const Header = () => {
   const navigate = useNavigate();
 
   const woningCategories = [
-    { label: t("nav.categories.rentals"), href: "/huurwoningen", icon: Home,
-      description: t("nav.categories.rentalsDesc"), cityPrefix: "/huurwoningen" },
-    { label: t("nav.categories.apartments"), href: "/appartementen", icon: Building2,
-      description: t("nav.categories.apartmentsDesc"), cityPrefix: "/appartementen" },
-    { label: t("nav.categories.houses"), href: "/huizen", icon: Home,
-      description: t("nav.categories.housesDesc"), cityPrefix: "/huizen" },
-    { label: t("nav.categories.rooms"), href: "/kamers", icon: DoorOpen,
-      description: t("nav.categories.roomsDesc"), cityPrefix: "/kamers" },
-    { label: t("nav.categories.studios"), href: "/studios", icon: BedDouble,
-      description: t("nav.categories.studiosDesc"), cityPrefix: "/studios" },
+    { label: t("nav.categories.rentals"), href: "/huren", icon: Home,
+      description: t("nav.categories.rentalsDesc"), cityPrefix: "/huren" },
+    { label: t("nav.categories.apartments"), href: "/appartement", icon: Building2,
+      description: t("nav.categories.apartmentsDesc"), cityPrefix: "/appartement" },
+    { label: t("nav.categories.houses"), href: "/huis", icon: Home,
+      description: t("nav.categories.housesDesc"), cityPrefix: "/huis" },
+    { label: t("nav.categories.rooms"), href: "/kamer", icon: DoorOpen,
+      description: t("nav.categories.roomsDesc"), cityPrefix: "/kamer" },
+    { label: t("nav.categories.studios"), href: "/studio", icon: BedDouble,
+      description: t("nav.categories.studiosDesc"), cityPrefix: "/studio" },
   ];
 
   const [hoveredCategory, setHoveredCategory] = useState(woningCategories[0]);
 
   const discoverItems = [
-    { to: "/nieuw-aanbod", icon: CalendarDays, label: t("nav.discoverItems.newListings"), desc: t("nav.discoverItems.newListingsDesc") },
-    { to: "/verkennen", icon: Map, label: t("nav.discoverItems.map"), desc: t("nav.discoverItems.mapDesc") },
-    { to: "/steden", icon: MapPin, label: t("common.cities"), desc: t("nav.categories.rentalsDesc") },
-    { to: "/dagelijkse-alert", icon: Bell, label: t("nav.discoverItems.dailyAlert"), desc: t("nav.discoverItems.dailyAlertDesc") },
-    { to: "/woonquiz", icon: Sparkles, label: t("nav.discoverItems.quiz"), desc: t("nav.discoverItems.quizDesc") },
+    { to: "/vandaag", icon: CalendarDays, label: t("nav.discoverItems.newListings"), desc: t("nav.discoverItems.newListingsDesc") },
+    { to: "/op-kaart", icon: Map, label: t("nav.discoverItems.map"), desc: t("nav.discoverItems.mapDesc") },
+    { to: "/plekken", icon: MapPin, label: t("common.cities"), desc: t("nav.categories.rentalsDesc") },
+    { to: "/woonradar", icon: Bell, label: t("nav.discoverItems.dailyAlert"), desc: t("nav.discoverItems.dailyAlertDesc") },
+    { to: "/woonkompas", icon: Sparkles, label: t("nav.discoverItems.quiz"), desc: t("nav.discoverItems.quizDesc") },
   ];
 
   const toolsItems = [
-    { to: "/budget-tool", icon: Calculator, label: t("nav.toolsItems.budget"), desc: t("nav.toolsItems.budgetDesc") },
-    { to: "/huurprijzen/amsterdam", icon: TrendingUp, label: t("nav.toolsItems.monitor"), desc: t("nav.toolsItems.monitorDesc") },
-    { to: "/blog", icon: BookOpen, label: t("nav.toolsItems.blog"), desc: t("nav.toolsItems.blogDesc") },
+    { to: "/budgetcheck", icon: Calculator, label: t("nav.toolsItems.budget"), desc: t("nav.toolsItems.budgetDesc") },
+    { to: "/markt/amsterdam", icon: TrendingUp, label: t("nav.toolsItems.monitor"), desc: t("nav.toolsItems.monitorDesc") },
+    { to: "/journaal", icon: BookOpen, label: t("nav.toolsItems.blog"), desc: t("nav.toolsItems.blogDesc") },
   ];
 
   const lettingItems = [
-    { to: "/woning-plaatsen", icon: PlusCircle, label: t("nav.lettingItems.post"), desc: t("nav.lettingItems.postDesc") },
-    { to: "/makelaar-koppelen", icon: Handshake, label: t("nav.lettingItems.agentLink"), desc: t("nav.lettingItems.agentLinkDesc") },
-    { to: "/samenwerking", icon: Mail, label: t("nav.lettingItems.partner"), desc: t("nav.lettingItems.partnerDesc") },
-    { to: "/over-huurbaasje", icon: HelpCircle, label: t("footer.linkAbout"), desc: t("nav.lettingItems.partnerDesc") },
+    { to: "/plaatsen-start", icon: PlusCircle, label: t("nav.lettingItems.post"), desc: t("nav.lettingItems.postDesc") },
+    { to: "/partnerprogramma", icon: Handshake, label: t("nav.lettingItems.agentLink"), desc: t("nav.lettingItems.agentLinkDesc") },
+    { to: "/samenwerken", icon: Mail, label: t("nav.lettingItems.partner"), desc: t("nav.lettingItems.partnerDesc") },
+    { to: "/over", icon: HelpCircle, label: t("footer.linkAbout"), desc: t("nav.lettingItems.partnerDesc") },
   ];
 
   const handleSignOut = async () => {
@@ -139,7 +139,7 @@ const Header = () => {
                       <div className="mt-4 border-t pt-3">
                         <NavigationMenuLink asChild>
                           <Link
-                            to="/zoeken"
+                            to="/vinden"
                             className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-primary hover:bg-muted"
                           >
                             <Search className="h-4 w-4" />
@@ -168,7 +168,7 @@ const Header = () => {
                         ))}
                       </ul>
                       <Link
-                        to="/steden"
+                        to="/plekken"
                         className="mt-3 flex items-center gap-1 px-2 text-xs font-medium text-primary hover:underline"
                       >
                         {t("footer.allCitiesArrow")}
@@ -256,7 +256,7 @@ const Header = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <Link to="/woning-plaatsen">
+          <Link to="/plaatsen-start">
             <Button size="sm" className="ml-2 gap-1.5 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90">
               <PlusCircle className="h-4 w-4" />
               {t("common.freePost")}
@@ -280,16 +280,16 @@ const Header = () => {
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem className="text-muted-foreground text-sm">{user.email}</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link to="/mijn-woningen">{t("nav.lettingItems.post")}</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/favorieten">{t("common.viewAll")}</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/mijn-aanbod">{t("nav.lettingItems.post")}</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild><Link to="/opgeslagen">{t("common.viewAll")}</Link></DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/zoekalerts" className="flex items-center gap-2"><Bell className="h-4 w-4" />{t("common.alerts")}</Link>
+                  <Link to="/radarmeldingen" className="flex items-center gap-2"><Bell className="h-4 w-4" />{t("common.alerts")}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/berichten" className="flex items-center gap-2"><MessageCircle className="h-4 w-4" />{t("common.contact")}</Link>
+                  <Link to="/chat" className="flex items-center gap-2"><MessageCircle className="h-4 w-4" />{t("common.contact")}</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/profiel" className="flex items-center gap-2"><User className="h-4 w-4" />{t("common.myAccount")}</Link>
+                  <Link to="/account" className="flex items-center gap-2"><User className="h-4 w-4" />{t("common.myAccount")}</Link>
                 </DropdownMenuItem>
                 {isAdmin && (
                   <>
@@ -307,12 +307,12 @@ const Header = () => {
             </DropdownMenu>
           ) : (
             <>
-              <Link to="/inloggen">
+              <Link to="/login">
                 <Button variant="ghost" size="sm" className="gap-1.5">
                   <User className="h-4 w-4" />{t("common.login")}
                 </Button>
               </Link>
-              <Link to="/registreren">
+              <Link to="/aanmelden">
                 <Button size="sm" className="rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90">
                   {t("common.register")}
                 </Button>
@@ -332,7 +332,7 @@ const Header = () => {
           </SheetTrigger>
           <SheetContent side="right" className="w-80 overflow-y-auto">
             <nav className="flex flex-col gap-1 pt-8">
-              <Link to="/zoeken" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/vinden" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <Search className="h-5 w-5" />{t("common.search")}
               </Link>
 
@@ -364,25 +364,25 @@ const Header = () => {
 
               <div className="my-2 border-t" />
 
-              <Link to="/nieuw-aanbod" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/vandaag" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <CalendarDays className="h-5 w-5" />{t("nav.discoverItems.newListings")}
               </Link>
-              <Link to="/verkennen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/op-kaart" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <Map className="h-5 w-5" />{t("nav.discoverItems.map")}
               </Link>
-              <Link to="/steden" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/plekken" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <MapPin className="h-5 w-5" />{t("common.cities")}
               </Link>
-              <Link to="/dagelijkse-alert" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/woonradar" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <Bell className="h-5 w-5" />{t("nav.discoverItems.dailyAlert")}
               </Link>
-              <Link to="/favorieten" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/opgeslagen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <Heart className="h-5 w-5" />{t("common.viewAll")}
               </Link>
-              <Link to="/makelaar-koppelen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+              <Link to="/partnerprogramma" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                 <Handshake className="h-5 w-5" />{t("nav.lettingItems.agentLink")}
               </Link>
-              <Link to="/woning-plaatsen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg bg-accent px-3 py-2.5 font-medium text-accent-foreground transition-colors hover:bg-accent/90">
+              <Link to="/plaatsen-start" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg bg-accent px-3 py-2.5 font-medium text-accent-foreground transition-colors hover:bg-accent/90">
                 <PlusCircle className="h-5 w-5" />{t("nav.lettingItems.post")}
               </Link>
 
@@ -391,10 +391,10 @@ const Header = () => {
               {user ? (
                 <>
                   <div className="px-3 py-2 text-sm text-muted-foreground">{user.email}</div>
-                  <Link to="/mijn-woningen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+                  <Link to="/mijn-aanbod" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                     {t("nav.lettingItems.post")}
                   </Link>
-                  <Link to="/profiel" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+                  <Link to="/account" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                     <User className="h-5 w-5" />{t("common.myAccount")}
                   </Link>
                   {isAdmin && (
@@ -408,10 +408,10 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/inloggen" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
+                  <Link to="/login" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-foreground transition-colors hover:bg-muted">
                     <User className="h-5 w-5" />{t("common.login")}
                   </Link>
-                  <Link to="/registreren" onClick={() => setIsOpen(false)}>
+                  <Link to="/aanmelden" onClick={() => setIsOpen(false)}>
                     <Button className="mt-1 w-full bg-accent text-accent-foreground hover:bg-accent/90">{t("common.register")}</Button>
                   </Link>
                 </>

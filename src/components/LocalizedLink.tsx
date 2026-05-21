@@ -22,7 +22,7 @@ export function useLocalizedNavigate() {
   );
 }
 
-/** Locale-aware <Link>. Pass `to="/inloggen"` — it becomes `/de/inloggen` etc. */
+/** Locale-aware <Link>. Pass `to="/login"` — it becomes `/de/inloggen` etc. */
 export const L = forwardRef<HTMLAnchorElement, LinkProps>(function L(
   { to, ...rest },
   ref,

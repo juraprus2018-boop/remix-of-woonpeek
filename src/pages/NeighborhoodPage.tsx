@@ -194,7 +194,7 @@ const NeighborhoodPage = () => {
               </h2>
               <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
                 {neighborhoods.map((n) => (
-                  <Link key={n.slug} to={`/wijk/${citySlug}/${n.slug}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary flex items-center justify-between">
+                  <Link key={n.slug} to={`/buurt/${citySlug}/${n.slug}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary flex items-center justify-between">
                     <span>{n.name}</span>
                     <span className="text-xs text-muted-foreground">{n.count} woningen</span>
                   </Link>
@@ -215,15 +215,15 @@ const NeighborhoodPage = () => {
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Alle woningen in {cityName}</span>
               </Link>
-              <Link to={`/huurwoningen/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/huren/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Huurwoningen in {cityName}</span>
               </Link>
-              <Link to={`/appartementen/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/appartement/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Appartementen in {cityName}</span>
               </Link>
-              <Link to={`/nieuw-aanbod/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/vandaag/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Nieuw aanbod in {cityName}</span>
               </Link>
@@ -265,7 +265,7 @@ const NeighborhoodPage = () => {
                 Bekijk ook het volledige aanbod van{" "}
                 <Link to={cityPath(cityName)} className="text-primary underline hover:no-underline">woningen in {cityName}</Link>{" "}
                 of stel een{" "}
-                <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
+                <Link to="/woonradar" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
                 in om als eerste op de hoogte te zijn van nieuwe woningen.
               </p>
             </div>

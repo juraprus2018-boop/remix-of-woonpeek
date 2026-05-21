@@ -195,7 +195,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   {totalCount} {label.plural.toLowerCase()} beschikbaar
                 </div>
                 {cityName && (
-                  <Link to="/dagelijkse-alert" className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20">
+                  <Link to="/woonradar" className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20">
                     Dagelijkse alert instellen
                   </Link>
                 )}
@@ -326,7 +326,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   nieuw aanbod. </>
                 )}
                 Stel een{" "}
-                <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">
+                <Link to="/woonradar" className="text-primary underline hover:no-underline">
                   dagelijkse alert
                 </Link>{" "}
                 in om als eerste op de hoogte te zijn van nieuwe {label.plural.toLowerCase()} in {locationLabel}.
@@ -364,7 +364,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                 <li>
                   <strong>Reageer snel</strong>: Nieuwe {label.plural.toLowerCase()} in {locationLabel} zijn vaak
                   binnen een paar dagen verhuurd. Stel een{" "}
-                  <Link to="/dagelijkse-alert" className="text-primary underline hover:no-underline">
+                  <Link to="/woonradar" className="text-primary underline hover:no-underline">
                     dagelijkse alert
                   </Link>{" "}
                   in om als eerste op de hoogte te zijn.
@@ -412,19 +412,19 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                       {TYPE_LABELS[t].plural} in {cityName}
                     </Link>
                   ))}
-                <Link to={`/huurwoningen/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                <Link to={`/huren/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   Huurwoningen in {cityName}
                 </Link>
-                <Link to={`/koopwoningen/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                <Link to={`/kopen/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   Koopwoningen in {cityName}
                 </Link>
                 {[750, 1000, 1500].map((price) => (
-                  <Link key={price} to={`/woningen/${citySlug}/onder-${price}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link key={price} to={`/aanbod-in/${citySlug}/onder-${price}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Woningen onder €{price.toLocaleString("nl-NL")}
                   </Link>
                 ))}
                 {[2, 3].map((beds) => (
-                  <Link key={beds} to={`/woningen/${citySlug}/${beds}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link key={beds} to={`/aanbod-in/${citySlug}/${beds}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     {beds} kamers in {cityName}
                   </Link>
                 ))}

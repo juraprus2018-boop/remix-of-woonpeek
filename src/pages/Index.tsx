@@ -180,7 +180,7 @@ const Index = () => {
                 {POPULAR_CITIES.slice(0, 5).map((c) => (
                   <Link
                     key={c.name}
-                    to={`/huurwoningen/${cityToSlug(c.name)}`}
+                    to={`/huren/${cityToSlug(c.name)}`}
                     className="rounded-full bg-sun-tint px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:bg-sun"
                   >
                     {c.name}
@@ -257,7 +257,7 @@ const Index = () => {
               </p>
             </div>
             <Link
-              to="/nieuw-aanbod"
+              to="/vandaag"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
               Alle nieuwe woningen
@@ -273,7 +273,7 @@ const Index = () => {
               : featured.map((p: any) => (
                   <Link
                     key={p.id}
-                    to={`/woning/${cityToSlug(p.city || "stad")}-${p.property_type || "woning"}-${p.id}`}
+                    to={`/aanbod/${cityToSlug(p.city || "stad")}-${p.property_type || "woning"}-${p.id}`}
                     className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -314,7 +314,7 @@ const Index = () => {
 
           <div className="mt-8 text-center md:hidden">
             <Link
-              to="/nieuw-aanbod"
+              to="/vandaag"
               className="inline-flex items-center gap-1.5 text-sm font-bold text-foreground"
             >
               Alle nieuwe woningen
@@ -386,7 +386,7 @@ const Index = () => {
               </p>
             </div>
             <Link
-              to="/steden"
+              to="/plekken"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
               Alle steden
@@ -398,7 +398,7 @@ const Index = () => {
             {POPULAR_CITIES.map((c) => (
               <Link
                 key={c.name}
-                to={`/huurwoningen/${cityToSlug(c.name)}`}
+                to={`/huren/${cityToSlug(c.name)}`}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-sun hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
@@ -444,7 +444,7 @@ const Index = () => {
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">
-                <Link to="/dagelijkse-alert" className="w-full lg:w-auto">
+                <Link to="/woonradar" className="w-full lg:w-auto">
                   <Button
                     size="lg"
                     className="h-14 w-full gap-2 rounded-xl bg-sun px-8 text-base font-extrabold text-foreground shadow-lg hover:bg-sun/90 lg:w-auto"
