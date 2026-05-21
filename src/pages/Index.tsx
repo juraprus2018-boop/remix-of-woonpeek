@@ -27,6 +27,7 @@ import { useNewTodayCount } from "@/hooks/useNewTodayCount";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
+import { getStockPropertyImage } from "@/lib/stockImages";
 import { useState } from "react";
 
 const POPULAR_CITIES = [
