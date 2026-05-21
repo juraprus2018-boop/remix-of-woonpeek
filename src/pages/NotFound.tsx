@@ -4,7 +4,9 @@ import { Home, Search, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SEOHead from "@/components/seo/SEOHead";
 import notFoundImg from "@/assets/not-found-illustration.jpg";
+
 
 const NotFound = () => {
   const location = useLocation();
