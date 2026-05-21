@@ -27,6 +27,7 @@ import { useNewTodayCount } from "@/hooks/useNewTodayCount";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
+import { getStockPropertyImage } from "@/lib/stockImages";
 import { useState } from "react";
 
 const POPULAR_CITIES = [
@@ -277,18 +278,15 @@ const Index = () => {
                     className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                      {p.image_url ? (
-                        <img
-                          src={p.image_url}
-                          alt={p.title}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-muted-foreground">
-                          <Home className="h-12 w-12 opacity-30" />
-                        </div>
-                      )}
+                      <img
+                        src={p.images?.[0] ?? getStockPropertyImage(p.id)}
+                        alt={p.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        onError={(e) => {
+                          e.currentTarget.src = getStockPropertyImage(p.id);
+                        }}
+                      />
                       {p.price && (
                         <div className="absolute left-3 top-3 rounded-full bg-sun px-3 py-1 text-xs font-extrabold text-foreground shadow-sm">
                           € {Number(p.price).toLocaleString("nl-NL")}
