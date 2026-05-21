@@ -52,39 +52,39 @@ const Header = () => {
   const navigate = useNavigate();
 
   const woningCategories = [
-    { label: t("nav.categories.rentals"), href: "/huurwoningen", icon: Home,
-      description: t("nav.categories.rentalsDesc"), cityPrefix: "/huurwoningen" },
-    { label: t("nav.categories.apartments"), href: "/appartementen", icon: Building2,
-      description: t("nav.categories.apartmentsDesc"), cityPrefix: "/appartementen" },
-    { label: t("nav.categories.houses"), href: "/huizen", icon: Home,
-      description: t("nav.categories.housesDesc"), cityPrefix: "/huizen" },
-    { label: t("nav.categories.rooms"), href: "/kamers", icon: DoorOpen,
-      description: t("nav.categories.roomsDesc"), cityPrefix: "/kamers" },
-    { label: t("nav.categories.studios"), href: "/studios", icon: BedDouble,
-      description: t("nav.categories.studiosDesc"), cityPrefix: "/studios" },
+    { label: t("nav.categories.rentals"), href: "/huren", icon: Home,
+      description: t("nav.categories.rentalsDesc"), cityPrefix: "/huren" },
+    { label: t("nav.categories.apartments"), href: "/appartement", icon: Building2,
+      description: t("nav.categories.apartmentsDesc"), cityPrefix: "/appartement" },
+    { label: t("nav.categories.houses"), href: "/huis", icon: Home,
+      description: t("nav.categories.housesDesc"), cityPrefix: "/huis" },
+    { label: t("nav.categories.rooms"), href: "/kamer", icon: DoorOpen,
+      description: t("nav.categories.roomsDesc"), cityPrefix: "/kamer" },
+    { label: t("nav.categories.studios"), href: "/studio", icon: BedDouble,
+      description: t("nav.categories.studiosDesc"), cityPrefix: "/studio" },
   ];
 
   const [hoveredCategory, setHoveredCategory] = useState(woningCategories[0]);
 
   const discoverItems = [
-    { to: "/nieuw-aanbod", icon: CalendarDays, label: t("nav.discoverItems.newListings"), desc: t("nav.discoverItems.newListingsDesc") },
-    { to: "/verkennen", icon: Map, label: t("nav.discoverItems.map"), desc: t("nav.discoverItems.mapDesc") },
-    { to: "/steden", icon: MapPin, label: t("common.cities"), desc: t("nav.categories.rentalsDesc") },
-    { to: "/dagelijkse-alert", icon: Bell, label: t("nav.discoverItems.dailyAlert"), desc: t("nav.discoverItems.dailyAlertDesc") },
-    { to: "/woonquiz", icon: Sparkles, label: t("nav.discoverItems.quiz"), desc: t("nav.discoverItems.quizDesc") },
+    { to: "/vandaag", icon: CalendarDays, label: t("nav.discoverItems.newListings"), desc: t("nav.discoverItems.newListingsDesc") },
+    { to: "/op-kaart", icon: Map, label: t("nav.discoverItems.map"), desc: t("nav.discoverItems.mapDesc") },
+    { to: "/plekken", icon: MapPin, label: t("common.cities"), desc: t("nav.categories.rentalsDesc") },
+    { to: "/woonradar", icon: Bell, label: t("nav.discoverItems.dailyAlert"), desc: t("nav.discoverItems.dailyAlertDesc") },
+    { to: "/woonkompas", icon: Sparkles, label: t("nav.discoverItems.quiz"), desc: t("nav.discoverItems.quizDesc") },
   ];
 
   const toolsItems = [
-    { to: "/budget-tool", icon: Calculator, label: t("nav.toolsItems.budget"), desc: t("nav.toolsItems.budgetDesc") },
-    { to: "/huurprijzen/amsterdam", icon: TrendingUp, label: t("nav.toolsItems.monitor"), desc: t("nav.toolsItems.monitorDesc") },
-    { to: "/blog", icon: BookOpen, label: t("nav.toolsItems.blog"), desc: t("nav.toolsItems.blogDesc") },
+    { to: "/budgetcheck", icon: Calculator, label: t("nav.toolsItems.budget"), desc: t("nav.toolsItems.budgetDesc") },
+    { to: "/markt/amsterdam", icon: TrendingUp, label: t("nav.toolsItems.monitor"), desc: t("nav.toolsItems.monitorDesc") },
+    { to: "/journaal", icon: BookOpen, label: t("nav.toolsItems.blog"), desc: t("nav.toolsItems.blogDesc") },
   ];
 
   const lettingItems = [
-    { to: "/woning-plaatsen", icon: PlusCircle, label: t("nav.lettingItems.post"), desc: t("nav.lettingItems.postDesc") },
-    { to: "/makelaar-koppelen", icon: Handshake, label: t("nav.lettingItems.agentLink"), desc: t("nav.lettingItems.agentLinkDesc") },
-    { to: "/samenwerking", icon: Mail, label: t("nav.lettingItems.partner"), desc: t("nav.lettingItems.partnerDesc") },
-    { to: "/over-huurbaasje", icon: HelpCircle, label: t("footer.linkAbout"), desc: t("nav.lettingItems.partnerDesc") },
+    { to: "/plaatsen-start", icon: PlusCircle, label: t("nav.lettingItems.post"), desc: t("nav.lettingItems.postDesc") },
+    { to: "/partnerprogramma", icon: Handshake, label: t("nav.lettingItems.agentLink"), desc: t("nav.lettingItems.agentLinkDesc") },
+    { to: "/samenwerken", icon: Mail, label: t("nav.lettingItems.partner"), desc: t("nav.lettingItems.partnerDesc") },
+    { to: "/over", icon: HelpCircle, label: t("footer.linkAbout"), desc: t("nav.lettingItems.partnerDesc") },
   ];
 
   const handleSignOut = async () => {
