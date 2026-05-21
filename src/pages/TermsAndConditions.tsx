@@ -1,11 +1,18 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StockBanner from "@/components/layout/StockBanner";
+import SEOHead from "@/components/seo/SEOHead";
 
 const TermsAndConditions = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <SEOHead
+        title="Algemene voorwaarden | Huurbaasje"
+        description="De algemene voorwaarden van Huurbaasje. Regels voor het gebruik van ons platform, advertenties, aansprakelijkheid en intellectueel eigendom."
+        canonical="https://www.huurbaasje.nl/algemene-voorwaarden"
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="algemene-voorwaarden-huurbaasje"
