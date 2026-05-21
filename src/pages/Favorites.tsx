@@ -91,7 +91,14 @@ const Favorites = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <SEOHead
+        title="Mijn favoriete woningen | Huurbaasje"
+        description="Bekijk en beheer je opgeslagen huur- en koopwoningen op Huurbaasje. Sorteer op prijs, stad of recent toegevoegd."
+        canonical="https://www.huurbaasje.nl/favorieten"
+        noindex
+      />
       <Header />
+
       <main className="flex-1">
         <StockBanner
           seed="favorites"
