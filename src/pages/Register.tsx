@@ -10,6 +10,8 @@ import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
+import SEOHead from "@/components/seo/SEOHead";
+
 
 const Register = () => {
   const [email, setEmail] = useState("");
