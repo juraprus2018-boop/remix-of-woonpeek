@@ -47,6 +47,8 @@ function buildPagesSitemap(now: string): string {
     { loc: "/journaal", changefreq: "daily", priority: "0.8" },
     { loc: "/woonradar", changefreq: "monthly", priority: "0.6" },
     { loc: "/vragen", changefreq: "monthly", priority: "0.5" },
+    { loc: "/woordenboek", changefreq: "monthly", priority: "0.7" },
+    { loc: "/transparantie", changefreq: "monthly", priority: "0.4" },
     { loc: "/budgetcheck", changefreq: "monthly", priority: "0.5" },
   ];
 
