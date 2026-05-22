@@ -65,7 +65,7 @@ const DailyAlert = () => {
         </PageBanner>
         <DailyAlertSection />
         <section className="border-t bg-muted/30 py-12">
-          <div className="container max-w-3xl space-y-6 text-sm text-muted-foreground leading-relaxed">
+          <div className="container space-y-6 text-sm text-muted-foreground leading-relaxed">
             <h2 className="font-display text-2xl font-bold text-foreground">
               Wekelijkse woningalert van Huurbaasje
             </h2>
