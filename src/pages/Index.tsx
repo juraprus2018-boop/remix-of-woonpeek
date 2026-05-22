@@ -410,7 +410,7 @@ const Index = () => {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-            {POPULAR_CITIES.map((c) => (
+            {popularCities.map((c) => (
               <Link
                 key={c.name}
                 to={`/huren/${cityToSlug(c.name)}`}
@@ -425,7 +425,7 @@ const Index = () => {
                       {c.name}
                     </h3>
                     <div className="mt-2 text-sm font-semibold text-foreground/70">
-                      {c.count} huurwoningen
+                      {c.count} {c.count === 1 ? "huurwoning" : "huurwoningen"}
                     </div>
                   </div>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
