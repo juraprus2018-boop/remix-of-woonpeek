@@ -8,9 +8,15 @@ interface LogoProps {
 }
 
 export function Logo({ className, size = "h-11 md:h-12", variant = "dark" }: LogoProps) {
+  const isLight = variant === "light";
   return (
     <span
-      className={cn("inline-flex items-center gap-2 leading-none text-foreground", size, className)}
+      className={cn(
+        "inline-flex items-center gap-2 leading-none",
+        isLight ? "text-white" : "text-foreground",
+        size,
+        className,
+      )}
       aria-label={BRAND_NAME}
     >
       <svg
