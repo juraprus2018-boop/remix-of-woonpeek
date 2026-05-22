@@ -108,10 +108,6 @@ const Index = () => {
 
         <div className="container relative grid items-center gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-16 lg:py-28">
           <div className="relative z-10">
-            <span className="inline-flex items-center gap-2 rounded-full bg-sun px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-foreground shadow-md">
-              <Sparkles className="h-3.5 w-3.5" />
-              {t("hero.badge")}
-            </span>
             <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
               {t("hero.title1")} <span className="relative inline-block">
                 <span className="relative z-10">{t("hero.highlight")}</span>
