@@ -112,7 +112,7 @@ const DailyAlert = () => {
 
         {/* FAQ */}
         <section className="border-t py-12">
-          <div className="container max-w-3xl">
+          <div className="container">
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
               Veelgestelde vragen over de woningalert
             </h2>
