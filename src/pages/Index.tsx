@@ -246,7 +246,7 @@ const Index = () => {
                 <span className="rounded-full bg-sun px-2.5 py-1 text-foreground">Net binnen</span>
               </span>
               <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Verse huurwoningen, elke dag.
+                Nieuwe huurwoningen, elke dag.
               </h2>
               <p className="mt-2 max-w-xl text-muted-foreground">
                 Een greep uit het laatste aanbod. Geen pop-ups, geen abo, gewoon klikken en kijken.
