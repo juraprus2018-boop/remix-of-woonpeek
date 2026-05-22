@@ -204,18 +204,16 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
           </div>
         </section>
 
-        <section className="container py-8">
-          {/* Filters bovenaan */}
-          <div className="mb-6 rounded-2xl border bg-card p-4 md:p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-display text-lg font-semibold">Filters</h2>
-            </div>
+        <section className="w-full px-4 py-8 md:px-8">
+          {/* Filters bovenaan, 1 regel */}
+          <div className="mb-6 rounded-2xl border bg-card p-4">
             <SearchFilters
               filters={{ ...filters, propertyType: propertyType }}
               onChange={(f) => setFilters({ ...f, propertyType: propertyType })}
               onClear={() => setFilters(EMPTY_FILTERS)}
               hideLocation
               facets={facets}
+              horizontal
             />
           </div>
 
@@ -238,16 +236,16 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               onClear={() => setFilters({ ...filters, grossIncome: undefined })}
             />
 
-            {/* Property list - full width */}
+            {/* Property grid - full width section, 3 cols */}
             {isLoading ? (
-              <div className="grid gap-6">
-                {Array.from({ length: 6 }).map((_, i) => (
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {Array.from({ length: 9 }).map((_, i) => (
                   <PropertyCardSkeleton key={i} />
                 ))}
               </div>
             ) : properties.length > 0 ? (
               <>
-                <div className="grid gap-6">
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {visibleProperties.map((property) => (
                     <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
                   ))}
