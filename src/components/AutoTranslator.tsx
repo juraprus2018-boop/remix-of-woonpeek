@@ -8,7 +8,7 @@
  *      or inside `<input>`/`<textarea>` values.
  *   3. Batch unique unseen Dutch strings, call the auto-translate edge
  *      function, then patch the DOM in-place.
- *   4. In-memory + sessionStorage cache so we don't re-call for strings
+ *   4. In-memory + localStorage cache so we don't re-call for strings
  *      we've already translated in this session.
  *
  * Only active when i18n.language !== "nl".
@@ -141,7 +141,7 @@ const CACHE_PREFIX = "huurbaasje_tx_";
 
 function loadCache(lang: string): Map<string, string> {
   try {
-    const raw = sessionStorage.getItem(CACHE_PREFIX + lang);
+    const raw = localStorage.getItem(CACHE_PREFIX + lang);
     if (!raw) return new Map();
     const obj = JSON.parse(raw);
     return new Map(Object.entries(obj));
@@ -154,7 +154,7 @@ function persistCache(lang: string, cache: Map<string, string>) {
   try {
     const obj: Record<string, string> = {};
     cache.forEach((v, k) => { obj[k] = v; });
-    sessionStorage.setItem(CACHE_PREFIX + lang, JSON.stringify(obj));
+    localStorage.setItem(CACHE_PREFIX + lang, JSON.stringify(obj));
   } catch {
     /* quota */
   }
