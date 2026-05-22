@@ -425,6 +425,8 @@ export const useFilterFacets = (filters: FacetFilters) => {
       const listingTypes: Record<string, number> = {};
       const bedroomCounts: Record<string, number> = {};
       const surfaceRanges: Record<string, number> = { "25": 0, "50": 0, "75": 0, "100": 0 };
+      const PRICE_THRESHOLDS = [750, 1000, 1250, 1500, 2000, 2500, 3000, 4000, 5000];
+      const priceOptions: Record<string, number> = Object.fromEntries(PRICE_THRESHOLDS.map(p => [String(p), 0]));
       let priceMax = 0;
 
       // Apply cross-filtering: when computing facets for one dimension,
