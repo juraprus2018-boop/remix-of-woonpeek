@@ -277,8 +277,8 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                 </div>
               )}
             </div>
-          </div>
         </section>
+
 
         {/* SEO text: [Woningtype] in [stad] */}
         <section className="border-t bg-muted/30 py-12">
