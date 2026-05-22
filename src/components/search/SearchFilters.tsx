@@ -141,7 +141,7 @@ const SearchFilters = ({
               <SelectValue placeholder="Geen limiet" />
             </SelectTrigger>
             <SelectContent>
-              {priceOptions.map((p) => (
+              {availablePrices.map((p) => (
                 <SelectItem key={p} value={String(p)}>€{p.toLocaleString("nl-NL")}</SelectItem>
               ))}
             </SelectContent>
