@@ -100,7 +100,7 @@ const FAQPage = () => {
           </p>
         </PageBanner>
 
-        <section className="container max-w-3xl py-12">
+        <section className="container py-12">
           <div className="space-y-6">
             {FAQ_ITEMS.map((item, i) => (
               <div key={i} className="rounded-lg border bg-card p-6">

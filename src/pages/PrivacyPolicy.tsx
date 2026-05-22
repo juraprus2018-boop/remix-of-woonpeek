@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
           title="Privacybeleid"
           subtitle="Laatst bijgewerkt: 13 februari 2026"
         />
-        <div className="container max-w-3xl py-12">
+        <div className="container py-12">
 
 
         <div className="mt-8 space-y-8 text-foreground/90">

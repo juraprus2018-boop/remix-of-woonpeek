@@ -955,7 +955,7 @@ const PropertyDetail = () => {
 
         {/* ── Energie vergelijken ── */}
         <section className="border-t py-10">
-          <div className="container lg:max-w-5xl">
+          <div className="container">
             <EnergyCompareTeaser variant="property" context={property.city} />
           </div>
         </section>
@@ -966,7 +966,7 @@ const PropertyDetail = () => {
 
         {/* ── FAQ Section ── */}
         <section className="border-t bg-muted/30 py-12 lg:py-16">
-          <div className="container max-w-3xl">
+          <div className="container">
             <h2 className="font-display text-2xl font-bold mb-6">
               Veelgestelde vragen over {property.street} {property.house_number}
             </h2>

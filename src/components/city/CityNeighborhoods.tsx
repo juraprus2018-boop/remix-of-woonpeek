@@ -58,7 +58,7 @@ const CityNeighborhoods = ({ cityName, citySlug }: CityNeighborhoodsProps) => {
   if (isLoading) {
     return (
       <section className="border-t py-12">
-        <div className="container max-w-5xl">
+        <div className="container">
           <Skeleton className="h-8 w-72 mb-6" />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (

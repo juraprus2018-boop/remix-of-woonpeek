@@ -32,7 +32,7 @@ const Samenwerking = () => {
       <main className="flex-1">
         {/* Hero */}
         <section className="border-b bg-muted/30 py-12 md:py-16">
-          <div className="container max-w-3xl text-center">
+          <div className="container text-center">
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
               <Handshake className="h-7 w-7 text-primary" />
             </div>
@@ -49,7 +49,7 @@ const Samenwerking = () => {
 
         {/* Partners grid */}
         <section className="py-12 md:py-16">
-          <div className="container max-w-5xl">
+          <div className="container">
             <h2 className="font-display mb-8 text-center text-2xl font-bold text-foreground">
               Aangesloten aanbieders
             </h2>
@@ -97,7 +97,7 @@ const Samenwerking = () => {
 
         {/* Info */}
         <section className="border-t bg-muted/30 py-12">
-          <div className="container max-w-3xl space-y-6 text-sm leading-relaxed text-muted-foreground">
+          <div className="container space-y-6 text-sm leading-relaxed text-muted-foreground">
             <h2 className="font-display text-2xl font-bold text-foreground">
               Hoe werkt onze samenwerking?
             </h2>

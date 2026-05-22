@@ -301,7 +301,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
         {/* SEO text */}
         <section className="border-t bg-muted/30 py-12">
-          <div className="container max-w-4xl">
+          <div className="container">
             <h2 className="font-display text-2xl font-bold text-foreground">
               {isPriceFilter
                 ? `Betaalbaar wonen in ${cityName} onder ${formatEuro(parsed.maxPrice!)}`
@@ -356,7 +356,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
         {/* Internal links */}
         <section className="border-t py-12">
-          <div className="container max-w-4xl">
+          <div className="container">
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
               Andere woningen in {cityName}
             </h2>

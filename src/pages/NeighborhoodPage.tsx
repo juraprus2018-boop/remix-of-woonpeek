@@ -188,7 +188,7 @@ const NeighborhoodPage = () => {
         {/* Other neighborhoods */}
         {neighborhoods && neighborhoods.length > 0 && (
           <section className="border-t py-12">
-            <div className="container max-w-4xl">
+            <div className="container">
               <h2 className="font-display text-2xl font-bold text-foreground mb-6">
                 Andere wijken in {cityName}
               </h2>
@@ -206,7 +206,7 @@ const NeighborhoodPage = () => {
 
         {/* Internal links */}
         <section className="border-t py-12">
-          <div className="container max-w-4xl">
+          <div className="container">
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
               Meer woningen in {cityName}
             </h2>
@@ -233,7 +233,7 @@ const NeighborhoodPage = () => {
 
         {/* FAQ */}
         <section className="border-t py-12">
-          <div className="container max-w-3xl">
+          <div className="container">
             <h2 className="font-display text-2xl font-bold text-foreground mb-6">
               Veelgestelde vragen over {neighborhoodName}
             </h2>
@@ -253,7 +253,7 @@ const NeighborhoodPage = () => {
 
         {/* SEO text */}
         <section className="border-t bg-muted/30 py-12">
-          <div className="container max-w-3xl">
+          <div className="container">
             <h2 className="mb-4 font-display text-2xl font-bold">Wonen in {neighborhoodName}, {cityName}</h2>
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>

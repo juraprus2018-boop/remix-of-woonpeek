@@ -83,7 +83,7 @@ const NeighborhoodReviews = ({ city, neighborhood }: NeighborhoodReviewsProps) =
 
   return (
     <section className="border-t py-10">
-      <div className="container max-w-4xl">
+      <div className="container">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="font-display text-2xl font-bold text-foreground">

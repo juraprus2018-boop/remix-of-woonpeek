@@ -38,7 +38,7 @@ const BlogRelatedPosts = ({ currentSlug }: { currentSlug: string }) => {
 
   return (
     <section className="border-t py-12">
-      <div className="container max-w-4xl">
+      <div className="container">
         <h2 className="font-display text-2xl font-bold text-foreground mb-8">
           Gerelateerde artikelen
         </h2>

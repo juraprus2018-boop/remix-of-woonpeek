@@ -161,7 +161,7 @@ const NewListings = () => {
         </section>
 
         <section className="border-t bg-muted/30 py-12">
-          <div className="container max-w-3xl">
+          <div className="container">
             <h2 className="mb-4 font-display text-2xl font-bold">Nieuw woningaanbod per dag</h2>
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>

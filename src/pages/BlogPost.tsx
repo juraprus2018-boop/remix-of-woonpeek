@@ -224,7 +224,7 @@ const BlogPostPage = () => {
             )}
           </PageBanner>
 
-          <div className="container max-w-4xl py-10 md:py-14">
+          <div className="container py-10 md:py-14">
             <div 
               className="prose prose-lg lg:prose-xl max-w-none 
                 text-foreground 
