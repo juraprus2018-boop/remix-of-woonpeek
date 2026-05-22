@@ -252,7 +252,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                 </div>
                 {visibleCount < properties.length && (
                   <div className="mt-8 text-center">
-                    <Button variant="outline" className="gap-2" onClick={handleLoadMore}>
+                    <Button className="gap-2 bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90" onClick={handleLoadMore}>
                       Meer woningen laden ({properties.length - visibleCount} resterend)
                     </Button>
                   </div>
