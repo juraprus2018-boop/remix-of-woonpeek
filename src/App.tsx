@@ -80,6 +80,7 @@ const EnergieVergelijken = lazy(() => import("./pages/EnergieVergelijken"));
 const AdminTikTok = lazy(() => import("./pages/admin/AdminTikTok"));
 const Transparantie = lazy(() => import("./pages/Transparantie"));
 const MakelaarPage = lazy(() => import("./pages/MakelaarPage"));
+const Woordenboek = lazy(() => import("./pages/Woordenboek"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -198,6 +199,7 @@ const PAGES: RouteDef[] = [
   { path: "/journaal/:slug", element: <BlogPostPage /> },
   { path: "/vragen", element: <FAQ /> },
   { path: "/over", element: <About /> },
+  { path: "/woordenboek", element: <Woordenboek /> },
 
   // Tools
   { path: "/budgetcheck", element: <BudgetTool /> },
