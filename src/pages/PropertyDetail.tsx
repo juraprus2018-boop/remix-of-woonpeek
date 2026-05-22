@@ -942,7 +942,7 @@ const PropertyDetail = () => {
         {/* ── Affordability Widget for huur ── */}
         {property.listing_type === "huur" && (
           <section className="border-t py-12">
-            <div className="container grid gap-6 lg:grid-cols-2 lg:max-w-5xl">
+            <div className="container grid gap-6 lg:grid-cols-2">
               <AffordabilityWidget price={property.price} listingType="huur" />
               <NibudBudgetBreakdown
                 monthlyHousingCost={property.price}
