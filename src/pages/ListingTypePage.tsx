@@ -7,14 +7,16 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import SimilarProperties from "@/components/city/SimilarProperties";
 import RelatedCities from "@/components/city/RelatedCities";
-import { useProperties, useNearbyProperties } from "@/hooks/useProperties";
+import { useProperties, useNearbyProperties, useFilterFacets } from "@/hooks/useProperties";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowRight, MapPin, Search } from "lucide-react";
+import { ArrowRight, MapPin, Search, List, Map as MapIcon } from "lucide-react";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import { isValidDutchCity, getValidCityName } from "@/lib/dutchCities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
+import SearchFilters, { type SearchFilterValues } from "@/components/search/SearchFilters";
+import ExploreMap from "@/components/explore/ExploreMap";
 
 type ListingType = Database["public"]["Enums"]["listing_type"];
 
