@@ -78,7 +78,7 @@ const SearchFilters = ({
 
   // ============ HORIZONTAL (1-regel) LAYOUT ============
   if (horizontal) {
-    const fieldClass = "flex min-w-[140px] flex-1 flex-col gap-1";
+    const fieldClass = "flex min-w-[140px] flex-1 flex-col gap-1 [&_label]:font-bold [&_label]:text-foreground";
     return (
       <div className="flex flex-wrap items-end gap-3">
         {!hideLocation && (
