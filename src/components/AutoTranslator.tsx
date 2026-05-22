@@ -40,12 +40,15 @@ function shouldSkipNode(node: Node): boolean {
   return false;
 }
 
+const BRAND_BLOCKLIST = /\bhuurbaasje\b/i;
+
 function shouldTranslateString(s: string): boolean {
   const trimmed = s.trim();
   if (trimmed.length < 2) return false;
   if (trimmed.length > 1000) return false;
   if (!NL_HINT.test(trimmed)) return false;
   if (NUMERIC_ONLY.test(trimmed)) return false;
+  if (BRAND_BLOCKLIST.test(trimmed)) return false;
   return true;
 }
 
