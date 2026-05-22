@@ -379,7 +379,7 @@ const Index = () => {
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Steden waar het gebeurt
+                Populaire steden
               </h2>
               <p className="mt-2 text-muted-foreground">
                 Kijk wat er nu te huur staat in de drukste steden van NL.
