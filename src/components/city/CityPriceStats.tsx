@@ -71,7 +71,7 @@ const CityPriceStats = ({ cityName }: CityPriceStatsProps) => {
   if (isLoading) {
     return (
       <section className="border-t py-12">
-        <div className="container max-w-4xl">
+        <div className="container">
           <Skeleton className="h-8 w-64 mb-6" />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-28 rounded-xl" />)}

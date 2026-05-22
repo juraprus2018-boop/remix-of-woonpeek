@@ -147,7 +147,7 @@ const CityGuidePage = () => {
         </section>
 
         <section className="py-8">
-          <div className="container max-w-4xl space-y-6">
+          <div className="container space-y-6">
             <AdSlot slotKey="city_guide_top" />
 
             {loading && (
@@ -280,7 +280,7 @@ const CityGuidePage = () => {
         </section>
 
         <section className="border-t bg-muted/30 py-8">
-          <div className="container max-w-4xl">
+          <div className="container">
             <Card>
               <CardContent className="flex flex-col items-center gap-4 p-6 text-center">
                 <MapPin className="h-10 w-10 text-primary" />

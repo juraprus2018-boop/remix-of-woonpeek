@@ -202,7 +202,7 @@ const HuurprijsMonitor = () => {
 
             {/* SEO Content */}
             <section className="border-t bg-muted/30 py-12">
-              <div className="container max-w-4xl space-y-4 text-sm leading-relaxed text-muted-foreground">
+              <div className="container space-y-4 text-sm leading-relaxed text-muted-foreground">
                 <h2 className="font-display text-2xl font-bold text-foreground">
                   Huurprijzen in {cityName}: wat kost huren?
                 </h2>
@@ -226,7 +226,7 @@ const HuurprijsMonitor = () => {
 
             {/* FAQ */}
             <section className="border-t py-12">
-              <div className="container max-w-3xl">
+              <div className="container">
                 <h2 className="font-display text-2xl font-bold text-foreground mb-6">Veelgestelde vragen</h2>
                 {faqItems.map((faq, i) => (
                   <details key={i} className="group rounded-xl border bg-card mb-3">
@@ -241,7 +241,7 @@ const HuurprijsMonitor = () => {
 
             {/* Links */}
             <section className="border-t py-12">
-              <div className="container max-w-4xl">
+              <div className="container">
                 <h2 className="font-display text-xl font-bold text-foreground mb-4">Meer over {cityName}</h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Link to={cityPath(cityName)} className="group flex items-center justify-between rounded-xl border bg-card p-5 transition-shadow hover:shadow-md">

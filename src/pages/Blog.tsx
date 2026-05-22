@@ -37,7 +37,7 @@ const BlogPage = () => {
           </p>
         </PageBanner>
 
-        <section className="container max-w-4xl py-12">
+        <section className="container py-12">
           {isLoading ? (
             <div className="space-y-6">
               {Array.from({ length: 3 }).map((_, i) => (

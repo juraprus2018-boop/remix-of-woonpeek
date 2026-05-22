@@ -29,7 +29,7 @@ const TOOL_LINKS = [
 const BlogRelatedLinks = () => {
   return (
     <aside className="border-t py-10">
-      <div className="container max-w-4xl">
+      <div className="container">
         <h2 className="font-display text-xl font-bold text-foreground mb-6">
           Meer op Huurbaasje
         </h2>

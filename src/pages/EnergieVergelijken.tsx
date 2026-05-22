@@ -137,7 +137,7 @@ const EnergieVergelijken = () => {
 
         {/* SEO content */}
         <section className="py-12 md:py-16">
-          <div className="container max-w-3xl space-y-6 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <div className="container space-y-6 text-sm leading-relaxed text-muted-foreground md:text-base">
             <h2 className="text-2xl font-bold text-foreground md:text-3xl">
               Hoe werkt energie vergelijken?
             </h2>

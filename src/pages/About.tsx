@@ -237,7 +237,7 @@ const About = () => {
 
         {/* FAQ */}
         <section className="border-t bg-muted/30 py-16 md:py-20">
-          <div className="container max-w-3xl">
+          <div className="container">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl mb-8">
               Veelgestelde vragen over Huurbaasje
             </h2>

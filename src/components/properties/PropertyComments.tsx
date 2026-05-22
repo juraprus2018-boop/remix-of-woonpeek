@@ -75,7 +75,7 @@ const PropertyComments = ({ propertyId }: PropertyCommentsProps) => {
 
   return (
     <section className="border-t py-12 lg:py-16">
-      <div className="container max-w-3xl">
+      <div className="container">
         <div className="flex items-center gap-2 mb-8">
           <MessageCircle className="h-6 w-6 text-primary" />
           <h2 className="font-display text-2xl font-bold">

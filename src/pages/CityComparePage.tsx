@@ -180,7 +180,7 @@ const CityComparePage = () => {
 
             {/* SEO text */}
             <section className="border-t bg-muted/30 py-12">
-              <div className="container max-w-4xl space-y-4 text-sm leading-relaxed text-muted-foreground">
+              <div className="container space-y-4 text-sm leading-relaxed text-muted-foreground">
                 <h2 className="font-display text-2xl font-bold text-foreground">
                   Woningmarkt {cityName1} vs {cityName2}: wat zijn de verschillen?
                 </h2>
@@ -209,7 +209,7 @@ const CityComparePage = () => {
 
             {/* Links */}
             <section className="border-t py-12">
-              <div className="container max-w-4xl">
+              <div className="container">
                 <h2 className="font-display text-xl font-bold text-foreground mb-4">Bekijk woningen</h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Link
