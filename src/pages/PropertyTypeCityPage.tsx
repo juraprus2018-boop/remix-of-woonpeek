@@ -204,88 +204,63 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
           </div>
         </section>
 
-        {/* Main content with filters */}
         <section className="container py-8">
-          <div className="flex gap-6">
-            {/* Sidebar filters */}
-            <aside className="hidden w-72 shrink-0 lg:block">
-              <div className="sticky top-24 rounded-2xl border bg-card p-6">
-                <h2 className="mb-4 font-display text-lg font-semibold">Filters</h2>
-                <SearchFilters
-                  filters={{ ...filters, propertyType: propertyType }}
-                  onChange={(f) => setFilters({ ...f, propertyType: propertyType })}
-                  onClear={() => setFilters(EMPTY_FILTERS)}
-                  hideLocation
-                  facets={facets}
-                />
+          {/* Filters bovenaan */}
+          <div className="mb-6 rounded-2xl border bg-card p-4 md:p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="font-display text-lg font-semibold">Filters</h2>
+            </div>
+            <SearchFilters
+              filters={{ ...filters, propertyType: propertyType }}
+              onChange={(f) => setFilters({ ...f, propertyType: propertyType })}
+              onClear={() => setFilters(EMPTY_FILTERS)}
+              hideLocation
+              facets={facets}
+            />
+          </div>
+
+          <div className="min-w-0">
+            {/* Results header */}
+            <div className="mb-6 flex flex-col gap-3 rounded-2xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h2 className="font-display text-2xl font-semibold text-foreground">
+                  {label.plural} in {locationLabel}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {isLoading ? "Aanbod laden..." : `${totalCount} ${label.plural.toLowerCase()} gevonden`}
+                </p>
               </div>
-            </aside>
+            </div>
 
-            <div className="min-w-0 flex-1">
-              {/* Results header */}
-              <div className="mb-6 flex flex-col gap-3 rounded-2xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h2 className="font-display text-2xl font-semibold text-foreground">
-                    {label.plural} in {locationLabel}
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    {isLoading ? "Aanbod laden..." : `${totalCount} ${label.plural.toLowerCase()} gevonden`}
-                  </p>
-                </div>
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" className="gap-2 lg:hidden">
-                      <SlidersHorizontal className="h-4 w-4" /> Filters
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left">
-                    <SheetHeader>
-                      <SheetTitle>Filters</SheetTitle>
-                      <SheetDescription>Verfijn het aanbod van {label.plural.toLowerCase()} in {locationLabel}.</SheetDescription>
-                    </SheetHeader>
-                    <div className="mt-6">
-                      <SearchFilters
-                        filters={{ ...filters, propertyType: propertyType }}
-                        onChange={(f) => setFilters({ ...f, propertyType: propertyType })}
-                        onClear={() => setFilters(EMPTY_FILTERS)}
-                        hideLocation
-                        
-                        facets={facets}
-                      />
-                    </div>
-                  </SheetContent>
-                </Sheet>
+            <IncomeBanner
+              grossIncome={filters.grossIncome}
+              listingType={filters.listingType}
+              onClear={() => setFilters({ ...filters, grossIncome: undefined })}
+            />
+
+            {/* Property list - full width */}
+            {isLoading ? (
+              <div className="grid gap-6">
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <PropertyCardSkeleton key={i} />
+                ))}
               </div>
-
-              <IncomeBanner
-                grossIncome={filters.grossIncome}
-                listingType={filters.listingType}
-                onClear={() => setFilters({ ...filters, grossIncome: undefined })}
-              />
-
-              {/* Property grid */}
-              {isLoading ? (
-                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                  {Array.from({ length: 9 }).map((_, i) => (
-                    <PropertyCardSkeleton key={i} />
+            ) : properties.length > 0 ? (
+              <>
+                <div className="grid gap-6">
+                  {visibleProperties.map((property) => (
+                    <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
                   ))}
                 </div>
-              ) : properties.length > 0 ? (
-                <>
-                  <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                    {visibleProperties.map((property) => (
-                      <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
-                    ))}
+                {visibleCount < properties.length && (
+                  <div className="mt-8 text-center">
+                    <Button variant="outline" className="gap-2" onClick={handleLoadMore}>
+                      Meer woningen laden ({properties.length - visibleCount} resterend)
+                    </Button>
                   </div>
-                  {visibleCount < properties.length && (
-                    <div className="mt-8 text-center">
-                      <Button variant="outline" className="gap-2" onClick={handleLoadMore}>
-                        Meer woningen laden ({properties.length - visibleCount} resterend)
-                      </Button>
-                    </div>
-                  )}
-                </>
-              ) : (
+                )}
+              </>
+            ) : (
                 <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed py-16 text-center">
                   <Search className="mb-4 h-12 w-12 text-muted-foreground" />
                   <h3 className="font-display text-lg font-semibold text-foreground">
