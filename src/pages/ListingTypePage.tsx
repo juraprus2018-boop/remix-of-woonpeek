@@ -246,7 +246,44 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         </section>
 
         {/* Properties */}
-        <section className="container py-8">
+        <section className="w-full px-4 py-8 md:px-8">
+          {/* Filters bovenaan, 1 regel */}
+          <div className="mb-4 rounded-2xl border bg-card p-4">
+            <SearchFilters
+              filters={filters}
+              onChange={(f) => setFilters({ ...f, listingType: listingType as ListingType })}
+              onClear={() => setFilters(EMPTY_FILTERS)}
+              hideLocation
+              facets={facets}
+              horizontal
+            />
+          </div>
+
+          {/* View toggle */}
+          <div className="mb-6 flex items-center justify-between gap-3 rounded-2xl border bg-card p-3">
+            <div className="text-sm text-muted-foreground">
+              {isLoading ? "Aanbod laden..." : `${properties.length} ${label.plural.toLowerCase()} gevonden${cityName ? ` in ${cityName}` : ""}`}
+            </div>
+            <div className="inline-flex rounded-lg border bg-background p-1">
+              <Button
+                size="sm"
+                variant={view === "list" ? "default" : "ghost"}
+                className="gap-2"
+                onClick={() => setView("list")}
+              >
+                <List className="h-4 w-4" /> Lijst
+              </Button>
+              <Button
+                size="sm"
+                variant={view === "map" ? "default" : "ghost"}
+                className="gap-2"
+                onClick={() => setView("map")}
+              >
+                <MapIcon className="h-4 w-4" /> Kaart
+              </Button>
+            </div>
+          </div>
+
           {isLoading ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 9 }).map((_, i) => (
@@ -255,14 +292,20 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
             </div>
           ) : properties.length > 0 ? (
             <>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {visibleProperties.map((property) => (
-                  <PropertyCard key={property.id} property={property} />
-                ))}
-              </div>
-              {visibleCount < properties.length && (
+              {view === "map" ? (
+                <div className="h-[600px] w-full overflow-hidden rounded-2xl border">
+                  <ExploreMap properties={properties as any} />
+                </div>
+              ) : (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {visibleProperties.map((property) => (
+                    <PropertyCard key={property.id} property={property} />
+                  ))}
+                </div>
+              )}
+              {view === "list" && visibleCount < properties.length && (
                 <div className="mt-8 text-center">
-                  <Button variant="outline" className="gap-2" onClick={handleLoadMore}>
+                  <Button className="gap-2 bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90" onClick={handleLoadMore}>
                     Meer woningen laden ({properties.length - visibleCount} resterend)
                   </Button>
                 </div>
