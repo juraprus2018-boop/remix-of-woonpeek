@@ -382,6 +382,7 @@ export interface FilterFacets {
   listingTypes: Record<string, number>;
   bedroomCounts: Record<string, number>;
   surfaceRanges: Record<string, number>;
+  priceOptions: Record<string, number>;
   priceMax: number;
 }
 
