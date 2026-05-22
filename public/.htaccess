@@ -15,6 +15,7 @@ RewriteRule ^sitemap-pages\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functi
 RewriteRule ^sitemap-steden\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=steden [R=301,L]
 RewriteRule ^sitemap-woningen\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=woningen [R=301,L]
 RewriteRule ^sitemap-blog\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=blog [R=301,L]
+RewriteRule ^feed\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/rss-feed [R=302,L]
 
 # Social crawlers (Facebook/WhatsApp/etc.) krijgen server-side OG metadata per woning
 RewriteCond %{REQUEST_URI} ^/woning/[^/]+$ [NC]

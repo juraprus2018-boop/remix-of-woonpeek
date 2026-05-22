@@ -78,6 +78,8 @@ const IncomeLandingPage = lazy(() => import("./pages/IncomeLandingPage"));
 const BestOfCityPage = lazy(() => import("./pages/BestOfCityPage"));
 const EnergieVergelijken = lazy(() => import("./pages/EnergieVergelijken"));
 const AdminTikTok = lazy(() => import("./pages/admin/AdminTikTok"));
+const Transparantie = lazy(() => import("./pages/Transparantie"));
+const MakelaarPage = lazy(() => import("./pages/MakelaarPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -205,6 +207,8 @@ const PAGES: RouteDef[] = [
   // B2B
   { path: "/partnerprogramma", element: <MakelaarKoppelen /> },
   { path: "/samenwerken", element: <Samenwerking /> },
+  { path: "/makelaar/:slug", element: <MakelaarPage /> },
+  { path: "/transparantie", element: <Transparantie /> },
 
   // Legal
   { path: "/voorwaarden", element: <TermsAndConditions /> },

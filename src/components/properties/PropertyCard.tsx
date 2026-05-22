@@ -158,6 +158,11 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
             <Badge variant="secondary" className="capitalize text-xs">
               {property.listing_type}
             </Badge>
+            {(property.views_count ?? 0) >= 15 && property.status === "actief" && (
+              <Badge className="bg-foreground/85 text-background text-xs flex items-center gap-1">
+                <Eye className="h-3 w-3" /> {property.views_count}x bekeken
+              </Badge>
+            )}
           </div>
 
           {/* Urgency banner for fresh listings */}
