@@ -1,22 +1,20 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { detectBrowserLocale, getLocaleFromPath, withLocale, stripLocale } from "@/lib/locale";
-import { DEFAULT_LOCALE } from "@/lib/brand";
-
-const REDIRECT_KEY = "huurbaasje_locale_redirected";
+import { getLocaleFromPath } from "@/lib/locale";
 
 /**
- * Keeps i18n + <html lang> in sync with the URL prefix.
- * On the very first visit to "/" auto-redirects to /en|/de|/fr if the
- * browser's preferred language is one of those (one-shot, remembered).
+ * Houdt i18n + <html lang> in sync met de URL-prefix.
+ *
+ * GEEN auto-redirect meer op basis van navigator.language. Reden: Googlebot
+ * stuurt Accept-Language: en en werd zo van de NL homepage geredirect naar /en.
+ * Resultaat: Google indexeerde de Engelse versie als hoofdpagina. Taalkeuze
+ * gebeurt alleen nog handmatig via de LanguageSwitcher.
  */
 const LocaleSync = () => {
   const { i18n } = useTranslation();
   const location = useLocation();
-  const navigate = useNavigate();
 
-  // Sync i18n language + html lang to URL on every navigation
   useEffect(() => {
     const locale = getLocaleFromPath(location.pathname);
     if (i18n.language?.slice(0, 2) !== locale) {
@@ -25,25 +23,8 @@ const LocaleSync = () => {
     document.documentElement.lang = locale;
   }, [location.pathname, i18n]);
 
-  // One-time browser-language redirect when landing on bare "/"
-  useEffect(() => {
-    if (location.pathname !== "/") return;
-    if (typeof window === "undefined") return;
-    try {
-      if (localStorage.getItem(REDIRECT_KEY)) return;
-      const detected = detectBrowserLocale();
-      localStorage.setItem(REDIRECT_KEY, "1");
-      if (detected !== DEFAULT_LOCALE) {
-        const target = withLocale(stripLocale(location.pathname) + location.search, detected);
-        navigate(target, { replace: true });
-      }
-    } catch {
-      // localStorage unavailable — silent
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return null;
 };
 
 export default LocaleSync;
+
