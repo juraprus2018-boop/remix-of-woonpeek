@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -72,6 +73,20 @@ const SearchFilters = ({
   const availableListingTypes = facets ? listingTypes.filter(t => (facets.listingTypes[t] || 0) > 0) : listingTypes;
   const availableBedrooms = facets ? bedroomOptions.filter(n => (facets.bedroomCounts[String(n)] || 0) > 0) : bedroomOptions;
   const availableSurfaces = facets ? surfaceOptions.filter(n => (facets.surfaceRanges[String(n)] || 0) > 0) : surfaceOptions;
+  const availablePrices = facets ? priceOptions.filter(p => (facets.priceOptions?.[String(p)] || 0) > 0) : priceOptions;
+
+  // Auto-clear filter values that would yield 0 results
+  useEffect(() => {
+    if (!facets) return;
+    const patch: Partial<SearchFilterValues> = {};
+    if (filters.propertyType && !availablePropertyTypes.includes(filters.propertyType as PropertyType)) patch.propertyType = "";
+    if (filters.listingType && !availableListingTypes.includes(filters.listingType as ListingType)) patch.listingType = "";
+    if (filters.maxPrice && !availablePrices.includes(filters.maxPrice)) patch.maxPrice = undefined;
+    if (filters.minBedrooms && !availableBedrooms.includes(filters.minBedrooms)) patch.minBedrooms = undefined;
+    if (filters.minSurface && !availableSurfaces.includes(filters.minSurface)) patch.minSurface = undefined;
+    if (Object.keys(patch).length > 0) onChange({ ...filters, ...patch });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [facets]);
 
   const showIncomeFilter = filters.listingType !== "koop";
   const incomeBasedMaxRent = filters.grossIncome ? Math.floor(filters.grossIncome / 3) : undefined;
@@ -140,7 +155,7 @@ const SearchFilters = ({
               <SelectValue placeholder="Geen limiet" />
             </SelectTrigger>
             <SelectContent>
-              {priceOptions.map((p) => (
+              {availablePrices.map((p) => (
                 <SelectItem key={p} value={String(p)}>€{p.toLocaleString("nl-NL")}</SelectItem>
               ))}
             </SelectContent>
