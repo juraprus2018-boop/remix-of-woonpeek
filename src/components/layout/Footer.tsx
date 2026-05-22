@@ -66,6 +66,8 @@ const Footer = () => {
               <li><Link to="/over" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAbout")}</Link></li>
               <li><Link to="/samenwerken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPartner")}</Link></li>
               <li><Link to="/budgetcheck" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBudget")}</Link></li>
+              <li><Link to="/transparantie" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Transparantie</Link></li>
+              <li><a href="/feed.xml" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">RSS feed</a></li>
             </ul>
           </div>
 
