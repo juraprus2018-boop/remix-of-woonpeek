@@ -13,6 +13,30 @@ const SYSTEM_USER_ID = "dbf1773b-5120-458f-8719-590b9fa4c787";
 const SITE_URL = "https://www.huurbaasje.nl";
 const INDEXNOW_KEY = "b8f3e2a1d4c5f6e7a9b0c1d2e3f4a5b6";
 
+async function postDaisyconToken(payload: Record<string, string | undefined>) {
+  const requestPayload = {
+    ...payload,
+    client_id: payload.client_id?.trim(),
+    client_secret: payload.client_secret?.trim() ?? "",
+  };
+
+  const send = (clientSecret: string) => fetch(DAISYCON_TOKEN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...requestPayload, client_secret: clientSecret }),
+  });
+
+  let response = await send(requestPayload.client_secret);
+  if (!response.ok && requestPayload.client_secret) {
+    const text = await response.clone().text();
+    if (text.includes("invalid_client")) {
+      response = await send("");
+    }
+  }
+
+  return response;
+}
+
 async function submitToIndexNow(urls: string[]) {
   if (urls.length === 0) return;
   try {
@@ -51,19 +75,15 @@ async function getValidAccessToken(supabase: any): Promise<string> {
   }
 
   console.log("Refreshing Daisycon access token...");
-  const clientId = Deno.env.get("DAISYCON_CLIENT_ID")!;
-  const clientSecret = Deno.env.get("DAISYCON_CLIENT_SECRET")!;
+  const clientId = Deno.env.get("DAISYCON_CLIENT_ID")?.trim()!;
+  const clientSecret = Deno.env.get("DAISYCON_CLIENT_SECRET")?.trim()!;
 
-  const tokenResponse = await fetch(DAISYCON_TOKEN_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      grant_type: "refresh_token",
-      client_id: clientId,
-      client_secret: clientSecret,
-      redirect_uri: DAISYCON_CLI_REDIRECT,
-      refresh_token: tokenRow.refresh_token,
-    }),
+  const tokenResponse = await postDaisyconToken({
+    grant_type: "refresh_token",
+    client_id: clientId,
+    client_secret: clientSecret,
+    redirect_uri: DAISYCON_CLI_REDIRECT,
+    refresh_token: tokenRow.refresh_token,
   });
 
   if (!tokenResponse.ok) {
