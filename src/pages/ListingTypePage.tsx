@@ -56,10 +56,34 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   const ITEMS_PER_PAGE = 12;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const [view, setView] = useState<"list" | "map">("list");
+
+  const EMPTY_FILTERS: SearchFilterValues = {
+    city: "",
+    propertyType: "",
+    listingType: listingType as ListingType,
+    maxPrice: undefined,
+    minBedrooms: undefined,
+    minSurface: undefined,
+    includeInactive: false,
+    grossIncome: undefined,
+  };
+  const [filters, setFilters] = useState<SearchFilterValues>(EMPTY_FILTERS);
+
+  const { data: facets } = useFilterFacets({
+    city: isInvalidCity ? undefined : cityName,
+    listingType: listingType as ListingType,
+    propertyType: (filters.propertyType as Database["public"]["Enums"]["property_type"]) || undefined,
+    includeInactive: false,
+  });
 
   const { data, isLoading } = useProperties({
     listingType: listingType as ListingType,
     city: isInvalidCity ? undefined : cityName,
+    propertyType: (filters.propertyType as Database["public"]["Enums"]["property_type"]) || undefined,
+    maxPrice: filters.maxPrice,
+    minBedrooms: filters.minBedrooms,
+    minSurface: filters.minSurface,
     pageSize: 50,
   });
 
