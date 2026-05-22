@@ -32,7 +32,7 @@ export function Logo({ className, size = "h-11 md:h-12", variant = "dark" }: Log
         />
         <rect x="16.5" y="22.5" width="3" height="6" rx="0.6" fill="hsl(var(--sun))" />
       </svg>
-      <span className="font-display text-[1.35em] lowercase tracking-[-0.045em]">
+      <span className="font-display text-[1.85em] lowercase tracking-[-0.045em]">
         huurbaasje<span className="text-sun">.</span>
       </span>
     </span>
