@@ -188,7 +188,7 @@ const Index = () => {
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {t("hero.popular")}:
                 </span>
-                {POPULAR_CITIES.slice(0, 5).map((c) => (
+                {popularCities.slice(0, 5).map((c) => (
                   <Link
                     key={c.name}
                     to={`/huren/${cityToSlug(c.name)}`}
