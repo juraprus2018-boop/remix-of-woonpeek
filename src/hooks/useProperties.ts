@@ -469,9 +469,18 @@ export const useFilterFacets = (filters: FacetFilters) => {
           }
           if (row.price > priceMax) priceMax = row.price;
         }
+
+        // Count price options (apply all filters EXCEPT maxPrice)
+        if (matchesType && matchesListing && matchesBedrooms) {
+          for (const threshold of PRICE_THRESHOLDS) {
+            if (row.price != null && row.price <= threshold) {
+              priceOptions[String(threshold)] = (priceOptions[String(threshold)] || 0) + 1;
+            }
+          }
+        }
       }
 
-      return { propertyTypes, listingTypes, bedroomCounts, surfaceRanges, priceMax } as FilterFacets;
+      return { propertyTypes, listingTypes, bedroomCounts, surfaceRanges, priceOptions, priceMax } as FilterFacets;
     },
     staleTime: 30 * 1000,
   });
