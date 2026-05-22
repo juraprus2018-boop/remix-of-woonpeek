@@ -117,7 +117,7 @@ export default function Woordenboek() {
       <main className="bg-background">
         <section className="border-b-2 border-foreground bg-sage/30">
           <div className="container py-12 md:py-16">
-            <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Woordenboek" }]} />
+            <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Woordenboek" }]} />
             <h1 className="mt-4 font-display text-4xl uppercase tracking-tight text-foreground md:text-6xl">
               Het woningwoordenboek
             </h1>
