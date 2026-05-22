@@ -12,6 +12,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { MapPin, X, Wallet } from "lucide-react";
 import { type FilterFacets } from "@/hooks/useProperties";
+import { cn } from "@/lib/utils";
 
 type PropertyType = "appartement" | "huis" | "studio" | "kamer";
 type ListingType = "huur" | "koop";
@@ -33,6 +34,7 @@ interface SearchFiltersProps {
   onClear: () => void;
   hideLocation?: boolean;
   facets?: FilterFacets | null;
+  horizontal?: boolean;
 }
 
 const propertyTypeLabels: Record<string, string> = {
@@ -47,7 +49,16 @@ const listingTypeLabels: Record<string, string> = {
   koop: "Te koop",
 };
 
-const SearchFilters = ({ filters, onChange, onClear, hideLocation = false, facets }: SearchFiltersProps) => {
+const priceOptions = [750, 1000, 1250, 1500, 2000, 2500, 3000, 4000, 5000];
+
+const SearchFilters = ({
+  filters,
+  onChange,
+  onClear,
+  hideLocation = false,
+  facets,
+  horizontal = false,
+}: SearchFiltersProps) => {
   const update = (patch: Partial<SearchFilterValues>) => {
     onChange({ ...filters, ...patch });
   };
@@ -57,7 +68,6 @@ const SearchFilters = ({ filters, onChange, onClear, hideLocation = false, facet
   const bedroomOptions = [1, 2, 3, 4];
   const surfaceOptions = [25, 50, 75, 100];
 
-  // Count how many options have results for each filter group
   const availablePropertyTypes = facets ? propertyTypes.filter(t => (facets.propertyTypes[t] || 0) > 0) : propertyTypes;
   const availableListingTypes = facets ? listingTypes.filter(t => (facets.listingTypes[t] || 0) > 0) : listingTypes;
   const availableBedrooms = facets ? bedroomOptions.filter(n => (facets.bedroomCounts[String(n)] || 0) > 0) : bedroomOptions;
@@ -66,6 +76,136 @@ const SearchFilters = ({ filters, onChange, onClear, hideLocation = false, facet
   const showIncomeFilter = filters.listingType !== "koop";
   const incomeBasedMaxRent = filters.grossIncome ? Math.floor(filters.grossIncome / 3) : undefined;
 
+  // ============ HORIZONTAL (1-regel) LAYOUT ============
+  if (horizontal) {
+    const fieldClass = "flex min-w-[140px] flex-1 flex-col gap-1";
+    return (
+      <div className="flex flex-wrap items-end gap-3">
+        {!hideLocation && (
+          <div className={fieldClass}>
+            <Label className="text-xs">Locatie</Label>
+            <div className="relative">
+              <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Stad of postcode"
+                value={filters.city}
+                onChange={(e) => update({ city: e.target.value })}
+                className="h-10 pl-10"
+              />
+            </div>
+          </div>
+        )}
+
+        {availablePropertyTypes.length > 1 && (
+          <div className={fieldClass}>
+            <Label className="text-xs">Type woning</Label>
+            <Select
+              value={filters.propertyType}
+              onValueChange={(value: PropertyType | "") => update({ propertyType: value })}
+            >
+              <SelectTrigger className="h-10"><SelectValue placeholder="Alle types" /></SelectTrigger>
+              <SelectContent>
+                {availablePropertyTypes.map((type) => (
+                  <SelectItem key={type} value={type}>{propertyTypeLabels[type]}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {availableListingTypes.length > 1 && (
+          <div className={fieldClass}>
+            <Label className="text-xs">Aanbod</Label>
+            <Select
+              value={filters.listingType}
+              onValueChange={(value: ListingType | "") => update({ listingType: value })}
+            >
+              <SelectTrigger className="h-10"><SelectValue placeholder="Koop & Huur" /></SelectTrigger>
+              <SelectContent>
+                {availableListingTypes.map((type) => (
+                  <SelectItem key={type} value={type}>{listingTypeLabels[type]}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        <div className={fieldClass}>
+          <Label className="text-xs">Max. prijs</Label>
+          <Select
+            value={filters.maxPrice ? String(filters.maxPrice) : ""}
+            onValueChange={(value) => update({ maxPrice: value ? Number(value) : undefined })}
+          >
+            <SelectTrigger className="h-10">
+              <SelectValue placeholder="Geen limiet" />
+            </SelectTrigger>
+            <SelectContent>
+              {priceOptions.map((p) => (
+                <SelectItem key={p} value={String(p)}>€{p.toLocaleString("nl-NL")}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {availableBedrooms.length > 0 && (
+          <div className={fieldClass}>
+            <Label className="text-xs">Slaapkamers</Label>
+            <Select
+              value={filters.minBedrooms?.toString() || ""}
+              onValueChange={(value) => update({ minBedrooms: value ? Number(value) : undefined })}
+            >
+              <SelectTrigger className="h-10"><SelectValue placeholder="Min." /></SelectTrigger>
+              <SelectContent>
+                {availableBedrooms.map((num) => (
+                  <SelectItem key={num} value={String(num)}>{num}+</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {availableSurfaces.length > 0 && (
+          <div className={fieldClass}>
+            <Label className="text-xs">Oppervlakte</Label>
+            <Select
+              value={filters.minSurface?.toString() || ""}
+              onValueChange={(value) => update({ minSurface: value ? Number(value) : undefined })}
+            >
+              <SelectTrigger className="h-10"><SelectValue placeholder="Min." /></SelectTrigger>
+              <SelectContent>
+                {availableSurfaces.map((num) => (
+                  <SelectItem key={num} value={String(num)}>{num}+ m²</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
+
+        {showIncomeFilter && (
+          <div className={fieldClass}>
+            <Label className="flex items-center gap-1 text-xs">
+              <Wallet className="h-3 w-3 text-primary" />
+              Bruto inkomen
+            </Label>
+            <Input
+              type="number"
+              inputMode="numeric"
+              placeholder="bv. 3500"
+              className="h-10"
+              value={filters.grossIncome ?? ""}
+              onChange={(e) => update({ grossIncome: e.target.value ? Number(e.target.value) : undefined })}
+            />
+          </div>
+        )}
+
+        <Button variant="outline" onClick={onClear} className="h-10 shrink-0 gap-2">
+          <X className="h-4 w-4" /> Wissen
+        </Button>
+      </div>
+    );
+  }
+
+  // ============ VERTICAL (sidebar) LAYOUT ============
   return (
     <div className="space-y-6">
       {!hideLocation && (
