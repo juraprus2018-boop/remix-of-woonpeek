@@ -28,17 +28,31 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
-const POPULAR_CITIES = [
-  { name: "Amsterdam", count: "1.240+" },
-  { name: "Rotterdam", count: "820+" },
-  { name: "Den Haag", count: "640+" },
-  { name: "Utrecht", count: "510+" },
-  { name: "Eindhoven", count: "390+" },
-  { name: "Groningen", count: "310+" },
-  { name: "Tilburg", count: "240+" },
-  { name: "Haarlem", count: "180+" },
-];
+const useTopHuurCities = () =>
+  useQuery({
+    queryKey: ["top-huur-cities-home"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("city")
+        .eq("listing_type", "huur")
+        .eq("status", "actief");
+      if (error) throw error;
+      const counts = new Map<string, number>();
+      (data ?? []).forEach((r: { city: string | null }) => {
+        if (!r.city) return;
+        counts.set(r.city, (counts.get(r.city) ?? 0) + 1);
+      });
+      return Array.from(counts.entries())
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 8);
+    },
+    staleTime: 5 * 60 * 1000,
+  });
 
 const TYPES_DEF = [
   { key: "rentals" as const, href: "/huurwoningen", icon: Home },
@@ -53,6 +67,7 @@ const Index = () => {
   const { data: properties, isLoading } = useFeaturedProperties();
   const { data: homeStats } = useHomeStats();
   const { data: newToday } = useNewTodayCount();
+  const { data: popularCities = [] } = useTopHuurCities();
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -173,7 +188,7 @@ const Index = () => {
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {t("hero.popular")}:
                 </span>
-                {POPULAR_CITIES.slice(0, 5).map((c) => (
+                {popularCities.slice(0, 5).map((c) => (
                   <Link
                     key={c.name}
                     to={`/huren/${cityToSlug(c.name)}`}
@@ -395,7 +410,7 @@ const Index = () => {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
-            {POPULAR_CITIES.map((c) => (
+            {popularCities.map((c) => (
               <Link
                 key={c.name}
                 to={`/huren/${cityToSlug(c.name)}`}
@@ -410,7 +425,7 @@ const Index = () => {
                       {c.name}
                     </h3>
                     <div className="mt-2 text-sm font-semibold text-foreground/70">
-                      {c.count} huurwoningen
+                      {c.count} {c.count === 1 ? "huurwoning" : "huurwoningen"}
                     </div>
                   </div>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
