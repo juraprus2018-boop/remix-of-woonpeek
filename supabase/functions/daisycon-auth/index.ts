@@ -10,6 +10,30 @@ const DAISYCON_AUTH_URL = "https://login.daisycon.com/oauth/authorize";
 const DAISYCON_TOKEN_URL = "https://login.daisycon.com/oauth/access-token";
 const DAISYCON_CLI_REDIRECT = "https://login.daisycon.com/oauth/cli";
 
+async function postDaisyconToken(payload: Record<string, string | undefined>) {
+  const requestPayload = {
+    ...payload,
+    client_id: payload.client_id?.trim(),
+    client_secret: payload.client_secret?.trim() ?? "",
+  };
+
+  const send = (clientSecret: string) => fetch(DAISYCON_TOKEN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...requestPayload, client_secret: clientSecret }),
+  });
+
+  let response = await send(requestPayload.client_secret);
+  if (!response.ok && requestPayload.client_secret) {
+    const text = await response.clone().text();
+    if (text.includes("invalid_client")) {
+      response = await send("");
+    }
+  }
+
+  return response;
+}
+
 function generateRandomString(length: number): string {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
@@ -35,8 +59,8 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const clientId = Deno.env.get("DAISYCON_CLIENT_ID");
-    const clientSecret = Deno.env.get("DAISYCON_CLIENT_SECRET");
+    const clientId = Deno.env.get("DAISYCON_CLIENT_ID")?.trim();
+    const clientSecret = Deno.env.get("DAISYCON_CLIENT_SECRET")?.trim();
 
     if (!clientId || !clientSecret) {
       throw new Error("Daisycon credentials not configured");
@@ -65,17 +89,13 @@ Deno.serve(async (req) => {
         throw new Error("Missing code or code_verifier");
       }
 
-      const tokenResponse = await fetch(DAISYCON_TOKEN_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          grant_type: "authorization_code",
-          code,
-          client_id: clientId,
-          client_secret: clientSecret,
-          redirect_uri: DAISYCON_CLI_REDIRECT,
-          code_verifier,
-        }),
+      const tokenResponse = await postDaisyconToken({
+        grant_type: "authorization_code",
+        code,
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: DAISYCON_CLI_REDIRECT,
+        code_verifier,
       });
 
       if (!tokenResponse.ok) {
@@ -115,16 +135,12 @@ Deno.serve(async (req) => {
         throw new Error("No Daisycon tokens found. Please connect first.");
       }
 
-      const tokenResponse = await fetch(DAISYCON_TOKEN_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          grant_type: "refresh_token",
-          client_id: clientId,
-          client_secret: clientSecret,
-          redirect_uri: DAISYCON_CLI_REDIRECT,
-          refresh_token: tokenRow.refresh_token,
-        }),
+      const tokenResponse = await postDaisyconToken({
+        grant_type: "refresh_token",
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: DAISYCON_CLI_REDIRECT,
+        refresh_token: tokenRow.refresh_token,
       });
 
       if (!tokenResponse.ok) {
@@ -189,16 +205,12 @@ Deno.serve(async (req) => {
       // Check if token expired, refresh if needed
       const expiresAt = new Date(tokenRow.expires_at).getTime();
       if (Date.now() >= expiresAt - 2 * 60 * 1000) {
-        const refreshRes = await fetch(DAISYCON_TOKEN_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            grant_type: "refresh_token",
-            client_id: clientId,
-            client_secret: clientSecret,
-            redirect_uri: DAISYCON_CLI_REDIRECT,
-            refresh_token: tokenRow.refresh_token,
-          }),
+        const refreshRes = await postDaisyconToken({
+          grant_type: "refresh_token",
+          client_id: clientId,
+          client_secret: clientSecret,
+          redirect_uri: DAISYCON_CLI_REDIRECT,
+          refresh_token: tokenRow.refresh_token,
         });
         if (!refreshRes.ok) {
           throw new Error("Token refresh failed");
