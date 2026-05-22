@@ -28,17 +28,31 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
-const POPULAR_CITIES = [
-  { name: "Amsterdam", count: "1.240+" },
-  { name: "Rotterdam", count: "820+" },
-  { name: "Den Haag", count: "640+" },
-  { name: "Utrecht", count: "510+" },
-  { name: "Eindhoven", count: "390+" },
-  { name: "Groningen", count: "310+" },
-  { name: "Tilburg", count: "240+" },
-  { name: "Haarlem", count: "180+" },
-];
+const useTopHuurCities = () =>
+  useQuery({
+    queryKey: ["top-huur-cities-home"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("city")
+        .eq("listing_type", "huur")
+        .eq("status", "actief");
+      if (error) throw error;
+      const counts = new Map<string, number>();
+      (data ?? []).forEach((r: { city: string | null }) => {
+        if (!r.city) return;
+        counts.set(r.city, (counts.get(r.city) ?? 0) + 1);
+      });
+      return Array.from(counts.entries())
+        .map(([name, count]) => ({ name, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 8);
+    },
+    staleTime: 5 * 60 * 1000,
+  });
 
 const TYPES_DEF = [
   { key: "rentals" as const, href: "/huurwoningen", icon: Home },
