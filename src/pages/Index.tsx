@@ -67,6 +67,7 @@ const Index = () => {
   const { data: properties, isLoading } = useFeaturedProperties();
   const { data: homeStats } = useHomeStats();
   const { data: newToday } = useNewTodayCount();
+  const { data: popularCities = [] } = useTopHuurCities();
   const [query, setQuery] = useState("");
   const [type, setType] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
