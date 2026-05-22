@@ -72,6 +72,7 @@ const SearchFilters = ({
   const availableListingTypes = facets ? listingTypes.filter(t => (facets.listingTypes[t] || 0) > 0) : listingTypes;
   const availableBedrooms = facets ? bedroomOptions.filter(n => (facets.bedroomCounts[String(n)] || 0) > 0) : bedroomOptions;
   const availableSurfaces = facets ? surfaceOptions.filter(n => (facets.surfaceRanges[String(n)] || 0) > 0) : surfaceOptions;
+  const availablePrices = facets ? priceOptions.filter(p => (facets.priceOptions?.[String(p)] || 0) > 0) : priceOptions;
 
   const showIncomeFilter = filters.listingType !== "koop";
   const incomeBasedMaxRent = filters.grossIncome ? Math.floor(filters.grossIncome / 3) : undefined;
