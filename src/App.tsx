@@ -86,6 +86,11 @@ const Verhuischecklist = lazy(() => import("./pages/Verhuischecklist"));
 const VerhuizenVanNaar = lazy(() => import("./pages/VerhuizenVanNaar"));
 const ContractCheck = lazy(() => import("./pages/ContractCheck"));
 const CityStats = lazy(() => import("./pages/CityStats"));
+const HypotheekBerekenen = lazy(() => import("./pages/HypotheekBerekenen"));
+const EnergieCityPage = lazy(() => import("./pages/EnergieCityPage"));
+const Nieuwbouw = lazy(() => import("./pages/Nieuwbouw"));
+const NieuwbouwCity = lazy(() => import("./pages/NieuwbouwCity"));
+const WozWaarde = lazy(() => import("./pages/WozWaarde"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
