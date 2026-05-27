@@ -8,6 +8,47 @@ const corsHeaders = {
 
 const SITE_URL = "https://www.huurbaasje.nl";
 
+/** Locales served by the app. NL is default (no path prefix). */
+const LOCALES = ["nl", "en", "de", "fr"] as const;
+const DEFAULT_LOCALE = "nl";
+
+/** URLSET opening tag including xhtml namespace required for hreflang alternates. */
+const URLSET_OPEN = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+`;
+
+/** Build a path for a given locale (NL stays unprefixed). */
+function localizedPath(path: string, locale: string): string {
+  if (locale === DEFAULT_LOCALE) return path;
+  if (path === "/") return `/${locale}`;
+  return `/${locale}${path}`;
+}
+
+/**
+ * Render a single <url> entry with hreflang alternates pointing to every
+ * supported locale + x-default. `path` must be the NL (canonical) path.
+ */
+function urlEntry(
+  path: string,
+  lastmod: string,
+  changefreq: string,
+  priority: string,
+): string {
+  const alternates = LOCALES.map(
+    (lng) =>
+      `    <xhtml:link rel="alternate" hreflang="${lng}" href="${SITE_URL}${localizedPath(path, lng)}" />`,
+  ).join("\n");
+  return `  <url>
+    <loc>${SITE_URL}${path}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+${alternates}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${localizedPath(path, DEFAULT_LOCALE)}" />
+  </url>
+`;
+}
+
 function buildSitemapIndex(lastmod: string): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
