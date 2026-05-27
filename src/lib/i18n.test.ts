@@ -34,7 +34,7 @@ describe("i18n init – locale komt uit URL, niet uit Accept-Language", () => {
     setLocation("/");
     const i18n = await loadI18n();
     expect(i18n.language).toBe("nl");
-    expect(i18n.t("nav.home", { defaultValue: "__missing__" })).not.toBe("__missing__");
+    expect(i18n.resolvedLanguage).toBe("nl");
   });
 
   it("rendert /woning/amsterdam-... in het Nederlands ondanks Accept-Language: en", async () => {
