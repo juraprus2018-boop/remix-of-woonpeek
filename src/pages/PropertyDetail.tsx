@@ -50,6 +50,7 @@ import MortgageCalculator from "@/components/properties/MortgageCalculator";
 import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
+import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import {
@@ -952,6 +953,21 @@ const PropertyDetail = () => {
             </div>
           </section>
         )}
+
+        {/* ── Totale maandlasten calculator ── */}
+        <section className="border-t py-10">
+          <div className="container">
+            <TotalMonthlyCosts
+              basePrice={property.price}
+              listingType={property.listing_type}
+              energyLabel={property.energy_label}
+              surfaceArea={property.surface_area}
+              bedrooms={property.bedrooms}
+              city={property.city}
+              propertyId={property.id}
+            />
+          </div>
+        </section>
 
         {/* ── Energie vergelijken ── */}
         <section className="border-t py-10">
