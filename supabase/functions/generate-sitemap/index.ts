@@ -176,6 +176,8 @@ function buildCitiesSitemap(
   for (const [citySlug, lastMod] of cityMap) {
     const date = lastMod.split("T")[0];
     xml += urlEntry(`/stad/${citySlug}`, date, "daily", "0.8");
+    xml += urlEntry(`/energie/${citySlug}`, date, "monthly", "0.6");
+    xml += urlEntry(`/nieuwbouw/${citySlug}`, date, "weekly", "0.6");
     // Verhuizen-naar gids per stad
     xml += urlEntry(`/stadsgids/${citySlug}`, date, "monthly", "0.6");
     // Best-of listicle pages per city
