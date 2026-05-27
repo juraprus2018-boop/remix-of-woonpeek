@@ -26,6 +26,7 @@ import { ArrowRight, ChevronRight, Search, SlidersHorizontal } from "lucide-reac
 import { cityPath, citySlugToName } from "@/lib/cities";
 import AdSlot from "@/components/ads/AdSlot";
 import FAQSchema, { type FAQItem } from "@/components/seo/FAQSchema";
+import { useTranslation } from "react-i18next";
 
 const EMPTY_FILTERS: SearchFilterValues = {
   city: "",
@@ -132,12 +133,14 @@ const CityPage = () => {
       filters.includeInactive
   );
 
-  const currentMonth = new Date().toLocaleString("nl-NL", { month: "long" });
+  const { t, i18n } = useTranslation();
+  const localeTag = i18n.language === "en" ? "en-GB" : i18n.language === "de" ? "de-DE" : i18n.language === "fr" ? "fr-FR" : "nl-NL";
+  const currentMonth = new Date().toLocaleString(localeTag, { month: "long" });
   const currentYear = new Date().getFullYear();
 
-  const pageTitle = `Huurwoningen ${cityName} - ${totalCount} te huur en te koop in ${cityName} | ${currentMonth} ${currentYear}`;
-  const pageDescription = `Bekijk ${huurCount} huurwoningen en ${koopCount} koopwoningen in ${cityName}. Appartementen, huizen, studio's en kamers. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
-  const canonical = `https://www.huurbaasje.nl${cityPath(cityName)}`;
+  const pageTitle = t("meta.cityTitle", { city: cityName, total: totalCount, month: currentMonth, year: currentYear });
+  const pageDescription = t("meta.cityDesc", { city: cityName, huur: huurCount, koop: koopCount, month: currentMonth, year: currentYear });
+  const canonical = cityPath(cityName);
 
   // ── City FAQ items ──
   const cityFaqItems = useMemo(() => [
