@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { CalendarDays } from "lucide-react";
 import StockBanner from "@/components/layout/StockBanner";
 import type { Database } from "@/integrations/supabase/types";
+import { useTranslation } from "react-i18next";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
