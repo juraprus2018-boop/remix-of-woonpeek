@@ -23,6 +23,48 @@ import {
 
 type SortOption = "recent" | "price-asc" | "price-desc" | "city";
 
+const FavoriteItem = ({ favorite }: { favorite: any }) => {
+  const updateNotify = useUpdateFavoriteNotify();
+  const property = favorite.properties;
+  const notify = favorite.notify_changes !== false;
+  const priceDropped =
+    favorite.last_price_seen != null &&
+    property?.price != null &&
+    Number(property.price) < Number(favorite.last_price_seen);
+
+  return (
+    <div className="flex flex-col">
+      {priceDropped && (
+        <div className="mb-2 flex items-center gap-1.5 rounded-md bg-success/10 px-2 py-1 text-xs font-medium text-success">
+          <TrendingDown className="h-3.5 w-3.5" />
+          Prijs verlaagd sinds je opsloeg
+        </div>
+      )}
+      <PropertyCard property={property} />
+      <div className="mt-2 flex items-center justify-between rounded-md border border-border bg-card px-3 py-2">
+        <Label htmlFor={`notify-${favorite.id}`} className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
+          {notify ? <Bell className="h-3.5 w-3.5 text-primary" /> : <BellOff className="h-3.5 w-3.5" />}
+          E-mail bij wijziging
+        </Label>
+        <Switch
+          id={`notify-${favorite.id}`}
+          checked={notify}
+          onCheckedChange={(v) => {
+            updateNotify.mutate(
+              { propertyId: favorite.property_id, notify: v },
+              {
+                onSuccess: () =>
+                  toast.success(v ? "Meldingen aangezet" : "Meldingen uitgezet"),
+                onError: () => toast.error("Kon meldingen niet bijwerken"),
+              }
+            );
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
 const Favorites = () => {
   const { user } = useAuth();
   const { data: favorites, isLoading } = useFavorites();
