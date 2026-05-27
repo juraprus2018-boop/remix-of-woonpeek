@@ -32,10 +32,12 @@ const PropertyStickyBar = ({
   surfaceArea,
   sourceUrl,
   sourceSite,
+  energyLabel,
   triggerRef,
   onContact,
 }: PropertyStickyBarProps) => {
   const [visible, setVisible] = useState(false);
+  const showEnergyBadge = !!energyLabel && ["D", "E", "F", "G"].includes(energyLabel.toUpperCase());
 
   useEffect(() => {
     const target = triggerRef.current;
