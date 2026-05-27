@@ -137,6 +137,36 @@ export type Database = {
         }
         Relationships: []
       }
+      cbs_stats_cache: {
+        Row: {
+          city_name: string
+          city_slug: string
+          created_at: string
+          data: Json
+          fetched_at: string
+          id: string
+          region_code: string | null
+        }
+        Insert: {
+          city_name: string
+          city_slug: string
+          created_at?: string
+          data?: Json
+          fetched_at?: string
+          id?: string
+          region_code?: string | null
+        }
+        Update: {
+          city_name?: string
+          city_slug?: string
+          created_at?: string
+          data?: Json
+          fetched_at?: string
+          id?: string
+          region_code?: string | null
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           content: string
