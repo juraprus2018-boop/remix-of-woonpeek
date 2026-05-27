@@ -25,6 +25,7 @@ import { useFeaturedProperties } from "@/hooks/useProperties";
 import { useHomeStats } from "@/hooks/useHomeStats";
 import { useNewTodayCount } from "@/hooks/useNewTodayCount";
 import { Skeleton } from "@/components/ui/skeleton";
+import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
