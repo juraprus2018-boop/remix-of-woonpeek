@@ -439,8 +439,16 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ENERGIE TEASER — affiliate */}
+      <section className="py-10">
+        <div className="container">
+          <EnergyCompareTeaser />
+        </div>
+      </section>
+
       {/* ALERT CTA */}
       <section className="py-16 md:py-20">
+
         <div className="container">
           <div className="relative overflow-hidden rounded-3xl bg-foreground px-8 py-14 text-background md:px-14 md:py-20">
             <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-sun/40 blur-3xl" aria-hidden />
