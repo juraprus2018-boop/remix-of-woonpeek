@@ -6,9 +6,12 @@ import SEOHead from "@/components/seo/SEOHead";
 
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
-import { useFavorites } from "@/hooks/useFavorites";
+import { useFavorites, useUpdateFavoriteNotify } from "@/hooks/useFavorites";
 import { useAuth } from "@/contexts/AuthContext";
-import { Heart, Loader2, Search, SlidersHorizontal, ArrowUpDown } from "lucide-react";
+import { Heart, Loader2, Search, SlidersHorizontal, ArrowUpDown, Bell, BellOff, TrendingDown } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import { useState, useMemo } from "react";
 import {
   Select,
