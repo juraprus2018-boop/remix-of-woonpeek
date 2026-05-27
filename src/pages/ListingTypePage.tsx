@@ -17,6 +17,7 @@ import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
 import SearchFilters, { type SearchFilterValues } from "@/components/search/SearchFilters";
 import ExploreMap from "@/components/explore/ExploreMap";
+import { useTranslation } from "react-i18next";
 
 type ListingType = Database["public"]["Enums"]["listing_type"];
 
@@ -105,21 +106,32 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   const shouldRedirect = isInvalidCity;
 
-  const currentMonth = new Date().toLocaleString("nl-NL", { month: "long" });
+  const { t, i18n } = useTranslation();
+  const localeTag = i18n.language === "en" ? "en-GB" : i18n.language === "de" ? "de-DE" : i18n.language === "fr" ? "fr-FR" : "nl-NL";
+  const currentMonth = new Date().toLocaleString(localeTag, { month: "long" });
   const currentYear = new Date().getFullYear();
 
-  // SEO metadata - keyword-first titles matching search intent
+  // Localized plural / verb / price-word per listing type
+  const LOCAL_LABELS: Record<string, Record<"huur" | "koop", { plural: string; type: string; priceWord: string }>> = {
+    nl: { huur: { plural: "Huurwoningen", type: "huur", priceWord: "huurprijzen" }, koop: { plural: "Koopwoningen", type: "koop", priceWord: "koopprijzen" } },
+    en: { huur: { plural: "Rental homes", type: "rent", priceWord: "rental prices" }, koop: { plural: "Homes for sale", type: "buy", priceWord: "sale prices" } },
+    de: { huur: { plural: "Mietwohnungen", type: "Mieten", priceWord: "Mietpreise" }, koop: { plural: "Kaufobjekte", type: "Kaufen", priceWord: "Kaufpreise" } },
+    fr: { huur: { plural: "Locations", type: "louer", priceWord: "loyers" }, koop: { plural: "Biens à vendre", type: "acheter", priceWord: "prix de vente" } },
+  };
+  const lng = (i18n.language as "nl" | "en" | "de" | "fr") in LOCAL_LABELS ? (i18n.language as "nl" | "en" | "de" | "fr") : "nl";
+  const ll = LOCAL_LABELS[lng][listingType];
+
   const pageTitle = cityName
-    ? `${label.plural} ${cityName}: ${hasListings ? `${totalCount} woningen` : "aanbod"} te ${listingType} (${currentMonth} ${currentYear}) | Huurbaasje`
-    : `${label.plural} Nederland: actueel aanbod te ${listingType} | Huurbaasje`;
+    ? t("meta.listingCityTitle", { plural: ll.plural, city: cityName, total: hasListings ? totalCount : "—", type: ll.type, month: currentMonth, year: currentYear })
+    : t("meta.listingNLTitle", { plural: ll.plural, type: ll.type, month: currentMonth, year: currentYear });
 
   const pageDesc = cityName
-    ? `${hasListings ? totalCount : "Alle"} ${label.plural.toLowerCase()} in ${cityName}. Bekijk ${listingType === "huur" ? "huurprijzen" : "koopprijzen"}, foto's en details van beschikbare woningen. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`
-    : `Bekijk ${hasListings ? totalCount : "alle"} ${label.plural.toLowerCase()} in heel Nederland. Vergelijk prijzen, bekijk foto's en vind jouw ${label.singular} op Huurbaasje.`;
+    ? t("meta.listingCityDesc", { plural: ll.plural, pluralLc: ll.plural.toLowerCase(), city: cityName, total: hasListings ? totalCount : "—", priceWord: ll.priceWord, month: currentMonth, year: currentYear })
+    : t("meta.listingNLDesc", { plural: ll.plural, pluralLc: ll.plural.toLowerCase(), priceWord: ll.priceWord });
 
   const canonical = cityName
-    ? `https://www.huurbaasje.nl/${label.slug}/${citySlug}`
-    : `https://www.huurbaasje.nl/${label.slug}`;
+    ? `/${label.slug}/${citySlug}`
+    : `/${label.slug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },

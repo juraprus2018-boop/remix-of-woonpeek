@@ -146,8 +146,22 @@
     "rights": "Tous droits réservés."
   },
   "meta": {
-    "homeTitle": "Trouver une location aux Pays-Bas — vite, gratuit, nouvelles annonces chaque jour",
-    "homeDesc": "Toutes les nouvelles locations néerlandaises en un seul endroit. Filtrez par ville, prix et pièces. Activez une alerte et soyez le premier."
+    "homeTitle": "Trouver une location aux Pays-Bas, rapide et gratuit avec de nouvelles annonces chaque jour",
+    "homeDesc": "Toutes les nouvelles locations néerlandaises en un seul endroit. Filtrez par ville, prix et pièces. Activez une alerte et soyez le premier.",
+    "citiesTitle": "Toutes les villes néerlandaises avec locations et biens à vendre | Huurbaasje",
+    "citiesDesc": "Parcourez les annonces dans toutes les villes des Pays-Bas, classées par disponibilité. Mises à jour quotidiennes.",
+    "cityTitle": "Locations à {{city}} : {{total}} biens à louer et à acheter ({{month}} {{year}}) | Huurbaasje",
+    "cityDesc": "Découvrez {{huur}} locations et {{koop}} biens à vendre à {{city}}. Appartements, maisons, studios et chambres. Mises à jour quotidiennes, alertes gratuites. {{month}} {{year}}.",
+    "listingCityTitle": "{{plural}} à {{city}} : {{total}} biens à {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingCityDesc": "{{total}} {{pluralLc}} à {{city}}. Consultez {{priceWord}}, photos et détails des biens disponibles. Mises à jour quotidiennes, alertes gratuites. {{month}} {{year}}.",
+    "listingNLTitle": "{{plural}} Pays-Bas : annonces actuelles à {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingNLDesc": "Parcourez {{pluralLc}} dans tous les Pays-Bas. Comparez {{priceWord}}, consultez les photos et trouvez votre logement sur Huurbaasje.",
+    "searchTitleHuur": "Locations{{loc}} | Huurbaasje",
+    "searchTitleKoop": "Biens à vendre{{loc}} | Huurbaasje",
+    "searchTitleAll": "Logements{{loc}} | Huurbaasje",
+    "searchDesc": "Découvrez {{total}} {{typeWord}}{{loc}} sur Huurbaasje. Filtrez par prix, type et plus.",
+    "newTodayTitle": "Nouvelles annonces aujourd'hui : {{count}} biens fraîchement en ligne | Huurbaasje",
+    "newTodayDesc": "Consultez {{count}} nouvelles annonces actives du {{date}} sur Huurbaasje. Fraîchement en ligne, mis à jour quotidiennement."
   },
   "redirect": {
     "title": "Voir cette page en français",

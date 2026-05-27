@@ -25,6 +25,7 @@ import CommuteFilter, { type CommuteValue } from "@/components/search/CommuteFil
 import { useCommuteFilter } from "@/hooks/useCommuteFilter";
 import AdSlot from "@/components/ads/AdSlot";
 import { toast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 const EMPTY_FILTERS: SearchFilterValues = {
   city: "",
@@ -172,27 +173,35 @@ const SearchPage = () => {
 
   const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.maxPrice;
 
+  const { t } = useTranslation();
+
   const seoTitle = useMemo(() => {
-    const parts: string[] = [];
-    if (filters.listingType === "huur") parts.push("Huurwoningen");
-    else if (filters.listingType === "koop") parts.push("Koophuizen");
-    else parts.push("Woningen");
-    if (debouncedCity) parts.push(`in ${debouncedCity}`);
-    return `${parts.join(" ")} | Huurbaasje`;
-  }, [debouncedCity, filters.listingType]);
+    const loc = debouncedCity ? ` ${t("hero.popular") ? "" : ""}${debouncedCity ? ` — ${debouncedCity}` : ""}` : "";
+    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const key =
+      filters.listingType === "huur" ? "meta.searchTitleHuur"
+      : filters.listingType === "koop" ? "meta.searchTitleKoop"
+      : "meta.searchTitleAll";
+    return t(key, { loc: locPart });
+  }, [debouncedCity, filters.listingType, t]);
 
   const seoDescription = useMemo(() => {
-    const type = filters.listingType === "huur" ? "huurwoningen" : filters.listingType === "koop" ? "koophuizen" : "woningen";
-    const location = debouncedCity ? ` in ${debouncedCity}` : "";
-    return `Bekijk ${totalCount} ${type}${location} op Huurbaasje. Filter op prijs, type en meer.`;
-  }, [debouncedCity, filters.listingType, totalCount]);
+    const typeKey =
+      filters.listingType === "huur" ? "meta.searchTitleHuur"
+      : filters.listingType === "koop" ? "meta.searchTitleKoop"
+      : "meta.searchTitleAll";
+    // Extract bare noun (strip " | Huurbaasje" and any "{{loc}}")
+    const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Huurbaasje\s*$/i, "").trim().toLowerCase();
+    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    return t("meta.searchDesc", { total: totalCount, typeWord, loc: locPart });
+  }, [debouncedCity, filters.listingType, totalCount, t]);
 
   const canonicalUrl = useMemo(() => {
     const params = new URLSearchParams();
     if (debouncedCity) params.set("locatie", debouncedCity);
     if (filters.listingType) params.set("aanbod", filters.listingType);
     const qs = params.toString();
-    return `https://www.huurbaasje.nl/zoeken${qs ? `?${qs}` : ""}`;
+    return `/zoeken${qs ? `?${qs}` : ""}`;
   }, [debouncedCity, filters.listingType]);
 
   return (

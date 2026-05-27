@@ -10,6 +10,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import bannerCities from "@/assets/banner-cities.jpg";
 import { cityPath } from "@/lib/cities";
+import { useTranslation } from "react-i18next";
 
 const useCityCounts = () =>
   useQuery({
@@ -26,13 +27,14 @@ const useCityCounts = () =>
 
 const Cities = () => {
   const { data: cities, isLoading } = useCityCounts();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Alle steden met woningen | Huurbaasje"
-        description="Bekijk alle steden waar woningen beschikbaar zijn op Huurbaasje, geordend op aantal beschikbare woningen."
-        canonical="https://www.huurbaasje.nl/steden"
+        title={t("meta.citiesTitle")}
+        description={t("meta.citiesDesc")}
+        canonical="/steden"
       />
       <Header />
       <main className="flex-1">

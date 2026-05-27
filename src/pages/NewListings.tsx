@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { CalendarDays } from "lucide-react";
 import StockBanner from "@/components/layout/StockBanner";
 import type { Database } from "@/integrations/supabase/types";
+import { useTranslation } from "react-i18next";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
@@ -30,8 +31,11 @@ const PropertyCardSkeleton = () => (
 );
 
 const NewListings = () => {
+  const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 24;
+
+  const localeTag = i18n.language === "en" ? "en-GB" : i18n.language === "de" ? "de-DE" : i18n.language === "fr" ? "fr-FR" : "nl-NL";
 
   const { startIso, endIso, dateLabel } = useMemo(() => {
     const start = new Date();
@@ -42,14 +46,14 @@ const NewListings = () => {
     return {
       startIso: start.toISOString(),
       endIso: end.toISOString(),
-      dateLabel: new Intl.DateTimeFormat("nl-NL", {
+      dateLabel: new Intl.DateTimeFormat(localeTag, {
         weekday: "long",
         day: "numeric",
         month: "long",
         year: "numeric",
       }).format(start),
     };
-  }, []);
+  }, [localeTag]);
 
   const { data, isLoading } = useQuery({
     queryKey: ["new-listings", startIso, endIso, currentPage],
@@ -79,9 +83,9 @@ const NewListings = () => {
   const totalCount = data?.totalCount ?? 0;
   const totalPages = Math.max(Math.ceil(totalCount / pageSize), 1);
 
-  const title = "Nieuw aanbod vandaag | Huurbaasje";
-  const description = `Bekijk ${totalCount} nieuwe actieve woningen van vandaag (${dateLabel}) op Huurbaasje.`;
-  const canonical = "https://www.huurbaasje.nl/nieuw-aanbod";
+  const title = t("meta.newTodayTitle", { count: totalCount });
+  const description = t("meta.newTodayDesc", { count: totalCount, date: dateLabel });
+  const canonical = "/nieuw-aanbod";
 
   const jsonLd = {
     "@context": "https://schema.org",
