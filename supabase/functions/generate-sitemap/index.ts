@@ -93,17 +93,9 @@ function buildPagesSitemap(now: string): string {
     { loc: "/budgetcheck", changefreq: "monthly", priority: "0.5" },
   ];
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+  let xml = URLSET_OPEN;
   for (const page of staticPages) {
-    xml += `  <url>
-    <loc>${SITE_URL}${page.loc}</loc>
-    <lastmod>${now}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>
-`;
+    xml += urlEntry(page.loc, now, page.changefreq, page.priority);
   }
   xml += `</urlset>`;
   return xml;
