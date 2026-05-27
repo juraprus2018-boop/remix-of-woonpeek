@@ -60,27 +60,41 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   // Parse filter from URL
   const parsed = useMemo(() => {
-    if (!filter) return { maxPrice: undefined, minBedrooms: undefined, label: "" };
+    const base = { maxPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined };
+    if (!filter) return base;
 
     const priceMatch = filter.match(/^onder-(\d+)$/);
     if (priceMatch) {
       const price = parseInt(priceMatch[1], 10);
-      return { maxPrice: price, minBedrooms: undefined, label: `onder ${formatEuro(price)}` };
+      return { ...base, maxPrice: price, label: `onder ${formatEuro(price)}` };
     }
 
     const bedroomMatch = filter.match(/^(\d+)-kamers$/);
     if (bedroomMatch) {
       const beds = parseInt(bedroomMatch[1], 10);
-      return { maxPrice: undefined, minBedrooms: beds, label: `met ${beds} kamers` };
+      return { ...base, minBedrooms: beds, label: `met ${beds} kamers` };
     }
 
-    return { maxPrice: undefined, minBedrooms: undefined, label: "" };
+    // Feature-based filters (text search on title/description)
+    const FEATURES: Record<string, { text: string; label: string }> = {
+      "met-tuin": { text: "tuin", label: "met tuin" },
+      "met-balkon": { text: "balkon", label: "met balkon" },
+      "gemeubileerd": { text: "gemeubileerd", label: "gemeubileerd" },
+      "huisdieren-toegestaan": { text: "huisdier", label: "waar huisdieren zijn toegestaan" },
+    };
+    if (filter in FEATURES) {
+      const f = FEATURES[filter];
+      return { ...base, textMatch: f.text, label: f.label, featureKey: filter };
+    }
+
+    return base;
   }, [filter]);
 
   const { data, isLoading } = useProperties({
     city: citySlug ? citySlugToName(citySlug) : undefined,
     maxPrice: parsed.maxPrice,
     minBedrooms: parsed.minBedrooms,
+    textMatch: parsed.textMatch,
     propertyType: propertyType || undefined,
     listingType: listingType || undefined,
     disablePagination: true,
