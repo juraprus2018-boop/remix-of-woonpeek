@@ -13,12 +13,14 @@ interface PropertyFilters {
   city?: string;
   propertyType?: PropertyType;
   listingType?: ListingType;
+  propertyTypes?: PropertyType[];
   minPrice?: number;
   maxPrice?: number;
   minSurface?: number;
   minBedrooms?: number;
   sourceSite?: string;
   includeInactive?: boolean;
+  textMatch?: string; // ilike on title OR description (single term)
   page?: number;
   pageSize?: number;
   disablePagination?: boolean;
