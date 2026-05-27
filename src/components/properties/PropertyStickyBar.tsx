@@ -102,25 +102,40 @@ const PropertyStickyBar = ({
           </div>
         </div>
 
-        {/* CTA */}
-        <Button
-          onClick={handleReact}
-          size="sm"
-          className="flex-shrink-0 gap-1.5 whitespace-nowrap"
-        >
-          {sourceUrl ? (
-            <>
-              <ExternalLink className="h-4 w-4" />
-              <span className="hidden xs:inline sm:inline">Reageer</span>
-              <span className="xs:hidden sm:hidden">Reageer</span>
-            </>
-          ) : (
-            <>
-              <Mail className="h-4 w-4" />
-              Reageer
-            </>
+        {/* CTA group */}
+        <div className="flex flex-shrink-0 items-center gap-2">
+          {showEnergyBadge && (
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="hidden gap-1.5 border-amber-500/50 text-amber-700 hover:bg-amber-500/10 md:flex"
+              title={`Energielabel ${energyLabel} — bespaar via vergelijker`}
+            >
+              <Link to="/energie">
+                <Zap className="h-3.5 w-3.5" />
+                Label {energyLabel} – bespaar
+              </Link>
+            </Button>
           )}
-        </Button>
+          <Button
+            onClick={handleReact}
+            size="sm"
+            className="gap-1.5 whitespace-nowrap"
+          >
+            {sourceUrl ? (
+              <>
+                <ExternalLink className="h-4 w-4" />
+                Reageer
+              </>
+            ) : (
+              <>
+                <Mail className="h-4 w-4" />
+                Reageer
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );
