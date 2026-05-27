@@ -121,9 +121,9 @@ const PropertyQA = ({ property }: PropertyQAProps) => {
         )}
 
         {answer && (
-          <div className="mt-4 rounded-lg border bg-muted/30 p-4 text-sm leading-relaxed prose prose-sm max-w-none dark:prose-invert">
-            <ReactMarkdown>{answer}</ReactMarkdown>
-            <p className="mt-3 text-xs text-muted-foreground not-prose">
+          <div className="mt-4 rounded-lg border bg-muted/30 p-4 text-sm leading-relaxed">
+            <div className="whitespace-pre-wrap">{answer}</div>
+            <p className="mt-3 text-xs text-muted-foreground">
               AI-gegenereerd antwoord. Controleer altijd bij de aanbieder.
             </p>
           </div>
