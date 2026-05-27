@@ -338,6 +338,9 @@ const CityPage = () => {
               <Link to={`/markt/${citySlug}`}>
                 <Button variant="outline" size="sm">Huurprijs monitor</Button>
               </Link>
+              <Link to={`/cijfers/${citySlug}`}>
+                <Button variant="outline" size="sm">Cijfers & demografie</Button>
+              </Link>
             </div>
           </div>
 
