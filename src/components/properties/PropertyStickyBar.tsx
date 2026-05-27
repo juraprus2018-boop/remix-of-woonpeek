@@ -65,7 +65,7 @@ const PropertyStickyBar = ({
   return (
     <div
       className={cn(
-        "fixed inset-x-0 top-16 z-40 border-b border-border bg-background/95 shadow-md backdrop-blur supports-[backdrop-filter]:bg-background/85 transition-all duration-300",
+        "fixed inset-x-0 top-20 md:top-24 z-[55] border-b border-border bg-background/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/85 transition-all duration-300",
         visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
       )}
       aria-hidden={!visible}
