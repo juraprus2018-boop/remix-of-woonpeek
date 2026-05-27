@@ -82,6 +82,8 @@ const AdminTikTok = lazy(() => import("./pages/admin/AdminTikTok"));
 const Transparantie = lazy(() => import("./pages/Transparantie"));
 const MakelaarPage = lazy(() => import("./pages/MakelaarPage"));
 const Woordenboek = lazy(() => import("./pages/Woordenboek"));
+const Verhuischecklist = lazy(() => import("./pages/Verhuischecklist"));
+const VerhuizenVanNaar = lazy(() => import("./pages/VerhuizenVanNaar"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -207,6 +209,8 @@ const PAGES: RouteDef[] = [
   { path: "/budgetcheck", element: <BudgetTool /> },
   { path: "/woonkompas", element: <WoonQuiz /> },
   { path: "/energie", element: <EnergieVergelijken /> },
+  { path: "/verhuischecklist", element: <Verhuischecklist /> },
+  { path: "/verhuizen/:from/:to", element: <VerhuizenVanNaar /> },
 
   // B2B
   { path: "/partnerprogramma", element: <MakelaarKoppelen /> },
