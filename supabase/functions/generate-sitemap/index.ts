@@ -104,6 +104,7 @@ function buildPagesSitemap(now: string): string {
     for (const b of TOP) {
       if (a === b) continue;
       staticPages.push({ loc: `/verhuizen/${a}/${b}`, changefreq: "monthly", priority: "0.5" });
+      staticPages.push({ loc: `/duel/${a}-vs-${b}`, changefreq: "monthly", priority: "0.5" });
     }
   }
 
@@ -178,6 +179,11 @@ function buildCitiesSitemap(
     xml += urlEntry(`/stad/${citySlug}`, date, "daily", "0.8");
     xml += urlEntry(`/energie/${citySlug}`, date, "monthly", "0.6");
     xml += urlEntry(`/nieuwbouw/${citySlug}`, date, "weekly", "0.6");
+    xml += urlEntry(`/studenten/${citySlug}`, date, "weekly", "0.6");
+    // Feature-based filter landings (text-match)
+    for (const feat of ["met-tuin", "met-balkon", "gemeubileerd", "huisdieren-toegestaan"]) {
+      xml += urlEntry(`/aanbod-in/${citySlug}/${feat}`, date, "weekly", "0.5");
+    }
     // Verhuizen-naar gids per stad
     xml += urlEntry(`/stadsgids/${citySlug}`, date, "monthly", "0.6");
     // Best-of listicle pages per city
