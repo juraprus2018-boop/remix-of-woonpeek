@@ -96,12 +96,10 @@ export default function ContractCheck() {
         return;
       }
       setResult(data as AnalysisResult);
-      // Optional: capture email for alerts
       if (email && email.includes("@")) {
-        await supabase.from("daily_alert_subscribers").upsert(
-          { email, source: "contract-check", is_active: true },
-          { onConflict: "email" }
-        );
+        try {
+          await supabase.from("daily_alert_subscribers").insert({ email, source: "contract-check", is_active: true });
+        } catch { /* ignore duplicates */ }
       }
     } catch (err: any) {
       toast.error(err?.message || "Analyse mislukt");
