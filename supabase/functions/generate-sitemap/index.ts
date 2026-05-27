@@ -91,7 +91,18 @@ function buildPagesSitemap(now: string): string {
     { loc: "/woordenboek", changefreq: "monthly", priority: "0.7" },
     { loc: "/transparantie", changefreq: "monthly", priority: "0.4" },
     { loc: "/budgetcheck", changefreq: "monthly", priority: "0.5" },
+    { loc: "/verhuischecklist", changefreq: "monthly", priority: "0.8" },
+    { loc: "/energie", changefreq: "monthly", priority: "0.7" },
   ];
+
+  // Programmatic "verhuizen van X naar Y" — top NL cities, both directions.
+  const TOP = ["amsterdam","rotterdam","utrecht","den-haag","eindhoven","groningen","tilburg","almere","breda","nijmegen","haarlem","arnhem","zwolle","leiden","maastricht"];
+  for (const a of TOP) {
+    for (const b of TOP) {
+      if (a === b) continue;
+      staticPages.push({ loc: `/verhuizen/${a}/${b}`, changefreq: "monthly", priority: "0.5" });
+    }
+  }
 
   let xml = URLSET_OPEN;
   for (const page of staticPages) {

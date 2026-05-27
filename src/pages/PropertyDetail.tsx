@@ -49,7 +49,7 @@ import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import MortgageCalculator from "@/components/properties/MortgageCalculator";
 import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
-import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
+import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import {
@@ -956,7 +956,11 @@ const PropertyDetail = () => {
         {/* ── Energie vergelijken ── */}
         <section className="border-t py-10">
           <div className="container">
-            <EnergyCompareTeaser variant="property" context={property.city} />
+            <EnergyLabelCost
+              energyLabel={property.energy_label}
+              surfaceArea={property.surface_area}
+              city={property.city}
+            />
           </div>
         </section>
 
