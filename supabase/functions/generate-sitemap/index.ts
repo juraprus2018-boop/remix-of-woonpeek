@@ -158,176 +158,66 @@ function buildCitiesSitemap(
     }
   }
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+  let xml = URLSET_OPEN;
   for (const [citySlug, lastMod] of cityMap) {
     const date = lastMod.split("T")[0];
-    xml += `  <url>
-    <loc>${SITE_URL}/stad/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-`;
+    xml += urlEntry(`/stad/${citySlug}`, date, "daily", "0.8");
     // Verhuizen-naar gids per stad
-    xml += `  <url>
-    <loc>${SITE_URL}/stadsgids/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+    xml += urlEntry(`/stadsgids/${citySlug}`, date, "monthly", "0.6");
     // Best-of listicle pages per city
     for (const slug of ["goedkoop-huur", "grootste-huur", "buurten"]) {
-      xml += `  <url>
-    <loc>${SITE_URL}/toplijst/${citySlug}/${slug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+      xml += urlEntry(`/toplijst/${citySlug}/${slug}`, date, "weekly", "0.6");
     }
     // Budget landingspagina's per stad (huur en koop)
     for (const budget of [750, 1000, 1250, 1500, 2000, 2500]) {
-      xml += `  <url>
-    <loc>${SITE_URL}/budget-huur/${budget}/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+      xml += urlEntry(`/budget-huur/${budget}/${citySlug}`, date, "weekly", "0.6");
     }
     for (const budget of [200000, 300000, 400000, 500000, 750000, 1000000]) {
-      xml += `  <url>
-    <loc>${SITE_URL}/budget-koop/${budget}/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+      xml += urlEntry(`/budget-koop/${budget}/${citySlug}`, date, "weekly", "0.6");
     }
     // Inkomen-landingspagina's per stad (3x huur regel)
     for (const income of [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000]) {
-      xml += `  <url>
-    <loc>${SITE_URL}/inkomen/${income}/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+      xml += urlEntry(`/inkomen/${income}/${citySlug}`, date, "weekly", "0.6");
     }
-    xml += `  <url>
-    <loc>${SITE_URL}/huren/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-`;
-    xml += `  <url>
-    <loc>${SITE_URL}/kopen/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-`;
+    xml += urlEntry(`/huren/${citySlug}`, date, "daily", "0.7");
+    xml += urlEntry(`/kopen/${citySlug}`, date, "daily", "0.7");
     for (const pt of propertyTypeSlugs) {
       if (cityTypeSet.has(`${citySlug}:${pt.type}`)) {
-        xml += `  <url>
-    <loc>${SITE_URL}/${pt.slug}/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+        xml += urlEntry(`/${pt.slug}/${citySlug}`, date, "daily", "0.6");
         // Combination: property type + price filter
         for (const price of [750, 1000, 1250, 1500, 2000]) {
-          xml += `  <url>
-    <loc>${SITE_URL}/${pt.slug}/${citySlug}/onder-${price}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+          xml += urlEntry(`/${pt.slug}/${citySlug}/onder-${price}`, date, "daily", "0.5");
         }
         // Combination: property type + bedroom filter
         for (const beds of [1, 2, 3, 4]) {
-          xml += `  <url>
-    <loc>${SITE_URL}/${pt.slug}/${citySlug}/${beds}-kamers</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+          xml += urlEntry(`/${pt.slug}/${citySlug}/${beds}-kamers`, date, "daily", "0.5");
         }
       }
     }
     // Listing type + price/bedroom combos
     for (const lt of [{ slug: "huren" }, { slug: "kopen" }]) {
       for (const price of [750, 1000, 1250, 1500, 2000]) {
-        xml += `  <url>
-    <loc>${SITE_URL}/${lt.slug}/${citySlug}/onder-${price}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+        xml += urlEntry(`/${lt.slug}/${citySlug}/onder-${price}`, date, "daily", "0.5");
       }
       for (const beds of [1, 2, 3, 4]) {
-        xml += `  <url>
-    <loc>${SITE_URL}/${lt.slug}/${citySlug}/${beds}-kamers</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+        xml += urlEntry(`/${lt.slug}/${citySlug}/${beds}-kamers`, date, "daily", "0.5");
       }
     }
     // Generic price/bedroom filters (no type/listing prefix)
     for (const price of [750, 1000, 1250, 1500, 2000]) {
-      xml += `  <url>
-    <loc>${SITE_URL}/aanbod-in/${citySlug}/onder-${price}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+      xml += urlEntry(`/aanbod-in/${citySlug}/onder-${price}`, date, "daily", "0.5");
     }
     for (const beds of [1, 2, 3, 4]) {
-      xml += `  <url>
-    <loc>${SITE_URL}/aanbod-in/${citySlug}/${beds}-kamers</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+      xml += urlEntry(`/aanbod-in/${citySlug}/${beds}-kamers`, date, "daily", "0.5");
     }
-    xml += `  <url>
-    <loc>${SITE_URL}/vandaag/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
-    xml += `  <url>
-    <loc>${SITE_URL}/markt/${citySlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-`;
+    xml += urlEntry(`/vandaag/${citySlug}`, date, "daily", "0.6");
+    xml += urlEntry(`/markt/${citySlug}`, date, "daily", "0.7");
     const neighborhoods = cityNeighborhoods.get(citySlug);
     if (neighborhoods) {
       let count = 0;
       for (const nhSlug of neighborhoods) {
         if (count >= 20) break;
-        xml += `  <url>
-    <loc>${SITE_URL}/buurt/${citySlug}/${nhSlug}</loc>
-    <lastmod>${date}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+        xml += urlEntry(`/buurt/${citySlug}/${nhSlug}`, date, "weekly", "0.5");
         count++;
       }
     }
@@ -336,24 +226,14 @@ function buildCitiesSitemap(
   // Add extra URLs from popular search queries
   const today = new Date().toISOString().split("T")[0];
   for (const loc of extraUrls) {
-    xml += `  <url>
-    <loc>${loc}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+    // extraUrls already include SITE_URL prefix; convert back to path for urlEntry
+    const path = loc.startsWith(SITE_URL) ? loc.slice(SITE_URL.length) : loc;
+    xml += urlEntry(path, today, "daily", "0.5");
   }
 
   // Postcode landingspagina's (uniek 4-cijferig)
   for (const pc of postcodes) {
-    xml += `  <url>
-    <loc>${SITE_URL}/postcode/${pc}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-`;
+    xml += urlEntry(`/postcode/${pc}`, today, "weekly", "0.5");
   }
 
   xml += `</urlset>`;
