@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Bed, Maximize, ExternalLink, Mail } from "lucide-react";
+import { Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 
@@ -14,6 +15,7 @@ interface PropertyStickyBarProps {
   surfaceArea?: number | null;
   sourceUrl?: string | null;
   sourceSite?: string | null;
+  energyLabel?: string | null;
   /** Element to observe; bar appears once it scrolls out of view */
   triggerRef: React.RefObject<HTMLElement>;
   /** Fallback contact handler when no external/affiliate URL is available */
@@ -30,10 +32,12 @@ const PropertyStickyBar = ({
   surfaceArea,
   sourceUrl,
   sourceSite,
+  energyLabel,
   triggerRef,
   onContact,
 }: PropertyStickyBarProps) => {
   const [visible, setVisible] = useState(false);
+  const showEnergyBadge = !!energyLabel && ["D", "E", "F", "G"].includes(energyLabel.toUpperCase());
 
   useEffect(() => {
     const target = triggerRef.current;
@@ -98,25 +102,40 @@ const PropertyStickyBar = ({
           </div>
         </div>
 
-        {/* CTA */}
-        <Button
-          onClick={handleReact}
-          size="sm"
-          className="flex-shrink-0 gap-1.5 whitespace-nowrap"
-        >
-          {sourceUrl ? (
-            <>
-              <ExternalLink className="h-4 w-4" />
-              <span className="hidden xs:inline sm:inline">Reageer</span>
-              <span className="xs:hidden sm:hidden">Reageer</span>
-            </>
-          ) : (
-            <>
-              <Mail className="h-4 w-4" />
-              Reageer
-            </>
+        {/* CTA group */}
+        <div className="flex flex-shrink-0 items-center gap-2">
+          {showEnergyBadge && (
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="hidden gap-1.5 border-amber-500/50 text-amber-700 hover:bg-amber-500/10 md:flex"
+              title={`Energielabel ${energyLabel} — bespaar via vergelijker`}
+            >
+              <Link to="/energie">
+                <Zap className="h-3.5 w-3.5" />
+                Label {energyLabel} – bespaar
+              </Link>
+            </Button>
           )}
-        </Button>
+          <Button
+            onClick={handleReact}
+            size="sm"
+            className="gap-1.5 whitespace-nowrap"
+          >
+            {sourceUrl ? (
+              <>
+                <ExternalLink className="h-4 w-4" />
+                Reageer
+              </>
+            ) : (
+              <>
+                <Mail className="h-4 w-4" />
+                Reageer
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ const EnergieVergelijken = () => {
       <SEOHead
         title="Energie vergelijken – Bespaar op gas en stroom | Huurbaasje"
         description="Vergelijk de actuele energietarieven van alle grote leveranciers en bespaar tot € 600 per jaar. Eenvoudig, vrijblijvend en gratis overstappen via Huurbaasje."
-        canonical="https://www.huurbaasje.nl/energie-vergelijken"
+        canonical="https://www.huurbaasje.nl/energie"
       />
       <script
         type="application/ld+json"

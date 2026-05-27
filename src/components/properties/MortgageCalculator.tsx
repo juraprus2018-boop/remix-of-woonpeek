@@ -1,7 +1,9 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calculator, Euro, Percent, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calculator, Euro, Percent, Calendar, ArrowRight } from "lucide-react";
 
 interface MortgageCalculatorProps {
   propertyPrice: number;
@@ -130,8 +132,15 @@ const MortgageCalculator = ({ propertyPrice }: MortgageCalculatorProps) => {
           </div>
         </div>
 
+        <Button asChild size="lg" className="w-full gap-2 bg-accent text-accent-foreground hover:bg-accent/90">
+          <Link to="/hypotheek-berekenen">
+            Hypotheek aanvragen of vergelijken
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </Button>
+
         <p className="text-xs text-muted-foreground text-center">
-          Dit is een indicatieve berekening. Neem contact op met een hypotheekadviseur voor een persoonlijk advies.
+          Dit is een indicatieve berekening. Vergelijk vrijblijvend bij erkende adviseurs voor een persoonlijk advies.
         </p>
       </CardContent>
     </Card>
