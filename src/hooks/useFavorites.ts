@@ -16,6 +16,8 @@ export const useFavorites = () => {
           id,
           property_id,
           created_at,
+          notify_changes,
+          last_price_seen,
           properties (*)
         `)
         .eq("user_id", user.id)
