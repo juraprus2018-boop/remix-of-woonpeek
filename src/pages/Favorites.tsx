@@ -6,9 +6,12 @@ import SEOHead from "@/components/seo/SEOHead";
 
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
-import { useFavorites } from "@/hooks/useFavorites";
+import { useFavorites, useUpdateFavoriteNotify } from "@/hooks/useFavorites";
 import { useAuth } from "@/contexts/AuthContext";
-import { Heart, Loader2, Search, SlidersHorizontal, ArrowUpDown } from "lucide-react";
+import { Heart, Loader2, Search, SlidersHorizontal, ArrowUpDown, Bell, BellOff, TrendingDown } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 import { useState, useMemo } from "react";
 import {
   Select,
@@ -19,6 +22,48 @@ import {
 } from "@/components/ui/select";
 
 type SortOption = "recent" | "price-asc" | "price-desc" | "city";
+
+const FavoriteItem = ({ favorite }: { favorite: any }) => {
+  const updateNotify = useUpdateFavoriteNotify();
+  const property = favorite.properties;
+  const notify = favorite.notify_changes !== false;
+  const priceDropped =
+    favorite.last_price_seen != null &&
+    property?.price != null &&
+    Number(property.price) < Number(favorite.last_price_seen);
+
+  return (
+    <div className="flex flex-col">
+      {priceDropped && (
+        <div className="mb-2 flex items-center gap-1.5 rounded-md bg-success/10 px-2 py-1 text-xs font-medium text-success">
+          <TrendingDown className="h-3.5 w-3.5" />
+          Prijs verlaagd sinds je opsloeg
+        </div>
+      )}
+      <PropertyCard property={property} />
+      <div className="mt-2 flex items-center justify-between rounded-md border border-border bg-card px-3 py-2">
+        <Label htmlFor={`notify-${favorite.id}`} className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
+          {notify ? <Bell className="h-3.5 w-3.5 text-primary" /> : <BellOff className="h-3.5 w-3.5" />}
+          E-mail bij wijziging
+        </Label>
+        <Switch
+          id={`notify-${favorite.id}`}
+          checked={notify}
+          onCheckedChange={(v) => {
+            updateNotify.mutate(
+              { propertyId: favorite.property_id, notify: v },
+              {
+                onSuccess: () =>
+                  toast.success(v ? "Meldingen aangezet" : "Meldingen uitgezet"),
+                onError: () => toast.error("Kon meldingen niet bijwerken"),
+              }
+            );
+          }}
+        />
+      </div>
+    </div>
+  );
+};
 
 const Favorites = () => {
   const { user } = useAuth();
@@ -139,14 +184,22 @@ const Favorites = () => {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : sortedFavorites.length > 0 ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6">
-              {sortedFavorites.map((favorite) => (
-                <PropertyCard
-                  key={favorite.id}
-                  property={favorite.properties as any}
-                />
-              ))}
-            </div>
+            <>
+              <div className="mb-6 flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4">
+                <Bell className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <div className="text-sm">
+                  <p className="font-semibold text-foreground">E-mailmeldingen actief</p>
+                  <p className="text-muted-foreground">
+                    Wij sturen je elke ochtend een mail wanneer de prijs van een opgeslagen woning daalt of de status verandert (verhuurd, verkocht, inactief). Zet meldingen per woning aan of uit hieronder.
+                  </p>
+                </div>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6">
+                {sortedFavorites.map((favorite) => (
+                  <FavoriteItem key={favorite.id} favorite={favorite} />
+                ))}
+              </div>
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-muted py-16 text-center">
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
