@@ -93,6 +93,9 @@ function buildPagesSitemap(now: string): string {
     { loc: "/budgetcheck", changefreq: "monthly", priority: "0.5" },
     { loc: "/verhuischecklist", changefreq: "monthly", priority: "0.8" },
     { loc: "/energie", changefreq: "monthly", priority: "0.7" },
+    { loc: "/nieuwbouw", changefreq: "weekly", priority: "0.7" },
+    { loc: "/hypotheek-berekenen", changefreq: "monthly", priority: "0.7" },
+    { loc: "/woz-waarde", changefreq: "monthly", priority: "0.6" },
   ];
 
   // Programmatic "verhuizen van X naar Y" — top NL cities, both directions.
