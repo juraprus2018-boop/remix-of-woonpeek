@@ -601,18 +601,30 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          last_notified_at: string | null
+          last_price_seen: number | null
+          last_status_seen: string | null
+          notify_changes: boolean
           property_id: string
           user_id: string
         }
         Insert: {
           created_at?: string
           id?: string
+          last_notified_at?: string | null
+          last_price_seen?: number | null
+          last_status_seen?: string | null
+          notify_changes?: boolean
           property_id: string
           user_id: string
         }
         Update: {
           created_at?: string
           id?: string
+          last_notified_at?: string | null
+          last_price_seen?: number | null
+          last_status_seen?: string | null
+          notify_changes?: boolean
           property_id?: string
           user_id?: string
         }
