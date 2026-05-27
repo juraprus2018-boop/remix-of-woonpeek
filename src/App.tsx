@@ -91,6 +91,7 @@ const EnergieCityPage = lazy(() => import("./pages/EnergieCityPage"));
 const Nieuwbouw = lazy(() => import("./pages/Nieuwbouw"));
 const NieuwbouwCity = lazy(() => import("./pages/NieuwbouwCity"));
 const WozWaarde = lazy(() => import("./pages/WozWaarde"));
+const StudentenCity = lazy(() => import("./pages/StudentenCity"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -222,6 +223,7 @@ const PAGES: RouteDef[] = [
   { path: "/nieuwbouw/:city", element: <NieuwbouwCity /> },
   { path: "/hypotheek-berekenen", element: <HypotheekBerekenen /> },
   { path: "/woz-waarde", element: <WozWaarde /> },
+  { path: "/studenten/:city", element: <StudentenCity /> },
   { path: "/verhuischecklist", element: <Verhuischecklist /> },
   { path: "/verhuizen/:from/:to", element: <VerhuizenVanNaar /> },
   { path: "/contract-check", element: <ContractCheck /> },

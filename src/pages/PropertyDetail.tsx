@@ -52,6 +52,7 @@ import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
+import PropertyQA from "@/components/properties/PropertyQA";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import {
@@ -980,6 +981,7 @@ const PropertyDetail = () => {
               city={property.city}
             />
             <EnergyCompareTeaser variant="property" context={property.city} />
+            <PropertyQA property={property as any} />
           </div>
         </section>
 
