@@ -243,17 +243,9 @@ function buildCitiesSitemap(
 function buildPropertiesSitemap(
   properties: Array<{ slug: string | null; id: string; updated_at: string }>,
 ): string {
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+  let xml = URLSET_OPEN;
   for (const p of properties) {
-    xml += `  <url>
-    <loc>${SITE_URL}/aanbod/${p.slug || p.id}</loc>
-    <lastmod>${p.updated_at.split("T")[0]}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`;
+    xml += urlEntry(`/aanbod/${p.slug || p.id}`, p.updated_at.split("T")[0], "weekly", "0.6");
   }
   xml += `</urlset>`;
   return xml;
@@ -262,17 +254,9 @@ function buildPropertiesSitemap(
 function buildBlogSitemap(
   blogPosts: Array<{ slug: string; updated_at: string }>,
 ): string {
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-`;
+  let xml = URLSET_OPEN;
   for (const b of blogPosts) {
-    xml += `  <url>
-    <loc>${SITE_URL}/journaal/${b.slug}</loc>
-    <lastmod>${b.updated_at.split("T")[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-`;
+    xml += urlEntry(`/journaal/${b.slug}`, b.updated_at.split("T")[0], "monthly", "0.7");
   }
   xml += `</urlset>`;
   return xml;
