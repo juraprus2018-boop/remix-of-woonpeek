@@ -340,6 +340,7 @@ const PropertyDetail = () => {
         surfaceArea={property.surface_area}
         sourceUrl={sourceInfo.source_url}
         sourceSite={sourceInfo.source_site}
+        energyLabel={property.energy_label}
         triggerRef={galleryRef}
         onContact={() => setContactOpen(true)}
       />
@@ -971,12 +972,13 @@ const PropertyDetail = () => {
 
         {/* ── Energie vergelijken ── */}
         <section className="border-t py-10">
-          <div className="container">
+          <div className="container space-y-6">
             <EnergyLabelCost
               energyLabel={property.energy_label}
               surfaceArea={property.surface_area}
               city={property.city}
             />
+            <EnergyCompareTeaser variant="property" context={property.city} />
           </div>
         </section>
 
