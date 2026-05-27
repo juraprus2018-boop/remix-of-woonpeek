@@ -495,10 +495,10 @@ const CityPage = () => {
             <h3 className="font-display text-lg font-semibold text-foreground mb-3">Op woningtype</h3>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4 mb-6">
               {[
-                { label: "Appartementen", href: `/appartementen/${citySlug}` },
-                { label: "Huizen", href: `/huizen/${citySlug}` },
-                { label: "Studio's", href: `/studios/${citySlug}` },
-                { label: "Kamers", href: `/kamers/${citySlug}` },
+                { label: "Appartementen", href: `/appartement/${citySlug}` },
+                { label: "Huizen", href: `/huis/${citySlug}` },
+                { label: "Studio's", href: `/studio/${citySlug}` },
+                { label: "Kamers", href: `/kamer/${citySlug}` },
               ].map((item) => (
                 <Link key={item.href} to={item.href} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   {item.label} in {cityName}
