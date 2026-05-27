@@ -85,6 +85,7 @@ const Woordenboek = lazy(() => import("./pages/Woordenboek"));
 const Verhuischecklist = lazy(() => import("./pages/Verhuischecklist"));
 const VerhuizenVanNaar = lazy(() => import("./pages/VerhuizenVanNaar"));
 const ContractCheck = lazy(() => import("./pages/ContractCheck"));
+const CityStats = lazy(() => import("./pages/CityStats"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -164,6 +165,7 @@ const PAGES: RouteDef[] = [
   { path: "/plekken", element: <Cities /> },
   { path: "/buurt/:city/:neighborhood", element: <NeighborhoodPage /> },
   { path: "/markt/:city", element: <HuurprijsMonitor /> },
+  { path: "/cijfers/:city", element: <CityStats /> },
   { path: "/stadsgids/:city", element: <CityGuidePage /> },
   { path: "/duel/:city1-vs-:city2", element: <CityComparePage /> },
   { path: "/toplijst/:city/goedkoop-huur", element: <BestOfCityPage variant="goedkoopste-huur" /> },
