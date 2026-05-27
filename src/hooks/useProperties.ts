@@ -48,12 +48,17 @@ const applyPropertyFilters = <T,>(query: T, filters?: PropertyFilters) => {
   }
 
   if (filters?.propertyType) q = q.eq("property_type", filters.propertyType);
+  if (filters?.propertyTypes && filters.propertyTypes.length > 0) q = q.in("property_type", filters.propertyTypes);
   if (filters?.listingType) q = q.eq("listing_type", filters.listingType);
   if (filters?.minPrice) q = q.gte("price", filters.minPrice);
   if (filters?.maxPrice) q = q.lte("price", filters.maxPrice);
   if (filters?.minSurface) q = q.gte("surface_area", filters.minSurface);
   if (filters?.minBedrooms) q = q.gte("bedrooms", filters.minBedrooms);
   if (filters?.sourceSite) q = q.eq("source_site", filters.sourceSite);
+  if (filters?.textMatch) {
+    const term = filters.textMatch.replace(/[%,()]/g, "");
+    q = q.or(`title.ilike.%${term}%,description.ilike.%${term}%`);
+  }
 
   return q as T;
 };
