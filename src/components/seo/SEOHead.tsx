@@ -64,23 +64,21 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     }
     robotsEl.setAttribute("content", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
 
-    // Canonical: prefix with current locale so each language has its own canonical
+    // Canonical: prefix with current locale so each language has its own canonical.
+    // Always set a canonical (fallback = current path) so the static NL canonical
+    // from index.html never leaks onto /en, /de or /fr routes.
     const locale = getLocaleFromPath(location.pathname);
-    let resolvedCanonical = canonical;
-    if (resolvedCanonical) {
-      const bare = stripLocale(resolvedCanonical);
-      resolvedCanonical = (CANONICAL_URL || "") + withLocale(bare, locale);
-    }
+    const baseUrl = CANONICAL_URL || "";
+    const bareSource = canonical ? stripLocale(canonical) : stripLocale(location.pathname);
+    const resolvedCanonical = baseUrl + withLocale(bareSource, locale);
 
     let canonicalEl = document.querySelector('link[rel="canonical"]');
-    if (resolvedCanonical) {
-      if (!canonicalEl) {
-        canonicalEl = document.createElement("link");
-        canonicalEl.setAttribute("rel", "canonical");
-        document.head.appendChild(canonicalEl);
-      }
-      canonicalEl.setAttribute("href", resolvedCanonical);
+    if (!canonicalEl) {
+      canonicalEl = document.createElement("link");
+      canonicalEl.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalEl);
     }
+    canonicalEl.setAttribute("href", resolvedCanonical);
 
     setHreflangAlternates(location.pathname);
 
