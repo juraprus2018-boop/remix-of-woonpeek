@@ -158,8 +158,27 @@ const SearchPage = () => {
     commuteSourceList,
     commute,
   );
-  const visibleListProperties = (commuteActive ? commuteFiltered : properties) as typeof properties;
-  const visibleMapProperties = (commuteActive ? commuteFiltered : (mapProperties || [])) as any[];
+  // Dedupe properties that share the same address + price (different affiliate links pointing to the same home)
+  const dedupeProperties = useCallback(<T extends { id: string; street?: string | null; house_number?: string | null; postal_code?: string | null; city?: string | null; price?: number | null; title?: string | null }>(list: T[]): T[] => {
+    const seen = new Set<string>();
+    const result: T[] = [];
+    for (const p of list) {
+      const norm = (v: unknown) => String(v ?? "").trim().toLowerCase().replace(/\s+/g, "");
+      const addr = `${norm(p.postal_code)}|${norm(p.street)}|${norm(p.house_number)}|${norm(p.city)}`;
+      // Fallback to title+city when address is too sparse (e.g. house_number == "-")
+      const hasUsefulNumber = norm(p.house_number) && norm(p.house_number) !== "-";
+      const key = hasUsefulNumber && norm(p.street) && norm(p.postal_code)
+        ? `${addr}|${p.price ?? ""}`
+        : `${norm(p.title)}|${norm(p.city)}|${norm(p.street)}|${p.price ?? ""}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      result.push(p);
+    }
+    return result;
+  }, []);
+
+  const visibleListProperties = dedupeProperties((commuteActive ? commuteFiltered : properties) as typeof properties);
+  const visibleMapProperties = dedupeProperties((commuteActive ? commuteFiltered : (mapProperties || [])) as any[]);
 
   const handleFilterChange = useCallback((newFilters: SearchFilterValues) => {
     setFilters(newFilters);
