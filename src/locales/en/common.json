@@ -146,8 +146,22 @@
     "rights": "All rights reserved."
   },
   "meta": {
-    "homeTitle": "Find a rental home in the Netherlands — fast, free, fresh listings daily",
-    "homeDesc": "Every new Dutch rental in one place. Filter by city, price and rooms. Set an alert and be the first to apply."
+    "homeTitle": "Find a rental home in the Netherlands, fast and free with fresh listings daily",
+    "homeDesc": "Every new Dutch rental in one place. Filter by city, price and rooms. Set an alert and be the first to apply.",
+    "citiesTitle": "All Dutch cities with rentals and homes for sale | Huurbaasje",
+    "citiesDesc": "Browse listings across every Dutch city, ranked by availability. Daily updates on rentals and homes for sale.",
+    "cityTitle": "Rentals in {{city}}: {{total}} homes to rent and to buy ({{month}} {{year}}) | Huurbaasje",
+    "cityDesc": "Browse {{huur}} rentals and {{koop}} homes for sale in {{city}}. Apartments, houses, studios and rooms. Updated daily, free alerts. {{month}} {{year}}.",
+    "listingCityTitle": "{{plural}} in {{city}}: {{total}} homes to {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingCityDesc": "{{total}} {{pluralLc}} in {{city}}. View {{priceWord}}, photos and details of every available listing. Updated daily, free alerts. {{month}} {{year}}.",
+    "listingNLTitle": "{{plural}} Netherlands: live listings to {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingNLDesc": "Browse {{pluralLc}} across the Netherlands. Compare {{priceWord}}, view photos and find your home on Huurbaasje.",
+    "searchTitleHuur": "Rental homes{{loc}} | Huurbaasje",
+    "searchTitleKoop": "Homes for sale{{loc}} | Huurbaasje",
+    "searchTitleAll": "Homes{{loc}} | Huurbaasje",
+    "searchDesc": "Browse {{total}} {{typeWord}}{{loc}} on Huurbaasje. Filter by price, type and more.",
+    "newTodayTitle": "New listings today: {{count}} fresh homes | Huurbaasje",
+    "newTodayDesc": "Browse {{count}} new active listings from {{date}} on Huurbaasje. Fresh in, updated daily."
   },
   "redirect": {
     "title": "View this page in English",

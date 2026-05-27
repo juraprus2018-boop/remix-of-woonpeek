@@ -146,8 +146,22 @@
     "rights": "Alle rechten voorbehouden."
   },
   "meta": {
-    "homeTitle": "Huurwoning vinden in Nederland — snel, gratis, elke dag verse woningen",
-    "homeDesc": "Elke dag verse huurwoningen uit heel Nederland op één plek. Filter op stad, prijs en kamers. Zet een alert aan en wees als eerste binnen."
+    "homeTitle": "Huurwoning vinden in Nederland, snel en gratis met vers aanbod elke dag",
+    "homeDesc": "Elke dag verse huurwoningen uit heel Nederland op één plek. Filter op stad, prijs en kamers. Zet een alert aan en wees als eerste binnen.",
+    "citiesTitle": "Alle steden met huur- en koopwoningen in Nederland | Huurbaasje",
+    "citiesDesc": "Ontdek woningaanbod in alle Nederlandse steden. Geordend op aantal beschikbare huur- en koopwoningen, dagelijks bijgewerkt.",
+    "cityTitle": "Huurwoningen {{city}}: {{total}} woningen te huur en te koop ({{month}} {{year}}) | Huurbaasje",
+    "cityDesc": "Bekijk {{huur}} huurwoningen en {{koop}} koopwoningen in {{city}}. Appartementen, huizen, studio's en kamers. Dagelijks bijgewerkt, gratis alerts. {{month}} {{year}}.",
+    "listingCityTitle": "{{plural}} {{city}}: {{total}} woningen te {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingCityDesc": "{{total}} {{pluralLc}} in {{city}}. Bekijk {{priceWord}}, foto's en details van beschikbaar aanbod. Dagelijks bijgewerkt, gratis alerts. {{month}} {{year}}.",
+    "listingNLTitle": "{{plural}} Nederland: actueel aanbod te {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingNLDesc": "Bekijk {{pluralLc}} in heel Nederland. Vergelijk {{priceWord}}, bekijk foto's en vind jouw woning op Huurbaasje.",
+    "searchTitleHuur": "Huurwoningen{{loc}} | Huurbaasje",
+    "searchTitleKoop": "Koopwoningen{{loc}} | Huurbaasje",
+    "searchTitleAll": "Woningen{{loc}} | Huurbaasje",
+    "searchDesc": "Bekijk {{total}} {{typeWord}}{{loc}} op Huurbaasje. Filter op prijs, type en meer.",
+    "newTodayTitle": "Nieuw woningaanbod vandaag: {{count}} verse woningen | Huurbaasje",
+    "newTodayDesc": "Bekijk {{count}} nieuwe actieve woningen van {{date}} op Huurbaasje. Vers binnen, dagelijks bijgewerkt."
   },
   "redirect": {
     "title": "Bekijk deze pagina in het Nederlands",

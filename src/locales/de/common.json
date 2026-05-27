@@ -146,8 +146,22 @@
     "rights": "Alle Rechte vorbehalten."
   },
   "meta": {
-    "homeTitle": "Mietwohnung in den Niederlanden finden — schnell, kostenlos, täglich frische Angebote",
-    "homeDesc": "Jede neue niederländische Mietwohnung an einem Ort. Filtere nach Stadt, Preis und Zimmern. Aktiviere einen Alert und sei der Erste."
+    "homeTitle": "Mietwohnung in den Niederlanden finden, schnell und kostenlos mit täglich neuen Angeboten",
+    "homeDesc": "Jede neue niederländische Mietwohnung an einem Ort. Filtere nach Stadt, Preis und Zimmern. Aktiviere einen Alert und sei der Erste.",
+    "citiesTitle": "Alle niederländischen Städte mit Miet- und Kaufobjekten | Huurbaasje",
+    "citiesDesc": "Entdecke Angebote in allen Städten der Niederlande, sortiert nach Verfügbarkeit. Täglich aktualisiert.",
+    "cityTitle": "Mietwohnungen {{city}}: {{total}} Objekte zum Mieten und Kaufen ({{month}} {{year}}) | Huurbaasje",
+    "cityDesc": "Entdecke {{huur}} Mietwohnungen und {{koop}} Kaufobjekte in {{city}}. Wohnungen, Häuser, Studios und Zimmer. Täglich aktualisiert, kostenlose Alerts. {{month}} {{year}}.",
+    "listingCityTitle": "{{plural}} {{city}}: {{total}} Objekte zum {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingCityDesc": "{{total}} {{pluralLc}} in {{city}}. Sieh dir {{priceWord}}, Fotos und Details der verfügbaren Objekte an. Täglich aktualisiert, kostenlose Alerts. {{month}} {{year}}.",
+    "listingNLTitle": "{{plural}} Niederlande: aktuelles Angebot zum {{type}} ({{month}} {{year}}) | Huurbaasje",
+    "listingNLDesc": "Entdecke {{pluralLc}} in den gesamten Niederlanden. Vergleiche {{priceWord}}, sieh dir Fotos an und finde dein Zuhause auf Huurbaasje.",
+    "searchTitleHuur": "Mietwohnungen{{loc}} | Huurbaasje",
+    "searchTitleKoop": "Kaufobjekte{{loc}} | Huurbaasje",
+    "searchTitleAll": "Wohnungen{{loc}} | Huurbaasje",
+    "searchDesc": "Entdecke {{total}} {{typeWord}}{{loc}} auf Huurbaasje. Filter nach Preis, Typ und mehr.",
+    "newTodayTitle": "Neue Angebote heute: {{count}} frische Objekte | Huurbaasje",
+    "newTodayDesc": "Sieh dir {{count}} neue aktive Objekte vom {{date}} auf Huurbaasje an. Frisch online, täglich aktualisiert."
   },
   "redirect": {
     "title": "Diese Seite auf Deutsch anzeigen",
