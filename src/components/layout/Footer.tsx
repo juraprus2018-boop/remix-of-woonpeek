@@ -53,6 +53,8 @@ const Footer = () => {
               <li><Link to="/woningen/den-haag/onder-1000" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Den Haag &lt; €1.000</Link></li>
               <li><Link to="/huurwoningen/groningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Groningen</Link></li>
               <li><Link to="/woonradar" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAlert")}</Link></li>
+              <li><Link to="/verhuischecklist" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuischecklist</Link></li>
+              <li><Link to="/energie" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Energie vergelijken</Link></li>
             </ul>
           </div>
 
