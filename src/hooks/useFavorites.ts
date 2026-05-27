@@ -95,6 +95,26 @@ export const useRemoveFavorite = () => {
   });
 };
 
+export const useUpdateFavoriteNotify = () => {
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
+
+  return useMutation({
+    mutationFn: async ({ propertyId, notify }: { propertyId: string; notify: boolean }) => {
+      if (!user) throw new Error("Je moet ingelogd zijn");
+      const { error } = await supabase
+        .from("favorites")
+        .update({ notify_changes: notify })
+        .eq("user_id", user.id)
+        .eq("property_id", propertyId);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
+    },
+  });
+};
+
 export const useToggleFavorite = () => {
   const addFavorite = useAddFavorite();
   const removeFavorite = useRemoveFavorite();
