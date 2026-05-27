@@ -51,6 +51,7 @@ import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
+import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import {

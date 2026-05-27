@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Bed, Maximize, ExternalLink, Mail } from "lucide-react";
+import { Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 
@@ -14,6 +15,7 @@ interface PropertyStickyBarProps {
   surfaceArea?: number | null;
   sourceUrl?: string | null;
   sourceSite?: string | null;
+  energyLabel?: string | null;
   /** Element to observe; bar appears once it scrolls out of view */
   triggerRef: React.RefObject<HTMLElement>;
   /** Fallback contact handler when no external/affiliate URL is available */
