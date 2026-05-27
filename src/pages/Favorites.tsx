@@ -142,14 +142,22 @@ const Favorites = () => {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : sortedFavorites.length > 0 ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6">
-              {sortedFavorites.map((favorite) => (
-                <PropertyCard
-                  key={favorite.id}
-                  property={favorite.properties as any}
-                />
-              ))}
-            </div>
+            <>
+              <div className="mb-6 flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4">
+                <Bell className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <div className="text-sm">
+                  <p className="font-semibold text-foreground">E-mailmeldingen actief</p>
+                  <p className="text-muted-foreground">
+                    Wij sturen je elke ochtend een mail wanneer de prijs van een opgeslagen woning daalt of de status verandert (verhuurd, verkocht, inactief). Zet meldingen per woning aan of uit hieronder.
+                  </p>
+                </div>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:gap-6">
+                {sortedFavorites.map((favorite) => (
+                  <FavoriteItem key={favorite.id} favorite={favorite} />
+                ))}
+              </div>
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-muted py-16 text-center">
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
