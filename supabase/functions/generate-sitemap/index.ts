@@ -181,6 +181,8 @@ function buildCitiesSitemap(
     xml += urlEntry(`/energie/${citySlug}`, date, "monthly", "0.6");
     xml += urlEntry(`/nieuwbouw/${citySlug}`, date, "weekly", "0.6");
     xml += urlEntry(`/studenten/${citySlug}`, date, "weekly", "0.6");
+    xml += urlEntry(`/woz-waarde/${citySlug}`, date, "monthly", "0.6");
+    xml += urlEntry(`/verhuisservice/${citySlug}`, date, "monthly", "0.6");
     // Feature-based filter landings (text-match)
     for (const feat of ["met-tuin", "met-balkon", "gemeubileerd", "huisdieren-toegestaan"]) {
       xml += urlEntry(`/aanbod-in/${citySlug}/${feat}`, date, "weekly", "0.5");
