@@ -93,6 +93,9 @@ const NieuwbouwCity = lazy(() => import("./pages/NieuwbouwCity"));
 const WozWaarde = lazy(() => import("./pages/WozWaarde"));
 const StudentenCity = lazy(() => import("./pages/StudentenCity"));
 const InternetVergelijken = lazy(() => import("./pages/InternetVergelijken"));
+const WozWaardeCity = lazy(() => import("./pages/WozWaardeCity"));
+const VerhuisService = lazy(() => import("./pages/VerhuisService"));
+const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
