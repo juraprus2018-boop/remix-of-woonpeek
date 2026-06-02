@@ -93,6 +93,9 @@ const NieuwbouwCity = lazy(() => import("./pages/NieuwbouwCity"));
 const WozWaarde = lazy(() => import("./pages/WozWaarde"));
 const StudentenCity = lazy(() => import("./pages/StudentenCity"));
 const InternetVergelijken = lazy(() => import("./pages/InternetVergelijken"));
+const WozWaardeCity = lazy(() => import("./pages/WozWaardeCity"));
+const VerhuisService = lazy(() => import("./pages/VerhuisService"));
+const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -224,7 +227,10 @@ const PAGES: RouteDef[] = [
   { path: "/nieuwbouw/:city", element: <NieuwbouwCity /> },
   { path: "/hypotheek-berekenen", element: <HypotheekBerekenen /> },
   { path: "/woz-waarde", element: <WozWaarde /> },
+  { path: "/woz-waarde/:city", element: <WozWaardeCity /> },
   { path: "/internet", element: <InternetVergelijken /> },
+  { path: "/verhuisservice", element: <VerhuisService /> },
+  { path: "/verhuisservice/:city", element: <VerhuisServiceCity /> },
   { path: "/studenten/:city", element: <StudentenCity /> },
   { path: "/verhuischecklist", element: <Verhuischecklist /> },
   { path: "/verhuizen/:from/:to", element: <VerhuizenVanNaar /> },
