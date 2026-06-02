@@ -97,6 +97,7 @@ function buildPagesSitemap(now: string): string {
     { loc: "/hypotheek-berekenen", changefreq: "monthly", priority: "0.7" },
     { loc: "/woz-waarde", changefreq: "monthly", priority: "0.6" },
     { loc: "/internet", changefreq: "monthly", priority: "0.7" },
+    { loc: "/verhuisservice", changefreq: "monthly", priority: "0.7" },
   ];
 
   // Programmatic "verhuizen van X naar Y" — top NL cities, both directions.
