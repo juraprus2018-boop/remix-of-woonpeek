@@ -261,6 +261,8 @@ function buildCitiesSitemap(
     }
     xml += urlEntry(`/vandaag/${citySlug}`, date, "daily", "0.6");
     xml += urlEntry(`/markt/${citySlug}`, date, "daily", "0.7");
+    xml += urlEntry(`/huurprijs-index/${citySlug}`, date, "monthly", "0.7");
+    xml += urlEntry(`/heatmap/${citySlug}`, date, "weekly", "0.6");
     xml += urlEntry(`/cijfers/${citySlug}`, date, "weekly", "0.6");
     const neighborhoods = cityNeighborhoods.get(citySlug);
     if (neighborhoods) {

@@ -766,6 +766,36 @@ export type Database = {
           },
         ]
       }
+      livability_cache: {
+        Row: {
+          cache_key: string
+          city: string | null
+          created_at: string
+          data: Json
+          fetched_at: string
+          id: string
+          postal_code: string | null
+        }
+        Insert: {
+          cache_key: string
+          city?: string | null
+          created_at?: string
+          data?: Json
+          fetched_at?: string
+          id?: string
+          postal_code?: string | null
+        }
+        Update: {
+          cache_key?: string
+          city?: string | null
+          created_at?: string
+          data?: Json
+          fetched_at?: string
+          id?: string
+          postal_code?: string | null
+        }
+        Relationships: []
+      }
       makelaar_leads: {
         Row: {
           contactpersoon: string
@@ -1085,6 +1115,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      rent_index_snapshots: {
+        Row: {
+          avg_price_per_m2: number | null
+          avg_rent: number | null
+          city_name: string
+          city_slug: string
+          created_at: string
+          id: string
+          max_rent: number | null
+          median_rent: number | null
+          min_rent: number | null
+          sample_size: number
+          snapshot_month: string
+        }
+        Insert: {
+          avg_price_per_m2?: number | null
+          avg_rent?: number | null
+          city_name: string
+          city_slug: string
+          created_at?: string
+          id?: string
+          max_rent?: number | null
+          median_rent?: number | null
+          min_rent?: number | null
+          sample_size?: number
+          snapshot_month: string
+        }
+        Update: {
+          avg_price_per_m2?: number | null
+          avg_rent?: number | null
+          city_name?: string
+          city_slug?: string
+          created_at?: string
+          id?: string
+          max_rent?: number | null
+          median_rent?: number | null
+          min_rent?: number | null
+          sample_size?: number
+          snapshot_month?: string
+        }
+        Relationships: []
       }
       scraped_properties: {
         Row: {

@@ -97,6 +97,8 @@ const WozWaardeCity = lazy(() => import("./pages/WozWaardeCity"));
 const VerhuisService = lazy(() => import("./pages/VerhuisService"));
 const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
 const LongtailLanding = lazy(() => import("./pages/LongtailLanding"));
+const RentHeatmapPage = lazy(() => import("./pages/RentHeatmapPage"));
+const RentIndexPage = lazy(() => import("./pages/RentIndexPage"));
 
 
 const queryClient = new QueryClient({
@@ -215,6 +217,10 @@ const PAGES: RouteDef[] = [
 
   // 50 long-tail SEO gidsen per stad
   { path: "/gids/:slug", element: <LongtailLanding /> },
+
+  // Data / SEO
+  { path: "/heatmap/:city", element: <RentHeatmapPage /> },
+  { path: "/huurprijs-index/:city", element: <RentIndexPage /> },
 
 
   // Content

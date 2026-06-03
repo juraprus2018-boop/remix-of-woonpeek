@@ -17,6 +17,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
 import PriceAnalysis from "@/components/properties/PriceAnalysis";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
+import LivabilityScore from "@/components/properties/LivabilityScore";
 import PropertyComments from "@/components/properties/PropertyComments";
 import CompetitionMeter from "@/components/properties/CompetitionMeter";
 import {
@@ -703,6 +704,10 @@ const PropertyDetail = () => {
                   city={property.city}
                 />
               )}
+
+              {/* ── Leefbaarheid & veiligheid ── */}
+              <LivabilityScore city={property.city} postalCode={property.postal_code} />
+
 
               {/* ── Over wonen in [stad] ── */}
               <section className="rounded-xl border bg-muted/30 p-6">
