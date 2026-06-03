@@ -213,6 +213,10 @@ const PAGES: RouteDef[] = [
   { path: "/budget-koop/:budget/:city", element: <BudgetLandingPage listingType="koop" /> },
   { path: "/inkomen/:income/:city", element: <IncomeLandingPage /> },
 
+  // 50 long-tail SEO gidsen per stad
+  { path: "/gids/:slug", element: <LongtailLanding /> },
+
+
   // Content
   { path: "/journaal", element: <BlogPage /> },
   { path: "/journaal/:slug", element: <BlogPostPage /> },
