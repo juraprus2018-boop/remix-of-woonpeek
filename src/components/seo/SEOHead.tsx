@@ -46,6 +46,18 @@ const setHreflangAlternates = (pathname: string) => {
   document.head.appendChild(xDefault);
 };
 
+/** Inject (or replace) a JSON-LD script tag identified by a stable id. */
+const setJsonLd = (id: string, data: unknown) => {
+  let el = document.getElementById(id) as HTMLScriptElement | null;
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.id = id;
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+};
+
 const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex }: SEOHeadProps) => {
   const location = useLocation();
 
@@ -65,8 +77,6 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     robotsEl.setAttribute("content", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
 
     // Canonical: prefix with current locale so each language has its own canonical.
-    // Always set a canonical (fallback = current path) so the static NL canonical
-    // from index.html never leaks onto /en, /de or /fr routes.
     const locale = getLocaleFromPath(location.pathname);
     const baseUrl = CANONICAL_URL || "";
     const bareSource = canonical ? stripLocale(canonical) : stripLocale(location.pathname);
@@ -94,6 +104,26 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
     if (ogImage) setMeta("twitter:image", ogImage);
+
+    // Auto WebPage JSON-LD tied to Organization + WebSite on every route.
+    if (!noindex) {
+      const orgId = `${baseUrl || "https://www.huurbaasje.nl"}/#organization`;
+      const siteId = `${baseUrl || "https://www.huurbaasje.nl"}/#website`;
+      setJsonLd("seo-jsonld-webpage", {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${resolvedCanonical}#webpage`,
+        url: resolvedCanonical,
+        name: title,
+        description,
+        inLanguage: locale === "nl" ? "nl-NL" : locale === "en" ? "en-GB" : locale === "de" ? "de-DE" : "fr-FR",
+        isPartOf: { "@id": siteId },
+        about: { "@id": orgId },
+        publisher: { "@id": orgId },
+        ...(ogImage ? { primaryImageOfPage: { "@type": "ImageObject", url: ogImage } } : {}),
+        potentialAction: { "@type": "ReadAction", target: [resolvedCanonical] },
+      });
+    }
   }, [title, description, canonical, ogImage, ogType, noindex, location.pathname]);
 
 
