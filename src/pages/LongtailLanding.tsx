@@ -67,7 +67,7 @@ const LongtailLanding = () => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
         />
       )}
-      <FAQSchema items={page.faq.map((f) => ({ question: f.q, answer: f.a }))} />
+      {/* FAQSchema is rendered visibly in the FAQ section below; hide here to avoid duplicate JSON-LD only */}
 
       <Header />
 
