@@ -123,8 +123,46 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         ...(ogImage ? { primaryImageOfPage: { "@type": "ImageObject", url: ogImage } } : {}),
         potentialAction: { "@type": "ReadAction", target: [resolvedCanonical] },
       });
+
+      // Auto BreadcrumbList from URL path. Pages that ship explicit
+      // <Breadcrumbs> render their own (more accurate labels) — having both
+      // is acceptable for Google, but we skip auto on the home route.
+      const bareForCrumbs = stripLocale(location.pathname).replace(/\/+$/, "");
+      const segments = bareForCrumbs.split("/").filter(Boolean);
+      if (segments.length > 0) {
+        const humanize = (s: string) =>
+          decodeURIComponent(s)
+            .replace(/[-_]+/g, " ")
+            .replace(/\b\w/g, (c) => c.toUpperCase());
+        const items: Array<Record<string, unknown>> = [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: locale === "nl" ? "Home" : "Home",
+            item: baseUrl + withLocale("/", locale),
+          },
+        ];
+        segments.forEach((seg, i) => {
+          const path = "/" + segments.slice(0, i + 1).join("/");
+          items.push({
+            "@type": "ListItem",
+            position: i + 2,
+            name: humanize(seg),
+            item: baseUrl + withLocale(path, locale),
+          });
+        });
+        setJsonLd("seo-jsonld-breadcrumbs", {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: items,
+        });
+      } else {
+        // Remove on home route
+        document.getElementById("seo-jsonld-breadcrumbs")?.remove();
+      }
     }
   }, [title, description, canonical, ogImage, ogType, noindex, location.pathname]);
+
 
 
   return null;
