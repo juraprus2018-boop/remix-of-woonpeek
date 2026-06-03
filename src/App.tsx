@@ -96,6 +96,8 @@ const InternetVergelijken = lazy(() => import("./pages/InternetVergelijken"));
 const WozWaardeCity = lazy(() => import("./pages/WozWaardeCity"));
 const VerhuisService = lazy(() => import("./pages/VerhuisService"));
 const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
+const LongtailLanding = lazy(() => import("./pages/LongtailLanding"));
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -210,6 +212,10 @@ const PAGES: RouteDef[] = [
   { path: "/budget-huur/:budget/:city", element: <BudgetLandingPage listingType="huur" /> },
   { path: "/budget-koop/:budget/:city", element: <BudgetLandingPage listingType="koop" /> },
   { path: "/inkomen/:income/:city", element: <IncomeLandingPage /> },
+
+  // 50 long-tail SEO gidsen per stad
+  { path: "/gids/:slug", element: <LongtailLanding /> },
+
 
   // Content
   { path: "/journaal", element: <BlogPage /> },
