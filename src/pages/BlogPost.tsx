@@ -87,7 +87,7 @@ const BlogPostPage = () => {
     );
   }
 
-  const canonicalUrl = `https://www.huurbaasje.nl/blog/${post.slug}`;
+  const canonicalUrl = `https://www.huurbaasje.nl/journaal/${post.slug}`;
 
   // Rich Article schema
   const articleJsonLd = {
@@ -154,7 +154,7 @@ const BlogPostPage = () => {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://www.huurbaasje.nl/blog",
+        item: "https://www.huurbaasje.nl/journaal",
       },
       {
         "@type": "ListItem",
@@ -198,7 +198,7 @@ const BlogPostPage = () => {
             <Breadcrumbs
               items={[
                 { label: "Home", href: "/" },
-                { label: "Blog", href: "/blog" },
+                { label: "Blog", href: "/journaal" },
                 { label: post.title },
               ]}
             />

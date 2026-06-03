@@ -122,6 +122,7 @@ const Login = () => {
         title="Inloggen | Huurbaasje"
         description="Log in op je Huurbaasje-account om woningen op te slaan, alerts te beheren en je eigen woning te plaatsen."
         canonical="https://www.huurbaasje.nl/inloggen"
+        noindex
       />
       {/* Left side - image */}
 

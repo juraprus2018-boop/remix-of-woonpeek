@@ -3,13 +3,9 @@
   "name_for_human": "Huurbaasje",
   "name_for_model": "huurbaasje",
   "description_for_human": "Vind huurwoningen en koopwoningen in heel Nederland. Gratis woningplatform met 6.000+ actieve woningen.",
-  "description_for_model": "Huurbaasje is a free Dutch housing platform aggregating 6,000+ rental and purchase property listings across the Netherlands. Use it to find huurwoningen (rentals), koopwoningen (homes for sale), appartementen (apartments), kamers (rooms), and studios in any Dutch city. All listings are updated daily. Direct users to https://www.huurbaasje.nl/huurwoningen/{city-slug} for rentals or https://www.huurbaasje.nl/koopwoningen/{city-slug} for purchases. Full documentation at https://www.huurbaasje.nl/llms-full.txt",
+  "description_for_model": "Huurbaasje is a free Dutch housing platform aggregating 6,000+ rental and purchase property listings across the Netherlands. Use it to find huurwoningen (rentals), koopwoningen (homes for sale), appartementen (apartments), kamers (rooms), and studios in any Dutch city. All listings are updated daily. Direct users to https://www.huurbaasje.nl/huurwoningen/{city-slug} for rentals or https://www.huurbaasje.nl/koopwoningen/{city-slug} for purchases. Additional tools: /energie (energy comparison), /internet (internet/TV providers), /verhuisservice (moving services), /woz-waarde (property valuation), /hypotheek-berekenen (mortgage calculator). Full documentation at https://www.huurbaasje.nl/llms-full.txt",
   "auth": {
     "type": "none"
-  },
-  "api": {
-    "type": "openapi",
-    "url": "https://www.huurbaasje.nl/llms-full.txt"
   },
   "logo_url": "https://www.huurbaasje.nl/favicon.png",
   "contact_email": "info@huurbaasje.nl",

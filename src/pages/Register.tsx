@@ -72,6 +72,7 @@ const Register = () => {
         title="Gratis account aanmaken | Huurbaasje"
         description="Maak gratis een Huurbaasje-account aan. Sla woningen op, ontvang dagelijkse alerts en plaats zelf een woning gratis."
         canonical="https://www.huurbaasje.nl/aanmelden"
+        noindex
       />
       {/* Left side - image */}
 

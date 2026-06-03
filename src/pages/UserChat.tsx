@@ -106,7 +106,7 @@ const UserChat = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title="Berichten – Huurbaasje" description="Stuur ons een bericht" />
+      <SEOHead title="Berichten – Huurbaasje" description="Stuur ons een bericht" noindex />
       <Header />
       <main className="flex-1 container py-6">
         <div className="flex items-center justify-between mb-4">

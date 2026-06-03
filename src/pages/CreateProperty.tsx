@@ -160,7 +160,7 @@ const CreateProperty = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-muted/30">
-      <SEOHead title="Woning plaatsen | Huurbaasje" description="Plaats gratis je huur- of koopwoning op Huurbaasje." canonical="https://www.huurbaasje.nl/plaatsen" />
+      <SEOHead title="Woning plaatsen | Huurbaasje" description="Plaats gratis je huur- of koopwoning op Huurbaasje." canonical="https://www.huurbaasje.nl/plaatsen" noindex />
       <Header />
       <main className="flex-1">
         <div className="container py-8 md:py-12">
