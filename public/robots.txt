@@ -73,5 +73,20 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /profiel
+Disallow: /mijn-woningen
+Disallow: /berichten
+Disallow: /favorieten
+Disallow: /zoekalerts
+Disallow: /instellingen
+Disallow: /inloggen
+Disallow: /aanmelden
+Disallow: /plaatsen
+Disallow: /plaatsen-start
+Disallow: /bewerken
+Disallow: /uitschrijven
+Disallow: /*?*
 
 Sitemap: https://www.huurbaasje.nl/sitemap.xml

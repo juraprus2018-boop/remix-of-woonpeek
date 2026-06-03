@@ -53,8 +53,20 @@ const Footer = () => {
               <li><Link to="/woningen/den-haag/onder-1000" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Den Haag &lt; €1.000</Link></li>
               <li><Link to="/huurwoningen/groningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Groningen</Link></li>
               <li><Link to="/woonradar" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAlert")}</Link></li>
-              <li><Link to="/verhuischecklist" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuischecklist</Link></li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">Tools &amp; Diensten</h4>
+            <ul className="space-y-2 text-sm">
               <li><Link to="/energie" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Energie vergelijken</Link></li>
+              <li><Link to="/internet" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Internet &amp; TV vergelijken</Link></li>
+              <li><Link to="/verhuisservice" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuisservice</Link></li>
+              <li><Link to="/woz-waarde" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">WOZ-waarde opzoeken</Link></li>
+              <li><Link to="/hypotheek-berekenen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Hypotheek berekenen</Link></li>
+              <li><Link to="/budgetcheck" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Budgetcheck</Link></li>
+              <li><Link to="/huurprijsmonitor" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurprijsmonitor</Link></li>
+              <li><Link to="/verhuischecklist" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuischecklist</Link></li>
             </ul>
           </div>
 
