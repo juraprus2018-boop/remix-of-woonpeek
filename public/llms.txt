@@ -50,14 +50,26 @@ Huurbaasje is een 100% gratis woningplatform dat dagelijks duizenden huurwoninge
 ## Hoofdpagina's
 
 - Home: https://www.huurbaasje.nl
-- Zoeken: https://www.huurbaasje.nl/zoeken
-- Alle steden: https://www.huurbaasje.nl/steden
-- Verkennen (kaart): https://www.huurbaasje.nl/verkennen
-- Nieuw aanbod: https://www.huurbaasje.nl/nieuw-aanbod
-- Blog: https://www.huurbaasje.nl/blog
-- Over Huurbaasje: https://www.huurbaasje.nl/over-huurbaasje
-- FAQ: https://www.huurbaasje.nl/veelgestelde-vragen
-- Dagelijkse alert: https://www.huurbaasje.nl/dagelijkse-alert
+- Zoeken: https://www.huurbaasje.nl/vinden
+- Alle steden: https://www.huurbaasje.nl/plekken
+- Verkennen (kaart): https://www.huurbaasje.nl/op-kaart
+- Nieuw aanbod: https://www.huurbaasje.nl/vandaag
+- Blog: https://www.huurbaasje.nl/journaal
+- Over Huurbaasje: https://www.huurbaasje.nl/over
+- FAQ: https://www.huurbaasje.nl/vragen
+- Dagelijkse alert: https://www.huurbaasje.nl/woonradar
+
+## Tools & Diensten
+
+- Energie vergelijken: https://www.huurbaasje.nl/energie
+- Internet & TV vergelijken: https://www.huurbaasje.nl/internet
+- Verhuisservice: https://www.huurbaasje.nl/verhuisservice
+- WOZ-waarde opzoeken: https://www.huurbaasje.nl/woz-waarde
+- Hypotheek berekenen: https://www.huurbaasje.nl/hypotheek-berekenen
+- Budgetcheck: https://www.huurbaasje.nl/budgetcheck
+- Huurprijsmonitor: https://www.huurbaasje.nl/huurprijsmonitor
+- Verhuischecklist: https://www.huurbaasje.nl/verhuischecklist
+- Woordenboek: https://www.huurbaasje.nl/woordenboek
 
 ## Contact
 
