@@ -24,7 +24,7 @@ const LongtailLanding = () => {
     return <Navigate to="/niet-gevonden" replace />;
   }
 
-  const { data: properties = [], isLoading } = useProperties({
+  const { data, isLoading } = useProperties({
     city: page.city,
     listingType: page.filters.listingType,
     propertyType: page.filters.propertyType,
@@ -34,6 +34,7 @@ const LongtailLanding = () => {
     textMatch: page.filters.textMatch,
     pageSize: 24,
   });
+  const properties = Array.isArray(data) ? data : (data?.properties ?? []);
 
   const itemListJsonLd = useMemo(() => {
     if (!properties.length) return null;
