@@ -393,7 +393,7 @@ export const LONGTAIL_PAGES: LongtailPage[] = [
       { q: "Hoe vies wordt het balkon?", a: "Zand en zout neerslag is aanzienlijk. Reken op wekelijks schoonspoelen in zomer." },
       { q: "Is er parkeerprobleem in Scheveningen?", a: "Ja, op piekdagen. Een eigen parkeerplaats in het complex (€85-€150/mnd) is sterk aanbevolen." },
     ],
-    filters: { city: "Scheveningen", listingType: "huur", textMatch: "zee" } as any,
+    filters: { listingType: "huur", textMatch: "zee" },
     related: ["expat-rental-the-hague"],
   },
   {
