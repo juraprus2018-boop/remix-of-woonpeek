@@ -88,10 +88,13 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": "https://www.huurbaasje.nl/#website",
       "name": "Huurbaasje",
       "alternateName": ["Huurbaasje", "huurbaasje.nl"],
       "url": "https://www.huurbaasje.nl",
       "description": "Woningplatform voor huur- en koopwoningen in Nederland",
+      "inLanguage": ["nl-NL","en-GB","de-DE","fr-FR"],
+      "publisher": { "@id": "https://www.huurbaasje.nl/#organization" },
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://www.huurbaasje.nl/zoeken?locatie={search_term_string}",
@@ -103,16 +106,14 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
+      "@id": "https://www.huurbaasje.nl/#organization",
       "name": "Huurbaasje",
       "url": "https://www.huurbaasje.nl",
       "logo": "https://www.huurbaasje.nl/favicon.png",
       "image": "https://www.huurbaasje.nl/facebook-cover.png",
       "description": "Gratis woningplatform voor huur- en koopwoningen in heel Nederland.",
       "email": "info@huurbaasje.nl",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Netherlands"
-      },
+      "areaServed": { "@type": "Country", "name": "Netherlands" },
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "info@huurbaasje.nl",
