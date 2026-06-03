@@ -10,7 +10,7 @@ const setLocation = (pathname: string) => {
   Object.defineProperty(window, "location", {
     writable: true,
     configurable: true,
-    value: { ...window.location, pathname, hostname: "stekly.nl", href: `https://stekly.nl${pathname}` },
+    value: { ...window.location, pathname, hostname: "huurbaasje.nl", href: `https://huurbaasje.nl${pathname}` },
   });
 };
 
