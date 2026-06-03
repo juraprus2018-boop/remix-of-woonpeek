@@ -158,21 +158,13 @@ const LongtailLanding = () => {
         {/* FAQ */}
         <section className="border-b-2 border-foreground bg-secondary">
           <div className="container py-12 md:py-16">
-            <h2 className="font-display text-3xl uppercase text-foreground md:text-4xl">
-              Veelgestelde vragen
-            </h2>
-            <Accordion type="single" collapsible className="mt-6">
-              {page.faq.map((f, i) => (
-                <AccordionItem key={i} value={`faq-${i}`}>
-                  <AccordionTrigger className="text-left text-base font-semibold">
-                    {f.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <FAQSchema
+              title="Veelgestelde vragen"
+              items={page.faq.map((f) => ({ question: f.q, answer: f.a }))}
+            />
           </div>
         </section>
+
 
         {/* Related */}
         {related.length > 0 && (
