@@ -8,7 +8,7 @@ import FAQSchema from "@/components/seo/FAQSchema";
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
 import { ArrowRight, MapPin } from "lucide-react";
 import { useProperties } from "@/hooks/useProperties";
 import { findLongtailPage, LONGTAIL_PAGES } from "@/lib/longtailPages";
