@@ -1,5 +1,5 @@
 /**
- * Canonieke URL-structuur voor Stekly. Bewust hiërarchisch (slash-based)
+ * Canonieke URL-structuur voor Huurbaasje. Bewust hiërarchisch (slash-based)
  * en compleet anders dan Woonpeek's flat dash-style URLs (geen
  * `/woningen-amsterdam`, `/huur-bij-inkomen-2500-amsterdam`, etc.).
  *

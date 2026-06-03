@@ -60,7 +60,7 @@ const MakelaarPage = () => {
   if (!realtor) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
-        <SEOHead title="Makelaar niet gevonden | Stekly" description="Deze makelaar bestaat niet of is verwijderd." noindex />
+        <SEOHead title="Makelaar niet gevonden | Huurbaasje" description="Deze makelaar bestaat niet of is verwijderd." noindex />
         <Header />
         <main className="flex-1 container py-24 text-center">
           <h1 className="font-display text-4xl lowercase">makelaar niet gevonden</h1>
@@ -76,7 +76,7 @@ const MakelaarPage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title={`${realtor.name} - Makelaar in ${realtor.city} | Stekly`}
+        title={`${realtor.name} - Makelaar in ${realtor.city} | Huurbaasje`}
         description={`Aanbod, contactgegevens en reviews van ${realtor.name} in ${realtor.city}. ${realtor.reviews_count ?? 0} Google reviews, gemiddeld ${realtor.rating ?? "-"}/5.`}
         canonical={`/makelaar/${slug}`}
       />
@@ -131,7 +131,7 @@ const MakelaarPage = () => {
 
         <section>
           <div className="container py-12 text-sm text-foreground/70">
-            <p>Ben je {realtor.name} en wil je je profiel claimen of aanvullen? Mail naar <a className="underline" href="mailto:info@stekly.nl">info@stekly.nl</a>.</p>
+            <p>Ben je {realtor.name} en wil je je profiel claimen of aanvullen? Mail naar <a className="underline" href="mailto:info@huurbaasje.nl">info@huurbaasje.nl</a>.</p>
           </div>
         </section>
       </main>
