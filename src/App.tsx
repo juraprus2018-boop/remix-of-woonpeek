@@ -96,6 +96,8 @@ const InternetVergelijken = lazy(() => import("./pages/InternetVergelijken"));
 const WozWaardeCity = lazy(() => import("./pages/WozWaardeCity"));
 const VerhuisService = lazy(() => import("./pages/VerhuisService"));
 const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
+const LongtailLanding = lazy(() => import("./pages/LongtailLanding"));
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
