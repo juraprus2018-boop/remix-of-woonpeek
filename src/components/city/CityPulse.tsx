@@ -21,7 +21,7 @@ const CityPulse = ({ cityName }: CityPulseProps) => {
       // Actief aanbod
       const { data: active } = await supabase
         .from("properties")
-        .select("price, surface, created_at, listing_type")
+        .select("price, surface_area, created_at, listing_type")
         .ilike("city", `%${cityName}%`)
         .eq("status", "actief")
         .limit(500);
@@ -40,8 +40,8 @@ const CityPulse = ({ cityName }: CityPulseProps) => {
 
       // Prijs per m²
       const pricesPerM2 = list
-        .filter((p) => p.price && p.surface && p.surface > 10 && p.listing_type === "huur")
-        .map((p) => p.price! / p.surface!);
+        .filter((p) => p.price && p.surface_area && p.surface_area > 10 && p.listing_type === "huur")
+        .map((p) => p.price! / p.surface_area!);
       const avgPriceM2 = pricesPerM2.length
         ? pricesPerM2.reduce((a, b) => a + b, 0) / pricesPerM2.length
         : null;
