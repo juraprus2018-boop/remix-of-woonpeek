@@ -100,6 +100,29 @@ function buildPagesSitemap(now: string): string {
     { loc: "/verhuisservice", changefreq: "monthly", priority: "0.7" },
   ];
 
+  // 50 long-tail SEO gidsen — sync met src/lib/longtailPages.ts
+  const LONGTAIL_SLUGS = [
+    "huurwoning-amsterdam-met-balkon","huurwoning-amsterdam-met-tuin","gemeubileerd-huren-amsterdam","expat-rental-amsterdam","starterswoning-amsterdam",
+    "betaalbaar-huren-rotterdam","huurwoning-rotterdam-met-tuin","starterswoning-rotterdam","loft-huren-rotterdam","penthouse-rotterdam-kopen",
+    "studentenkamer-utrecht","betaalbaar-huren-utrecht","starterswoning-utrecht","huurwoning-utrecht-met-balkon",
+    "huurwoning-den-haag-met-tuin","expat-rental-the-hague","huren-scheveningen-zeezicht","starterswoning-den-haag",
+    "expat-rental-eindhoven","huurwoning-eindhoven-met-balkon","starterswoning-eindhoven",
+    "studentenkamer-groningen","huis-kopen-onder-300000-groningen","betaalbaar-huren-groningen",
+    "studentenkamer-nijmegen","huurwoning-nijmegen-met-tuin",
+    "huurwoning-arnhem-met-balkon","betaalbaar-huren-arnhem","studentenkamer-tilburg",
+    "huurwoning-breda-met-tuin","betaalbaar-huren-breda","huurwoning-haarlem-met-tuin","betaalbaar-huren-haarlem",
+    "studentenwoning-leiden","huurwoning-maastricht-met-tuin","betaalbaar-huren-maastricht",
+    "huurwoning-almere-met-tuin","starterswoning-almere","huurwoning-zwolle-met-tuin",
+    "huurwoning-amersfoort-met-balkon","betaalbaar-huren-zaanstad","huurwoning-leeuwarden-met-tuin","betaalbaar-huren-enschede",
+    "studentenkamer-delft","huurwoning-amstelveen","huurwoning-rijswijk","huurwoning-zoetermeer",
+    "huurwoning-apeldoorn-met-tuin","huurwoning-deventer-met-tuin","huurwoning-hilversum",
+    "huurwoning-groningen-met-tuin","eengezinswoning-amstelveen-huren","huurwoning-dordrecht-met-tuin","huurwoning-alkmaar-met-tuin","huurwoning-helmond",
+  ];
+  for (const slug of LONGTAIL_SLUGS) {
+    staticPages.push({ loc: `/gids/${slug}`, changefreq: "weekly", priority: "0.7" });
+  }
+
+
   // Programmatic "verhuizen van X naar Y" — top NL cities, both directions.
   const TOP = ["amsterdam","rotterdam","utrecht","den-haag","eindhoven","groningen","tilburg","almere","breda","nijmegen","haarlem","arnhem","zwolle","leiden","maastricht"];
   for (const a of TOP) {
