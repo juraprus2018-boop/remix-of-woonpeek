@@ -99,6 +99,22 @@ const ExplorePage = () => {
     return () => { cancelled = true; };
   }, [debouncedPostcode]);
 
+  // Geo coords passed via URL (?lat=&lng=&radius=)
+  useEffect(() => {
+    const lat = parseFloat(searchParams.get("lat") || "");
+    const lng = parseFloat(searchParams.get("lng") || "");
+    const radius = parseInt(searchParams.get("radius") || "", 10);
+    if (Number.isFinite(lat) && Number.isFinite(lng)) {
+      setPostcodeCoords({ lat, lng });
+      setSelectedCity(null);
+      setPostcode("");
+      if (Number.isFinite(radius) && DISTANCE_OPTIONS.includes(radius)) {
+        setDistanceKm(radius);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
   // Use paginated query for the list (fast initial load)
   const { data: listData, isLoading } = useProperties({
     listingType: listingType || undefined,
