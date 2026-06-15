@@ -29,7 +29,7 @@ RewriteRule ^woning/([^/?]+)$ https://kppotnzwhxkflceiscto.supabase.co/functions
 RewriteCond %{HTTP:x-no-prerender} !=1
 RewriteCond %{REQUEST_URI} !^/woning/ [NC]
 RewriteCond %{REQUEST_URI} !^/(assets|src|favicon|robots|sitemap|feed|sw\.js|.*\.(?:js|css|png|jpe?g|webp|svg|ico|woff2?|xml|txt|json|map))($|/) [NC]
-RewriteCond %{HTTP_USER_AGENT} (facebook|facebot|meta|twitterbot|linkedinbot|slackbot|discordbot|whatsapp|telegrambot|skypeuripreview|pinterestbot|redditbot|applebot|bingpreview) [NC]
+RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|duckduckbot|yandex|baiduspider|facebook|facebot|meta|twitterbot|linkedinbot|slackbot|discordbot|whatsapp|telegrambot|skypeuripreview|pinterestbot|redditbot|applebot|bingpreview) [NC]
 RewriteRule ^(.*)$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/ssr-meta?path=/$1 [R=302,L]
 
 # SPA fallback - send all requests to index.html
