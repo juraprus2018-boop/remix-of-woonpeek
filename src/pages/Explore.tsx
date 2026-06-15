@@ -43,6 +43,7 @@ const haversineKm = (lat1: number, lon1: number, lat2: number, lon2: number) => 
 };
 
 const ExplorePage = () => {
+  const [searchParams] = useSearchParams();
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [listingType, setListingType] = useState<ListingType | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
