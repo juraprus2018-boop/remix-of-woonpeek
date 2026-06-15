@@ -157,11 +157,111 @@ function routeMeta(bare: string, locale: Locale): { title: string; description: 
   return null;
 }
 
+/** Build a rich body block (H1 + intro + FAQ) so non-JS crawlers see real
+ *  content instead of an empty React shell. Replaces the hero-fallback div. */
+function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: string; faqs: Array<{ q: string; a: string }>; breadcrumbs: Array<{ name: string; url: string }> } | null {
+  let m = bare.match(/^\/(?:huren|huurwoningen)\/([a-z0-9-]+)\/?$/i);
+  if (m) {
+    const city = slugToCity(m[1]);
+    const slug = m[1].toLowerCase();
+    return {
+      h1: `Huurwoningen ${city}`,
+      intro: `Op deze pagina vind je het actuele aanbod huurwoningen in ${city}. Bekijk appartementen, eengezinswoningen, studio's en kamers te huur in ${city}, dagelijks bijgewerkt. Huurbaasje is volledig gratis, je betaalt geen bemiddelingskosten of abonnement. Zet een gratis huuralert aan en ontvang elke ochtend de nieuwste huurwoningen in ${city} per e-mail.`,
+      faqs: [
+        { q: `Hoeveel huurwoningen zijn er beschikbaar in ${city}?`, a: `Het aanbod verandert dagelijks. Huurbaasje toont continu actuele huurwoningen, appartementen, studio's en kamers in ${city} en omliggende plaatsen.` },
+        { q: `Wat is de gemiddelde huur in ${city}?`, a: `De gemiddelde huurprijs hangt af van type woning en buurt. Op de stadpagina van ${city} vind je live prijsindicaties per kamer- en oppervlakteklasse.` },
+        { q: `Hoe stel ik een huuralert in voor ${city}?`, a: `Ga naar /woonradar, kies ${city} als locatie en stel je maximale huur en aantal kamers in. Je ontvangt dagelijks nieuwe woningen per e-mail, helemaal gratis.` },
+        { q: `Kost Huurbaasje geld?`, a: `Nee. Zoeken, alerts en woningen plaatsen zijn 100% gratis. Er zijn geen verborgen kosten of abonnementen.` },
+      ],
+      breadcrumbs: [
+        { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
+        { name: "Huurwoningen", url: `${ORIGIN}${withLocale("/huurwoningen", locale)}` },
+        { name: city, url: `${ORIGIN}${withLocale(`/huren/${slug}`, locale)}` },
+      ],
+    };
+  }
+  m = bare.match(/^\/kopen\/([a-z0-9-]+)\/?$/i);
+  if (m) {
+    const city = slugToCity(m[1]);
+    const slug = m[1].toLowerCase();
+    return {
+      h1: `Koopwoningen ${city}`,
+      intro: `Bekijk actuele koopwoningen in ${city}. Eengezinswoningen, appartementen en villa's te koop in ${city} en omgeving, dagelijks bijgewerkt op Huurbaasje. Vergelijk prijzen, bekijk kenmerken en neem direct contact op met de aanbieder.`,
+      faqs: [
+        { q: `Wat zijn de gemiddelde koopprijzen in ${city}?`, a: `De vraagprijzen variëren per buurt en woningtype. Op deze pagina staan actuele prijzen vanaf de goedkoopste tot de duurste koopwoningen in ${city}.` },
+        { q: `Hoe bereken ik mijn maximale hypotheek?`, a: `Gebruik onze gratis hypotheekcalculator op /hypotheek-berekenen om te zien hoeveel je kunt lenen op basis van je bruto inkomen.` },
+      ],
+      breadcrumbs: [
+        { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
+        { name: "Koopwoningen", url: `${ORIGIN}${withLocale("/koopwoningen", locale)}` },
+        { name: city, url: `${ORIGIN}${withLocale(`/kopen/${slug}`, locale)}` },
+      ],
+    };
+  }
+  m = bare.match(/^\/stad\/([a-z0-9-]+)\/?$/i);
+  if (m) {
+    const city = slugToCity(m[1]);
+    const slug = m[1].toLowerCase();
+    return {
+      h1: `Wonen in ${city}`,
+      intro: `Compleet woningoverzicht voor ${city}: huurwoningen, koopwoningen, woningmarktdata, buurten en dagelijks nieuw aanbod. Of je nu wilt huren of kopen in ${city}, Huurbaasje verzamelt alles op één gratis platform.`,
+      faqs: [
+        { q: `Is ${city} een goede woonstad?`, a: `${city} biedt diverse buurten, voorzieningen en woningtypes. Op deze pagina vind je een overzicht van huur- en koopaanbod en marktdata.` },
+      ],
+      breadcrumbs: [
+        { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
+        { name: "Steden", url: `${ORIGIN}${withLocale("/plekken", locale)}` },
+        { name: city, url: `${ORIGIN}${withLocale(`/stad/${slug}`, locale)}` },
+      ],
+    };
+  }
+  return null;
+}
+
+function buildExtraJsonLd(body: { faqs: Array<{ q: string; a: string }>; breadcrumbs: Array<{ name: string; url: string }> }): string {
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: body.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: body.breadcrumbs.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: b.name,
+      item: b.url,
+    })),
+  };
+  return `<script type="application/ld+json">${JSON.stringify(faqLd)}</script>\n    <script type="application/ld+json">${JSON.stringify(breadcrumbLd)}</script>`;
+}
+
+function buildBodyBlock(body: { h1: string; intro: string; faqs: Array<{ q: string; a: string }>; breadcrumbs: Array<{ name: string; url: string }> }): string {
+  const crumbs = body.breadcrumbs
+    .map((b, i) => `<a href="${b.url}">${escapeAttr(b.name)}</a>${i < body.breadcrumbs.length - 1 ? " &rsaquo; " : ""}`)
+    .join("");
+  const faqHtml = body.faqs
+    .map((f) => `<section><h2>${escapeAttr(f.q)}</h2><p>${escapeAttr(f.a)}</p></section>`)
+    .join("");
+  return `<nav aria-label="Breadcrumb">${crumbs}</nav>
+    <article>
+      <h1>${escapeAttr(body.h1)}</h1>
+      <p>${escapeAttr(body.intro)}</p>
+      ${faqHtml}
+    </article>`;
+}
+
 function injectMeta(html: string, url: URL): string {
   const locale = localeFromPath(url.pathname);
   const bare = stripLocale(url.pathname);
   const canonical = ORIGIN + withLocale(bare, locale);
   const m = routeMeta(bare, locale) ?? META[locale];
+  const body = routeBodyContent(bare, locale);
 
   let out = html;
 
@@ -208,6 +308,19 @@ function injectMeta(html: string, url: URL): string {
     /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i,
     `<meta name="twitter:description" content="${escapeAttr(m.ogDescription)}" />`,
   );
+
+  // Per-route enrichment: inject extra JSON-LD (FAQPage + BreadcrumbList) and
+  // a real body content block so non-JS crawlers see actual text.
+  if (body) {
+    // Add JSON-LD right before </head>
+    out = out.replace(/<\/head>/i, `    ${buildExtraJsonLd(body)}\n  </head>`);
+    // Replace the hero-fallback placeholder inside #root with rich content.
+    // Bots see this; the SPA replaces #root on hydration so users see the app.
+    out = out.replace(
+      /<div id="root">[\s\S]*?<\/div>\s*<script type="module"/i,
+      `<div id="root">${buildBodyBlock(body)}</div>\n    <script type="module"`,
+    );
+  }
 
   return out;
 }
