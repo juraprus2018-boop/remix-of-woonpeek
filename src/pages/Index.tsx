@@ -31,7 +31,7 @@ import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import heroBg from "@/assets/hero-bg-v2.jpg";
+
 
 const useTopHuurCities = () =>
   useQuery({
@@ -118,22 +118,24 @@ const Index = () => {
       <Header />
 
       {/* HERO */}
-      <section className="relative overflow-hidden bg-sun-tint">
-        {/* Background image */}
-        <img
-          src={heroBg}
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
+      <section className="relative overflow-hidden bg-gradient-to-br from-sun-tint via-background to-sage/40">
+        {/* Subtle dot grid */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.18]"
+          aria-hidden
+          style={{
+            backgroundImage:
+              "radial-gradient(hsl(var(--foreground) / 0.5) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+          }}
         />
-        {/* Overlays for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sun-tint/70 via-sun-tint/55 to-sun-tint/90" aria-hidden />
-        <div className="absolute inset-x-0 top-0 h-[70%] bg-gradient-to-b from-background/40 to-transparent" aria-hidden />
-        {/* sun decoration */}
-        <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/50 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-sun-soft/70 blur-3xl" aria-hidden />
+        {/* Colorful blobs */}
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/60 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[460px] w-[460px] rounded-full bg-accent/30 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute top-1/3 left-1/2 h-[380px] w-[380px] -translate-x-1/2 rounded-full bg-sage/60 blur-3xl" aria-hidden />
+        {/* Soft top fade into page */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent" aria-hidden />
+
 
         <div className="container relative py-20 md:py-28 lg:py-36">
           <div className="mx-auto max-w-4xl text-center">
