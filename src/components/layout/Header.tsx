@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cityToSlug } from "@/lib/cities";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const topCities = [
   "Amsterdam", "Rotterdam", "Utrecht", "Den Haag", "Eindhoven",
