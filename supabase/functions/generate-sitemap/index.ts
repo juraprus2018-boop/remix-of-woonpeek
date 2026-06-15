@@ -98,6 +98,10 @@ function buildPagesSitemap(now: string): string {
     { loc: "/woz-waarde", changefreq: "monthly", priority: "0.6" },
     { loc: "/internet", changefreq: "monthly", priority: "0.7" },
     { loc: "/verhuisservice", changefreq: "monthly", priority: "0.7" },
+    { loc: "/verhuiskosten", changefreq: "monthly", priority: "0.8" },
+    { loc: "/sociale-huur-wachttijd", changefreq: "weekly", priority: "0.8" },
+    { loc: "/huurcontract-uitleg", changefreq: "monthly", priority: "0.8" },
+    { loc: "/expat-housing", changefreq: "monthly", priority: "0.8" },
   ];
 
   // 50 long-tail SEO gidsen — sync met src/lib/longtailPages.ts
