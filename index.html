@@ -127,6 +127,55 @@
       ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "@id": "https://www.huurbaasje.nl/#webapp",
+      "name": "Huurbaasje",
+      "url": "https://www.huurbaasje.nl",
+      "applicationCategory": "RealEstateApplication",
+      "operatingSystem": "Web",
+      "inLanguage": ["nl-NL","en-GB","de-DE","fr-FR"],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "description": "Gratis zoeken, gratis dagelijkse alerts, gratis woning plaatsen"
+      },
+      "featureList": [
+        "Dagelijks bijgewerkt huur- en koopaanbod",
+        "Gratis e-mail alerts",
+        "Zoeken op stad, postcode, prijs en kamers",
+        "Interactieve kaart",
+        "Inkomensgebaseerde huurmaximumcheck",
+        "Hypotheek- en budgetcalculator"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://www.huurbaasje.nl/#service",
+      "serviceType": "Woningplatform en woningzoekservice",
+      "provider": { "@id": "https://www.huurbaasje.nl/#organization" },
+      "areaServed": { "@type": "Country", "name": "Nederland" },
+      "audience": { "@type": "Audience", "audienceType": "Woningzoekers en verhuurders in Nederland" },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Woningaanbod Nederland",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Huurwoningen zoeken" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Koopwoningen zoeken" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dagelijkse woningalerts" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Woning plaatsen voor verhuurders" } }
+        ]
+      }
+    }
+    </script>
     <script>
       // Defer AdSense to after page interactive (saves ~300ms on FCP/LCP)
       window.addEventListener("load", function () {
