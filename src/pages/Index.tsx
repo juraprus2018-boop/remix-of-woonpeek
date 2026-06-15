@@ -31,7 +31,7 @@ import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import heroBg from "@/assets/hero-bg.webp";
+import heroBg from "@/assets/hero-bg-v2.jpg";
 
 const useTopHuurCities = () =>
   useQuery({
@@ -129,8 +129,8 @@ const Index = () => {
           className="absolute inset-0 h-full w-full object-cover"
         />
         {/* Overlays for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-sun-tint/85 via-sun-tint/70 to-sun-tint/95" aria-hidden />
-        <div className="absolute inset-0 bg-foreground/10" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-sun-tint/70 via-sun-tint/55 to-sun-tint/90" aria-hidden />
+        <div className="absolute inset-x-0 top-0 h-[70%] bg-gradient-to-b from-background/40 to-transparent" aria-hidden />
         {/* sun decoration */}
         <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/50 blur-3xl" aria-hidden />
         <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-sun-soft/70 blur-3xl" aria-hidden />
