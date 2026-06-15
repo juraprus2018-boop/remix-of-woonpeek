@@ -122,40 +122,41 @@ const Index = () => {
         <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/60 blur-3xl" aria-hidden />
         <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-sun-soft blur-3xl" aria-hidden />
 
-        <div className="container relative grid items-center gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-16 lg:py-28">
-          <div className="relative z-10">
-            <h1 className="mt-5 text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              {t("hero.title1")} <span className="relative inline-block">
+        <div className="container relative py-20 md:py-28 lg:py-36">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
+              {t("hero.title1")}{" "}
+              <span className="relative inline-block">
                 <span className="relative z-10">{t("hero.highlight")}</span>
                 <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-sun md:h-5" aria-hidden />
               </span>
               <br />
               {t("hero.title2")}
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-foreground/70">
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/70 md:text-xl">
               {t("hero.subtitle")}
             </p>
 
-            {/* SEARCH CARD */}
+            {/* SEARCH CARD - centered & large */}
             <form
               onSubmit={onSearch}
-              className="mt-8 rounded-2xl border-2 border-foreground/5 bg-card p-3 shadow-lg md:p-4"
+              className="mx-auto mt-10 max-w-3xl rounded-3xl border-2 border-foreground/10 bg-card p-4 shadow-2xl md:p-5"
             >
-              <div className="grid gap-2 md:grid-cols-[1.4fr_1fr_1fr_auto]">
-                <div className="relative">
-                  <MapPin className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder={t("hero.searchPlaceholder")}
-                    className="h-12 rounded-xl border-border bg-background pl-10 text-base"
-                    aria-label={t("hero.searchPlaceholder")}
-                  />
-                </div>
+              <div className="relative">
+                <MapPin className="pointer-events-none absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t("hero.searchPlaceholder")}
+                  className="h-16 rounded-2xl border-border bg-background pl-14 pr-4 text-lg md:h-20 md:text-xl"
+                  aria-label={t("hero.searchPlaceholder")}
+                />
+              </div>
+              <div className="mt-3 grid gap-2 md:grid-cols-[1fr_1fr_auto]">
                 <select
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="h-12 rounded-xl border border-input bg-background px-3 text-base text-foreground"
+                  className="h-14 rounded-xl border border-input bg-background px-4 text-base text-foreground"
                   aria-label={t("hero.type")}
                 >
                   <option value="">{t("hero.typeAll")}</option>
@@ -167,7 +168,7 @@ const Index = () => {
                 <select
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
-                  className="h-12 rounded-xl border border-input bg-background px-3 text-base text-foreground"
+                  className="h-14 rounded-xl border border-input bg-background px-4 text-base text-foreground"
                   aria-label={t("hero.maxPrice")}
                 >
                   <option value="">{t("hero.maxPrice")}</option>
@@ -179,13 +180,13 @@ const Index = () => {
                 </select>
                 <Button
                   type="submit"
-                  className="h-12 gap-2 rounded-xl bg-sun px-6 text-base font-bold text-foreground shadow-sm hover:bg-sun/90"
+                  className="h-14 gap-2 rounded-xl bg-sun px-8 text-base font-bold text-foreground shadow-sm hover:bg-sun/90"
                 >
-                  <Search className="h-4 w-4" />
+                  <Search className="h-5 w-5" />
                   {t("hero.searchBtn")}
                 </Button>
               </div>
-              <div className="mt-4 flex flex-wrap items-center gap-2 px-1">
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 px-1">
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {t("hero.popular")}:
                 </span>
@@ -200,34 +201,19 @@ const Index = () => {
                 ))}
               </div>
             </form>
-          </div>
 
-          {/* Hero illustration */}
-          <div className="relative hidden lg:block">
-            <div className="relative mx-auto aspect-square w-full max-w-md">
-              <div className="absolute inset-0 rounded-[3rem] bg-sun shadow-xl" />
-              <div className="absolute inset-6 rounded-[2.5rem] bg-card shadow-md">
-                <HeroIllustration />
-              </div>
-              <div className="absolute -bottom-4 -left-4 flex items-center gap-3 rounded-2xl bg-card px-4 py-3 shadow-lg">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun">
-                  <TrendingUp className="h-5 w-5 text-foreground" />
-                </div>
-                <div>
-                  <div className="text-xs text-muted-foreground">Nieuw vandaag</div>
-                  <div className="text-lg font-extrabold leading-none text-foreground">
-                    {newToday !== undefined ? `+${newToday}` : "…"}
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -right-4 top-10 flex items-center gap-3 rounded-2xl bg-foreground px-4 py-3 text-background shadow-lg">
-                <Heart className="h-5 w-5 fill-sun text-sun" />
-                <div className="text-xs font-medium">
-                  {homeStats?.properties_count !== undefined
-                    ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
-                    : "… woningen"}
-                </div>
-              </div>
+            {/* Live stats */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground/70">
+              <span className="inline-flex items-center gap-2">
+                <Heart className="h-4 w-4 fill-sun text-sun" />
+                {homeStats?.properties_count !== undefined
+                  ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
+                  : "… woningen"}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-foreground" />
+                {newToday !== undefined ? `+${newToday} nieuw vandaag` : "…"}
+              </span>
             </div>
           </div>
         </div>
