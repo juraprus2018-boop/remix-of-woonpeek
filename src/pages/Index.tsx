@@ -118,9 +118,21 @@ const Index = () => {
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-sun-tint">
+        {/* Background image */}
+        <img
+          src="/src/assets/hero-bg.webp"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* Overlays for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-sun-tint/85 via-sun-tint/70 to-sun-tint/95" aria-hidden />
+        <div className="absolute inset-0 bg-foreground/10" aria-hidden />
         {/* sun decoration */}
-        <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/60 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-sun-soft blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/50 blur-3xl" aria-hidden />
+        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[420px] w-[420px] rounded-full bg-sun-soft/70 blur-3xl" aria-hidden />
 
         <div className="container relative py-20 md:py-28 lg:py-36">
           <div className="mx-auto max-w-4xl text-center">
