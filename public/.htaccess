@@ -10,17 +10,17 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
 # Sitemap proxy to edge function
-RewriteRule ^sitemap\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=index [R=301,L]
-RewriteRule ^sitemap-pages\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=pages [R=301,L]
-RewriteRule ^sitemap-steden\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=steden [R=301,L]
-RewriteRule ^sitemap-woningen\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=woningen [R=301,L]
-RewriteRule ^sitemap-blog\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/generate-sitemap?type=blog [R=301,L]
-RewriteRule ^feed\.xml$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/rss-feed [R=302,L]
+RewriteRule ^sitemap\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=index [R=301,L]
+RewriteRule ^sitemap-pages\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=pages [R=301,L]
+RewriteRule ^sitemap-steden\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=steden [R=301,L]
+RewriteRule ^sitemap-woningen\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=woningen [R=301,L]
+RewriteRule ^sitemap-blog\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=blog [R=301,L]
+RewriteRule ^feed\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/rss-feed [R=302,L]
 
 # Social crawlers (Facebook/WhatsApp/etc.) krijgen server-side OG metadata per woning
 RewriteCond %{REQUEST_URI} ^/woning/[^/]+$ [NC]
 RewriteCond %{HTTP_USER_AGENT} (facebook|facebot|meta|twitterbot|linkedinbot|slackbot|discordbot|whatsapp|telegrambot|skypeuripreview) [NC]
-RewriteRule ^woning/([^/?]+)$ https://uszlfqgxjvceugrpavde.supabase.co/functions/v1/og-property?slug=$1 [R=302,L]
+RewriteRule ^woning/([^/?]+)$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/og-property?slug=$1 [R=302,L]
 
 # Social/preview crawlers: per-locale meta-injectie via ssr-meta edge function.
 # Body blijft identiek; alleen <title>, description, canonical, hreflang en og:*

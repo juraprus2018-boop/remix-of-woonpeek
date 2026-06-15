@@ -5,7 +5,7 @@
  * back to weserv.nl, a free image proxy that resizes and converts to WebP.
  */
 
-const SUPABASE_HOST = "uszlfqgxjvceugrpavde.supabase.co";
+const SUPABASE_HOST = "kppotnzwhxkflceiscto.supabase.co";
 const PROJECT_ID = import.meta.env.VITE_SUPABASE_PROJECT_ID;
 const IMAGE_PROXY_BASE = PROJECT_ID
   ? `https://${PROJECT_ID}.supabase.co/functions/v1/image-proxy`
