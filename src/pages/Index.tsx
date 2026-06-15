@@ -121,7 +121,7 @@ const Index = () => {
       <section className="relative overflow-hidden bg-sun-tint">
         {/* Background image */}
         <img
-          src="/src/assets/hero-bg.webp"
+          src={heroBg}
           alt=""
           aria-hidden="true"
           fetchPriority="high"
