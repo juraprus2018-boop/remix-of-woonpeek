@@ -31,7 +31,7 @@ import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import heroBg from "@/assets/hero-bg-v2.jpg";
+
 
 const useTopHuurCities = () =>
   useQuery({
