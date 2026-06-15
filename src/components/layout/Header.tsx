@@ -110,10 +110,10 @@ const Header = () => {
           {/* Right cluster */}
           <div className="flex items-center gap-2 md:gap-3">
             {/* Free post CTA — desktop only */}
-            <Link to="/plaatsen-start" className="hidden md:block">
-              <Button size="sm" className="h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90">
-                <PlusCircle className="h-4 w-4" />
-                {t("common.freePost")}
+            <Link to="/huren" className="hidden md:block">
+              <Button size="sm" className="h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap">
+                <MapPin className="h-4 w-4" />
+                {t("common.nearbyRentals")}
               </Button>
             </Link>
 
