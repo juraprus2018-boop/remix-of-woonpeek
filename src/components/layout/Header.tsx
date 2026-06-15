@@ -137,12 +137,15 @@ const Header = () => {
           {/* Right cluster */}
           <div className="flex items-center gap-2 md:gap-3">
             {/* Free post CTA — desktop only */}
-            <Link to="/huren" className="hidden md:block">
-              <Button size="sm" className="h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap">
-                <MapPin className="h-4 w-4" />
-                {t("common.nearbyRentals")}
-              </Button>
-            </Link>
+            <Button
+              onClick={handleNearby}
+              disabled={locating}
+              size="sm"
+              className="hidden md:inline-flex h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap"
+            >
+              {locating ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4" />}
+              {t("common.nearbyRentals")}
+            </Button>
 
             {/* Auth — desktop only */}
             <div className="hidden md:block">
