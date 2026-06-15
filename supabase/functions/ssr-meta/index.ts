@@ -91,11 +91,77 @@ function buildHreflang(bare: string): string {
   return links.join("\n    ");
 }
 
+function slugToCity(slug: string): string {
+  return slug
+    .split("-")
+    .map((p) => (p === "den" || p === "der" || p === "aan" || p === "op" || p === "van" ? p : p.charAt(0).toUpperCase() + p.slice(1)))
+    .join(" ")
+    .replace(/\bDen Haag\b/i, "Den Haag");
+}
+
+/** Per-route override for high-value SEO pages so Googlebot ziet juiste titel
+ *  in initial HTML, niet pas na JS-hydratie. */
+function routeMeta(bare: string, locale: Locale): { title: string; description: string; ogTitle: string; ogDescription: string } | null {
+  // /huren/{city} of /huurwoningen/{city}
+  let m = bare.match(/^\/(?:huren|huurwoningen)\/([a-z0-9-]+)\/?$/i);
+  if (m) {
+    const city = slugToCity(m[1]);
+    const title = locale === "nl"
+      ? `Huurwoningen ${city}: huizen & appartementen te huur | Huurbaasje`
+      : locale === "en"
+        ? `Rentals in ${city}: apartments and houses for rent | Huurbaasje`
+        : locale === "de"
+          ? `Mietwohnungen ${city}: Häuser & Wohnungen zur Miete | Huurbaasje`
+          : `Locations à ${city} : maisons & appartements à louer | Huurbaasje`;
+    const desc = locale === "nl"
+      ? `Actueel aanbod huurwoningen in ${city}. Appartementen, huizen, studio's en kamers, dagelijks bijgewerkt. Gratis huuralert via Huurbaasje.`
+      : locale === "en"
+        ? `Up-to-date rental listings in ${city}. Apartments, houses, studios and rooms, refreshed daily. Free rental alerts on Huurbaasje.`
+        : locale === "de"
+          ? `Aktuelle Mietangebote in ${city}. Wohnungen, Häuser, Studios und Zimmer, täglich aktualisiert. Kostenlose Alerts via Huurbaasje.`
+          : `Annonces de location à jour à ${city}. Appartements, maisons, studios et chambres, mis à jour quotidiennement. Alertes gratuites via Huurbaasje.`;
+    return { title, description: desc, ogTitle: title.replace(" | Huurbaasje", ""), ogDescription: desc };
+  }
+  // /kopen/{city}
+  m = bare.match(/^\/kopen\/([a-z0-9-]+)\/?$/i);
+  if (m) {
+    const city = slugToCity(m[1]);
+    const title = locale === "nl"
+      ? `Koopwoningen ${city}: huizen te koop | Huurbaasje`
+      : locale === "en"
+        ? `Homes for sale in ${city} | Huurbaasje`
+        : locale === "de"
+          ? `Häuser zum Kauf in ${city} | Huurbaasje`
+          : `Maisons à vendre à ${city} | Huurbaasje`;
+    const desc = locale === "nl"
+      ? `Bekijk actuele koopwoningen in ${city}. Appartementen, eengezinswoningen en villa's, dagelijks bijgewerkt op Huurbaasje.`
+      : `Browse homes for sale in ${city}, updated daily on Huurbaasje.`;
+    return { title, description: desc, ogTitle: title.replace(/ \| Huurbaasje$/, ""), ogDescription: desc };
+  }
+  // /stad/{city}
+  m = bare.match(/^\/stad\/([a-z0-9-]+)\/?$/i);
+  if (m) {
+    const city = slugToCity(m[1]);
+    const title = locale === "nl"
+      ? `Wonen in ${city}: huur & koop overzicht | Huurbaasje`
+      : locale === "en"
+        ? `Living in ${city}: rent & buy overview | Huurbaasje`
+        : locale === "de"
+          ? `Wohnen in ${city}: Miete & Kauf Übersicht | Huurbaasje`
+          : `Habiter à ${city} : location & achat | Huurbaasje`;
+    const desc = locale === "nl"
+      ? `Compleet woningoverzicht voor ${city}: huur, koop, markt, buurten en dagelijks nieuw aanbod via Huurbaasje.`
+      : `Complete housing overview for ${city}: rent, buy, market, neighbourhoods and new listings on Huurbaasje.`;
+    return { title, description: desc, ogTitle: title.replace(/ \| Huurbaasje$/, ""), ogDescription: desc };
+  }
+  return null;
+}
+
 function injectMeta(html: string, url: URL): string {
   const locale = localeFromPath(url.pathname);
   const bare = stripLocale(url.pathname);
   const canonical = ORIGIN + withLocale(bare, locale);
-  const m = META[locale];
+  const m = routeMeta(bare, locale) ?? META[locale];
 
   let out = html;
 
