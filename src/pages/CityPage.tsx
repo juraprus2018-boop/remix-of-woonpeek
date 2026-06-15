@@ -229,10 +229,12 @@ const CityPage = () => {
 
             <div>
             <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-                Huurwoningen {cityName} - te huur in {cityName}
+                Wonen in {cityName}: huur & koop op één plek
               </h1>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground max-w-3xl">
-                Zoek je een <strong>huurwoning in {cityName}</strong> of wil je een <strong>huis kopen in {cityName}</strong>? Bekijk {totalCount} woningen: {huurCount} huurwoningen en {koopCount} koopwoningen. Dagelijks bijgewerkt met nieuw aanbod van appartementen, huizen, studio's en kamers in {cityName}.
+                Compleet woningoverzicht voor <strong>{cityName}</strong>: {totalCount} woningen, waarvan{" "}
+                <Link to={`/huren/${citySlug}`} className="text-primary hover:underline">{huurCount} huurwoningen in {cityName}</Link> en{" "}
+                <Link to={`/kopen/${citySlug}`} className="text-primary hover:underline">{koopCount} koopwoningen</Link>. Plus markt, buurten en dagelijks nieuw aanbod.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <div className="rounded-full bg-card px-4 py-2 text-sm text-foreground shadow-sm">
