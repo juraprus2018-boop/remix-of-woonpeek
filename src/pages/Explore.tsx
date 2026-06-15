@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
+import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import SEOHead from "@/components/seo/SEOHead";
 
@@ -42,6 +43,7 @@ const haversineKm = (lat1: number, lon1: number, lat2: number, lon2: number) => 
 };
 
 const ExplorePage = () => {
+  const [searchParams] = useSearchParams();
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [listingType, setListingType] = useState<ListingType | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
@@ -96,6 +98,22 @@ const ExplorePage = () => {
       });
     return () => { cancelled = true; };
   }, [debouncedPostcode]);
+
+  // Geo coords passed via URL (?lat=&lng=&radius=)
+  useEffect(() => {
+    const lat = parseFloat(searchParams.get("lat") || "");
+    const lng = parseFloat(searchParams.get("lng") || "");
+    const radius = parseInt(searchParams.get("radius") || "", 10);
+    if (Number.isFinite(lat) && Number.isFinite(lng)) {
+      setPostcodeCoords({ lat, lng });
+      setSelectedCity(null);
+      setPostcode("");
+      if (Number.isFinite(radius) && DISTANCE_OPTIONS.includes(radius)) {
+        setDistanceKm(radius);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   // Use paginated query for the list (fast initial load)
   const { data: listData, isLoading } = useProperties({

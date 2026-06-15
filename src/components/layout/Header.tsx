@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cityToSlug } from "@/lib/cities";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 const topCities = [
   "Amsterdam", "Rotterdam", "Utrecht", "Den Haag", "Eindhoven",
@@ -35,6 +37,31 @@ const Header = () => {
   const { user, signOut } = useAuth();
   const { data: isAdmin } = useIsAdmin();
   const navigate = useNavigate();
+  const [locating, setLocating] = useState(false);
+
+  const handleNearby = () => {
+    if (!("geolocation" in navigator)) {
+      toast.error("Locatie wordt niet ondersteund door je browser");
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocating(false);
+        const { latitude, longitude } = pos.coords;
+        navigate(`/op-kaart?lat=${latitude.toFixed(6)}&lng=${longitude.toFixed(6)}&radius=10`);
+      },
+      (err) => {
+        setLocating(false);
+        toast.error(
+          err.code === err.PERMISSION_DENIED
+            ? "Geef toestemming voor locatie om woningen in de buurt te zien"
+            : "Kon je locatie niet bepalen"
+        );
+      },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 60000 }
+    );
+  };
 
   // Lock body scroll while overlay is open
   useEffect(() => {
@@ -110,12 +137,15 @@ const Header = () => {
           {/* Right cluster */}
           <div className="flex items-center gap-2 md:gap-3">
             {/* Free post CTA — desktop only */}
-            <Link to="/huren" className="hidden md:block">
-              <Button size="sm" className="h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap">
-                <MapPin className="h-4 w-4" />
-                {t("common.nearbyRentals")}
-              </Button>
-            </Link>
+            <Button
+              onClick={handleNearby}
+              disabled={locating}
+              size="sm"
+              className="hidden md:inline-flex h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap"
+            >
+              {locating ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4" />}
+              {t("common.nearbyRentals")}
+            </Button>
 
             {/* Auth — desktop only */}
             <div className="hidden md:block">
