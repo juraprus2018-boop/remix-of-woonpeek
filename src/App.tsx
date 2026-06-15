@@ -251,6 +251,10 @@ const PAGES: RouteDef[] = [
   { path: "/verhuischecklist", element: <Verhuischecklist /> },
   { path: "/verhuizen/:from/:to", element: <VerhuizenVanNaar /> },
   { path: "/contract-check", element: <ContractCheck /> },
+  { path: "/verhuiskosten", element: <Verhuiskosten /> },
+  { path: "/sociale-huur-wachttijd", element: <SocialeHuurWachttijd /> },
+  { path: "/huurcontract-uitleg", element: <HuurcontractUitleg /> },
+  { path: "/expat-housing", element: <ExpatHousing /> },
 
   // B2B
   { path: "/partnerprogramma", element: <MakelaarKoppelen /> },
