@@ -99,6 +99,10 @@ const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
 const LongtailLanding = lazy(() => import("./pages/LongtailLanding"));
 const RentHeatmapPage = lazy(() => import("./pages/RentHeatmapPage"));
 const RentIndexPage = lazy(() => import("./pages/RentIndexPage"));
+const Verhuiskosten = lazy(() => import("./pages/Verhuiskosten"));
+const SocialeHuurWachttijd = lazy(() => import("./pages/SocialeHuurWachttijd"));
+const HuurcontractUitleg = lazy(() => import("./pages/HuurcontractUitleg"));
+const ExpatHousing = lazy(() => import("./pages/ExpatHousing"));
 
 
 const queryClient = new QueryClient({
