@@ -1,7 +1,6 @@
 /**
- * Canonieke URL-structuur voor Huurbaasje. Bewust hiërarchisch (slash-based)
- * en compleet anders dan Woonpeek's flat dash-style URLs (geen
- * `/woningen-amsterdam`, `/huur-bij-inkomen-2500-amsterdam`, etc.).
+ * Canonieke URL-structuur voor Huurbaasje. Bewust hiërarchisch (slash-based),
+ * geen flat dash-style URLs zoals `/woningen-amsterdam`.
  *
  * Wijzig hier 1x om de URL-structuur sitewide te updaten.
  */
@@ -85,8 +84,8 @@ export const paths = {
 };
 
 /**
- * Old → new redirect map. Geconsumeerd door App.tsx om elke oude URL
- * (woonpeek-stijl) hard naar de nieuwe canonieke variant te sturen.
+ * Old → new redirect map. Geconsumeerd door App.tsx om elke oude
+ * flat-style URL hard naar de nieuwe canonieke variant te sturen.
  *
  * Routes mét params gebruiken React Router's `:param` syntax; de redirect
  * preserveert ze via een wildcard `Navigate` (zie App.tsx).
