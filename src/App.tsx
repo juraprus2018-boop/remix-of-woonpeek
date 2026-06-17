@@ -153,7 +153,7 @@ const RouterSideEffects = () => {
 
 type RouteDef = { path: string; element: ReactElement };
 
-/** Nieuwe canonieke routes. Hiërarchisch (slash-based), bewust niet woonpeek-stijl. */
+/** Nieuwe canonieke routes. Hiërarchisch (slash-based). */
 const PAGES: RouteDef[] = [
   { path: "/", element: <Index /> },
 
@@ -323,7 +323,7 @@ const App = () => (
                       : prefix + r.path;
                   return <Route key={prefix + "::" + r.path} path={path} element={r.element} />;
                 }),
-                // Legacy redirects (woonpeek-stijl URLs → nieuwe paden)
+                // Legacy redirects (oude flat-style URLs → nieuwe paden)
                 ...LEGACY_REDIRECTS.map(({ from, to }) => (
                   <Route
                     key={prefix + "::legacy::" + from}
