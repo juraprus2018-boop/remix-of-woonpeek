@@ -271,7 +271,7 @@ const CityPage = () => {
           <div className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]">
             <div className="rounded-2xl border bg-card p-6">
               <h2 className="font-display text-2xl font-semibold text-foreground">
-                Huis huren of kopen in {cityName}
+                Huurwoningen in {cityName} vinden
               </h2>
               <div className="mt-4 space-y-3 text-base leading-relaxed text-muted-foreground">
                 <p>
