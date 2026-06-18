@@ -311,7 +311,7 @@ const CityPage = () => {
               Verken {cityName} verder
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
-              Snel zoeken op budget of meer leren over wonen in {cityName}.
+              Snel zoeken op budget of meer leren over huurwoningen in {cityName}.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               <Link to={`/stadsgids/${citySlug}`}>
