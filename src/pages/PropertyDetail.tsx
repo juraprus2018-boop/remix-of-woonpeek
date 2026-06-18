@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
+import { optimizeImage } from "@/lib/imageOptimization";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -365,28 +366,28 @@ const PropertyDetail = () => {
           </div>
         )}
 
-        {/* ── Photo Gallery ── */}
+        {/* ── Photo Gallery (full-width hero) ── */}
         <section ref={galleryRef} className="bg-sun-tint">
-          <div className="mx-auto max-w-screen-2xl px-2 pt-4 pb-2 md:px-4 md:pt-6">
-            <div className="relative cursor-pointer overflow-hidden rounded-2xl border-2 border-foreground shadow-[6px_6px_0_hsl(var(--sun))]" onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}>
+          <div className="w-full">
+            <div className="relative cursor-pointer overflow-hidden border-y-2 border-foreground" onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}>
               {images.length >= 3 ? (
-                <div className="grid h-[300px] grid-cols-4 gap-1 md:h-[480px]">
+                <div className="grid h-[380px] grid-cols-4 gap-1 md:h-[560px] lg:h-[640px]">
                   <div className="col-span-2 row-span-2 overflow-hidden">
-                    <img src={images[0]} alt={property.title} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                    <img src={optimizeImage(images[0], { width: 1600, quality: 85 })} alt={property.title} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                   </div>
                   <div className="col-span-1 overflow-hidden">
-                    <img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                    <img src={optimizeImage(images[1], { width: 900, quality: 82 })} alt={`${property.title} - foto 2`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                   </div>
                   <div className="col-span-1 overflow-hidden">
-                    <img src={images[2]} alt={`${property.title} - foto 3`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                    <img src={optimizeImage(images[2], { width: 900, quality: 82 })} alt={`${property.title} - foto 3`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                   </div>
                   {images.length >= 5 ? (
                     <>
                       <div className="col-span-1 overflow-hidden">
-                        <img src={images[3]} alt={`${property.title} - foto 4`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                        <img src={optimizeImage(images[3], { width: 900, quality: 82 })} alt={`${property.title} - foto 4`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                       </div>
                       <div className="relative col-span-1 overflow-hidden">
-                        <img src={images[4]} alt={`${property.title} - foto 5`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                        <img src={optimizeImage(images[4], { width: 900, quality: 82 })} alt={`${property.title} - foto 5`} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                         {images.length > 5 && (
                           <div className="absolute inset-0 flex items-center justify-center bg-foreground/75 text-lg font-bold text-sun">
                             +{images.length - 5} foto's
@@ -396,18 +397,18 @@ const PropertyDetail = () => {
                     </>
                   ) : images.length === 4 ? (
                     <div className="col-span-2 overflow-hidden">
-                      <img src={images[3]} alt={`${property.title} - foto 4`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                      <img src={optimizeImage(images[3], { width: 1200, quality: 82 })} alt={`${property.title} - foto 4`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                     </div>
                   ) : null}
                 </div>
               ) : images.length === 2 ? (
-                <div className="grid h-[300px] grid-cols-2 gap-1 md:h-[480px]">
-                  <div className="overflow-hidden"><img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
-                  <div className="overflow-hidden"><img src={images[1]} alt={`${property.title} - foto 2`} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
+                <div className="grid h-[380px] grid-cols-2 gap-1 md:h-[560px] lg:h-[640px]">
+                  <div className="overflow-hidden"><img src={optimizeImage(images[0], { width: 1400, quality: 85 })} alt={property.title} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
+                  <div className="overflow-hidden"><img src={optimizeImage(images[1], { width: 1400, quality: 85 })} alt={`${property.title} - foto 2`} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
                 </div>
               ) : (
-                <div className="h-[300px] overflow-hidden md:h-[480px]">
-                  <img src={images[0]} alt={property.title} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                <div className="h-[380px] overflow-hidden md:h-[560px] lg:h-[640px]">
+                  <img src={optimizeImage(images[0], { width: 1920, quality: 88 })} alt={property.title} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                 </div>
               )}
               {images.length > 1 && (
