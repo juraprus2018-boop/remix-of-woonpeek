@@ -229,12 +229,14 @@ const CityPage = () => {
 
             <div>
             <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-                Wonen in {cityName}: huur & koop op één plek
+                Huurwoningen in {cityName}: {huurCount} woningen te huur
               </h1>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground max-w-3xl">
-                Compleet woningoverzicht voor <strong>{cityName}</strong>: {totalCount} woningen, waarvan{" "}
-                <Link to={`/huren/${citySlug}`} className="text-primary hover:underline">{huurCount} huurwoningen in {cityName}</Link> en{" "}
-                <Link to={`/kopen/${citySlug}`} className="text-primary hover:underline">{koopCount} koopwoningen</Link>. Plus markt, buurten en dagelijks nieuw aanbod.
+                Bekijk <strong>{huurCount} huurwoningen in {cityName}</strong> op één pagina. Dagelijks vers aanbod van tientallen bronnen, met{" "}
+                <Link to={`/huren/${citySlug}`} className="text-primary hover:underline">alle huurwoningen in {cityName}</Link>,{" "}
+                <Link to={`/appartement/${citySlug}`} className="text-primary hover:underline">appartementen te huur</Link>,{" "}
+                <Link to={`/kamer/${citySlug}`} className="text-primary hover:underline">kamers</Link> en{" "}
+                <Link to={`/studio/${citySlug}`} className="text-primary hover:underline">studio's</Link>. Plus markt, buurten en gratis alerts.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <div className="rounded-full bg-card px-4 py-2 text-sm text-foreground shadow-sm">
