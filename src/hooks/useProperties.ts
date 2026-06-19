@@ -367,15 +367,19 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
   return useQuery({
     queryKey: ["similar-properties", currentId, city, listingType],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      let query = supabase
         .from("properties")
         .select("*")
         .eq("status", "actief")
         .eq("city", city)
         .eq("listing_type", listingType as ListingType)
-        .neq("id", currentId)
         .order("created_at", { ascending: false })
         .limit(4);
+      if (currentId && uuidRegex.test(currentId)) {
+        query = query.neq("id", currentId);
+      }
+      const { data, error } = await query;
 
       if (error) throw error;
       return data as Property[];
