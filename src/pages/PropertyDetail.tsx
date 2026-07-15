@@ -261,16 +261,55 @@ const PropertyDetail = () => {
     },
   };
 
-  // ── RealEstateListing schema (extra context) ──
+  // ── RealEstateListing schema (Google/Bing rich result voor vastgoed) ──
   const realEstateJsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
-    "name": property.title,
-    "description": property.description || `${typeLabel} te ${property.listing_type} in ${property.city}`,
-    "url": `https://www.huurbaasje.nl/woning/${property.slug}`,
+    "name": `${typeLabel} ${listingLabel} in ${property.city}`,
+    "headline": property.title,
+    "description": property.description || seoDescription,
+    "url": `https://www.huurbaasje.nl/aanbod/${property.slug}`,
     "datePosted": property.created_at,
-    "image": property.images?.length ? property.images : undefined,
+    "dateModified": (property as any).updated_at || property.created_at,
+    "image": property.images?.length ? property.images.slice(0, 10) : undefined,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": `${property.street} ${property.house_number}`.trim(),
+      "postalCode": property.postal_code,
+      "addressLocality": property.city,
+      "addressRegion": property.neighborhood || property.city,
+      "addressCountry": "NL",
+    },
+    ...(property.latitude && property.longitude ? {
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": Number(property.latitude),
+        "longitude": Number(property.longitude),
+      },
+    } : {}),
+    ...(property.surface_area ? {
+      "floorSize": {
+        "@type": "QuantitativeValue",
+        "value": property.surface_area,
+        "unitCode": "MTK",
+      },
+    } : {}),
+    ...(property.bedrooms ? { "numberOfRooms": property.bedrooms } : {}),
+    ...(property.bathrooms ? { "numberOfBathroomsTotal": property.bathrooms } : {}),
+    ...(property.build_year ? { "yearBuilt": property.build_year } : {}),
+    "offers": {
+      "@type": "Offer",
+      "price": Number(property.price),
+      "priceCurrency": "EUR",
+      "availability": property.status === "actief"
+        ? "https://schema.org/InStock"
+        : "https://schema.org/SoldOut",
+      "url": `https://www.huurbaasje.nl/aanbod/${property.slug}`,
+      "validFrom": property.created_at,
+      "seller": { "@type": "Organization", "name": "Huurbaasje" },
+    },
   };
+
 
   // ── FAQ schema (Google-supported rich result) ──
   const priceLabel = property.listing_type === "huur" ? "huur" : "koop";
