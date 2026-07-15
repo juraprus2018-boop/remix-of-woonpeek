@@ -1,91 +1,92 @@
+# Plan: Volledige reset + SEO overhaul
 
-# Ombouw naar nieuw merk, nieuwe URL-structuur en nieuw ontwerp
+## Deel 1 — "Reset alles" knop
 
-Werknaam: **NewBrand** (placeholder, overal centraal vervangbaar via één constants-bestand). Domein: TBD, canonical blijft relatief totdat domein bekend is.
+**Locatie:** `/admin` dashboard (bovenaan, rood, met dubbele bevestiging).
 
-## 1. Merk & inhoud (centraliseren)
+**Nieuwe edge function `admin-nuke-reset`** (aparte functie, niet de bestaande `admin-reset` uitbreiden — die blijft voor gedeeltelijke resets):
 
-- Nieuw bestand `src/lib/brand.ts` met: `BRAND_NAME`, `BRAND_TAGLINE`, `SUPPORT_EMAIL`, `CANONICAL_HOST` (leeg tot domein bekend).
-- Alle hardcoded "WoonPeek", "woonpeek.nl", "info@woonpeek.nl" vervangen door imports uit `brand.ts` (codebase-breed: components, edge functions, emails, OG, sitemap, llms.txt, robots, ai-plugin.json).
-- `index.html`, `public/robots.txt`, `public/llms.txt`, `public/llms-full.txt`, `public/ai.txt`, `public/.well-known/ai-plugin.json` opnieuw genereren met placeholders.
-- `mem://` core memory updaten: brand, canonical, design.
+Verwijdert in de juiste volgorde (FK's respecteren):
+1. `properties` (ALLES: actief, inactief, verlopen, verhuurd, verkocht)
+2. `scraped_properties` + `scraper_logs` + reset `scrapers.properties_found = 0`
+3. `blog_posts` (alle)
+4. `facebook_group_posts` + `tiktok_posts`
+5. `search_queries` + `page_views` + `google_rank_tracking` + `google_indexing_log`
+6. `makelaar_leads` + `daily_alert_subscribers` + `search_alerts`
+7. `chat_messages` + `conversations` + `neighborhood_reviews` + `property_comments`
+8. `favorites` + `missing_cities_log` + `daisycon_clicks` + `admin_sent_emails`
 
-## 2. Meertaligheid (NL default, +EN/DE/FR)
+**Behoudt:** `profiles`, `user_roles`, `site_settings`, `ad_slots`, `city_guides`, `city_realtors`, `cbs_stats_cache`, `livability_cache`, `translations_cache`, `extra_cities`, `facebook_groups`, `scrapers` (structuur), `daisycon_feeds`/`_tokens`, storage buckets.
 
-Stack: `react-i18next` + `i18next-browser-languagedetector`. JSON-bestanden per taal in `src/locales/{nl,en,de,fr}/common.json` + per pagina-namespace.
+**Frontend:** rode "Reset alles" knop met modal die vereist dat gebruiker het woord `RESET` typt.
 
-Routing: taal als eerste URL-segment, NL is default zonder prefix (SEO behoudt huidige NL-paden), andere talen krijgen prefix.
+## Deel 2 — SEO overhaul
 
-```text
-/                         -> NL home
-/en/                      -> EN home
-/de/                      -> DE home
-/fr/                      -> FR home
-```
+### 2a. Titels & meta descriptions (keyword-first, NL)
+Herschrijf per pagina-type met formule `[keyword] [stad/filter] | Huurbaasje`:
+- `CityPage` → `Huurwoningen in {Stad} | {N} beschikbaar - Huurbaasje`
+- `ListingTypePage` (huren/kopen) → `Huurwoningen {Stad} {Filter} | Direct beschikbaar`
+- `PropertyTypeCityPage` (appartement/huis/studio/kamer) → `{Type} huren in {Stad} | {N} woningen`
+- `NeighborhoodPage` → `Huurwoningen {Buurt} {Stad} | Actueel aanbod`
+- `PropertyDetail` → `{Type} huren aan {Straat}, {Stad} | €{prijs}/mnd`
+- `BestOfCityPage`, `BudgetLandingPage`, `IncomeLandingPage`, `PostcodePage`, `NewListingsCity`, `CityGuidePage`, `HuurprijsMonitor` — allemaal met "huurwoningen" + stad in titel.
 
-`<html lang>` dynamisch via `react-helmet-async`. Per pagina `<link rel="alternate" hreflang="...">` voor alle 4 talen + `x-default` (NL).
+Meta descriptions: 140-160 chars, actiegericht ("Bekijk {N} huurwoningen in {stad}. Direct contact met verhuurder…").
 
-## 3. Nieuwe URL-structuur
+### 2b. URL slug opschoning
+Huidige rare slugs → keyword-rijk (met 301 redirects vanaf oude):
+- `/toplijst/:city/goedkoop-huur` → `/goedkoopste-huurwoningen/:city`
+- `/toplijst/:city/grootste-huur` → `/grootste-huurwoningen/:city`
+- `/toplijst/:city/buurten` → `/beste-buurten-huurwoningen/:city`
+- `/aanbod-in/:city/:filter` → `/huurwoningen-:city/:filter`
+- `/aanbod/:slug` → behouden (property slugs zijn al goed)
+- `/stad/:city` → `/huurwoningen/:city` (belangrijkste — hoofdkeyword in URL)
+- `/vandaag/:city` → `/nieuwe-huurwoningen/:city`
+- `/markt/:city` → `/huurprijzen-:city`
+- `/budget-huur/:budget/:city` → `/huurwoningen-onder-:budget-:city`
+- `/inkomen/:income/:city` → `/huurwoningen-inkomen-:income-:city`
+- `/buurt/:city/:nb` → `/huurwoningen-:city-:nb`
 
-Vervangt huidige NL-slugs (`/woningen-{stad}`, `/woning/{slug}`, `/huurwoningen/{stad}`, etc.). Nieuwe semantische, taalonafhankelijke segmenten met vertaalde slugs per locale via een `routeMap`:
+Beide routes blijven werken via `LEGACY_REDIRECTS`; nieuwe is canonical.
 
-```text
-NL  /huren/{stad}              EN  /en/rent/{city}        DE  /de/mieten/{stadt}       FR  /fr/louer/{ville}
-NL  /kopen/{stad}              EN  /en/buy/{city}         DE  /de/kaufen/{stadt}       FR  /fr/acheter/{ville}
-NL  /aanbod/{slug}-{id}        EN  /en/listing/{slug}-{id} DE /de/objekt/{slug}-{id}   FR  /fr/annonce/{slug}-{id}
-NL  /steden                    EN  /en/cities             DE  /de/staedte              FR  /fr/villes
-NL  /steden/{stad}             EN  /en/cities/{city}      DE  /de/staedte/{stadt}      FR  /fr/villes/{ville}
-NL  /steden/{stad}/{wijk}      (idem in andere talen)
-NL  /blog, /blog/{slug}        EN  /en/blog/{slug}        DE  /de/blog/{slug}          FR  /fr/blog/{slug}
-NL  /makelaars, /makelaar/...  EN  /en/agents/...         DE  /de/makler/...           FR  /fr/agents/...
-NL  /alerts                    EN  /en/alerts             DE  /de/benachrichtigungen   FR  /fr/alertes
-NL  /inloggen, /registreren    EN  /en/login, /signup     DE  /de/anmelden, /registrieren  FR /fr/connexion, /inscription
-NL  /admin/*                   (admin blijft NL, geen meertaligheid)
-```
+### 2c. JSON-LD uitbreiding
+- `RealEstateListing` schema per PropertyDetail (met price, address, geo, image, availability)
+- `ItemList` op alle listing-pagina's (CityPage, PropertyTypeCityPage, etc.)
+- `Place` + `AggregateOffer` op CityPage (gemiddelde huurprijs range)
+- `FAQPage` uitbreiden naar meer landingspagina's
+- `LocalBusiness` (RealEstateAgent) sitewide
 
-- `slug-id` formaat met numeric id achteraan: snelle lookup, slug puur SEO.
-- 301-redirects: edge function of `Navigate` component die oude paden (`/woning/...`, `/woningen-...`, `/huurwoningen/...`, `/koopwoningen/...`, `/appartementen/...`, `/kamers/...`, `/studios/...`) mapt naar nieuwe NL-paden.
-- Sitemap-generator splitsen per taal (`sitemap-nl.xml`, `sitemap-en.xml`, ...) plus index `sitemap.xml`.
+### 2d. Interne linking + sitemap
+- CityPage: bottom-section met links naar alle sub-pagina's van die stad (huren/kopen/appartement/kamer/budget/buurten/toplijsten)
+- PropertyDetail: "Meer huurwoningen in {stad}" + "Vergelijkbare woningen in {buurt}"
+- Footer: top-10 steden linken naar nieuwe URL-structuur
+- `generate-sitemap` edge function: priority 0.9 voor stad-hoofdpagina's, 0.8 voor filters, 0.6 voor toplijsten, weekly changefreq
+- Robots.txt: expliciet nieuwe URL-patronen toestaan; oude legacy paden blokkeren (Disallow) om duplicate content te voorkomen na 301's zijn geïndexeerd
 
-## 4. Modern minimalistisch ontwerp
+### 2e. Extra indexatie-boost
+- HTML `<h1>` per pagina bevat exact het hoofdkeyword
+- Alt-teksten op images: `{type} te huur in {stad}` i.p.v. leeg
+- Prerender-check: bevestig dat React Helmet tags in de HTML komen (evt. via ssr-meta edge function die al bestaat)
 
-Vervangt "Scandinavian Calm forest green" volledig.
+## Volgorde uitvoering
+1. Migration: nuke-reset edge function + deploy
+2. Admin-knop toevoegen
+3. Routes toevoegen in `App.tsx` (nieuwe paden werken naast oude)
+4. `paths.ts` / `routes.ts` updaten zodat interne links de nieuwe URL genereren
+5. `SEOHead` calls per pagina herschrijven
+6. JSON-LD componenten uitbreiden
+7. Sitemap edge function updaten
+8. Robots.txt aanpassen
+9. Gebruiker: sitemap opnieuw indienen in Google Search Console + "Vraag om indexering" voor top-10 pagina's
 
-- Palette tokens in `src/index.css` (HSL):
-  - background: bijna-wit (`0 0% 99%`), foreground: bijna-zwart (`220 15% 12%`)
-  - primary: monochroom zwart (`220 15% 12%`), accent: één enkele warme accentkleur (bijv. `25 95% 55%`) spaarzaam ingezet
-  - muted/borders: subtiele grijzen
-- Typografie: één refined sans (bv. `Geist` of `Manrope`), grote letterspacing op labels, ruime regelhoogte. Hero in ultra-large display weight, body in 400.
-- Layout: veel witruimte, 12-koloms grid, asymmetrische hero, kaartcomponenten zonder zware schaduwen (1px borders + subtiele hover lift).
-- Micro-interactions met `framer-motion`: fade+slide bij section-enter, hover-scale 1.01 op cards, page transitions.
-- Iconen: `lucide-react`, stroke 1.5, gelijke grootte 18px in body.
-- Dark mode: native via tokens, niet als ornament.
-- Componenten die rebrand vereisen: `Header`, `Footer`, `HeroSection`, `PropertyCard`, `SearchFilters`, `TopAlertBar`, `CitySkyline` (waarschijnlijk vervangen door rustiger pattern), alle home-secties, `SEOHead`, alle email-templates.
+## Technisch
+- Reset function: `verify_jwt=false` in config, controleert admin-rol via `has_role` RPC met JWT uit Authorization header (zoals huidige `admin-reset`)
+- Redirects: `<Route path="OLD" element={<Navigate to="NEW" replace />} />` naast nieuwe routes
+- Alle SEO-teksten hardcoded in NL (default locale), i18n keys voor EN/DE/FR later
 
-## 5. SEO & metadata refactor
+## Impact
+- Reset knop is destructief maar reversibel is niet nodig (user wil clean slate)
+- URL-migratie: bestaande Google-indexatie behoudt waarde via 301 redirects
+- Verwachte indexatietijd: 2-6 weken na sitemap-resubmit + Search Console inspect
 
-- `SEOHead` accepteert taalcode, genereert hreflang voor 4 talen automatisch.
-- Per-route titles/descriptions vertaald via i18n keys (`seo.home.title`, `seo.city.title`, ...).
-- JSON-LD: `Organization` met nieuwe naam, `BreadcrumbList` met vertaalde labels, `RealEstateListing` blijft per woning.
-- Robots/sitemap/llms.txt regenereren met nieuwe paden + alle 4 talen.
-
-## 6. Backend & data (geen breaking changes)
-
-- DB-schema blijft. Slugs in `properties` blijven taalonafhankelijk; vertaalde route-segmenten zitten alleen in frontend route-config.
-- Edge functions die URLs bouwen (`og-property`, `og-city`, `generate-sitemap`, `google-indexing`, `post-to-facebook`, alert emails) refactoren om `routeMap` + taal te gebruiken.
-- Content (titel, beschrijving woningen) blijft in bron-taal NL. Voor EN/DE/FR pages tonen we NL-content met i18n-UI eromheen (vertaling van listings is buiten scope, wordt expliciet vermeld op pagina).
-
-## 7. Faseplan
-
-1. **Fase 1 (foundation)**: brand-constants, design tokens, fonts, basislayout, i18n-setup met NL+EN, language switcher, hreflang.
-2. **Fase 2 (routes)**: nieuwe route-config + routeMap, 301-redirects oude paden, sitemap-update.
-3. **Fase 3 (UI redesign)**: home, city, property detail, search, header/footer in nieuw ontwerp.
-4. **Fase 4 (talen aanvullen)**: DE + FR vertalingen, edge functions taalbewust, OG-images per taal.
-5. **Fase 5 (cleanup)**: oude memories opschonen, README, robots/llms herschrijven, QA per taal.
-
-## Open beslissingen (graag bevestigen)
-
-1. **Werknaam**: voorstel `NewBrand` als placeholder; akkoord of liever iets anders (bv. `Habita`, `Nestly`)?
-2. **Listings**: blijven inhoudelijk Nederlands op alle 4 talen, of wil je later AI-vertaling per woning toevoegen?
-3. **Admin**: NL-only laten (zoals nu) of ook meertalig?
-4. **Accent-kleur**: voorstel warme oranje (`hsl(25 95% 55%)`); akkoord of voorkeur (rood, blauw, groen, paars)?
+Bevestig en ik voer alles in één keer uit.

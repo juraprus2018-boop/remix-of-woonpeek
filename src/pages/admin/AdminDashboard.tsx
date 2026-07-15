@@ -35,6 +35,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { Input } from "@/components/ui/input";
+
 const AdminDashboard = () => {
   const { data: properties, isLoading: propertiesLoading } = useAllProperties();
   const { data: dailyAlertSubscribers } = useDailyAlertSubscribers();
@@ -43,7 +45,11 @@ const AdminDashboard = () => {
   const runImport = useRunDaisyconImport();
   const [resetting, setResetting] = useState(false);
   const [resetSource, setResetSource] = useState<string>("all");
+  const [nuking, setNuking] = useState(false);
+  const [nukeConfirm, setNukeConfirm] = useState("");
+  const [nukeOpen, setNukeOpen] = useState(false);
   const queryClient = useQueryClient();
+
 
   const totalProperties = properties?.length || 0;
   const activeProperties = properties?.filter((p) => p.status === "actief").length || 0;
@@ -103,6 +109,32 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleNuke = async () => {
+    if (nukeConfirm !== "RESET") {
+      toast.error("Typ RESET om te bevestigen");
+      return;
+    }
+    setNuking(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-nuke-reset", {
+        body: { confirm: "RESET" },
+      });
+      if (error) throw error;
+      const totals = Object.entries(data?.results || {})
+        .filter(([, v]: any) => v?.deleted)
+        .map(([k, v]: any) => `${k}: ${v.deleted}`)
+        .join(", ");
+      toast.success(`Nuke reset voltooid. ${totals || "Alles leeg."}`);
+      setNukeOpen(false);
+      setNukeConfirm("");
+      queryClient.invalidateQueries();
+    } catch (e) {
+      toast.error("Nuke mislukt: " + (e instanceof Error ? e.message : "onbekend"));
+    } finally {
+      setNuking(false);
+    }
+  };
+
   const handleImportAll = async () => {
     try {
       toast.info("Daisycon import gestart...");
@@ -112,6 +144,7 @@ const AdminDashboard = () => {
       toast.error("Import mislukt: " + (e instanceof Error ? e.message : "onbekend"));
     }
   };
+
 
   if (propertiesLoading) {
     return (
@@ -183,8 +216,50 @@ const AdminDashboard = () => {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
+
+            <AlertDialog open={nukeOpen} onOpenChange={setNukeOpen}>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" size="sm" className="gap-2 bg-red-700 hover:bg-red-800" disabled={nuking}>
+                  <Trash2 className={cn("h-4 w-4", nuking && "animate-spin")} />
+                  Reset alles
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-destructive">⚠️ Volledige reset</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Dit verwijdert <strong>ALLE</strong> woningen (actief + inactief + verlopen), blogs, scraped data,
+                    Facebook/TikTok posts, analytics, leads, alert-inschrijvingen, chats, reviews, comments, favorieten.
+                    <br /><br />
+                    <strong>Behouden:</strong> users, admin-rechten, site-instellingen, ad slots, city guides, makelaar-lijst,
+                    Daisycon feeds/tokens, opgeslagen afbeeldingen.
+                    <br /><br />
+                    Typ <code className="bg-muted px-1.5 py-0.5 rounded">RESET</code> hieronder om te bevestigen.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <div className="py-2">
+                  <Input
+                    value={nukeConfirm}
+                    onChange={(e) => setNukeConfirm(e.target.value)}
+                    placeholder="Typ RESET"
+                    autoComplete="off"
+                  />
+                </div>
+                <AlertDialogFooter>
+                  <AlertDialogCancel onClick={() => setNukeConfirm("")}>Annuleren</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={(e) => { e.preventDefault(); handleNuke(); }}
+                    disabled={nukeConfirm !== "RESET" || nuking}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
+                    {nuking ? "Bezig..." : "Ja, wis alles"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
+
 
         {/* Main Stats */}
         <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
