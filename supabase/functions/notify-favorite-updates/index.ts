@@ -165,7 +165,7 @@ Deno.serve(async (req) => {
 });
 
 function renderDigest(items: UpdateItem[]): string {
-  const base = "https://www.huurbaasje.nl";
+  const base = "https://www.woonaanbod-nl.nl";
   const rows = items
     .map((it) => {
       const p = it.property;
@@ -205,7 +205,7 @@ function renderDigest(items: UpdateItem[]): string {
     <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;padding:24px">
       <tr><td>
         <h1 style="font-size:20px;color:#0f172a;margin:0 0 6px">Updates voor je opgeslagen woningen</h1>
-        <p style="color:#64748b;font-size:14px;margin:0 0 16px">Er zijn wijzigingen in woningen die jij hebt opgeslagen op Huurbaasje.</p>
+        <p style="color:#64748b;font-size:14px;margin:0 0 16px">Er zijn wijzigingen in woningen die jij hebt opgeslagen op Woonaanbod NL.</p>
         <table width="100%">${rows}</table>
         <p style="margin-top:24px;font-size:12px;color:#94a3b8">
           Je ontvangt deze e-mail omdat je deze woningen hebt opgeslagen als favoriet.

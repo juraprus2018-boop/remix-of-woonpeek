@@ -23,9 +23,9 @@ const PostPropertyStart = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Woning plaatsen op Huurbaasje | Gratis starten"
-        description="Maak gratis een account aan en plaats je woning op Huurbaasje. Snel online en direct zichtbaar voor woningzoekers."
-        canonical="https://www.huurbaasje.nl/woning-plaatsen"
+        title="Woning plaatsen op Woonaanbod NL | Gratis starten"
+        description="Maak gratis een account aan en plaats je woning op Woonaanbod NL. Snel online en direct zichtbaar voor woningzoekers."
+        canonical="https://www.woonaanbod-nl.nl/woning-plaatsen"
       />
       <Header />
       <main className="flex-1">
@@ -33,7 +33,7 @@ const PostPropertyStart = () => {
           seed="post-property-start"
           eyebrow="Verhuren"
           title="Plaats je woning gratis"
-          subtitle="Maak een gratis account aan en plaats direct je huur- of koopwoning op Huurbaasje."
+          subtitle="Maak een gratis account aan en plaats direct je huur- of koopwoning op Woonaanbod NL."
         />
         <section className="container py-12">
           <div className="mx-auto max-w-2xl">

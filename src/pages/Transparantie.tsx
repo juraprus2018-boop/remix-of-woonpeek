@@ -7,8 +7,8 @@ import { Database, Users, ShieldCheck, RefreshCw, Trash2, Mail } from "lucide-re
 const Transparantie = () => (
   <div className="min-h-screen flex flex-col bg-background">
     <SEOHead
-      title="Transparantie - Hoe Huurbaasje werkt | Huurbaasje"
-      description="Lees hoe Huurbaasje aan zijn aanbod komt, welke databronnen we gebruiken, hoe we kwaliteit borgen en hoe je een woning kunt laten verwijderen."
+      title="Transparantie - Hoe Woonaanbod NL werkt | Woonaanbod NL"
+      description="Lees hoe Woonaanbod NL aan zijn aanbod komt, welke databronnen we gebruiken, hoe we kwaliteit borgen en hoe je een woning kunt laten verwijderen."
       canonical="/transparantie"
     />
     <Header />
@@ -20,7 +20,7 @@ const Transparantie = () => (
             geen black box. <span className="font-serif-display italic text-accent">openheid.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-foreground/80">
-            Huurbaasje bundelt huur- en koopwoningen uit heel Nederland. Hier leggen we precies uit waar ons aanbod vandaan komt, hoe vaak we actualiseren en wat je rechten zijn.
+            Woonaanbod NL bundelt huur- en koopwoningen uit heel Nederland. Hier leggen we precies uit waar ons aanbod vandaan komt, hoe vaak we actualiseren en wat je rechten zijn.
           </p>
         </div>
       </section>
@@ -37,7 +37,7 @@ const Transparantie = () => (
             <article className="border-2 border-foreground p-6">
               <Users className="h-6 w-6" />
               <h3 className="mt-4 font-display text-xl lowercase">eigenaars die zelf plaatsen</h3>
-              <p className="mt-2 text-sm text-foreground/80">Particulieren en verhuurders kunnen gratis hun woning op Huurbaasje zetten via een eenvoudige wizard. Zij beheren zelf hun listing.</p>
+              <p className="mt-2 text-sm text-foreground/80">Particulieren en verhuurders kunnen gratis hun woning op Woonaanbod NL zetten via een eenvoudige wizard. Zij beheren zelf hun listing.</p>
             </article>
             <article className="border-2 border-foreground p-6">
               <ShieldCheck className="h-6 w-6" />
@@ -72,7 +72,7 @@ const Transparantie = () => (
             <article className="border-2 border-foreground p-6">
               <Trash2 className="h-6 w-6 text-accent" />
               <h3 className="mt-4 font-display text-xl lowercase">woning laten verwijderen</h3>
-              <p className="mt-2 text-sm text-foreground/80">Ben je makelaar of eigenaar en wil je een woning offline halen? Mail naar <a className="underline" href="mailto:info@huurbaasje.nl">info@huurbaasje.nl</a> met de URL. We zetten de woning binnen 24 uur op inactief.</p>
+              <p className="mt-2 text-sm text-foreground/80">Ben je makelaar of eigenaar en wil je een woning offline halen? Mail naar <a className="underline" href="mailto:info@woonaanbod-nl.nl">info@woonaanbod-nl.nl</a> met de URL. We zetten de woning binnen 24 uur op inactief.</p>
             </article>
             <article className="border-2 border-foreground p-6">
               <Mail className="h-6 w-6 text-accent" />
@@ -90,7 +90,7 @@ const Transparantie = () => (
         <div className="container py-16">
           <h2 className="font-display text-3xl lowercase md:text-4xl">vragen of feedback?</h2>
           <p className="mt-4 max-w-xl text-background/80">We staan open voor kritiek, suggesties en correcties. Mail ons gerust.</p>
-          <a href="mailto:info@huurbaasje.nl" className="mt-8 inline-block bg-accent px-6 py-3 font-bold text-background hover:opacity-90">info@huurbaasje.nl</a>
+          <a href="mailto:info@woonaanbod-nl.nl" className="mt-8 inline-block bg-accent px-6 py-3 font-bold text-background hover:opacity-90">info@woonaanbod-nl.nl</a>
         </div>
       </section>
     </main>

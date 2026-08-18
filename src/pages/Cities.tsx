@@ -49,13 +49,13 @@ const Cities = () => {
         <div className="container py-8">
         <div className="mb-8 max-w-3xl space-y-3 text-sm text-muted-foreground leading-relaxed">
           <p>
-            Huurbaasje verzamelt dagelijks huurwoningen en koopwoningen uit steden door heel Nederland. 
+            Woonaanbod NL verzamelt dagelijks huurwoningen en koopwoningen uit steden door heel Nederland. 
             Van de Randstad tot de provincies: hieronder vind je een overzicht van alle steden waar momenteel 
             actief woningaanbod beschikbaar is. Klik op een stad om het volledige aanbod te bekijken, 
             inclusief appartementen, huizen, studio's en kamers.
           </p>
           <p>
-            De populairste steden op Huurbaasje zijn Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag en 
+            De populairste steden op Woonaanbod NL zijn Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag en 
             Groningen. Maar ook in kleinere gemeenten vind je regelmatig aantrekkelijk woningaanbod. 
             Mis niets en stel een dagelijkse alert in om als eerste op de hoogte te zijn van nieuwe woningen.
           </p>
@@ -99,7 +99,7 @@ const Cities = () => {
             En in kleinere plaatsen zijn er verrassend betaalbare opties beschikbaar.
           </p>
           <p>
-            Huurbaasje helpt je bij het vinden van de perfecte woning, ongeacht de stad. Gebruik onze 
+            Woonaanbod NL helpt je bij het vinden van de perfecte woning, ongeacht de stad. Gebruik onze 
             zoekfunctie om direct te filteren op locatie, prijs en woningtype. Of verken het aanbod 
             via onze interactieve kaart op de verkenningspagina.
           </p>

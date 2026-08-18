@@ -119,9 +119,9 @@ const BudgetTool = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? "/mnd" : ""}? | Huurbaasje`}
+        title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? "/mnd" : ""}? | Woonaanbod NL`}
         description={`Ontdek wat je kunt ${isHuur ? "huren" : "kopen"} met een budget van ${formatPrice(budget)}${isHuur ? " per maand" : ""}. Vergelijk steden op gemiddeld oppervlak, kamers en beschikbaarheid.`}
-        canonical="https://www.huurbaasje.nl/budget-tool"
+        canonical="https://www.woonaanbod-nl.nl/budget-tool"
       />
       <Header />
 
@@ -262,7 +262,7 @@ const BudgetTool = () => {
               kunt verwachten per stad.
             </p>
             <p>
-              Huurbaasje verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland. De getoonde
+              Woonaanbod NL verzamelt dagelijks het nieuwste woningaanbod uit heel Nederland. De getoonde
               cijfers zijn gebaseerd op het actuele aanbod en worden dagelijks bijgewerkt. Stel een{" "}
               <Link to="/woonradar" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
               in om direct een melding te ontvangen wanneer er een woning binnen je budget beschikbaar komt.

@@ -40,7 +40,7 @@ function shouldSkipNode(node: Node): boolean {
   return false;
 }
 
-const BRAND_BLOCKLIST = /\bhuurbaasje\b/i;
+const BRAND_BLOCKLIST = /\bwoonaanbod-nl\b/i;
 
 function shouldTranslateString(s: string): boolean {
   const trimmed = s.trim();
@@ -137,7 +137,7 @@ function collectJobs(root: Node, seen: Set<string>): Job[] {
   return jobs;
 }
 
-const CACHE_PREFIX = "huurbaasje_tx_";
+const CACHE_PREFIX = "woonaanbod-nl_tx_";
 
 function loadCache(lang: string): Map<string, string> {
   try {

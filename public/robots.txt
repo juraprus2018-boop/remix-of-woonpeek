@@ -89,4 +89,4 @@ Disallow: /bewerken
 Disallow: /uitschrijven
 Disallow: /*?*
 
-Sitemap: https://www.huurbaasje.nl/sitemap.xml
+Sitemap: https://www.woonaanbod-nl.nl/sitemap.xml

@@ -79,9 +79,9 @@ const NewListingsCity = () => {
   const totalPages = Math.max(Math.ceil(totalCount / pageSize), 1);
 
   const h1 = `Nieuw aanbod in ${cityName} vandaag`;
-  const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Huurbaasje`;
-  const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Huurbaasje.`;
-  const canonical = `https://www.huurbaasje.nl/nieuw-aanbod/${citySlug}`;
+  const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Woonaanbod NL`;
+  const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Woonaanbod NL.`;
+  const canonical = `https://www.woonaanbod-nl.nl/nieuw-aanbod/${citySlug}`;
 
   const jsonLd = useMemo(() => [
     {
@@ -90,7 +90,7 @@ const NewListingsCity = () => {
       name: h1,
       description: pageDescription,
       url: canonical,
-      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
+      isPartOf: { "@type": "WebSite", name: "Woonaanbod NL", url: "https://www.woonaanbod-nl.nl" },
     },
     {
       "@context": "https://schema.org",
@@ -100,7 +100,7 @@ const NewListingsCity = () => {
       itemListElement: properties.slice(0, 10).map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
+        url: `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`,
         name: p.title,
       })),
     },
@@ -214,7 +214,7 @@ const NewListingsCity = () => {
                 Zo zie je direct welke <strong>huurwoningen in {cityName}</strong> en <strong>koopwoningen in {cityName}</strong> als eerste online zijn gekomen.
               </p>
               <p>
-                Huurbaasje scant dagelijks meerdere woningplatforms in heel Nederland. Nieuwe woningen in {cityName} worden
+                Woonaanbod NL scant dagelijks meerdere woningplatforms in heel Nederland. Nieuwe woningen in {cityName} worden
                 automatisch verwerkt en verschijnen op deze pagina zodra ze beschikbaar zijn.
               </p>
               <p>

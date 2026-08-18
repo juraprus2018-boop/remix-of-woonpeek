@@ -135,7 +135,7 @@ const HuurcontractUitleg = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Huurcontract uitleg: alle begrippen op een rij 2025 | Huurbaasje"
+        title="Huurcontract uitleg: alle begrippen op een rij 2025 | Woonaanbod NL"
         description="Wat betekent indexatie, borg, puntenstelsel of diplomatenclausule? 12 huurcontract-begrippen helder uitgelegd, met de actuele regels van 2025."
       />
       <Header />

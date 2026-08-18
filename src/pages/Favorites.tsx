@@ -101,9 +101,9 @@ const Favorites = () => {
     return (
       <div className="flex min-h-screen flex-col">
         <SEOHead
-          title="Favoriete woningen | Huurbaasje"
-          description="Bewaar je favoriete woningen op Huurbaasje. Log in om je shortlist te bekijken en te beheren."
-          canonical="https://www.huurbaasje.nl/favorieten"
+          title="Favoriete woningen | Woonaanbod NL"
+          description="Bewaar je favoriete woningen op Woonaanbod NL. Log in om je shortlist te bekijken en te beheren."
+          canonical="https://www.woonaanbod-nl.nl/favorieten"
           noindex
         />
         <Header />
@@ -137,9 +137,9 @@ const Favorites = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Mijn favoriete woningen | Huurbaasje"
-        description="Bekijk en beheer je opgeslagen huur- en koopwoningen op Huurbaasje. Sorteer op prijs, stad of recent toegevoegd."
-        canonical="https://www.huurbaasje.nl/favorieten"
+        title="Mijn favoriete woningen | Woonaanbod NL"
+        description="Bekijk en beheer je opgeslagen huur- en koopwoningen op Woonaanbod NL. Sorteer op prijs, stad of recent toegevoegd."
+        canonical="https://www.woonaanbod-nl.nl/favorieten"
         noindex
       />
       <Header />

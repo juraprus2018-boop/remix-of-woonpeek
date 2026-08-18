@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const BASE = "https://huurbaasje.nl";
+const BASE = "https://woonaanbod-nl.nl";
 
 const escapeXml = (s: string) =>
   s
@@ -60,10 +60,10 @@ Deno.serve(async (req) => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Huurbaasje - Nieuwste woningen</title>
+    <title>Woonaanbod NL - Nieuwste woningen</title>
     <link>${BASE}</link>
     <atom:link href="${BASE}/feed.xml" rel="self" type="application/rss+xml" />
-    <description>De 50 nieuwste huur- en koopwoningen op Huurbaasje</description>
+    <description>De 50 nieuwste huur- en koopwoningen op Woonaanbod NL</description>
     <language>nl-NL</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     ${items}

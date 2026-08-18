@@ -87,7 +87,7 @@ const BlogPostPage = () => {
     );
   }
 
-  const canonicalUrl = `https://www.huurbaasje.nl/journaal/${post.slug}`;
+  const canonicalUrl = `https://www.woonaanbod-nl.nl/journaal/${post.slug}`;
 
   // Rich Article schema
   const articleJsonLd = {
@@ -103,20 +103,20 @@ const BlogPostPage = () => {
     },
     author: {
       "@type": "Organization",
-      name: "Huurbaasje",
-      url: "https://www.huurbaasje.nl",
+      name: "Woonaanbod NL",
+      url: "https://www.woonaanbod-nl.nl",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.huurbaasje.nl/favicon.png",
+        url: "https://www.woonaanbod-nl.nl/favicon.png",
       },
     },
     publisher: {
       "@type": "Organization",
-      name: "Huurbaasje",
-      url: "https://www.huurbaasje.nl",
+      name: "Woonaanbod NL",
+      url: "https://www.woonaanbod-nl.nl",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.huurbaasje.nl/favicon.png",
+        url: "https://www.woonaanbod-nl.nl/favicon.png",
       },
     },
     ...(post.cover_image ? { image: post.cover_image } : {}),
@@ -148,13 +148,13 @@ const BlogPostPage = () => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://www.huurbaasje.nl",
+        item: "https://www.woonaanbod-nl.nl",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: "https://www.huurbaasje.nl/journaal",
+        item: "https://www.woonaanbod-nl.nl/journaal",
       },
       {
         "@type": "ListItem",
@@ -168,7 +168,7 @@ const BlogPostPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title={post.meta_title || `${post.title} | Huurbaasje Blog`}
+        title={post.meta_title || `${post.title} | Woonaanbod NL Blog`}
         description={seoMeta.description || post.excerpt || post.title}
         canonical={canonicalUrl}
         ogImage={post.cover_image || undefined}

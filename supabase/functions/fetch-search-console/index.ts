@@ -6,7 +6,7 @@ const corsHeaders = {
 };
 
 const SEARCH_CONSOLE_API = "https://www.googleapis.com/webmasters/v3/sites";
-const SITE_URL = "https://www.huurbaasje.nl/";
+const SITE_URL = "https://www.woonaanbod-nl.nl/";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -84,18 +84,18 @@ Deno.serve(async (req) => {
     const sitesData = await sitesRes.json();
     console.log("Available Search Console sites:", JSON.stringify(sitesData));
 
-    // Find the huurbaasje site (could be domain property or URL prefix)
-    const huurbaasjeSite = sitesData.siteEntry?.find((s: any) =>
-      s.siteUrl.includes("huurbaasje.nl")
+    // Find the woonaanbod-nl site (could be domain property or URL prefix)
+    const woonaanbod-nlSite = sitesData.siteEntry?.find((s: any) =>
+      s.siteUrl.includes("woonaanbod-nl.nl")
     );
 
-    if (!huurbaasjeSite) {
+    if (!woonaanbod-nlSite) {
       throw new Error(
-        `huurbaasje.nl not found in Search Console. Available sites: ${JSON.stringify(sitesData.siteEntry?.map((s: any) => s.siteUrl) || [])}`
+        `woonaanbod-nl.nl not found in Search Console. Available sites: ${JSON.stringify(sitesData.siteEntry?.map((s: any) => s.siteUrl) || [])}`
       );
     }
 
-    const siteUrl = huurbaasjeSite.siteUrl;
+    const siteUrl = woonaanbod-nlSite.siteUrl;
     console.log("Using site URL:", siteUrl);
 
     // Fetch Search Console data for yesterday (data is usually 2-3 days delayed)
@@ -137,15 +137,15 @@ Deno.serve(async (req) => {
 
     // Filter for relevant landing pages (city pages, listing type pages)
     const relevantPatterns = [
-      /huurbaasje\.nl\/woningen-/,
-      /huurbaasje\.nl\/huurwoningen\//,
-      /huurbaasje\.nl\/koopwoningen\//,
-      /huurbaasje\.nl\/appartementen\//,
-      /huurbaasje\.nl\/kamers\//,
-      /huurbaasje\.nl\/studios\//,
-      /huurbaasje\.nl\/woning\//,
-      /huurbaasje\.nl\/blog\//,
-      /huurbaasje\.nl\/?$/,
+      /woonaanbod-nl\.nl\/woningen-/,
+      /woonaanbod-nl\.nl\/huurwoningen\//,
+      /woonaanbod-nl\.nl\/koopwoningen\//,
+      /woonaanbod-nl\.nl\/appartementen\//,
+      /woonaanbod-nl\.nl\/kamers\//,
+      /woonaanbod-nl\.nl\/studios\//,
+      /woonaanbod-nl\.nl\/woning\//,
+      /woonaanbod-nl\.nl\/blog\//,
+      /woonaanbod-nl\.nl\/?$/,
     ];
 
     const trackingEntries: Array<{
@@ -172,7 +172,7 @@ Deno.serve(async (req) => {
         "huurwoning", "huurwoningen", "koopwoning", "koopwoningen",
         "appartement", "appartementen", "kamer", "kamers", "studio",
         "woning", "woningen", "huis", "huizen", "huren", "kopen",
-        "te huur", "te koop", "huurbaasje",
+        "te huur", "te koop", "woonaanbod-nl",
       ];
       const queryLower = query.toLowerCase();
       const isHousingQuery = housingKeywords.some((k) => queryLower.includes(k));

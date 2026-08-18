@@ -14,7 +14,7 @@ import { useProperties } from "@/hooks/useProperties";
 import { findLongtailPage, LONGTAIL_PAGES } from "@/lib/longtailPages";
 import { paths } from "@/lib/routes";
 
-const SITE = "https://www.huurbaasje.nl";
+const SITE = "https://www.woonaanbod-nl.nl";
 
 const LongtailLanding = () => {
   const { slug = "" } = useParams<{ slug: string }>();

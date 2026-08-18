@@ -144,11 +144,11 @@ Deno.serve(async (req) => {
     // Send admin notification
     const client = new SMTPClient({
       connection: {
-        hostname: "huurbaasje.nl",
+        hostname: "woonaanbod-nl.nl",
         port: 465,
         tls: true,
         auth: {
-          username: "info@huurbaasje.nl",
+          username: "info@woonaanbod-nl.nl",
           password: Deno.env.get("SMTP_PASSWORD") || "",
         },
       },
@@ -157,8 +157,8 @@ Deno.serve(async (req) => {
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
       await client.send({
-        from: "Huurbaasje <info@huurbaasje.nl>",
-        to: "info@huurbaasje.nl",
+        from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+        to: "info@woonaanbod-nl.nl",
         subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`,
         content: "text/html",
         html: `

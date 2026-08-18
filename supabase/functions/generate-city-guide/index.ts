@@ -35,7 +35,7 @@ Geef een JSON-object terug met deze velden (alle tekst in het Nederlands, 2-4 al
 - housing_market_info: huurmarkt en koopmarkt ${city}, gemiddelde prijzen, wachttijden sociale huur
 - neighborhoods_info: belangrijkste wijken en buurten in ${city} met korte beschrijving
 - practical_tips: 5-7 praktische tips voor nieuwe inwoners van ${city}
-- meta_title: SEO titel max 60 tekens, format "Verhuizen naar ${city}: Complete gids 2025 | Huurbaasje"
+- meta_title: SEO titel max 60 tekens, format "Verhuizen naar ${city}: Complete gids 2025 | Woonaanbod NL"
 - meta_description: SEO beschrijving max 155 tekens
 
 Antwoord ALLEEN met geldig JSON, geen markdown of uitleg.`;

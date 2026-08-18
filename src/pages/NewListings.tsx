@@ -96,7 +96,7 @@ const NewListings = () => {
     itemListElement: properties.slice(0, 10).map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
+      url: `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`,
     })),
   };
 
@@ -170,11 +170,11 @@ const NewListings = () => {
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>
                 Op deze pagina vind je uitsluitend het nieuwe actieve woningaanbod dat vandaag is toegevoegd 
-                op Huurbaasje. Zo zie je direct welke huurwoningen en koopwoningen als eerste online zijn 
+                op Woonaanbod NL. Zo zie je direct welke huurwoningen en koopwoningen als eerste online zijn 
                 gekomen en kun je snel reageren.
               </p>
               <p>
-                Huurbaasje scant dagelijks meerdere woningplatforms en makelaarswebsites in heel Nederland. 
+                Woonaanbod NL scant dagelijks meerdere woningplatforms en makelaarswebsites in heel Nederland. 
                 Nieuwe woningen worden automatisch verwerkt en verschijnen op deze pagina zodra ze 
                 beschikbaar zijn. Het aanbod wordt doorlopend ververst gedurende de dag.
               </p>

@@ -59,9 +59,9 @@ const InternetVergelijken = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Internet vergelijken – Beste internet en tv aanbieder | Huurbaasje"
-        description="Vergelijk internet, tv en bellen van Ziggo, KPN, Odido en meer. Bespaar tot € 400 per jaar bij een overstap. Gratis en vrijblijvend via Huurbaasje."
-        canonical="https://www.huurbaasje.nl/internet"
+        title="Internet vergelijken – Beste internet en tv aanbieder | Woonaanbod NL"
+        description="Vergelijk internet, tv en bellen van Ziggo, KPN, Odido en meer. Bespaar tot € 400 per jaar bij een overstap. Gratis en vrijblijvend via Woonaanbod NL."
+        canonical="https://www.woonaanbod-nl.nl/internet"
       />
       <script
         type="application/ld+json"
@@ -97,7 +97,7 @@ const InternetVergelijken = () => {
               </CardContent>
             </Card>
             <p className="mt-3 text-center text-xs text-muted-foreground">
-              Vergelijking aangeboden via Daisycon. Huurbaasje ontvangt mogelijk een
+              Vergelijking aangeboden via Daisycon. Woonaanbod NL ontvangt mogelijk een
               vergoeding bij een succesvolle overstap.
             </p>
           </div>
@@ -106,7 +106,7 @@ const InternetVergelijken = () => {
         <section className="border-t bg-muted/30 py-12 md:py-16">
           <div className="container">
             <h2 className="text-2xl font-bold md:text-3xl">
-              Waarom internet vergelijken via Huurbaasje?
+              Waarom internet vergelijken via Woonaanbod NL?
             </h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               {benefits.map((b) => (

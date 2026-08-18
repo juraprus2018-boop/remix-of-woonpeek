@@ -23,9 +23,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
-        display: ["Nunito", "Plus Jakarta Sans", "sans-serif"],
-        serif: ["Nunito", "Plus Jakarta Sans", "sans-serif"],
+        sans: ["Manrope", "Inter", "system-ui", "sans-serif"],
+        display: ["Sora", "Manrope", "sans-serif"],
+        serif: ["Sora", "Manrope", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

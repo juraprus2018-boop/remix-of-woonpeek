@@ -5,7 +5,7 @@
  */
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
-const APP_URL = "https://www.huurbaasje.nl";
+const APP_URL = "https://www.woonaanbod-nl.nl";
 
 Deno.serve(async (req) => {
   const url = new URL(req.url);

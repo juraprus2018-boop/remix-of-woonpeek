@@ -43,9 +43,9 @@ const Profile = () => {
     return (
       <div className="flex min-h-screen flex-col">
         <SEOHead
-          title="Profiel | Huurbaasje"
-          description="Beheer je profiel, accountgegevens en voorkeuren op Huurbaasje."
-          canonical="https://www.huurbaasje.nl/profiel"
+          title="Profiel | Woonaanbod NL"
+          description="Beheer je profiel, accountgegevens en voorkeuren op Woonaanbod NL."
+          canonical="https://www.woonaanbod-nl.nl/profiel"
           noindex
         />
         <Header />

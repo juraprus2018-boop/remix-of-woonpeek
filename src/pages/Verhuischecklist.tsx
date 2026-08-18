@@ -129,7 +129,7 @@ const STEPS: Step[] = [
   },
 ];
 
-const STORAGE_KEY = "huurbaasje:verhuischecklist:v1";
+const STORAGE_KEY = "woonaanbod-nl:verhuischecklist:v1";
 
 const Verhuischecklist = () => {
   const [checked, setChecked] = useState<Record<string, boolean>>({});

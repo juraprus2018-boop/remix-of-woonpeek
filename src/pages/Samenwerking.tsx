@@ -24,9 +24,9 @@ const Samenwerking = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Samenwerking – Onze partners | Huurbaasje"
-        description="Huurbaasje werkt samen met toonaangevende woningplatformen in Nederland. Bekijk onze partners en aanbieders."
-        canonical="https://www.huurbaasje.nl/samenwerking"
+        title="Samenwerking – Onze partners | Woonaanbod NL"
+        description="Woonaanbod NL werkt samen met toonaangevende woningplatformen in Nederland. Bekijk onze partners en aanbieders."
+        canonical="https://www.woonaanbod-nl.nl/samenwerking"
       />
       <Header />
       <main className="flex-1">
@@ -40,7 +40,7 @@ const Samenwerking = () => {
               Onze partners &amp; aanbieders
             </h1>
             <p className="mt-3 text-muted-foreground">
-              Huurbaasje werkt samen met betrouwbare woningplatformen in heel Nederland.
+              Woonaanbod NL werkt samen met betrouwbare woningplatformen in heel Nederland.
               Via ons partnernetwerk verzamelen we dagelijks het nieuwste woningaanbod,
               zodat jij alles op één plek kunt vinden.
             </p>
@@ -102,7 +102,7 @@ const Samenwerking = () => {
               Hoe werkt onze samenwerking?
             </h2>
             <p>
-              Huurbaasje werkt samen met diverse woningplatformen en aanbieders in heel Nederland.
+              Woonaanbod NL werkt samen met diverse woningplatformen en aanbieders in heel Nederland.
               Dankzij ons partnernetwerk verzamelen we dagelijks duizenden woningen en tonen
               we deze op één overzichtelijke plek.
             </p>
@@ -112,13 +112,13 @@ const Samenwerking = () => {
               recente aanbod ziet, zonder zelf tientallen websites af te hoeven zoeken.
             </p>
             <h3 className="font-display pt-2 text-xl font-semibold text-foreground">
-              Zelf samenwerken met Huurbaasje?
+              Zelf samenwerken met Woonaanbod NL?
             </h3>
             <p>
-              Ben je een woningplatform of makelaar en wil je jouw aanbod op Huurbaasje tonen?
+              Ben je een woningplatform of makelaar en wil je jouw aanbod op Woonaanbod NL tonen?
               Neem dan contact met ons op via{" "}
-              <a href="mailto:info@huurbaasje.nl" className="font-medium text-primary underline underline-offset-2">
-                info@huurbaasje.nl
+              <a href="mailto:info@woonaanbod-nl.nl" className="font-medium text-primary underline underline-offset-2">
+                info@woonaanbod-nl.nl
               </a>{" "}
               of bekijk onze{" "}
               <a href="/makelaar-koppelen" className="font-medium text-primary underline underline-offset-2">

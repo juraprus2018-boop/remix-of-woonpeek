@@ -52,9 +52,9 @@ const AlertUnsubscribe = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Alert afmelden | Huurbaasje"
-        description="Meld je af voor wekelijkse e-mailalerts van Huurbaasje."
-        canonical="https://www.huurbaasje.nl/alerts/afmelden"
+        title="Alert afmelden | Woonaanbod NL"
+        description="Meld je af voor wekelijkse e-mailalerts van Woonaanbod NL."
+        canonical="https://www.woonaanbod-nl.nl/alerts/afmelden"
       />
       <Header />
       <main className="flex-1">
@@ -62,7 +62,7 @@ const AlertUnsubscribe = () => {
           seed="alert-afmelden"
           eyebrow="Alerts"
           title={isSuccess ? "Afmelding voltooid" : "Afmelding"}
-          subtitle="Beheer je e-mailvoorkeuren voor Huurbaasje alerts."
+          subtitle="Beheer je e-mailvoorkeuren voor Woonaanbod NL alerts."
         />
         <div className="flex items-center justify-center p-4 py-12">
           <Card className="w-full max-w-lg">

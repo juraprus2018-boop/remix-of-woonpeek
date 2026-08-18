@@ -47,7 +47,7 @@ const Register = () => {
     } else {
       supabase.functions.invoke("send-email", {
         body: {
-          to: "info@huurbaasje.nl",
+          to: "info@woonaanbod-nl.nl",
           subject: `Nieuwe registratie: ${displayName || email}`,
           html: `<h2>Nieuwe gebruiker geregistreerd</h2>
             <p><strong>Naam:</strong> ${displayName || "Niet opgegeven"}</p>
@@ -69,9 +69,9 @@ const Register = () => {
   return (
     <div className="flex min-h-screen">
       <SEOHead
-        title="Gratis account aanmaken | Huurbaasje"
-        description="Maak gratis een Huurbaasje-account aan. Sla woningen op, ontvang dagelijkse alerts en plaats zelf een woning gratis."
-        canonical="https://www.huurbaasje.nl/aanmelden"
+        title="Gratis account aanmaken | Woonaanbod NL"
+        description="Maak gratis een Woonaanbod NL-account aan. Sla woningen op, ontvang dagelijkse alerts en plaats zelf een woning gratis."
+        canonical="https://www.woonaanbod-nl.nl/aanmelden"
         noindex
       />
       {/* Left side - image */}
@@ -79,14 +79,14 @@ const Register = () => {
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}
-          alt="Huurbaasje platform"
+          alt="Woonaanbod NL platform"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/60" />
         <div className="absolute inset-0 flex items-end p-12">
           <div>
             <h2 className="font-display text-3xl font-bold text-white">
-              Word lid van Huurbaasje
+              Word lid van Woonaanbod NL
             </h2>
             <p className="mt-2 text-lg text-white/80">
               Maak gratis een account aan en ontdek duizenden woningen in heel Nederland.

@@ -12,7 +12,7 @@ interface RecentProperty {
   viewedAt: number;
 }
 
-const STORAGE_KEY = "huurbaasje_recent_viewed";
+const STORAGE_KEY = "woonaanbod-nl_recent_viewed";
 const MAX_ITEMS = 12;
 
 export const useRecentlyViewed = () => {

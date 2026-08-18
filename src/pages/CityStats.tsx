@@ -88,12 +88,12 @@ export default function CityStats() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Helmet>
-        <title>{`Cijfers ${cityName} — bevolking, inkomen & woningen | Huurbaasje`}</title>
+        <title>{`Cijfers ${cityName} — bevolking, inkomen & woningen | Woonaanbod NL`}</title>
         <meta
           name="description"
           content={`Officiële CBS-cijfers over ${cityName}: aantal inwoners, gemiddeld inkomen, leeftijdsopbouw, woningvoorraad en woningwaarde. Updates per jaar.`}
         />
-        <link rel="canonical" href={`https://www.huurbaasje.nl/cijfers/${city}`} />
+        <link rel="canonical" href={`https://www.woonaanbod-nl.nl/cijfers/${city}`} />
       </Helmet>
       <Header />
       <main className="flex-1">

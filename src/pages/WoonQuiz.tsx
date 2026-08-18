@@ -107,13 +107,13 @@ const WoonQuiz = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
-        title="Woonquiz: vind jouw ideale woning | Huurbaasje"
+        title="Woonquiz: vind jouw ideale woning | Woonaanbod NL"
         description="Beantwoord 5 korte vragen en ontdek welke woningen het beste bij jou passen. Direct gefilterd aanbod in heel Nederland."
-        canonical="https://www.huurbaasje.nl/woonquiz"
+        canonical="https://www.woonaanbod-nl.nl/woonquiz"
       />
       <Header />
       <StockBanner
-        seed="woonquiz-huurbaasje"
+        seed="woonquiz-woonaanbod-nl"
         eyebrow="Persoonlijk advies"
         title="Vind jouw ideale woning"
         subtitle="5 korte vragen, direct passend aanbod in heel Nederland."

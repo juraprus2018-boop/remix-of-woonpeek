@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
           <div className="flex items-end lg:col-span-5 lg:justify-end">
             <span className="rounded-full bg-sun px-4 py-2 text-xs font-bold text-foreground">
-              info@huurbaasje.nl · huurbaasje.nl
+              info@woonaanbod-nl.nl · woonaanbod-nl.nl
             </span>
           </div>
         </div>
@@ -91,20 +91,20 @@ const Footer = () => {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-background/80">
                 <Mail className="h-4 w-4" />
-                info@huurbaasje.nl
+                info@woonaanbod-nl.nl
               </li>
               <li>
-                <a href="https://www.facebook.com/huurbaasje" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                <a href="https://www.facebook.com/woonaanbod-nl" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
                   <Facebook className="h-4 w-4" /> Facebook
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/huurbaasje" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                <a href="https://www.instagram.com/woonaanbod-nl" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
                   <Instagram className="h-4 w-4" /> Instagram
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/company/huurbaasje/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                <a href="https://www.linkedin.com/company/woonaanbod-nl/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
                   <Linkedin className="h-4 w-4" /> LinkedIn
                 </a>
               </li>
@@ -133,7 +133,7 @@ const Footer = () => {
 
         <div className="mt-6 border-t-2 border-background/30 pt-6">
           <p className="text-center text-xs uppercase tracking-[0.22em] text-background/70">
-            © {new Date().getFullYear()} Huurbaasje. {t("footer.rights")}
+            © {new Date().getFullYear()} Woonaanbod NL. {t("footer.rights")}
           </p>
         </div>
       </div>

@@ -16,13 +16,13 @@ const BlogPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Blog – Tips & Advies over Woningen | Huurbaasje"
-        description="Lees onze artikelen over huurwoningen, koophuizen en de woningmarkt in Nederland. Tips, advies en marktinzichten op Huurbaasje."
-        canonical="https://www.huurbaasje.nl/journaal"
+        title="Blog – Tips & Advies over Woningen | Woonaanbod NL"
+        description="Lees onze artikelen over huurwoningen, koophuizen en de woningmarkt in Nederland. Tips, advies en marktinzichten op Woonaanbod NL."
+        canonical="https://www.woonaanbod-nl.nl/journaal"
       />
       <Header />
       <main className="flex-1">
-        <PageBanner image={bannerBlog} alt="Huurbaasje Blog">
+        <PageBanner image={bannerBlog} alt="Woonaanbod NL Blog">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },

@@ -3,126 +3,129 @@
 @tailwind utilities;
 
 /*
-  Huurbaasje Design System — Sunny Yellow
-  Wit canvas, diepe ink, fel zonnegeel accent. Vriendelijk, helder, modern.
-  Display: Nunito (rounded, friendly). Body: Plus Jakarta Sans.
+  Woonaanbod NL Design System — Forest & Moss
+  Zacht off-white canvas, diep bosgroen ink, moss accenten.
+  Display: Sora. Body: Manrope.
 */
 
 @layer base {
   :root {
-    /* Crisp white canvas */
-    --background: 0 0% 100%;
-    --foreground: 215 35% 12%;
+    /* Soft off-white canvas with a green tint */
+    --background: 105 28% 98%;
+    --foreground: 147 36% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 35% 12%;
+    --card-foreground: 147 36% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 35% 12%;
+    --popover-foreground: 147 36% 11%;
 
-    /* Deep ink as primary */
-    --primary: 215 35% 12%;
-    --primary-foreground: 0 0% 100%;
+    /* Deep forest as primary */
+    --primary: 140 34% 22%;
+    --primary-foreground: 105 30% 97%;
 
-    --secondary: 50 100% 95%;
-    --secondary-foreground: 215 35% 12%;
+    --secondary: 116 28% 92%;
+    --secondary-foreground: 147 36% 11%;
 
-    --muted: 210 16% 96%;
-    --muted-foreground: 215 14% 40%;
+    --muted: 120 18% 95%;
+    --muted-foreground: 145 12% 38%;
 
-    /* Sunny yellow accent */
-    --accent: 48 100% 52%;
-    --accent-foreground: 215 35% 12%;
+    /* Moss accent */
+    --accent: 123 24% 42%;
+    --accent-foreground: 105 30% 97%;
 
-    --destructive: 0 72% 50%;
+    --destructive: 4 66% 46%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 16% 90%;
-    --input: 210 16% 88%;
-    --ring: 48 100% 52%;
+    --border: 130 16% 88%;
+    --input: 130 16% 86%;
+    --ring: 123 24% 42%;
 
-    --radius: 0.875rem;
+    --radius: 1rem;
 
-    --success: 145 55% 38%;
+    --success: 145 45% 34%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 95% 52%;
-    --warning-foreground: 215 35% 12%;
+    --warning: 38 85% 46%;
+    --warning-foreground: 0 0% 100%;
 
     /* Legacy aliases kept so existing components keep theming correctly */
-    --terracotta: 48 100% 52%;
-    --terracotta-foreground: 215 35% 12%;
-    --terracotta-soft: 50 100% 90%;
+    --terracotta: 123 24% 42%;
+    --terracotta-foreground: 105 30% 97%;
+    --terracotta-soft: 116 28% 86%;
 
-    --surface-cream: 50 100% 97%;
-    --surface-cream-deep: 48 100% 88%;
+    --surface-cream: 110 26% 96%;
+    --surface-cream-deep: 116 28% 88%;
 
-    --hero: 215 38% 10%;
-    --hero-foreground: 0 0% 100%;
-    --hero-muted: 215 10% 72%;
+    --hero: 147 38% 10%;
+    --hero-foreground: 105 30% 96%;
+    --hero-muted: 130 12% 72%;
 
-    /* Brand yellow aliases */
-    --sun: 48 100% 52%;
-    --sun-soft: 50 100% 88%;
-    --sun-tint: 50 100% 96%;
-    --ink: 215 38% 10%;
-    --leaf: 48 100% 52%;
-    --sage: 50 100% 95%;
-    --forest: 215 38% 10%;
-    --moss: 215 25% 25%;
+    /* Brand green aliases (name kept for backwards compatibility) */
+    --sun: 116 30% 68%;
+    --sun-soft: 116 30% 86%;
+    --sun-tint: 110 28% 95%;
+    --ink: 147 38% 10%;
+    --leaf: 123 24% 42%;
+    --sage: 116 28% 90%;
+    --forest: 147 38% 10%;
+    --moss: 140 24% 30%;
 
-    --shadow-sm: 0 1px 2px 0 hsl(215 30% 12% / 0.06);
-    --shadow-md: 0 6px 18px -4px hsl(215 30% 12% / 0.10);
-    --shadow-lg: 0 22px 44px -16px hsl(215 30% 12% / 0.18);
-    --shadow-xl: 0 38px 72px -20px hsl(215 30% 12% / 0.22);
+    --shadow-sm: 0 1px 2px 0 hsl(147 30% 12% / 0.06);
+    --shadow-md: 0 6px 18px -4px hsl(147 30% 12% / 0.12);
+    --shadow-lg: 0 22px 44px -16px hsl(147 30% 12% / 0.18);
+    --shadow-xl: 0 38px 72px -20px hsl(147 30% 12% / 0.24);
 
-    --sidebar-background: 215 38% 10%;
-    --sidebar-foreground: 50 30% 94%;
-    --sidebar-primary: 48 100% 52%;
-    --sidebar-primary-foreground: 215 38% 10%;
-    --sidebar-accent: 215 30% 16%;
-    --sidebar-accent-foreground: 50 30% 94%;
-    --sidebar-border: 215 25% 22%;
-    --sidebar-ring: 48 100% 52%;
+    --sidebar-background: 147 38% 10%;
+    --sidebar-foreground: 110 24% 92%;
+    --sidebar-primary: 116 30% 68%;
+    --sidebar-primary-foreground: 147 38% 10%;
+    --sidebar-accent: 145 26% 16%;
+    --sidebar-accent-foreground: 110 24% 92%;
+    --sidebar-border: 145 20% 22%;
+    --sidebar-ring: 123 30% 52%;
   }
 
   .dark {
-    --background: 215 38% 8%;
-    --foreground: 50 25% 94%;
+    --background: 147 38% 7%;
+    --foreground: 110 22% 93%;
 
-    --card: 215 32% 12%;
-    --card-foreground: 50 25% 94%;
+    --card: 147 30% 11%;
+    --card-foreground: 110 22% 93%;
 
-    --popover: 215 32% 12%;
-    --popover-foreground: 50 25% 94%;
+    --popover: 147 30% 11%;
+    --popover-foreground: 110 22% 93%;
 
-    --primary: 48 100% 56%;
-    --primary-foreground: 215 38% 8%;
+    --primary: 116 32% 66%;
+    --primary-foreground: 147 38% 8%;
 
-    --secondary: 215 28% 16%;
-    --secondary-foreground: 50 25% 94%;
+    --secondary: 147 22% 16%;
+    --secondary-foreground: 110 22% 93%;
 
-    --muted: 215 28% 16%;
-    --muted-foreground: 215 12% 68%;
+    --muted: 147 22% 16%;
+    --muted-foreground: 120 10% 68%;
 
-    --accent: 48 100% 56%;
-    --accent-foreground: 215 38% 8%;
+    --accent: 116 32% 62%;
+    --accent-foreground: 147 38% 8%;
 
-    --destructive: 0 70% 50%;
-    --destructive-foreground: 50 25% 94%;
+    --destructive: 4 62% 46%;
+    --destructive-foreground: 110 22% 93%;
 
-    --border: 215 25% 20%;
-    --input: 215 25% 20%;
-    --ring: 48 100% 56%;
+    --border: 147 18% 20%;
+    --input: 147 18% 20%;
+    --ring: 116 32% 62%;
 
-    --hero: 215 40% 6%;
-    --hero-foreground: 50 25% 94%;
+    --hero: 147 40% 5%;
+    --hero-foreground: 110 22% 93%;
 
-    --surface-cream: 215 32% 12%;
-    --surface-cream-deep: 215 30% 16%;
-    --sun-tint: 215 32% 12%;
-    --sun-soft: 215 30% 16%;
+    --surface-cream: 147 30% 11%;
+    --surface-cream-deep: 147 26% 15%;
+    --sun-tint: 147 30% 11%;
+    --sun-soft: 147 26% 15%;
+    --sun: 116 32% 60%;
+    --sage: 147 26% 15%;
   }
 }
+
 
 @layer base {
   * {
@@ -131,7 +134,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
     font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -140,7 +143,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Sora', 'Manrope', sans-serif;
     @apply font-extrabold tracking-tight;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -149,13 +152,13 @@
   }
 
   .font-serif-display {
-    font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Sora', 'Manrope', sans-serif;
     font-weight: 900;
     letter-spacing: -0.02em;
   }
 
   .font-display {
-    font-family: 'Nunito', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Sora', 'Manrope', sans-serif;
     font-weight: 900;
     letter-spacing: -0.025em;
   }

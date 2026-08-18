@@ -53,9 +53,9 @@ const SearchAlerts = () => {
     return (
       <div className="flex min-h-screen flex-col">
         <SEOHead
-          title="Zoekalerts | Huurbaasje"
+          title="Zoekalerts | Woonaanbod NL"
           description="Stel zoekalerts in en ontvang dagelijks de nieuwste huur en koopwoningen die bij jouw voorkeuren passen."
-          canonical="https://www.huurbaasje.nl/zoekalerts"
+          canonical="https://www.woonaanbod-nl.nl/zoekalerts"
           noindex
         />
         <Header />

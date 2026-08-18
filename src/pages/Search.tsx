@@ -209,8 +209,8 @@ const SearchPage = () => {
       filters.listingType === "huur" ? "meta.searchTitleHuur"
       : filters.listingType === "koop" ? "meta.searchTitleKoop"
       : "meta.searchTitleAll";
-    // Extract bare noun (strip " | Huurbaasje" and any "{{loc}}")
-    const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Huurbaasje\s*$/i, "").trim().toLowerCase();
+    // Extract bare noun (strip " | Woonaanbod NL" and any "{{loc}}")
+    const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Woonaanbod NL\s*$/i, "").trim().toLowerCase();
     const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
     return t("meta.searchDesc", { total: totalCount, typeWord, loc: locPart });
   }, [debouncedCity, filters.listingType, totalCount, t]);
@@ -307,7 +307,7 @@ const SearchPage = () => {
                     const title = `Woningen zoeken${debouncedCity ? ` in ${debouncedCity}` : ""}`;
                     if (navigator.share) {
                       try {
-                        await navigator.share({ title, text: "Bekijk deze zoekopdracht op Huurbaasje", url });
+                        await navigator.share({ title, text: "Bekijk deze zoekopdracht op Woonaanbod NL", url });
                         return;
                       } catch {
                         // user cancelled - fall through to clipboard

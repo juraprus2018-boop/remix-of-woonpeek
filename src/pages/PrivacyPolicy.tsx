@@ -7,15 +7,15 @@ const PrivacyPolicy = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SEOHead
-        title="Privacybeleid | Huurbaasje"
-        description="Lees hoe Huurbaasje persoonsgegevens verzamelt, gebruikt en beschermt. Inzage, correctie en verwijdering volgens de AVG."
-        canonical="https://www.huurbaasje.nl/privacybeleid"
+        title="Privacybeleid | Woonaanbod NL"
+        description="Lees hoe Woonaanbod NL persoonsgegevens verzamelt, gebruikt en beschermt. Inzage, correctie en verwijdering volgens de AVG."
+        canonical="https://www.woonaanbod-nl.nl/privacybeleid"
       />
       <Header />
 
       <main className="flex-1">
         <StockBanner
-          seed="privacybeleid-huurbaasje"
+          seed="privacybeleid-woonaanbod-nl"
           eyebrow="Juridisch"
           title="Privacybeleid"
           subtitle="Laatst bijgewerkt: 13 februari 2026"
@@ -27,7 +27,7 @@ const PrivacyPolicy = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">1. Wie zijn wij?</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Huurbaasje is een online woningplatform dat woningaanbod verzamelt en beschikbaar stelt. 
+              Woonaanbod NL is een online woningplatform dat woningaanbod verzamelt en beschikbaar stelt. 
               Wij hechten groot belang aan de bescherming van jouw persoonsgegevens.
             </p>
           </section>
@@ -73,14 +73,14 @@ const PrivacyPolicy = () => {
             <p className="leading-relaxed text-muted-foreground">
               Je hebt het recht op inzage, correctie en verwijdering van je persoonsgegevens. 
               Ook kun je bezwaar maken tegen de verwerking of een klacht indienen bij de Autoriteit Persoonsgegevens. 
-              Neem contact met ons op via <strong>privacy@huurbaasje.nl</strong>.
+              Neem contact met ons op via <strong>privacy@woonaanbod-nl.nl</strong>.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">7. Cookies</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Huurbaasje maakt gebruik van functionele cookies om het platform goed te laten werken. 
+              Woonaanbod NL maakt gebruik van functionele cookies om het platform goed te laten werken. 
               Analytische cookies worden alleen geplaatst met jouw toestemming.
             </p>
           </section>

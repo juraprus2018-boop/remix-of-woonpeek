@@ -96,7 +96,7 @@ const Login = () => {
           supabase.from("profiles").update({ last_login_at: new Date().toISOString() }).eq("user_id", data.user.id).then(() => {});
           supabase.functions.invoke("send-email", {
             body: {
-              to: "info@huurbaasje.nl",
+              to: "info@woonaanbod-nl.nl",
               subject: `Gebruiker ingelogd: ${data.user.email}`,
               html: `<h2>Gebruiker ingelogd</h2>
                 <p><strong>E-mail:</strong> ${data.user.email}</p>
@@ -119,9 +119,9 @@ const Login = () => {
   return (
     <div className="flex min-h-screen">
       <SEOHead
-        title="Inloggen | Huurbaasje"
-        description="Log in op je Huurbaasje-account om woningen op te slaan, alerts te beheren en je eigen woning te plaatsen."
-        canonical="https://www.huurbaasje.nl/inloggen"
+        title="Inloggen | Woonaanbod NL"
+        description="Log in op je Woonaanbod NL-account om woningen op te slaan, alerts te beheren en je eigen woning te plaatsen."
+        canonical="https://www.woonaanbod-nl.nl/inloggen"
         noindex
       />
       {/* Left side - image */}
@@ -129,7 +129,7 @@ const Login = () => {
       <div className="hidden lg:block lg:w-1/2 relative">
         <img
           src={loginSide}
-          alt="Huurbaasje platform"
+          alt="Woonaanbod NL platform"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-primary/60" />

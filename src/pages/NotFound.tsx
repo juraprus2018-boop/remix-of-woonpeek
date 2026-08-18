@@ -18,8 +18,8 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead
-        title="Pagina niet gevonden | Huurbaasje"
-        description="Deze pagina bestaat niet (meer). Ga terug naar de homepage of zoek opnieuw naar woningen op Huurbaasje."
+        title="Pagina niet gevonden | Woonaanbod NL"
+        description="Deze pagina bestaat niet (meer). Ga terug naar de homepage of zoek opnieuw naar woningen op Woonaanbod NL."
         noindex
       />
       <Header />

@@ -79,7 +79,7 @@ const SocialeHuurWachttijd = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Wachttijd sociale huurwoning per stad 2025 | Huurbaasje"
+        title="Wachttijd sociale huurwoning per stad 2025 | Woonaanbod NL"
         description="Hoe lang sta je op de wachtlijst voor sociale huur in jouw stad? Actuele inschrijfduur voor Amsterdam, Utrecht, Rotterdam en 12 andere steden. Plus uitleg en directe links."
       />
       <Header />
@@ -178,7 +178,7 @@ const SocialeHuurWachttijd = () => {
                 {[
                   "Schrijf je in bij minimaal twee regio's. De kosten zijn beperkt en je kansen verdubbelen.",
                   "Reageer wekelijks, ook op woningen waarvan je denkt dat je geen kans maakt. Activiteit telt mee.",
-                  "Overweeg vrije sector als overbrugging. Bij Huurbaasje vind je dagelijks nieuw aanbod.",
+                  "Overweeg vrije sector als overbrugging. Bij Woonaanbod NL vind je dagelijks nieuw aanbod.",
                   "Check of je urgentie kunt aanvragen. Lijst van geldige gronden staat op de gemeentesite.",
                 ].map((tip) => (
                   <li key={tip} className="flex items-start gap-3 rounded-lg border-2 border-foreground bg-background p-3">
@@ -199,7 +199,7 @@ const SocialeHuurWachttijd = () => {
                 <h2 className="font-display text-xl lowercase">geen 14 jaar wachten?</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
                   Voor wie nu een woning nodig heeft is de vrije sector vaak de enige optie. Op
-                  Huurbaasje verschijnt elke dag nieuw vrije sector huuraanbod. Zet een gratis
+                  Woonaanbod NL verschijnt elke dag nieuw vrije sector huuraanbod. Zet een gratis
                   woonradar en je krijgt het meteen in je mailbox.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3">

@@ -6,7 +6,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SITE_URL = "https://www.huurbaasje.nl";
+const SITE_URL = "https://www.woonaanbod-nl.nl";
 
 /** Locales served by the app. NL is default (no path prefix). */
 const LOCALES = ["nl", "en", "de", "fr"] as const;

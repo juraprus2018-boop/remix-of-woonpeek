@@ -8,7 +8,7 @@
 // JS still get the SPA. We bypass our own rewrite by sending an
 // `x-no-prerender` header on the upstream fetch.
 
-const CANONICAL_HOST = "www.huurbaasje.nl";
+const CANONICAL_HOST = "www.woonaanbod-nl.nl";
 const ORIGIN = `https://${CANONICAL_HOST}`;
 const SUPPORTED = ["nl", "en", "de", "fr"] as const;
 type Locale = (typeof SUPPORTED)[number];
@@ -25,36 +25,36 @@ const OG_LOCALE: Record<Locale, string> = {
 // generic localized version – the SPA still upgrades it client-side.
 const META: Record<Locale, { title: string; description: string; ogTitle: string; ogDescription: string }> = {
   nl: {
-    title: "Huurbaasje – Huurwoningen & Koophuizen in Nederland",
+    title: "Woonaanbod NL – Huurwoningen & Koophuizen in Nederland",
     description:
-      "Vind huurwoningen en koophuizen in Eindhoven, Rotterdam, Amsterdam en meer. Huurbaasje – het woningplatform voor heel Nederland.",
-    ogTitle: "Huurbaasje – Huurwoningen & Koophuizen in Nederland",
+      "Vind huurwoningen en koophuizen in Eindhoven, Rotterdam, Amsterdam en meer. Woonaanbod NL – het woningplatform voor heel Nederland.",
+    ogTitle: "Woonaanbod NL – Huurwoningen & Koophuizen in Nederland",
     ogDescription:
-      "Zoek tussen duizenden huurwoningen en koophuizen in heel Nederland. Huurbaasje – snel, eenvoudig en betrouwbaar.",
+      "Zoek tussen duizenden huurwoningen en koophuizen in heel Nederland. Woonaanbod NL – snel, eenvoudig en betrouwbaar.",
   },
   en: {
-    title: "Huurbaasje – Rental homes & houses for sale in the Netherlands",
+    title: "Woonaanbod NL – Rental homes & houses for sale in the Netherlands",
     description:
-      "Find rental homes and houses for sale in Eindhoven, Rotterdam, Amsterdam and more. Huurbaasje – the housing platform for the entire Netherlands.",
-    ogTitle: "Huurbaasje – Rental homes & houses for sale in the Netherlands",
+      "Find rental homes and houses for sale in Eindhoven, Rotterdam, Amsterdam and more. Woonaanbod NL – the housing platform for the entire Netherlands.",
+    ogTitle: "Woonaanbod NL – Rental homes & houses for sale in the Netherlands",
     ogDescription:
-      "Search thousands of rentals and homes for sale across the Netherlands. Huurbaasje – fast, simple and reliable.",
+      "Search thousands of rentals and homes for sale across the Netherlands. Woonaanbod NL – fast, simple and reliable.",
   },
   de: {
-    title: "Huurbaasje – Mietwohnungen & Häuser zum Kauf in den Niederlanden",
+    title: "Woonaanbod NL – Mietwohnungen & Häuser zum Kauf in den Niederlanden",
     description:
-      "Finden Sie Mietwohnungen und Häuser zum Kauf in Eindhoven, Rotterdam, Amsterdam und mehr. Huurbaasje – die Wohnungsplattform für die gesamten Niederlande.",
-    ogTitle: "Huurbaasje – Mietwohnungen & Häuser zum Kauf in den Niederlanden",
+      "Finden Sie Mietwohnungen und Häuser zum Kauf in Eindhoven, Rotterdam, Amsterdam und mehr. Woonaanbod NL – die Wohnungsplattform für die gesamten Niederlande.",
+    ogTitle: "Woonaanbod NL – Mietwohnungen & Häuser zum Kauf in den Niederlanden",
     ogDescription:
-      "Tausende Mietwohnungen und Häuser zum Kauf in den Niederlanden. Huurbaasje – schnell, einfach und zuverlässig.",
+      "Tausende Mietwohnungen und Häuser zum Kauf in den Niederlanden. Woonaanbod NL – schnell, einfach und zuverlässig.",
   },
   fr: {
-    title: "Huurbaasje – Locations & maisons à vendre aux Pays-Bas",
+    title: "Woonaanbod NL – Locations & maisons à vendre aux Pays-Bas",
     description:
-      "Trouvez des locations et des maisons à vendre à Eindhoven, Rotterdam, Amsterdam et plus encore. Huurbaasje – la plateforme immobilière pour tous les Pays-Bas.",
-    ogTitle: "Huurbaasje – Locations & maisons à vendre aux Pays-Bas",
+      "Trouvez des locations et des maisons à vendre à Eindhoven, Rotterdam, Amsterdam et plus encore. Woonaanbod NL – la plateforme immobilière pour tous les Pays-Bas.",
+    ogTitle: "Woonaanbod NL – Locations & maisons à vendre aux Pays-Bas",
     ogDescription:
-      "Des milliers de locations et de maisons à vendre aux Pays-Bas. Huurbaasje – rapide, simple et fiable.",
+      "Des milliers de locations et de maisons à vendre aux Pays-Bas. Woonaanbod NL – rapide, simple et fiable.",
   },
 };
 
@@ -107,52 +107,52 @@ function routeMeta(bare: string, locale: Locale): { title: string; description: 
   if (m) {
     const city = slugToCity(m[1]);
     const title = locale === "nl"
-      ? `Huurwoningen ${city}: huizen & appartementen te huur | Huurbaasje`
+      ? `Huurwoningen ${city}: huizen & appartementen te huur | Woonaanbod NL`
       : locale === "en"
-        ? `Rentals in ${city}: apartments and houses for rent | Huurbaasje`
+        ? `Rentals in ${city}: apartments and houses for rent | Woonaanbod NL`
         : locale === "de"
-          ? `Mietwohnungen ${city}: Häuser & Wohnungen zur Miete | Huurbaasje`
-          : `Locations à ${city} : maisons & appartements à louer | Huurbaasje`;
+          ? `Mietwohnungen ${city}: Häuser & Wohnungen zur Miete | Woonaanbod NL`
+          : `Locations à ${city} : maisons & appartements à louer | Woonaanbod NL`;
     const desc = locale === "nl"
-      ? `Actueel aanbod huurwoningen in ${city}. Appartementen, huizen, studio's en kamers, dagelijks bijgewerkt. Gratis huuralert via Huurbaasje.`
+      ? `Actueel aanbod huurwoningen in ${city}. Appartementen, huizen, studio's en kamers, dagelijks bijgewerkt. Gratis huuralert via Woonaanbod NL.`
       : locale === "en"
-        ? `Up-to-date rental listings in ${city}. Apartments, houses, studios and rooms, refreshed daily. Free rental alerts on Huurbaasje.`
+        ? `Up-to-date rental listings in ${city}. Apartments, houses, studios and rooms, refreshed daily. Free rental alerts on Woonaanbod NL.`
         : locale === "de"
-          ? `Aktuelle Mietangebote in ${city}. Wohnungen, Häuser, Studios und Zimmer, täglich aktualisiert. Kostenlose Alerts via Huurbaasje.`
-          : `Annonces de location à jour à ${city}. Appartements, maisons, studios et chambres, mis à jour quotidiennement. Alertes gratuites via Huurbaasje.`;
-    return { title, description: desc, ogTitle: title.replace(" | Huurbaasje", ""), ogDescription: desc };
+          ? `Aktuelle Mietangebote in ${city}. Wohnungen, Häuser, Studios und Zimmer, täglich aktualisiert. Kostenlose Alerts via Woonaanbod NL.`
+          : `Annonces de location à jour à ${city}. Appartements, maisons, studios et chambres, mis à jour quotidiennement. Alertes gratuites via Woonaanbod NL.`;
+    return { title, description: desc, ogTitle: title.replace(" | Woonaanbod NL", ""), ogDescription: desc };
   }
   // /kopen/{city}
   m = bare.match(/^\/kopen\/([a-z0-9-]+)\/?$/i);
   if (m) {
     const city = slugToCity(m[1]);
     const title = locale === "nl"
-      ? `Koopwoningen ${city}: huizen te koop | Huurbaasje`
+      ? `Koopwoningen ${city}: huizen te koop | Woonaanbod NL`
       : locale === "en"
-        ? `Homes for sale in ${city} | Huurbaasje`
+        ? `Homes for sale in ${city} | Woonaanbod NL`
         : locale === "de"
-          ? `Häuser zum Kauf in ${city} | Huurbaasje`
-          : `Maisons à vendre à ${city} | Huurbaasje`;
+          ? `Häuser zum Kauf in ${city} | Woonaanbod NL`
+          : `Maisons à vendre à ${city} | Woonaanbod NL`;
     const desc = locale === "nl"
-      ? `Bekijk actuele koopwoningen in ${city}. Appartementen, eengezinswoningen en villa's, dagelijks bijgewerkt op Huurbaasje.`
-      : `Browse homes for sale in ${city}, updated daily on Huurbaasje.`;
-    return { title, description: desc, ogTitle: title.replace(/ \| Huurbaasje$/, ""), ogDescription: desc };
+      ? `Bekijk actuele koopwoningen in ${city}. Appartementen, eengezinswoningen en villa's, dagelijks bijgewerkt op Woonaanbod NL.`
+      : `Browse homes for sale in ${city}, updated daily on Woonaanbod NL.`;
+    return { title, description: desc, ogTitle: title.replace(/ \| Woonaanbod NL$/, ""), ogDescription: desc };
   }
   // /stad/{city}
   m = bare.match(/^\/stad\/([a-z0-9-]+)\/?$/i);
   if (m) {
     const city = slugToCity(m[1]);
     const title = locale === "nl"
-      ? `Wonen in ${city}: huur & koop overzicht | Huurbaasje`
+      ? `Wonen in ${city}: huur & koop overzicht | Woonaanbod NL`
       : locale === "en"
-        ? `Living in ${city}: rent & buy overview | Huurbaasje`
+        ? `Living in ${city}: rent & buy overview | Woonaanbod NL`
         : locale === "de"
-          ? `Wohnen in ${city}: Miete & Kauf Übersicht | Huurbaasje`
-          : `Habiter à ${city} : location & achat | Huurbaasje`;
+          ? `Wohnen in ${city}: Miete & Kauf Übersicht | Woonaanbod NL`
+          : `Habiter à ${city} : location & achat | Woonaanbod NL`;
     const desc = locale === "nl"
-      ? `Compleet woningoverzicht voor ${city}: huur, koop, markt, buurten en dagelijks nieuw aanbod via Huurbaasje.`
-      : `Complete housing overview for ${city}: rent, buy, market, neighbourhoods and new listings on Huurbaasje.`;
-    return { title, description: desc, ogTitle: title.replace(/ \| Huurbaasje$/, ""), ogDescription: desc };
+      ? `Compleet woningoverzicht voor ${city}: huur, koop, markt, buurten en dagelijks nieuw aanbod via Woonaanbod NL.`
+      : `Complete housing overview for ${city}: rent, buy, market, neighbourhoods and new listings on Woonaanbod NL.`;
+    return { title, description: desc, ogTitle: title.replace(/ \| Woonaanbod NL$/, ""), ogDescription: desc };
   }
   return null;
 }
@@ -166,12 +166,12 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
     const slug = m[1].toLowerCase();
     return {
       h1: `Huurwoningen ${city}`,
-      intro: `Op deze pagina vind je het actuele aanbod huurwoningen in ${city}. Bekijk appartementen, eengezinswoningen, studio's en kamers te huur in ${city}, dagelijks bijgewerkt. Huurbaasje is volledig gratis, je betaalt geen bemiddelingskosten of abonnement. Zet een gratis huuralert aan en ontvang elke ochtend de nieuwste huurwoningen in ${city} per e-mail.`,
+      intro: `Op deze pagina vind je het actuele aanbod huurwoningen in ${city}. Bekijk appartementen, eengezinswoningen, studio's en kamers te huur in ${city}, dagelijks bijgewerkt. Woonaanbod NL is volledig gratis, je betaalt geen bemiddelingskosten of abonnement. Zet een gratis huuralert aan en ontvang elke ochtend de nieuwste huurwoningen in ${city} per e-mail.`,
       faqs: [
-        { q: `Hoeveel huurwoningen zijn er beschikbaar in ${city}?`, a: `Het aanbod verandert dagelijks. Huurbaasje toont continu actuele huurwoningen, appartementen, studio's en kamers in ${city} en omliggende plaatsen.` },
+        { q: `Hoeveel huurwoningen zijn er beschikbaar in ${city}?`, a: `Het aanbod verandert dagelijks. Woonaanbod NL toont continu actuele huurwoningen, appartementen, studio's en kamers in ${city} en omliggende plaatsen.` },
         { q: `Wat is de gemiddelde huur in ${city}?`, a: `De gemiddelde huurprijs hangt af van type woning en buurt. Op de stadpagina van ${city} vind je live prijsindicaties per kamer- en oppervlakteklasse.` },
         { q: `Hoe stel ik een huuralert in voor ${city}?`, a: `Ga naar /woonradar, kies ${city} als locatie en stel je maximale huur en aantal kamers in. Je ontvangt dagelijks nieuwe woningen per e-mail, helemaal gratis.` },
-        { q: `Kost Huurbaasje geld?`, a: `Nee. Zoeken, alerts en woningen plaatsen zijn 100% gratis. Er zijn geen verborgen kosten of abonnementen.` },
+        { q: `Kost Woonaanbod NL geld?`, a: `Nee. Zoeken, alerts en woningen plaatsen zijn 100% gratis. Er zijn geen verborgen kosten of abonnementen.` },
       ],
       breadcrumbs: [
         { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
@@ -186,7 +186,7 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
     const slug = m[1].toLowerCase();
     return {
       h1: `Koopwoningen ${city}`,
-      intro: `Bekijk actuele koopwoningen in ${city}. Eengezinswoningen, appartementen en villa's te koop in ${city} en omgeving, dagelijks bijgewerkt op Huurbaasje. Vergelijk prijzen, bekijk kenmerken en neem direct contact op met de aanbieder.`,
+      intro: `Bekijk actuele koopwoningen in ${city}. Eengezinswoningen, appartementen en villa's te koop in ${city} en omgeving, dagelijks bijgewerkt op Woonaanbod NL. Vergelijk prijzen, bekijk kenmerken en neem direct contact op met de aanbieder.`,
       faqs: [
         { q: `Wat zijn de gemiddelde koopprijzen in ${city}?`, a: `De vraagprijzen variëren per buurt en woningtype. Op deze pagina staan actuele prijzen vanaf de goedkoopste tot de duurste koopwoningen in ${city}.` },
         { q: `Hoe bereken ik mijn maximale hypotheek?`, a: `Gebruik onze gratis hypotheekcalculator op /hypotheek-berekenen om te zien hoeveel je kunt lenen op basis van je bruto inkomen.` },
@@ -204,7 +204,7 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
     const slug = m[1].toLowerCase();
     return {
       h1: `Wonen in ${city}`,
-      intro: `Compleet woningoverzicht voor ${city}: huurwoningen, koopwoningen, woningmarktdata, buurten en dagelijks nieuw aanbod. Of je nu wilt huren of kopen in ${city}, Huurbaasje verzamelt alles op één gratis platform.`,
+      intro: `Compleet woningoverzicht voor ${city}: huurwoningen, koopwoningen, woningmarktdata, buurten en dagelijks nieuw aanbod. Of je nu wilt huren of kopen in ${city}, Woonaanbod NL verzamelt alles op één gratis platform.`,
       faqs: [
         { q: `Is ${city} een goede woonstad?`, a: `${city} biedt diverse buurten, voorzieningen en woningtypes. Op deze pagina vind je een overzicht van huur- en koopaanbod en marktdata.` },
       ],
