@@ -24,19 +24,29 @@ export function Logo({ className, size = "h-11 md:h-12", variant = "dark" }: Log
       <svg
         viewBox="0 0 36 36"
         aria-hidden="true"
-        className="h-[1.25em] w-[1.25em] shrink-0"
+        className="h-[1.2em] w-[1.2em] shrink-0"
         fill="none"
       >
-        <rect x="2" y="2" width="32" height="32" rx="9" fill="hsl(var(--sun))" />
+        <rect x="2" y="2" width="32" height="32" rx="10" fill="hsl(var(--primary))" />
         <path
-          d="M10 20l8-7 8 7v7a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 10 27v-7z"
-          fill="hsl(var(--foreground))"
+          d="M9.5 19.5L18 12l8.5 7.5"
+          stroke="hsl(var(--sun))"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
-        <rect x="16.5" y="22.5" width="3" height="6" rx="0.6" fill="hsl(var(--sun))" />
+        <path
+          d="M12 20.5v6.2a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-6.2"
+          stroke="hsl(var(--sun))"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
-      <span className="font-display text-[1.85em] lowercase tracking-[-0.045em]" translate="no" data-no-translate>
-        woonaanbod-nl<span className="text-sun">.</span>
+      <span className="font-display text-[1.5em] tracking-[-0.04em]" translate="no" data-no-translate>
+        woonaanbod<span className="text-accent font-bold">.nl</span>
       </span>
+
     </span>
   );
 }
