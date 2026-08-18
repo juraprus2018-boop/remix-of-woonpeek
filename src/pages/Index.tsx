@@ -234,25 +234,111 @@ const Index = () => {
         </div>
       </section>
 
-      {/* TYPES STRIP */}
-      <section className="border-y border-border bg-background py-10">
+      {/* BENTO GRID */}
+      <section className="border-y border-border bg-background py-12 md:py-16">
         <div className="container">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-            {TYPES_DEF.map((item) => (
+          <div className="grid auto-rows-[minmax(120px,auto)] grid-cols-2 gap-4 md:grid-cols-4">
+            {/* Big tile: huurwoningen */}
+            <Link
+              to="/huurwoningen"
+              className="group col-span-2 row-span-2 flex flex-col justify-between rounded-3xl bg-primary p-7 text-primary-foreground transition-transform hover:-translate-y-1"
+            >
+              <Home className="h-8 w-8 opacity-80" />
+              <div>
+                <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+                  {t("nav.categories.rentals")}
+                </h2>
+                <p className="mt-2 max-w-sm text-sm opacity-80">
+                  {t("nav.categories.rentalsDesc")}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold">
+                  {t("common.viewAll")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </Link>
+
+            {/* Stat tile */}
+            <div className="flex flex-col justify-between rounded-3xl border border-border bg-sun-tint p-6">
+              <TrendingUp className="h-6 w-6 text-accent" />
+              <div>
+                <div className="text-3xl font-extrabold tracking-tight text-foreground">
+                  {homeStats?.properties_count !== undefined
+                    ? homeStats.properties_count.toLocaleString("nl-NL")
+                    : "…"}
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  woningen online
+                </div>
+              </div>
+            </div>
+
+            {/* Nieuw vandaag */}
+            <Link
+              to="/vandaag"
+              className="group flex flex-col justify-between rounded-3xl bg-accent p-6 text-accent-foreground transition-transform hover:-translate-y-1"
+            >
+              <Sparkles className="h-6 w-6 opacity-90" />
+              <div>
+                <div className="text-3xl font-extrabold tracking-tight">
+                  {newToday !== undefined ? `+${newToday}` : "…"}
+                </div>
+                <div className="text-xs font-semibold uppercase tracking-wider opacity-85">
+                  nieuw vandaag
+                </div>
+              </div>
+            </Link>
+
+            {/* Smaller type tiles */}
+            {TYPES_DEF.filter((i) => i.key !== "rentals").map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-sun hover:shadow-md"
+                className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-md"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary transition-colors group-hover:bg-sun">
                   <item.icon className="h-5 w-5 text-foreground" />
                 </div>
-                <span className="text-sm font-bold text-foreground">{t(`nav.categories.${item.key}`)}</span>
+                <span className="mt-4 text-base font-extrabold text-foreground">
+                  {t(`nav.categories.${item.key}`)}
+                </span>
               </Link>
             ))}
+
+            {/* Alert tile */}
+            <Link
+              to="/dagelijkse-alert"
+              className="group col-span-2 flex items-center justify-between gap-4 rounded-3xl border border-border bg-secondary p-6 transition-all hover:-translate-y-1 hover:shadow-md"
+            >
+              <div>
+                <h3 className="text-lg font-extrabold text-foreground">
+                  {t("nav.discoverItems.dailyAlert")}
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {t("nav.discoverItems.dailyAlertDesc")}
+                </p>
+              </div>
+              <Bell className="h-7 w-7 shrink-0 text-accent" />
+            </Link>
+
+            {/* Kaart tile */}
+            <Link
+              to="/op-kaart"
+              className="group col-span-2 flex items-center justify-between gap-4 rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-md"
+            >
+              <div>
+                <h3 className="text-lg font-extrabold text-foreground">
+                  {t("nav.discoverItems.map")}
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {t("nav.discoverItems.mapDesc")}
+                </p>
+              </div>
+              <MapPin className="h-7 w-7 shrink-0 text-accent" />
+            </Link>
           </div>
         </div>
       </section>
+
 
       {/* NIEUW AANBOD */}
       <section className="py-16 md:py-20">
