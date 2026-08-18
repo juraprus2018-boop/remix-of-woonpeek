@@ -98,7 +98,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setMeta("og:locale", locale === "nl" ? "nl_NL" : locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : "fr_FR");
     if (resolvedCanonical) setMeta("og:url", resolvedCanonical);
     if (ogImage) setMeta("og:image", ogImage);
-    setMeta("og:site_name", "Huurbaasje");
+    setMeta("og:site_name", "Woonaanbod NL");
 
     setMeta("twitter:card", ogImage ? "summary_large_image" : "summary");
     setMeta("twitter:title", title);
@@ -107,8 +107,8 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
 
     // Auto WebPage JSON-LD tied to Organization + WebSite on every route.
     if (!noindex) {
-      const orgId = `${baseUrl || "https://www.huurbaasje.nl"}/#organization`;
-      const siteId = `${baseUrl || "https://www.huurbaasje.nl"}/#website`;
+      const orgId = `${baseUrl || "https://www.woonaanbod-nl.nl"}/#organization`;
+      const siteId = `${baseUrl || "https://www.woonaanbod-nl.nl"}/#website`;
       setJsonLd("seo-jsonld-webpage", {
         "@context": "https://schema.org",
         "@type": "WebPage",

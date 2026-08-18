@@ -1,5 +1,5 @@
 /**
- * Canonieke URL-structuur voor Huurbaasje. Bewust hiërarchisch (slash-based),
+ * Canonieke URL-structuur voor Woonaanbod NL. Bewust hiërarchisch (slash-based),
  * geen flat dash-style URLs zoals `/woningen-amsterdam`.
  *
  * Wijzig hier 1x om de URL-structuur sitewide te updaten.
@@ -108,7 +108,7 @@ export const LEGACY_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: "/blog", to: ROUTES.blog },
   { from: "/zoekalerts", to: ROUTES.alerts },
   { from: "/veelgestelde-vragen", to: ROUTES.faq },
-  { from: "/over-huurbaasje", to: ROUTES.about },
+  { from: "/over-woonaanbod-nl", to: ROUTES.about },
   { from: "/steden", to: ROUTES.cities },
   { from: "/budget-tool", to: ROUTES.budget },
   { from: "/woonquiz", to: ROUTES.quiz },

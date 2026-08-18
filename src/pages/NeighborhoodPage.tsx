@@ -85,9 +85,9 @@ const NeighborhoodPage = () => {
   const totalCount = data?.totalCount ?? 0;
 
   const h1 = `Woningen in ${neighborhoodName}, ${cityName}`;
-  const pageTitle = `Woningen in ${neighborhoodName}, ${cityName} – beschikbaar aanbod | Huurbaasje`;
+  const pageTitle = `Woningen in ${neighborhoodName}, ${cityName} – beschikbaar aanbod | Woonaanbod NL`;
   const pageDescription = `Bekijk ${totalCount} woningen in de wijk ${neighborhoodName} in ${cityName}. Vergelijk huurwoningen, appartementen en huizen in ${neighborhoodName}.`;
-  const canonical = `https://www.huurbaasje.nl/wijk/${citySlug}/${neighborhoodSlug}`;
+  const canonical = `https://www.woonaanbod-nl.nl/wijk/${citySlug}/${neighborhoodSlug}`;
 
   const faqItems = useMemo(() => [
     {
@@ -107,7 +107,7 @@ const NeighborhoodPage = () => {
       name: h1,
       description: pageDescription,
       url: canonical,
-      isPartOf: { "@type": "WebSite", name: "Huurbaasje", url: "https://www.huurbaasje.nl" },
+      isPartOf: { "@type": "WebSite", name: "Woonaanbod NL", url: "https://www.woonaanbod-nl.nl" },
     },
     {
       "@context": "https://schema.org",
@@ -117,7 +117,7 @@ const NeighborhoodPage = () => {
       itemListElement: properties.slice(0, 10).map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `https://www.huurbaasje.nl/woning/${p.slug || p.id}`,
+        url: `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`,
         name: p.title,
       })),
     },
@@ -257,7 +257,7 @@ const NeighborhoodPage = () => {
             <h2 className="mb-4 font-display text-2xl font-bold">Wonen in {neighborhoodName}, {cityName}</h2>
             <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
               <p>
-                {neighborhoodName} is een populaire wijk in {cityName}. Op Huurbaasje vind je het meest actuele aanbod van
+                {neighborhoodName} is een populaire wijk in {cityName}. Op Woonaanbod NL vind je het meest actuele aanbod van
                 <strong> woningen in {neighborhoodName}</strong>. Of je nu zoekt naar een appartement, huis of kamer,
                 het aanbod wordt dagelijks bijgewerkt.
               </p>

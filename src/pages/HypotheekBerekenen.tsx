@@ -52,9 +52,9 @@ const HypotheekBerekenen = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Hypotheek berekenen 2026 – Vergelijk en bespaar | Huurbaasje"
+        title="Hypotheek berekenen 2026 – Vergelijk en bespaar | Woonaanbod NL"
         description="Bereken direct je maximale hypotheek en maandlasten. Vergelijk vrijblijvend de actuele hypotheekrentes en bespaar duizenden euro's op je woonlasten."
-        canonical="https://www.huurbaasje.nl/hypotheek-berekenen"
+        canonical="https://www.woonaanbod-nl.nl/hypotheek-berekenen"
       />
       <script
         type="application/ld+json"

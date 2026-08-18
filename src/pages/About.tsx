@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const ABOUT_FAQ = [
   {
-    question: "Is Huurbaasje echt gratis?",
+    question: "Is Woonaanbod NL echt gratis?",
     answer: "Yep. Zoeken, alerts, je eigen huurwoning plaatsen. Allemaal nul euro. Geen abo, geen kleine lettertjes.",
   },
   {
@@ -63,14 +63,14 @@ const About = () => {
   const aboutLd = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: "Over Huurbaasje",
+    name: "Over Woonaanbod NL",
     description:
-      "Huurbaasje is een gratis platform voor huurwoningen. Elke dag vers aanbod uit heel Nederland op één plek.",
-    url: "https://www.huurbaasje.nl/over-huurbaasje",
+      "Woonaanbod NL is een gratis platform voor huurwoningen. Elke dag vers aanbod uit heel Nederland op één plek.",
+    url: "https://www.woonaanbod-nl.nl/over-woonaanbod-nl",
     mainEntity: {
       "@type": "Organization",
-      name: "Huurbaasje",
-      url: "https://www.huurbaasje.nl",
+      name: "Woonaanbod NL",
+      url: "https://www.woonaanbod-nl.nl",
     },
   };
 
@@ -90,9 +90,9 @@ const About = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Over Huurbaasje – Gratis platform voor huurwoningen in heel NL"
-        description="Huurbaasje verzamelt elke dag het verste huuraanbod uit heel Nederland op één plek. Gratis zoeken, alerts en zelf je huurwoning plaatsen."
-        canonical="https://www.huurbaasje.nl/over-huurbaasje"
+        title="Over Woonaanbod NL – Gratis platform voor huurwoningen in heel NL"
+        description="Woonaanbod NL verzamelt elke dag het verste huuraanbod uit heel Nederland op één plek. Gratis zoeken, alerts en zelf je huurwoning plaatsen."
+        canonical="https://www.woonaanbod-nl.nl/over-woonaanbod-nl"
       />
       <script
         type="application/ld+json"
@@ -122,15 +122,15 @@ const About = () => {
                 <Breadcrumbs
                   items={[
                     { label: "Home", href: "/" },
-                    { label: "Over Huurbaasje" },
+                    { label: "Over Woonaanbod NL" },
                   ]}
                 />
               </div>
               <h1 className="font-display text-3xl font-bold text-primary-foreground md:text-5xl">
-                Over Huurbaasje
+                Over Woonaanbod NL
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-                Huurbaasje is het gratis platform voor huurwoningen in Nederland. Wij trekken elke dag
+                Woonaanbod NL is het gratis platform voor huurwoningen in Nederland. Wij trekken elke dag
                 het nieuwste huuraanbod van allerlei bronnen naar één plek. Zodat jij niet hoeft te switchen.
               </p>
             </div>
@@ -159,7 +159,7 @@ const About = () => {
         <section className="py-16 md:py-20">
           <div className="container">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl">
-              Waarom Huurbaasje?
+              Waarom Woonaanbod NL?
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
               Dit is waarom wij anders zijn dan de rest.
@@ -195,7 +195,7 @@ const About = () => {
               <p className="text-center leading-relaxed text-muted-foreground">
                 De huurmarkt in Nederland is krap. Echt krap. Wie er bovenop wil zitten,
                 checkt elke ochtend tien sites en is dan nog te laat. Dat moet anders.
-                Huurbaasje brengt alles bij elkaar, gratis en elke dag bij.
+                Woonaanbod NL brengt alles bij elkaar, gratis en elke dag bij.
               </p>
               <p className="text-center leading-relaxed text-muted-foreground">
                 Wij vinden dat iedereen eerlijk bij het aanbod moet kunnen. Geen abo om de beste
@@ -239,7 +239,7 @@ const About = () => {
         <section className="border-t bg-muted/30 py-16 md:py-20">
           <div className="container">
             <h2 className="font-display text-center text-2xl font-bold text-foreground md:text-3xl mb-8">
-              Veelgestelde vragen over Huurbaasje
+              Veelgestelde vragen over Woonaanbod NL
             </h2>
             <div className="space-y-6">
               {ABOUT_FAQ.map((item, i) => (

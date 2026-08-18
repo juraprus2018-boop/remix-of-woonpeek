@@ -63,7 +63,7 @@ const ExpatHousing = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Expat housing in the Netherlands: 2025 guide | Huurbaasje"
+        title="Expat housing in the Netherlands: 2025 guide | Woonaanbod NL"
         description="Moving to the Netherlands? Practical English guide on finding housing, BSN, 30% ruling, deposits and the best expat cities. Free daily rental alerts included."
       />
       <Header />

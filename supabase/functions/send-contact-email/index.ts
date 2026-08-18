@@ -76,17 +76,17 @@ Deno.serve(async (req) => {
         </div>
         <p style="color:#666;font-size:14px;">Je kunt direct reageren door te antwoorden op ${sender_email}.</p>
         <hr style="border:none;border-top:1px solid #eee;margin:24px 0;"/>
-        <p style="color:#999;font-size:12px;">Dit bericht is verzonden via Huurbaasje.</p>
+        <p style="color:#999;font-size:12px;">Dit bericht is verzonden via Woonaanbod NL.</p>
       </div>
     `;
 
     const smtpClient = new SMTPClient({
       connection: {
-        hostname: "huurbaasje.nl",
+        hostname: "woonaanbod-nl.nl",
         port: 465,
         tls: true,
         auth: {
-          username: "info@huurbaasje.nl",
+          username: "info@woonaanbod-nl.nl",
           password: Deno.env.get("SMTP_PASSWORD") || "",
         },
       },
@@ -94,17 +94,17 @@ Deno.serve(async (req) => {
 
     // Send to owner
     await smtpClient.send({
-      from: "Huurbaasje <info@huurbaasje.nl>",
+      from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
       to: ownerEmail,
       subject: `Nieuw bericht over: ${property.title}`,
       content: "text/html",
       html,
     });
 
-    // Send copy to Huurbaasje
+    // Send copy to Woonaanbod NL
     await smtpClient.send({
-      from: "Huurbaasje <info@huurbaasje.nl>",
-      to: "info@huurbaasje.nl",
+      from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+      to: "info@woonaanbod-nl.nl",
       subject: `[Kopie] Contactbericht: ${property.title}`,
       content: "text/html",
       html,

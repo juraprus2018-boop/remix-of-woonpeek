@@ -99,9 +99,9 @@ const DailyAlertSection = () => {
       const detail = (e as CustomEvent<{ city?: string }>).detail;
       if (detail?.city) setCity(detail.city);
     };
-    window.addEventListener("huurbaasje:prefill-alert", handler as EventListener);
+    window.addEventListener("woonaanbod-nl:prefill-alert", handler as EventListener);
     return () =>
-      window.removeEventListener("huurbaasje:prefill-alert", handler as EventListener);
+      window.removeEventListener("woonaanbod-nl:prefill-alert", handler as EventListener);
   }, []);
 
   return (

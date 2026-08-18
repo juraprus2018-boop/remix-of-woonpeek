@@ -52,7 +52,7 @@ const Verhuiskosten = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Verhuiskosten berekenen 2025: wat kost een verhuizing? | Huurbaasje"
+        title="Verhuiskosten berekenen 2025: wat kost een verhuizing? | Woonaanbod NL"
         description="Bereken in 1 minuut wat je verhuizing gaat kosten. Inclusief gemiddelde prijzen voor Amsterdam, Rotterdam, Utrecht en 7 andere steden. Gratis, geen e-mail nodig."
       />
       <Header />

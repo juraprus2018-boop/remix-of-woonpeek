@@ -39,7 +39,7 @@ const WhyUsSection = () => {
       <div className="container">
         <div className="mb-12 text-center">
           <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
-            Waarom Huurbaasje?
+            Waarom Woonaanbod NL?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
             Omdat huren zoeken al stressvol genoeg is.

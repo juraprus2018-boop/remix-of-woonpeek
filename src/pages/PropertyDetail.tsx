@@ -125,7 +125,7 @@ const PropertyDetail = () => {
 
   const handleShare = async () => {
     const url = window.location.href;
-    const title = property?.title || "Woning op Huurbaasje";
+    const title = property?.title || "Woning op Woonaanbod NL";
     if (navigator.share) {
       try { await navigator.share({ title, url }); } catch {}
     }
@@ -216,7 +216,7 @@ const PropertyDetail = () => {
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
   // Meta Title: [Woningtype] in [stad] – [kamers] – €[prijs]
-  const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Huurbaasje`;
+  const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Woonaanbod NL`;
 
   // Meta Description
   const seoDescription = `Bekijk deze ${property.property_type} in ${property.city}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? "/mnd" : ""}. Bekijk foto's, informatie en vraag direct meer info aan.`;
@@ -230,16 +230,16 @@ const PropertyDetail = () => {
     "@type": "Product",
     "name": property.title,
     "description": property.description || seoDescription,
-    "url": `https://www.huurbaasje.nl/woning/${property.slug}`,
+    "url": `https://www.woonaanbod-nl.nl/woning/${property.slug}`,
     "image": property.images?.length ? property.images : undefined,
-    "brand": { "@type": "Brand", "name": "Huurbaasje" },
+    "brand": { "@type": "Brand", "name": "Woonaanbod NL" },
     "category": `${typeLabel} te ${property.listing_type}`,
     "offers": {
       "@type": "Offer",
       "price": property.price,
       "priceCurrency": "EUR",
       "availability": property.status === "actief" ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
-      "url": `https://www.huurbaasje.nl/woning/${property.slug}`,
+      "url": `https://www.woonaanbod-nl.nl/woning/${property.slug}`,
       "validFrom": property.created_at,
     },
     "additionalProperty": [
@@ -268,7 +268,7 @@ const PropertyDetail = () => {
     "name": `${typeLabel} ${listingLabel} in ${property.city}`,
     "headline": property.title,
     "description": property.description || seoDescription,
-    "url": `https://www.huurbaasje.nl/aanbod/${property.slug}`,
+    "url": `https://www.woonaanbod-nl.nl/aanbod/${property.slug}`,
     "datePosted": property.created_at,
     "dateModified": (property as any).updated_at || property.created_at,
     "image": property.images?.length ? property.images.slice(0, 10) : undefined,
@@ -304,9 +304,9 @@ const PropertyDetail = () => {
       "availability": property.status === "actief"
         ? "https://schema.org/InStock"
         : "https://schema.org/SoldOut",
-      "url": `https://www.huurbaasje.nl/aanbod/${property.slug}`,
+      "url": `https://www.woonaanbod-nl.nl/aanbod/${property.slug}`,
       "validFrom": property.created_at,
-      "seller": { "@type": "Organization", "name": "Huurbaasje" },
+      "seller": { "@type": "Organization", "name": "Woonaanbod NL" },
     },
   };
 
@@ -329,8 +329,8 @@ const PropertyDetail = () => {
     {
       question: `Is ${property.street} ${property.house_number} in ${property.city} nog beschikbaar?`,
       answer: property.status === "actief"
-        ? `Ja, deze woning is momenteel actief beschikbaar op Huurbaasje. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
-        : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Huurbaasje.`,
+        ? `Ja, deze woning is momenteel actief beschikbaar op Woonaanbod NL. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
+        : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Woonaanbod NL.`,
     },
   ];
 
@@ -363,7 +363,7 @@ const PropertyDetail = () => {
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonical={`https://www.huurbaasje.nl/aanbod/${property.slug}`}
+        canonical={`https://www.woonaanbod-nl.nl/aanbod/${property.slug}`}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="article"
       />
@@ -757,7 +757,7 @@ const PropertyDetail = () => {
                 <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
                   <p>
                     {property.city} biedt een divers woningaanbod, van appartementen en studio's tot ruime eengezinswoningen. 
-                    Of je nu op zoek bent naar een huurwoning of koopwoning in {property.city}, Huurbaasje helpt je om het 
+                    Of je nu op zoek bent naar een huurwoning of koopwoning in {property.city}, Woonaanbod NL helpt je om het 
                     actuele aanbod overzichtelijk te vergelijken.
                   </p>
                   <p>
@@ -1061,7 +1061,7 @@ const PropertyDetail = () => {
           <div className="container text-center">
             <h2 className="font-display text-2xl font-bold mb-3">Op zoek naar een woning?</h2>
             <p className="mx-auto max-w-lg text-muted-foreground mb-6">
-              Ontdek duizenden huurwoningen en koopwoningen door heel Nederland op Huurbaasje.
+              Ontdek duizenden huurwoningen en koopwoningen door heel Nederland op Woonaanbod NL.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Button asChild size="lg">

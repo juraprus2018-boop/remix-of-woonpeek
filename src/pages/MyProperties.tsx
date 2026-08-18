@@ -54,9 +54,9 @@ const MyProperties = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Mijn woningen | Huurbaasje"
-        description="Beheer je geplaatste huur en koopwoningen op Huurbaasje. Bewerk, dupliceer of zet woningen op inactief."
-        canonical="https://www.huurbaasje.nl/mijn-woningen"
+        title="Mijn woningen | Woonaanbod NL"
+        description="Beheer je geplaatste huur en koopwoningen op Woonaanbod NL. Bewerk, dupliceer of zet woningen op inactief."
+        canonical="https://www.woonaanbod-nl.nl/mijn-woningen"
         noindex
       />
       <Header />

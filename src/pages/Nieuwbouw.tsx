@@ -38,9 +38,9 @@ const Nieuwbouw = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Nieuwbouw woningen in Nederland – huren en kopen | Huurbaasje"
+        title="Nieuwbouw woningen in Nederland – huren en kopen | Woonaanbod NL"
         description="Bekijk het complete nieuwbouwaanbod in Nederland. Energiezuinig wonen met label A++, garantie en lagere maandlasten. Filter op stad of bouwjaar."
-        canonical="https://www.huurbaasje.nl/nieuwbouw"
+        canonical="https://www.woonaanbod-nl.nl/nieuwbouw"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

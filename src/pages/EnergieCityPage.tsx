@@ -58,7 +58,7 @@ const EnergieCityPage = () => {
       <SEOHead
         title={`Energie vergelijken ${cityName} – Bespaar op gas en stroom`}
         description={`Vergelijk de actuele energietarieven van alle leveranciers in ${cityName} en bespaar tot € 600 per jaar. Gratis en vrijblijvend overstappen.`}
-        canonical={`https://www.huurbaasje.nl/energie/${city}`}
+        canonical={`https://www.woonaanbod-nl.nl/energie/${city}`}
       />
       <script
         type="application/ld+json"

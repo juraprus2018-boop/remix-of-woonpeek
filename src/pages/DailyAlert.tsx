@@ -39,9 +39,9 @@ const DailyAlert = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Wekelijkse Woningalert – Ontvang nieuw aanbod per e-mail | Huurbaasje"
-        description="Schrijf je gratis in voor de Huurbaasje wekelijkse alert en ontvang elke maandag een e-mail met het nieuwste woningaanbod in Nederland."
-        canonical="https://www.huurbaasje.nl/dagelijkse-alert"
+        title="Wekelijkse Woningalert – Ontvang nieuw aanbod per e-mail | Woonaanbod NL"
+        description="Schrijf je gratis in voor de Woonaanbod NL wekelijkse alert en ontvang elke maandag een e-mail met het nieuwste woningaanbod in Nederland."
+        canonical="https://www.woonaanbod-nl.nl/dagelijkse-alert"
       />
       <script
         type="application/ld+json"
@@ -67,10 +67,10 @@ const DailyAlert = () => {
         <section className="border-t bg-muted/30 py-12">
           <div className="container space-y-6 text-sm text-muted-foreground leading-relaxed">
             <h2 className="font-display text-2xl font-bold text-foreground">
-              Wekelijkse woningalert van Huurbaasje
+              Wekelijkse woningalert van Woonaanbod NL
             </h2>
             <p>
-              Met de wekelijkse woningalert van Huurbaasje ontvang je elke maandag een overzichtelijke e-mail 
+              Met de wekelijkse woningalert van Woonaanbod NL ontvang je elke maandag een overzichtelijke e-mail 
               met het nieuwste woningaanbod van de afgelopen week in Nederland. Of je nu op zoek bent naar een huurwoning, 
               koopwoning, studio of kamer: onze alert houdt je op de hoogte zonder dat je zelf hoeft te zoeken.
             </p>
@@ -88,7 +88,7 @@ const DailyAlert = () => {
             <ul className="list-disc pl-6 space-y-2">
               <li>
                 <strong>Bespaar tijd</strong>: Je hoeft niet meer dagelijks meerdere websites af te speuren. 
-                Huurbaasje doet het werk en stuurt je een handig overzicht.
+                Woonaanbod NL doet het werk en stuurt je een handig overzicht.
               </li>
               <li>
                 <strong>Reageer sneller</strong>: In een krappe woningmarkt is snelheid cruciaal. 
@@ -96,7 +96,7 @@ const DailyAlert = () => {
               </li>
               <li>
                 <strong>Mis niets</strong>: Onze scrapers doorzoeken dagelijks meerdere bronnen. 
-                Woningen die je op andere platforms zou missen, vind je wel op Huurbaasje.
+                Woningen die je op andere platforms zou missen, vind je wel op Woonaanbod NL.
               </li>
               <li>
                 <strong>Gratis en vrijblijvend</strong>: Inschrijven is gratis en je kunt je op elk 

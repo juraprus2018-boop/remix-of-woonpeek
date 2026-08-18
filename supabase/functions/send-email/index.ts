@@ -16,18 +16,18 @@ Deno.serve(async (req) => {
 
     const client = new SMTPClient({
       connection: {
-        hostname: "mail.huurbaasje.nl",
+        hostname: "mail.woonaanbod-nl.nl",
         port: 465,
         tls: true,
         auth: {
-          username: "info@huurbaasje.nl",
+          username: "info@woonaanbod-nl.nl",
           password: Deno.env.get("SMTP_PASSWORD") || "",
         },
       },
     });
 
     await client.send({
-      from: "Huurbaasje <info@huurbaasje.nl>",
+      from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
       to,
       subject,
       content: "text/html",

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Truck, ShieldCheck, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getValidCityName } from "@/lib/dutchCities";
 
-const QUOTE_URL = "https://www.verhuisofferte.nl/?utm_source=huurbaasje&utm_medium=affiliate";
+const QUOTE_URL = "https://www.verhuisofferte.nl/?utm_source=woonaanbod-nl&utm_medium=affiliate";
 
 const VerhuisServiceCity = () => {
   const { city } = useParams<{ city: string }>();
@@ -33,7 +33,7 @@ const VerhuisServiceCity = () => {
       <SEOHead
         title={`Verhuisbedrijf ${cityName} vergelijken – tot 40% besparen`}
         description={`Vergelijk gratis erkende verhuisbedrijven in ${cityName}. Ontvang binnen 24 uur tot vijf offertes en bespaar tot 40% op je verhuizing.`}
-        canonical={`https://www.huurbaasje.nl/verhuisservice/${city}`}
+        canonical={`https://www.woonaanbod-nl.nl/verhuisservice/${city}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />
@@ -127,7 +127,7 @@ const VerhuisServiceCity = () => {
         <section className="border-t bg-muted/30 py-10">
           <div className="container">
             <p className="text-xs text-muted-foreground">
-              Offertes worden aangeboden via onze partner. Huurbaasje ontvangt
+              Offertes worden aangeboden via onze partner. Woonaanbod NL ontvangt
               mogelijk een vergoeding bij een succesvolle aanvraag.
             </p>
           </div>

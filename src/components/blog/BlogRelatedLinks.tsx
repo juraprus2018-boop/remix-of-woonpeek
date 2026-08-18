@@ -31,7 +31,7 @@ const BlogRelatedLinks = () => {
     <aside className="border-t py-10">
       <div className="container">
         <h2 className="font-display text-xl font-bold text-foreground mb-6">
-          Meer op Huurbaasje
+          Meer op Woonaanbod NL
         </h2>
 
         <div className="grid gap-6 sm:grid-cols-3">

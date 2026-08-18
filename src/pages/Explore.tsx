@@ -464,9 +464,9 @@ const ExplorePage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Verken huur en koopwoningen op de kaart | Huurbaasje"
+        title="Verken huur en koopwoningen op de kaart | Woonaanbod NL"
         description="Ontdek beschikbare huur en koopwoningen in heel Nederland op een interactieve kaart. Filter op stad, prijs en woningtype."
-        canonical="https://www.huurbaasje.nl/verkennen"
+        canonical="https://www.woonaanbod-nl.nl/verkennen"
       />
       <Header />
 

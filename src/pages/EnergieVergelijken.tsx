@@ -59,9 +59,9 @@ const EnergieVergelijken = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Energie vergelijken – Bespaar op gas en stroom | Huurbaasje"
-        description="Vergelijk de actuele energietarieven van alle grote leveranciers en bespaar tot € 600 per jaar. Eenvoudig, vrijblijvend en gratis overstappen via Huurbaasje."
-        canonical="https://www.huurbaasje.nl/energie"
+        title="Energie vergelijken – Bespaar op gas en stroom | Woonaanbod NL"
+        description="Vergelijk de actuele energietarieven van alle grote leveranciers en bespaar tot € 600 per jaar. Eenvoudig, vrijblijvend en gratis overstappen via Woonaanbod NL."
+        canonical="https://www.woonaanbod-nl.nl/energie"
       />
       <script
         type="application/ld+json"
@@ -107,7 +107,7 @@ const EnergieVergelijken = () => {
               </CardContent>
             </Card>
             <p className="mt-3 text-center text-xs text-muted-foreground">
-              Vergelijking aangeboden via Daisycon. Huurbaasje ontvangt mogelijk een
+              Vergelijking aangeboden via Daisycon. Woonaanbod NL ontvangt mogelijk een
               vergoeding bij een succesvolle overstap.
             </p>
           </div>
@@ -117,7 +117,7 @@ const EnergieVergelijken = () => {
         <section className="border-t bg-muted/30 py-12 md:py-16">
           <div className="container">
             <h2 className="text-2xl font-bold md:text-3xl">
-              Waarom energie vergelijken via Huurbaasje?
+              Waarom energie vergelijken via Woonaanbod NL?
             </h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               {benefits.map((b) => (

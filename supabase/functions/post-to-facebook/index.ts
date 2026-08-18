@@ -12,7 +12,7 @@ const corsHeaders = {
 };
 
 const GRAPH_API = "https://graph.facebook.com/v21.0";
-const SITE_URL = "https://www.huurbaasje.nl";
+const SITE_URL = "https://www.woonaanbod-nl.nl";
 
 // ─── Instagram Helpers ──────────────────────────────────────────────
 
@@ -204,7 +204,7 @@ function buildCaption(property: Property): string {
   }
 
   // CTA
-  lines.push(`👉 Bekijk deze woning op Huurbaasje:`);
+  lines.push(`👉 Bekijk deze woning op Woonaanbod NL:`);
   lines.push(propertyUrl);
   lines.push("");
 
@@ -269,7 +269,7 @@ function buildHashtags(property: Property): string {
 
   // General
   tags.add("#woning");
-  tags.add("#huurbaasje");
+  tags.add("#woonaanbod-nl");
   tags.add("#woningmarkt");
   tags.add("#nederland");
 
@@ -659,7 +659,7 @@ Deno.serve(async (req) => {
     // ─── Blog Post ──────────────────────────────────────────
     if (blog_post && title && slug) {
       const blogUrl = `${SITE_URL}/blog/${slug}`;
-      const hashtags = ["#woningmarkt", "#huren", "#Nederland", "#huurbaasje", "#vastgoed", "#huurwoning"];
+      const hashtags = ["#woningmarkt", "#huren", "#Nederland", "#woonaanbod-nl", "#vastgoed", "#huurwoning"];
 
       let fbMessage = `📝 Nieuw op het blog!\n\n`;
       fbMessage += `${title}\n\n`;

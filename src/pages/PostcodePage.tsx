@@ -42,17 +42,17 @@ const PostcodePage = () => {
   }
 
   const cityLabel = stats?.cities[0] || "";
-  const title = `Woningen in postcode ${postcode}${cityLabel ? ` (${cityLabel})` : ""} | Huurbaasje`;
+  const title = `Woningen in postcode ${postcode}${cityLabel ? ` (${cityLabel})` : ""} | Woonaanbod NL`;
   const description = stats?.count
     ? `${stats.count} woningen te huur en koop in postcode ${postcode}${cityLabel ? `, ${cityLabel}` : ""}. Gemiddelde prijs €${stats.avgPrice.toLocaleString("nl-NL")}. Bekijk het actuele aanbod.`
-    : `Woningen zoeken in postcode ${postcode}. Bekijk huur en koopwoningen, prijzen en buurtinfo op Huurbaasje.`;
+    : `Woningen zoeken in postcode ${postcode}. Bekijk huur en koopwoningen, prijzen en buurtinfo op Woonaanbod NL.`;
 
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://www.huurbaasje.nl/woningen-postcode-${postcode}`}
+        canonical={`https://www.woonaanbod-nl.nl/woningen-postcode-${postcode}`}
       />
       <Header />
 

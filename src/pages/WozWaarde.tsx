@@ -41,9 +41,9 @@ const WozWaarde = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="WOZ-waarde opvragen – gratis en direct online | Huurbaasje"
+        title="WOZ-waarde opvragen – gratis en direct online | Woonaanbod NL"
         description="Vraag gratis de WOZ-waarde van elke Nederlandse woning op. Inclusief uitleg over OZB, huurprijs, bezwaar maken en eigenwoningforfait."
-        canonical="https://www.huurbaasje.nl/woz-waarde"
+        canonical="https://www.woonaanbod-nl.nl/woz-waarde"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

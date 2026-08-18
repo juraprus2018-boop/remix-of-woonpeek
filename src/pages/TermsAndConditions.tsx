@@ -7,15 +7,15 @@ const TermsAndConditions = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SEOHead
-        title="Algemene voorwaarden | Huurbaasje"
-        description="De algemene voorwaarden van Huurbaasje. Regels voor het gebruik van ons platform, advertenties, aansprakelijkheid en intellectueel eigendom."
-        canonical="https://www.huurbaasje.nl/algemene-voorwaarden"
+        title="Algemene voorwaarden | Woonaanbod NL"
+        description="De algemene voorwaarden van Woonaanbod NL. Regels voor het gebruik van ons platform, advertenties, aansprakelijkheid en intellectueel eigendom."
+        canonical="https://www.woonaanbod-nl.nl/algemene-voorwaarden"
       />
       <Header />
 
       <main className="flex-1">
         <StockBanner
-          seed="algemene-voorwaarden-huurbaasje"
+          seed="algemene-voorwaarden-woonaanbod-nl"
           eyebrow="Juridisch"
           title="Algemene voorwaarden"
           subtitle="Laatst bijgewerkt: 13 februari 2026"
@@ -27,24 +27,24 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">1. Definities</h2>
             <p className="leading-relaxed text-muted-foreground">
-              In deze algemene voorwaarden wordt verstaan onder: <strong>Huurbaasje</strong>: het online woningplatform bereikbaar via huurbaasje.nl; 
-              <strong> Gebruiker</strong>: iedere bezoeker of geregistreerde gebruiker van Huurbaasje; 
-              <strong> Adverteerder</strong>: een gebruiker die een woning aanbiedt via Huurbaasje.
+              In deze algemene voorwaarden wordt verstaan onder: <strong>Woonaanbod NL</strong>: het online woningplatform bereikbaar via woonaanbod-nl.nl; 
+              <strong> Gebruiker</strong>: iedere bezoeker of geregistreerde gebruiker van Woonaanbod NL; 
+              <strong> Adverteerder</strong>: een gebruiker die een woning aanbiedt via Woonaanbod NL.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">2. Toepasselijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Deze voorwaarden zijn van toepassing op elk gebruik van Huurbaasje. Door het platform te gebruiken, ga je akkoord met deze voorwaarden. 
-              Huurbaasje behoudt zich het recht voor om deze voorwaarden te wijzigen.
+              Deze voorwaarden zijn van toepassing op elk gebruik van Woonaanbod NL. Door het platform te gebruiken, ga je akkoord met deze voorwaarden. 
+              Woonaanbod NL behoudt zich het recht voor om deze voorwaarden te wijzigen.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">3. Gebruik van het platform</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Huurbaasje is een platform dat woningaanbod verzamelt en toont. Gebruikers kunnen woningen zoeken, opslaan en aanbieden. 
+              Woonaanbod NL is een platform dat woningaanbod verzamelt en toont. Gebruikers kunnen woningen zoeken, opslaan en aanbieden. 
               Het is niet toegestaan om het platform te gebruiken voor illegale of misleidende doeleinden.
             </p>
           </section>
@@ -53,14 +53,14 @@ const TermsAndConditions = () => {
             <h2 className="font-display text-xl font-semibold text-foreground">4. Advertenties en inhoud</h2>
             <p className="leading-relaxed text-muted-foreground">
               Adverteerders zijn zelf verantwoordelijk voor de juistheid en volledigheid van de geplaatste woninginformatie. 
-              Huurbaasje behoudt zich het recht voor om advertenties te verwijderen die in strijd zijn met deze voorwaarden of de wet.
+              Woonaanbod NL behoudt zich het recht voor om advertenties te verwijderen die in strijd zijn met deze voorwaarden of de wet.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">5. Intellectueel eigendom</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Alle content op Huurbaasje, inclusief teksten, afbeeldingen, logo's en software, is eigendom van Huurbaasje of haar licentiegevers. 
+              Alle content op Woonaanbod NL, inclusief teksten, afbeeldingen, logo's en software, is eigendom van Woonaanbod NL of haar licentiegevers. 
               Het is niet toegestaan om deze content te kopiëren of te verspreiden zonder schriftelijke toestemming.
             </p>
           </section>
@@ -68,8 +68,8 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">6. Aansprakelijkheid</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Huurbaasje is een bemiddelingsplatform en is niet aansprakelijk voor de inhoud van advertenties, transacties tussen gebruikers, 
-              of schade die voortvloeit uit het gebruik van het platform. Huurbaasje garandeert niet dat de informatie op het platform altijd 
+              Woonaanbod NL is een bemiddelingsplatform en is niet aansprakelijk voor de inhoud van advertenties, transacties tussen gebruikers, 
+              of schade die voortvloeit uit het gebruik van het platform. Woonaanbod NL garandeert niet dat de informatie op het platform altijd 
               juist, volledig of actueel is.
             </p>
           </section>
@@ -77,7 +77,7 @@ const TermsAndConditions = () => {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-semibold text-foreground">7. Privacy</h2>
             <p className="leading-relaxed text-muted-foreground">
-              Huurbaasje verwerkt persoonsgegevens conform de Algemene Verordening Gegevensbescherming (AVG). 
+              Woonaanbod NL verwerkt persoonsgegevens conform de Algemene Verordening Gegevensbescherming (AVG). 
               Zie ons <a href="/privacy" className="text-primary underline hover:text-primary/80">privacybeleid</a> voor meer informatie.
             </p>
           </section>

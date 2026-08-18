@@ -111,7 +111,7 @@ const Index = () => {
               {t("trustBar.nl")}
             </span>
           </div>
-          <span className="text-foreground/60">info@huurbaasje.nl</span>
+          <span className="text-foreground/60">info@woonaanbod-nl.nl</span>
         </div>
       </div>
 

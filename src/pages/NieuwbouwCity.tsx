@@ -30,7 +30,7 @@ const NieuwbouwCity = () => {
       <SEOHead
         title={`Nieuwbouw ${cityName} – energiezuinige woningen huren en kopen`}
         description={`Bekijk het complete nieuwbouwaanbod in ${cityName}. Label A++, garantie en lagere maandlasten. Filter op huur of koop.`}
-        canonical={`https://www.huurbaasje.nl/nieuwbouw/${city}`}
+        canonical={`https://www.woonaanbod-nl.nl/nieuwbouw/${city}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

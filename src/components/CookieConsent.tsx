@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 type ConsentChoice = "all" | "necessary" | null;
 
-const CONSENT_KEY = "huurbaasje_cookie_consent";
+const CONSENT_KEY = "woonaanbod-nl_cookie_consent";
 
 /** Read stored consent. Returns null when no choice has been made yet. */
 const getStoredConsent = (): ConsentChoice => {
@@ -94,7 +94,7 @@ const CookieConsent = () => {
               </button>
             </div>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Huurbaasje gebruikt cookies voor het functioneren van de website en,
+              Woonaanbod NL gebruikt cookies voor het functioneren van de website en,
               met jouw toestemming, voor analyse en advertenties. Lees meer in
               ons{" "}
               <Link

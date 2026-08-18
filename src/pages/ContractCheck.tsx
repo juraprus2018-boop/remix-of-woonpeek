@@ -119,12 +119,12 @@ export default function ContractCheck() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Helmet>
-        <title>Huurcontract checken — gratis AI-analyse | Huurbaasje</title>
+        <title>Huurcontract checken — gratis AI-analyse | Woonaanbod NL</title>
         <meta
           name="description"
           content="Laat je huurcontract gratis controleren met AI. Ontdek verboden bedingen, onredelijke bepalingen en weet binnen 30 seconden of je contract klopt."
         />
-        <link rel="canonical" href="https://www.huurbaasje.nl/contract-check" />
+        <link rel="canonical" href="https://www.woonaanbod-nl.nl/contract-check" />
       </Helmet>
       <Header />
       <main className="flex-1">

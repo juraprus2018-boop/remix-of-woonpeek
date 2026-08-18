@@ -394,7 +394,7 @@ const Header = () => {
                 {t("footer.linkAbout")}
               </Link>
               <span className="hidden text-xs italic text-foreground/50 md:inline font-serif-display">
-                huurbaasje.nl
+                woonaanbod-nl.nl
               </span>
               <LanguageSwitcher />
             </div>

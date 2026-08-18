@@ -7,14 +7,14 @@ import bannerFaq from "@/assets/banner-faq.jpg";
 
 const FAQ_ITEMS = [
   {
-    question: "Wat is Huurbaasje?",
+    question: "Wat is Woonaanbod NL?",
     answer:
-      "Huurbaasje is een woningplatform dat dagelijks het nieuwste aanbod van huurwoningen en koophuizen verzamelt uit meerdere bronnen. Zo heb je in één overzicht alle beschikbare woningen in Nederland.",
+      "Woonaanbod NL is een woningplatform dat dagelijks het nieuwste aanbod van huurwoningen en koophuizen verzamelt uit meerdere bronnen. Zo heb je in één overzicht alle beschikbare woningen in Nederland.",
   },
   {
-    question: "Is Huurbaasje gratis?",
+    question: "Is Woonaanbod NL gratis?",
     answer:
-      "Ja, Huurbaasje is volledig gratis te gebruiken. Je kunt onbeperkt zoeken, filteren en woningen bekijken zonder kosten.",
+      "Ja, Woonaanbod NL is volledig gratis te gebruiken. Je kunt onbeperkt zoeken, filteren en woningen bekijken zonder kosten.",
   },
   {
     question: "Hoe vaak wordt het woningaanbod bijgewerkt?",
@@ -29,22 +29,22 @@ const FAQ_ITEMS = [
   {
     question: "Hoe kan ik contact opnemen met de verhuurder of verkoper?",
     answer:
-      "Bij elke woning vind je een link naar de originele advertentie bij de aanbieder. Daar kun je rechtstreeks contact opnemen. Bij woningen die direct op Huurbaasje zijn geplaatst, kun je via ons contactformulier een bericht sturen.",
+      "Bij elke woning vind je een link naar de originele advertentie bij de aanbieder. Daar kun je rechtstreeks contact opnemen. Bij woningen die direct op Woonaanbod NL zijn geplaatst, kun je via ons contactformulier een bericht sturen.",
   },
   {
-    question: "Uit welke bronnen haalt Huurbaasje woningen?",
+    question: "Uit welke bronnen haalt Woonaanbod NL woningen?",
     answer:
-      "Huurbaasje verzamelt woningen van meerdere gerenommeerde platforms en makelaars in Nederland. We breiden onze bronnen continu uit om het meest complete overzicht te bieden.",
+      "Woonaanbod NL verzamelt woningen van meerdere gerenommeerde platforms en makelaars in Nederland. We breiden onze bronnen continu uit om het meest complete overzicht te bieden.",
   },
   {
-    question: "Kan ik zelf een woning plaatsen op Huurbaasje?",
+    question: "Kan ik zelf een woning plaatsen op Woonaanbod NL?",
     answer:
       "Ja, als je een account hebt kun je zelf woningen plaatsen. Dit is handig voor particuliere verhuurders of verkopers die hun woning extra onder de aandacht willen brengen.",
   },
   {
     question: "In welke steden kan ik woningen vinden?",
     answer:
-      "Huurbaasje heeft woningen in steden door heel Nederland, waaronder Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag, Groningen en nog veel meer. We dekken zowel grote als kleinere steden.",
+      "Woonaanbod NL heeft woningen in steden door heel Nederland, waaronder Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag, Groningen en nog veel meer. We dekken zowel grote als kleinere steden.",
   },
   {
     question: "Hoe werken de filters op de zoekpagina?",
@@ -75,9 +75,9 @@ const FAQPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Veelgestelde vragen | Huurbaasje"
-        description="Antwoorden op veelgestelde vragen over Huurbaasje. Lees hoe ons woningplatform werkt, hoe je zoekt en hoe je zoekalerts instelt."
-        canonical="https://www.huurbaasje.nl/veelgestelde-vragen"
+        title="Veelgestelde vragen | Woonaanbod NL"
+        description="Antwoorden op veelgestelde vragen over Woonaanbod NL. Lees hoe ons woningplatform werkt, hoe je zoekt en hoe je zoekalerts instelt."
+        canonical="https://www.woonaanbod-nl.nl/veelgestelde-vragen"
       />
       <script
         type="application/ld+json"
@@ -96,7 +96,7 @@ const FAQPage = () => {
             Veelgestelde vragen
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Alles wat je wilt weten over Huurbaasje en ons woningaanbod
+            Alles wat je wilt weten over Woonaanbod NL en ons woningaanbod
           </p>
         </PageBanner>
 

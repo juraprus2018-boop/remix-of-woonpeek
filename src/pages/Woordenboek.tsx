@@ -87,28 +87,28 @@ export default function Woordenboek() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
-    name: "Huurbaasje woordenboek",
+    name: "Woonaanbod NL woordenboek",
     description: "Begrippen rondom huren, kopen en de Nederlandse woningmarkt — kort uitgelegd.",
     hasDefinedTerm: TERMS.map((t) => ({
       "@type": "DefinedTerm",
       name: t.term,
       description: t.short,
-      inDefinedTermSet: "https://www.huurbaasje.nl/woordenboek",
+      inDefinedTermSet: "https://www.woonaanbod-nl.nl/woordenboek",
     })),
   };
 
   return (
     <>
       <Helmet>
-        <title>Woningwoordenboek — 40+ begrippen over huren en kopen | Huurbaasje</title>
+        <title>Woningwoordenboek — 40+ begrippen over huren en kopen | Woonaanbod NL</title>
         <meta
           name="description"
           content="Alle belangrijke woningmarkt-termen op één plek: van borg en bedenktijd tot WOZ, NHG en puntensysteem. Helder uitgelegd in gewone taal."
         />
-        <link rel="canonical" href="https://www.huurbaasje.nl/woordenboek" />
-        <meta property="og:title" content="Woningwoordenboek — Huurbaasje" />
+        <link rel="canonical" href="https://www.woonaanbod-nl.nl/woordenboek" />
+        <meta property="og:title" content="Woningwoordenboek — Woonaanbod NL" />
         <meta property="og:description" content="40+ begrippen rondom huren en kopen, in gewone taal uitgelegd." />
-        <meta property="og:url" content="https://www.huurbaasje.nl/woordenboek" />
+        <meta property="og:url" content="https://www.woonaanbod-nl.nl/woordenboek" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 

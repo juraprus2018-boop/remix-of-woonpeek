@@ -9,7 +9,7 @@ const SEOContentSection = () => {
             Huurwoning zoeken in Nederland
           </h2>
           <p>
-            Op zoek naar een <strong>huurwoning</strong>? Bij Huurbaasje zet je je zoektocht
+            Op zoek naar een <strong>huurwoning</strong>? Bij Woonaanbod NL zet je je zoektocht
             in vijf minuten op de rails. Wij verzamelen elke dag verse{" "}
             <Link to="/huren" className="text-primary hover:underline">huurwoningen</Link>,{" "}
             <Link to="/appartement" className="text-primary hover:underline">appartementen</Link>,{" "}
@@ -47,7 +47,7 @@ const SEOContentSection = () => {
             voor tips over zoeken, bezichtigen en huurprijzen. Of check de{" "}
             <Link to="/huurprijsmonitor" className="text-primary hover:underline">huurprijsmonitor</Link>{" "}
             voor wat normaal is per stad. Begin vandaag met{" "}
-            <strong>huren zoeken</strong> op Huurbaasje. Echt gratis.
+            <strong>huren zoeken</strong> op Woonaanbod NL. Echt gratis.
           </p>
         </div>
       </div>

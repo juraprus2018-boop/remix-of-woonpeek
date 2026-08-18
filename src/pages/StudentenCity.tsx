@@ -51,9 +51,9 @@ const StudentenCity = () => {
   const currentMonth = new Date().toLocaleString("nl-NL", { month: "long" });
   const currentYear = new Date().getFullYear();
 
-  const title = `Studentenkamer ${cityName} ${currentYear}: ${totalCount} beschikbaar | Huurbaasje`;
+  const title = `Studentenkamer ${cityName} ${currentYear}: ${totalCount} beschikbaar | Woonaanbod NL`;
   const description = `${totalCount} studentenkamers en studio's te huur in ${cityName} onder €900. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
-  const canonical = `https://www.huurbaasje.nl/studenten/${citySlug}`;
+  const canonical = `https://www.woonaanbod-nl.nl/studenten/${citySlug}`;
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -72,7 +72,7 @@ const StudentenCity = () => {
     },
     {
       question: `Hoe vind ik snel een kamer in ${cityName}?`,
-      answer: `Stel een gratis dagelijkse alert in op Huurbaasje. Je krijgt dan direct een e-mail wanneer er nieuwe studentenkamers in ${cityName} online komen, vaak nog voordat ze massaal bezichtigd worden.`,
+      answer: `Stel een gratis dagelijkse alert in op Woonaanbod NL. Je krijgt dan direct een e-mail wanneer er nieuwe studentenkamers in ${cityName} online komen, vaak nog voordat ze massaal bezichtigd worden.`,
     },
     {
       question: `Wanneer kun je het beste een kamer zoeken in ${cityName}?`,
@@ -161,7 +161,7 @@ const StudentenCity = () => {
           <div className="container space-y-4 text-sm leading-relaxed text-muted-foreground">
             <h2 className="font-display text-2xl font-bold text-foreground">Studeren en wonen in {cityName}</h2>
             <p>
-              {cityName} is één van Nederlands populairste studiesteden. De vraag naar studentenkamers is groot, vooral aan het begin van het collegejaar. Met Huurbaasje krijg je <strong>dagelijks vers aanbod</strong> uit meerdere bronnen, zodat je sneller kunt reageren dan andere zoekers.
+              {cityName} is één van Nederlands populairste studiesteden. De vraag naar studentenkamers is groot, vooral aan het begin van het collegejaar. Met Woonaanbod NL krijg je <strong>dagelijks vers aanbod</strong> uit meerdere bronnen, zodat je sneller kunt reageren dan andere zoekers.
             </p>
             <p>
               Tip: combineer een <Link to="/woonradar" className="text-primary underline">gratis dagelijkse alert</Link> met een goed voorbereid voorstelbericht. Reageer binnen het uur op nieuwe kamers voor de grootste kans.

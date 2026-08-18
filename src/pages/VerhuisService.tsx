@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Truck, ShieldCheck, Clock, Star, ArrowRight, CheckCircle2 } from "lucide-react";
 
-const QUOTE_URL = "https://www.verhuisofferte.nl/?utm_source=huurbaasje&utm_medium=affiliate";
+const QUOTE_URL = "https://www.verhuisofferte.nl/?utm_source=woonaanbod-nl&utm_medium=affiliate";
 
 const VerhuisService = () => {
   const faqLd = {
@@ -34,9 +34,9 @@ const VerhuisService = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Verhuisbedrijf vergelijken – Tot 40% besparen | Huurbaasje"
+        title="Verhuisbedrijf vergelijken – Tot 40% besparen | Woonaanbod NL"
         description="Vergelijk gratis erkende verhuisbedrijven en bespaar tot 40% op je verhuizing. Ontvang binnen 24 uur tot vijf offertes van AMV-erkende verhuizers."
-        canonical="https://www.huurbaasje.nl/verhuisservice"
+        canonical="https://www.woonaanbod-nl.nl/verhuisservice"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />
@@ -82,7 +82,7 @@ const VerhuisService = () => {
 
         <section className="border-t bg-muted/30 py-12 md:py-16">
           <div className="container">
-            <h2 className="text-2xl font-bold md:text-3xl">Waarom via Huurbaasje vergelijken?</h2>
+            <h2 className="text-2xl font-bold md:text-3xl">Waarom via Woonaanbod NL vergelijken?</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               {benefits.map((b) => (
                 <Card key={b.title}>
@@ -145,7 +145,7 @@ const VerhuisService = () => {
         <section className="border-t bg-muted/30 py-10">
           <div className="container">
             <p className="text-xs text-muted-foreground">
-              Offertes worden aangeboden via onze partner. Huurbaasje ontvangt
+              Offertes worden aangeboden via onze partner. Woonaanbod NL ontvangt
               mogelijk een vergoeding bij een succesvolle aanvraag. Dit beïnvloedt
               niet de prijs die jij betaalt.
             </p>
