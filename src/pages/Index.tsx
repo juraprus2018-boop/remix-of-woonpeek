@@ -194,20 +194,18 @@ const Index = () => {
 
 
       {/* NIEUW AANBOD */}
-      <section className="py-16 md:py-20">
+      <section className="pb-14 pt-8 md:pb-16 md:pt-10">
         <div className="container">
-          <div className="mb-10 flex items-end justify-between gap-4">
+          <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-sun-foreground">
-                <span className="rounded-full bg-sun px-2.5 py-1 text-foreground">Net binnen</span>
-              </span>
-              <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Nieuwe huurwoningen, elke dag.
+              <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">
+                Nieuwste huurwoningen
               </h2>
-              <p className="mt-2 max-w-xl text-muted-foreground">
-                Een greep uit het laatste aanbod. Geen pop-ups, geen abo, gewoon klikken en kijken.
+              <p className="mt-1 text-sm text-muted-foreground">
+                Direct het laatste aanbod, elke dag bijgewerkt.
               </p>
             </div>
+
             <Link
               to="/vandaag"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
