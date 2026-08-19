@@ -44,7 +44,7 @@ export function Logo({ className, size = "h-11 md:h-12", variant = "dark" }: Log
         />
       </svg>
       <span className="font-display text-[1.5em] tracking-[-0.04em]" translate="no" data-no-translate>
-        woonaanbod<span className="text-accent font-bold">.nl</span>
+        woonaanbod<span className="text-accent font-bold">-nl.nl</span>
       </span>
 
     </span>
