@@ -117,227 +117,80 @@ const Index = () => {
 
       <Header />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-sun-tint via-background to-sage/40">
-        {/* Subtle dot grid */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.18]"
-          aria-hidden
-          style={{
-            backgroundImage:
-              "radial-gradient(hsl(var(--foreground) / 0.5) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-          }}
-        />
-        {/* Colorful blobs */}
-        <div className="pointer-events-none absolute -right-32 -top-32 h-[520px] w-[520px] rounded-full bg-sun/60 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute -bottom-40 -left-32 h-[460px] w-[460px] rounded-full bg-accent/30 blur-3xl" aria-hidden />
-        <div className="pointer-events-none absolute top-1/3 left-1/2 h-[380px] w-[380px] -translate-x-1/2 rounded-full bg-sage/60 blur-3xl" aria-hidden />
-        {/* Soft top fade into page */}
-        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent" aria-hidden />
-
-
-        <div className="container relative py-20 md:py-28 lg:py-36">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              {t("hero.title1")}{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10">{t("hero.highlight")}</span>
-                <span className="absolute inset-x-0 bottom-1 -z-0 h-4 bg-sun md:h-5" aria-hidden />
-              </span>
-              <br />
-              {t("hero.title2")}
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-foreground/70 md:text-xl">
-              {t("hero.subtitle")}
-            </p>
-
-            {/* SEARCH CARD - centered & large */}
-            <form
-              onSubmit={onSearch}
-              className="mx-auto mt-10 max-w-3xl rounded-3xl border-2 border-foreground/10 bg-card p-4 shadow-2xl md:p-5"
-            >
-              <div className="relative">
-                <MapPin className="pointer-events-none absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={t("hero.searchPlaceholder")}
-                  className="h-16 rounded-2xl border-border bg-background pl-14 pr-4 text-lg md:h-20 md:text-xl"
-                  aria-label={t("hero.searchPlaceholder")}
-                />
-              </div>
-              <div className="mt-3 grid gap-2 md:grid-cols-[1fr_1fr_auto]">
-                <select
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                  className="h-14 rounded-xl border border-input bg-background px-4 text-base text-foreground"
-                  aria-label={t("hero.type")}
-                >
-                  <option value="">{t("hero.typeAll")}</option>
-                  <option value="appartement">{t("hero.typeApartment")}</option>
-                  <option value="huis">{t("hero.typeHouse")}</option>
-                  <option value="kamer">{t("hero.typeRoom")}</option>
-                  <option value="studio">{t("hero.typeStudio")}</option>
-                </select>
-                <select
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                  className="h-14 rounded-xl border border-input bg-background px-4 text-base text-foreground"
-                  aria-label={t("hero.maxPrice")}
-                >
-                  <option value="">{t("hero.maxPrice")}</option>
-                  <option value="750">€ 750</option>
-                  <option value="1000">€ 1.000</option>
-                  <option value="1500">€ 1.500</option>
-                  <option value="2000">€ 2.000</option>
-                  <option value="3000">€ 3.000</option>
-                </select>
-                <Button
-                  type="submit"
-                  className="h-14 gap-2 rounded-xl bg-sun px-8 text-base font-bold text-foreground shadow-sm hover:bg-sun/90"
-                >
-                  <Search className="h-5 w-5" />
-                  {t("hero.searchBtn")}
-                </Button>
-              </div>
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 px-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  {t("hero.popular")}:
-                </span>
-                {popularCities.slice(0, 5).map((c) => (
-                  <Link
-                    key={c.name}
-                    to={`/huren/${cityToSlug(c.name)}`}
-                    className="rounded-full bg-sun-tint px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:bg-sun"
-                  >
-                    {c.name}
-                  </Link>
-                ))}
-              </div>
-            </form>
-
-            {/* Live stats */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-foreground/70">
-              <span className="inline-flex items-center gap-2">
-                <Heart className="h-4 w-4 fill-sun text-sun" />
-                {homeStats?.properties_count !== undefined
-                  ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
-                  : "… woningen"}
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-foreground" />
-                {newToday !== undefined ? `+${newToday} nieuw vandaag` : "…"}
-              </span>
+      {/* COMPACTE ZOEKBALK */}
+      <section className="border-b border-border bg-secondary/40">
+        <div className="container py-5 md:py-7">
+          <h1 className="sr-only">{t("meta.homeTitle")}</h1>
+          <form
+            onSubmit={onSearch}
+            className="mx-auto grid max-w-5xl gap-2 md:grid-cols-[1fr_auto_auto_auto]"
+          >
+            <div className="relative">
+              <MapPin className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={t("hero.searchPlaceholder")}
+                className="h-12 rounded-xl border-border bg-card pl-11 pr-4 text-base"
+                aria-label={t("hero.searchPlaceholder")}
+              />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BENTO GRID */}
-      <section className="border-y border-border bg-background py-12 md:py-16">
-        <div className="container">
-          <div className="grid auto-rows-[minmax(120px,auto)] grid-cols-2 gap-4 md:grid-cols-4">
-            {/* Big tile: huurwoningen */}
-            <Link
-              to="/huurwoningen"
-              className="group col-span-2 row-span-2 flex flex-col justify-between rounded-3xl bg-primary p-7 text-primary-foreground transition-transform hover:-translate-y-1"
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="h-12 rounded-xl border border-input bg-card px-4 text-sm text-foreground"
+              aria-label={t("hero.type")}
             >
-              <Home className="h-8 w-8 opacity-80" />
-              <div>
-                <h2 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-                  {t("nav.categories.rentals")}
-                </h2>
-                <p className="mt-2 max-w-sm text-sm opacity-80">
-                  {t("nav.categories.rentalsDesc")}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold">
-                  {t("common.viewAll")} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-
-            {/* Stat tile */}
-            <div className="flex flex-col justify-between rounded-3xl border border-border bg-sun-tint p-6">
-              <TrendingUp className="h-6 w-6 text-accent" />
-              <div>
-                <div className="text-3xl font-extrabold tracking-tight text-foreground">
-                  {homeStats?.properties_count !== undefined
-                    ? homeStats.properties_count.toLocaleString("nl-NL")
-                    : "…"}
-                </div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  woningen online
-                </div>
-              </div>
-            </div>
-
-            {/* Nieuw vandaag */}
-            <Link
-              to="/vandaag"
-              className="group flex flex-col justify-between rounded-3xl bg-accent p-6 text-accent-foreground transition-transform hover:-translate-y-1"
+              <option value="">{t("hero.typeAll")}</option>
+              <option value="appartement">{t("hero.typeApartment")}</option>
+              <option value="huis">{t("hero.typeHouse")}</option>
+              <option value="kamer">{t("hero.typeRoom")}</option>
+              <option value="studio">{t("hero.typeStudio")}</option>
+            </select>
+            <select
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              className="h-12 rounded-xl border border-input bg-card px-4 text-sm text-foreground"
+              aria-label={t("hero.maxPrice")}
             >
-              <Sparkles className="h-6 w-6 opacity-90" />
-              <div>
-                <div className="text-3xl font-extrabold tracking-tight">
-                  {newToday !== undefined ? `+${newToday}` : "…"}
-                </div>
-                <div className="text-xs font-semibold uppercase tracking-wider opacity-85">
-                  nieuw vandaag
-                </div>
-              </div>
-            </Link>
+              <option value="">{t("hero.maxPrice")}</option>
+              <option value="750">€ 750</option>
+              <option value="1000">€ 1.000</option>
+              <option value="1500">€ 1.500</option>
+              <option value="2000">€ 2.000</option>
+              <option value="3000">€ 3.000</option>
+            </select>
+            <Button
+              type="submit"
+              className="h-12 gap-2 rounded-xl px-7 text-sm font-bold"
+            >
+              <Search className="h-4 w-4" />
+              {t("hero.searchBtn")}
+            </Button>
+          </form>
 
-            {/* Smaller type tiles */}
-            {TYPES_DEF.filter((i) => i.key !== "rentals").map((item) => (
+          <div className="mx-auto mt-3 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            <span className="font-semibold">{t("hero.popular")}:</span>
+            {popularCities.slice(0, 6).map((c) => (
               <Link
-                key={item.href}
-                to={item.href}
-                className="group flex flex-col justify-between rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-md"
+                key={c.name}
+                to={`/huren/${cityToSlug(c.name)}`}
+                className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary transition-colors group-hover:bg-sun">
-                  <item.icon className="h-5 w-5 text-foreground" />
-                </div>
-                <span className="mt-4 text-base font-extrabold text-foreground">
-                  {t(`nav.categories.${item.key}`)}
-                </span>
+                {c.name}
               </Link>
             ))}
-
-            {/* Alert tile */}
-            <Link
-              to="/dagelijkse-alert"
-              className="group col-span-2 flex items-center justify-between gap-4 rounded-3xl border border-border bg-secondary p-6 transition-all hover:-translate-y-1 hover:shadow-md"
-            >
-              <div>
-                <h3 className="text-lg font-extrabold text-foreground">
-                  {t("nav.discoverItems.dailyAlert")}
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {t("nav.discoverItems.dailyAlertDesc")}
-                </p>
-              </div>
-              <Bell className="h-7 w-7 shrink-0 text-accent" />
-            </Link>
-
-            {/* Kaart tile */}
-            <Link
-              to="/op-kaart"
-              className="group col-span-2 flex items-center justify-between gap-4 rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-accent hover:shadow-md"
-            >
-              <div>
-                <h3 className="text-lg font-extrabold text-foreground">
-                  {t("nav.discoverItems.map")}
-                </h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {t("nav.discoverItems.mapDesc")}
-                </p>
-              </div>
-              <MapPin className="h-7 w-7 shrink-0 text-accent" />
-            </Link>
+            <span className="ml-auto hidden items-center gap-2 text-xs font-semibold sm:inline-flex">
+              <TrendingUp className="h-3.5 w-3.5 text-primary" />
+              {homeStats?.properties_count !== undefined
+                ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
+                : "… woningen"}
+              {newToday !== undefined ? ` · +${newToday} nieuw vandaag` : ""}
+            </span>
           </div>
         </div>
       </section>
+
 
 
       {/* NIEUW AANBOD */}
