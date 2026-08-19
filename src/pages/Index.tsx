@@ -84,7 +84,7 @@ const Index = () => {
     navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
   };
 
-  const featured = properties?.slice(0, 6) ?? [];
+  const featured = properties?.slice(0, 12) ?? [];
 
   return (
     <div className="min-h-screen bg-background">
