@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
-import { Heart, Bed, Bath, Maximize, MapPin, Zap, Share2, Eye, Wallet, CheckCircle2, Flame } from "lucide-react";
+import {
+  Heart,
+  Bed,
+  Maximize,
+  MapPin,
+  Zap,
+  Share2,
+  Users,
+  Wallet,
+  CheckCircle2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { useToggleFavorite } from "@/hooks/useFavorites";
 import { useFeedLogos } from "@/hooks/useFeedLogos";
 import { useAuth } from "@/contexts/AuthContext";
@@ -20,9 +29,17 @@ interface PropertyCardProps {
   cityAvgPrice?: number;
   /** Optional: user's gross monthly income (for affordability indicator on rentals) */
   userIncome?: number;
-  /** When true, the card hints the browser to fetch the image with high priority (use only for above-the-fold cards). */
+  /** When true, the card hints the browser to fetch the image with high priority. */
   priority?: boolean;
 }
+
+const euro = (value: number) =>
+  new Intl.NumberFormat("nl-NL", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
 
 const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: PropertyCardProps) => {
   const { user } = useAuth();
@@ -30,32 +47,19 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const { data: feedLogos } = useFeedLogos();
   const isPropertyFavorite = isFavorite(property.id);
 
-  const sourceLogo = feedLogos && property.source_site
-    ? feedLogos[property.source_site.toLowerCase()]
-    : undefined;
-
-  const formatPrice = (price: number, listingType: string) => {
-    const formatted = new Intl.NumberFormat("nl-NL", {
-      style: "currency",
-      currency: "EUR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-    return listingType === "huur" ? `${formatted} per maand` : formatted;
-  };
+  const sourceLogo =
+    feedLogos && property.source_site ? feedLogos[property.source_site.toLowerCase()] : undefined;
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (user) {
-      toggle(property.id);
-    }
+    if (user) toggle(property.id);
   };
 
   const handleShareClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = `${window.location.origin}/woning/${property.slug || property.id}`;
+    const url = `${window.location.origin}/aanbod/${property.slug || property.id}`;
     if (navigator.share) {
       navigator.share({ title: property.title, url });
     } else {
@@ -66,85 +70,78 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const hoursAgo = (Date.now() - new Date(property.created_at).getTime()) / (1000 * 60 * 60);
   const isToday = hoursAgo < 24;
   const isNew = hoursAgo < 7 * 24;
-  // "Wees de eerste die reageert" - urgency for very fresh listings (<6h)
-  const isFresh = hoursAgo < 6 && property.status === "actief";
+  const days = Math.floor(hoursAgo / 24);
+  const daysAgoLabel = days <= 0 ? "vandaag" : days === 1 ? "gisteren" : `${days} dagen geleden`;
 
-  // Deal label: compare price with city average for same type
   const dealLabel = (() => {
     if (!cityAvgPrice || cityAvgPrice <= 0) return null;
-    const diff = (property.price - cityAvgPrice) / cityAvgPrice;
+    const diff = (Number(property.price) - cityAvgPrice) / cityAvgPrice;
     if (diff <= -0.15) return "goede-deal";
     if (diff >= 0.15) return "te-duur";
     return null;
   })();
 
-  const energyLabelColor: Record<string, string> = {
-    "A++": "bg-success text-success-foreground",
-    "A+": "bg-success text-success-foreground",
-    "A": "bg-success text-success-foreground",
-    "B": "bg-success/80 text-success-foreground",
-    "C": "bg-warning text-warning-foreground",
-    "D": "bg-warning text-warning-foreground",
-    "E": "bg-destructive/80 text-destructive-foreground",
-    "F": "bg-destructive text-destructive-foreground",
-    "G": "bg-destructive text-destructive-foreground",
-  };
-
-  // Affordability check (rentals only)
   const requiredIncome = Number(property.price) * 3;
   const fitsBudget =
     property.listing_type === "huur" && userIncome && userIncome > 0
       ? userIncome >= requiredIncome
       : null;
 
+  const heroSrc = property.images?.[0] ?? getStockPropertyImage(property.id);
+  const hasOwn = !!property.images?.[0];
+
+  const subtitle = [
+    property.property_type,
+    property.bedrooms ? `${property.bedrooms} kamers` : null,
+  ]
+    .filter(Boolean)
+    .join(" - ");
+
   return (
-    <Link to={`/aanbod/${property.slug || property.id}`}>
-      <Card className={cn(
-        "group overflow-hidden border transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5",
-        property.status !== "actief" && "opacity-75"
-      )}>
-        <div className="relative aspect-[4/3] overflow-hidden">
-          {(() => {
-            const heroSrc = property.images?.[0] ?? getStockPropertyImage(property.id);
-            const hasOwn = !!property.images?.[0];
-            return (
-              <picture>
-                {hasOwn && (
-                  <source
-                    type="image/webp"
-                    srcSet={buildSrcSet(heroSrc, [320, 480, 640], 360, 72, "webp")}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-                  />
-                )}
-                <img
-                  src={hasOwn ? optimizeImage(heroSrc, { width: 480, height: 360, quality: 72 }) : heroSrc}
-                  alt={property.title}
-                  loading={priority ? "eager" : "lazy"}
-                  fetchPriority={priority ? "high" : "auto"}
-                  decoding="async"
-                  width={400}
-                  height={300}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  onError={(e) => { e.currentTarget.src = propertyPlaceholder; e.currentTarget.srcset = ""; }}
+    <Link to={`/aanbod/${property.slug || property.id}`} className="group block" aria-label={property.title}>
+      <article
+        className={cn(
+          "relative flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-all duration-200 hover:shadow-lg sm:flex-row",
+          property.status !== "actief" && "opacity-75"
+        )}
+      >
+        {/* Image */}
+        <div className="relative w-full shrink-0 overflow-hidden sm:w-[280px] lg:w-[320px]">
+          <div className="aspect-[16/10] h-full w-full sm:aspect-auto sm:h-[220px]">
+            <picture>
+              {hasOwn && (
+                <source
+                  type="image/webp"
+                  srcSet={buildSrcSet(heroSrc, [320, 480, 640], 400, 74, "webp")}
+                  sizes="(max-width: 640px) 100vw, 320px"
                 />
-              </picture>
-            );
-          })()}
-          {/* Badges top-left */}
+              )}
+              <img
+                src={hasOwn ? optimizeImage(heroSrc, { width: 640, height: 400, quality: 74 }) : heroSrc}
+                alt={property.title}
+                loading={priority ? "eager" : "lazy"}
+                fetchPriority={priority ? "high" : "auto"}
+                decoding="async"
+                width={640}
+                height={400}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                onError={(e) => {
+                  e.currentTarget.src = propertyPlaceholder;
+                  e.currentTarget.srcset = "";
+                }}
+              />
+            </picture>
+          </div>
+
+          {/* Badges */}
           <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
-            {property.status === "inactief" && (
-              <Badge variant="destructive" className="text-xs">Inactief</Badge>
-            )}
-            {property.status === "verhuurd" && (
-              <Badge variant="destructive" className="text-xs">Verhuurd</Badge>
-            )}
-            {property.status === "verkocht" && (
-              <Badge variant="destructive" className="text-xs">Verkocht</Badge>
+            {property.status !== "actief" && (
+              <Badge variant="destructive" className="text-xs capitalize">
+                {property.status}
+              </Badge>
             )}
             {isToday && property.status === "actief" && (
-              <Badge className="bg-accent text-accent-foreground text-xs font-semibold">
-                Nieuw vandaag
-              </Badge>
+              <Badge className="bg-accent text-accent-foreground text-xs font-semibold">Nieuw vandaag</Badge>
             )}
             {!isToday && isNew && property.status === "actief" && (
               <Badge className="bg-accent/80 text-accent-foreground text-xs">Nieuw</Badge>
@@ -155,36 +152,21 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
             {dealLabel === "te-duur" && (
               <Badge className="bg-destructive/80 text-destructive-foreground text-xs">Boven gemiddeld</Badge>
             )}
-            <Badge variant="secondary" className="capitalize text-xs">
-              {property.listing_type}
-            </Badge>
-            {(property.views_count ?? 0) >= 15 && property.status === "actief" && (
-              <Badge className="bg-foreground/85 text-background text-xs flex items-center gap-1">
-                <Eye className="h-3 w-3" /> {property.views_count}x bekeken
-              </Badge>
-            )}
           </div>
 
-          {/* Urgency banner for fresh listings */}
-          {isFresh && (
-            <div className="absolute bottom-0 left-0 right-0 flex items-center gap-1.5 bg-destructive/90 px-3 py-1.5 text-[11px] font-semibold text-destructive-foreground backdrop-blur-sm">
-              <Flame className="h-3.5 w-3.5 shrink-0" />
-              <span>Wees de eerste die reageert</span>
-            </div>
-          )}
-
-          {/* Actions top-right */}
+          {/* Actions */}
           <div className="absolute right-3 top-3 flex gap-1.5">
             {user && (
               <Button
                 size="icon"
                 variant="secondary"
                 className={cn(
-                  "h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white",
-                  isPropertyFavorite && "bg-red-100 text-red-500 hover:bg-red-200"
+                  "h-8 w-8 rounded-full bg-background/90 backdrop-blur-sm",
+                  isPropertyFavorite && "text-destructive"
                 )}
                 onClick={handleFavoriteClick}
                 disabled={isLoading}
+                aria-label="Bewaar woning"
               >
                 <Heart className={cn("h-4 w-4", isPropertyFavorite && "fill-current")} />
               </Button>
@@ -192,16 +174,16 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
             <Button
               size="icon"
               variant="secondary"
-              className="h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white"
+              className="h-8 w-8 rounded-full bg-background/90 backdrop-blur-sm"
               onClick={handleShareClick}
+              aria-label="Deel woning"
             >
               <Share2 className="h-4 w-4" />
             </Button>
           </div>
 
-          {/* Source logo */}
           {sourceLogo && (
-            <div className="absolute right-3 bottom-3 h-7 w-7 rounded-md bg-white/90 p-0.5 shadow-sm">
+            <div className="absolute right-3 bottom-3 h-7 w-7 rounded-md bg-background/90 p-0.5 shadow-sm">
               <img
                 src={sourceLogo}
                 alt={property.source_site || "Aanbieder"}
@@ -211,111 +193,108 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
           )}
         </div>
 
-        <CardContent className="p-4">
-          {/* Price */}
-          <p className="font-display text-xl font-bold text-primary">
-            {formatPrice(Number(property.price), property.listing_type)}
-          </p>
-
-          {/* Title */}
-          <h3 className="mt-1 text-sm leading-tight text-foreground line-clamp-1" style={{ fontWeight: 600 }}>
-            {property.title}
-          </h3>
-
-          {/* Location */}
-          <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-            <MapPin className="h-3.5 w-3.5 shrink-0" />
-            <span className="line-clamp-1">
-              {property.street} {property.house_number}, {property.city}
-            </span>
-          </div>
-
-          {/* Stats row */}
-          <div className="mt-3 flex items-center gap-3 border-t border-border/50 pt-3 text-xs text-muted-foreground">
-            {property.surface_area && (
-              <div className="flex items-center gap-1">
-                <Maximize className="h-3.5 w-3.5" />
-                <span>{property.surface_area} m²</span>
-              </div>
+        {/* Body */}
+        <div className="flex flex-1 flex-col gap-4 p-5 md:flex-row md:gap-6">
+          <div className="flex-1">
+            <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
+              {property.title}
+            </h3>
+            {subtitle && <p className="mt-1 text-sm font-semibold capitalize text-accent">{subtitle}</p>}
+            {property.description && (
+              <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{property.description}</p>
             )}
-            {property.bedrooms && (
-              <div className="flex items-center gap-1">
-                <Bed className="h-3.5 w-3.5" />
-                <span>{property.bedrooms} kamers</span>
-              </div>
-            )}
-            {property.energy_label && (
-              <Badge variant="outline" className={cn("ml-auto h-5 px-1.5 text-[10px] font-bold", energyLabelColor[property.energy_label])}>
-                {property.energy_label}
-              </Badge>
-            )}
-          </div>
-
-          {/* Inkomen check (alleen huur) */}
-          {property.listing_type === "huur" && (
-            <div
-              className={cn(
-                "mt-2 flex items-center gap-1.5 rounded-md px-2 py-1.5 text-[11px]",
-                fitsBudget === true
-                  ? "bg-success/10 text-foreground"
-                  : fitsBudget === false
-                  ? "bg-destructive/10 text-foreground"
-                  : "bg-primary/5 text-foreground"
-              )}
-            >
-              {fitsBudget === true ? (
-                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success" />
-              ) : (
-                <Wallet
-                  className={cn(
-                    "h-3.5 w-3.5 shrink-0",
-                    fitsBudget === false ? "text-destructive" : "text-primary"
-                  )}
-                />
-              )}
+            <div className="mt-3 flex items-center gap-1 text-xs text-muted-foreground">
+              <MapPin className="h-3.5 w-3.5 shrink-0" />
               <span className="line-clamp-1">
-                {fitsBudget === true ? (
-                  <>
-                    <strong className="font-semibold">Past binnen budget</strong>{" "}
-                    (vanaf{" "}
-                    {new Intl.NumberFormat("nl-NL", {
-                      style: "currency",
-                      currency: "EUR",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    }).format(requiredIncome)}
-                    )
-                  </>
-                ) : fitsBudget === false ? (
-                  <>
-                    <strong className="font-semibold">Te duur</strong>: vereist{" "}
-                    {new Intl.NumberFormat("nl-NL", {
-                      style: "currency",
-                      currency: "EUR",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    }).format(requiredIncome)}{" "}
-                    bruto/mnd
-                  </>
-                ) : (
-                  <>
-                    Inkomen vanaf{" "}
-                    <strong className="font-semibold">
-                      {new Intl.NumberFormat("nl-NL", {
-                        style: "currency",
-                        currency: "EUR",
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                      }).format(requiredIncome)}
-                    </strong>{" "}
-                    bruto/mnd
-                  </>
-                )}
+                {property.street} {property.house_number}, {property.city}
               </span>
             </div>
-          )}
-        </CardContent>
-      </Card>
+
+            <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+              <Badge variant="secondary" className="capitalize">
+                {property.property_type}
+              </Badge>
+              {property.postal_code && <Badge variant="outline">{property.postal_code}</Badge>}
+              {property.neighborhood && (
+                <Badge variant="outline" className="capitalize">
+                  {property.neighborhood}
+                </Badge>
+              )}
+              {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
+              {property.surface_area && Number(property.price) > 0 && (
+                <Badge variant="outline">
+                  {Math.round(Number(property.price) / Number(property.surface_area))} €/m²
+                </Badge>
+              )}
+              <Badge variant="outline">Geplaatst {daysAgoLabel}</Badge>
+              {(property.views_count ?? 0) > 0 && (
+                <Badge variant="outline">{property.views_count}x bekeken</Badge>
+              )}
+            </div>
+          </div>
+
+          {/* Specs + price */}
+          <div className="flex flex-col justify-between gap-4 md:w-[230px] md:shrink-0 md:border-l md:border-border/60 md:pl-6">
+            <ul className="space-y-1.5 text-sm text-foreground">
+              {property.surface_area && (
+                <li className="flex items-center gap-2">
+                  <Maximize className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span>{property.surface_area} m² woonoppervlak</span>
+                </li>
+              )}
+              {property.bedrooms && (
+                <li className="flex items-center gap-2">
+                  <Bed className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span>{property.bedrooms} slaapkamers</span>
+                </li>
+              )}
+              {property.bathrooms && (
+                <li className="flex items-center gap-2">
+                  <Users className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span>{property.bathrooms} badkamers</span>
+                </li>
+              )}
+              {property.energy_label && (
+                <li className="flex items-center gap-2">
+                  <Zap className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span>Energielabel {property.energy_label}</span>
+                </li>
+              )}
+              {property.listing_type === "huur" && Number(property.price) > 0 && (
+                <li className="flex items-center gap-2">
+                  {fitsBudget === true ? (
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+                  ) : (
+                    <Wallet
+                      className={cn(
+                        "h-4 w-4 shrink-0",
+                        fitsBudget === false ? "text-destructive" : "text-muted-foreground"
+                      )}
+                    />
+                  )}
+                  <span>
+                    {fitsBudget === true
+                      ? "Past binnen jouw budget"
+                      : `Inkomen vanaf ${euro(requiredIncome)}`}
+                  </span>
+                </li>
+              )}
+            </ul>
+
+            <div className="flex items-end justify-between gap-3 md:flex-col md:items-start">
+              <div>
+                <p className="font-display text-3xl font-extrabold leading-none tracking-tight text-primary">
+                  {euro(Number(property.price))}
+                </p>
+                {property.listing_type === "huur" && (
+                  <p className="mt-1 text-[11px] text-muted-foreground">per maand</p>
+                )}
+              </div>
+              <span className="text-sm font-semibold text-accent underline underline-offset-4">Meer info</span>
+            </div>
+          </div>
+        </div>
+      </article>
     </Link>
   );
 };
