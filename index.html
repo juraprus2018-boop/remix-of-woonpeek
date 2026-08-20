@@ -3,6 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Forceer www-variant -->
+    <script>
+      (function () {
+        var h = window.location.hostname;
+        if (h === "woonaanbod-nl.nl") {
+          window.location.replace(
+            "https://www.woonaanbod-nl.nl" + window.location.pathname + window.location.search + window.location.hash
+          );
+        }
+      })();
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8MWWMFY858"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8MWWMFY858');
+    </script>
     <title>Woonaanbod NL – Huurwoningen & Koophuizen in Nederland</title>
     <meta name="description" content="Vind huurwoningen en koophuizen in Eindhoven, Rotterdam, Amsterdam en meer. Woonaanbod NL – het woningplatform voor heel Nederland." />
     <meta name="author" content="Woonaanbod NL" />

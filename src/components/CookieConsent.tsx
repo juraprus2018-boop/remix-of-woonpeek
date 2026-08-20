@@ -16,27 +16,8 @@ const getStoredConsent = (): ConsentChoice => {
   return null;
 };
 
-/** Activate Google Analytics + AdSense scripts */
+/** Activate AdSense script (Google Analytics staat statisch in index.html) */
 const activateAnalytics = () => {
-  if (document.getElementById("gtag-script")) return;
-
-  // gtag.js
-  const gtagScript = document.createElement("script");
-  gtagScript.id = "gtag-script";
-  gtagScript.async = true;
-  gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-5BB912GHGL";
-  document.head.appendChild(gtagScript);
-
-  const inlineGtag = document.createElement("script");
-  inlineGtag.textContent = `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-5BB912GHGL');
-  `;
-  document.head.appendChild(inlineGtag);
-
-  // AdSense
   if (!document.getElementById("adsense-script")) {
     const adsenseScript = document.createElement("script");
     adsenseScript.id = "adsense-script";

@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const BASE = "https://woonaanbod-nl.nl";
+const BASE = "https://www.woonaanbod-nl.nl";
 
 const escapeXml = (s: string) =>
   s

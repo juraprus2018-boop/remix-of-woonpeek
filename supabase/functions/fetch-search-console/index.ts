@@ -85,17 +85,17 @@ Deno.serve(async (req) => {
     console.log("Available Search Console sites:", JSON.stringify(sitesData));
 
     // Find the woonaanbod-nl site (could be domain property or URL prefix)
-    const woonaanbod-nlSite = sitesData.siteEntry?.find((s: any) =>
+    const wnSite = sitesData.siteEntry?.find((s: any) =>
       s.siteUrl.includes("woonaanbod-nl.nl")
     );
 
-    if (!woonaanbod-nlSite) {
+    if (!wnSite) {
       throw new Error(
         `woonaanbod-nl.nl not found in Search Console. Available sites: ${JSON.stringify(sitesData.siteEntry?.map((s: any) => s.siteUrl) || [])}`
       );
     }
 
-    const siteUrl = woonaanbod-nlSite.siteUrl;
+    const siteUrl = wnSite.siteUrl;
     console.log("Using site URL:", siteUrl);
 
     // Fetch Search Console data for yesterday (data is usually 2-3 days delayed)

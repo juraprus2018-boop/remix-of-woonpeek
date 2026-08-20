@@ -5,6 +5,10 @@ RewriteBase /
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Force www
+RewriteCond %{HTTP_HOST} ^woonaanbod-nl\.nl$ [NC]
+RewriteRule ^(.*)$ https://www.woonaanbod-nl.nl/$1 [L,R=301]
+
 # Remove trailing slash
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
