@@ -310,9 +310,9 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <ExploreMap properties={properties as any} />
                 </div>
               ) : (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {visibleProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} />
+                <div className="flex flex-col gap-5">
+                  {visibleProperties.map((property, i) => (
+                    <PropertyRowCard key={property.id} property={property} priority={i < 2} />
                   ))}
                 </div>
               )}
