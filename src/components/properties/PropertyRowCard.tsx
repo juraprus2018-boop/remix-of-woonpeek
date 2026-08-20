@@ -118,10 +118,10 @@ const PropertyRowCard = ({ property, priority = false }: PropertyRowCardProps) =
                   <span>{property.bedrooms} slaapkamers</span>
                 </li>
               )}
-              {property.rooms && (
+              {property.bathrooms && (
                 <li className="flex items-center gap-2">
                   <Users className="h-4 w-4 shrink-0 text-muted-foreground" />
-                  <span>{property.rooms} kamers</span>
+                  <span>{property.bathrooms} badkamers</span>
                 </li>
               )}
               {property.energy_label && (
