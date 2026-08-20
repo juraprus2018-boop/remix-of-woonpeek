@@ -167,6 +167,8 @@ const PAGES: RouteDef[] = [
 
   // Zoek + ontdek
   { path: "/woning-zoeken", element: <Search /> },
+  { path: "/vinden", element: <Navigate to="/woning-zoeken" replace /> },
+
   { path: "/op-kaart", element: <Explore /> },
   { path: "/aanbod/:slug", element: <PropertyDetail /> },
   { path: "/vandaag", element: <NewListings /> },
