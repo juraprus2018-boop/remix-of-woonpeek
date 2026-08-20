@@ -390,7 +390,7 @@ const SearchPage = () => {
               ) : visibleListProperties && visibleListProperties.length > 0 ? (
               viewMode === "list" ? (
                   <>
-                    <div className="flex flex-col gap-5
+                    <div className="flex flex-col gap-5">
                       {visibleListProperties.map((property) => (
                         <PropertyCard
                           key={property.id}

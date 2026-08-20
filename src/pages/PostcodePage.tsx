@@ -132,7 +132,7 @@ const PostcodePage = () => {
                 ))}
               </div>
             ) : properties.length > 0 ? (
-              <div className="flex flex-col gap-5
+              <div className="flex flex-col gap-5">
                 {properties.map((property) => (
                   <PropertyCard key={property.id} property={property} />
                 ))}
