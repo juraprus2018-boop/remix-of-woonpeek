@@ -25,6 +25,7 @@ import { useFeaturedProperties } from "@/hooks/useProperties";
 import { useHomeStats } from "@/hooks/useHomeStats";
 import { useNewTodayCount } from "@/hooks/useNewTodayCount";
 import { Skeleton } from "@/components/ui/skeleton";
+import PropertyCard from "@/components/properties/PropertyCard";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
@@ -215,55 +216,15 @@ const Index = () => {
             </Link>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex flex-col gap-5">
             {isLoading
               ? Array.from({ length: 6 }).map((_, i) => (
-                  <Skeleton key={i} className="h-72 rounded-2xl" />
+                  <Skeleton key={i} className="h-56 rounded-2xl" />
                 ))
               : featured.map((p: any) => (
-                  <Link
-                    key={p.id}
-                    to={`/aanbod/${cityToSlug(p.city || "stad")}-${p.property_type || "woning"}-${p.id}`}
-                    className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-lg"
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                      {(p.images?.[0] || p.image_url) ? (
-                        <img
-                          src={p.images?.[0] || p.image_url}
-                          alt={p.title}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          onError={(e) => {
-                            (e.currentTarget as HTMLImageElement).style.display = "none";
-                          }}
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-muted-foreground">
-                          <Home className="h-12 w-12 opacity-30" />
-                        </div>
-                      )}
-                      {p.price && (
-                        <div className="absolute left-3 top-3 rounded-full bg-sun px-3 py-1 text-xs font-extrabold text-foreground shadow-sm">
-                          € {Number(p.price).toLocaleString("nl-NL")}
-                          {p.listing_type === "huur" && <span className="font-medium"> /mnd</span>}
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                        {p.city}
-                      </div>
-                      <h3 className="mt-1 line-clamp-1 text-base font-extrabold text-foreground">
-                        {p.title}
-                      </h3>
-                      <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
-                        {p.bedrooms && <span>{p.bedrooms} kamers</span>}
-                        {(p.surface_area || p.size_m2) && <span>{p.surface_area || p.size_m2} m²</span>}
-                      </div>
-
-                    </div>
-                  </Link>
+                  <PropertyCard key={p.id} property={p} />
                 ))}
+
           </div>
 
           <div className="mt-8 text-center md:hidden">
