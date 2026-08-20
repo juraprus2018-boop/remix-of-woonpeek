@@ -62,7 +62,7 @@ const FeaturedListings = () => {
               De nieuwste woningen op ons platform. Wees er snel bij!
             </p>
           </div>
-          <Link to="/vinden" className="hidden sm:block">
+          <Link to="/woning-zoeken" className="hidden sm:block">
             <Button variant="outline" className="gap-2">
               Bekijk alle woningen
               <ArrowRight className="h-4 w-4" />
@@ -77,7 +77,7 @@ const FeaturedListings = () => {
         </div>
 
         <div className="mt-8 text-center sm:hidden">
-          <Link to="/vinden">
+          <Link to="/woning-zoeken">
             <Button variant="outline" className="gap-2">
               Bekijk alle woningen
               <ArrowRight className="h-4 w-4" />

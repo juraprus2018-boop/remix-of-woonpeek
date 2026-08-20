@@ -301,7 +301,7 @@ export default function ContractCheck() {
                     Nieuw contract checken
                   </Button>
                   <Button asChild className="flex-1">
-                    <a href="/vinden">Bekijk woningen</a>
+                    <a href="/woning-zoeken">Bekijk woningen</a>
                   </Button>
                 </div>
               </div>

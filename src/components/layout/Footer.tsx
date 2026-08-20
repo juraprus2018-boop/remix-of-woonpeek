@@ -31,7 +31,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.quickLinks")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/vinden" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkSearch")}</Link></li>
+              <li><Link to="/woning-zoeken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkSearch")}</Link></li>
               <li><Link to="/huren" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRentals")}</Link></li>
               <li><Link to="/appartement" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkApartments")}</Link></li>
               <li><Link to="/kamer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkRooms")}</Link></li>

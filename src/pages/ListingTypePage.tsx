@@ -350,7 +350,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <Link to="/woonradar">
                     <Button>Alert instellen</Button>
                   </Link>
-                  <Link to="/vinden">
+                  <Link to="/woning-zoeken">
                     <Button variant="outline">Alle woningen bekijken</Button>
                   </Link>
                 </div>

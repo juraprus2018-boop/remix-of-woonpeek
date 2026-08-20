@@ -304,7 +304,7 @@ const Verhuischecklist = () => {
                 variant="outline"
                 className="border-background/30 bg-transparent text-background hover:bg-background hover:text-foreground"
               >
-                <Link to="/vinden">Bekijk het aanbod</Link>
+                <Link to="/woning-zoeken">Bekijk het aanbod</Link>
               </Button>
             </div>
           </div>
