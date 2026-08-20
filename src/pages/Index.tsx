@@ -358,7 +358,7 @@ const Index = () => {
                   <Bell className="h-3.5 w-3.5" />
                   Gratis alert
                 </span>
-                <h2 className="mt-5 text-4xl font-extrabold tracking-tight md:text-5xl">
+                <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-primary-foreground md:text-5xl">
                   Wees gewoon de eerste.
                 </h2>
                 <p className="mt-4 max-w-md text-primary-foreground/80">
