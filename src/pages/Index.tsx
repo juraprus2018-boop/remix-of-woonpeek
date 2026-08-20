@@ -349,19 +349,19 @@ const Index = () => {
       <section className="py-16 md:py-20">
 
         <div className="container">
-          <div className="relative overflow-hidden rounded-3xl bg-foreground px-8 py-14 text-background md:px-14 md:py-20">
-            <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-sun/40 blur-3xl" aria-hidden />
-            <div className="pointer-events-none absolute -bottom-24 -left-12 h-72 w-72 rounded-full bg-sun/30 blur-3xl" aria-hidden />
+          <div className="relative overflow-hidden rounded-3xl bg-primary px-8 py-14 text-primary-foreground md:px-14 md:py-20">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-primary-foreground/15 blur-3xl" aria-hidden />
+            <div className="pointer-events-none absolute -bottom-24 -left-12 h-72 w-72 rounded-full bg-primary-foreground/10 blur-3xl" aria-hidden />
             <div className="relative grid items-center gap-8 lg:grid-cols-2">
               <div>
-                <span className="inline-flex items-center gap-2 rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground">
+                <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
                   <Bell className="h-3.5 w-3.5" />
                   Gratis alert
                 </span>
                 <h2 className="mt-5 text-4xl font-extrabold tracking-tight md:text-5xl">
                   Wees gewoon de eerste.
                 </h2>
-                <p className="mt-4 max-w-md text-background/80">
+                <p className="mt-4 max-w-md text-primary-foreground/80">
                   Wij mailen je zodra er een huurwoning binnenkomt die past bij jouw stad en budget.
                   Geen spam, één klik om eruit.
                 </p>
@@ -370,14 +370,14 @@ const Index = () => {
                 <Link to="/woonradar" className="w-full lg:w-auto">
                   <Button
                     size="lg"
-                    className="h-14 w-full gap-2 rounded-xl bg-sun px-8 text-base font-extrabold text-foreground shadow-lg hover:bg-sun/90 lg:w-auto"
+                    className="h-14 w-full gap-2 rounded-xl bg-primary-foreground px-8 text-base font-extrabold text-primary shadow-lg hover:bg-primary-foreground/90 lg:w-auto"
                   >
                     Stel mijn alert in
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
-                <p className="flex items-center gap-2 text-xs text-background/70">
-                  <ShieldCheck className="h-4 w-4 text-sun" />
+                <p className="flex items-center gap-2 text-xs text-primary-foreground/70">
+                  <ShieldCheck className="h-4 w-4 text-primary-foreground" />
                   100% gratis. Geen account nodig.
                 </p>
               </div>
