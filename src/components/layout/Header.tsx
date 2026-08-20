@@ -101,12 +101,10 @@ const Header = () => {
   const toolsItems = [
     { to: "/budgetcheck", icon: Calculator, label: t("nav.toolsItems.budget") },
     { to: "/markt/amsterdam", icon: TrendingUp, label: t("nav.toolsItems.monitor") },
-    { to: "/journaal", icon: BookOpen, label: t("nav.toolsItems.blog") },
   ];
 
   const lettingItems = [
     { to: "/plaatsen-start", icon: PlusCircle, label: t("nav.lettingItems.post") },
-    { to: "/partnerprogramma", icon: Handshake, label: t("nav.lettingItems.agentLink") },
     { to: "/samenwerken", icon: Mail, label: t("nav.lettingItems.partner") },
     { to: "/over", icon: HelpCircle, label: t("footer.linkAbout") },
   ];

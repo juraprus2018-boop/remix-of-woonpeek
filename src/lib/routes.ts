@@ -26,7 +26,6 @@ export const ROUTES = {
   postCreate: "/aanbod-toevoegen",
   alerts: "/radarmeldingen",
   // Content
-  blog: "/journaal",
   faq: "/vragen",
   about: "/over",
   cities: "/plekken",
@@ -35,7 +34,6 @@ export const ROUTES = {
   quiz: "/woonkompas",
   energy: "/energie",
   // B2B
-  agentLink: "/partnerprogramma",
   partner: "/samenwerken",
   // Legal
   terms: "/voorwaarden",
@@ -79,7 +77,6 @@ export const paths = {
   bestNeighborhoods: (city: string) => `/toplijst/${cityToSlug(city)}/buurten`,
   cityCompare: (a: string, b: string) =>
     `/duel/${cityToSlug(a)}-vs-${cityToSlug(b)}`,
-  blogPost: (slug: string) => `/journaal/${slug}`,
   alertUnsubscribe: (token: string) => `/radarmeldingen/uit/${token}`,
 };
 
@@ -105,7 +102,6 @@ export const LEGACY_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: "/mijn-woningen", to: ROUTES.myListings },
   { from: "/woning-plaatsen", to: ROUTES.postStart },
   { from: "/plaatsen", to: ROUTES.postCreate },
-  { from: "/blog", to: ROUTES.blog },
   { from: "/zoekalerts", to: ROUTES.alerts },
   { from: "/veelgestelde-vragen", to: ROUTES.faq },
   { from: "/over-woonaanbod-nl", to: ROUTES.about },
@@ -113,7 +109,6 @@ export const LEGACY_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: "/budget-tool", to: ROUTES.budget },
   { from: "/woonquiz", to: ROUTES.quiz },
   { from: "/energie-vergelijken", to: ROUTES.energy },
-  { from: "/makelaar-koppelen", to: ROUTES.agentLink },
   { from: "/samenwerking", to: ROUTES.partner },
   { from: "/huurwoningen", to: "/huren" },
   { from: "/koopwoningen", to: "/kopen" },
@@ -125,7 +120,6 @@ export const LEGACY_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: "/woning/:slug", to: "/aanbod/:slug" },
   { from: "/woning/:id/bewerken", to: "/aanbod/:id/bewerken" },
   { from: "/nieuw-aanbod/:city", to: "/vandaag/:city" },
-  { from: "/blog/:slug", to: "/journaal/:slug" },
   { from: "/huurwoningen/:city", to: "/huren/:city" },
   { from: "/huurwoningen/:city/:filter", to: "/huren/:city/:filter" },
   { from: "/koopwoningen/:city", to: "/kopen/:city" },
