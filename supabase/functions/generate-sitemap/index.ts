@@ -64,10 +64,6 @@ function buildSitemapIndex(lastmod: string): string {
     <loc>${SITE_URL}/sitemap-woningen.xml</loc>
     <lastmod>${lastmod}</lastmod>
   </sitemap>
-  <sitemap>
-    <loc>${SITE_URL}/sitemap-blog.xml</loc>
-    <lastmod>${lastmod}</lastmod>
-  </sitemap>
 </sitemapindex>`;
 }
 
@@ -85,7 +81,6 @@ function buildPagesSitemap(now: string): string {
     { loc: "/studio", changefreq: "daily", priority: "0.7" },
     { loc: "/kamer", changefreq: "daily", priority: "0.7" },
     { loc: "/plaatsen-start", changefreq: "weekly", priority: "0.7" },
-    { loc: "/journaal", changefreq: "daily", priority: "0.8" },
     { loc: "/woonradar", changefreq: "monthly", priority: "0.6" },
     { loc: "/vragen", changefreq: "monthly", priority: "0.5" },
     { loc: "/woordenboek", changefreq: "monthly", priority: "0.7" },

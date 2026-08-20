@@ -42,9 +42,7 @@ const SEOContentSection = () => {
             en sneller reageren dan de rest, je doet het hier.
           </p>
           <p>
-            Lees onze{" "}
-            <Link to="/journaal" className="text-primary hover:underline">blog</Link>{" "}
-            voor tips over zoeken, bezichtigen en huurprijzen. Of check de{" "}
+            Check de{" "}
             <Link to="/huurprijsmonitor" className="text-primary hover:underline">huurprijsmonitor</Link>{" "}
             voor wat normaal is per stad. Begin vandaag met{" "}
             <strong>huren zoeken</strong> op Woonaanbod NL. Echt gratis.

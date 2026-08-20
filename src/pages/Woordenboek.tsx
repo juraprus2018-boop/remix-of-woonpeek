@@ -212,10 +212,6 @@ export default function Woordenboek() {
                 <p className="font-display text-lg uppercase">Veelgestelde vragen</p>
                 <p className="mt-1 text-sm text-background/70">Antwoorden op de meest gestelde vragen.</p>
               </Link>
-              <Link to="/journaal" className="border-2 border-background/30 bg-background/5 p-4 transition-colors hover:bg-background/10">
-                <p className="font-display text-lg uppercase">Journaal</p>
-                <p className="mt-1 text-sm text-background/70">Actueel woningmarktnieuws en tips.</p>
-              </Link>
             </div>
           </div>
         </section>

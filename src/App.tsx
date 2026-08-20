@@ -39,8 +39,6 @@ const SearchAlerts = lazy(() => import("./pages/SearchAlerts"));
 const Profile = lazy(() => import("./pages/Profile"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Cities = lazy(() => import("./pages/Cities"));
-const BlogPage = lazy(() => import("./pages/Blog"));
-const BlogPostPage = lazy(() => import("./pages/BlogPost"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
 const AdminUserDetail = lazy(() => import("./pages/admin/AdminUserDetail"));
@@ -59,7 +57,6 @@ const PostPropertyStart = lazy(() => import("./pages/PostPropertyStart"));
 const AlertUnsubscribe = lazy(() => import("./pages/AlertUnsubscribe"));
 const DailyAlert = lazy(() => import("./pages/DailyAlert"));
 const About = lazy(() => import("./pages/About"));
-const MakelaarKoppelen = lazy(() => import("./pages/MakelaarKoppelen"));
 const Samenwerking = lazy(() => import("./pages/Samenwerking"));
 const AdminChat = lazy(() => import("./pages/admin/AdminChat"));
 const AdminComments = lazy(() => import("./pages/admin/AdminComments"));
@@ -228,8 +225,6 @@ const PAGES: RouteDef[] = [
 
 
   // Content
-  { path: "/journaal", element: <BlogPage /> },
-  { path: "/journaal/:slug", element: <BlogPostPage /> },
   { path: "/vragen", element: <FAQ /> },
   { path: "/over", element: <About /> },
   { path: "/woordenboek", element: <Woordenboek /> },
@@ -257,7 +252,6 @@ const PAGES: RouteDef[] = [
   { path: "/expat-housing", element: <ExpatHousing /> },
 
   // B2B
-  { path: "/partnerprogramma", element: <MakelaarKoppelen /> },
   { path: "/samenwerken", element: <Samenwerking /> },
   { path: "/makelaar/:slug", element: <MakelaarPage /> },
   { path: "/transparantie", element: <Transparantie /> },

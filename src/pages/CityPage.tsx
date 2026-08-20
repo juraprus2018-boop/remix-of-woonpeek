@@ -611,9 +611,7 @@ const CityPage = () => {
               </p>
 
               <p>
-                Lees ook onze{" "}
-                <Link to="/journaal" className="text-primary underline hover:no-underline">blog</Link>{" "}
-                voor tips over woningen zoeken en de woningmarkt. Of gebruik de{" "}
+                Gebruik de{" "}
                 <Link to="/budgetcheck" className="text-primary underline hover:no-underline">budget tool</Link>{" "}
                 om te berekenen hoeveel huur je kunt betalen. Bekijk daarnaast de{" "}
                 <Link to="/huurprijsmonitor" className="text-primary underline hover:no-underline">huurprijsmonitor</Link>{" "}

@@ -39,7 +39,6 @@ const Footer = () => {
               <li><Link to="/plekken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAllCities")}</Link></li>
               <li><Link to="/vandaag" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkNew")}</Link></li>
               <li><Link to="/plaatsen-start" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPost")}</Link></li>
-              <li><Link to="/journaal" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBlog")}</Link></li>
             </ul>
           </div>
 
