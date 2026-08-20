@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Bed, Maximize, Users, MapPin, Zap } from "lucide-react";
+import { Bed, Maximize, Users, MapPin, Zap, Wallet } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Database } from "@/integrations/supabase/types";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
@@ -21,12 +21,15 @@ const formatPrice = (price: number, listingType: string) => {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
-  return listingType === "huur" ? `${formatted} p/m` : formatted;
+  return formatted;
 };
 
 const PropertyRowCard = ({ property, priority = false }: PropertyRowCardProps) => {
   const heroSrc = property.images?.[0] ?? getStockPropertyImage(property.id);
   const hasOwn = !!property.images?.[0];
+
+  const days = Math.floor((Date.now() - new Date(property.created_at).getTime()) / 86400000);
+  const daysAgoLabel = days <= 0 ? "vandaag" : days === 1 ? "gisteren" : `${days} dagen geleden`;
 
   const subtitle = [
     property.property_type,
