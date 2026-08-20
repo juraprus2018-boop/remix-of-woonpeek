@@ -346,16 +346,22 @@ export const useDeleteProperty = () => {
   });
 };
 
-export const useFeaturedProperties = () => {
+export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "huur") => {
   return useQuery({
-    queryKey: ["featured-properties"],
+    queryKey: ["featured-properties", listingType],
     queryFn: async () => {
-      const { data, error } = await supabase
+      let query = supabase
         .from("properties")
         .select("*")
-        .eq("status", "actief")
+        .eq("status", "actief");
+
+      if (listingType !== "all") {
+        query = query.eq("listing_type", listingType);
+      }
+
+      const { data, error } = await query
         .order("created_at", { ascending: false })
-        .limit(8);
+        .limit(12);
 
       if (error) throw error;
       return data as Property[];
