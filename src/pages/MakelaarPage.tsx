@@ -120,7 +120,7 @@ const MakelaarPage = () => {
           <div className="container py-12">
             <h2 className="font-display text-2xl lowercase md:text-3xl">aanbod {listings && listings.length > 0 ? `(${listings.length})` : ""}</h2>
             {listings && listings.length > 0 ? (
-              <div className="mt-8 flex flex-col gap-5
+              <div className="mt-8 flex flex-col gap-5">
                 {listings.map((p) => <PropertyCard key={p.id} property={p} />)}
               </div>
             ) : (
