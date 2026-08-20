@@ -148,7 +148,6 @@
     @apply font-extrabold tracking-tight;
     letter-spacing: -0.02em;
     line-height: 1.1;
-    color: hsl(var(--foreground)) !important;
     font-weight: 900 !important;
   }
 
