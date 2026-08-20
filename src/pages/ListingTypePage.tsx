@@ -3,6 +3,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
+import PropertyRowCard from "@/components/properties/PropertyRowCard";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import SimilarProperties from "@/components/city/SimilarProperties";
@@ -309,9 +310,9 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <ExploreMap properties={properties as any} />
                 </div>
               ) : (
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {visibleProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} />
+                <div className="flex flex-col gap-5">
+                  {visibleProperties.map((property, i) => (
+                    <PropertyRowCard key={property.id} property={property} priority={i < 2} />
                   ))}
                 </div>
               )}
