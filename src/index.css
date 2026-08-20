@@ -3,128 +3,129 @@
 @tailwind utilities;
 
 /*
-  Woonaanbod NL Design System — Forest & Moss
-  Zacht off-white canvas, diep bosgroen ink, moss accenten.
+  Woonaanbod NL Design System — Ocean Deep
+  Helder wit-blauw canvas, diep marine ink, teal accenten.
   Display: Sora. Body: Manrope.
 */
 
 @layer base {
   :root {
-    /* Soft off-white canvas with a green tint */
-    --background: 105 28% 98%;
-    --foreground: 147 36% 11%;
+    /* Crisp near-white canvas with a cool tint */
+    --background: 210 40% 99%;
+    --foreground: 213 45% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 147 36% 11%;
+    --card-foreground: 213 45% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 147 36% 11%;
+    --popover-foreground: 213 45% 13%;
 
-    /* Deep forest as primary */
-    --primary: 140 34% 22%;
-    --primary-foreground: 105 30% 97%;
+    /* Deep marine as primary */
+    --primary: 209 62% 24%;
+    --primary-foreground: 205 40% 98%;
 
-    --secondary: 116 28% 92%;
-    --secondary-foreground: 147 36% 11%;
+    --secondary: 205 40% 94%;
+    --secondary-foreground: 213 45% 13%;
 
-    --muted: 120 18% 95%;
-    --muted-foreground: 145 12% 38%;
+    --muted: 210 26% 95%;
+    --muted-foreground: 212 16% 42%;
 
-    /* Moss accent */
-    --accent: 123 24% 42%;
-    --accent-foreground: 105 30% 97%;
+    /* Teal accent */
+    --accent: 190 58% 38%;
+    --accent-foreground: 200 40% 98%;
 
-    --destructive: 4 66% 46%;
+    --destructive: 4 68% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 130 16% 88%;
-    --input: 130 16% 86%;
-    --ring: 123 24% 42%;
+    --border: 210 24% 89%;
+    --input: 210 24% 86%;
+    --ring: 190 58% 38%;
 
     --radius: 1rem;
 
-    --success: 145 45% 34%;
+    --success: 162 52% 34%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 85% 46%;
+    --warning: 32 88% 48%;
     --warning-foreground: 0 0% 100%;
 
     /* Legacy aliases kept so existing components keep theming correctly */
-    --terracotta: 123 24% 42%;
-    --terracotta-foreground: 105 30% 97%;
-    --terracotta-soft: 116 28% 86%;
+    --terracotta: 190 58% 38%;
+    --terracotta-foreground: 200 40% 98%;
+    --terracotta-soft: 190 45% 86%;
 
-    --surface-cream: 110 26% 96%;
-    --surface-cream-deep: 116 28% 88%;
+    --surface-cream: 205 40% 96%;
+    --surface-cream-deep: 205 38% 89%;
 
-    --hero: 147 38% 10%;
-    --hero-foreground: 105 30% 96%;
-    --hero-muted: 130 12% 72%;
+    --hero: 213 50% 12%;
+    --hero-foreground: 205 40% 97%;
+    --hero-muted: 210 14% 72%;
 
-    /* Brand green aliases (name kept for backwards compatibility) */
-    --sun: 116 30% 68%;
-    --sun-soft: 116 30% 86%;
-    --sun-tint: 110 28% 95%;
-    --ink: 147 38% 10%;
-    --leaf: 123 24% 42%;
-    --sage: 116 28% 90%;
-    --forest: 147 38% 10%;
-    --moss: 140 24% 30%;
+    /* Brand accent aliases (names kept for backwards compatibility) */
+    --sun: 189 62% 62%;
+    --sun-soft: 190 50% 86%;
+    --sun-tint: 200 44% 96%;
+    --ink: 213 50% 12%;
+    --leaf: 190 58% 38%;
+    --sage: 200 40% 92%;
+    --forest: 213 50% 12%;
+    --moss: 205 44% 26%;
 
-    --shadow-sm: 0 1px 2px 0 hsl(147 30% 12% / 0.06);
-    --shadow-md: 0 6px 18px -4px hsl(147 30% 12% / 0.12);
-    --shadow-lg: 0 22px 44px -16px hsl(147 30% 12% / 0.18);
-    --shadow-xl: 0 38px 72px -20px hsl(147 30% 12% / 0.24);
+    --shadow-sm: 0 1px 2px 0 hsl(213 40% 14% / 0.06);
+    --shadow-md: 0 6px 18px -4px hsl(213 40% 14% / 0.12);
+    --shadow-lg: 0 22px 44px -16px hsl(213 40% 14% / 0.18);
+    --shadow-xl: 0 38px 72px -20px hsl(213 40% 14% / 0.24);
 
-    --sidebar-background: 147 38% 10%;
-    --sidebar-foreground: 110 24% 92%;
-    --sidebar-primary: 116 30% 68%;
-    --sidebar-primary-foreground: 147 38% 10%;
-    --sidebar-accent: 145 26% 16%;
-    --sidebar-accent-foreground: 110 24% 92%;
-    --sidebar-border: 145 20% 22%;
-    --sidebar-ring: 123 30% 52%;
+    --sidebar-background: 213 50% 12%;
+    --sidebar-foreground: 205 30% 92%;
+    --sidebar-primary: 189 62% 62%;
+    --sidebar-primary-foreground: 213 50% 12%;
+    --sidebar-accent: 211 34% 18%;
+    --sidebar-accent-foreground: 205 30% 92%;
+    --sidebar-border: 211 26% 24%;
+    --sidebar-ring: 190 55% 50%;
   }
 
   .dark {
-    --background: 147 38% 7%;
-    --foreground: 110 22% 93%;
+    --background: 213 46% 8%;
+    --foreground: 205 28% 93%;
 
-    --card: 147 30% 11%;
-    --card-foreground: 110 22% 93%;
+    --card: 213 38% 12%;
+    --card-foreground: 205 28% 93%;
 
-    --popover: 147 30% 11%;
-    --popover-foreground: 110 22% 93%;
+    --popover: 213 38% 12%;
+    --popover-foreground: 205 28% 93%;
 
-    --primary: 116 32% 66%;
-    --primary-foreground: 147 38% 8%;
+    --primary: 189 60% 60%;
+    --primary-foreground: 213 46% 9%;
 
-    --secondary: 147 22% 16%;
-    --secondary-foreground: 110 22% 93%;
+    --secondary: 212 26% 17%;
+    --secondary-foreground: 205 28% 93%;
 
-    --muted: 147 22% 16%;
-    --muted-foreground: 120 10% 68%;
+    --muted: 212 26% 17%;
+    --muted-foreground: 208 14% 70%;
 
-    --accent: 116 32% 62%;
-    --accent-foreground: 147 38% 8%;
+    --accent: 189 58% 54%;
+    --accent-foreground: 213 46% 9%;
 
-    --destructive: 4 62% 46%;
-    --destructive-foreground: 110 22% 93%;
+    --destructive: 4 62% 48%;
+    --destructive-foreground: 205 28% 93%;
 
-    --border: 147 18% 20%;
-    --input: 147 18% 20%;
-    --ring: 116 32% 62%;
+    --border: 212 22% 21%;
+    --input: 212 22% 21%;
+    --ring: 189 58% 54%;
 
-    --hero: 147 40% 5%;
-    --hero-foreground: 110 22% 93%;
+    --hero: 213 50% 6%;
+    --hero-foreground: 205 28% 93%;
 
-    --surface-cream: 147 30% 11%;
-    --surface-cream-deep: 147 26% 15%;
-    --sun-tint: 147 30% 11%;
-    --sun-soft: 147 26% 15%;
-    --sun: 116 32% 60%;
-    --sage: 147 26% 15%;
+    --surface-cream: 213 38% 12%;
+    --surface-cream-deep: 212 30% 16%;
+    --sun-tint: 213 38% 12%;
+    --sun-soft: 212 30% 16%;
+    --sun: 189 58% 52%;
+    --sage: 212 30% 16%;
   }
 }
+
 
 
 @layer base {
