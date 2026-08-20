@@ -105,7 +105,7 @@ const About = () => {
       <Header />
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative overflow-hidden border-b bg-primary">
+        <section className="relative overflow-hidden border-b bg-primary text-primary-foreground">
           <div className="absolute inset-0 opacity-5">
             <div
               className="absolute inset-0"

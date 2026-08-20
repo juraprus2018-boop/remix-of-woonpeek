@@ -137,7 +137,7 @@ const MakelaarKoppelen = () => {
 
       <main className="min-h-screen">
         {/* HERO */}
-        <section className="relative overflow-hidden bg-primary">
+        <section className="relative overflow-hidden bg-primary text-primary-foreground">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(145_55%_35%/0.15),transparent_60%)]" />
           <div className="container mx-auto px-4 py-20 md:py-28 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
