@@ -417,14 +417,14 @@ const CityPage = () => {
               />
 
               {isLoading ? (
-                <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                <div className="flex flex-col gap-5
                   {Array.from({ length: 9 }).map((_, index) => (
                     <PropertyCardSkeleton key={index} />
                   ))}
                 </div>
               ) : filteredProperties.length > 0 ? (
                 <>
-                  <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                  <div className="flex flex-col gap-5
                     {filteredProperties.slice(0, visibleCount).map((property) => (
                       <PropertyCard
                         key={property.id}

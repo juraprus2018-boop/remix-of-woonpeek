@@ -84,7 +84,7 @@ const MyProperties = () => {
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
           ) : properties && properties.length > 0 ? (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 flex flex-col gap-5
               {properties.map((property) => (
                 <div key={property.id} className="relative">
                   <PropertyCard property={property} />

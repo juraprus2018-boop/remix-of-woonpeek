@@ -238,14 +238,14 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
 
             {/* Property grid - full width section, 3 cols */}
             {isLoading ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col gap-5
                 {Array.from({ length: 9 }).map((_, i) => (
                   <PropertyCardSkeleton key={i} />
                 ))}
               </div>
             ) : properties.length > 0 ? (
               <>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="flex flex-col gap-5
                   {visibleProperties.map((property) => (
                     <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
                   ))}
