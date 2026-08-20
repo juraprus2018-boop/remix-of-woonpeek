@@ -101,15 +101,36 @@ const PropertyRowCard = ({ property, priority = false }: PropertyRowCardProps) =
                 {property.street} {property.house_number}, {property.city}
               </span>
             </div>
+
+            {/* Extra info chips */}
+            <div className="mt-3 flex flex-wrap gap-2 text-[11px]">
+              <Badge variant="secondary" className="capitalize">{property.property_type}</Badge>
+              {property.postal_code && (
+                <Badge variant="outline">{property.postal_code}</Badge>
+              )}
+              {property.neighborhood && (
+                <Badge variant="outline" className="capitalize">{property.neighborhood}</Badge>
+              )}
+              {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
+              {property.surface_area && Number(property.price) > 0 && (
+                <Badge variant="outline">
+                  {Math.round(Number(property.price) / Number(property.surface_area))} €/m²
+                </Badge>
+              )}
+              <Badge variant="outline">Geplaatst {daysAgoLabel}</Badge>
+              {(property.views_count ?? 0) > 0 && (
+                <Badge variant="outline">{property.views_count}x bekeken</Badge>
+              )}
+            </div>
           </div>
 
           {/* Specs */}
-          <div className="flex flex-col justify-between gap-3 md:w-[210px] md:shrink-0 md:border-l md:border-border/60 md:pl-6">
+          <div className="flex flex-col justify-between gap-4 md:w-[230px] md:shrink-0 md:border-l md:border-border/60 md:pl-6">
             <ul className="space-y-1.5 text-sm text-foreground">
               {property.surface_area && (
                 <li className="flex items-center gap-2">
                   <Maximize className="h-4 w-4 shrink-0 text-muted-foreground" />
-                  <span>{property.surface_area} m²</span>
+                  <span>{property.surface_area} m² woonoppervlak</span>
                 </li>
               )}
               {property.bedrooms && (
@@ -130,17 +151,37 @@ const PropertyRowCard = ({ property, priority = false }: PropertyRowCardProps) =
                   <span>Energielabel {property.energy_label}</span>
                 </li>
               )}
+              {property.listing_type === "huur" && Number(property.price) > 0 && (
+                <li className="flex items-center gap-2">
+                  <Wallet className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <span>
+                    Inkomen vanaf{" "}
+                    {new Intl.NumberFormat("nl-NL", {
+                      style: "currency",
+                      currency: "EUR",
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    }).format(Number(property.price) * 3)}
+                  </span>
+                </li>
+              )}
             </ul>
 
             <div className="flex items-end justify-between gap-3 md:flex-col md:items-start">
-              <p className="font-display text-lg font-bold text-primary">
-                {formatPrice(Number(property.price), property.listing_type)}
-              </p>
-              <span className="text-sm font-semibold text-accent underline-offset-4 group-hover:underline">
+              <div>
+                <p className="font-display text-3xl font-extrabold leading-none tracking-tight text-primary">
+                  {formatPrice(Number(property.price), property.listing_type)}
+                </p>
+                {property.listing_type === "huur" && (
+                  <p className="mt-1 text-[11px] text-muted-foreground">per maand</p>
+                )}
+              </div>
+              <span className="text-sm font-semibold text-accent underline underline-offset-4">
                 Meer info
               </span>
             </div>
           </div>
+        </div>
         </div>
       </article>
     </Link>
