@@ -425,7 +425,7 @@ const ExplorePage = () => {
           <span>Pagina {listPage} / {totalListPages}</span>
         </div>
 
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="flex flex-col gap-5
           {paginatedProperties.map((property) => (
             <div
               key={property.id}

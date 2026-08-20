@@ -298,7 +298,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
           </div>
 
           {isLoading ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="flex flex-col gap-5
               {Array.from({ length: 9 }).map((_, i) => (
                 <PropertyCardSkeleton key={i} />
               ))}
@@ -362,7 +362,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <h3 className="font-display text-lg font-semibold text-foreground mb-4">
                     Recente {label.plural.toLowerCase()} in de buurt
                   </h3>
-                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="flex flex-col gap-5
                     {Array.from({ length: 6 }).map((_, i) => (
                       <PropertyCardSkeleton key={i} />
                     ))}
@@ -376,7 +376,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   <p className="text-sm text-muted-foreground mb-4">
                     Bekijk het nieuwste aanbod {label.plural.toLowerCase()} uit andere plaatsen
                   </p>
-                  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="flex flex-col gap-5
                     {nearbyProperties.map((property) => (
                       <PropertyCard key={property.id} property={property} />
                     ))}
