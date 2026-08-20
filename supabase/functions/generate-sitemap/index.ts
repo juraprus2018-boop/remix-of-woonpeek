@@ -302,17 +302,6 @@ function buildPropertiesSitemap(
   return xml;
 }
 
-function buildBlogSitemap(
-  blogPosts: Array<{ slug: string; updated_at: string }>,
-): string {
-  let xml = URLSET_OPEN;
-  for (const b of blogPosts) {
-    xml += urlEntry(`/journaal/${b.slug}`, b.updated_at.split("T")[0], "monthly", "0.7");
-  }
-  xml += `</urlset>`;
-  return xml;
-}
-
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -394,19 +383,6 @@ Deno.serve(async (req) => {
       }
 
       return new Response(buildPropertiesSitemap(allProperties), {
-        headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
-      });
-    }
-
-    if (type === "blog") {
-      const { data: blogPosts, error } = await supabase
-        .from("blog_posts")
-        .select("slug, updated_at")
-        .eq("status", "published")
-        .order("published_at", { ascending: false });
-      if (error) throw error;
-
-      return new Response(buildBlogSitemap(blogPosts || []), {
         headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
       });
     }
