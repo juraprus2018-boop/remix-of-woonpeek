@@ -11,7 +11,7 @@ import { cityToSlug } from "@/lib/cities";
 export const ROUTES = {
   home: "/",
   // Zoek + ontdek
-  search: "/vinden",
+  search: "/woning-zoeken",
   map: "/op-kaart",
   newToday: "/vandaag",
   alert: "/woonradar",

@@ -22,7 +22,7 @@ const CTASection = () => {
               Het complete huuraanbod van Nederland, elke dag bij. Eén plek, geen omwegen.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link to="/vinden">
+              <Link to="/woning-zoeken">
                 <Button
                   size="lg"
                   className="gap-2 bg-accent px-8 text-accent-foreground shadow-lg hover:bg-accent/90"

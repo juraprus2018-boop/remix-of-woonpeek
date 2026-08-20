@@ -214,7 +214,7 @@ const Favorites = () => {
               </p>
               <div className="mt-6 flex gap-3">
                 <Button asChild>
-                  <Link to="/vinden">
+                  <Link to="/woning-zoeken">
                     <Search className="mr-2 h-4 w-4" />
                     Zoek woningen
                   </Link>

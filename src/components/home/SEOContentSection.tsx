@@ -20,7 +20,7 @@ const SEOContentSection = () => {
           <p>
             Wij doorlopen meerdere verhuurplatforms en makelaars zodat jij niks mist.
             Filter op stad, prijs, type en kamers en zie meteen de meest relevante{" "}
-            <Link to="/vinden" className="text-primary hover:underline">huurwoningen</Link>.
+            <Link to="/woning-zoeken" className="text-primary hover:underline">huurwoningen</Link>.
             De drukste steden zijn{" "}
             <Link to="/huurwoningen/amsterdam" className="text-primary hover:underline">Amsterdam</Link>,{" "}
             <Link to="/huurwoningen/rotterdam" className="text-primary hover:underline">Rotterdam</Link>,{" "}

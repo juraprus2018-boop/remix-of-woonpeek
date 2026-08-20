@@ -266,7 +266,7 @@ const Header = () => {
               <Logo size="h-16 md:h-20" />
             </Link>
             <div className="flex items-center gap-2">
-              <Link to="/vinden" onClick={close} className="hidden h-11 items-center gap-2 rounded-full border-2 border-foreground bg-background px-4 text-sm font-bold text-foreground transition-colors hover:bg-sun md:inline-flex">
+              <Link to="/woning-zoeken" onClick={close} className="hidden h-11 items-center gap-2 rounded-full border-2 border-foreground bg-background px-4 text-sm font-bold text-foreground transition-colors hover:bg-sun md:inline-flex">
                 <Search className="h-4 w-4" />
                 {t("common.search")}
               </Link>

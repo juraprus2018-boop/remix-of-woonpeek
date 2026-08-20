@@ -70,7 +70,7 @@ function buildSitemapIndex(lastmod: string): string {
 function buildPagesSitemap(now: string): string {
   const staticPages = [
     { loc: "/", changefreq: "daily", priority: "1.0" },
-    { loc: "/vinden", changefreq: "daily", priority: "0.9" },
+    { loc: "/woning-zoeken", changefreq: "daily", priority: "0.9" },
     { loc: "/plekken", changefreq: "daily", priority: "0.8" },
     { loc: "/op-kaart", changefreq: "daily", priority: "0.7" },
     { loc: "/vandaag", changefreq: "daily", priority: "0.8" },
