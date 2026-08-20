@@ -228,12 +228,7 @@ const SearchPage = () => {
       <SEOHead title={seoTitle} description={seoDescription} canonical={canonicalUrl} />
       <Header />
       <main className="flex-1">
-        {/* Stock photo banner */}
-        <StockBanner
-          seed={`search-${debouncedCity || "all"}`}
-          title={debouncedCity ? `Woningen in ${debouncedCity}` : "Woningen zoeken"}
-          subtitle={isLoading ? "Laden..." : `${totalCount} resultaten gevonden`}
-        >
+        <div className="container pt-4">
           <Breadcrumbs
             items={[
               { label: "Home", href: "/" },
@@ -241,7 +236,8 @@ const SearchPage = () => {
               ...(debouncedCity ? [{ label: debouncedCity }] : []),
             ]}
           />
-        </StockBanner>
+        </div>
+
 
         {/* Search Header */}
         <div className="border-b bg-card">
