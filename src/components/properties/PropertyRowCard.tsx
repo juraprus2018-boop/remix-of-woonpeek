@@ -185,7 +185,6 @@ const PropertyRowCard = ({ property, priority = false }: PropertyRowCardProps) =
             </div>
           </div>
         </div>
-        </div>
       </article>
     </Link>
   );
