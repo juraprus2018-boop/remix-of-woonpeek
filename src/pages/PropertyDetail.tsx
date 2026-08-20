@@ -962,7 +962,7 @@ const PropertyDetail = () => {
                   </Link>
                 </Button>
               </div>
-              <div className="flex flex-col gap-5
+              <div className="flex flex-col gap-5">
                 {similarProperties.map((p) => (
                   <PropertyCard key={p.id} property={p} />
                 ))}

@@ -65,7 +65,7 @@ const NewThisWeekSection = ({ properties, cityName, citySlug, minimum = 3 }: New
         </Button>
       </div>
 
-      <div className="flex flex-col gap-5
+      <div className="flex flex-col gap-5">
         {fresh.map((property, idx) => (
           <PropertyCard key={property.id} property={property} priority={idx === 0} />
         ))}

@@ -292,7 +292,7 @@ const VerhuizenVanNaar = () => {
                 ))}
               </div>
             ) : topListings && topListings.length > 0 ? (
-              <div className="flex flex-col gap-5
+              <div className="flex flex-col gap-5">
                 {topListings.map((p) => (
                   <PropertyCard key={p.id} property={p as any} />
                 ))}

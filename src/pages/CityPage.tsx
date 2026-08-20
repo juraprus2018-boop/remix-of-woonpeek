@@ -417,7 +417,7 @@ const CityPage = () => {
               />
 
               {isLoading ? (
-                <div className="flex flex-col gap-5
+                <div className="flex flex-col gap-5">
                   {Array.from({ length: 9 }).map((_, index) => (
                     <PropertyCardSkeleton key={index} />
                   ))}

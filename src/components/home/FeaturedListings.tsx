@@ -70,7 +70,7 @@ const FeaturedListings = () => {
           </Link>
         </div>
 
-        <div className="flex flex-col gap-5
+        <div className="flex flex-col gap-5">
           {displayProperties.map((property, idx) => (
             <PropertyCard key={property.id} property={property} priority={idx === 0} />
           ))}

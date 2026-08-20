@@ -286,13 +286,13 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         {/* Property grid */}
         <section className="container py-8">
           {isLoading ? (
-            <div className="flex flex-col gap-5
+            <div className="flex flex-col gap-5">
               {Array.from({ length: 9 }).map((_, i) => (
                 <PropertyCardSkeleton key={i} />
               ))}
             </div>
           ) : properties.length > 0 ? (
-            <div className="flex flex-col gap-5
+            <div className="flex flex-col gap-5">
               {properties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
