@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 /*
-  Woonaanbod NL Design System — Ocean Deep
-  Helder wit-blauw canvas, diep marine ink, teal accenten.
+  Woonaanbod NL Design System — Single Primary Marine (#173e63)
+  Eén primaire kleur: marineblauw #173e63. Alle accenten zijn tinten hiervan.
   Display: Sora. Body: Manrope.
 */
 
@@ -24,22 +24,22 @@
     --primary: 209 62% 24%;
     --primary-foreground: 205 40% 98%;
 
-    --secondary: 205 40% 94%;
+    --secondary: 209 32% 94%;
     --secondary-foreground: 213 45% 13%;
 
-    --muted: 210 26% 95%;
+    --muted: 209 24% 95%;
     --muted-foreground: 212 16% 42%;
 
     /* Teal accent */
-    --accent: 190 58% 38%;
+    --accent: 209 62% 24%;
     --accent-foreground: 200 40% 98%;
 
     --destructive: 4 68% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 24% 89%;
-    --input: 210 24% 86%;
-    --ring: 190 58% 38%;
+    --border: 209 22% 89%;
+    --input: 209 22% 86%;
+    --ring: 209 62% 24%;
 
     --radius: 1rem;
 
@@ -49,40 +49,40 @@
     --warning-foreground: 0 0% 100%;
 
     /* Legacy aliases kept so existing components keep theming correctly */
-    --terracotta: 190 58% 38%;
+    --terracotta: 209 62% 24%;
     --terracotta-foreground: 200 40% 98%;
-    --terracotta-soft: 190 45% 86%;
+    --terracotta-soft: 209 40% 88%;
 
-    --surface-cream: 205 40% 96%;
-    --surface-cream-deep: 205 38% 89%;
+    --surface-cream: 209 32% 96%;
+    --surface-cream-deep: 209 30% 90%;
 
-    --hero: 213 50% 12%;
+    --hero: 209 62% 18%;
     --hero-foreground: 205 40% 97%;
     --hero-muted: 210 14% 72%;
 
     /* Brand accent aliases (names kept for backwards compatibility) */
-    --sun: 189 62% 62%;
-    --sun-soft: 190 50% 86%;
-    --sun-tint: 200 44% 96%;
-    --ink: 213 50% 12%;
-    --leaf: 190 58% 38%;
-    --sage: 200 40% 92%;
-    --forest: 213 50% 12%;
-    --moss: 205 44% 26%;
+    --sun: 209 45% 86%;
+    --sun-soft: 209 40% 88%;
+    --sun-tint: 209 40% 96%;
+    --ink: 209 62% 14%;
+    --leaf: 209 62% 24%;
+    --sage: 209 30% 92%;
+    --forest: 209 62% 18%;
+    --moss: 209 62% 24%;
 
     --shadow-sm: 0 1px 2px 0 hsl(213 40% 14% / 0.06);
     --shadow-md: 0 6px 18px -4px hsl(213 40% 14% / 0.12);
     --shadow-lg: 0 22px 44px -16px hsl(213 40% 14% / 0.18);
     --shadow-xl: 0 38px 72px -20px hsl(213 40% 14% / 0.24);
 
-    --sidebar-background: 213 50% 12%;
+    --sidebar-background: 209 62% 18%;
     --sidebar-foreground: 205 30% 92%;
-    --sidebar-primary: 189 62% 62%;
-    --sidebar-primary-foreground: 213 50% 12%;
-    --sidebar-accent: 211 34% 18%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 209 62% 24%;
+    --sidebar-accent: 209 46% 24%;
     --sidebar-accent-foreground: 205 30% 92%;
-    --sidebar-border: 211 26% 24%;
-    --sidebar-ring: 190 55% 50%;
+    --sidebar-border: 209 34% 30%;
+    --sidebar-ring: 209 50% 60%;
   }
 
   .dark {
@@ -95,8 +95,8 @@
     --popover: 213 38% 12%;
     --popover-foreground: 205 28% 93%;
 
-    --primary: 189 60% 60%;
-    --primary-foreground: 213 46% 9%;
+    --primary: 209 55% 62%;
+    --primary-foreground: 209 62% 12%;
 
     --secondary: 212 26% 17%;
     --secondary-foreground: 205 28% 93%;
@@ -104,7 +104,7 @@
     --muted: 212 26% 17%;
     --muted-foreground: 208 14% 70%;
 
-    --accent: 189 58% 54%;
+    --accent: 209 55% 62%;
     --accent-foreground: 213 46% 9%;
 
     --destructive: 4 62% 48%;
@@ -112,17 +112,17 @@
 
     --border: 212 22% 21%;
     --input: 212 22% 21%;
-    --ring: 189 58% 54%;
+    --ring: 209 55% 62%;
 
     --hero: 213 50% 6%;
     --hero-foreground: 205 28% 93%;
 
-    --surface-cream: 213 38% 12%;
-    --surface-cream-deep: 212 30% 16%;
-    --sun-tint: 213 38% 12%;
-    --sun-soft: 212 30% 16%;
-    --sun: 189 58% 52%;
-    --sage: 212 30% 16%;
+    --surface-cream: 209 34% 12%;
+    --surface-cream-deep: 209 30% 16%;
+    --sun-tint: 209 30% 14%;
+    --sun-soft: 209 30% 20%;
+    --sun: 209 55% 62%;
+    --sage: 209 30% 16%;
   }
 }
 
