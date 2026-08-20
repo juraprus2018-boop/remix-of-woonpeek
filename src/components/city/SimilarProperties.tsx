@@ -32,7 +32,7 @@ const SimilarProperties = ({ cityName, excludeIds = [] }: SimilarPropertiesProps
         <p className="mt-2 text-sm text-muted-foreground">
           Recent toegevoegde woningen uit het aanbod van {cityName}
         </p>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 flex flex-col gap-5">
           {isLoading
             ? Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="overflow-hidden rounded-lg border bg-card">
