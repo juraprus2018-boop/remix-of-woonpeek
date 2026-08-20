@@ -64,10 +64,6 @@ function buildSitemapIndex(lastmod: string): string {
     <loc>${SITE_URL}/sitemap-woningen.xml</loc>
     <lastmod>${lastmod}</lastmod>
   </sitemap>
-  <sitemap>
-    <loc>${SITE_URL}/sitemap-blog.xml</loc>
-    <lastmod>${lastmod}</lastmod>
-  </sitemap>
 </sitemapindex>`;
 }
 
