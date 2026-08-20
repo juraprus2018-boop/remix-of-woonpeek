@@ -1,7 +1,41 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import fs from "fs";
 import { componentTagger } from "lovable-tagger";
+
+// Fetches the generated sitemaps at build time and writes them as static
+// files, so https://www.woonaanbod-nl.nl/sitemap.xml resolves on our own domain.
+function sitemapPlugin() {
+  const base = `${process.env.VITE_SUPABASE_URL || ""}/functions/v1/generate-sitemap`;
+  const targets: Array<[string, string]> = [
+    ["index", "sitemap.xml"],
+    ["pages", "sitemap-pages.xml"],
+    ["steden", "sitemap-steden.xml"],
+    ["woningen", "sitemap-woningen.xml"],
+  ];
+  return {
+    name: "static-sitemaps",
+    apply: "build" as const,
+    async buildStart() {
+      if (!process.env.VITE_SUPABASE_URL) return;
+      await Promise.all(
+        targets.map(async ([type, file]) => {
+          try {
+            const res = await fetch(`${base}?type=${type}`);
+            if (!res.ok) return;
+            const xml = await res.text();
+            if (xml.trim().startsWith("<?xml")) {
+              fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
+            }
+          } catch {
+            // keep the previously committed file on failure
+          }
+        }),
+      );
+    },
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -12,7 +46,8 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), sitemapPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
