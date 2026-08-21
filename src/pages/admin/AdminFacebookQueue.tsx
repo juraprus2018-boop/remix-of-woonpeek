@@ -76,7 +76,7 @@ interface FacebookGroup {
 function buildPostText(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const propertyUrl = `https://www.woonaanbod-nl.nl/aanbod/${property.slug || property.id}`;
+  const propertyUrl = propertyUrl(property as any);
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
 
   const lines: string[] = [];
@@ -168,7 +168,7 @@ const AdminFacebookQueue = () => {
       if (!selectedGroup || !postedPropertyIds) return [];
       let query = supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, postal_code, surface_area, bedrooms, bathrooms, images, slug, property_type, description, energy_label, build_year, created_at")
+        .select("id, title, price, listing_type, city, street, house_number, postal_code, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, created_at")
         .eq("status", "actief")
         .order("created_at", { ascending: false })
         .limit(100);
@@ -525,7 +525,7 @@ const AdminFacebookQueue = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => window.open(`/aanbod/${property.slug || property.id}`, "_blank")}
+                              onClick={() => window.open(propertyPath(property as any), "_blank")}
                             >
                               <ExternalLink className="h-4 w-4" />
                             </Button>

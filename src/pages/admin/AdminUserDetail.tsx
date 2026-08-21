@@ -52,7 +52,7 @@ const useUserDetail = (userId: string) => {
       // Properties
       const { data: properties } = await supabase
         .from("properties")
-        .select("id, title, city, price, status, listing_type, created_at, slug")
+        .select("id, title, city, price, status, listing_type, created_at, slug, address_slug")
         .eq("user_id", userId)
         .order("created_at", { ascending: false });
 
@@ -229,7 +229,7 @@ const AdminUserDetail = () => {
                       <TableRow
                         key={p.id}
                         className="cursor-pointer hover:bg-muted/50"
-                        onClick={() => navigate(`/aanbod/${p.slug || p.id}`)}
+                        onClick={() => navigate(propertyPath(p as any))}
                       >
                         <TableCell className="font-medium max-w-[200px] truncate">{p.title}</TableCell>
                         <TableCell className="hidden sm:table-cell">{p.city}</TableCell>

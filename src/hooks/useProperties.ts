@@ -175,7 +175,7 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
       while (true) {
         let query = supabase
           .from("properties")
-          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, images, latitude, longitude, status, bedrooms, surface_area, source_site")
+          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site")
           .not("latitude", "is", null)
           .not("longitude", "is", null)
           .order(sortConfig((filters as any)?.sortBy).column, { ascending: sortConfig((filters as any)?.sortBy).ascending })
