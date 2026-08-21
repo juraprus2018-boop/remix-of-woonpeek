@@ -82,6 +82,7 @@ const NewListingsCity = () => {
   const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Woonaanbod NL`;
   const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Woonaanbod NL.`;
   const canonical = `https://www.woonaanbod-nl.nl/nieuw-aanbod/${citySlug}`;
+  const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const jsonLd = useMemo(() => [
     {
@@ -108,7 +109,7 @@ const NewListingsCity = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonical} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (

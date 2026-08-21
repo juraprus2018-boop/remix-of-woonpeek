@@ -211,6 +211,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
   const cityName = validCityName ?? "";
   const Icon = config.icon;
   const canonical = `https://www.woonaanbod-nl.nl/${config.pathPrefix}/${citySlug}`;
+  const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   // ItemList JSON-LD for SEO
   const itemListJsonLd = useMemo(() => {
@@ -246,7 +247,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
       <SEOHead
         title={config.metaTitle(cityName, count)}
         description={config.metaDesc(cityName, count)}
-        canonical={canonical}
+        canonical={canonicalPath}
       />
       <script
         type="application/ld+json"

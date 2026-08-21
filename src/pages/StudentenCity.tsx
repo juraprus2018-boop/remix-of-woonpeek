@@ -54,6 +54,7 @@ const StudentenCity = () => {
   const title = `Studentenkamer ${cityName} ${currentYear}: ${totalCount} beschikbaar | Woonaanbod NL`;
   const description = `${totalCount} studentenkamers en studio's te huur in ${cityName} onder €900. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
   const canonical = `https://www.woonaanbod-nl.nl/studenten/${citySlug}`;
+  const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -92,7 +93,7 @@ const StudentenCity = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={title} description={description} canonical={canonical} />
+      <SEOHead title={title} description={description} canonical={canonicalPath} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((s, i) => (

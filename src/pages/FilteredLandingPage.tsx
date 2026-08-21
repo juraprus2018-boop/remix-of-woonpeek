@@ -156,6 +156,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     ? `https://www.woonaanbod-nl.nl/koopwoningen/${citySlug}/${filter}`
     : `https://www.woonaanbod-nl.nl/woningen/${citySlug}/${filter}`;
   const canonical = canonicalBase;
+  const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -238,7 +239,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonical} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (

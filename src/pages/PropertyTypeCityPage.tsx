@@ -106,6 +106,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
   const canonical = citySlug
     ? `https://www.woonaanbod-nl.nl/${label.slug}/${citySlug}`
     : `https://www.woonaanbod-nl.nl/${label.slug}`;
+  const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -167,7 +168,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonical} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
