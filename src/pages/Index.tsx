@@ -147,21 +147,21 @@ const Index = () => {
               <div className="sm:col-span-2 lg:col-span-1 lg:pr-6">
 
                 <label htmlFor="home-locatie" className="mb-1.5 block text-sm font-bold text-foreground">
-                  Locatie
+                  {t("home.location")}
                 </label>
                 <div className="relative">
                   <Input
                     id="home-locatie"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Zoek in plaats of gemeente..."
+                    placeholder={t("home.locationPlaceholder")}
                     className="h-12 rounded-xl border-border bg-secondary/50 pr-10 text-base"
                   />
                   {query && (
                     <button
                       type="button"
                       onClick={() => setQuery("")}
-                      aria-label="Wissen"
+                      aria-label={t("home.clear")}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
                     >
                       <X className="h-4 w-4" />
@@ -173,7 +173,7 @@ const Index = () => {
               {/* Minimale prijs */}
               <div className="lg:border-l lg:border-border lg:px-6">
                 <label htmlFor="home-min" className="mb-1.5 block text-sm font-bold text-foreground">
-                  Minimale prijs
+                  {t("home.minPrice")}
                 </label>
                 <select
                   id="home-min"
@@ -182,7 +182,7 @@ const Index = () => {
                   className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
 
                 >
-                  <option value="">Geen minimum</option>
+                  <option value="">{t("home.noMinimum")}</option>
                   <option value="500">€ 500</option>
                   <option value="750">€ 750</option>
                   <option value="1000">€ 1.000</option>
@@ -194,7 +194,7 @@ const Index = () => {
               {/* Maximale prijs */}
               <div className="lg:px-6">
                 <label htmlFor="home-max" className="mb-1.5 block text-sm font-bold text-foreground">
-                  Maximale prijs
+                  {t("home.maxPrice")}
                 </label>
                 <select
                   id="home-max"
@@ -202,7 +202,7 @@ const Index = () => {
                   onChange={(e) => setMaxPrice(e.target.value)}
                   className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
                 >
-                  <option value="">Geen maximum</option>
+                  <option value="">{t("home.noMaximum")}</option>
                   <option value="750">€ 750</option>
                   <option value="1000">€ 1.000</option>
                   <option value="1500">€ 1.500</option>
@@ -215,7 +215,7 @@ const Index = () => {
                 type="submit"
                 className="h-12 w-full gap-2 rounded-xl px-7 text-base font-bold sm:col-span-2 lg:col-span-1 lg:w-auto"
               >
-                Zoeken
+                {t("home.searchBtn")}
                 <Search className="h-4 w-4" />
               </Button>
 
@@ -237,9 +237,9 @@ const Index = () => {
               <TrendingUp className="h-3.5 w-3.5 text-primary-foreground" />
 
               {homeStats?.properties_count !== undefined
-                ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
-                : "… woningen"}
-              {newToday !== undefined ? ` · +${newToday} nieuw vandaag` : ""}
+                ? t("home.homesTotal", { n: homeStats.properties_count.toLocaleString("nl-NL") })
+                : t("home.homesTotal", { n: "…" })}
+              {newToday !== undefined ? ` · ${t("home.newToday", { n: newToday })}` : ""}
             </span>
           </div>
         </div>
@@ -254,10 +254,10 @@ const Index = () => {
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-2xl font-extrabold tracking-tight text-foreground md:text-3xl">
-                Nieuwste huurwoningen
+                {t("home.newestTitle")}
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Direct het laatste aanbod, elke dag bijgewerkt.
+                {t("home.newestSub")}
               </p>
             </div>
 
@@ -265,7 +265,7 @@ const Index = () => {
               to="/vandaag"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
-              Alle nieuwe woningen
+              {t("home.allNew")}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -286,7 +286,7 @@ const Index = () => {
               to="/vandaag"
               className="inline-flex items-center gap-1.5 text-sm font-bold text-foreground"
             >
-              Alle nieuwe woningen
+              {t("home.allNew")}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -298,10 +298,10 @@ const Index = () => {
         <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <span className="rounded-full bg-foreground px-3 py-1 text-xs font-bold uppercase tracking-widest text-background">
-              Zo werkt het
+              {t("home.stepsBadge")}
             </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-              Binnen drie stappen in je nieuwe huis.
+              {t("home.stepsTitle")}
             </h2>
           </div>
 
@@ -309,20 +309,20 @@ const Index = () => {
             {[
               {
                 n: "01",
-                t: "Zoek slim",
-                d: "Pak je stad, prik je budget, klaar. Geen onnodige filters waar je gek van wordt.",
+                t: t("home.step1Title"),
+                d: t("home.step1Desc"),
                 icon: Search,
               },
               {
                 n: "02",
-                t: "Zet je alert aan",
-                d: "Plop in je mail zodra er iets binnenkomt dat klopt. Geen spam, eerlijk.",
+                t: t("home.step2Title"),
+                d: t("home.step2Desc"),
                 icon: Bell,
               },
               {
                 n: "03",
-                t: "Wees er bij",
-                d: "Eén klik door naar de aanbieder en reageren. Wie eerst komt, eerst maalt.",
+                t: t("home.step3Title"),
+                d: t("home.step3Desc"),
                 icon: Heart,
               },
             ].map((s) => (
@@ -348,17 +348,17 @@ const Index = () => {
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-                Populaire steden
+                {t("home.citiesTitle")}
               </h2>
               <p className="mt-2 text-muted-foreground">
-                Kijk wat er nu te huur staat in de drukste steden van NL.
+                {t("home.citiesSub")}
               </p>
             </div>
             <Link
               to="/plekken"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
-              Alle steden
+              {t("home.allCities")}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -373,13 +373,13 @@ const Index = () => {
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Te huur
+                      {t("home.forRent")}
                     </div>
                     <h3 className="mt-1 text-2xl font-extrabold tracking-tight text-foreground">
                       {c.name}
                     </h3>
                     <div className="mt-2 text-sm font-semibold text-foreground/70">
-                      {c.count} {c.count === 1 ? "huurwoning" : "huurwoningen"}
+                      {c.count === 1 ? t("home.rentalCount", { n: c.count }) : t("home.rentalsCount", { n: c.count })}
                     </div>
                   </div>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
@@ -410,14 +410,13 @@ const Index = () => {
               <div>
                 <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
                   <Bell className="h-3.5 w-3.5" />
-                  Gratis alert
+                  {t("home.alertBadge")}
                 </span>
                 <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-primary-foreground md:text-5xl">
-                  Wees gewoon de eerste.
+                  {t("home.alertTitle")}
                 </h2>
                 <p className="mt-4 max-w-md text-primary-foreground/80">
-                  Wij mailen je zodra er een huurwoning binnenkomt die past bij jouw stad en budget.
-                  Geen spam, één klik om eruit.
+                  {t("home.alertSub")}
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">
@@ -426,13 +425,13 @@ const Index = () => {
                     size="lg"
                     className="h-14 w-full gap-2 rounded-xl bg-primary-foreground px-8 text-base font-extrabold text-primary shadow-lg hover:bg-primary-foreground/90 lg:w-auto"
                   >
-                    Stel mijn alert in
+                    {t("home.alertBtn")}
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
                 <p className="flex items-center gap-2 text-xs text-primary-foreground/70">
                   <ShieldCheck className="h-4 w-4 text-primary-foreground" />
-                  100% gratis. Geen account nodig.
+                  {t("home.alertFree")}
                 </p>
               </div>
             </div>
