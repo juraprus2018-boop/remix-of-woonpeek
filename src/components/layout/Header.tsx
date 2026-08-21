@@ -145,6 +145,21 @@ const Header = () => {
               {t("common.nearbyRentals")}
             </Button>
 
+            {/* Kaart met alle woningen — desktop only */}
+            <Button
+              asChild
+              size="sm"
+              variant="outline"
+              className="hidden md:inline-flex h-11 gap-1.5 rounded-full border-2 border-foreground px-5 font-bold whitespace-nowrap"
+            >
+              <Link to="/op-kaart">
+                <Map className="h-4 w-4" />
+                Op de kaart
+              </Link>
+            </Button>
+
+
+
             {/* Auth — desktop only */}
             <div className="hidden md:block">
               {user ? (
