@@ -123,7 +123,7 @@ const CityGuidePage = () => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`/verhuizen-naar-${city}`}
+        canonical={`/stadsgids/${city}`}
       />
       <Header />
 
