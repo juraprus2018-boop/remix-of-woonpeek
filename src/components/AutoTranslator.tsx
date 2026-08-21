@@ -186,6 +186,49 @@ export default function AutoTranslator() {
     let pending: Job[] = [];
     let scheduled = false;
 
+    const requestTranslations = async (jobs: Job[], attempt: number) => {
+      if (cancelled || jobs.length === 0) return;
+      const uniqueTexts = Array.from(new Set(jobs.map((m) => m.text)));
+
+      try {
+        const { data, error } = await supabase.functions.invoke("auto-translate", {
+          body: { texts: uniqueTexts, lang },
+        });
+        if (cancelled || error) {
+          for (const job of jobs) inFlightRef.current.delete(job.text);
+          return;
+        }
+        const translations = (data?.translations ?? {}) as Record<string, string>;
+
+        for (const [src, tgt] of Object.entries(translations)) {
+          cacheRef.current.set(src, tgt);
+        }
+
+        const stillMissing: Job[] = [];
+        for (const job of jobs) {
+          const tgt = translations[job.text] ?? cacheRef.current.get(job.text);
+          if (tgt) {
+            job.apply(tgt);
+            inFlightRef.current.delete(job.text);
+          } else {
+            stillMissing.push(job);
+          }
+        }
+        persistCache(lang, cacheRef.current);
+
+        // Server translates misses in the background; poll again shortly.
+        if (stillMissing.length > 0 && attempt < 6) {
+          const delay = 900 + attempt * 700;
+          setTimeout(() => void requestTranslations(stillMissing, attempt + 1), delay);
+        } else {
+          for (const job of stillMissing) inFlightRef.current.delete(job.text);
+        }
+      } catch (e) {
+        console.warn("AutoTranslator request failed", e);
+        for (const job of jobs) inFlightRef.current.delete(job.text);
+      }
+    };
+
     const flush = async () => {
       scheduled = false;
       if (cancelled) return;
@@ -209,30 +252,7 @@ export default function AutoTranslator() {
       }
 
       if (misses.length === 0) return;
-
-      // Dedupe texts for the request
-      const uniqueTexts = Array.from(new Set(misses.map((m) => m.text)));
-
-      try {
-        const { data, error } = await supabase.functions.invoke("auto-translate", {
-          body: { texts: uniqueTexts, lang },
-        });
-        if (cancelled || error) return;
-        const translations = (data?.translations ?? {}) as Record<string, string>;
-
-        for (const [src, tgt] of Object.entries(translations)) {
-          cacheRef.current.set(src, tgt);
-        }
-        for (const job of misses) {
-          const tgt = translations[job.text] ?? cacheRef.current.get(job.text);
-          if (tgt) job.apply(tgt);
-          inFlightRef.current.delete(job.text);
-        }
-        persistCache(lang, cacheRef.current);
-      } catch (e) {
-        console.warn("AutoTranslator request failed", e);
-        for (const job of misses) inFlightRef.current.delete(job.text);
-      }
+      void requestTranslations(misses, 0);
     };
 
     const scheduleScan = (root: Node = document.body) => {
@@ -240,9 +260,10 @@ export default function AutoTranslator() {
       if (jobs.length > 0) pending.push(...jobs);
       if (!scheduled) {
         scheduled = true;
-        setTimeout(flush, 80);
+        setTimeout(flush, 30);
       }
     };
+
 
     // Initial scan
     scheduleScan(document.body);

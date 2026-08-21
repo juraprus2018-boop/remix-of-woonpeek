@@ -82,16 +82,14 @@ Deno.serve(async (req) => {
       .map((h, i) => ({ h, text: unique[i] }))
       .filter((x) => !cachedHashes.has(x.h));
 
-    if (missing.length > 0) {
-      // Translate in chunks of 40 strings to keep prompts manageable
-      const CHUNK = 40;
-      const toInsert: { source_hash: string; lang: string; source_text: string; translated_text: string }[] = [];
+    // Translate missing strings in the BACKGROUND so the response returns
+    // instantly with whatever is already cached. The client re-polls shortly
+    // after and then gets cache hits. This avoids a multi-second AI wait
+    // blocking the language switch.
+    const translateChunk = async (chunk: { h: string; text: string }[]) => {
+      const numbered = chunk.map((m, idx) => `${idx + 1}. ${m.text.replace(/\n/g, " ")}`).join("\n");
 
-      for (let i = 0; i < missing.length; i += CHUNK) {
-        const chunk = missing.slice(i, i + CHUNK);
-        const numbered = chunk.map((m, idx) => `${idx + 1}. ${m.text.replace(/\\n/g, " ")}`).join("\n");
-
-        const prompt = `Translate the following Dutch UI strings to ${LANG_NAMES[lang]}.
+      const prompt = `Translate the following Dutch UI strings to ${LANG_NAMES[lang]}.
 Rules:
 - Return ONLY a JSON array of strings, in the same order, with the same length as the input.
 - Preserve placeholders like {{count}}, {city}, %s, <0> exactly.
@@ -101,75 +99,79 @@ Rules:
 Input (${chunk.length} items):
 ${numbered}`;
 
-        const aiResp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${LOVABLE_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "google/gemini-2.5-flash",
-            messages: [
-              { role: "system", content: "You are a precise translator. Output strict JSON only." },
-              { role: "user", content: prompt },
-            ],
-            response_format: { type: "json_object" },
-          }),
-        });
+      const aiResp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash",
+          messages: [
+            { role: "system", content: "You are a precise translator. Output strict JSON only." },
+            { role: "user", content: prompt },
+          ],
+          response_format: { type: "json_object" },
+        }),
+      });
 
-        if (!aiResp.ok) {
-          const errText = await aiResp.text();
-          console.error("AI gateway error", aiResp.status, errText);
-          if (aiResp.status === 429 || aiResp.status === 402) {
-            return new Response(JSON.stringify({ error: "ai_unavailable", status: aiResp.status }), {
-              status: aiResp.status,
-              headers: { ...corsHeaders, "Content-Type": "application/json" },
-            });
-          }
-          continue;
-        }
-
-        const aiJson = await aiResp.json();
-        const raw = aiJson?.choices?.[0]?.message?.content ?? "";
-
-        let arr: string[] = [];
-        try {
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) arr = parsed;
-          else if (Array.isArray(parsed?.translations)) arr = parsed.translations;
-          else if (Array.isArray(parsed?.items)) arr = parsed.items;
-          else {
-            // Try to find any array in the object
-            for (const v of Object.values(parsed)) {
-              if (Array.isArray(v)) { arr = v as string[]; break; }
-            }
-          }
-        } catch (e) {
-          console.error("JSON parse failure", e, raw.slice(0, 500));
-          continue;
-        }
-
-        for (let j = 0; j < chunk.length; j++) {
-          const translated = typeof arr[j] === "string" ? arr[j] : null;
-          if (!translated) continue;
-          result[chunk[j].text] = translated;
-          toInsert.push({
-            source_hash: chunk[j].h,
-            lang,
-            source_text: chunk[j].text,
-            translated_text: translated,
-          });
-        }
+      if (!aiResp.ok) {
+        console.error("AI gateway error", aiResp.status, await aiResp.text());
+        return;
       }
+
+      const aiJson = await aiResp.json();
+      const raw = aiJson?.choices?.[0]?.message?.content ?? "";
+
+      let arr: string[] = [];
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) arr = parsed;
+        else if (Array.isArray(parsed?.translations)) arr = parsed.translations;
+        else if (Array.isArray(parsed?.items)) arr = parsed.items;
+        else {
+          for (const v of Object.values(parsed)) {
+            if (Array.isArray(v)) { arr = v as string[]; break; }
+          }
+        }
+      } catch (e) {
+        console.error("JSON parse failure", e, raw.slice(0, 300));
+        return;
+      }
+
+      const toInsert = chunk
+        .map((c, j) => ({ c, translated: typeof arr[j] === "string" ? arr[j] : null }))
+        .filter((x) => x.translated)
+        .map((x) => ({
+          source_hash: x.c.h,
+          lang,
+          source_text: x.c.text,
+          translated_text: x.translated as string,
+        }));
 
       if (toInsert.length > 0) {
         await supabase.from("translations_cache").upsert(toInsert, { onConflict: "source_hash,lang" });
       }
+    };
+
+    if (missing.length > 0) {
+      const CHUNK = 25;
+      const chunks: { h: string; text: string }[][] = [];
+      for (let i = 0; i < missing.length; i += CHUNK) chunks.push(missing.slice(i, i + CHUNK));
+
+      // Fire all chunks in parallel; keep running after the response is sent.
+      const work = Promise.all(chunks.map((c) => translateChunk(c).catch((e) => console.error(e))));
+      // deno-lint-ignore no-explicit-any
+      const rt = (globalThis as any).EdgeRuntime;
+      if (rt?.waitUntil) rt.waitUntil(work);
+      else void work;
     }
 
-    return new Response(JSON.stringify({ translations: result }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ translations: result, pending: missing.map((m) => m.text) }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
+    );
+
   } catch (e) {
     console.error("auto-translate error", e);
     return new Response(JSON.stringify({ error: String(e) }), {
