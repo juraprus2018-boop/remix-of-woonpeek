@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { propertyPath } from "@/lib/propertyUrl";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { Clock, ArrowRight } from "lucide-react";
 
@@ -29,7 +30,7 @@ const RecentlyViewed = () => {
           {recentlyViewed.slice(0, 4).map((item) => (
             <Link
               key={item.id}
-              to={`/aanbod/${item.slug || item.id}`}
+              to={propertyPath(item as any)}
               className="group flex items-center gap-3 rounded-xl border bg-card p-3 transition-shadow hover:shadow-md"
             >
               {item.image ? (

@@ -1,3 +1,4 @@
+import { propertyPath } from "@/lib/propertyUrl";
 import { useState, useMemo } from "react";
 import AdminLayout from "./AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -283,7 +284,7 @@ const SourceGroup = ({
         {shown.map((p) => (
           <Link
             key={p.id}
-            to={`/aanbod/${p.slug || p.id}`}
+            to={propertyPath(p as any)}
             className={cn(
               "flex items-center justify-between rounded px-2 py-1.5 text-sm transition-colors hover:bg-muted",
               variant === "deactivated" && "opacity-75"

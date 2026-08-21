@@ -15,7 +15,9 @@ const escapeXml = (s: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-Deno.serve(async (req) => {
+const citySlug = (c: string) => (c || "nederland").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   const supabase = createClient(
@@ -25,7 +27,7 @@ Deno.serve(async (req) => {
 
   const { data, error } = await supabase
     .from("properties")
-    .select("id, slug, title, description, city, price, listing_type, images, created_at")
+    .select("id, slug, address_slug, title, description, city, price, listing_type, images, created_at")
     .eq("status", "actief")
     .order("created_at", { ascending: false })
     .limit(50);
@@ -36,7 +38,7 @@ Deno.serve(async (req) => {
 
   const items = (data ?? [])
     .map((p) => {
-      const link = `${BASE}/aanbod/${p.slug ?? p.id}`;
+      const link = `${BASE}/${p.listing_type === "koop" ? "koopwoning" : "huurwoning"}/${citySlug(p.city)}/${p.address_slug ?? p.slug ?? p.id}`;
       const desc = p.description?.slice(0, 400) ?? p.title;
       const img = p.images?.[0];
       const price = new Intl.NumberFormat("nl-NL", {

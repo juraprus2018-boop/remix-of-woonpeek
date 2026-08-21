@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
     const propertyIds = [...new Set(favorites.map((f) => f.property_id))];
     const { data: properties } = await supabase
       .from("properties")
-      .select("id, title, price, status, slug, city, street, house_number, images, listing_type")
+      .select("id, title, price, status, slug, address_slug, city, street, house_number, images, listing_type")
       .in("id", propertyIds);
 
     const propMap = new Map((properties || []).map((p) => [p.id, p]));
@@ -169,7 +169,7 @@ function renderDigest(items: UpdateItem[]): string {
   const rows = items
     .map((it) => {
       const p = it.property;
-      const url = `${base}/aanbod/${p.slug || p.id}`;
+      const url = `${base}/${p.listing_type === "koop" ? "koopwoning" : "huurwoning"}/${(p.city || "nederland").toLowerCase().replace(/[^a-z0-9]+/g, "-")}/${p.address_slug || p.slug || p.id}`;
       const img = p.images?.[0] || "";
       let badge = "";
       let detail = "";

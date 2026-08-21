@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation, Navigate } from "react-router-dom";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
 import { optimizeImage } from "@/lib/imageOptimization";
@@ -56,6 +56,7 @@ import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
+import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
 import {
   Popover,
   PopoverContent,
@@ -103,6 +104,7 @@ const PropertyDetail = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [contactForm, setContactForm] = useState({ name: "", email: "", phone: "", message: "" });
+  const location = useLocation();
   const galleryRef = useRef<HTMLElement>(null);
   const [sending, setSending] = useState(false);
 
@@ -112,6 +114,7 @@ const PropertyDetail = () => {
       addProperty({
         id: property.id,
         slug: property.slug,
+        address_slug: (property as any).address_slug,
         title: property.title,
         city: property.city,
         price: property.price,
@@ -223,6 +226,39 @@ const PropertyDetail = () => {
   // H1: [Woningtype] te huur/koop in [stad] – [kamers]
   const h1Title = `${typeLabel} ${listingLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
 
+  const canonicalPath = propertyPath(property);
+  const canonicalUrl = `https://www.woonaanbod-nl.nl${canonicalPath}`;
+  const fullAddress = formatAddress(property);
+  const amenities = extractAmenities(property.description);
+  const publishedAt = new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
+  const lastCheckedAt = new Date((property as any).last_checked_at || (property as any).updated_at || property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
+  const availableFrom = (property as any).available_from
+    ? new Date((property as any).available_from).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })
+    : property.status === "actief" ? "Per direct beschikbaar" : "Niet meer beschikbaar";
+  const statusLabel = property.status === "actief" ? "Beschikbaar" : property.status === "inactief" ? "Verlopen" : property.status;
+  const dataRows: Array<{ label: string; value: string }> = [
+    { label: "Adres", value: [(property.street || "").split(",")[0].trim(), (property.house_number || "").trim() === "-" ? "" : (property.house_number || "").trim()].filter(Boolean).join(" ") || property.title },
+    { label: "Stad", value: property.city },
+    { label: "Postcode", value: property.postal_code || "Onbekend" },
+    ...(property.neighborhood ? [{ label: "Buurt", value: property.neighborhood }] : []),
+    { label: "Huur of koop", value: property.listing_type === "huur" ? "Te huur" : "Te koop" },
+    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(Number(property.price), property.listing_type) },
+    ...(property.surface_area ? [{ label: "Woonoppervlak", value: `${property.surface_area} m²` }] : []),
+    ...(property.surface_area ? [{ label: "Prijs per m²", value: `€${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}` }] : []),
+    ...(property.bedrooms ? [{ label: "Aantal kamers", value: String(property.bedrooms + 1) }] : []),
+    ...(property.bedrooms ? [{ label: "Slaapkamers", value: String(property.bedrooms) }] : []),
+    ...(property.bathrooms ? [{ label: "Badkamers", value: String(property.bathrooms) }] : []),
+    { label: "Woningtype", value: typeLabel },
+    ...(property.build_year ? [{ label: "Bouwjaar", value: String(property.build_year) }] : []),
+    { label: "Energielabel", value: property.energy_label || "Niet opgegeven" },
+    { label: "Beschikbaarheid", value: availableFrom },
+    { label: "Status", value: statusLabel },
+    { label: "Publicatiedatum", value: publishedAt },
+    { label: "Laatste controle", value: lastCheckedAt },
+    { label: "Bron", value: sourceMeta?.label || "Woonaanbod NL" },
+    { label: "Aantal foto's", value: String(images.length) },
+  ];
+
   // Geen Product-schema: een woning is geen webshop-product. Google vraagt bij
   // Product/Offer om shippingDetails, hasMerchantReturnPolicy en priceValidUntil.
   // Voor vastgoed gebruiken we uitsluitend RealEstateListing hieronder.
@@ -232,10 +268,12 @@ const PropertyDetail = () => {
   const realEstateJsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
+    "identifier": property.id,
+    "inLanguage": "nl-NL",
     "name": `${typeLabel} ${listingLabel} in ${property.city}`,
     "headline": property.title,
     "description": property.description || seoDescription,
-    "url": `https://www.woonaanbod-nl.nl/aanbod/${property.slug}`,
+    "url": canonicalUrl,
     "datePosted": property.created_at,
     "dateModified": (property as any).updated_at || property.created_at,
     "image": property.images?.length ? property.images.slice(0, 10) : undefined,
@@ -262,6 +300,27 @@ const PropertyDetail = () => {
       },
     } : {}),
     ...(property.bedrooms ? { "numberOfRooms": property.bedrooms } : {}),
+    "about": {
+      "@type": accommodationType(property.property_type),
+      "name": fullAddress || property.title,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": [(property.street || "").split(",")[0].trim(), (property.house_number || "").trim() === "-" ? "" : (property.house_number || "").trim()].filter(Boolean).join(" "),
+        "postalCode": property.postal_code,
+        "addressLocality": property.city,
+        "addressCountry": "NL",
+      },
+      ...(property.surface_area ? { "floorSize": { "@type": "QuantitativeValue", "value": property.surface_area, "unitCode": "MTK" } } : {}),
+      ...(property.bedrooms ? { "numberOfBedrooms": property.bedrooms } : {}),
+      ...(property.bathrooms ? { "numberOfBathroomsTotal": property.bathrooms } : {}),
+      ...(property.build_year ? { "yearBuilt": property.build_year } : {}),
+      ...(property.energy_label ? {
+        "additionalProperty": [{ "@type": "PropertyValue", "name": "Energielabel", "value": property.energy_label }],
+      } : {}),
+      ...(amenities.length ? {
+        "amenityFeature": amenities.map((a) => ({ "@type": "LocationFeatureSpecification", "name": a, "value": true })),
+      } : {}),
+    },
     ...(property.bathrooms ? { "numberOfBathroomsTotal": property.bathrooms } : {}),
     ...(property.build_year ? { "yearBuilt": property.build_year } : {}),
     "offers": {
@@ -271,13 +330,14 @@ const PropertyDetail = () => {
       "availability": property.status === "actief"
         ? "https://schema.org/InStock"
         : "https://schema.org/SoldOut",
-      "url": `https://www.woonaanbod-nl.nl/aanbod/${property.slug}`,
+      "url": canonicalUrl,
       "validFrom": property.created_at,
       "priceValidUntil": new Date(new Date((property as any).updated_at || property.created_at).getTime() + 90 * 864e5).toISOString().slice(0, 10),
       "businessFunction": property.listing_type === "huur"
         ? "http://purl.org/goodrelations/v1#LeaseOut"
         : "http://purl.org/goodrelations/v1#Sell",
-      "seller": { "@type": "Organization", "name": "Woonaanbod NL" },
+      "seller": { "@type": "Organization", "name": sourceMeta?.label || "Woonaanbod NL" },
+      ...((property as any).available_from ? { "availabilityStarts": (property as any).available_from } : {}),
     },
   };
 
@@ -329,12 +389,17 @@ const PropertyDetail = () => {
     property.neighborhood ? { icon: MapPin, label: "Buurt", value: property.neighborhood } : null,
   ].filter(Boolean) as { icon: typeof Home; label: string; value: string }[];
 
+  // Oude URL's (/aanbod/[slug]) doorsturen naar de canonieke adres-URL
+  if (location.pathname !== canonicalPath) {
+    return <Navigate to={`${canonicalPath}${location.search}`} replace />;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
         title={seoTitle}
         description={seoDescription}
-        canonical={`https://www.woonaanbod-nl.nl/aanbod/${property.slug}`}
+        canonical={canonicalPath}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="article"
       />
@@ -659,6 +724,40 @@ const PropertyDetail = () => {
                     </div>
                   ))}
                 </div>
+              </section>
+
+
+              {/* ── Woninggegevens (machineleesbaar + zichtbaar) ── */}
+              <section id="woninggegevens">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="inline-block h-6 w-1.5 rounded-full bg-sun" />
+                  <h2 className="font-display text-xl font-bold break-words">Woninggegevens</h2>
+                </div>
+                <div className="overflow-hidden rounded-2xl border border-border">
+                  <table className="w-full text-left text-sm">
+                    <tbody>
+                      {dataRows.map((row, i) => (
+                        <tr key={row.label} className={cn("border-b border-border last:border-0", i % 2 === 1 && "bg-muted/40")}>
+                          <th scope="row" className="w-1/2 px-4 py-2.5 font-medium text-muted-foreground">{row.label}</th>
+                          <td className="px-4 py-2.5 font-semibold text-foreground">{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {amenities.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="mb-2 font-display text-base font-bold">Voorzieningen</h3>
+                    <ul className="flex flex-wrap gap-2">
+                      {amenities.map((a) => (
+                        <li key={a} className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium">{a}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Gegevens {sourceMeta ? `overgenomen van ${sourceMeta.label}` : "aangeleverd door de verhuurder"} en voor het laatst gecontroleerd op {lastCheckedAt}.
+                </p>
               </section>
 
               {/* ── Map + Address ── */}

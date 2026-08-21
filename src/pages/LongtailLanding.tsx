@@ -1,3 +1,4 @@
+import { propertyPath } from "@/lib/propertyUrl";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useMemo } from "react";
 import Header from "@/components/layout/Header";
@@ -44,7 +45,7 @@ const LongtailLanding = () => {
       itemListElement: properties.slice(0, 20).map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `${SITE}${paths.property(p.slug || p.id)}`,
+        url: `${SITE}${propertyPath(p as any)}`,
         name: p.title,
       })),
     };
