@@ -122,8 +122,21 @@ const Index = () => {
       <Header />
 
       {/* ZOEKBALK */}
-      <section className="border-b border-border bg-secondary/40">
-        <div className="container py-6 md:py-9">
+      <section className="relative overflow-hidden border-b border-border bg-primary">
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-primary-foreground/10 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-primary-foreground/10 blur-3xl"
+          aria-hidden
+        />
+        <div className="container relative py-10 md:py-14">
+
           <h1 className="sr-only">{t("meta.homeTitle")}</h1>
           <form
             onSubmit={onSearch}
