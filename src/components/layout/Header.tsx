@@ -219,24 +219,6 @@ const Header = () => {
               )}
             </div>
 
-            {/* Mobile-only avatar / login */}
-            <div className="md:hidden">
-              {user ? (
-                <Link to="/account" aria-label={t("common.myAccount")}>
-                  <Avatar className="h-10 w-10 ring-2 ring-foreground">
-                    <AvatarFallback className="bg-primary text-xs text-primary-foreground">
-                      {getInitials(user.email || "U")}
-                    </AvatarFallback>
-                  </Avatar>
-                </Link>
-              ) : (
-                <Link to="/login" aria-label={t("common.login")}>
-                  <Button variant="ghost" size="icon" className="h-11 w-11 rounded-full border-2 border-foreground/15">
-                    <User className="h-5 w-5" />
-                  </Button>
-                </Link>
-              )}
-            </div>
 
             {/* MENU BUTTON — always visible */}
             <button
