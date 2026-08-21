@@ -1,1 +1,2 @@
+- [Woningmarkt Data](mem://features/woningmarkt-data) — /woningmarkt met eigen first-party marktcijfers, Dataset + FAQPage JSON-LD, marktdata.json
 - [Inkomen Landingspagina's](mem://features/inkomen-landingspaginas) — SEO-pagina's per stad/inkomen met 3x huur regel filtering
