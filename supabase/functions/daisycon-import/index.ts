@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -709,7 +710,7 @@ Deno.serve(async (req) => {
           const { error: batchErr, data: insertedData } = await supabase
             .from("properties")
             .insert(batch)
-            .select("id, slug");
+            .select("id, slug, address_slug, city, listing_type");
           
           if (batchErr) {
             // If batch fails (e.g. duplicate), try individual inserts
@@ -718,20 +719,20 @@ Deno.serve(async (req) => {
               const { data: singleData, error: singleErr } = await supabase
                 .from("properties")
                 .insert(item)
-                .select("id, slug")
+                .select("id, slug, address_slug, city, listing_type")
                 .single();
               if (singleErr) {
                 skipped++;
               } else {
                 imported++;
-                if (singleData?.slug) indexNowUrls.push(`${SITE_URL}/woning/${singleData.slug}`);
+                if (singleData) indexNowUrls.push(propertyUrl(singleData as any));
               }
             }
           } else {
             imported += insertedData?.length || batch.length;
             if (insertedData) {
               for (const row of insertedData) {
-                if (row.slug) indexNowUrls.push(`${SITE_URL}/woning/${row.slug}`);
+                indexNowUrls.push(propertyUrl(row as any));
               }
             }
           }
