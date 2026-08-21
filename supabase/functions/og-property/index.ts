@@ -45,7 +45,7 @@ Deno.serve(async (req) => {
   }
 
   if (!property) {
-    return Response.redirect(`${SITE_URL}/woning/${encodeURIComponent(slugOrId)}`, 302);
+    return Response.redirect(`${SITE_URL}/woning-zoeken`, 302);
   }
 
   const pageUrl = propertyUrl(property as any);

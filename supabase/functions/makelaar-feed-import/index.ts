@@ -331,7 +331,7 @@ Deno.serve(async (req) => {
             const { data: inserted, error } = await supabase
               .from("properties")
               .insert(propertyData)
-              .select("slug")
+              .select("id, slug, address_slug, city, listing_type")
               .single();
 
             if (error) {
