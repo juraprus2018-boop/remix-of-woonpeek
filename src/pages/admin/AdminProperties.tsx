@@ -105,7 +105,7 @@ const AdminProperties = () => {
   };
 
   const buildFacebookGroupPostText = (property: NonNullable<typeof properties>[number]) => {
-    const propertyUrl = `${window.location.origin}/woning/${property.slug || property.id}`;
+    const propertyUrl = `${window.location.origin}/aanbod/${property.slug || property.id}`;
     const cityTag = property.city ? `#${property.city.replace(/\s+/g, "")}` : "";
     const listingTag = property.listing_type === "huur" ? "#huurwoning" : "#koopwoning";
     const description = (property.description || "").trim();
@@ -381,7 +381,7 @@ const AdminProperties = () => {
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => window.open(`/woning/${property.slug || property.id}`, "_blank")}
+                          onClick={() => window.open(`/aanbod/${property.slug || property.id}`, "_blank")}
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Button>

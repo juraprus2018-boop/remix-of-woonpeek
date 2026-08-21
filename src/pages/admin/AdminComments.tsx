@@ -123,7 +123,7 @@ const AdminComments = () => {
                         <>
                           {" · "}
                           <a
-                            href={`/woning/${comment.properties.slug || comment.properties.id}`}
+                            href={`/aanbod/${comment.properties.slug || comment.properties.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-primary hover:underline"

@@ -182,7 +182,7 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute }: ExploreMapProps)
           <div style="color:#666;font-size:12px;margin-bottom:8px">${property.street || ""} ${property.house_number || ""}, ${property.city}</div>
           <div style="font-weight:700;font-size:15px;color:hsl(var(--primary));margin-bottom:12px">${formatPrice(Number(property.price), property.listing_type)}</div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;padding-bottom:2px">
-            <a href="/woning/${property.slug || property.id}" style="display:inline-block;padding:8px 14px;background:hsl(var(--primary));color:white;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;line-height:1">Bekijken →</a>
+            <a href="/aanbod/${property.slug || property.id}" style="display:inline-block;padding:8px 14px;background:hsl(var(--primary));color:white;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;line-height:1">Bekijken →</a>
             ${commute ? `<button data-route-id="${property.id}" style="cursor:pointer;padding:8px 14px;background:white;color:hsl(var(--primary));border:1px solid hsl(var(--primary));border-radius:6px;font-size:13px;font-weight:600;line-height:1">Toon route</button>` : ""}
           </div>
         </div>

@@ -52,8 +52,8 @@ const PropertyCardSkeleton = () => (
 /**
  * Renders SEO landing pages for filter combinations.
  * URL patterns:
- *   /woningen/:city/onder-:price        → max price filter
- *   /woningen/:city/:bedrooms-kamers    → bedroom filter
+ *   /aanbod-in/:city/onder-:price        → max price filter
+ *   /aanbod-in/:city/:bedrooms-kamers    → bedroom filter
  */
 const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageProps = {}) => {
   const { city: citySlug, filter } = useParams<{ city: string; filter: string }>();
@@ -155,7 +155,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     ? `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}/${filter}`
     : listingLabel === "koop"
     ? `https://www.woonaanbod-nl.nl/koopwoningen/${citySlug}/${filter}`
-    : `https://www.woonaanbod-nl.nl/woningen/${citySlug}/${filter}`;
+    : `https://www.woonaanbod-nl.nl/aanbod-in/${citySlug}/${filter}`;
   const canonical = canonicalBase;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 

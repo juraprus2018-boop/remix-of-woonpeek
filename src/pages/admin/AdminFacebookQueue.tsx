@@ -76,7 +76,7 @@ interface FacebookGroup {
 function buildPostText(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const propertyUrl = `https://www.woonaanbod-nl.nl/woning/${property.slug || property.id}`;
+  const propertyUrl = `https://www.woonaanbod-nl.nl/aanbod/${property.slug || property.id}`;
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
 
   const lines: string[] = [];
@@ -525,7 +525,7 @@ const AdminFacebookQueue = () => {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => window.open(`/woning/${property.slug || property.id}`, "_blank")}
+                              onClick={() => window.open(`/aanbod/${property.slug || property.id}`, "_blank")}
                             >
                               <ExternalLink className="h-4 w-4" />
                             </Button>

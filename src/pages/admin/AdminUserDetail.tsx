@@ -229,7 +229,7 @@ const AdminUserDetail = () => {
                       <TableRow
                         key={p.id}
                         className="cursor-pointer hover:bg-muted/50"
-                        onClick={() => navigate(`/woning/${p.slug || p.id}`)}
+                        onClick={() => navigate(`/aanbod/${p.slug || p.id}`)}
                       >
                         <TableCell className="font-medium max-w-[200px] truncate">{p.title}</TableCell>
                         <TableCell className="hidden sm:table-cell">{p.city}</TableCell>

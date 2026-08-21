@@ -398,9 +398,9 @@ const AdminGoogleRanking = () => {
       let type = "Overig";
       if (item.url.includes("/huurwoningen/")) type = "Huurwoningen";
       else if (item.url.includes("/koopwoningen/")) type = "Koopwoningen";
-      else if (item.url.includes("/appartementen/")) type = "Appartementen";
-      else if (item.url.includes("/kamers/")) type = "Kamers";
-      else if (item.url.includes("/woning/")) type = "Woningdetail";
+      else if (item.url.includes("/appartement-huren/")) type = "Appartementen";
+      else if (item.url.includes("/kamer-huren/")) type = "Kamers";
+      else if (item.url.includes("/aanbod/")) type = "Woningdetail";
       else if (item.url.includes("/woningen-")) type = "Stadspagina";
       else if (item.url.includes("/blog/")) type = "Blog";
       types[type] = (types[type] || 0) + 1;

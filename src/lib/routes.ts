@@ -56,11 +56,11 @@ export const paths = {
   apartment: (city?: string, filter?: string) =>
     `/appartement-huren${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
   house: (city?: string, filter?: string) =>
-    `/huis${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
+    `/huis-huren${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
   studio: (city?: string, filter?: string) =>
-    `/studio${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
+    `/studio-huren${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
   room: (city?: string, filter?: string) =>
-    `/kamer${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
+    `/kamer-huren${city ? `/${cityToSlug(city)}` : ""}${filter ? `/${filter}` : ""}`,
   generic: (city: string, filter: string) => `/aanbod-in/${cityToSlug(city)}/${filter}`,
   neighborhood: (city: string, nb: string) =>
     `/buurt/${cityToSlug(city)}/${cityToSlug(nb)}`,

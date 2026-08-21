@@ -21,10 +21,10 @@ const getLandingPageUrl = (q: any): string | null => {
 
   // Most specific first: price/bedroom filter pages
   if (maxPrice && maxPrice > 0) {
-    return `/woningen/${citySlug}/onder-${Math.round(maxPrice)}`;
+    return `/aanbod-in/${citySlug}/onder-${Math.round(maxPrice)}`;
   }
   if (minBedrooms && minBedrooms > 0) {
-    return `/woningen/${citySlug}/${minBedrooms}-kamers`;
+    return `/aanbod-in/${citySlug}/${minBedrooms}-kamers`;
   }
 
   // Property type + city pages
