@@ -357,6 +357,18 @@ const SearchPage = () => {
             {/* Results */}
             <div className="flex-1">
               <AdSlot slotKey="search_page" />
+              <div className="mb-4 rounded-2xl border bg-card p-4">
+                <p className="font-display text-lg font-semibold text-foreground">
+                  {isLoading
+                    ? "Aanbod laden..."
+                    : `Gevonden: ${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
+                </p>
+                {!isLoading && newest && (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Recent toegevoegde woning: {newest.date} ({newest.relative})
+                  </p>
+                )}
+              </div>
               <IncomeBanner
                 grossIncome={filters.grossIncome}
                 listingType={filters.listingType}
