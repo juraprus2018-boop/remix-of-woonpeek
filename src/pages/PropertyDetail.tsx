@@ -960,11 +960,10 @@ const PropertyDetail = () => {
           </section>
         )}
 
-        {/* ── Affordability Widget for huur ── */}
+        {/* ── Budget-indicatie voor huur ── */}
         {property.listing_type === "huur" && (
           <section className="border-t py-12">
-            <div className="container grid gap-6 lg:grid-cols-2">
-              <AffordabilityWidget price={property.price} listingType="huur" />
+            <div className="container">
               <NibudBudgetBreakdown
                 monthlyHousingCost={property.price}
                 listingType="huur"
@@ -973,6 +972,7 @@ const PropertyDetail = () => {
             </div>
           </section>
         )}
+
 
         {/* ── Totale maandlasten calculator ── */}
         <section className="border-t py-10">
