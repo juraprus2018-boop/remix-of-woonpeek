@@ -1609,6 +1609,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_property_comments: {
+        Args: { _filter?: string }
+        Returns: {
+          content: string
+          created_at: string
+          email: string
+          id: string
+          is_approved: boolean
+          name: string
+          property_city: string
+          property_id: string
+          property_slug: string
+          property_title: string
+        }[]
+      }
       build_address_slug: {
         Args: { _house_number: string; _postal_code: string; _street: string }
         Returns: string
