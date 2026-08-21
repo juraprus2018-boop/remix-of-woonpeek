@@ -9,6 +9,10 @@ export interface CityRow {
   median_price?: number;
   min_price?: number;
   avg_area?: number;
+  rent_n?: number;
+  buy_n?: number;
+  week_start?: string;
+  avg_rent?: number;
 }
 
 export interface MarketStats {
@@ -36,6 +40,19 @@ export interface MarketStats {
   buy_avg_cities: CityRow[];
 }
 
+export interface MarketStatsExtra {
+  generated_at: string;
+  period_start: string;
+  period_end: string;
+  analyzed: number;
+  rent_count_cities: CityRow[];
+  buy_count_cities: CityRow[];
+  cheapest_rent_cities: CityRow[];
+  new_per_week: CityRow[];
+  newbuild_provinces: CityRow[];
+  provinces_all: CityRow[];
+}
+
 /**
  * Eigen woningmarktdata, live berekend uit het actieve aanbod van Woonaanbod NL.
  * Dit is unieke first-party data (geen overgenomen makelaarsteksten).
@@ -48,5 +65,17 @@ export const useMarketStats = () =>
       const { data, error } = await supabase.rpc("market_stats");
       if (error) throw error;
       return data as unknown as MarketStats;
+    },
+  });
+
+/** Aanvullende cijfers voor de sectie Woningmarkt Nederland (per gemeente, per week, per provincie). */
+export const useMarketStatsExtra = () =>
+  useQuery({
+    queryKey: ["market-stats-extra"],
+    staleTime: 30 * 60 * 1000,
+    queryFn: async (): Promise<MarketStatsExtra> => {
+      const { data, error } = await supabase.rpc("market_stats_extra");
+      if (error) throw error;
+      return data as unknown as MarketStatsExtra;
     },
   });
