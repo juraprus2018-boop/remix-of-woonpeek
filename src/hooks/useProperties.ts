@@ -42,9 +42,7 @@ const sortConfig = (sortBy?: SortOption): { column: string; ascending: boolean }
 
 const DEFAULT_BATCH_SIZE = 1000;
 
-// Woningen uit de Huurwoningen.nl-feed (feed_priority = 0) staan altijd bovenaan.
-const orderFeedFirst = <T,>(query: T): T =>
-  (query as any).order("feed_priority", { ascending: true }) as T;
+// Woningen uit de Huurwoningen.nl-feed (feed_priority = 0) staan altijd bovenaan in elke sortering.
 
 const applyPropertyFilters = <T,>(query: T, filters?: PropertyFilters) => {
   let q: any = query;
