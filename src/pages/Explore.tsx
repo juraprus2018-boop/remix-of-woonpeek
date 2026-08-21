@@ -183,6 +183,14 @@ const ExplorePage = () => {
 
   const { data: cities = [] } = useCityList();
 
+  // Live filtering van de plaatsenlijst op basis van de zoekbalk.
+  const visibleCities = useMemo(() => {
+    const q = citySearch.trim().toLowerCase();
+    if (!q) return cities;
+    return cities.filter(({ name }) => name.toLowerCase().includes(q));
+  }, [cities, citySearch]);
+
+
   // Bron-counts berekenen vanuit de volledige mapData set zodat de aantallen
   // kloppen met de actieve filters (city/listingType/postcode).
   const activeSources = useMemo(() => {
