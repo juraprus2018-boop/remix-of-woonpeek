@@ -427,11 +427,12 @@ const ExplorePage = () => {
               </span>
             </button>
           ))}
-          {cities.length === 0 && !isLoading && (
+          {visibleCities.length === 0 && !isLoading && (
             <p className="py-4 text-center text-sm text-muted-foreground">
-              Geen plaatsen beschikbaar
+              {citySearch ? `Geen plaats gevonden voor "${citySearch}"` : "Geen plaatsen beschikbaar"}
             </p>
           )}
+
         </div>
       </div>
     </>
