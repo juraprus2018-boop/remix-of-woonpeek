@@ -41,6 +41,7 @@ const MakelaarPage = () => {
         .select("*")
         .eq("city", realtor.city)
         .eq("status", "actief")
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(12);
       return cityData ?? [];

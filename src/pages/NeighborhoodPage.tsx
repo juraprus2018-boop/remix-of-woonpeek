@@ -47,6 +47,7 @@ const NeighborhoodPage = () => {
         .eq("status", "actief")
         .ilike("city", `%${cityName}%`)
         .ilike("neighborhood", `%${neighborhoodName}%`)
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(100);
       if (error) throw error;

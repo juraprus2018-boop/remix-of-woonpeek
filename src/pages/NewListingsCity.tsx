@@ -61,6 +61,7 @@ const NewListingsCity = () => {
         .eq("status", "actief")
         .gte("created_at", startIso)
         .lt("created_at", endIso)
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
 
