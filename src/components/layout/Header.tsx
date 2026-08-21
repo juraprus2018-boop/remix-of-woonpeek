@@ -83,11 +83,11 @@ const Header = () => {
   const close = () => setIsOpen(false);
 
   const woningCategories = [
-    { label: t("nav.categories.rentals"), href: "/huren", icon: Home, cityPrefix: "/huren" },
-    { label: t("nav.categories.apartments"), href: "/appartement", icon: Building2, cityPrefix: "/appartement" },
-    { label: t("nav.categories.houses"), href: "/huis", icon: Home, cityPrefix: "/huis" },
-    { label: t("nav.categories.rooms"), href: "/kamer", icon: DoorOpen, cityPrefix: "/kamer" },
-    { label: t("nav.categories.studios"), href: "/studio", icon: BedDouble, cityPrefix: "/studio" },
+    { label: t("nav.categories.rentals"), href: "/huurwoningen", icon: Home, cityPrefix: "/huurwoningen" },
+    { label: t("nav.categories.apartments"), href: "/appartement-huren", icon: Building2, cityPrefix: "/appartement-huren" },
+    { label: t("nav.categories.houses"), href: "/huis-huren", icon: Home, cityPrefix: "/huis-huren" },
+    { label: t("nav.categories.rooms"), href: "/kamer-huren", icon: DoorOpen, cityPrefix: "/kamer-huren" },
+    { label: t("nav.categories.studios"), href: "/studio-huren", icon: BedDouble, cityPrefix: "/studio-huren" },
   ];
 
   const discoverItems = [
@@ -337,7 +337,7 @@ const Header = () => {
                   {topCities.map((city) => (
                     <li key={city}>
                       <Link
-                        to={`/huren/${cityToSlug(city)}`}
+                        to={`/huurwoningen/${cityToSlug(city)}`}
                         onClick={close}
                         className="group flex items-center gap-2 py-1 text-base font-semibold text-foreground transition-colors hover:text-accent"
                       >

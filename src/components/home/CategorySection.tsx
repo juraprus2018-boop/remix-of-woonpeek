@@ -11,25 +11,25 @@ const categories = [
   {
     title: "Appartementen",
     description: "Lekker stadsleven",
-    href: "/appartementen",
+    href: "/appartement-huren",
     icon: Building2,
   },
   {
     title: "Studio's",
     description: "Klein maar fijn",
-    href: "/studios",
+    href: "/studio-huren",
     icon: DoorOpen,
   },
   {
     title: "Kamers",
     description: "Voor studenten & starters",
-    href: "/kamers",
+    href: "/kamer-huren",
     icon: BedDouble,
   },
   {
     title: "Huizen",
     description: "Met tuin en alles erop en eraan",
-    href: "/huizen",
+    href: "/huis-huren",
     icon: Home,
   },
 ];

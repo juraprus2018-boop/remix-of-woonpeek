@@ -210,7 +210,7 @@ const SocialeHuurWachttijd = () => {
                     Zet woonradar aan
                   </Link>
                   <Link
-                    to="/huren"
+                    to="/huurwoningen"
                     className="inline-flex items-center rounded-lg border-2 border-foreground bg-background px-4 py-2 text-sm font-medium hover:bg-accent/10"
                   >
                     Bekijk vrije sector aanbod

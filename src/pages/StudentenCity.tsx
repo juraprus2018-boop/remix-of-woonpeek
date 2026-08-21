@@ -143,7 +143,7 @@ const StudentenCity = () => {
             <div className="rounded-2xl border border-dashed py-16 text-center">
               <p className="text-muted-foreground">Geen studentenkamers gevonden in {cityName} onder €900.</p>
               <Button asChild variant="outline" className="mt-4">
-                <Link to={`/kamer/${citySlug}`}>Bekijk alle kamers in {cityName}</Link>
+                <Link to={`/kamer-huren/${citySlug}`}>Bekijk alle kamers in {cityName}</Link>
               </Button>
             </div>
           )}

@@ -11,10 +11,10 @@ const SEOContentSection = () => {
           <p>
             Op zoek naar een <strong>huurwoning</strong>? Bij Woonaanbod NL zet je je zoektocht
             in vijf minuten op de rails. Wij verzamelen elke dag verse{" "}
-            <Link to="/huren" className="text-primary hover:underline">huurwoningen</Link>,{" "}
-            <Link to="/appartement" className="text-primary hover:underline">appartementen</Link>,{" "}
-            <Link to="/studio" className="text-primary hover:underline">studio's</Link> en{" "}
-            <Link to="/kamer" className="text-primary hover:underline">kamers</Link> op één plek.
+            <Link to="/huurwoningen" className="text-primary hover:underline">huurwoningen</Link>,{" "}
+            <Link to="/appartement-huren" className="text-primary hover:underline">appartementen</Link>,{" "}
+            <Link to="/studio-huren" className="text-primary hover:underline">studio's</Link> en{" "}
+            <Link to="/kamer-huren" className="text-primary hover:underline">kamers</Link> op één plek.
             Of je nu starter bent, student of toe aan iets groters: hier vind je wat past.
           </p>
           <p>

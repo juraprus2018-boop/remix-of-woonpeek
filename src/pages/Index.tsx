@@ -61,10 +61,10 @@ const useTopHuurCities = () =>
 
 const TYPES_DEF = [
   { key: "rentals" as const, href: "/huurwoningen", icon: Home },
-  { key: "apartments" as const, href: "/appartementen", icon: Building2 },
-  { key: "rooms" as const, href: "/kamers", icon: DoorOpen },
-  { key: "studios" as const, href: "/studios", icon: BedDouble },
-  { key: "houses" as const, href: "/huizen", icon: Home },
+  { key: "apartments" as const, href: "/appartement-huren", icon: Building2 },
+  { key: "rooms" as const, href: "/kamer-huren", icon: DoorOpen },
+  { key: "studios" as const, href: "/studio-huren", icon: BedDouble },
+  { key: "houses" as const, href: "/huis-huren", icon: Home },
 ];
 
 const Index = () => {
@@ -227,7 +227,7 @@ const Index = () => {
             {popularCities.slice(0, 6).map((c) => (
               <Link
                 key={c.name}
-                to={`/huren/${cityToSlug(c.name)}`}
+                to={`/huurwoningen/${cityToSlug(c.name)}`}
                 className="rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary-foreground/20"
               >
                 {c.name}
@@ -367,7 +367,7 @@ const Index = () => {
             {popularCities.map((c) => (
               <Link
                 key={c.name}
-                to={`/huren/${cityToSlug(c.name)}`}
+                to={`/huurwoningen/${cityToSlug(c.name)}`}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-sun hover:shadow-md"
               >
                 <div className="flex items-start justify-between">

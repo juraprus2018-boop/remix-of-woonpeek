@@ -233,16 +233,16 @@ const CityPage = () => {
               </h1>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground max-w-3xl">
                 Bekijk <strong>{huurCount} huurwoningen in {cityName}</strong> op één pagina. Dagelijks vers aanbod van tientallen bronnen, met{" "}
-                <Link to={`/huren/${citySlug}`} className="text-primary hover:underline">alle huurwoningen in {cityName}</Link>,{" "}
-                <Link to={`/appartement/${citySlug}`} className="text-primary hover:underline">appartementen te huur</Link>,{" "}
-                <Link to={`/kamer/${citySlug}`} className="text-primary hover:underline">kamers</Link> en{" "}
-                <Link to={`/studio/${citySlug}`} className="text-primary hover:underline">studio's</Link>. Plus markt, buurten en gratis alerts.
+                <Link to={`/huurwoningen/${citySlug}`} className="text-primary hover:underline">alle huurwoningen in {cityName}</Link>,{" "}
+                <Link to={`/appartement-huren/${citySlug}`} className="text-primary hover:underline">appartementen te huur</Link>,{" "}
+                <Link to={`/kamer-huren/${citySlug}`} className="text-primary hover:underline">kamers</Link> en{" "}
+                <Link to={`/studio-huren/${citySlug}`} className="text-primary hover:underline">studio's</Link>. Plus markt, buurten en gratis alerts.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <div className="rounded-full bg-card px-4 py-2 text-sm text-foreground shadow-sm">
                   {totalCount} totaal aanbod
                 </div>
-                <Link to={`/huren/${citySlug}`}>
+                <Link to={`/huurwoningen/${citySlug}`}>
                   <Button variant="outline" size="sm" className="gap-2">
                     Huurwoningen
                     <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
@@ -250,7 +250,7 @@ const CityPage = () => {
                     </span>
                   </Button>
                 </Link>
-                <Link to={`/kopen/${citySlug}`}>
+                <Link to={`/koopwoningen/${citySlug}`}>
                   <Button variant="outline" size="sm" className="gap-2">
                     Koopwoningen
                     <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
@@ -504,10 +504,10 @@ const CityPage = () => {
             <h3 className="font-display text-lg font-semibold text-foreground mb-3">Op woningtype</h3>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4 mb-6">
               {[
-                { label: "Appartementen", href: `/appartement/${citySlug}` },
-                { label: "Huizen", href: `/huis/${citySlug}` },
-                { label: "Studio's", href: `/studio/${citySlug}` },
-                { label: "Kamers", href: `/kamer/${citySlug}` },
+                { label: "Appartementen", href: `/appartement-huren/${citySlug}` },
+                { label: "Huizen", href: `/huis-huren/${citySlug}` },
+                { label: "Studio's", href: `/studio-huren/${citySlug}` },
+                { label: "Kamers", href: `/kamer-huren/${citySlug}` },
               ].map((item) => (
                 <Link key={item.href} to={item.href} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   {item.label} in {cityName}
@@ -565,7 +565,7 @@ const CityPage = () => {
                 Zoek je een <strong>huurwoning in {cityName}</strong>? De huurwoningmarkt in {cityName} is competitief:
                 populaire woningen zijn vaak binnen enkele dagen verhuurd. Daarom is het belangrijk om snel te reageren.
                 Woonaanbod NL doorzoekt dagelijks tientallen bronnen en toont het nieuwste aanbod
-                van <Link to={`/huren/${citySlug}`} className="text-primary underline hover:no-underline">huurwoningen in {cityName}</Link> direct
+                van <Link to={`/huurwoningen/${citySlug}`} className="text-primary underline hover:no-underline">huurwoningen in {cityName}</Link> direct
                 op deze pagina. Momenteel staan er <strong>{huurCount} huurwoningen in {cityName}</strong> online.
               </p>
 
@@ -574,7 +574,7 @@ const CityPage = () => {
               </h3>
               <p>
                 Wil je liever een <strong>huis kopen in {cityName}</strong>? Bekijk ons overzicht
-                van <Link to={`/kopen/${citySlug}`} className="text-primary underline hover:no-underline">koopwoningen in {cityName}</Link>.
+                van <Link to={`/koopwoningen/${citySlug}`} className="text-primary underline hover:no-underline">koopwoningen in {cityName}</Link>.
                 Op dit moment zijn er <strong>{koopCount} koopwoningen in {cityName}</strong> beschikbaar.
                 Vergelijk prijzen, bekijk foto's en reageer direct bij de makelaar.
               </p>
@@ -584,10 +584,10 @@ const CityPage = () => {
               </h3>
               <p>
                 Het aanbod in {cityName} omvat alle woningtypes:{" "}
-                <Link to={`/appartement/${citySlug}`} className="text-primary underline hover:no-underline">appartementen in {cityName}</Link>,{" "}
-                <Link to={`/huis/${citySlug}`} className="text-primary underline hover:no-underline">huizen in {cityName}</Link>,{" "}
-                <Link to={`/studio/${citySlug}`} className="text-primary underline hover:no-underline">studio's in {cityName}</Link> en{" "}
-                <Link to={`/kamer/${citySlug}`} className="text-primary underline hover:no-underline">kamers in {cityName}</Link>.
+                <Link to={`/appartement-huren/${citySlug}`} className="text-primary underline hover:no-underline">appartementen in {cityName}</Link>,{" "}
+                <Link to={`/huis-huren/${citySlug}`} className="text-primary underline hover:no-underline">huizen in {cityName}</Link>,{" "}
+                <Link to={`/studio-huren/${citySlug}`} className="text-primary underline hover:no-underline">studio's in {cityName}</Link> en{" "}
+                <Link to={`/kamer-huren/${citySlug}`} className="text-primary underline hover:no-underline">kamers in {cityName}</Link>.
               </p>
 
               <h3 className="font-display text-lg font-semibold text-foreground pt-2">

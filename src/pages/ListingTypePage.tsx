@@ -441,14 +441,14 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
               {cityName && (
                 <p>
                   Naast {label.plural.toLowerCase()} vind je op Woonaanbod NL ook{" "}
-                  <Link to={`/appartement/${citySlug}`} className="text-primary underline hover:no-underline">
+                  <Link to={`/appartement-huren/${citySlug}`} className="text-primary underline hover:no-underline">
                     appartementen in {cityName}
                   </Link>,{" "}
-                  <Link to={`/huis/${citySlug}`} className="text-primary underline hover:no-underline">
+                  <Link to={`/huis-huren/${citySlug}`} className="text-primary underline hover:no-underline">
                     huizen in {cityName}
                   </Link>{" "}
                   en{" "}
-                  <Link to={`/studio/${citySlug}`} className="text-primary underline hover:no-underline">
+                  <Link to={`/studio-huren/${citySlug}`} className="text-primary underline hover:no-underline">
                     studio's in {cityName}
                   </Link>. Vergelijk het volledige aanbod en vind de woning die bij jou past.
                 </p>
@@ -504,7 +504,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 </Link>
                 {listingType !== "huur" && (
                   <Link
-                    to={`/huren/${citySlug}`}
+                    to={`/huurwoningen/${citySlug}`}
                     className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                   >
                     <span className="font-medium text-foreground group-hover:text-primary transition-colors">
@@ -514,7 +514,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 )}
                 {listingType !== "koop" && (
                   <Link
-                    to={`/kopen/${citySlug}`}
+                    to={`/koopwoningen/${citySlug}`}
                     className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                   >
                     <span className="font-medium text-foreground group-hover:text-primary transition-colors">
@@ -523,7 +523,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </Link>
                 )}
                 <Link
-                  to={`/appartement/${citySlug}`}
+                  to={`/appartement-huren/${citySlug}`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <span className="font-medium text-foreground group-hover:text-primary transition-colors">
@@ -531,7 +531,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </span>
                 </Link>
                 <Link
-                  to={`/huis/${citySlug}`}
+                  to={`/huis-huren/${citySlug}`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <span className="font-medium text-foreground group-hover:text-primary transition-colors">

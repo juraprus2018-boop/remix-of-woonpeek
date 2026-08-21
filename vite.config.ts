@@ -141,10 +141,10 @@ async function prerenderHomeContentPlugin() {
         <ul>${cityItems}</ul>
         <h2>Snel naar</h2>
         <ul>
-          <li><a href="/huren">Huurwoningen</a></li>
-          <li><a href="/appartement">Appartementen</a></li>
-          <li><a href="/studio">Studio's</a></li>
-          <li><a href="/kamer">Kamers</a></li>
+          <li><a href="/huurwoningen">Huurwoningen</a></li>
+          <li><a href="/appartement-huren">Appartementen</a></li>
+          <li><a href="/studio-huren">Studio's</a></li>
+          <li><a href="/kamer-huren">Kamers</a></li>
           <li><a href="/woning-zoeken">Woning zoeken</a></li>
           <li><a href="/op-kaart">Woningen op de kaart</a></li>
           <li><a href="/vandaag">Nieuw aanbod van vandaag</a></li>

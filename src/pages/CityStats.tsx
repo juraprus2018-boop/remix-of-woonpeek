@@ -193,7 +193,7 @@ export default function CityStats() {
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <Button asChild><Link to={`/huren/${city}`}>Bekijk huurwoningen</Link></Button>
+                    <Button asChild><Link to={`/huurwoningen/${city}`}>Bekijk huurwoningen</Link></Button>
                     <Button asChild variant="outline"><Link to={`/markt/${city}`}>Huurprijzen</Link></Button>
                   </div>
                 </CardContent>
