@@ -36,30 +36,41 @@ const formatPrice = (price: number, listingType: string) => {
   return listingType === "huur" ? `${formatted}/mnd` : formatted;
 };
 
-const createCustomIcon = (isHovered = false) => {
+const shortPrice = (price: number) => {
+  const n = Number(price) || 0;
+  if (n >= 1000000) return `€ ${(n / 1000000).toFixed(1).replace(".", ",")}mln`;
+  return `€ ${new Intl.NumberFormat("nl-NL", { maximumFractionDigits: 0 }).format(n)}`;
+};
+
+// Airbnb-style price pill marker
+const createPriceIcon = (price: number, isHovered = false) => {
+  const label = shortPrice(price);
+  const width = Math.max(52, label.length * 8 + 20);
   return L.divIcon({
     className: "custom-marker",
     html: `<div style="
-      width: ${isHovered ? "36px" : "28px"};
-      height: ${isHovered ? "36px" : "28px"};
-      background: ${isHovered ? "hsl(var(--primary))" : "hsl(var(--primary))"};
-      border: 3px solid white;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3)${isHovered ? ", 0 0 0 4px hsl(var(--primary) / 0.3)" : ""};
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    ">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-      </svg>
-    </div>`,
-    iconSize: [isHovered ? 36 : 28, isHovered ? 36 : 28],
-    iconAnchor: [isHovered ? 18 : 14, isHovered ? 18 : 14],
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:5px 10px;
+      border-radius:9999px;
+      white-space:nowrap;
+      font-family:system-ui,sans-serif;
+      font-size:12.5px;
+      font-weight:700;
+      line-height:1;
+      border:1px solid rgba(0,0,0,0.12);
+      background:${isHovered ? "hsl(var(--primary))" : "#ffffff"};
+      color:${isHovered ? "#ffffff" : "hsl(var(--foreground))"};
+      box-shadow:0 2px 6px rgba(0,0,0,0.22);
+      transform:${isHovered ? "scale(1.08)" : "scale(1)"};
+      transition:all .15s ease;
+    ">${label}</div>`,
+    iconSize: [width, 26],
+    iconAnchor: [width / 2, 13],
   });
 };
+
 
 const ExploreMap = ({ properties, hoveredPropertyId, commute }: ExploreMapProps) => {
   const mapRef = useRef<L.Map | null>(null);
