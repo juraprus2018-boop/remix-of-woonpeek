@@ -135,14 +135,22 @@ const Index = () => {
           className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-primary-foreground/10 blur-3xl"
           aria-hidden
         />
-        <div className="container relative py-10 md:py-14">
+        <div className="container relative py-7 md:py-10">
 
-          <h1 className="sr-only">{t("meta.homeTitle")}</h1>
+          <div className="mx-auto mb-5 max-w-3xl text-center">
+            <h1 className="font-display text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl md:text-4xl">
+              {t("home.h1")}
+            </h1>
+            <p className="mt-2 text-sm text-primary-foreground/80 sm:text-base">
+              {t("home.h1Sub")}
+            </p>
+          </div>
           <form
             onSubmit={onSearch}
-            className="mx-auto max-w-5xl rounded-2xl border border-border bg-card p-4 shadow-lg md:p-6"
+            className="mx-auto max-w-4xl rounded-2xl border border-border bg-card p-3 shadow-lg md:p-4"
           >
-            <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:gap-0">
+            <div className="grid items-end gap-3 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:gap-0">
+
               {/* Locatie */}
               <div className="sm:col-span-2 lg:col-span-1 lg:pr-6">
 
