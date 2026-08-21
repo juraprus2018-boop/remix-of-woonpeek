@@ -162,7 +162,11 @@ const Header = () => {
               </Link>
             </Button>
 
-
+            {/* Taalkeuze pill */}
+            <LanguageSwitcher
+              variant="ghost"
+              className="h-11 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90"
+            />
 
             {/* Auth — desktop only */}
             <div className="hidden md:block">
