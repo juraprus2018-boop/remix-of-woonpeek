@@ -221,7 +221,8 @@ const ExplorePage = () => {
 
   useEffect(() => {
     setListPage(1);
-  }, [selectedCity, listingType, selectedSource, debouncedPostcode, distanceKm]);
+  }, [selectedCity, listingType, selectedSource, propertyType, minBedrooms, debouncedPostcode, distanceKm]);
+
 
   useEffect(() => {
     if (listPage > totalListPages) setListPage(totalListPages);
