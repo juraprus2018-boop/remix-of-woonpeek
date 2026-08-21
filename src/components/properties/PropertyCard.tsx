@@ -260,25 +260,13 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                   <span>Energielabel {property.energy_label}</span>
                 </li>
               )}
-              {property.listing_type === "huur" && Number(property.price) > 0 && (
+              {property.listing_type === "huur" && fitsBudget === true && Number(property.price) > 0 && (
                 <li className="flex items-center gap-2">
-                  {fitsBudget === true ? (
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
-                  ) : (
-                    <Wallet
-                      className={cn(
-                        "h-4 w-4 shrink-0",
-                        fitsBudget === false ? "text-destructive" : "text-muted-foreground"
-                      )}
-                    />
-                  )}
-                  <span>
-                    {fitsBudget === true
-                      ? "Past binnen jouw budget"
-                      : `Inkomen vanaf ${euro(requiredIncome)}`}
-                  </span>
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-success" />
+                  <span>Past binnen jouw budget</span>
                 </li>
               )}
+
             </ul>
 
             <div className="flex items-end justify-between gap-3 md:flex-col md:items-start">
