@@ -17,17 +17,16 @@ const AdminComments = () => {
   const { data: comments = [], isLoading } = useQuery({
     queryKey: ["admin-comments", filter],
     queryFn: async () => {
-      let query = supabase
-        .from("property_comments")
-        .select("*, properties:property_id(title, slug, id, city)")
-        .order("created_at", { ascending: false });
-
-      if (filter === "pending") query = query.eq("is_approved", false);
-      if (filter === "approved") query = query.eq("is_approved", true);
-
-      const { data, error } = await query;
+      const { data, error } = await (supabase as any).rpc("admin_list_property_comments", {
+        _filter: filter,
+      });
       if (error) throw error;
-      return data || [];
+      return ((data || []) as any[]).map((c) => ({
+        ...c,
+        properties: c.property_id
+          ? { id: c.property_id, title: c.property_title, slug: c.property_slug, city: c.property_city }
+          : null,
+      }));
     },
   });
 
