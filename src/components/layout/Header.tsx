@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { L as Link } from "@/components/LocalizedLink";
 import { Button } from "@/components/ui/button";
