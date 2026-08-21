@@ -79,6 +79,12 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
+        brand: {
+          DEFAULT: "hsl(var(--primary))",
+          blue: "hsl(206 53% 39%)",
+          light: "hsl(206 50% 95%)",
+          gold: "hsl(var(--accent))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

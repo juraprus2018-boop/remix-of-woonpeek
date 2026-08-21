@@ -198,7 +198,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
             <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
               {property.title}
             </h3>
-            {subtitle && <p className="mt-1 text-sm font-semibold capitalize text-accent">{subtitle}</p>}
+            {subtitle && <p className="mt-1 text-sm font-semibold capitalize text-muted-foreground">{subtitle}</p>}
             {property.description && (
               <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{property.description}</p>
             )}
@@ -277,7 +277,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                   <p className="mt-1 text-[11px] text-muted-foreground">per maand</p>
                 )}
               </div>
-              <span className="text-sm font-semibold text-accent underline underline-offset-4">Meer info</span>
+              <span className="text-sm font-semibold text-primary underline underline-offset-4 transition-colors group-hover:text-accent">Meer info</span>
             </div>
           </div>
         </div>
