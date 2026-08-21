@@ -193,6 +193,15 @@ async function prerenderHomeContentPlugin() {
           <li><a href="/vandaag">Nieuw aanbod van vandaag</a></li>
           <li><a href="/woonradar">Gratis dagelijkse alert</a></li>
           <li><a href="/woningmarkt">Woningmarktcijfers: huurprijs per m2 en actueel aanbod</a></li>
+          <li><a href="/woningmarkt/huurprijzen-nederland">Huurprijzen Nederland</a></li>
+          <li><a href="/woningmarkt/huurprijzen-per-gemeente">Huurprijzen per gemeente</a></li>
+          <li><a href="/woningmarkt/koopprijzen-per-gemeente">Koopprijzen per gemeente</a></li>
+          <li><a href="/woningmarkt/nieuw-woningaanbod-per-week">Nieuw woningaanbod per week</a></li>
+          <li><a href="/woningmarkt/meeste-huurwoningen-per-stad">Meeste huurwoningen per stad</a></li>
+          <li><a href="/woningmarkt/betaalbaarste-steden-voor-huurders">Betaalbaarste steden voor huurders</a></li>
+          <li><a href="/woningmarkt/huurwoningen-onder-1500-euro">Huurwoningen onder 1.500 euro</a></li>
+          <li><a href="/woningmarkt/koopwoningen-onder-400000-euro">Koopwoningen onder 400.000 euro</a></li>
+          <li><a href="/woningmarkt/nieuwbouw-per-provincie">Nieuwbouw per provincie</a></li>
           <li><a href="/huurprijsmonitor">Huurprijsmonitor</a></li>
 
           <li><a href="/budgetcheck">Budget tool</a></li>
