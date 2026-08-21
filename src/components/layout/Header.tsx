@@ -39,6 +39,8 @@ const Header = () => {
   const { user, signOut } = useAuth();
   const { data: isAdmin } = useIsAdmin();
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentLocale = getLocaleFromPath(location.pathname);
   const [locating, setLocating] = useState(false);
 
   const handleNearby = () => {
