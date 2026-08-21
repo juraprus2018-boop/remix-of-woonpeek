@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useProperties, useMapProperties, useCityList } from "@/hooks/useProperties";
-import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp } from "lucide-react";
+import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -42,14 +42,25 @@ const haversineKm = (lat1: number, lon1: number, lat2: number, lon2: number) => 
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
+const PROPERTY_TYPE_LABELS: Record<string, string> = {
+  appartement: "Appartement",
+  huis: "Huis",
+  studio: "Studio",
+  kamer: "Kamer",
+};
+
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [listingType, setListingType] = useState<ListingType | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
+  const [propertyType, setPropertyType] = useState<string | null>(null);
+  const [minBedrooms, setMinBedrooms] = useState<string | null>(null);
+  const [citySearch, setCitySearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const isMobile = useIsMobile();
+
 
   // Postcode + distance state
   const [postcode, setPostcode] = useState("");
@@ -120,6 +131,8 @@ const ExplorePage = () => {
     listingType: listingType || undefined,
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
+    propertyType: (propertyType as any) || undefined,
+    minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
     pageSize: 50,
   });
 
@@ -131,7 +144,10 @@ const ExplorePage = () => {
     listingType: listingType || undefined,
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
+    propertyType: (propertyType as any) || undefined,
+    minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
   }, showMap);
+
 
   const paginatedList = listData?.properties || [];
   const totalCount = listData?.totalCount || 0;
@@ -167,6 +183,14 @@ const ExplorePage = () => {
 
   const { data: cities = [] } = useCityList();
 
+  // Live filtering van de plaatsenlijst op basis van de zoekbalk.
+  const visibleCities = useMemo(() => {
+    const q = citySearch.trim().toLowerCase();
+    if (!q) return cities;
+    return cities.filter(({ name }) => name.toLowerCase().includes(q));
+  }, [cities, citySearch]);
+
+
   // Bron-counts berekenen vanuit de volledige mapData set zodat de aantallen
   // kloppen met de actieve filters (city/listingType/postcode).
   const activeSources = useMemo(() => {
@@ -197,7 +221,8 @@ const ExplorePage = () => {
 
   useEffect(() => {
     setListPage(1);
-  }, [selectedCity, listingType, selectedSource, debouncedPostcode, distanceKm]);
+  }, [selectedCity, listingType, selectedSource, propertyType, minBedrooms, debouncedPostcode, distanceKm]);
+
 
   useEffect(() => {
     if (listPage > totalListPages) setListPage(totalListPages);
@@ -261,6 +286,51 @@ const ExplorePage = () => {
           </Button>
         </div>
       </div>
+
+      {/* Woningtype + kamers */}
+      <Separator />
+      <div className="grid grid-cols-2 gap-3 p-5">
+        <div>
+          <Label className="mb-2 block text-sm font-medium">Type</Label>
+          <Select
+            value={propertyType || "all"}
+            onValueChange={(v) => setPropertyType(v === "all" ? null : v)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Alle types" />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-popover">
+              <SelectItem value="all">Alle types</SelectItem>
+              {Object.entries(PROPERTY_TYPE_LABELS).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label className="mb-2 block text-sm font-medium">Kamers</Label>
+          <Select
+            value={minBedrooms || "all"}
+            onValueChange={(v) => setMinBedrooms(v === "all" ? null : v)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Alle" />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-popover">
+              <SelectItem value="all">Alle</SelectItem>
+              <SelectItem value="1">1+ kamer</SelectItem>
+              <SelectItem value="2">2+ kamers</SelectItem>
+              <SelectItem value="3">3+ kamers</SelectItem>
+              <SelectItem value="4">4+ kamers</SelectItem>
+              <SelectItem value="5">5+ kamers</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+
 
       {/* Bron-filter direct na Aanbod, boven Postcode/Plaatsen */}
       <Separator />
@@ -349,7 +419,29 @@ const ExplorePage = () => {
       <Separator />
 
       <div className="p-5">
-        <Label className="mb-3 block text-sm font-medium">Plaatsen</Label>
+        <Label htmlFor="explore-city-search" className="mb-2 block text-sm font-medium">
+          Plaatsen
+        </Label>
+        <div className="relative mb-3">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            id="explore-city-search"
+            placeholder="Zoek een plaats..."
+            value={citySearch}
+            onChange={(e) => setCitySearch(e.target.value)}
+            className="pl-10 pr-8"
+          />
+          {citySearch && (
+            <button
+              type="button"
+              onClick={() => setCitySearch("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              aria-label="Zoekterm wissen"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
         {selectedCity && (
           <Button
             variant="ghost"
@@ -361,7 +453,8 @@ const ExplorePage = () => {
           </Button>
         )}
         <div className="space-y-1">
-          {cities.map(({ name, count }) => (
+          {visibleCities.map(({ name, count }) => (
+
             <button
               key={name}
               onClick={() => {
@@ -388,11 +481,12 @@ const ExplorePage = () => {
               </span>
             </button>
           ))}
-          {cities.length === 0 && !isLoading && (
+          {visibleCities.length === 0 && !isLoading && (
             <p className="py-4 text-center text-sm text-muted-foreground">
-              Geen plaatsen beschikbaar
+              {citySearch ? `Geen plaats gevonden voor "${citySearch}"` : "Geen plaatsen beschikbaar"}
             </p>
           )}
+
         </div>
       </div>
     </>
