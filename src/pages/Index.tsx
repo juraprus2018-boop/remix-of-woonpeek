@@ -72,7 +72,7 @@ const Index = () => {
   const { data: newToday } = useNewTodayCount();
   const { data: popularCities = [] } = useTopHuurCities();
   const [query, setQuery] = useState("");
-  const [type, setType] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const navigate = useNavigate();
 
@@ -80,10 +80,11 @@ const Index = () => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (query.trim()) params.set("locatie", query.trim());
-    if (type) params.set("type", type);
+    if (minPrice) params.set("min", minPrice);
     if (maxPrice) params.set("max", maxPrice);
     navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
   };
+
 
   const featured = properties?.slice(0, 12) ?? [];
 
