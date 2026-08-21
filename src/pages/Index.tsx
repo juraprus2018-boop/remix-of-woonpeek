@@ -237,9 +237,9 @@ const Index = () => {
               <TrendingUp className="h-3.5 w-3.5 text-primary-foreground" />
 
               {homeStats?.properties_count !== undefined
-                ? t("home.homesTotal", { count: homeStats.properties_count })
-                : t("home.homesTotal", { count: "…" })}
-              {newToday !== undefined ? ` · ${t("home.newToday", { count: newToday })}` : ""}
+                ? t("home.homesTotal", { n: homeStats.properties_count.toLocaleString("nl-NL") })
+                : t("home.homesTotal", { n: "…" })}
+              {newToday !== undefined ? ` · ${t("home.newToday", { n: newToday })}` : ""}
             </span>
           </div>
         </div>
@@ -379,7 +379,7 @@ const Index = () => {
                       {c.name}
                     </h3>
                     <div className="mt-2 text-sm font-semibold text-foreground/70">
-                      {c.count === 1 ? t("home.rentalCount", { count: c.count }) : t("home.rentalsCount", { count: c.count })}
+                      {c.count === 1 ? t("home.rentalCount", { n: c.count }) : t("home.rentalsCount", { n: c.count })}
                     </div>
                   </div>
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sun-tint transition-colors group-hover:bg-sun">
