@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -195,6 +195,20 @@ export default function MarketData() {
       }
     : null;
 
+  useEffect(() => {
+    const blocks = [dataset, faqLd].filter(Boolean);
+    const nodes = blocks.map((block) => {
+      const el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.dataset.marketData = "true";
+      el.textContent = JSON.stringify(block);
+      document.head.appendChild(el);
+      return el;
+    });
+    return () => nodes.forEach((el) => el.remove());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -202,12 +216,7 @@ export default function MarketData() {
         description={`Actuele woningmarktdata van Woonaanbod NL (${period}): gemiddelde huurprijs per m², nieuw aanbod per gemeente, huurwoningen onder € 1.500 en koopwoningen onder € 400.000.`}
         canonical="/woningmarkt"
       />
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify(dataset)}</script>
-      </Helmet>
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify(faqLd || {})}</script>
-      </Helmet>
+
       <Header />
       <main>
         <section className="border-b border-border bg-primary text-primary-foreground">
