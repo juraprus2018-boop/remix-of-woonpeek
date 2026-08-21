@@ -274,6 +274,10 @@ const PropertyDetail = () => {
         : "https://schema.org/SoldOut",
       "url": `https://www.woonaanbod-nl.nl/aanbod/${property.slug}`,
       "validFrom": property.created_at,
+      "priceValidUntil": new Date(new Date((property as any).updated_at || property.created_at).getTime() + 90 * 864e5).toISOString().slice(0, 10),
+      "businessFunction": property.listing_type === "huur"
+        ? "http://purl.org/goodrelations/v1#LeaseOut"
+        : "http://purl.org/goodrelations/v1#Sell",
       "seller": { "@type": "Organization", "name": "Woonaanbod NL" },
     },
   };
