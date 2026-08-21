@@ -222,11 +222,6 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                 </Badge>
               )}
               {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
-              {property.surface_area && Number(property.price) > 0 && (
-                <Badge variant="outline">
-                  {Math.round(Number(property.price) / Number(property.surface_area))} €/m²
-                </Badge>
-              )}
               <Badge variant="outline">Geplaatst {daysAgoLabel}</Badge>
               {(property.views_count ?? 0) > 0 && (
                 <Badge variant="outline">{property.views_count}x bekeken</Badge>
