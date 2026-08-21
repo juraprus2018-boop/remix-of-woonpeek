@@ -1641,6 +1641,8 @@ export type Database = {
         Returns: undefined
       }
       market_stats: { Args: never; Returns: Json }
+      market_stats_extra: { Args: never; Returns: Json }
+      province_from_postal: { Args: { _pc: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
