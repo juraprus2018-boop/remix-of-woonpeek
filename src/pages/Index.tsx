@@ -122,8 +122,21 @@ const Index = () => {
       <Header />
 
       {/* ZOEKBALK */}
-      <section className="border-b border-border bg-secondary/40">
-        <div className="container py-6 md:py-9">
+      <section className="relative overflow-hidden border-b border-border bg-primary">
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/80"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full bg-primary-foreground/10 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-primary-foreground/10 blur-3xl"
+          aria-hidden
+        />
+        <div className="container relative py-10 md:py-14">
+
           <h1 className="sr-only">{t("meta.homeTitle")}</h1>
           <form
             onSubmit={onSearch}
@@ -206,19 +219,20 @@ const Index = () => {
             </div>
           </form>
 
-          <div className="mx-auto mt-4 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <div className="mx-auto mt-5 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-primary-foreground/80">
             <span className="font-semibold">{t("hero.popular")}:</span>
             {popularCities.slice(0, 6).map((c) => (
               <Link
                 key={c.name}
                 to={`/huren/${cityToSlug(c.name)}`}
-                className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+                className="rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary-foreground/20"
               >
                 {c.name}
               </Link>
             ))}
-            <span className="ml-auto hidden items-center gap-2 text-xs font-semibold sm:inline-flex">
-              <TrendingUp className="h-3.5 w-3.5 text-primary" />
+            <span className="ml-auto hidden items-center gap-2 text-xs font-semibold text-primary-foreground/90 sm:inline-flex">
+              <TrendingUp className="h-3.5 w-3.5 text-primary-foreground" />
+
               {homeStats?.properties_count !== undefined
                 ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
                 : "… woningen"}
