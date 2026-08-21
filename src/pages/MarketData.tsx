@@ -8,7 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useMarketStats, type CityRow } from "@/hooks/useMarketStats";
+import { useMarketStats, useMarketStatsExtra, type CityRow } from "@/hooks/useMarketStats";
+import MarketSourceBlock from "@/components/market/MarketSourceBlock";
+import { MARKET_TOPICS, marketTopicPath } from "@/lib/marketPages";
 import { cityToSlug } from "@/lib/cities";
 import { CANONICAL_URL } from "@/lib/brand";
 import { TrendingUp, Home, Euro, Ruler, CalendarClock, Building2 } from "lucide-react";
@@ -113,6 +115,7 @@ const CityTable = ({
 
 export default function MarketData() {
   const { data, isLoading } = useMarketStats();
+  const { data: extra } = useMarketStatsExtra();
   const n = data?.national;
   const now = data?.generated_at ? new Date(data.generated_at) : new Date();
   const period = `${MONTHS[now.getMonth()]} ${now.getFullYear()}`;
