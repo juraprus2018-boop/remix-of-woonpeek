@@ -90,6 +90,7 @@ const VerhuizenVanNaar = () => {
         .eq("status", "actief")
         .eq("listing_type", "huur")
         .ilike("city", `%${cityTo}%`)
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(6);
       return data || [];

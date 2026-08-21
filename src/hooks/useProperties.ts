@@ -42,6 +42,8 @@ const sortConfig = (sortBy?: SortOption): { column: string; ascending: boolean }
 
 const DEFAULT_BATCH_SIZE = 1000;
 
+// Woningen uit de Huurwoningen.nl-feed (feed_priority = 0) staan altijd bovenaan in elke sortering.
+
 const applyPropertyFilters = <T,>(query: T, filters?: PropertyFilters) => {
   let q: any = query;
 
@@ -91,6 +93,7 @@ export const useProperties = (filters?: PropertyFilters) => {
         let query = supabase
           .from("properties")
           .select("*", { count: "exact" })
+          .order("feed_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
 
@@ -116,6 +119,7 @@ export const useProperties = (filters?: PropertyFilters) => {
         let batchQuery = supabase
           .from("properties")
           .select("*")
+          .order("feed_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, from + DEFAULT_BATCH_SIZE - 1);
 
@@ -147,6 +151,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
       let query = supabase
         .from("properties")
         .select("*", { count: "exact" })
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
 
@@ -178,6 +183,7 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
           .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site")
           .not("latitude", "is", null)
           .not("longitude", "is", null)
+          .order("feed_priority", { ascending: true })
           .order(sortConfig((filters as any)?.sortBy).column, { ascending: sortConfig((filters as any)?.sortBy).ascending })
           .range(from, from + DEFAULT_BATCH_SIZE - 1);
 
@@ -385,6 +391,7 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
       }
 
       const { data, error } = await query
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(12);
 
@@ -405,6 +412,7 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
         .eq("status", "actief")
         .eq("city", city)
         .eq("listing_type", listingType as ListingType)
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(4);
       if (currentId && uuidRegex.test(currentId)) {
@@ -545,6 +553,7 @@ export const useNearbyProperties = (
         .from("properties")
         .select("*")
         .eq("status", "actief")
+        .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(limit);
 
