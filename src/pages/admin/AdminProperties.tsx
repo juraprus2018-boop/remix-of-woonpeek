@@ -34,6 +34,7 @@ import { Search, Pencil, Trash2, Loader2, ExternalLink, Filter, Facebook, CheckC
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { propertyPath } from "@/lib/propertyUrl";
 
 const PAGE_SIZE = 50;
 
@@ -105,7 +106,7 @@ const AdminProperties = () => {
   };
 
   const buildFacebookGroupPostText = (property: NonNullable<typeof properties>[number]) => {
-    const propertyUrl = `${window.location.origin}/woning/${property.slug || property.id}`;
+    const propertyUrl = `${window.location.origin}${propertyPath(property as any)}`;
     const cityTag = property.city ? `#${property.city.replace(/\s+/g, "")}` : "";
     const listingTag = property.listing_type === "huur" ? "#huurwoning" : "#koopwoning";
     const description = (property.description || "").trim();
@@ -381,7 +382,7 @@ const AdminProperties = () => {
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => window.open(`/woning/${property.slug || property.id}`, "_blank")}
+                          onClick={() => window.open(propertyPath(property as any), "_blank")}
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Button>

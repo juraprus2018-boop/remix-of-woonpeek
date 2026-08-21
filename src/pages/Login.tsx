@@ -121,7 +121,7 @@ const Login = () => {
       <SEOHead
         title="Inloggen | Woonaanbod NL"
         description="Log in op je Woonaanbod NL-account om woningen op te slaan, alerts te beheren en je eigen woning te plaatsen."
-        canonical="/inloggen"
+        canonical="/login"
         noindex
       />
       {/* Left side - image */}

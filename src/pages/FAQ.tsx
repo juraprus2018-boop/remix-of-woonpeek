@@ -77,7 +77,7 @@ const FAQPage = () => {
       <SEOHead
         title="Veelgestelde vragen | Woonaanbod NL"
         description="Antwoorden op veelgestelde vragen over Woonaanbod NL. Lees hoe ons woningplatform werkt, hoe je zoekt en hoe je zoekalerts instelt."
-        canonical="/veelgestelde-vragen"
+        canonical="/vragen"
       />
       <script
         type="application/ld+json"

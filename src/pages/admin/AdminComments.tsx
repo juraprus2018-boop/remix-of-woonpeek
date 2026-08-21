@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Check, Trash2, Eye, EyeOff, Loader2, MessageSquare, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { propertyPath } from "@/lib/propertyUrl";
 
 const AdminComments = () => {
   const queryClient = useQueryClient();
@@ -123,7 +124,7 @@ const AdminComments = () => {
                         <>
                           {" · "}
                           <a
-                            href={`/woning/${comment.properties.slug || comment.properties.id}`}
+                            href={propertyPath(comment.properties as any)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-primary hover:underline"

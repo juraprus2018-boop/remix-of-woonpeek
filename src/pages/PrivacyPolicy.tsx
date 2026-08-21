@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <SEOHead
         title="Privacybeleid | Woonaanbod NL"
         description="Lees hoe Woonaanbod NL persoonsgegevens verzamelt, gebruikt en beschermt. Inzage, correctie en verwijdering volgens de AVG."
-        canonical="/privacybeleid"
+        canonical="/privacy"
       />
       <Header />
 

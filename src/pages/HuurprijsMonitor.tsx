@@ -113,7 +113,7 @@ const HuurprijsMonitor = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={`/huurprijzen/${citySlug}`} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={`/markt/${citySlug}`} />
       <Header />
       <main className="flex-1">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
