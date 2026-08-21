@@ -997,6 +997,7 @@ export type Database = {
           description: string | null
           energy_label: Database["public"]["Enums"]["energy_label"] | null
           facebook_posted_at: string | null
+          feed_priority: number | null
           house_number: string
           id: string
           images: string[] | null
@@ -1030,6 +1031,7 @@ export type Database = {
           description?: string | null
           energy_label?: Database["public"]["Enums"]["energy_label"] | null
           facebook_posted_at?: string | null
+          feed_priority?: number | null
           house_number: string
           id?: string
           images?: string[] | null
@@ -1063,6 +1065,7 @@ export type Database = {
           description?: string | null
           energy_label?: Database["public"]["Enums"]["energy_label"] | null
           facebook_posted_at?: string | null
+          feed_priority?: number | null
           house_number?: string
           id?: string
           images?: string[] | null
