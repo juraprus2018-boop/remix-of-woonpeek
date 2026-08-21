@@ -174,7 +174,7 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute }: ExploreMapProps)
     for (const property of withCoords) {
       const marker = L.marker(
         [Number(property.latitude), Number(property.longitude)],
-        { icon: createCustomIcon(false) }
+        { icon: createPriceIcon(Number(property.price), false), zIndexOffset: 0 }
       ).bindPopup(`
         <div style="min-width:220px;padding:4px 6px 6px;font-family:system-ui,sans-serif">
           ${property.images?.[0] ? `<img src="${property.images[0]}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block" />` : ""}
@@ -215,14 +215,15 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute }: ExploreMapProps)
   // Highlight hovered marker
   useEffect(() => {
     markersRef.current.forEach((marker, id) => {
-      marker.setIcon(createCustomIcon(id === hoveredPropertyId));
+      const p = properties.find((x) => x.id === id);
+      marker.setIcon(createPriceIcon(Number(p?.price ?? 0), id === hoveredPropertyId));
       if (id === hoveredPropertyId) {
         marker.setZIndexOffset(1000);
       } else {
         marker.setZIndexOffset(0);
       }
     });
-  }, [hoveredPropertyId]);
+  }, [hoveredPropertyId, properties]);
 
   // Clear selection when commute is removed
   useEffect(() => {
