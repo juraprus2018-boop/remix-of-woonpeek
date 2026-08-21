@@ -220,14 +220,15 @@ const Header = () => {
               type="button"
               onClick={() => setIsOpen(true)}
               aria-label={t("common.menu")}
-              className="group flex h-12 items-center gap-2.5 rounded-full border-2 border-foreground bg-foreground px-4 text-background transition-all hover:bg-accent hover:border-accent md:h-13 md:px-5"
+              className="group flex h-12 shrink-0 items-center gap-2.5 rounded-full border-2 border-foreground bg-foreground px-4 text-background transition-all hover:bg-accent hover:border-accent md:h-13 md:px-5"
             >
-              <span className="relative flex h-4 w-5 flex-col justify-between">
+              <span className="relative flex h-4 w-5 shrink-0 flex-col justify-between">
                 <span className="block h-[2px] w-full rounded-full bg-background transition-transform" />
                 <span className="block h-[2px] w-full rounded-full bg-background" />
                 <span className="block h-[2px] w-3/4 rounded-full bg-background transition-all group-hover:w-full" />
               </span>
-              <span className="text-sm font-bold uppercase tracking-wider">{t("common.menu")}</span>
+              <span className="whitespace-nowrap text-sm font-bold uppercase tracking-wider">{t("common.menu")}</span>
+
             </button>
           </div>
         </div>
