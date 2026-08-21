@@ -69,6 +69,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
   const ITEMS_PER_PAGE = 12;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [filters, setFilters] = useState<SearchFilterValues>(EMPTY_FILTERS);
+  const [view, setView] = useState<"list" | "map">("list");
 
   const { data: facets } = useFilterFacets({
     city: cityName,
