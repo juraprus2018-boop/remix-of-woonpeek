@@ -365,7 +365,29 @@ const ExplorePage = () => {
       <Separator />
 
       <div className="p-5">
-        <Label className="mb-3 block text-sm font-medium">Plaatsen</Label>
+        <Label htmlFor="explore-city-search" className="mb-2 block text-sm font-medium">
+          Plaatsen
+        </Label>
+        <div className="relative mb-3">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            id="explore-city-search"
+            placeholder="Zoek een plaats..."
+            value={citySearch}
+            onChange={(e) => setCitySearch(e.target.value)}
+            className="pl-10 pr-8"
+          />
+          {citySearch && (
+            <button
+              type="button"
+              onClick={() => setCitySearch("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              aria-label="Zoekterm wissen"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
         {selectedCity && (
           <Button
             variant="ghost"
@@ -377,7 +399,8 @@ const ExplorePage = () => {
           </Button>
         )}
         <div className="space-y-1">
-          {cities.map(({ name, count }) => (
+          {visibleCities.map(({ name, count }) => (
+
             <button
               key={name}
               onClick={() => {
