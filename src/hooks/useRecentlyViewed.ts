@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 interface RecentProperty {
   id: string;
   slug: string | null;
+  address_slug?: string | null;
   title: string;
   city: string;
   price: number;
