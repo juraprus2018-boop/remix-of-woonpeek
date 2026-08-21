@@ -99,7 +99,7 @@ export default function CityStats() {
       <main className="flex-1">
         <div className="container py-8 md:py-12">
           <Breadcrumbs items={[
-            { label: "Plekken", href: "/plekken" },
+            { label: "Plekken", href: "/woonaanbod-per-stad" },
             { label: cityName, href: `/stad/${city}` },
             { label: "Cijfers" },
           ]} />

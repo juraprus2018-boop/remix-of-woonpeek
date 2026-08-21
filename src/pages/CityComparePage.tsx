@@ -89,7 +89,7 @@ const CityComparePage = () => {
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
-    { label: "Steden", href: "/plekken" },
+    { label: "Steden", href: "/woonaanbod-per-stad" },
     { label: `${cityName1} vs ${cityName2}` },
   ];
 

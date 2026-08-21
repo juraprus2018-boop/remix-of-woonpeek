@@ -28,7 +28,7 @@ const SEOContentSection = () => {
             <Link to="/huurwoningen/den-haag" className="text-primary hover:underline">Den Haag</Link> en{" "}
             <Link to="/huurwoningen/eindhoven" className="text-primary hover:underline">Eindhoven</Link>.
             Het hele lijstje staat op de{" "}
-            <Link to="/plekken" className="text-primary hover:underline">stedenpagina</Link>.
+            <Link to="/woonaanbod-per-stad" className="text-primary hover:underline">stedenpagina</Link>.
           </p>
           <p>
             Zet onze gratis{" "}

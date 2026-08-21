@@ -133,7 +133,7 @@ const ParamRedirect = ({ to }: { to: string }) => {
 const LegacyCityRedirect = () => {
   const { city } = useParams<{ city: string }>();
   const location = useLocation();
-  if (!city) return <Navigate to="/plekken" replace />;
+  if (!city) return <Navigate to="/woonaanbod-per-stad" replace />;
   const slug = city.startsWith("woningen-") ? city.slice("woningen-".length) : city;
   return <Navigate to={`/stad/${slug}${location.search}`} replace />;
 };
@@ -183,7 +183,7 @@ const PAGES: RouteDef[] = [
 
   // Stad
   { path: "/stad/:city", element: <CityPage /> },
-  { path: "/plekken", element: <Cities /> },
+  { path: "/woonaanbod-per-stad", element: <Cities /> },
   { path: "/buurt/:city/:neighborhood", element: <NeighborhoodPage /> },
   { path: "/markt/:city", element: <HuurprijsMonitor /> },
   { path: "/cijfers/:city", element: <CityStats /> },

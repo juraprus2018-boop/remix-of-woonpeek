@@ -18,7 +18,7 @@ interface PagePattern {
 const STATIC_PAGES: PagePattern[] = [
   { label: "Homepage", pattern: "/", example: "/", description: "Hoofdpagina", category: "Statisch" },
   { label: "Zoeken", pattern: "/zoeken", example: "/zoeken", description: "Zoekpagina met filters", category: "Statisch" },
-  { label: "Steden overzicht", pattern: "/plekken", example: "/plekken", description: "Lijst van alle steden", category: "Statisch" },
+  { label: "Steden overzicht", pattern: "/woonaanbod-per-stad", example: "/woonaanbod-per-stad", description: "Lijst van alle steden", category: "Statisch" },
   { label: "Verkennen", pattern: "/verkennen", example: "/verkennen", description: "Kaartweergave", category: "Statisch" },
   { label: "Nieuw aanbod", pattern: "/vandaag", example: "/vandaag", description: "Landelijk nieuw aanbod", category: "Statisch" },
   { label: "Huurwoningen", pattern: "/huurwoningen", example: "/huurwoningen", description: "Alle huurwoningen", category: "Statisch" },

@@ -222,7 +222,7 @@ const CityPage = () => {
               <Breadcrumbs
                 items={[
                   { label: "Home", href: "/" },
-                  { label: "Steden", href: "/plekken" },
+                  { label: "Steden", href: "/woonaanbod-per-stad" },
                   { label: cityName },
                 ]}
               />

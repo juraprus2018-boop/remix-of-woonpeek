@@ -205,7 +205,7 @@ async function prerenderHomeContentPlugin() {
           <li><a href="/huurprijsmonitor">Huurprijsmonitor</a></li>
 
           <li><a href="/budgetcheck">Budget tool</a></li>
-          <li><a href="/plekken">Alle steden</a></li>
+          <li><a href="/woonaanbod-per-stad">Alle steden</a></li>
         </ul>
       </div>`;
 
