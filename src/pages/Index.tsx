@@ -15,7 +15,9 @@ import {
   Heart,
   CheckCircle2,
   TrendingUp,
+  X,
 } from "lucide-react";
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
@@ -72,7 +74,7 @@ const Index = () => {
   const { data: newToday } = useNewTodayCount();
   const { data: popularCities = [] } = useTopHuurCities();
   const [query, setQuery] = useState("");
-  const [type, setType] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const navigate = useNavigate();
 
@@ -80,10 +82,11 @@ const Index = () => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (query.trim()) params.set("locatie", query.trim());
-    if (type) params.set("type", type);
+    if (minPrice) params.set("min", minPrice);
     if (maxPrice) params.set("max", maxPrice);
     navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
   };
+
 
   const featured = properties?.slice(0, 12) ?? [];
 
@@ -118,59 +121,92 @@ const Index = () => {
 
       <Header />
 
-      {/* COMPACTE ZOEKBALK */}
+      {/* ZOEKBALK */}
       <section className="border-b border-border bg-secondary/40">
-        <div className="container py-5 md:py-7">
+        <div className="container py-6 md:py-9">
           <h1 className="sr-only">{t("meta.homeTitle")}</h1>
           <form
             onSubmit={onSearch}
-            className="mx-auto grid max-w-5xl gap-2 md:grid-cols-[1fr_auto_auto_auto]"
+            className="mx-auto max-w-5xl rounded-2xl border border-border bg-card p-4 shadow-lg md:p-6"
           >
-            <div className="relative">
-              <MapPin className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={t("hero.searchPlaceholder")}
-                className="h-12 rounded-xl border-border bg-card pl-11 pr-4 text-base"
-                aria-label={t("hero.searchPlaceholder")}
-              />
+            <div className="grid items-end gap-4 md:grid-cols-[1.4fr_1fr_1fr_auto] md:gap-0">
+              {/* Locatie */}
+              <div className="md:pr-6">
+                <label htmlFor="home-locatie" className="mb-1.5 block text-sm font-bold text-foreground">
+                  Locatie
+                </label>
+                <div className="relative">
+                  <Input
+                    id="home-locatie"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Zoek in plaats of gemeente..."
+                    className="h-12 rounded-xl border-border bg-secondary/50 pr-10 text-base"
+                  />
+                  {query && (
+                    <button
+                      type="button"
+                      onClick={() => setQuery("")}
+                      aria-label="Wissen"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Minimale prijs */}
+              <div className="md:border-l md:border-border md:px-6">
+                <label htmlFor="home-min" className="mb-1.5 block text-sm font-bold text-foreground">
+                  Minimale prijs
+                </label>
+                <select
+                  id="home-min"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground md:border-0 md:bg-transparent md:px-0 md:text-muted-foreground"
+                >
+                  <option value="">Geen minimum</option>
+                  <option value="500">€ 500</option>
+                  <option value="750">€ 750</option>
+                  <option value="1000">€ 1.000</option>
+                  <option value="1250">€ 1.250</option>
+                  <option value="1500">€ 1.500</option>
+                </select>
+              </div>
+
+              {/* Maximale prijs */}
+              <div className="md:px-6">
+                <label htmlFor="home-max" className="mb-1.5 block text-sm font-bold text-foreground">
+                  Maximale prijs
+                </label>
+                <select
+                  id="home-max"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground md:border-0 md:bg-transparent md:px-0 md:text-muted-foreground"
+                >
+                  <option value="">Geen maximum</option>
+                  <option value="750">€ 750</option>
+                  <option value="1000">€ 1.000</option>
+                  <option value="1500">€ 1.500</option>
+                  <option value="2000">€ 2.000</option>
+                  <option value="3000">€ 3.000</option>
+                </select>
+              </div>
+
+              <Button
+                type="submit"
+                className="h-12 gap-2 rounded-xl px-7 text-base font-bold"
+              >
+                Zoeken
+                <Search className="h-4 w-4" />
+              </Button>
             </div>
-            <select
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-              className="h-12 rounded-xl border border-input bg-card px-4 text-sm text-foreground"
-              aria-label={t("hero.type")}
-            >
-              <option value="">{t("hero.typeAll")}</option>
-              <option value="appartement">{t("hero.typeApartment")}</option>
-              <option value="huis">{t("hero.typeHouse")}</option>
-              <option value="kamer">{t("hero.typeRoom")}</option>
-              <option value="studio">{t("hero.typeStudio")}</option>
-            </select>
-            <select
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-              className="h-12 rounded-xl border border-input bg-card px-4 text-sm text-foreground"
-              aria-label={t("hero.maxPrice")}
-            >
-              <option value="">{t("hero.maxPrice")}</option>
-              <option value="750">€ 750</option>
-              <option value="1000">€ 1.000</option>
-              <option value="1500">€ 1.500</option>
-              <option value="2000">€ 2.000</option>
-              <option value="3000">€ 3.000</option>
-            </select>
-            <Button
-              type="submit"
-              className="h-12 gap-2 rounded-xl px-7 text-sm font-bold"
-            >
-              <Search className="h-4 w-4" />
-              {t("hero.searchBtn")}
-            </Button>
           </form>
 
-          <div className="mx-auto mt-3 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <div className="mx-auto mt-4 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <span className="font-semibold">{t("hero.popular")}:</span>
             {popularCities.slice(0, 6).map((c) => (
               <Link
@@ -191,6 +227,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
 
 
