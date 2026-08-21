@@ -234,7 +234,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
           </div>
 
           {/* Specs + price */}
-          <div className="flex flex-col justify-between gap-4 md:w-[230px] md:shrink-0 md:border-l md:border-border/60 md:pl-6">
+          <div className="flex flex-col justify-between gap-4 border-t border-border/60 pt-4 lg:w-[230px] lg:shrink-0 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
             <ul className="space-y-1.5 text-sm text-foreground">
               {property.surface_area && (
                 <li className="flex items-center gap-2">
