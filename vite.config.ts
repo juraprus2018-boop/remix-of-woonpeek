@@ -14,6 +14,9 @@ function sitemapPlugin() {
     ["steden", "sitemap-steden.xml"],
     ["woningen", "sitemap-woningen.xml"],
   ];
+  // Oversized sitemaps (>9MB) can't live in git, so they are written to dist/
+  // in closeBundle (after Vite has emptied the output dir) instead of public/.
+  const oversized: Array<[string, string]> = [];
   return {
     name: "static-sitemaps",
     apply: "build" as const,
@@ -26,23 +29,31 @@ function sitemapPlugin() {
             if (!res.ok) return;
             const xml = await res.text();
             if (!xml.trim().startsWith("<?xml")) return;
-            // Files above the repo limit are emitted straight into dist/ instead
-            // of public/, so they still get served but never land in git.
-            const dir =
-              Buffer.byteLength(xml) > 9_000_000
-                ? path.resolve(__dirname, "dist")
-                : path.resolve(__dirname, "public");
-            fs.mkdirSync(dir, { recursive: true });
-            fs.writeFileSync(path.join(dir, file), xml);
+            if (Buffer.byteLength(xml) > 9_000_000) {
+              oversized.push([file, xml]);
+            } else {
+              fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
+            }
           } catch {
             // keep the previously committed file on failure
           }
         }),
       );
     },
-
+    closeBundle() {
+      const dir = path.resolve(__dirname, "dist");
+      for (const [file, xml] of oversized) {
+        try {
+          fs.mkdirSync(dir, { recursive: true });
+          fs.writeFileSync(path.join(dir, file), xml);
+        } catch {
+          // non-fatal
+        }
+      }
+    },
   };
 }
+
 
 const esc = (s: string) =>
   String(s ?? "")
