@@ -706,24 +706,6 @@ const PropertyDetail = () => {
               )}
 
 
-              {/* ── Over wonen in [stad] ── */}
-              <section className="rounded-xl border bg-muted/30 p-6">
-                <h2 className="font-display text-xl font-semibold mb-3">
-                  Over wonen in {property.city}
-                </h2>
-                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
-                  <p>
-                    {property.city} biedt een divers woningaanbod, van appartementen en studio's tot ruime eengezinswoningen. 
-                    Of je nu op zoek bent naar een huurwoning of koopwoning in {property.city}, Woonaanbod NL helpt je om het 
-                    actuele aanbod overzichtelijk te vergelijken.
-                  </p>
-                  <p>
-                    Bekijk alle beschikbare woningen in {property.city} en ontdek welke buurt het beste bij jou past. 
-                    Stel een dagelijkse alert in om als eerste op de hoogte te zijn van nieuwe woningen.
-                  </p>
-                </div>
-              </section>
-
               {/* ── Meer woningen in [stad] ── */}
               <section className="rounded-xl border bg-muted/30 p-6">
                 <h2 className="font-display text-xl font-semibold mb-3">
@@ -753,6 +735,24 @@ const PropertyDetail = () => {
                       {property.bedrooms} kamers in {property.city}
                     </Link>
                   )}
+                </div>
+              </section>
+
+              {/* ── Over wonen in [stad] ── */}
+              <section className="rounded-xl border bg-muted/30 p-6">
+                <h2 className="font-display text-xl font-semibold mb-3">
+                  Over wonen in {property.city}
+                </h2>
+                <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
+                  <p>
+                    {property.city} biedt een divers woningaanbod, van appartementen en studio's tot ruime eengezinswoningen. 
+                    Of je nu op zoek bent naar een huurwoning of koopwoning in {property.city}, Woonaanbod NL helpt je om het 
+                    actuele aanbod overzichtelijk te vergelijken.
+                  </p>
+                  <p>
+                    Bekijk alle beschikbare woningen in {property.city} en ontdek welke buurt het beste bij jou past. 
+                    Stel een dagelijkse alert in om als eerste op de hoogte te zijn van nieuwe woningen.
+                  </p>
                 </div>
               </section>
             </div>
