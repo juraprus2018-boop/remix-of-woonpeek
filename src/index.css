@@ -3,128 +3,132 @@
 @tailwind utilities;
 
 /*
-  Woonaanbod NL Design System — Single Primary Marine (#173e63)
-  Eén primaire kleur: marineblauw #173e63. Alle accenten zijn tinten hiervan.
+  Woonaanbod NL Design System — Marine #173E63 + goud accent #E6A23C
+  Blauwtinten: #173E63 (primary), #2F6B9A (secondary blue), #EAF2F8 (licht blauw)
+  Neutraal: #F7F9FB (licht), #FFFFFF, tekst #17212B
   Display: Sora. Body: Manrope.
 */
 
 @layer base {
   :root {
-    /* Crisp near-white canvas with a cool tint */
-    --background: 210 40% 99%;
-    --foreground: 213 45% 13%;
+    /* #F7F9FB */
+    --background: 210 33% 98%;
+    /* #17212B */
+    --foreground: 210 30% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 213 45% 13%;
+    --card-foreground: 210 30% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 213 45% 13%;
+    --popover-foreground: 210 30% 13%;
 
-    /* Deep marine as primary */
+    /* #173E63 */
     --primary: 209 62% 24%;
-    --primary-foreground: 205 40% 98%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 209 32% 94%;
-    --secondary-foreground: 213 45% 13%;
+    /* #EAF2F8 */
+    --secondary: 206 50% 95%;
+    --secondary-foreground: 209 62% 24%;
 
-    --muted: 209 24% 95%;
-    --muted-foreground: 212 16% 42%;
+    --muted: 206 40% 96%;
+    --muted-foreground: 210 16% 42%;
 
-    /* Teal accent */
-    --accent: 209 62% 24%;
-    --accent-foreground: 200 40% 98%;
+    /* Goud accent #E6A23C */
+    --accent: 36 77% 57%;
+    --accent-foreground: 210 30% 13%;
 
     --destructive: 4 68% 48%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 209 22% 89%;
-    --input: 209 22% 86%;
-    --ring: 209 62% 24%;
+    --border: 206 30% 90%;
+    --input: 206 30% 87%;
+    --ring: 206 53% 39%;
 
     --radius: 1rem;
 
     --success: 162 52% 34%;
     --success-foreground: 0 0% 100%;
-    --warning: 32 88% 48%;
-    --warning-foreground: 0 0% 100%;
+    --warning: 36 77% 57%;
+    --warning-foreground: 210 30% 13%;
 
-    /* Legacy aliases kept so existing components keep theming correctly */
-    --terracotta: 209 62% 24%;
-    --terracotta-foreground: 200 40% 98%;
-    --terracotta-soft: 209 40% 88%;
+    /* Legacy aliases */
+    --terracotta: 36 77% 57%;
+    --terracotta-foreground: 210 30% 13%;
+    --terracotta-soft: 36 70% 88%;
 
-    --surface-cream: 209 32% 96%;
-    --surface-cream-deep: 209 30% 90%;
+    --surface-cream: 206 50% 95%;
+    --surface-cream-deep: 206 45% 90%;
 
-    --hero: 209 62% 18%;
-    --hero-foreground: 205 40% 97%;
-    --hero-muted: 210 14% 72%;
+    --hero: 209 62% 24%;
+    --hero-foreground: 0 0% 100%;
+    --hero-muted: 206 30% 78%;
 
-    /* Brand accent aliases (names kept for backwards compatibility) */
-    --sun: 209 45% 86%;
-    --sun-soft: 209 40% 88%;
-    --sun-tint: 209 40% 96%;
-    --ink: 209 62% 14%;
-    --leaf: 209 62% 24%;
-    --sage: 209 30% 92%;
+    /* Brand accent aliases (namen behouden voor compatibiliteit) */
+    --sun: 36 77% 57%;
+    --sun-soft: 206 45% 90%;
+    --sun-tint: 206 50% 95%;
+    --ink: 209 62% 18%;
+    --leaf: 206 53% 39%;
+    --sage: 206 50% 95%;
     --forest: 209 62% 18%;
-    --moss: 209 62% 24%;
+    --moss: 206 53% 39%;
 
-    --shadow-sm: 0 1px 2px 0 hsl(213 40% 14% / 0.06);
-    --shadow-md: 0 6px 18px -4px hsl(213 40% 14% / 0.12);
-    --shadow-lg: 0 22px 44px -16px hsl(213 40% 14% / 0.18);
-    --shadow-xl: 0 38px 72px -20px hsl(213 40% 14% / 0.24);
+    --shadow-sm: 0 1px 2px 0 hsl(210 30% 13% / 0.06);
+    --shadow-md: 0 6px 18px -4px hsl(210 30% 13% / 0.10);
+    --shadow-lg: 0 22px 44px -16px hsl(210 30% 13% / 0.16);
+    --shadow-xl: 0 38px 72px -20px hsl(210 30% 13% / 0.22);
 
     --sidebar-background: 209 62% 18%;
-    --sidebar-foreground: 205 30% 92%;
-    --sidebar-primary: 0 0% 100%;
-    --sidebar-primary-foreground: 209 62% 24%;
-    --sidebar-accent: 209 46% 24%;
-    --sidebar-accent-foreground: 205 30% 92%;
-    --sidebar-border: 209 34% 30%;
-    --sidebar-ring: 209 50% 60%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 36 77% 57%;
+    --sidebar-primary-foreground: 210 30% 13%;
+    --sidebar-accent: 206 53% 30%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 206 40% 28%;
+    --sidebar-ring: 36 77% 57%;
   }
 
   .dark {
-    --background: 213 46% 8%;
-    --foreground: 205 28% 93%;
+    --background: 210 35% 9%;
+    --foreground: 206 30% 94%;
 
-    --card: 213 38% 12%;
-    --card-foreground: 205 28% 93%;
+    --card: 209 35% 13%;
+    --card-foreground: 206 30% 94%;
 
-    --popover: 213 38% 12%;
-    --popover-foreground: 205 28% 93%;
+    --popover: 209 35% 13%;
+    --popover-foreground: 206 30% 94%;
 
-    --primary: 209 55% 62%;
-    --primary-foreground: 209 62% 12%;
+    --primary: 206 53% 55%;
+    --primary-foreground: 210 30% 10%;
 
-    --secondary: 212 26% 17%;
-    --secondary-foreground: 205 28% 93%;
+    --secondary: 209 28% 18%;
+    --secondary-foreground: 206 30% 94%;
 
-    --muted: 212 26% 17%;
-    --muted-foreground: 208 14% 70%;
+    --muted: 209 28% 18%;
+    --muted-foreground: 206 16% 70%;
 
-    --accent: 209 55% 62%;
-    --accent-foreground: 213 46% 9%;
+    --accent: 36 77% 57%;
+    --accent-foreground: 210 30% 13%;
 
     --destructive: 4 62% 48%;
-    --destructive-foreground: 205 28% 93%;
+    --destructive-foreground: 206 30% 94%;
 
-    --border: 212 22% 21%;
-    --input: 212 22% 21%;
-    --ring: 209 55% 62%;
+    --border: 209 24% 22%;
+    --input: 209 24% 22%;
+    --ring: 36 77% 57%;
 
-    --hero: 213 50% 6%;
-    --hero-foreground: 205 28% 93%;
+    --hero: 210 40% 8%;
+    --hero-foreground: 206 30% 94%;
 
-    --surface-cream: 209 34% 12%;
-    --surface-cream-deep: 209 30% 16%;
+    --surface-cream: 209 30% 14%;
+    --surface-cream-deep: 209 28% 18%;
     --sun-tint: 209 30% 14%;
-    --sun-soft: 209 30% 20%;
-    --sun: 209 55% 62%;
+    --sun-soft: 209 28% 20%;
+    --sun: 36 77% 57%;
     --sage: 209 30% 16%;
   }
 }
+
 
 
 
