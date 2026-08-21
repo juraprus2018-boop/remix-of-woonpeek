@@ -14,7 +14,8 @@ import { useProperties, useFilterFacets } from "@/hooks/useProperties";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ArrowRight, MapPin, Search, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, List, Map as MapIcon, MapPin, Search, SlidersHorizontal } from "lucide-react";
+import ExploreMap from "@/components/explore/ExploreMap";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
@@ -68,6 +69,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
   const ITEMS_PER_PAGE = 12;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const [filters, setFilters] = useState<SearchFilterValues>(EMPTY_FILTERS);
+  const [view, setView] = useState<"list" | "map">("list");
 
   const { data: facets } = useFilterFacets({
     city: cityName,
@@ -231,6 +233,24 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   {isLoading ? "Aanbod laden..." : `${totalCount} ${label.plural.toLowerCase()} gevonden`}
                 </p>
               </div>
+              <div className="inline-flex rounded-lg border bg-background p-1">
+                <Button
+                  size="sm"
+                  variant={view === "list" ? "default" : "ghost"}
+                  className="gap-2"
+                  onClick={() => setView("list")}
+                >
+                  <List className="h-4 w-4" /> Lijst
+                </Button>
+                <Button
+                  size="sm"
+                  variant={view === "map" ? "default" : "ghost"}
+                  className="gap-2"
+                  onClick={() => setView("map")}
+                >
+                  <MapIcon className="h-4 w-4" /> Kaart
+                </Button>
+              </div>
             </div>
 
             <IncomeBanner
@@ -248,12 +268,18 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               </div>
             ) : properties.length > 0 ? (
               <>
-                <div className="flex flex-col gap-5">
-                  {visibleProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
-                  ))}
-                </div>
-                {visibleCount < properties.length && (
+                {view === "map" ? (
+                  <div className="h-[600px] w-full overflow-hidden rounded-2xl border">
+                    <ExploreMap properties={properties as any} />
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-5">
+                    {visibleProperties.map((property) => (
+                      <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
+                    ))}
+                  </div>
+                )}
+                {view === "list" && visibleCount < properties.length && (
                   <div className="mt-8 text-center">
                     <Button className="gap-2 bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90" onClick={handleLoadMore}>
                       Meer woningen laden ({properties.length - visibleCount} resterend)
