@@ -81,6 +81,48 @@ const CITY_LINKS: Array<[string, string]> = [
   ["Maastricht", "maastricht"],
 ];
 
+// Haalt onze eigen woningmarktcijfers op (RPC market_stats) en schrijft ze als
+// machine-leesbaar bestand naar public/marktdata.json, zodat AI-crawlers en
+// journalisten de data zonder JavaScript kunnen lezen.
+function marketDataPlugin() {
+  const url = process.env.VITE_SUPABASE_URL;
+  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  return {
+    name: "static-market-data",
+    apply: "build" as const,
+    async buildStart() {
+      if (!url || !key) return;
+      try {
+        const res = await fetch(`${url}/rest/v1/rpc/market_stats`, {
+          method: "POST",
+          headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+          body: "{}",
+        });
+        if (!res.ok) return;
+        const json = (await res.json()) as Record<string, unknown> | null;
+        if (!json?.national) return;
+        fs.writeFileSync(
+          path.resolve(__dirname, "public", "marktdata.json"),
+          JSON.stringify(
+            {
+              source: "Woonaanbod NL",
+              url: "https://www.woonaanbod-nl.nl/woningmarkt",
+              license: "CC BY 4.0 – overname met bronvermelding en link",
+              method:
+                "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
+              ...json,
+            },
+            null,
+            2,
+          ),
+        );
+      } catch {
+        // laat het eerder gegenereerde bestand staan
+      }
+    },
+  };
+}
+
 // Builds server-side (build-time) HTML for the homepage: headings, body copy,
 // internal links and a real listing overview with titles, prices and cities.
 // React replaces #root on hydration, so crawlers without JS still get content.
@@ -101,6 +143,7 @@ async function prerenderHomeContentPlugin() {
       return [];
     }
   }
+
 
   return {
     name: "prerender-home-content",
@@ -149,7 +192,9 @@ async function prerenderHomeContentPlugin() {
           <li><a href="/op-kaart">Woningen op de kaart</a></li>
           <li><a href="/vandaag">Nieuw aanbod van vandaag</a></li>
           <li><a href="/woonradar">Gratis dagelijkse alert</a></li>
+          <li><a href="/woningmarkt">Woningmarktcijfers: huurprijs per m2 en actueel aanbod</a></li>
           <li><a href="/huurprijsmonitor">Huurprijsmonitor</a></li>
+
           <li><a href="/budgetcheck">Budget tool</a></li>
           <li><a href="/plekken">Alle steden</a></li>
         </ul>
@@ -173,7 +218,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), sitemapPlugin(), prerenderHomeContentPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), sitemapPlugin(), marketDataPlugin(), prerenderHomeContentPlugin(), mode === "development" && componentTagger()].filter(Boolean),
 
   resolve: {
     alias: {

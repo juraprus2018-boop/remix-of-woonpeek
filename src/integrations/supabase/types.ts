@@ -1627,6 +1627,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      market_stats: { Args: never; Returns: Json }
     }
     Enums: {
       app_role: "admin" | "user"

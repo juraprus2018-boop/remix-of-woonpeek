@@ -96,6 +96,7 @@ const VerhuisServiceCity = lazy(() => import("./pages/VerhuisServiceCity"));
 const LongtailLanding = lazy(() => import("./pages/LongtailLanding"));
 const RentHeatmapPage = lazy(() => import("./pages/RentHeatmapPage"));
 const RentIndexPage = lazy(() => import("./pages/RentIndexPage"));
+const MarketData = lazy(() => import("./pages/MarketData"));
 const Verhuiskosten = lazy(() => import("./pages/Verhuiskosten"));
 const SocialeHuurWachttijd = lazy(() => import("./pages/SocialeHuurWachttijd"));
 const HuurcontractUitleg = lazy(() => import("./pages/HuurcontractUitleg"));
@@ -222,6 +223,7 @@ const PAGES: RouteDef[] = [
   { path: "/gids/:slug", element: <LongtailLanding /> },
 
   // Data / SEO
+  { path: "/woningmarkt", element: <MarketData /> },
   { path: "/heatmap/:city", element: <RentHeatmapPage /> },
   { path: "/huurprijs-index/:city", element: <RentIndexPage /> },
 

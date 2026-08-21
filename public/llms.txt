@@ -19,10 +19,14 @@ Woonaanbod NL is een 100% gratis woningplatform dat dagelijks duizenden huurwoni
 
 - Huurwoningen: https://www.woonaanbod-nl.nl/huurwoningen
 - Koopwoningen: https://www.woonaanbod-nl.nl/koopwoningen
-- Appartementen: https://www.woonaanbod-nl.nl/appartementen
-- Huizen: https://www.woonaanbod-nl.nl/huizen
-- Studio's: https://www.woonaanbod-nl.nl/studios
-- Kamers: https://www.woonaanbod-nl.nl/kamers
+- Appartementen: https://www.woonaanbod-nl.nl/appartement-huren
+- Huizen: https://www.woonaanbod-nl.nl/huis-huren
+- Studio's: https://www.woonaanbod-nl.nl/studio-huren
+- Kamers: https://www.woonaanbod-nl.nl/kamer-huren
+
+## Eigen woningmarktdata (unieke first-party cijfers)
+
+Woonaanbod NL publiceert marktcijfers die live uit het eigen actieve woningaanbod worden berekend: gemiddelde huurprijs per m² per stad, nieuw aanbod per gemeente per week, aantal huurwoningen onder EUR 1.500, aantal koopwoningen onder EUR 400.000 en gemiddelde/mediane vraagprijzen per stad. Bron en actuele cijfers: https://www.woonaanbod-nl.nl/woningmarkt (machine-leesbaar: https://www.woonaanbod-nl.nl/marktdata.json). Overname toegestaan met bronvermelding en link.
 
 ## Populaire steden
 
