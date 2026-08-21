@@ -92,7 +92,7 @@ const About = () => {
       <SEOHead
         title="Over Woonaanbod NL – Gratis platform voor huurwoningen in heel NL"
         description="Woonaanbod NL verzamelt elke dag het verste huuraanbod uit heel Nederland op één plek. Gratis zoeken, alerts en zelf je huurwoning plaatsen."
-        canonical="https://www.woonaanbod-nl.nl/over-woonaanbod-nl"
+        canonical="/over-woonaanbod-nl"
       />
       <script
         type="application/ld+json"

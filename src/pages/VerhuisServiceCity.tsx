@@ -33,7 +33,7 @@ const VerhuisServiceCity = () => {
       <SEOHead
         title={`Verhuisbedrijf ${cityName} vergelijken – tot 40% besparen`}
         description={`Vergelijk gratis erkende verhuisbedrijven in ${cityName}. Ontvang binnen 24 uur tot vijf offertes en bespaar tot 40% op je verhuizing.`}
-        canonical={`https://www.woonaanbod-nl.nl/verhuisservice/${city}`}
+        canonical={`/verhuisservice/${city}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

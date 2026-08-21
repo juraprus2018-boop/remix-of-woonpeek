@@ -41,7 +41,7 @@ const DailyAlert = () => {
       <SEOHead
         title="Wekelijkse Woningalert – Ontvang nieuw aanbod per e-mail | Woonaanbod NL"
         description="Schrijf je gratis in voor de Woonaanbod NL wekelijkse alert en ontvang elke maandag een e-mail met het nieuwste woningaanbod in Nederland."
-        canonical="https://www.woonaanbod-nl.nl/dagelijkse-alert"
+        canonical="/dagelijkse-alert"
       />
       <script
         type="application/ld+json"

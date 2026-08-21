@@ -172,7 +172,7 @@ const RentHeatmapPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={title} description={description} canonical={`${CANONICAL_URL}/heatmap/${citySlug}`} />
+      <SEOHead title={title} description={description} canonical={`/heatmap/${citySlug}`} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 

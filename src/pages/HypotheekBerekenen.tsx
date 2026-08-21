@@ -54,7 +54,7 @@ const HypotheekBerekenen = () => {
       <SEOHead
         title="Hypotheek berekenen 2026 – Vergelijk en bespaar | Woonaanbod NL"
         description="Bereken direct je maximale hypotheek en maandlasten. Vergelijk vrijblijvend de actuele hypotheekrentes en bespaar duizenden euro's op je woonlasten."
-        canonical="https://www.woonaanbod-nl.nl/hypotheek-berekenen"
+        canonical="/hypotheek-berekenen"
       />
       <script
         type="application/ld+json"

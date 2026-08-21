@@ -40,7 +40,7 @@ const Nieuwbouw = () => {
       <SEOHead
         title="Nieuwbouw woningen in Nederland – huren en kopen | Woonaanbod NL"
         description="Bekijk het complete nieuwbouwaanbod in Nederland. Energiezuinig wonen met label A++, garantie en lagere maandlasten. Filter op stad of bouwjaar."
-        canonical="https://www.woonaanbod-nl.nl/nieuwbouw"
+        canonical="/nieuwbouw"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

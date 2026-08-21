@@ -71,7 +71,7 @@ const Register = () => {
       <SEOHead
         title="Gratis account aanmaken | Woonaanbod NL"
         description="Maak gratis een Woonaanbod NL-account aan. Sla woningen op, ontvang dagelijkse alerts en plaats zelf een woning gratis."
-        canonical="https://www.woonaanbod-nl.nl/aanmelden"
+        canonical="/aanmelden"
         noindex
       />
       {/* Left side - image */}

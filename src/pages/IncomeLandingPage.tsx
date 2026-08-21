@@ -93,7 +93,7 @@ const IncomeLandingPage = () => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://www.woonaanbod-nl.nl/huur-bij-inkomen-${incomeNum}-${city}`}
+        canonical={`/huur-bij-inkomen-${incomeNum}-${city}`}
       />
       <Header />
 

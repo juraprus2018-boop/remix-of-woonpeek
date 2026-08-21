@@ -121,7 +121,7 @@ const BudgetTool = () => {
       <SEOHead
         title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? "/mnd" : ""}? | Woonaanbod NL`}
         description={`Ontdek wat je kunt ${isHuur ? "huren" : "kopen"} met een budget van ${formatPrice(budget)}${isHuur ? " per maand" : ""}. Vergelijk steden op gemiddeld oppervlak, kamers en beschikbaarheid.`}
-        canonical="https://www.woonaanbod-nl.nl/budget-tool"
+        canonical="/budget-tool"
       />
       <Header />
 

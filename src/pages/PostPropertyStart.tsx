@@ -25,7 +25,7 @@ const PostPropertyStart = () => {
       <SEOHead
         title="Woning plaatsen op Woonaanbod NL | Gratis starten"
         description="Maak gratis een account aan en plaats je woning op Woonaanbod NL. Snel online en direct zichtbaar voor woningzoekers."
-        canonical="https://www.woonaanbod-nl.nl/woning-plaatsen"
+        canonical="/woning-plaatsen"
       />
       <Header />
       <main className="flex-1">

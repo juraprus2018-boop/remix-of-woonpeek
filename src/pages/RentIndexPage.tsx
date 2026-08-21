@@ -115,7 +115,7 @@ const RentIndexPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={title} description={description} canonical={`${CANONICAL_URL}/huurprijs-index/${citySlug}`} />
+      <SEOHead title={title} description={description} canonical={`/huurprijs-index/${citySlug}`} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }} />
 
       <Header />

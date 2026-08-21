@@ -61,7 +61,7 @@ const EnergieVergelijken = () => {
       <SEOHead
         title="Energie vergelijken – Bespaar op gas en stroom | Woonaanbod NL"
         description="Vergelijk de actuele energietarieven van alle grote leveranciers en bespaar tot € 600 per jaar. Eenvoudig, vrijblijvend en gratis overstappen via Woonaanbod NL."
-        canonical="https://www.woonaanbod-nl.nl/energie"
+        canonical="/energie"
       />
       <script
         type="application/ld+json"

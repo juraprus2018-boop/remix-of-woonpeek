@@ -118,7 +118,7 @@ const CityComparePage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={`https://www.woonaanbod-nl.nl/vergelijk/${slug1}-vs-${slug2}`} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={`/vergelijk/${slug1}-vs-${slug2}`} />
       <Header />
       <main className="flex-1">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

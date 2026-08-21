@@ -44,7 +44,7 @@ const WozWaardeCity = () => {
       <SEOHead
         title={`WOZ-waarde ${cityName} opvragen – gratis en direct`}
         description={`Bekijk gratis de WOZ-waarde van elke woning in ${cityName}. Inclusief uitleg over OZB, eigenwoningforfait en bezwaarprocedure.`}
-        canonical={`https://www.woonaanbod-nl.nl/woz-waarde/${city}`}
+        canonical={`/woz-waarde/${city}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

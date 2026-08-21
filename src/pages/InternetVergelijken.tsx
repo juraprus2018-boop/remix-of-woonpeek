@@ -61,7 +61,7 @@ const InternetVergelijken = () => {
       <SEOHead
         title="Internet vergelijken – Beste internet en tv aanbieder | Woonaanbod NL"
         description="Vergelijk internet, tv en bellen van Ziggo, KPN, Odido en meer. Bespaar tot € 400 per jaar bij een overstap. Gratis en vrijblijvend via Woonaanbod NL."
-        canonical="https://www.woonaanbod-nl.nl/internet"
+        canonical="/internet"
       />
       <script
         type="application/ld+json"

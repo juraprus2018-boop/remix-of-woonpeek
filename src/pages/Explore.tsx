@@ -582,7 +582,7 @@ const ExplorePage = () => {
       <SEOHead
         title="Verken huur en koopwoningen op de kaart | Woonaanbod NL"
         description="Ontdek beschikbare huur en koopwoningen in heel Nederland op een interactieve kaart. Filter op stad, prijs en woningtype."
-        canonical="https://www.woonaanbod-nl.nl/verkennen"
+        canonical="/verkennen"
       />
       <Header />
 
