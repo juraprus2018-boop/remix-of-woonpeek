@@ -198,7 +198,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
             <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
               {property.title}
             </h3>
-            {subtitle && <p className="mt-1 text-sm font-semibold capitalize text-accent">{subtitle}</p>}
+            {subtitle && <p className="mt-1 text-sm font-semibold capitalize text-muted-foreground">{subtitle}</p>}
             {property.description && (
               <p className="mt-3 text-sm text-muted-foreground line-clamp-3">{property.description}</p>
             )}
