@@ -22,11 +22,19 @@ export default {
       },
     },
     extend: {
+      fontSize: {
+        // Basis opgeschaald: 'sm' is nu 16px zodat alle body-tekst minimaal 16px is
+        xs: ["0.9375rem", { lineHeight: "1.5rem" }],
+        sm: ["1rem", { lineHeight: "1.6rem" }],
+        base: ["1.0625rem", { lineHeight: "1.75rem" }],
+        lg: ["1.1875rem", { lineHeight: "1.85rem" }],
+      },
       fontFamily: {
         sans: ["Manrope", "Inter", "system-ui", "sans-serif"],
         display: ["Sora", "Manrope", "sans-serif"],
         serif: ["Sora", "Manrope", "sans-serif"],
       },
+
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
