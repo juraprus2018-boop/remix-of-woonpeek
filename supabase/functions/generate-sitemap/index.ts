@@ -156,10 +156,10 @@ function buildCitiesSitemap(
   }
 
   const propertyTypeSlugs = [
-    { slug: "appartement", type: "appartement" },
-    { slug: "huis", type: "huis" },
-    { slug: "studio", type: "studio" },
-    { slug: "kamer", type: "kamer" },
+    { slug: "appartement-huren", type: "appartement" },
+    { slug: "huis-huren", type: "huis" },
+    { slug: "studio-huren", type: "studio" },
+    { slug: "kamer-huren", type: "kamer" },
   ];
 
   const cityTypeSet = new Set<string>();
@@ -243,7 +243,7 @@ function buildCitiesSitemap(
       }
     }
     // Listing type + price/bedroom combos
-    for (const lt of [{ slug: "huren" }, { slug: "kopen" }]) {
+    for (const lt of [{ slug: "huurwoningen" }, { slug: "koopwoningen" }]) {
       for (const price of [750, 1000, 1250, 1500, 2000]) {
         xml += urlEntry(`/${lt.slug}/${citySlug}/onder-${price}`, date, "daily", "0.5");
       }
