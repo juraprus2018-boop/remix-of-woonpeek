@@ -369,6 +369,38 @@ const Header = () => {
                   </Link>
                 </div>
 
+                {/* Taalkeuze — altijd zichtbaar in het menu (ook mobiel) */}
+                <div className="mt-6 border-t-2 border-foreground/10 pt-5">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-foreground/50">
+                    {t("common.language")}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {SUPPORTED_LOCALES.map((lng) => {
+                      const target =
+                        withLocale(stripLocale(location.pathname), lng) + location.search + location.hash;
+                      return (
+                        <button
+                          key={lng}
+                          type="button"
+                          onClick={() => {
+                            close();
+                            navigate(target);
+                          }}
+                          className={`rounded-full border-2 px-4 py-2 text-sm font-bold transition-colors ${
+                            currentLocale === lng
+                              ? "border-foreground bg-foreground text-background"
+                              : "border-foreground/20 text-foreground hover:border-foreground"
+                          }`}
+                        >
+                          <span className="mr-1.5 text-xs uppercase opacity-60">{lng}</span>
+                          {LOCALE_LABELS[lng]}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+
                 {/* Account row */}
                 {user ? (
                   <div className="mt-6 flex items-center justify-between border-t-2 border-foreground/10 pt-5">
