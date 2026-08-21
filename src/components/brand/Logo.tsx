@@ -43,9 +43,10 @@ export function Logo({ className, size = "h-11 md:h-12", variant = "dark" }: Log
           strokeLinejoin="round"
         />
       </svg>
-      <span className="font-display text-[1.5em] tracking-[-0.04em]" translate="no" data-no-translate>
+      <span className="font-display text-[1.25em] tracking-[-0.04em] whitespace-nowrap sm:text-[1.5em]" translate="no" data-no-translate>
         woonaanbod<span className="text-accent font-bold">-nl.nl</span>
       </span>
+
 
     </span>
   );
