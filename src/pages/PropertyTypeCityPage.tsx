@@ -231,6 +231,24 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   {isLoading ? "Aanbod laden..." : `${totalCount} ${label.plural.toLowerCase()} gevonden`}
                 </p>
               </div>
+              <div className="inline-flex rounded-lg border bg-background p-1">
+                <Button
+                  size="sm"
+                  variant={view === "list" ? "default" : "ghost"}
+                  className="gap-2"
+                  onClick={() => setView("list")}
+                >
+                  <List className="h-4 w-4" /> Lijst
+                </Button>
+                <Button
+                  size="sm"
+                  variant={view === "map" ? "default" : "ghost"}
+                  className="gap-2"
+                  onClick={() => setView("map")}
+                >
+                  <MapIcon className="h-4 w-4" /> Kaart
+                </Button>
+              </div>
             </div>
 
             <IncomeBanner
@@ -248,12 +266,18 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               </div>
             ) : properties.length > 0 ? (
               <>
-                <div className="flex flex-col gap-5">
-                  {visibleProperties.map((property) => (
-                    <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
-                  ))}
-                </div>
-                {visibleCount < properties.length && (
+                {view === "map" ? (
+                  <div className="h-[600px] w-full overflow-hidden rounded-2xl border">
+                    <ExploreMap properties={properties as any} />
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-5">
+                    {visibleProperties.map((property) => (
+                      <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
+                    ))}
+                  </div>
+                )}
+                {view === "list" && visibleCount < properties.length && (
                   <div className="mt-8 text-center">
                     <Button className="gap-2 bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90" onClick={handleLoadMore}>
                       Meer woningen laden ({properties.length - visibleCount} resterend)
