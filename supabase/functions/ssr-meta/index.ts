@@ -224,7 +224,7 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
       ],
       breadcrumbs: [
         { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
-        { name: "Steden", url: `${ORIGIN}${withLocale("/plekken", locale)}` },
+        { name: "Steden", url: `${ORIGIN}${withLocale("/woonaanbod-per-stad", locale)}` },
         { name: city, url: `${ORIGIN}${withLocale(`/stad/${slug}`, locale)}` },
       ],
     };

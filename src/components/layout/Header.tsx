@@ -97,7 +97,7 @@ const Header = () => {
   const discoverItems = [
     { to: "/vandaag", icon: CalendarDays, label: t("nav.discoverItems.newListings") },
     { to: "/op-kaart", icon: Map, label: t("nav.discoverItems.map") },
-    { to: "/plekken", icon: MapPin, label: t("common.cities") },
+    { to: "/woonaanbod-per-stad", icon: MapPin, label: t("common.cities") },
     { to: "/woonradar", icon: Bell, label: t("nav.discoverItems.dailyAlert") },
     { to: "/woonkompas", icon: Sparkles, label: t("nav.discoverItems.quiz") },
   ];
@@ -338,7 +338,7 @@ const Header = () => {
                   ))}
                 </ul>
                 <Link
-                  to="/plekken"
+                  to="/woonaanbod-per-stad"
                   onClick={close}
                   className="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-accent hover:underline"
                 >

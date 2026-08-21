@@ -67,7 +67,7 @@ Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en meth
 
 - Home: https://www.woonaanbod-nl.nl
 - Zoeken: https://www.woonaanbod-nl.nl/vinden
-- Alle steden: https://www.woonaanbod-nl.nl/plekken
+- Alle steden: https://www.woonaanbod-nl.nl/woonaanbod-per-stad
 - Verkennen (kaart): https://www.woonaanbod-nl.nl/op-kaart
 - Nieuw aanbod: https://www.woonaanbod-nl.nl/vandaag
 - Blog: https://www.woonaanbod-nl.nl/journaal

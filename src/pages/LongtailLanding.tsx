@@ -79,7 +79,7 @@ const LongtailLanding = () => {
             <Breadcrumbs
               items={[
                 { label: "Home", href: "/" },
-                { label: "Gidsen", href: "/plekken" },
+                { label: "Gidsen", href: "/woonaanbod-per-stad" },
                 { label: page.city, href: paths.city(page.citySlug) },
                 { label: page.h1 },
               ]}

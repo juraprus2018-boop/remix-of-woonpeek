@@ -64,7 +64,7 @@ const MakelaarPage = () => {
         <Header />
         <main className="flex-1 container py-24 text-center">
           <h1 className="font-display text-4xl lowercase">makelaar niet gevonden</h1>
-          <Link to="/plekken" className="mt-6 inline-block underline">Bekijk alle steden</Link>
+          <Link to="/woonaanbod-per-stad" className="mt-6 inline-block underline">Bekijk alle steden</Link>
         </main>
         <Footer />
       </div>

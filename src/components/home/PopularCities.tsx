@@ -74,7 +74,7 @@ const PopularCities = () => {
         </div>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <Link to="/plekken">
+          <Link to="/woonaanbod-per-stad">
             <Button variant="outline" className="gap-2">
               Bekijk alle steden
               <ArrowRight className="h-4 w-4" />

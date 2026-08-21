@@ -34,7 +34,7 @@ const Cities = () => {
       <SEOHead
         title={t("meta.citiesTitle")}
         description={t("meta.citiesDesc")}
-        canonical="/plekken"
+        canonical="/woonaanbod-per-stad"
       />
       <Header />
       <main className="flex-1">

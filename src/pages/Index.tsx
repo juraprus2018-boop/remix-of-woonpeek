@@ -355,7 +355,7 @@ const Index = () => {
               </p>
             </div>
             <Link
-              to="/plekken"
+              to="/woonaanbod-per-stad"
               className="hidden shrink-0 items-center gap-1.5 text-sm font-bold text-foreground hover:text-sun md:inline-flex"
             >
               {t("home.allCities")}

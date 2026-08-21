@@ -28,7 +28,7 @@ export const ROUTES = {
   // Content
   faq: "/vragen",
   about: "/over",
-  cities: "/plekken",
+  cities: "/woonaanbod-per-stad",
   // Tools
   budget: "/budgetcheck",
   quiz: "/woonkompas",

@@ -23,15 +23,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/woning-zoeken" />
   </url>
   <url>
-    <loc>https://www.woonaanbod-nl.nl/plekken</loc>
+    <loc>https://www.woonaanbod-nl.nl/woonaanbod-per-stad</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/plekken" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.woonaanbod-nl.nl/en/plekken" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.woonaanbod-nl.nl/de/plekken" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.woonaanbod-nl.nl/fr/plekken" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/plekken" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woonaanbod-per-stad" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.woonaanbod-nl.nl/en/woonaanbod-per-stad" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.woonaanbod-nl.nl/de/woonaanbod-per-stad" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.woonaanbod-nl.nl/fr/woonaanbod-per-stad" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/woonaanbod-per-stad" />
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/op-kaart</loc>
