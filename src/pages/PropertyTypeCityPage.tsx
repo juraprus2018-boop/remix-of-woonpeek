@@ -93,6 +93,22 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
   const visibleProperties = properties.slice(0, visibleCount);
   const handleLoadMore = () => setVisibleCount((c) => c + ITEMS_PER_PAGE);
 
+  const newest = useMemo(() => {
+    if (!properties.length) return null;
+    const dates = properties
+      .map((p) => (p.created_at ? new Date(p.created_at) : null))
+      .filter((d): d is Date => !!d && !isNaN(d.getTime()));
+    if (!dates.length) return null;
+    const latest = new Date(Math.max(...dates.map((d) => d.getTime())));
+    const days = Math.floor((Date.now() - latest.getTime()) / 86400000);
+    const relative =
+      days <= 0 ? "vandaag toegevoegd" : days === 1 ? "1 dag geleden toegevoegd" : `${days} dagen geleden toegevoegd`;
+    return {
+      date: latest.toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }),
+      relative,
+    };
+  }, [properties]);
+
   const hasActiveFilters = Boolean(
     filters.listingType || filters.maxPrice || filters.minBedrooms || filters.minSurface
   );
