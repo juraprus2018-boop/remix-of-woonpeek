@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const corsHeaders = {
@@ -86,7 +87,7 @@ Deno.serve(async (req) => {
 
         let query = supabase
           .from("properties")
-          .select("id, title, city, price, listing_type, property_type, slug, street, house_number, images, surface_area, bedrooms")
+          .select("id, title, city, price, listing_type, property_type, slug, address_slug, street, house_number, images, surface_area, bedrooms")
           .eq("status", "actief")
           .gt("created_at", sinceDate)
           .order("created_at", { ascending: false })
@@ -157,7 +158,7 @@ Deno.serve(async (req) => {
       // Fetch actual properties
       let latestQuery = supabase
         .from("properties")
-        .select("id, title, city, price, listing_type, property_type, slug, street, house_number, images, surface_area, bedrooms")
+        .select("id, title, city, price, listing_type, property_type, slug, address_slug, street, house_number, images, surface_area, bedrooms")
         .eq("status", "actief")
         .gt("created_at", sinceDate)
         .order("created_at", { ascending: false })
@@ -252,7 +253,7 @@ function buildEmailHtml(
   const propertyCardsHtml = properties
     .map((p) => {
       const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(p.price);
-      const url = `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`;
+      const url = propertyUrl(p as any);
       const image = p.images && p.images.length > 0 ? p.images[0] : "";
       const details: string[] = [];
       if (p.surface_area) details.push(`${p.surface_area} m²`);

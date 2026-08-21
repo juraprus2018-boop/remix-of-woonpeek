@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -32,7 +33,7 @@ Deno.serve(async (req) => {
 
     const { data: newProperties, error } = await supabase
       .from("properties")
-      .select("slug, city")
+      .select("id, slug, address_slug, city, listing_type")
       .eq("status", "actief")
       .gte("created_at", oneDayAgo)
       .not("slug", "is", null)
@@ -100,7 +101,7 @@ Deno.serve(async (req) => {
 
     // Submit property URLs
     for (const prop of newProperties) {
-      const url = `https://www.woonaanbod-nl.nl/woning/${prop.slug}`;
+      const url = propertyUrl(prop as any);
       try {
         const res = await fetch(INDEXING_API_URL, {
           method: "POST",

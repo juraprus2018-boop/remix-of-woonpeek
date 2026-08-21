@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 // ─── KILL SWITCH ────────────────────────────────────────────────────
 // Facebook + Instagram posting is fully disabled per user request.
@@ -175,7 +176,7 @@ type PostTarget = "page" | "group" | "both";
 function buildCaption(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const propertyUrl = `${SITE_URL}/woning/${property.slug || property.id}`;
+  const propertyUrl = propertyUrl(property as any);
 
   const lines: string[] = [];
 
@@ -490,7 +491,7 @@ async function postPropertyToFacebook(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
-        link: `${SITE_URL}/woning/${property.slug || property.id}`,
+        link: propertyUrl(property as any),
         access_token: accessToken,
       }),
     });
@@ -536,7 +537,7 @@ async function postPropertyToFacebookGroup(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
-        link: `${SITE_URL}/woning/${property.slug || property.id}`,
+        link: propertyUrl(property as any),
         access_token: accessToken,
       }),
     });
@@ -704,7 +705,7 @@ Deno.serve(async (req) => {
       // Fetch unposted properties - for group posts, filter by city
       let query = supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, property_type, description, energy_label, build_year")
+        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year")
         .eq("status", "actief")
         .is("facebook_posted_at", null)
         .order("created_at", { ascending: false })
@@ -819,7 +820,7 @@ Deno.serve(async (req) => {
     if (property_id) {
       const { data: property, error } = await supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, property_type, description, energy_label, build_year, facebook_posted_at")
+        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, facebook_posted_at")
         .eq("id", property_id)
         .single();
 
