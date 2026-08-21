@@ -142,9 +142,10 @@ const Index = () => {
             onSubmit={onSearch}
             className="mx-auto max-w-5xl rounded-2xl border border-border bg-card p-4 shadow-lg md:p-6"
           >
-            <div className="grid items-end gap-4 md:grid-cols-[1.4fr_1fr_1fr_auto] md:gap-0">
+            <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:gap-0">
               {/* Locatie */}
-              <div className="md:pr-6">
+              <div className="sm:col-span-2 lg:col-span-1 lg:pr-6">
+
                 <label htmlFor="home-locatie" className="mb-1.5 block text-sm font-bold text-foreground">
                   Locatie
                 </label>
