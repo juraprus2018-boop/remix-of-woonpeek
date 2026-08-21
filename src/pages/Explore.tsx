@@ -278,6 +278,51 @@ const ExplorePage = () => {
         </div>
       </div>
 
+      {/* Woningtype + kamers */}
+      <Separator />
+      <div className="grid grid-cols-2 gap-3 p-5">
+        <div>
+          <Label className="mb-2 block text-sm font-medium">Type</Label>
+          <Select
+            value={propertyType || "all"}
+            onValueChange={(v) => setPropertyType(v === "all" ? null : v)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Alle types" />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-popover">
+              <SelectItem value="all">Alle types</SelectItem>
+              {Object.entries(PROPERTY_TYPE_LABELS).map(([value, label]) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label className="mb-2 block text-sm font-medium">Kamers</Label>
+          <Select
+            value={minBedrooms || "all"}
+            onValueChange={(v) => setMinBedrooms(v === "all" ? null : v)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Alle" />
+            </SelectTrigger>
+            <SelectContent className="z-50 bg-popover">
+              <SelectItem value="all">Alle</SelectItem>
+              <SelectItem value="1">1+ kamer</SelectItem>
+              <SelectItem value="2">2+ kamers</SelectItem>
+              <SelectItem value="3">3+ kamers</SelectItem>
+              <SelectItem value="4">4+ kamers</SelectItem>
+              <SelectItem value="5">5+ kamers</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+
+
       {/* Bron-filter direct na Aanbod, boven Postcode/Plaatsen */}
       <Separator />
       <div className="p-5">
