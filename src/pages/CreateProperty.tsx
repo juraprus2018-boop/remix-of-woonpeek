@@ -63,7 +63,7 @@ const CreateProperty = () => {
   const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
-    if (!authLoading && !user) navigate("/woning-plaatsen");
+    if (!authLoading && !user) navigate("/plaatsen-start");
   }, [authLoading, user, navigate]);
 
   useEffect(() => {
@@ -146,7 +146,7 @@ const CreateProperty = () => {
         },
       }).catch(() => {});
       toast({ title: "Woning geplaatst!", description: "Je woning is succesvol opgeslagen en staat online." });
-      navigate("/mijn-woningen");
+      navigate("/mijn-aanbod");
     } catch (error: unknown) {
       toast({ variant: "destructive", title: "Plaatsen mislukt", description: error instanceof Error ? error.message : "Onbekende fout" });
     } finally {

@@ -45,7 +45,7 @@ const HeroSection = () => {
     if (maxPrice) params.set("max_prijs", maxPrice);
     if (minBedrooms) params.set("min_kamers", minBedrooms);
     if (grossIncome && listingType !== "koop") params.set("inkomen", grossIncome);
-    navigate(`/zoeken?${params.toString()}`);
+    navigate(`/woning-zoeken?${params.toString()}`);
   };
 
   const totalProperties = activePropertiesCount ?? stats?.properties_count ?? 0;

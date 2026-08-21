@@ -40,7 +40,7 @@ const KEYWORD_LINKS: Record<string, string> = {
   appartementen: "/appartement-huren",
   "dagelijkse alert": "/dagelijkse-alert",
   woningalert: "/dagelijkse-alert",
-  "nieuw aanbod": "/nieuw-aanbod",
+  "nieuw aanbod": "/vandaag",
   "woningen zoeken": "/zoeken",
   "woning zoeken": "/zoeken",
   huurwoning: "/huurwoningen",
@@ -50,8 +50,8 @@ const KEYWORD_LINKS: Record<string, string> = {
   "huis kopen": "/koopwoningen",
   "huis huren": "/huurwoningen",
   woningmarkt: "/blog",
-  "budget tool": "/budget-tool",
-  huurprijsmonitor: "/huurprijsmonitor",
+  "budget tool": "/budgetcheck",
+  huurprijsmonitor: "/woningmarkt",
 };
 
 /**

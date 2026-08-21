@@ -43,7 +43,7 @@ const SEOContentSection = () => {
           </p>
           <p>
             Check de{" "}
-            <Link to="/huurprijsmonitor" className="text-primary hover:underline">huurprijsmonitor</Link>{" "}
+            <Link to="/woningmarkt" className="text-primary hover:underline">huurprijsmonitor</Link>{" "}
             voor wat normaal is per stad. Begin vandaag met{" "}
             <strong>huren zoeken</strong> op Woonaanbod NL. Echt gratis.
           </p>

@@ -222,7 +222,7 @@ const CityPage = () => {
               <Breadcrumbs
                 items={[
                   { label: "Home", href: "/" },
-                  { label: "Steden", href: "/steden" },
+                  { label: "Steden", href: "/plekken" },
                   { label: cityName },
                 ]}
               />
@@ -297,7 +297,7 @@ const CityPage = () => {
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 Wil je dezelfde stad bekijken in de algemene zoekomgeving of op kaart? Open dan de zoekpagina met {cityName} al voorgeselecteerd.
               </p>
-              <Link to={`/zoeken?locatie=${encodeURIComponent(cityName)}`} className="mt-5 inline-flex">
+              <Link to={`/woning-zoeken?locatie=${encodeURIComponent(cityName)}`} className="mt-5 inline-flex">
                 <Button className="gap-2">
                   Open zoeken voor {cityName}
                   <ArrowRight className="h-4 w-4" />
@@ -320,23 +320,23 @@ const CityPage = () => {
               </Link>
               {huurCount > 0 && (
                 <>
-                  <Link to={`/huurwoningen-onder-1000-${citySlug}`}>
+                  <Link to={`/budget-huur/1000/${citySlug}`}>
                     <Button variant="outline" size="sm">Huur onder €1.000</Button>
                   </Link>
-                  <Link to={`/huurwoningen-onder-1500-${citySlug}`}>
+                  <Link to={`/budget-huur/1500/${citySlug}`}>
                     <Button variant="outline" size="sm">Huur onder €1.500</Button>
                   </Link>
-                  <Link to={`/huurwoningen-onder-2000-${citySlug}`}>
+                  <Link to={`/budget-huur/2000/${citySlug}`}>
                     <Button variant="outline" size="sm">Huur onder €2.000</Button>
                   </Link>
                 </>
               )}
               {koopCount > 0 && (
                 <>
-                  <Link to={`/koopwoningen-onder-300000-${citySlug}`}>
+                  <Link to={`/budget-koop/300000/${citySlug}`}>
                     <Button variant="outline" size="sm">Koop onder €300.000</Button>
                   </Link>
-                  <Link to={`/koopwoningen-onder-500000-${citySlug}`}>
+                  <Link to={`/budget-koop/500000/${citySlug}`}>
                     <Button variant="outline" size="sm">Koop onder €500.000</Button>
                   </Link>
                 </>
@@ -522,13 +522,13 @@ const CityPage = () => {
               <Link to={`/vandaag/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                 Nieuw aanbod vandaag in {cityName}
               </Link>
-              <Link to={`/goedkoopste-huurwoningen/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+              <Link to={`/toplijst/${citySlug}/goedkoop-huur`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                 Top 10 goedkoopste huurwoningen in {cityName}
               </Link>
-              <Link to={`/grootste-huurwoningen/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+              <Link to={`/toplijst/${citySlug}/grootste-huur`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                 Top 10 grootste huurwoningen in {cityName}
               </Link>
-              <Link to={`/beste-buurten/${citySlug}`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+              <Link to={`/toplijst/${citySlug}/buurten`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                 Beste buurten van {cityName}
               </Link>
             </div>
@@ -615,7 +615,7 @@ const CityPage = () => {
                 Gebruik de{" "}
                 <Link to="/budgetcheck" className="text-primary underline hover:no-underline">budget tool</Link>{" "}
                 om te berekenen hoeveel huur je kunt betalen. Bekijk daarnaast de{" "}
-                <Link to="/huurprijsmonitor" className="text-primary underline hover:no-underline">huurprijsmonitor</Link>{" "}
+                <Link to={`/markt/${citySlug}`} className="text-primary underline hover:no-underline">huurprijsmonitor</Link>{" "}
                 voor actuele huurprijzen in {cityName} en andere steden.
               </p>
             </div>

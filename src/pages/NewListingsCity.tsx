@@ -82,7 +82,7 @@ const NewListingsCity = () => {
   const h1 = `Nieuw aanbod in ${cityName} vandaag`;
   const pageTitle = `Nieuw aanbod in ${cityName} vandaag – nieuwe woningen | Woonaanbod NL`;
   const pageDescription = `Bekijk ${totalCount} nieuwe woningen in ${cityName} van vandaag (${dateLabel}). Ontdek de nieuwste huurwoningen en koopwoningen als eerste op Woonaanbod NL.`;
-  const canonical = `https://www.woonaanbod-nl.nl/nieuw-aanbod/${citySlug}`;
+  const canonical = `/vandaag/${citySlug}`;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const jsonLd = useMemo(() => [

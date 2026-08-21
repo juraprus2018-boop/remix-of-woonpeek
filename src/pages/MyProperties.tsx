@@ -30,7 +30,7 @@ const MyProperties = () => {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      navigate("/inloggen");
+      navigate("/login");
     }
   }, [authLoading, user, navigate]);
   const { toast } = useToast();

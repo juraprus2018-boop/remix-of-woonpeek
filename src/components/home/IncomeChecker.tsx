@@ -94,7 +94,7 @@ const IncomeChecker = () => {
                 className="w-full md:w-auto"
               >
                 {isValid && nearestBracket !== null ? (
-                  <Link to={`/huur-bij-inkomen-${nearestBracket}-${city}`}>
+                  <Link to={`/inkomen/${nearestBracket}/${city}`}>
                     Bekijk woningen <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 ) : (
@@ -122,7 +122,7 @@ const IncomeChecker = () => {
             {SUGGESTED_INCOMES.map((i) => (
               <Link
                 key={i}
-                to={`/huur-bij-inkomen-${i}-${city}`}
+                to={`/inkomen/${i}/${city}`}
                 className="rounded-full border bg-background px-3 py-1 text-xs hover:border-primary hover:text-primary transition-colors"
               >
                 €{i.toLocaleString("nl-NL")} bruto
