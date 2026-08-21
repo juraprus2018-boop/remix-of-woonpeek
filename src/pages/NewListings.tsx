@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { propertyUrl } from "@/lib/propertyUrl";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -96,7 +97,7 @@ const NewListings = () => {
     itemListElement: properties.slice(0, 10).map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`,
+      url: propertyUrl(p),
     })),
   };
 

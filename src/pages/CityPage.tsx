@@ -1,4 +1,5 @@
 import { useMemo, useState, useCallback } from "react";
+import { propertyUrl } from "@/lib/propertyUrl";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -192,7 +193,7 @@ const CityPage = () => {
         itemListElement: filteredProperties.slice(0, 10).map((property, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          url: `https://www.woonaanbod-nl.nl/woning/${property.slug || property.id}`,
+          url: propertyUrl(property),
           name: property.title,
           ...(property.images?.length ? { image: property.images[0] } : {}),
         })),

@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -32,7 +33,7 @@ Deno.serve(async (req) => {
 
   const { data: property, error } = await supabase
     .from("properties")
-    .select("title, images, city, street, house_number, price, listing_type, slug, id, surface_area, bedrooms")
+    .select("title, images, city, street, house_number, price, listing_type, slug, address_slug, id, surface_area, bedrooms")
     .eq(isUuid ? "id" : "slug", slugOrId)
     .maybeSingle();
 
@@ -44,11 +45,10 @@ Deno.serve(async (req) => {
   }
 
   if (!property) {
-    return Response.redirect(`${SITE_URL}/woning/${encodeURIComponent(slugOrId)}`, 302);
+    return Response.redirect(`${SITE_URL}/woning-zoeken`, 302);
   }
 
-  const canonicalSlug = property.slug || property.id;
-  const pageUrl = `${SITE_URL}/woning/${canonicalSlug}`;
+  const pageUrl = propertyUrl(property as any);
   const ogImage = property.images?.find((img) => typeof img === "string" && img.trim() !== "") || `${SITE_URL}/facebook-cover.png`;
 
   const priceFormatted = new Intl.NumberFormat("nl-NL", {

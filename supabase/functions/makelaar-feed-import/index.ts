@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -330,7 +331,7 @@ Deno.serve(async (req) => {
             const { data: inserted, error } = await supabase
               .from("properties")
               .insert(propertyData)
-              .select("slug")
+              .select("id, slug, address_slug, city, listing_type")
               .single();
 
             if (error) {
@@ -342,8 +343,8 @@ Deno.serve(async (req) => {
               }
             } else {
               totalImported++;
-              if (inserted?.slug) {
-                allIndexNowUrls.push(`${SITE_URL}/woning/${inserted.slug}`);
+              if (inserted) {
+                allIndexNowUrls.push(propertyUrl(inserted as any));
               }
             }
           } catch (e) {

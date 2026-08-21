@@ -81,7 +81,7 @@ Deno.serve(async (req) => {
   const now = new Date();
   const monthYear = now.toLocaleDateString("nl-NL", { month: "long", year: "numeric" });
 
-  const pageUrl = `${SITE_URL}/woningen-${citySlug}`;
+  const pageUrl = `${SITE_URL}/huurwoningen/${citySlug}`;
   const title = `Huurwoningen ${cityName} - ${totalCount} te huur en te koop in ${cityName} | ${monthYear}`;
   const description = `${priceContext} in ${cityName}. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ Appartementen, huizen en studio's. Bekijk het aanbod op Woonaanbod NL.`;
 
