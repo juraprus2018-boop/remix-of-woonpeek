@@ -25,10 +25,11 @@ interface PropertyTypeCityPageProps {
 }
 
 const TYPE_LABELS: Record<PropertyType, { singular: string; plural: string; slug: string }> = {
-  appartement: { singular: "appartement", plural: "Appartementen", slug: "appartementen" },
-  huis: { singular: "huis", plural: "Huizen", slug: "huizen" },
-  studio: { singular: "studio", plural: "Studio's", slug: "studios" },
-  kamer: { singular: "kamer", plural: "Kamers", slug: "kamers" },
+  appartement: { singular: "appartement", plural: "Appartementen", slug: "appartement-huren" },
+  huis: { singular: "huis", plural: "Huizen", slug: "huis-huren" },
+  studio: { singular: "studio", plural: "Studio's", slug: "studio-huren" },
+  kamer: { singular: "kamer", plural: "Kamers", slug: "kamer-huren" },
+
 };
 
 const EMPTY_FILTERS: SearchFilterValues = {
