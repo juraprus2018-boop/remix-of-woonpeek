@@ -33,6 +33,7 @@ export const ROUTES = {
   budget: "/budgetcheck",
   quiz: "/woonkompas",
   energy: "/energie",
+  marketData: "/woningmarkt",
   // B2B
   partner: "/samenwerken",
   // Legal

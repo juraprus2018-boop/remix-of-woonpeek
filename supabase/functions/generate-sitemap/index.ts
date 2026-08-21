@@ -74,6 +74,7 @@ function buildPagesSitemap(now: string): string {
     { loc: "/plekken", changefreq: "daily", priority: "0.8" },
     { loc: "/op-kaart", changefreq: "daily", priority: "0.7" },
     { loc: "/vandaag", changefreq: "daily", priority: "0.8" },
+    { loc: "/woningmarkt", changefreq: "daily", priority: "0.9" },
     { loc: "/huurwoningen", changefreq: "daily", priority: "0.8" },
     { loc: "/koopwoningen", changefreq: "daily", priority: "0.8" },
     { loc: "/appartement-huren", changefreq: "daily", priority: "0.7" },
