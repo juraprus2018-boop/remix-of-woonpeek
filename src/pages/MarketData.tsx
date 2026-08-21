@@ -204,7 +204,9 @@ export default function MarketData() {
       />
       <Helmet>
         <script type="application/ld+json">{JSON.stringify(dataset)}</script>
-        {faqLd && <script type="application/ld+json">{JSON.stringify(faqLd)}</script>}
+      </Helmet>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqLd || {})}</script>
       </Helmet>
       <Header />
       <main>
