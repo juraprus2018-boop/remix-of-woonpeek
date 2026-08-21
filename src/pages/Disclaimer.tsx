@@ -9,7 +9,7 @@ const Disclaimer = () => {
       <SEOHead
         title="Disclaimer | Woonaanbod NL"
         description="Informatie over de juistheid van woningaanbod, aansprakelijkheid en externe bronnen op Woonaanbod NL."
-        canonical="https://www.woonaanbod-nl.nl/disclaimer"
+        canonical="/disclaimer"
       />
       <Header />
 

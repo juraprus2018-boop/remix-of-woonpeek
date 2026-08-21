@@ -24,10 +24,11 @@ interface FilteredLandingPageProps {
 }
 
 const TYPE_LABELS: Record<string, { singular: string; plural: string; slug: string }> = {
-  appartement: { singular: "appartement", plural: "Appartementen", slug: "appartementen" },
-  huis: { singular: "huis", plural: "Huizen", slug: "huizen" },
-  studio: { singular: "studio", plural: "Studio's", slug: "studios" },
-  kamer: { singular: "kamer", plural: "Kamers", slug: "kamers" },
+  appartement: { singular: "appartement", plural: "Appartementen", slug: "appartement-huren" },
+  huis: { singular: "huis", plural: "Huizen", slug: "huis-huren" },
+  studio: { singular: "studio", plural: "Studio's", slug: "studio-huren" },
+  kamer: { singular: "kamer", plural: "Kamers", slug: "kamer-huren" },
+
 };
 
 const PRICE_THRESHOLDS = [750, 1000, 1250, 1500, 2000];
@@ -156,6 +157,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     ? `https://www.woonaanbod-nl.nl/koopwoningen/${citySlug}/${filter}`
     : `https://www.woonaanbod-nl.nl/woningen/${citySlug}/${filter}`;
   const canonical = canonicalBase;
+  const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const breadcrumbs = [
     { label: "Home", href: "/" },
@@ -238,7 +240,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonical} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (

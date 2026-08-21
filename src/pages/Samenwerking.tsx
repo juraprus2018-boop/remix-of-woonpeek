@@ -26,7 +26,7 @@ const Samenwerking = () => {
       <SEOHead
         title="Samenwerking – Onze partners | Woonaanbod NL"
         description="Woonaanbod NL werkt samen met toonaangevende woningplatformen in Nederland. Bekijk onze partners en aanbieders."
-        canonical="https://www.woonaanbod-nl.nl/samenwerking"
+        canonical="/samenwerking"
       />
       <Header />
       <main className="flex-1">

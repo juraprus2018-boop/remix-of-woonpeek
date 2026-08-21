@@ -36,7 +36,7 @@ const VerhuisService = () => {
       <SEOHead
         title="Verhuisbedrijf vergelijken – Tot 40% besparen | Woonaanbod NL"
         description="Vergelijk gratis erkende verhuisbedrijven en bespaar tot 40% op je verhuizing. Ontvang binnen 24 uur tot vijf offertes van AMV-erkende verhuizers."
-        canonical="https://www.woonaanbod-nl.nl/verhuisservice"
+        canonical="/verhuisservice"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />

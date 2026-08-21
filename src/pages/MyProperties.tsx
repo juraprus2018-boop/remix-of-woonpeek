@@ -56,7 +56,7 @@ const MyProperties = () => {
       <SEOHead
         title="Mijn woningen | Woonaanbod NL"
         description="Beheer je geplaatste huur en koopwoningen op Woonaanbod NL. Bewerk, dupliceer of zet woningen op inactief."
-        canonical="https://www.woonaanbod-nl.nl/mijn-woningen"
+        canonical="/mijn-woningen"
         noindex
       />
       <Header />

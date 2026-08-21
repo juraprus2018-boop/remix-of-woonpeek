@@ -123,7 +123,7 @@ const CityGuidePage = () => {
       <SEOHead
         title={title}
         description={description}
-        canonical={`https://www.woonaanbod-nl.nl/verhuizen-naar-${city}`}
+        canonical={`/verhuizen-naar-${city}`}
       />
       <Header />
 

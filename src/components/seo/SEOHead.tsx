@@ -79,8 +79,25 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     // Canonical: prefix with current locale so each language has its own canonical.
     const locale = getLocaleFromPath(location.pathname);
     const baseUrl = CANONICAL_URL || "";
-    const bareSource = canonical ? stripLocale(canonical) : stripLocale(location.pathname);
+    // Defensive: accept absolute URLs, protocol-relative URLs or paths.
+    const toPath = (value: string) => {
+      let v = value.trim();
+      if (!v) return "/";
+      if (/^\/\//.test(v)) v = `https:${v}`;
+      if (/^https?:\/\//i.test(v)) {
+        try {
+          const u = new URL(v);
+          v = `${u.pathname}${u.search}${u.hash}`;
+        } catch {
+          v = v.replace(/^https?:\/\/[^/]*/i, "") || "/";
+        }
+      }
+      if (!v.startsWith("/")) v = `/${v}`;
+      return v;
+    };
+    const bareSource = stripLocale(toPath(canonical || location.pathname));
     const resolvedCanonical = baseUrl + withLocale(bareSource, locale);
+
 
     let canonicalEl = document.querySelector('link[rel="canonical"]');
     if (!canonicalEl) {
