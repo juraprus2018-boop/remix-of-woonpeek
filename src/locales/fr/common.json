@@ -232,6 +232,8 @@
     "alertTitle": "Soyez simplement le premier.",
     "alertSub": "Nous vous envoyons un e-mail dès qu'une location correspond à votre ville et votre budget. Sans spam, un clic pour vous désinscrire.",
     "alertBtn": "Créer mon alerte",
-    "alertFree": "100% gratuit. Sans compte."
+    "alertFree": "100% gratuit. Sans compte.",
+    "h1": "L'offre locative des Pays-Bas",
+    "h1Sub": "Des milliers de logements à louer partout aux Pays-Bas, actualisés chaque jour."
   }
 }

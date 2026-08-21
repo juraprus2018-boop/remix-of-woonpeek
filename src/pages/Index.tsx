@@ -135,18 +135,26 @@ const Index = () => {
           className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-primary-foreground/10 blur-3xl"
           aria-hidden
         />
-        <div className="container relative py-10 md:py-14">
+        <div className="container relative py-7 md:py-10">
 
-          <h1 className="sr-only">{t("meta.homeTitle")}</h1>
+          <div className="mx-auto mb-5 max-w-3xl text-center">
+            <h1 className="font-display text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl md:text-4xl">
+              {t("home.h1")}
+            </h1>
+            <p className="mt-2 text-sm text-primary-foreground/80 sm:text-base">
+              {t("home.h1Sub")}
+            </p>
+          </div>
           <form
             onSubmit={onSearch}
-            className="mx-auto max-w-5xl rounded-2xl border border-border bg-card p-4 shadow-lg md:p-6"
+            className="mx-auto max-w-4xl rounded-2xl border border-border bg-card p-3 shadow-lg md:p-4"
           >
-            <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:gap-0">
-              {/* Locatie */}
-              <div className="sm:col-span-2 lg:col-span-1 lg:pr-6">
+            <div className="grid items-end gap-3 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:gap-0">
 
-                <label htmlFor="home-locatie" className="mb-1.5 block text-sm font-bold text-foreground">
+              {/* Locatie */}
+              <div className="sm:col-span-2 lg:col-span-1 lg:pr-4">
+
+                <label htmlFor="home-locatie" className="mb-1 block text-xs font-bold text-foreground">
                   {t("home.location")}
                 </label>
                 <div className="relative">
@@ -155,7 +163,7 @@ const Index = () => {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={t("home.locationPlaceholder")}
-                    className="h-12 rounded-xl border-border bg-secondary/50 pr-10 text-base"
+                    className="h-10 rounded-xl border-border bg-secondary/50 pr-10 text-sm"
                   />
                   {query && (
                     <button
@@ -171,15 +179,15 @@ const Index = () => {
               </div>
 
               {/* Minimale prijs */}
-              <div className="lg:border-l lg:border-border lg:px-6">
-                <label htmlFor="home-min" className="mb-1.5 block text-sm font-bold text-foreground">
+              <div className="lg:border-l lg:border-border lg:px-4">
+                <label htmlFor="home-min" className="mb-1 block text-xs font-bold text-foreground">
                   {t("home.minPrice")}
                 </label>
                 <select
                   id="home-min"
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
-                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
+                  className="h-10 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
 
                 >
                   <option value="">{t("home.noMinimum")}</option>
@@ -192,15 +200,15 @@ const Index = () => {
               </div>
 
               {/* Maximale prijs */}
-              <div className="lg:px-6">
-                <label htmlFor="home-max" className="mb-1.5 block text-sm font-bold text-foreground">
+              <div className="lg:px-4">
+                <label htmlFor="home-max" className="mb-1 block text-xs font-bold text-foreground">
                   {t("home.maxPrice")}
                 </label>
                 <select
                   id="home-max"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
-                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
+                  className="h-10 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
                 >
                   <option value="">{t("home.noMaximum")}</option>
                   <option value="750">€ 750</option>
@@ -213,7 +221,7 @@ const Index = () => {
 
               <Button
                 type="submit"
-                className="h-12 w-full gap-2 rounded-xl px-7 text-base font-bold sm:col-span-2 lg:col-span-1 lg:w-auto"
+                className="h-10 w-full gap-2 rounded-xl px-6 text-sm font-bold sm:col-span-2 lg:col-span-1 lg:w-auto"
               >
                 {t("home.searchBtn")}
                 <Search className="h-4 w-4" />
