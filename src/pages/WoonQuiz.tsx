@@ -109,7 +109,7 @@ const WoonQuiz = () => {
       <SEOHead
         title="Woonquiz: vind jouw ideale woning | Woonaanbod NL"
         description="Beantwoord 5 korte vragen en ontdek welke woningen het beste bij jou passen. Direct gefilterd aanbod in heel Nederland."
-        canonical="/woonquiz"
+        canonical="/woonkompas"
       />
       <Header />
       <StockBanner

@@ -103,7 +103,7 @@ const Favorites = () => {
         <SEOHead
           title="Favoriete woningen | Woonaanbod NL"
           description="Bewaar je favoriete woningen op Woonaanbod NL. Log in om je shortlist te bekijken en te beheren."
-          canonical="/favorieten"
+          canonical="/opgeslagen"
           noindex
         />
         <Header />
@@ -139,7 +139,7 @@ const Favorites = () => {
       <SEOHead
         title="Mijn favoriete woningen | Woonaanbod NL"
         description="Bekijk en beheer je opgeslagen huur- en koopwoningen op Woonaanbod NL. Sorteer op prijs, stad of recent toegevoegd."
-        canonical="/favorieten"
+        canonical="/opgeslagen"
         noindex
       />
       <Header />

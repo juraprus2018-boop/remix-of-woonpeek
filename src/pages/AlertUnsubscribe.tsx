@@ -54,7 +54,7 @@ const AlertUnsubscribe = () => {
       <SEOHead
         title="Alert afmelden | Woonaanbod NL"
         description="Meld je af voor wekelijkse e-mailalerts van Woonaanbod NL."
-        canonical="/alerts/afmelden"
+        canonical="/radarmeldingen/uit"
       />
       <Header />
       <main className="flex-1">

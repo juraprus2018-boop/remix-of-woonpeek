@@ -45,7 +45,7 @@ const Profile = () => {
         <SEOHead
           title="Profiel | Woonaanbod NL"
           description="Beheer je profiel, accountgegevens en voorkeuren op Woonaanbod NL."
-          canonical="/profiel"
+          canonical="/account"
           noindex
         />
         <Header />
