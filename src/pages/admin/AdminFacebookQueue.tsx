@@ -106,7 +106,7 @@ function buildPostText(property: Property): string {
   }
 
   lines.push(`👉 Bekijk deze woning op Woonaanbod NL:`);
-  lines.push(propertyUrl);
+  lines.push(shareUrl);
   lines.push("");
 
   const tags: string[] = [];
