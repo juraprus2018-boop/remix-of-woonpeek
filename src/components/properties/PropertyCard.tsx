@@ -269,7 +269,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
 
             </ul>
 
-            <div className="flex items-end justify-between gap-3 md:flex-col md:items-start">
+            <div className="flex flex-wrap items-end justify-between gap-3 lg:flex-col lg:items-start">
               <div>
                 <p className="font-display text-3xl font-extrabold leading-none tracking-tight text-primary">
                   {euro(Number(property.price))}
