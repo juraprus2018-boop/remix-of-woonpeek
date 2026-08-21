@@ -5,6 +5,7 @@ import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { Database } from "@/integrations/supabase/types";
+import { propertyPath } from "@/lib/propertyUrl";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 

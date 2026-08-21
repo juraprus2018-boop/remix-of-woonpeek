@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { propertyPath } from "@/lib/propertyUrl";
 
 const fmt = (date: string | null) => {
   if (!date) return "—";

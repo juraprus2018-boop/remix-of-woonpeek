@@ -34,6 +34,7 @@ import { Search, Pencil, Trash2, Loader2, ExternalLink, Filter, Facebook, CheckC
 import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { propertyPath } from "@/lib/propertyUrl";
 
 const PAGE_SIZE = 50;
 

@@ -22,6 +22,7 @@ import {
   Settings,
 } from "lucide-react";
 import {
+import { propertyPath, propertyUrl } from "@/lib/propertyUrl";
   Dialog,
   DialogContent,
   DialogHeader,

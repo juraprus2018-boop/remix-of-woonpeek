@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Check, Trash2, Eye, EyeOff, Loader2, MessageSquare, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { propertyPath } from "@/lib/propertyUrl";
 
 const AdminComments = () => {
   const queryClient = useQueryClient();
