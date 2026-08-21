@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Link, Navigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -199,7 +200,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         itemListElement: properties.slice(0, 10).map((p, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`,
+          url: propertyUrl(p),
           name: p.title,
           ...(p.images?.length ? { image: p.images[0] } : {}),
         })),

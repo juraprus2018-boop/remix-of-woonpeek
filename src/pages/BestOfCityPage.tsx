@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Navigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/layout/Header";
@@ -225,7 +226,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
         : properties.slice(0, 10).map((p, i) => ({
             "@type": "ListItem",
             position: i + 1,
-            url: `https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`,
+            url: propertyUrl(p),
             name: p.title,
           }));
 
