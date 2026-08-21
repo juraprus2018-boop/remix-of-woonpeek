@@ -107,6 +107,7 @@ export const LEGACY_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: "/veelgestelde-vragen", to: ROUTES.faq },
   { from: "/over-woonaanbod-nl", to: ROUTES.about },
   { from: "/steden", to: ROUTES.cities },
+  { from: "/plekken", to: ROUTES.cities },
   { from: "/budget-tool", to: ROUTES.budget },
   { from: "/woonquiz", to: ROUTES.quiz },
   { from: "/energie-vergelijken", to: ROUTES.energy },
