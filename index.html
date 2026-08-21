@@ -93,6 +93,12 @@
       /* Hero shell – prevents layout shift while React hydrates */
       .hero-fallback{position:relative;min-height:480px;background:linear-gradient(180deg,#f1ece1 0%,#dce5d4 100%);overflow:hidden}
       @media(min-width:768px){.hero-fallback{min-height:640px}}
+      /* Static (build-time) homepage content for crawlers; React replaces #root on hydration */
+      .ssr-home-content{max-width:1200px;margin:0 auto;padding:24px 16px;color:#16271c;font-size:16px;line-height:1.6}
+      .ssr-home-content h1{font-family:'Sora',sans-serif;font-size:28px;font-weight:700;margin-bottom:12px}
+      .ssr-home-content h2{font-family:'Sora',sans-serif;font-size:20px;font-weight:600;margin:20px 0 8px}
+      .ssr-home-content ul{list-style:none;display:grid;gap:6px}
+      .ssr-home-content a{color:#173E63;text-decoration:underline}
     </style>
 
     <meta property="og:title" content="Woonaanbod NL – Huurwoningen & Koophuizen in Nederland" />

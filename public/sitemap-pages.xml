@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.woonaanbod-nl.nl/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/" />
@@ -13,7 +13,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/woning-zoeken</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woning-zoeken" />
@@ -24,7 +24,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/plekken</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/plekken" />
@@ -35,7 +35,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/op-kaart</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/op-kaart" />
@@ -46,7 +46,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/vandaag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/vandaag" />
@@ -57,7 +57,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/huren</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/huren" />
@@ -68,7 +68,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/kopen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/kopen" />
@@ -79,7 +79,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/appartement</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/appartement" />
@@ -90,7 +90,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/huis</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/huis" />
@@ -101,7 +101,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/studio</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/studio" />
@@ -112,7 +112,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/kamer</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/kamer" />
@@ -123,7 +123,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/plaatsen-start</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/plaatsen-start" />
@@ -134,7 +134,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/woonradar</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woonradar" />
@@ -145,7 +145,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/vragen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/vragen" />
@@ -156,7 +156,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/woordenboek</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woordenboek" />
@@ -167,7 +167,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/transparantie</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/transparantie" />
@@ -178,7 +178,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/budgetcheck</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/budgetcheck" />
@@ -189,7 +189,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuischecklist</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuischecklist" />
@@ -200,7 +200,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/energie</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/energie" />
@@ -211,7 +211,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/nieuwbouw</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/nieuwbouw" />
@@ -222,7 +222,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/hypotheek-berekenen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/hypotheek-berekenen" />
@@ -233,7 +233,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/woz-waarde</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woz-waarde" />
@@ -244,7 +244,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/internet</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/internet" />
@@ -255,7 +255,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuisservice</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuisservice" />
@@ -266,7 +266,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuiskosten</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuiskosten" />
@@ -277,7 +277,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/sociale-huur-wachttijd</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/sociale-huur-wachttijd" />
@@ -288,7 +288,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/huurcontract-uitleg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/huurcontract-uitleg" />
@@ -299,7 +299,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/expat-housing</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/expat-housing" />
@@ -310,7 +310,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-amsterdam-met-balkon</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-amsterdam-met-balkon" />
@@ -321,7 +321,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-amsterdam-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-amsterdam-met-tuin" />
@@ -332,7 +332,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/gemeubileerd-huren-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/gemeubileerd-huren-amsterdam" />
@@ -343,7 +343,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/expat-rental-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/expat-rental-amsterdam" />
@@ -354,7 +354,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/starterswoning-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/starterswoning-amsterdam" />
@@ -365,7 +365,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-rotterdam" />
@@ -376,7 +376,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-rotterdam-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-rotterdam-met-tuin" />
@@ -387,7 +387,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/starterswoning-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/starterswoning-rotterdam" />
@@ -398,7 +398,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/loft-huren-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/loft-huren-rotterdam" />
@@ -409,7 +409,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/penthouse-rotterdam-kopen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/penthouse-rotterdam-kopen" />
@@ -420,7 +420,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/studentenkamer-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/studentenkamer-utrecht" />
@@ -431,7 +431,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-utrecht" />
@@ -442,7 +442,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/starterswoning-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/starterswoning-utrecht" />
@@ -453,7 +453,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-utrecht-met-balkon</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-utrecht-met-balkon" />
@@ -464,7 +464,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-den-haag-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-den-haag-met-tuin" />
@@ -475,7 +475,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/expat-rental-the-hague</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/expat-rental-the-hague" />
@@ -486,7 +486,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huren-scheveningen-zeezicht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huren-scheveningen-zeezicht" />
@@ -497,7 +497,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/starterswoning-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/starterswoning-den-haag" />
@@ -508,7 +508,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/expat-rental-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/expat-rental-eindhoven" />
@@ -519,7 +519,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-eindhoven-met-balkon</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-eindhoven-met-balkon" />
@@ -530,7 +530,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/starterswoning-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/starterswoning-eindhoven" />
@@ -541,7 +541,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/studentenkamer-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/studentenkamer-groningen" />
@@ -552,7 +552,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huis-kopen-onder-300000-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huis-kopen-onder-300000-groningen" />
@@ -563,7 +563,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-groningen" />
@@ -574,7 +574,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/studentenkamer-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/studentenkamer-nijmegen" />
@@ -585,7 +585,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-nijmegen-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-nijmegen-met-tuin" />
@@ -596,7 +596,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-arnhem-met-balkon</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-arnhem-met-balkon" />
@@ -607,7 +607,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-arnhem" />
@@ -618,7 +618,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/studentenkamer-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/studentenkamer-tilburg" />
@@ -629,7 +629,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-breda-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-breda-met-tuin" />
@@ -640,7 +640,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-breda" />
@@ -651,7 +651,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-haarlem-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-haarlem-met-tuin" />
@@ -662,7 +662,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-haarlem" />
@@ -673,7 +673,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/studentenwoning-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/studentenwoning-leiden" />
@@ -684,7 +684,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-maastricht-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-maastricht-met-tuin" />
@@ -695,7 +695,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-maastricht" />
@@ -706,7 +706,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-almere-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-almere-met-tuin" />
@@ -717,7 +717,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/starterswoning-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/starterswoning-almere" />
@@ -728,7 +728,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-zwolle-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-zwolle-met-tuin" />
@@ -739,7 +739,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-amersfoort-met-balkon</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-amersfoort-met-balkon" />
@@ -750,7 +750,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-zaanstad</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-zaanstad" />
@@ -761,7 +761,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-leeuwarden-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-leeuwarden-met-tuin" />
@@ -772,7 +772,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-enschede</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/betaalbaar-huren-enschede" />
@@ -783,7 +783,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/studentenkamer-delft</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/studentenkamer-delft" />
@@ -794,7 +794,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-amstelveen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-amstelveen" />
@@ -805,7 +805,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-rijswijk</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-rijswijk" />
@@ -816,7 +816,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-zoetermeer</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-zoetermeer" />
@@ -827,7 +827,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-apeldoorn-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-apeldoorn-met-tuin" />
@@ -838,7 +838,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-deventer-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-deventer-met-tuin" />
@@ -849,7 +849,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-hilversum</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-hilversum" />
@@ -860,7 +860,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-groningen-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-groningen-met-tuin" />
@@ -871,7 +871,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/eengezinswoning-amstelveen-huren</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/eengezinswoning-amstelveen-huren" />
@@ -882,7 +882,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-dordrecht-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-dordrecht-met-tuin" />
@@ -893,7 +893,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-alkmaar-met-tuin</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-alkmaar-met-tuin" />
@@ -904,7 +904,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/gids/huurwoning-helmond</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/gids/huurwoning-helmond" />
@@ -915,7 +915,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/rotterdam" />
@@ -926,7 +926,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-rotterdam" />
@@ -937,7 +937,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/utrecht" />
@@ -948,7 +948,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-utrecht" />
@@ -959,7 +959,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/den-haag" />
@@ -970,7 +970,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-den-haag" />
@@ -981,7 +981,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/eindhoven" />
@@ -992,7 +992,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-eindhoven" />
@@ -1003,7 +1003,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/groningen" />
@@ -1014,7 +1014,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-groningen" />
@@ -1025,7 +1025,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/tilburg" />
@@ -1036,7 +1036,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-tilburg" />
@@ -1047,7 +1047,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/almere" />
@@ -1058,7 +1058,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-almere" />
@@ -1069,7 +1069,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/breda" />
@@ -1080,7 +1080,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-breda" />
@@ -1091,7 +1091,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/nijmegen" />
@@ -1102,7 +1102,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-nijmegen" />
@@ -1113,7 +1113,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/haarlem" />
@@ -1124,7 +1124,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-haarlem" />
@@ -1135,7 +1135,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/arnhem" />
@@ -1146,7 +1146,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-arnhem" />
@@ -1157,7 +1157,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/zwolle" />
@@ -1168,7 +1168,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-zwolle" />
@@ -1179,7 +1179,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/leiden" />
@@ -1190,7 +1190,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-leiden" />
@@ -1201,7 +1201,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/amsterdam/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/amsterdam/maastricht" />
@@ -1212,7 +1212,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/amsterdam-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/amsterdam-vs-maastricht" />
@@ -1223,7 +1223,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/amsterdam" />
@@ -1234,7 +1234,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-amsterdam" />
@@ -1245,7 +1245,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/utrecht" />
@@ -1256,7 +1256,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-utrecht" />
@@ -1267,7 +1267,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/den-haag" />
@@ -1278,7 +1278,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-den-haag" />
@@ -1289,7 +1289,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/eindhoven" />
@@ -1300,7 +1300,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-eindhoven" />
@@ -1311,7 +1311,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/groningen" />
@@ -1322,7 +1322,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-groningen" />
@@ -1333,7 +1333,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/tilburg" />
@@ -1344,7 +1344,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-tilburg" />
@@ -1355,7 +1355,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/almere" />
@@ -1366,7 +1366,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-almere" />
@@ -1377,7 +1377,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/breda" />
@@ -1388,7 +1388,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-breda" />
@@ -1399,7 +1399,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/nijmegen" />
@@ -1410,7 +1410,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-nijmegen" />
@@ -1421,7 +1421,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/haarlem" />
@@ -1432,7 +1432,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-haarlem" />
@@ -1443,7 +1443,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/arnhem" />
@@ -1454,7 +1454,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-arnhem" />
@@ -1465,7 +1465,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/zwolle" />
@@ -1476,7 +1476,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-zwolle" />
@@ -1487,7 +1487,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/leiden" />
@@ -1498,7 +1498,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-leiden" />
@@ -1509,7 +1509,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/rotterdam/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/rotterdam/maastricht" />
@@ -1520,7 +1520,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/rotterdam-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/rotterdam-vs-maastricht" />
@@ -1531,7 +1531,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/amsterdam" />
@@ -1542,7 +1542,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-amsterdam" />
@@ -1553,7 +1553,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/rotterdam" />
@@ -1564,7 +1564,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-rotterdam" />
@@ -1575,7 +1575,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/den-haag" />
@@ -1586,7 +1586,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-den-haag" />
@@ -1597,7 +1597,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/eindhoven" />
@@ -1608,7 +1608,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-eindhoven" />
@@ -1619,7 +1619,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/groningen" />
@@ -1630,7 +1630,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-groningen" />
@@ -1641,7 +1641,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/tilburg" />
@@ -1652,7 +1652,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-tilburg" />
@@ -1663,7 +1663,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/almere" />
@@ -1674,7 +1674,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-almere" />
@@ -1685,7 +1685,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/breda" />
@@ -1696,7 +1696,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-breda" />
@@ -1707,7 +1707,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/nijmegen" />
@@ -1718,7 +1718,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-nijmegen" />
@@ -1729,7 +1729,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/haarlem" />
@@ -1740,7 +1740,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-haarlem" />
@@ -1751,7 +1751,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/arnhem" />
@@ -1762,7 +1762,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-arnhem" />
@@ -1773,7 +1773,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/zwolle" />
@@ -1784,7 +1784,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-zwolle" />
@@ -1795,7 +1795,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/leiden" />
@@ -1806,7 +1806,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-leiden" />
@@ -1817,7 +1817,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/utrecht/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/utrecht/maastricht" />
@@ -1828,7 +1828,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/utrecht-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/utrecht-vs-maastricht" />
@@ -1839,7 +1839,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/amsterdam" />
@@ -1850,7 +1850,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-amsterdam" />
@@ -1861,7 +1861,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/rotterdam" />
@@ -1872,7 +1872,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-rotterdam" />
@@ -1883,7 +1883,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/utrecht" />
@@ -1894,7 +1894,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-utrecht" />
@@ -1905,7 +1905,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/eindhoven" />
@@ -1916,7 +1916,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-eindhoven" />
@@ -1927,7 +1927,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/groningen" />
@@ -1938,7 +1938,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-groningen" />
@@ -1949,7 +1949,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/tilburg" />
@@ -1960,7 +1960,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-tilburg" />
@@ -1971,7 +1971,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/almere" />
@@ -1982,7 +1982,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-almere" />
@@ -1993,7 +1993,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/breda" />
@@ -2004,7 +2004,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-breda" />
@@ -2015,7 +2015,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/nijmegen" />
@@ -2026,7 +2026,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-nijmegen" />
@@ -2037,7 +2037,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/haarlem" />
@@ -2048,7 +2048,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-haarlem" />
@@ -2059,7 +2059,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/arnhem" />
@@ -2070,7 +2070,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-arnhem" />
@@ -2081,7 +2081,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/zwolle" />
@@ -2092,7 +2092,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-zwolle" />
@@ -2103,7 +2103,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/leiden" />
@@ -2114,7 +2114,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-leiden" />
@@ -2125,7 +2125,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/den-haag/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/den-haag/maastricht" />
@@ -2136,7 +2136,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/den-haag-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/den-haag-vs-maastricht" />
@@ -2147,7 +2147,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/amsterdam" />
@@ -2158,7 +2158,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-amsterdam" />
@@ -2169,7 +2169,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/rotterdam" />
@@ -2180,7 +2180,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-rotterdam" />
@@ -2191,7 +2191,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/utrecht" />
@@ -2202,7 +2202,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-utrecht" />
@@ -2213,7 +2213,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/den-haag" />
@@ -2224,7 +2224,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-den-haag" />
@@ -2235,7 +2235,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/groningen" />
@@ -2246,7 +2246,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-groningen" />
@@ -2257,7 +2257,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/tilburg" />
@@ -2268,7 +2268,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-tilburg" />
@@ -2279,7 +2279,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/almere" />
@@ -2290,7 +2290,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-almere" />
@@ -2301,7 +2301,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/breda" />
@@ -2312,7 +2312,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-breda" />
@@ -2323,7 +2323,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/nijmegen" />
@@ -2334,7 +2334,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-nijmegen" />
@@ -2345,7 +2345,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/haarlem" />
@@ -2356,7 +2356,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-haarlem" />
@@ -2367,7 +2367,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/arnhem" />
@@ -2378,7 +2378,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-arnhem" />
@@ -2389,7 +2389,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/zwolle" />
@@ -2400,7 +2400,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-zwolle" />
@@ -2411,7 +2411,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/leiden" />
@@ -2422,7 +2422,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-leiden" />
@@ -2433,7 +2433,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/eindhoven/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/eindhoven/maastricht" />
@@ -2444,7 +2444,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/eindhoven-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/eindhoven-vs-maastricht" />
@@ -2455,7 +2455,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/amsterdam" />
@@ -2466,7 +2466,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-amsterdam" />
@@ -2477,7 +2477,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/rotterdam" />
@@ -2488,7 +2488,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-rotterdam" />
@@ -2499,7 +2499,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/utrecht" />
@@ -2510,7 +2510,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-utrecht" />
@@ -2521,7 +2521,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/den-haag" />
@@ -2532,7 +2532,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-den-haag" />
@@ -2543,7 +2543,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/eindhoven" />
@@ -2554,7 +2554,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-eindhoven" />
@@ -2565,7 +2565,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/tilburg" />
@@ -2576,7 +2576,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-tilburg" />
@@ -2587,7 +2587,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/almere" />
@@ -2598,7 +2598,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-almere" />
@@ -2609,7 +2609,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/breda" />
@@ -2620,7 +2620,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-breda" />
@@ -2631,7 +2631,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/nijmegen" />
@@ -2642,7 +2642,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-nijmegen" />
@@ -2653,7 +2653,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/haarlem" />
@@ -2664,7 +2664,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-haarlem" />
@@ -2675,7 +2675,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/arnhem" />
@@ -2686,7 +2686,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-arnhem" />
@@ -2697,7 +2697,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/zwolle" />
@@ -2708,7 +2708,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-zwolle" />
@@ -2719,7 +2719,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/leiden" />
@@ -2730,7 +2730,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-leiden" />
@@ -2741,7 +2741,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/groningen/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/groningen/maastricht" />
@@ -2752,7 +2752,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/groningen-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/groningen-vs-maastricht" />
@@ -2763,7 +2763,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/amsterdam" />
@@ -2774,7 +2774,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-amsterdam" />
@@ -2785,7 +2785,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/rotterdam" />
@@ -2796,7 +2796,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-rotterdam" />
@@ -2807,7 +2807,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/utrecht" />
@@ -2818,7 +2818,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-utrecht" />
@@ -2829,7 +2829,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/den-haag" />
@@ -2840,7 +2840,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-den-haag" />
@@ -2851,7 +2851,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/eindhoven" />
@@ -2862,7 +2862,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-eindhoven" />
@@ -2873,7 +2873,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/groningen" />
@@ -2884,7 +2884,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-groningen" />
@@ -2895,7 +2895,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/almere" />
@@ -2906,7 +2906,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-almere" />
@@ -2917,7 +2917,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/breda" />
@@ -2928,7 +2928,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-breda" />
@@ -2939,7 +2939,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/nijmegen" />
@@ -2950,7 +2950,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-nijmegen" />
@@ -2961,7 +2961,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/haarlem" />
@@ -2972,7 +2972,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-haarlem" />
@@ -2983,7 +2983,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/arnhem" />
@@ -2994,7 +2994,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-arnhem" />
@@ -3005,7 +3005,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/zwolle" />
@@ -3016,7 +3016,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-zwolle" />
@@ -3027,7 +3027,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/leiden" />
@@ -3038,7 +3038,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-leiden" />
@@ -3049,7 +3049,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/tilburg/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/tilburg/maastricht" />
@@ -3060,7 +3060,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/tilburg-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/tilburg-vs-maastricht" />
@@ -3071,7 +3071,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/amsterdam" />
@@ -3082,7 +3082,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-amsterdam" />
@@ -3093,7 +3093,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/rotterdam" />
@@ -3104,7 +3104,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-rotterdam" />
@@ -3115,7 +3115,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/utrecht" />
@@ -3126,7 +3126,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-utrecht" />
@@ -3137,7 +3137,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/den-haag" />
@@ -3148,7 +3148,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-den-haag" />
@@ -3159,7 +3159,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/eindhoven" />
@@ -3170,7 +3170,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-eindhoven" />
@@ -3181,7 +3181,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/groningen" />
@@ -3192,7 +3192,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-groningen" />
@@ -3203,7 +3203,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/tilburg" />
@@ -3214,7 +3214,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-tilburg" />
@@ -3225,7 +3225,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/breda" />
@@ -3236,7 +3236,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-breda" />
@@ -3247,7 +3247,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/nijmegen" />
@@ -3258,7 +3258,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-nijmegen" />
@@ -3269,7 +3269,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/haarlem" />
@@ -3280,7 +3280,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-haarlem" />
@@ -3291,7 +3291,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/arnhem" />
@@ -3302,7 +3302,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-arnhem" />
@@ -3313,7 +3313,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/zwolle" />
@@ -3324,7 +3324,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-zwolle" />
@@ -3335,7 +3335,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/leiden" />
@@ -3346,7 +3346,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-leiden" />
@@ -3357,7 +3357,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/almere/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/almere/maastricht" />
@@ -3368,7 +3368,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/almere-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/almere-vs-maastricht" />
@@ -3379,7 +3379,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/amsterdam" />
@@ -3390,7 +3390,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-amsterdam" />
@@ -3401,7 +3401,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/rotterdam" />
@@ -3412,7 +3412,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-rotterdam" />
@@ -3423,7 +3423,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/utrecht" />
@@ -3434,7 +3434,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-utrecht" />
@@ -3445,7 +3445,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/den-haag" />
@@ -3456,7 +3456,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-den-haag" />
@@ -3467,7 +3467,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/eindhoven" />
@@ -3478,7 +3478,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-eindhoven" />
@@ -3489,7 +3489,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/groningen" />
@@ -3500,7 +3500,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-groningen" />
@@ -3511,7 +3511,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/tilburg" />
@@ -3522,7 +3522,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-tilburg" />
@@ -3533,7 +3533,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/almere" />
@@ -3544,7 +3544,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-almere" />
@@ -3555,7 +3555,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/nijmegen" />
@@ -3566,7 +3566,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-nijmegen" />
@@ -3577,7 +3577,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/haarlem" />
@@ -3588,7 +3588,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-haarlem" />
@@ -3599,7 +3599,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/arnhem" />
@@ -3610,7 +3610,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-arnhem" />
@@ -3621,7 +3621,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/zwolle" />
@@ -3632,7 +3632,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-zwolle" />
@@ -3643,7 +3643,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/leiden" />
@@ -3654,7 +3654,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-leiden" />
@@ -3665,7 +3665,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/breda/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/breda/maastricht" />
@@ -3676,7 +3676,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/breda-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/breda-vs-maastricht" />
@@ -3687,7 +3687,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/amsterdam" />
@@ -3698,7 +3698,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-amsterdam" />
@@ -3709,7 +3709,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/rotterdam" />
@@ -3720,7 +3720,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-rotterdam" />
@@ -3731,7 +3731,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/utrecht" />
@@ -3742,7 +3742,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-utrecht" />
@@ -3753,7 +3753,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/den-haag" />
@@ -3764,7 +3764,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-den-haag" />
@@ -3775,7 +3775,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/eindhoven" />
@@ -3786,7 +3786,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-eindhoven" />
@@ -3797,7 +3797,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/groningen" />
@@ -3808,7 +3808,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-groningen" />
@@ -3819,7 +3819,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/tilburg" />
@@ -3830,7 +3830,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-tilburg" />
@@ -3841,7 +3841,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/almere" />
@@ -3852,7 +3852,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-almere" />
@@ -3863,7 +3863,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/breda" />
@@ -3874,7 +3874,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-breda" />
@@ -3885,7 +3885,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/haarlem" />
@@ -3896,7 +3896,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-haarlem" />
@@ -3907,7 +3907,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/arnhem" />
@@ -3918,7 +3918,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-arnhem" />
@@ -3929,7 +3929,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/zwolle" />
@@ -3940,7 +3940,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-zwolle" />
@@ -3951,7 +3951,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/leiden" />
@@ -3962,7 +3962,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-leiden" />
@@ -3973,7 +3973,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/nijmegen/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/nijmegen/maastricht" />
@@ -3984,7 +3984,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/nijmegen-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/nijmegen-vs-maastricht" />
@@ -3995,7 +3995,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/amsterdam" />
@@ -4006,7 +4006,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-amsterdam" />
@@ -4017,7 +4017,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/rotterdam" />
@@ -4028,7 +4028,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-rotterdam" />
@@ -4039,7 +4039,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/utrecht" />
@@ -4050,7 +4050,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-utrecht" />
@@ -4061,7 +4061,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/den-haag" />
@@ -4072,7 +4072,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-den-haag" />
@@ -4083,7 +4083,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/eindhoven" />
@@ -4094,7 +4094,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-eindhoven" />
@@ -4105,7 +4105,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/groningen" />
@@ -4116,7 +4116,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-groningen" />
@@ -4127,7 +4127,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/tilburg" />
@@ -4138,7 +4138,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-tilburg" />
@@ -4149,7 +4149,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/almere" />
@@ -4160,7 +4160,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-almere" />
@@ -4171,7 +4171,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/breda" />
@@ -4182,7 +4182,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-breda" />
@@ -4193,7 +4193,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/nijmegen" />
@@ -4204,7 +4204,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-nijmegen" />
@@ -4215,7 +4215,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/arnhem" />
@@ -4226,7 +4226,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-arnhem" />
@@ -4237,7 +4237,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/zwolle" />
@@ -4248,7 +4248,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-zwolle" />
@@ -4259,7 +4259,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/leiden" />
@@ -4270,7 +4270,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-leiden" />
@@ -4281,7 +4281,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/haarlem/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/haarlem/maastricht" />
@@ -4292,7 +4292,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/haarlem-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/haarlem-vs-maastricht" />
@@ -4303,7 +4303,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/amsterdam" />
@@ -4314,7 +4314,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-amsterdam" />
@@ -4325,7 +4325,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/rotterdam" />
@@ -4336,7 +4336,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-rotterdam" />
@@ -4347,7 +4347,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/utrecht" />
@@ -4358,7 +4358,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-utrecht" />
@@ -4369,7 +4369,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/den-haag" />
@@ -4380,7 +4380,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-den-haag" />
@@ -4391,7 +4391,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/eindhoven" />
@@ -4402,7 +4402,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-eindhoven" />
@@ -4413,7 +4413,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/groningen" />
@@ -4424,7 +4424,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-groningen" />
@@ -4435,7 +4435,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/tilburg" />
@@ -4446,7 +4446,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-tilburg" />
@@ -4457,7 +4457,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/almere" />
@@ -4468,7 +4468,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-almere" />
@@ -4479,7 +4479,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/breda" />
@@ -4490,7 +4490,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-breda" />
@@ -4501,7 +4501,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/nijmegen" />
@@ -4512,7 +4512,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-nijmegen" />
@@ -4523,7 +4523,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/haarlem" />
@@ -4534,7 +4534,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-haarlem" />
@@ -4545,7 +4545,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/zwolle" />
@@ -4556,7 +4556,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-zwolle" />
@@ -4567,7 +4567,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/leiden" />
@@ -4578,7 +4578,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-leiden" />
@@ -4589,7 +4589,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/arnhem/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/arnhem/maastricht" />
@@ -4600,7 +4600,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/arnhem-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/arnhem-vs-maastricht" />
@@ -4611,7 +4611,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/amsterdam" />
@@ -4622,7 +4622,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-amsterdam" />
@@ -4633,7 +4633,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/rotterdam" />
@@ -4644,7 +4644,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-rotterdam" />
@@ -4655,7 +4655,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/utrecht" />
@@ -4666,7 +4666,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-utrecht" />
@@ -4677,7 +4677,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/den-haag" />
@@ -4688,7 +4688,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-den-haag" />
@@ -4699,7 +4699,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/eindhoven" />
@@ -4710,7 +4710,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-eindhoven" />
@@ -4721,7 +4721,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/groningen" />
@@ -4732,7 +4732,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-groningen" />
@@ -4743,7 +4743,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/tilburg" />
@@ -4754,7 +4754,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-tilburg" />
@@ -4765,7 +4765,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/almere" />
@@ -4776,7 +4776,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-almere" />
@@ -4787,7 +4787,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/breda" />
@@ -4798,7 +4798,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-breda" />
@@ -4809,7 +4809,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/nijmegen" />
@@ -4820,7 +4820,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-nijmegen" />
@@ -4831,7 +4831,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/haarlem" />
@@ -4842,7 +4842,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-haarlem" />
@@ -4853,7 +4853,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/arnhem" />
@@ -4864,7 +4864,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-arnhem" />
@@ -4875,7 +4875,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/leiden" />
@@ -4886,7 +4886,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-leiden" />
@@ -4897,7 +4897,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/zwolle/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/zwolle/maastricht" />
@@ -4908,7 +4908,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/zwolle-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/zwolle-vs-maastricht" />
@@ -4919,7 +4919,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/amsterdam" />
@@ -4930,7 +4930,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-amsterdam" />
@@ -4941,7 +4941,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/rotterdam" />
@@ -4952,7 +4952,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-rotterdam" />
@@ -4963,7 +4963,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/utrecht" />
@@ -4974,7 +4974,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-utrecht" />
@@ -4985,7 +4985,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/den-haag" />
@@ -4996,7 +4996,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-den-haag" />
@@ -5007,7 +5007,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/eindhoven" />
@@ -5018,7 +5018,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-eindhoven" />
@@ -5029,7 +5029,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/groningen" />
@@ -5040,7 +5040,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-groningen" />
@@ -5051,7 +5051,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/tilburg" />
@@ -5062,7 +5062,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-tilburg" />
@@ -5073,7 +5073,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/almere" />
@@ -5084,7 +5084,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-almere" />
@@ -5095,7 +5095,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/breda" />
@@ -5106,7 +5106,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-breda" />
@@ -5117,7 +5117,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/nijmegen" />
@@ -5128,7 +5128,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-nijmegen" />
@@ -5139,7 +5139,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/haarlem" />
@@ -5150,7 +5150,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-haarlem" />
@@ -5161,7 +5161,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/arnhem" />
@@ -5172,7 +5172,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-arnhem" />
@@ -5183,7 +5183,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/zwolle" />
@@ -5194,7 +5194,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-zwolle" />
@@ -5205,7 +5205,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/leiden/maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/leiden/maastricht" />
@@ -5216,7 +5216,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/leiden-vs-maastricht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/leiden-vs-maastricht" />
@@ -5227,7 +5227,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/amsterdam" />
@@ -5238,7 +5238,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-amsterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-amsterdam" />
@@ -5249,7 +5249,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/rotterdam" />
@@ -5260,7 +5260,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-rotterdam</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-rotterdam" />
@@ -5271,7 +5271,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/utrecht" />
@@ -5282,7 +5282,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-utrecht</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-utrecht" />
@@ -5293,7 +5293,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/den-haag" />
@@ -5304,7 +5304,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-den-haag</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-den-haag" />
@@ -5315,7 +5315,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/eindhoven" />
@@ -5326,7 +5326,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-eindhoven</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-eindhoven" />
@@ -5337,7 +5337,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/groningen" />
@@ -5348,7 +5348,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-groningen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-groningen" />
@@ -5359,7 +5359,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/tilburg" />
@@ -5370,7 +5370,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-tilburg</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-tilburg" />
@@ -5381,7 +5381,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/almere" />
@@ -5392,7 +5392,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-almere</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-almere" />
@@ -5403,7 +5403,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/breda" />
@@ -5414,7 +5414,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-breda</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-breda" />
@@ -5425,7 +5425,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/nijmegen" />
@@ -5436,7 +5436,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-nijmegen</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-nijmegen" />
@@ -5447,7 +5447,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/haarlem" />
@@ -5458,7 +5458,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-haarlem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-haarlem" />
@@ -5469,7 +5469,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/arnhem" />
@@ -5480,7 +5480,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-arnhem</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-arnhem" />
@@ -5491,7 +5491,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/zwolle" />
@@ -5502,7 +5502,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-zwolle</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-zwolle" />
@@ -5513,7 +5513,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/verhuizen/maastricht/leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/verhuizen/maastricht/leiden" />
@@ -5524,7 +5524,7 @@
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/duel/maastricht-vs-leiden</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-leiden" />
