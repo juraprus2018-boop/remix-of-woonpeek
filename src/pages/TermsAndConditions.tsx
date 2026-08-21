@@ -9,7 +9,7 @@ const TermsAndConditions = () => {
       <SEOHead
         title="Algemene voorwaarden | Woonaanbod NL"
         description="De algemene voorwaarden van Woonaanbod NL. Regels voor het gebruik van ons platform, advertenties, aansprakelijkheid en intellectueel eigendom."
-        canonical="/algemene-voorwaarden"
+        canonical="/voorwaarden"
       />
       <Header />
 
