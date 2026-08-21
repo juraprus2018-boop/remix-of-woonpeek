@@ -155,7 +155,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), sitemapPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), sitemapPlugin(), prerenderHomeContentPlugin(), mode === "development" && componentTagger()].filter(Boolean),
 
   resolve: {
     alias: {
