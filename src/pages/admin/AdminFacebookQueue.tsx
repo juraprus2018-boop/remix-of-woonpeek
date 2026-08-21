@@ -21,14 +21,15 @@ import {
   Trash2,
   Settings,
 } from "lucide-react";
-import {
 import { propertyPath, propertyUrl } from "@/lib/propertyUrl";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
 
 const SITE_URL = "https://www.woonaanbod-nl.nl";
 
