@@ -374,60 +374,78 @@ const PropertyDetail = () => {
           </div>
         )}
 
-        {/* ── Photo Gallery (full-width hero) ── */}
-        <section ref={galleryRef} className="bg-sun-tint">
-          <div className="w-full">
-            <div className="relative cursor-pointer overflow-hidden border-y-2 border-foreground" onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}>
-              {images.length >= 3 ? (
-                <div className="grid h-[380px] grid-cols-4 gap-1 md:h-[560px] lg:h-[640px]">
-                  <div className="col-span-2 row-span-2 overflow-hidden">
-                    <img src={optimizeImage(images[0], { width: 1600, quality: 85 })} alt={property.title} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                  </div>
-                  <div className="col-span-1 overflow-hidden">
-                    <img src={optimizeImage(images[1], { width: 900, quality: 82 })} alt={`${property.title} - foto 2`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                  </div>
-                  <div className="col-span-1 overflow-hidden">
-                    <img src={optimizeImage(images[2], { width: 900, quality: 82 })} alt={`${property.title} - foto 3`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                  </div>
-                  {images.length >= 5 ? (
-                    <>
-                      <div className="col-span-1 overflow-hidden">
-                        <img src={optimizeImage(images[3], { width: 900, quality: 82 })} alt={`${property.title} - foto 4`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                      </div>
-                      <div className="relative col-span-1 overflow-hidden">
-                        <img src={optimizeImage(images[4], { width: 900, quality: 82 })} alt={`${property.title} - foto 5`} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                        {images.length > 5 && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-foreground/75 text-lg font-bold text-sun">
-                            +{images.length - 5} foto's
-                          </div>
+        {/* ── Photo Gallery ── */}
+        <section ref={galleryRef} className="bg-background pt-6">
+          <div className="container">
+            {images.length > 1 ? (
+              <div className="grid gap-3 lg:grid-cols-3">
+                {/* Hoofdfoto */}
+                <button
+                  type="button"
+                  onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}
+                  className="group relative col-span-1 overflow-hidden rounded-2xl border border-border lg:col-span-2"
+                >
+                  <img
+                    src={optimizeImage(images[0], { width: 1600, quality: 86 })}
+                    alt={property.title}
+                    loading="eager"
+                    decoding="async"
+                    className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[340px] lg:h-[480px]"
+                    onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
+                  />
+                </button>
+
+                {/* Twee thumbnails rechts */}
+                <div className="grid grid-cols-2 gap-3 lg:grid-cols-1">
+                  {[1, 2].map((idx) => {
+                    const img = images[idx] ?? images[0];
+                    const isLast = idx === 2;
+                    const remaining = images.length - 3;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => { setLightboxOpen(true); setCurrentImageIndex(images[idx] ? idx : 0); }}
+                        className="group relative overflow-hidden rounded-2xl border border-border"
+                      >
+                        <img
+                          src={optimizeImage(img, { width: 900, quality: 82 })}
+                          alt={`${property.title} - foto ${idx + 1}`}
+                          loading="eager"
+                          decoding="async"
+                          className="h-[125px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[164px] lg:h-[234px]"
+                          onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
+                        />
+                        {isLast && remaining > 0 && (
+                          <span className="absolute inset-0 flex items-center justify-center gap-2 bg-foreground/55 text-lg font-bold text-background backdrop-blur-[1px]">
+                            <Search className="h-5 w-5" />
+                            +{remaining}
+                          </span>
                         )}
-                      </div>
-                    </>
-                  ) : images.length === 4 ? (
-                    <div className="col-span-2 overflow-hidden">
-                      <img src={optimizeImage(images[3], { width: 1200, quality: 82 })} alt={`${property.title} - foto 4`} loading="eager" decoding="async" className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.02]" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                    </div>
-                  ) : null}
+                      </button>
+                    );
+                  })}
                 </div>
-              ) : images.length === 2 ? (
-                <div className="grid h-[380px] grid-cols-2 gap-1 md:h-[560px] lg:h-[640px]">
-                  <div className="overflow-hidden"><img src={optimizeImage(images[0], { width: 1400, quality: 85 })} alt={property.title} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
-                  <div className="overflow-hidden"><img src={optimizeImage(images[1], { width: 1400, quality: 85 })} alt={`${property.title} - foto 2`} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} /></div>
-                </div>
-              ) : (
-                <div className="h-[380px] overflow-hidden md:h-[560px] lg:h-[640px]">
-                  <img src={optimizeImage(images[0], { width: 1920, quality: 88 })} alt={property.title} loading="eager" decoding="async" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
-                </div>
-              )}
-              {images.length > 1 && (
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-sun px-4 py-2 text-sm font-bold text-foreground shadow-lg ring-2 ring-foreground">
-                  <Camera className="h-4 w-4" />
-                  Alle {images.length} foto's
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => { setLightboxOpen(true); setCurrentImageIndex(0); }}
+                className="group relative block w-full overflow-hidden rounded-2xl border border-border"
+              >
+                <img
+                  src={optimizeImage(images[0], { width: 1920, quality: 88 })}
+                  alt={property.title}
+                  loading="eager"
+                  decoding="async"
+                  className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] sm:h-[380px] lg:h-[480px]"
+                  onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
+                />
+              </button>
+            )}
           </div>
         </section>
+
 
         {/* Lightbox */}
         <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
