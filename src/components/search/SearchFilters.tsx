@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -38,16 +39,16 @@ interface SearchFiltersProps {
   horizontal?: boolean;
 }
 
-const propertyTypeLabels: Record<string, string> = {
-  appartement: "Appartement",
-  huis: "Huis",
-  studio: "Studio",
-  kamer: "Kamer",
+const propertyTypeKeys: Record<string, string> = {
+  appartement: "filters.typeApartment",
+  huis: "filters.typeHouse",
+  studio: "filters.typeStudio",
+  kamer: "filters.typeRoom",
 };
 
-const listingTypeLabels: Record<string, string> = {
-  huur: "Te huur",
-  koop: "Te koop",
+const listingTypeKeys: Record<string, string> = {
+  huur: "filters.forRent",
+  koop: "filters.forSale",
 };
 
 const priceOptions = [750, 1000, 1250, 1500, 2000, 2500, 3000, 4000, 5000];
@@ -60,6 +61,13 @@ const SearchFilters = ({
   facets,
   horizontal = false,
 }: SearchFiltersProps) => {
+  const { t } = useTranslation();
+  const propertyTypeLabels: Record<string, string> = Object.fromEntries(
+    Object.entries(propertyTypeKeys).map(([k, v]) => [k, t(v)])
+  );
+  const listingTypeLabels: Record<string, string> = Object.fromEntries(
+    Object.entries(listingTypeKeys).map(([k, v]) => [k, t(v)])
+  );
   const update = (patch: Partial<SearchFilterValues>) => {
     onChange({ ...filters, ...patch });
   };
@@ -98,11 +106,11 @@ const SearchFilters = ({
       <div className="flex flex-wrap items-end gap-3">
         {!hideLocation && (
           <div className={fieldClass}>
-            <Label className="text-xs">Locatie</Label>
+            <Label className="text-xs">{t("filters.location")}</Label>
             <div className="relative">
               <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Stad of postcode"
+                placeholder={t("filters.locationPlaceholder")}
                 value={filters.city}
                 onChange={(e) => update({ city: e.target.value })}
                 className="h-10 pl-10"
@@ -113,12 +121,12 @@ const SearchFilters = ({
 
         {availablePropertyTypes.length > 1 && (
           <div className={fieldClass}>
-            <Label className="text-xs">Type woning</Label>
+            <Label className="text-xs">{t("filters.propertyType")}</Label>
             <Select
               value={filters.propertyType}
               onValueChange={(value: PropertyType | "") => update({ propertyType: value })}
             >
-              <SelectTrigger className="h-10"><SelectValue placeholder="Alle types" /></SelectTrigger>
+              <SelectTrigger className="h-10"><SelectValue placeholder={t("filters.allTypes")} /></SelectTrigger>
               <SelectContent>
                 {availablePropertyTypes.map((type) => (
                   <SelectItem key={type} value={type}>{propertyTypeLabels[type]}</SelectItem>
@@ -130,12 +138,12 @@ const SearchFilters = ({
 
         {availableListingTypes.length > 1 && (
           <div className={fieldClass}>
-            <Label className="text-xs">Aanbod</Label>
+            <Label className="text-xs">{t("filters.offer")}</Label>
             <Select
               value={filters.listingType}
               onValueChange={(value: ListingType | "") => update({ listingType: value })}
             >
-              <SelectTrigger className="h-10"><SelectValue placeholder="Koop & Huur" /></SelectTrigger>
+              <SelectTrigger className="h-10"><SelectValue placeholder={t("filters.buyRent")} /></SelectTrigger>
               <SelectContent>
                 {availableListingTypes.map((type) => (
                   <SelectItem key={type} value={type}>{listingTypeLabels[type]}</SelectItem>
@@ -146,13 +154,13 @@ const SearchFilters = ({
         )}
 
         <div className={fieldClass}>
-          <Label className="text-xs">Max. prijs</Label>
+          <Label className="text-xs">{t("filters.maxPrice")}</Label>
           <Select
             value={filters.maxPrice ? String(filters.maxPrice) : ""}
             onValueChange={(value) => update({ maxPrice: value ? Number(value) : undefined })}
           >
             <SelectTrigger className="h-10">
-              <SelectValue placeholder="Geen limiet" />
+              <SelectValue placeholder={t("filters.noLimit")} />
             </SelectTrigger>
             <SelectContent>
               {availablePrices.map((p) => (
@@ -164,12 +172,12 @@ const SearchFilters = ({
 
         {availableBedrooms.length > 0 && (
           <div className={fieldClass}>
-            <Label className="text-xs">Slaapkamers</Label>
+            <Label className="text-xs">{t("filters.bedrooms")}</Label>
             <Select
               value={filters.minBedrooms?.toString() || ""}
               onValueChange={(value) => update({ minBedrooms: value ? Number(value) : undefined })}
             >
-              <SelectTrigger className="h-10"><SelectValue placeholder="Min." /></SelectTrigger>
+              <SelectTrigger className="h-10"><SelectValue placeholder={t("filters.minShort")} /></SelectTrigger>
               <SelectContent>
                 {availableBedrooms.map((num) => (
                   <SelectItem key={num} value={String(num)}>{num}+</SelectItem>
@@ -181,12 +189,12 @@ const SearchFilters = ({
 
         {availableSurfaces.length > 0 && (
           <div className={fieldClass}>
-            <Label className="text-xs">Oppervlakte</Label>
+            <Label className="text-xs">{t("filters.surface")}</Label>
             <Select
               value={filters.minSurface?.toString() || ""}
               onValueChange={(value) => update({ minSurface: value ? Number(value) : undefined })}
             >
-              <SelectTrigger className="h-10"><SelectValue placeholder="Min." /></SelectTrigger>
+              <SelectTrigger className="h-10"><SelectValue placeholder={t("filters.minShort")} /></SelectTrigger>
               <SelectContent>
                 {availableSurfaces.map((num) => (
                   <SelectItem key={num} value={String(num)}>{num}+ m²</SelectItem>
@@ -200,12 +208,12 @@ const SearchFilters = ({
           <div className={fieldClass}>
             <Label className="flex items-center gap-1 text-xs">
               <Wallet className="h-3 w-3 text-primary" />
-              Bruto inkomen
+              {t("filters.income")}
             </Label>
             <Input
               type="number"
               inputMode="numeric"
-              placeholder="bv. 3500"
+              placeholder={t("filters.incomePlaceholder")}
               className="h-10"
               value={filters.grossIncome ?? ""}
               onChange={(e) => update({ grossIncome: e.target.value ? Number(e.target.value) : undefined })}
@@ -214,7 +222,7 @@ const SearchFilters = ({
         )}
 
         <Button variant="outline" onClick={onClear} className="h-10 shrink-0 gap-2">
-          <X className="h-4 w-4" /> Wissen
+          <X className="h-4 w-4" /> {t("filters.clear")}
         </Button>
       </div>
     );
@@ -225,11 +233,11 @@ const SearchFilters = ({
     <div className="space-y-6">
       {!hideLocation && (
         <div className="space-y-2">
-          <Label>Locatie</Label>
+          <Label>{t("filters.location")}</Label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Stad of postcode"
+              placeholder={t("filters.locationPlaceholder")}
               value={filters.city}
               onChange={(e) => update({ city: e.target.value })}
               className="pl-10"
@@ -240,13 +248,13 @@ const SearchFilters = ({
 
       {availablePropertyTypes.length > 1 && (
         <div className="space-y-2">
-          <Label>Type woning</Label>
+          <Label>{t("filters.propertyType")}</Label>
           <Select
             value={filters.propertyType}
             onValueChange={(value: PropertyType | "") => update({ propertyType: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Alle types" />
+              <SelectValue placeholder={t("filters.allTypes")} />
             </SelectTrigger>
             <SelectContent>
               {availablePropertyTypes.map((type) => {
@@ -267,13 +275,13 @@ const SearchFilters = ({
 
       {availableListingTypes.length > 1 && (
         <div className="space-y-2">
-          <Label>Aanbod</Label>
+          <Label>{t("filters.offer")}</Label>
           <Select
             value={filters.listingType}
             onValueChange={(value: ListingType | "") => update({ listingType: value })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Koop & Huur" />
+              <SelectValue placeholder={t("filters.buyRent")} />
             </SelectTrigger>
             <SelectContent>
               {availableListingTypes.map((type) => {
@@ -293,7 +301,7 @@ const SearchFilters = ({
       )}
 
       <div className="space-y-2">
-        <Label>Max. prijs: {filters.maxPrice ? `€${filters.maxPrice.toLocaleString("nl-NL")}` : "Geen limiet"}</Label>
+        <Label>{t("filters.maxPrice")}: {filters.maxPrice ? `€${filters.maxPrice.toLocaleString("nl-NL")}` : t("filters.noLimit")}</Label>
         <Slider
           value={[filters.maxPrice || 5000]}
           onValueChange={([value]) => update({ maxPrice: value })}
@@ -307,12 +315,12 @@ const SearchFilters = ({
         <div className="space-y-2 rounded-lg border border-primary/20 bg-primary/5 p-3">
           <Label className="flex items-center gap-1.5 text-sm">
             <Wallet className="h-4 w-4 text-primary" />
-            Inkomen-check (huur)
+            {t("filters.incomeCheck")}
           </Label>
           <Input
             type="number"
             inputMode="numeric"
-            placeholder="Bruto maandinkomen, bv. 3500"
+            placeholder={t("filters.incomeCheckPlaceholder")}
             value={filters.grossIncome ?? ""}
             onChange={(e) => {
               const val = e.target.value ? Number(e.target.value) : undefined;
@@ -321,7 +329,7 @@ const SearchFilters = ({
           />
           {incomeBasedMaxRent && (
             <p className="text-xs text-muted-foreground">
-              Toont alleen huur tot <strong>€{incomeBasedMaxRent.toLocaleString("nl-NL")}</strong> (inkomen ÷ 3).
+              {t("filters.incomeHint")} <strong>€{incomeBasedMaxRent.toLocaleString("nl-NL")}</strong> {t("filters.incomeHintSuffix")}.
             </p>
           )}
         </div>
@@ -329,13 +337,13 @@ const SearchFilters = ({
 
       {availableBedrooms.length > 0 && (
         <div className="space-y-2">
-          <Label>Min. slaapkamers</Label>
+          <Label>{t("filters.minBedrooms")}</Label>
           <Select
             value={filters.minBedrooms?.toString() || ""}
             onValueChange={(value) => update({ minBedrooms: value ? Number(value) : undefined })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Geen minimum" />
+              <SelectValue placeholder={t("filters.noMinimum")} />
             </SelectTrigger>
             <SelectContent>
               {availableBedrooms.map((num) => {
@@ -356,13 +364,13 @@ const SearchFilters = ({
 
       {availableSurfaces.length > 0 && (
         <div className="space-y-2">
-          <Label>Min. oppervlakte</Label>
+          <Label>{t("filters.minSurface")}</Label>
           <Select
             value={filters.minSurface?.toString() || ""}
             onValueChange={(value) => update({ minSurface: value ? Number(value) : undefined })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Geen minimum" />
+              <SelectValue placeholder={t("filters.noMinimum")} />
             </SelectTrigger>
             <SelectContent>
               {availableSurfaces.map((num) => {
@@ -382,7 +390,7 @@ const SearchFilters = ({
       )}
 
       <div className="flex items-center justify-between">
-        <Label htmlFor="include-inactive">Toon inactieve woningen</Label>
+        <Label htmlFor="include-inactive">{t("filters.showInactive")}</Label>
         <Switch
           id="include-inactive"
           checked={filters.includeInactive}
@@ -392,7 +400,7 @@ const SearchFilters = ({
 
       <Button variant="outline" onClick={onClear} className="w-full">
         <X className="mr-2 h-4 w-4" />
-        Filters wissen
+        {t("filters.clearFilters")}
       </Button>
     </div>
   );
