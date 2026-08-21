@@ -165,7 +165,7 @@ const Header = () => {
             {/* Taalkeuze pill */}
             <LanguageSwitcher
               variant="ghost"
-              className="h-11 rounded-full bg-sun px-4 font-bold text-foreground hover:bg-sun/90"
+              className="h-[42px] rounded-full bg-sun px-3.5 font-bold text-foreground hover:bg-sun/90 md:h-11 md:px-4"
             />
 
             {/* Auth — desktop only */}
@@ -225,7 +225,7 @@ const Header = () => {
               type="button"
               onClick={() => setIsOpen(true)}
               aria-label={t("common.menu")}
-              className="group flex h-12 shrink-0 items-center gap-2.5 rounded-full border-2 border-foreground bg-foreground px-4 text-background transition-all hover:bg-accent hover:border-accent md:h-13 md:px-5"
+              className="group flex h-[46px] shrink-0 items-center gap-2 rounded-full border-2 border-foreground bg-foreground px-3.5 text-background transition-all hover:bg-accent hover:border-accent md:h-13 md:gap-2.5 md:px-5"
             >
               <span className="relative flex h-4 w-5 shrink-0 flex-col justify-between">
                 <span className="block h-[2px] w-full rounded-full bg-background transition-transform" />
