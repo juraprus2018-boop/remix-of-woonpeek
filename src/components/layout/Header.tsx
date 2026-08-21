@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { L as Link } from "@/components/LocalizedLink";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cityToSlug } from "@/lib/cities";
+import { LOCALE_LABELS, SUPPORTED_LOCALES } from "@/lib/brand";
+import { getLocaleFromPath, stripLocale, withLocale } from "@/lib/locale";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
@@ -37,6 +39,8 @@ const Header = () => {
   const { user, signOut } = useAuth();
   const { data: isAdmin } = useIsAdmin();
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentLocale = getLocaleFromPath(location.pathname);
   const [locating, setLocating] = useState(false);
 
   const handleNearby = () => {
@@ -364,6 +368,38 @@ const Header = () => {
                     </Button>
                   </Link>
                 </div>
+
+                {/* Taalkeuze — altijd zichtbaar in het menu (ook mobiel) */}
+                <div className="mt-6 border-t-2 border-foreground/10 pt-5">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-foreground/50">
+                    {t("common.language")}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {SUPPORTED_LOCALES.map((lng) => {
+                      const target =
+                        withLocale(stripLocale(location.pathname), lng) + location.search + location.hash;
+                      return (
+                        <button
+                          key={lng}
+                          type="button"
+                          onClick={() => {
+                            close();
+                            navigate(target);
+                          }}
+                          className={`rounded-full border-2 px-4 py-2 text-sm font-bold transition-colors ${
+                            currentLocale === lng
+                              ? "border-foreground bg-foreground text-background"
+                              : "border-foreground/20 text-foreground hover:border-foreground"
+                          }`}
+                        >
+                          <span className="mr-1.5 text-xs uppercase opacity-60">{lng}</span>
+                          {LOCALE_LABELS[lng]}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
 
                 {/* Account row */}
                 {user ? (
