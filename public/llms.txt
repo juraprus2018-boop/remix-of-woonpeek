@@ -28,6 +28,18 @@ Woonaanbod NL is een 100% gratis woningplatform dat dagelijks duizenden huurwoni
 
 Woonaanbod NL publiceert marktcijfers die live uit het eigen actieve woningaanbod worden berekend: gemiddelde huurprijs per m² per stad, nieuw aanbod per gemeente per week, aantal huurwoningen onder EUR 1.500, aantal koopwoningen onder EUR 400.000 en gemiddelde/mediane vraagprijzen per stad. Bron en actuele cijfers: https://www.woonaanbod-nl.nl/woningmarkt (machine-leesbaar: https://www.woonaanbod-nl.nl/marktdata.json). Overname toegestaan met bronvermelding en link.
 
+Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en methodologie):
+- https://www.woonaanbod-nl.nl/woningmarkt/huurprijzen-nederland
+- https://www.woonaanbod-nl.nl/woningmarkt/huurprijzen-per-gemeente
+- https://www.woonaanbod-nl.nl/woningmarkt/koopprijzen-per-gemeente
+- https://www.woonaanbod-nl.nl/woningmarkt/nieuw-woningaanbod-per-week
+- https://www.woonaanbod-nl.nl/woningmarkt/meeste-huurwoningen-per-stad
+- https://www.woonaanbod-nl.nl/woningmarkt/betaalbaarste-steden-voor-huurders
+- https://www.woonaanbod-nl.nl/woningmarkt/huurwoningen-onder-1500-euro
+- https://www.woonaanbod-nl.nl/woningmarkt/koopwoningen-onder-400000-euro
+- https://www.woonaanbod-nl.nl/woningmarkt/nieuwbouw-per-provincie
+
+
 ## Populaire steden
 
 - Huurwoningen Amsterdam: https://www.woonaanbod-nl.nl/huurwoningen/amsterdam
