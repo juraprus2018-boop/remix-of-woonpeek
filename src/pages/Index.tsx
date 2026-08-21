@@ -142,9 +142,10 @@ const Index = () => {
             onSubmit={onSearch}
             className="mx-auto max-w-5xl rounded-2xl border border-border bg-card p-4 shadow-lg md:p-6"
           >
-            <div className="grid items-end gap-4 md:grid-cols-[1.4fr_1fr_1fr_auto] md:gap-0">
+            <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:gap-0">
               {/* Locatie */}
-              <div className="md:pr-6">
+              <div className="sm:col-span-2 lg:col-span-1 lg:pr-6">
+
                 <label htmlFor="home-locatie" className="mb-1.5 block text-sm font-bold text-foreground">
                   Locatie
                 </label>
@@ -170,7 +171,7 @@ const Index = () => {
               </div>
 
               {/* Minimale prijs */}
-              <div className="md:border-l md:border-border md:px-6">
+              <div className="lg:border-l lg:border-border lg:px-6">
                 <label htmlFor="home-min" className="mb-1.5 block text-sm font-bold text-foreground">
                   Minimale prijs
                 </label>
@@ -178,7 +179,8 @@ const Index = () => {
                   id="home-min"
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
-                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground md:border-0 md:bg-transparent md:px-0 md:text-muted-foreground"
+                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
+
                 >
                   <option value="">Geen minimum</option>
                   <option value="500">€ 500</option>
@@ -190,7 +192,7 @@ const Index = () => {
               </div>
 
               {/* Maximale prijs */}
-              <div className="md:px-6">
+              <div className="lg:px-6">
                 <label htmlFor="home-max" className="mb-1.5 block text-sm font-bold text-foreground">
                   Maximale prijs
                 </label>
@@ -198,7 +200,7 @@ const Index = () => {
                   id="home-max"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
-                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground md:border-0 md:bg-transparent md:px-0 md:text-muted-foreground"
+                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
                 >
                   <option value="">Geen maximum</option>
                   <option value="750">€ 750</option>
@@ -211,11 +213,12 @@ const Index = () => {
 
               <Button
                 type="submit"
-                className="h-12 gap-2 rounded-xl px-7 text-base font-bold"
+                className="h-12 w-full gap-2 rounded-xl px-7 text-base font-bold sm:col-span-2 lg:col-span-1 lg:w-auto"
               >
                 Zoeken
                 <Search className="h-4 w-4" />
               </Button>
+
             </div>
           </form>
 

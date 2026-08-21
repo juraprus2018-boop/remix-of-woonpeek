@@ -193,8 +193,9 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
         </div>
 
         {/* Body */}
-        <div className="flex flex-1 flex-col gap-4 p-5 md:flex-row md:gap-6">
-          <div className="flex-1">
+        <div className="flex flex-1 flex-col gap-4 p-5 lg:flex-row lg:gap-6">
+          <div className="min-w-0 flex-1">
+
             <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
               {property.title}
             </h3>
@@ -233,7 +234,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
           </div>
 
           {/* Specs + price */}
-          <div className="flex flex-col justify-between gap-4 md:w-[230px] md:shrink-0 md:border-l md:border-border/60 md:pl-6">
+          <div className="flex flex-col justify-between gap-4 border-t border-border/60 pt-4 lg:w-[230px] lg:shrink-0 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
             <ul className="space-y-1.5 text-sm text-foreground">
               {property.surface_area && (
                 <li className="flex items-center gap-2">
@@ -268,7 +269,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
 
             </ul>
 
-            <div className="flex items-end justify-between gap-3 md:flex-col md:items-start">
+            <div className="flex flex-wrap items-end justify-between gap-3 lg:flex-col lg:items-start">
               <div>
                 <p className="font-display text-3xl font-extrabold leading-none tracking-tight text-primary">
                   {euro(Number(property.price))}
