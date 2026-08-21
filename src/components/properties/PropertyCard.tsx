@@ -194,7 +194,8 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
 
         {/* Body */}
         <div className="flex flex-1 flex-col gap-4 p-5 lg:flex-row lg:gap-6">
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
+
             <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
               {property.title}
             </h3>
