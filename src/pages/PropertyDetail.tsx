@@ -224,42 +224,10 @@ const PropertyDetail = () => {
   // H1: [Woningtype] te huur/koop in [stad] – [kamers]
   const h1Title = `${typeLabel} ${listingLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
 
-  // ── Product schema (Google-supported rich result with price) ──
-  const productJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": property.title,
-    "description": property.description || seoDescription,
-    "url": `https://www.woonaanbod-nl.nl/woning/${property.slug}`,
-    "image": property.images?.length ? property.images : undefined,
-    "brand": { "@type": "Brand", "name": "Woonaanbod NL" },
-    "category": `${typeLabel} te ${property.listing_type}`,
-    "offers": {
-      "@type": "Offer",
-      "price": property.price,
-      "priceCurrency": "EUR",
-      "availability": property.status === "actief" ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
-      "url": `https://www.woonaanbod-nl.nl/woning/${property.slug}`,
-      "validFrom": property.created_at,
-    },
-    "additionalProperty": [
-      ...(property.surface_area ? [{ "@type": "PropertyValue", "name": "Oppervlakte", "value": `${property.surface_area} m²`, "unitCode": "MTK" }] : []),
-      ...(property.bedrooms ? [{ "@type": "PropertyValue", "name": "Slaapkamers", "value": property.bedrooms }] : []),
-      ...(property.bathrooms ? [{ "@type": "PropertyValue", "name": "Badkamers", "value": property.bathrooms }] : []),
-      ...(property.build_year ? [{ "@type": "PropertyValue", "name": "Bouwjaar", "value": property.build_year }] : []),
-      ...(property.energy_label ? [{ "@type": "PropertyValue", "name": "Energielabel", "value": property.energy_label }] : []),
-    ],
-    ...(property.latitude && property.longitude ? {
-      "geo": { "@type": "GeoCoordinates", "latitude": Number(property.latitude), "longitude": Number(property.longitude) }
-    } : {}),
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": `${property.street} ${property.house_number}`,
-      "postalCode": property.postal_code,
-      "addressLocality": property.city,
-      "addressCountry": "NL",
-    },
-  };
+  // Geen Product-schema: een woning is geen webshop-product. Google vraagt bij
+  // Product/Offer om shippingDetails, hasMerchantReturnPolicy en priceValidUntil.
+  // Voor vastgoed gebruiken we uitsluitend RealEstateListing hieronder.
+
 
   // ── RealEstateListing schema (Google/Bing rich result voor vastgoed) ──
   const realEstateJsonLd = {
@@ -306,6 +274,10 @@ const PropertyDetail = () => {
         : "https://schema.org/SoldOut",
       "url": `https://www.woonaanbod-nl.nl/aanbod/${property.slug}`,
       "validFrom": property.created_at,
+      "priceValidUntil": new Date(new Date((property as any).updated_at || property.created_at).getTime() + 90 * 864e5).toISOString().slice(0, 10),
+      "businessFunction": property.listing_type === "huur"
+        ? "http://purl.org/goodrelations/v1#LeaseOut"
+        : "http://purl.org/goodrelations/v1#Sell",
       "seller": { "@type": "Organization", "name": "Woonaanbod NL" },
     },
   };
@@ -367,7 +339,7 @@ const PropertyDetail = () => {
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="article"
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
