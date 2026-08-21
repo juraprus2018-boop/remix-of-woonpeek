@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyPath } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -302,11 +303,18 @@ function buildCitiesSitemap(
 }
 
 function buildPropertiesSitemap(
-  properties: Array<{ slug: string | null; id: string; updated_at: string }>,
+  properties: Array<{
+    slug: string | null;
+    address_slug?: string | null;
+    id: string;
+    city: string;
+    listing_type: string;
+    updated_at: string;
+  }>,
 ): string {
   let xml = URLSET_OPEN;
   for (const p of properties) {
-    xml += urlEntry(`/${p.listing_type === "koop" ? "koopwoning" : "huurwoning"}/${(p.city || "nederland").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/${p.address_slug || p.slug || p.id}`, p.updated_at.split("T")[0], "weekly", "0.6");
+    xml += urlEntry(propertyPath(p), p.updated_at.split("T")[0], "weekly", "0.6");
   }
   xml += `</urlset>`;
   return xml;
