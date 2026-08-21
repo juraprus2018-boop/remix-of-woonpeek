@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import StockBanner from "@/components/layout/StockBanner";
+import quizIllustration from "@/assets/woonkompas-illustratie.jpg";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -112,15 +112,46 @@ const WoonQuiz = () => {
         canonical="/woonkompas"
       />
       <Header />
-      <StockBanner
-        seed="woonquiz-woonaanbod-nl"
-        eyebrow="Persoonlijk advies"
-        title="Vind jouw ideale woning"
-        subtitle="5 korte vragen, direct passend aanbod in heel Nederland."
-      />
+      <section className="border-b border-border bg-primary text-primary-foreground">
+        <div className="container grid items-center gap-8 py-10 md:py-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground">
+              <Sparkles className="h-3.5 w-3.5" />
+              Woonkompas
+            </span>
+            <h1 className="mt-4 max-w-2xl font-display text-3xl font-bold md:text-4xl lg:text-5xl">
+              Vijf vragen en je weet waar je moet zoeken
+            </h1>
+            <p className="mt-4 max-w-xl text-lg text-primary-foreground/85">
+              Huren of kopen, welk type woning, welke stad en welk budget. Het woonkompas
+              zet jouw antwoorden om in een kant-en-klare zoekopdracht met actueel aanbod.
+              Klaar binnen een minuut.
+            </p>
+          </div>
+          <div className="relative mx-auto w-full max-w-xs lg:max-w-none">
+            <div className="overflow-hidden rounded-3xl border border-primary-foreground/15 shadow-xl">
+              <img
+                src={quizIllustration}
+                alt="Woonkompas: jouw richting op de woningmarkt"
+                width={1024}
+                height={1024}
+                loading="eager"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
       <main className="flex-1 py-10 lg:py-16">
         <div className="container max-w-2xl">
+          <div className="mb-3 flex items-center justify-between text-sm font-semibold text-muted-foreground">
+            <span>Stap {Math.min(step + 1, STEPS)} van {STEPS}</span>
+            <span>{Math.round(progress)}%</span>
+          </div>
           <Progress value={progress} className="mb-8 h-2" />
+
+
 
 
           <Card>
