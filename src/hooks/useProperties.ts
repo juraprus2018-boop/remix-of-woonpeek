@@ -24,7 +24,21 @@ interface PropertyFilters {
   page?: number;
   pageSize?: number;
   disablePagination?: boolean;
+  sortBy?: SortOption;
 }
+
+export type SortOption = "newest" | "price_asc" | "price_desc";
+
+const sortConfig = (sortBy?: SortOption): { column: string; ascending: boolean } => {
+  switch (sortBy) {
+    case "price_asc":
+      return { column: "price", ascending: true };
+    case "price_desc":
+      return { column: "price", ascending: false };
+    default:
+      return { column: "created_at", ascending: false };
+  }
+};
 
 const DEFAULT_BATCH_SIZE = 1000;
 
@@ -77,7 +91,7 @@ export const useProperties = (filters?: PropertyFilters) => {
         let query = supabase
           .from("properties")
           .select("*", { count: "exact" })
-          .order("created_at", { ascending: false })
+          .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
 
         query = applyPropertyFilters(query, filters);
@@ -102,7 +116,7 @@ export const useProperties = (filters?: PropertyFilters) => {
         let batchQuery = supabase
           .from("properties")
           .select("*")
-          .order("created_at", { ascending: false })
+          .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, from + DEFAULT_BATCH_SIZE - 1);
 
         batchQuery = applyPropertyFilters(batchQuery, filters);
@@ -164,7 +178,7 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
           .select("id, title, price, listing_type, property_type, city, street, house_number, slug, images, latitude, longitude, status, bedrooms, surface_area, source_site")
           .not("latitude", "is", null)
           .not("longitude", "is", null)
-          .order("created_at", { ascending: false })
+          .order(sortConfig((filters as any)?.sortBy).column, { ascending: sortConfig((filters as any)?.sortBy).ascending })
           .range(from, from + DEFAULT_BATCH_SIZE - 1);
 
         query = applyPropertyFilters(query, filters);

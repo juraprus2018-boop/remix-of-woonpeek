@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useProperties, useMapProperties, useCityList } from "@/hooks/useProperties";
+import { useProperties, useMapProperties, useCityList, type SortOption } from "@/hooks/useProperties";
 import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
@@ -57,6 +57,7 @@ const ExplorePage = () => {
   const [propertyType, setPropertyType] = useState<string | null>(null);
   const [minBedrooms, setMinBedrooms] = useState<string | null>(null);
   const [citySearch, setCitySearch] = useState("");
+  const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const isMobile = useIsMobile();
@@ -133,6 +134,7 @@ const ExplorePage = () => {
     city: selectedCity || undefined,
     propertyType: (propertyType as any) || undefined,
     minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
+    sortBy,
     pageSize: 50,
   });
 
@@ -146,6 +148,7 @@ const ExplorePage = () => {
     city: selectedCity || undefined,
     propertyType: (propertyType as any) || undefined,
     minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
+    sortBy,
   }, showMap);
 
 
@@ -158,7 +161,7 @@ const ExplorePage = () => {
   const filteredProperties = useMemo(() => {
     if (!postcodeCoords) return paginatedList;
     const fullSet = (mapData || []) as any[];
-    return fullSet.filter((p: any) => {
+    const nearby = fullSet.filter((p: any) => {
       if (!p.latitude || !p.longitude) return false;
       return (
         haversineKm(
@@ -169,7 +172,10 @@ const ExplorePage = () => {
         ) <= distanceKm
       );
     });
-  }, [paginatedList, mapData, postcodeCoords, distanceKm]);
+    if (sortBy === "price_asc") return [...nearby].sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+    if (sortBy === "price_desc") return [...nearby].sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+    return nearby;
+  }, [paginatedList, mapData, postcodeCoords, distanceKm, sortBy]);
 
   // Map properties from the lightweight query
   const filteredMapProperties = useMemo(() => {
@@ -221,7 +227,7 @@ const ExplorePage = () => {
 
   useEffect(() => {
     setListPage(1);
-  }, [selectedCity, listingType, selectedSource, propertyType, minBedrooms, debouncedPostcode, distanceKm]);
+  }, [selectedCity, listingType, selectedSource, propertyType, minBedrooms, debouncedPostcode, distanceKm, sortBy]);
 
 
   useEffect(() => {
@@ -331,6 +337,22 @@ const ExplorePage = () => {
       </div>
 
 
+
+      {/* Sortering */}
+      <Separator />
+      <div className="p-5">
+        <Label className="mb-2 block text-sm font-medium">Sorteren op</Label>
+        <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortOption)}>
+          <SelectTrigger>
+            <SelectValue placeholder="Nieuwste eerst" />
+          </SelectTrigger>
+          <SelectContent className="z-50 bg-popover">
+            <SelectItem value="newest">Nieuwste eerst</SelectItem>
+            <SelectItem value="price_asc">Prijs laag - hoog</SelectItem>
+            <SelectItem value="price_desc">Prijs hoog - laag</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
 
       {/* Bron-filter direct na Aanbod, boven Postcode/Plaatsen */}
       <Separator />
