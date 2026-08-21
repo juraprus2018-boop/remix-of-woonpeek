@@ -25,15 +25,22 @@ function sitemapPlugin() {
             const res = await fetch(`${base}?type=${type}`);
             if (!res.ok) return;
             const xml = await res.text();
-            if (xml.trim().startsWith("<?xml")) {
-              fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
-            }
+            if (!xml.trim().startsWith("<?xml")) return;
+            // Files above the repo limit are emitted straight into dist/ instead
+            // of public/, so they still get served but never land in git.
+            const dir =
+              Buffer.byteLength(xml) > 9_000_000
+                ? path.resolve(__dirname, "dist")
+                : path.resolve(__dirname, "public");
+            fs.mkdirSync(dir, { recursive: true });
+            fs.writeFileSync(path.join(dir, file), xml);
           } catch {
             // keep the previously committed file on failure
           }
         }),
       );
     },
+
   };
 }
 
