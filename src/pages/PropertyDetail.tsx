@@ -37,6 +37,8 @@ import {
   Copy,
   MessageCircle,
   Camera,
+  Search,
+
   ArrowRight,
   Building2,
   Ruler,
