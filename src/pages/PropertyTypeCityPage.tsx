@@ -246,8 +246,15 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   {label.plural} in {locationLabel}
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  {isLoading ? "Aanbod laden..." : `${totalCount} ${label.plural.toLowerCase()} gevonden`}
+                  {isLoading
+                    ? "Aanbod laden..."
+                    : `Gevonden: ${totalCount} ${label.plural.toLowerCase()} in ${locationLabel}`}
                 </p>
+                {!isLoading && newest && (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Recent toegevoegde woning: {newest.date} ({newest.relative})
+                  </p>
+                )}
               </div>
               <div className="inline-flex rounded-lg border bg-background p-1">
                 <Button
