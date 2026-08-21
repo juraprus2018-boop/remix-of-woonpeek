@@ -263,7 +263,42 @@ export default function MarketData() {
           </div>
         </section>
 
+        <section className="container pb-10" id="woningmarkt-nederland">
+          <h2 className="font-display text-2xl font-bold text-foreground sm:text-3xl">Woningmarkt Nederland</h2>
+          <p className="mt-2 max-w-4xl text-muted-foreground">
+            Negen databronpagina's uit onze eigen database. Elke pagina vermeldt de bron, het aantal
+            geanalyseerde woningen, de periode, het moment van bijwerken en de methodologie, zodat je de
+            cijfers kunt citeren of ernaar kunt linken.
+          </p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {MARKET_TOPICS.map((t) => (
+              <Link
+                key={t.slug}
+                to={marketTopicPath(t.slug)}
+                className="group rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary"
+              >
+                <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary">
+                  {t.navLabel}
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">{t.intro[0]}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <div className="container space-y-12 pb-16">
+          <MarketSourceBlock
+            analyzed={extra?.analyzed ?? n?.total}
+            periodStart={extra?.period_start}
+            periodEnd={extra?.period_end}
+            generatedAt={extra?.generated_at || data?.generated_at}
+            method={[
+              "Alle cijfers worden op het moment van opvragen berekend uit het volledige actieve woningaanbod op Woonaanbod NL. We rekenen met de gevraagde huur- of vraagprijs zoals de aanbieder die heeft opgegeven.",
+              "Om invoerfouten en uitschieters te filteren nemen we huurprijzen tussen € 200 en € 10.000 per maand mee en koopprijzen tussen € 50.000 en € 5.000.000. Voor prijs per m² gebruiken we alleen woningen met een woonoppervlak tussen 10 en 500 m².",
+              "Dit is een momentopname van het aanbod, geen transactieprijsindex. Overnemen mag, met bronvermelding en een link naar deze pagina.",
+            ]}
+          />
+
           <CityTable
             id="huurprijs-per-m2"
             loading={isLoading}
