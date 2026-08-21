@@ -131,6 +131,8 @@ const ExplorePage = () => {
     listingType: listingType || undefined,
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
+    propertyType: (propertyType as any) || undefined,
+    minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
     pageSize: 50,
   });
 
@@ -142,7 +144,10 @@ const ExplorePage = () => {
     listingType: listingType || undefined,
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
+    propertyType: (propertyType as any) || undefined,
+    minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
   }, showMap);
+
 
   const paginatedList = listData?.properties || [];
   const totalCount = listData?.totalCount || 0;
