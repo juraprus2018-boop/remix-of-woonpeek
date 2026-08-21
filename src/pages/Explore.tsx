@@ -42,14 +42,25 @@ const haversineKm = (lat1: number, lon1: number, lat2: number, lon2: number) => 
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 };
 
+const PROPERTY_TYPE_LABELS: Record<string, string> = {
+  appartement: "Appartement",
+  huis: "Huis",
+  studio: "Studio",
+  kamer: "Kamer",
+};
+
 const ExplorePage = () => {
   const [searchParams] = useSearchParams();
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [listingType, setListingType] = useState<ListingType | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
+  const [propertyType, setPropertyType] = useState<string | null>(null);
+  const [minBedrooms, setMinBedrooms] = useState<string | null>(null);
+  const [citySearch, setCitySearch] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
   const isMobile = useIsMobile();
+
 
   // Postcode + distance state
   const [postcode, setPostcode] = useState("");
