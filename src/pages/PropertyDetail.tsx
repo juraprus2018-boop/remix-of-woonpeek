@@ -16,9 +16,7 @@ import PropertyMap from "@/components/properties/PropertyMap";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
-import PriceAnalysis from "@/components/properties/PriceAnalysis";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
-import LivabilityScore from "@/components/properties/LivabilityScore";
 import PropertyComments from "@/components/properties/PropertyComments";
 import CompetitionMeter from "@/components/properties/CompetitionMeter";
 import {
@@ -54,7 +52,6 @@ import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
-import PropertyQA from "@/components/properties/PropertyQA";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import {
@@ -644,15 +641,6 @@ const PropertyDetail = () => {
                 </div>
               </section>
 
-              {/* ── Price Analysis ── */}
-              <PriceAnalysis
-                price={Number(property.price)}
-                surfaceArea={property.surface_area}
-                city={property.city}
-                listingType={property.listing_type}
-                propertyType={property.property_type}
-              />
-
               {/* ── Map + Address ── */}
               {property.latitude && property.longitude && (
                 <section>
@@ -716,9 +704,6 @@ const PropertyDetail = () => {
                   city={property.city}
                 />
               )}
-
-              {/* ── Leefbaarheid & veiligheid ── */}
-              <LivabilityScore city={property.city} postalCode={property.postal_code} />
 
 
               {/* ── Over wonen in [stad] ── */}
@@ -998,7 +983,6 @@ const PropertyDetail = () => {
               city={property.city}
             />
             <EnergyCompareTeaser variant="property" context={property.city} />
-            <PropertyQA property={property as any} />
           </div>
         </section>
 
