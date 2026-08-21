@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cityToSlug } from "@/lib/cities";
+import { LOCALE_LABELS, SUPPORTED_LOCALES } from "@/lib/brand";
+import { getLocaleFromPath, stripLocale, withLocale } from "@/lib/locale";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
