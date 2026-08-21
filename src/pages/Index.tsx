@@ -219,19 +219,20 @@ const Index = () => {
             </div>
           </form>
 
-          <div className="mx-auto mt-4 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <div className="mx-auto mt-5 flex max-w-5xl flex-wrap items-center gap-2 text-sm text-primary-foreground/80">
             <span className="font-semibold">{t("hero.popular")}:</span>
             {popularCities.slice(0, 6).map((c) => (
               <Link
                 key={c.name}
                 to={`/huren/${cityToSlug(c.name)}`}
-                className="rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+                className="rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold text-primary-foreground backdrop-blur-sm transition-colors hover:bg-primary-foreground/20"
               >
                 {c.name}
               </Link>
             ))}
-            <span className="ml-auto hidden items-center gap-2 text-xs font-semibold sm:inline-flex">
-              <TrendingUp className="h-3.5 w-3.5 text-primary" />
+            <span className="ml-auto hidden items-center gap-2 text-xs font-semibold text-primary-foreground/90 sm:inline-flex">
+              <TrendingUp className="h-3.5 w-3.5 text-primary-foreground" />
+
               {homeStats?.properties_count !== undefined
                 ? `${homeStats.properties_count.toLocaleString("nl-NL")} woningen`
                 : "… woningen"}
