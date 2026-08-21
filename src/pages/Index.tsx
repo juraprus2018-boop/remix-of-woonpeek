@@ -171,7 +171,7 @@ const Index = () => {
               </div>
 
               {/* Minimale prijs */}
-              <div className="md:border-l md:border-border md:px-6">
+              <div className="lg:border-l lg:border-border lg:px-6">
                 <label htmlFor="home-min" className="mb-1.5 block text-sm font-bold text-foreground">
                   Minimale prijs
                 </label>
@@ -179,7 +179,8 @@ const Index = () => {
                   id="home-min"
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
-                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground md:border-0 md:bg-transparent md:px-0 md:text-muted-foreground"
+                  className="h-12 w-full rounded-xl border border-input bg-card px-3 text-sm text-foreground lg:border-0 lg:bg-transparent lg:px-0 lg:text-muted-foreground"
+
                 >
                   <option value="">Geen minimum</option>
                   <option value="500">€ 500</option>
