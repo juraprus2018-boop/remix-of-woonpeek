@@ -206,7 +206,7 @@ Deno.serve(async (req) => {
       if (subscriber.whatsapp_enabled && subscriber.phone_number) {
         const propertyList = latestProperties.slice(0, 3).map((p: any) => {
           const price = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(p.price);
-          return `🏠 ${p.title}\n💰 ${price}${p.listing_type === 'huur' ? '/mnd' : ''}\n🔗 https://www.woonaanbod-nl.nl/woning/${p.slug || p.id}`;
+          return `🏠 ${p.title}\n💰 ${price}${p.listing_type === 'huur' ? '/mnd' : ''}\n🔗 ${propertyUrl(p as any)}`;
         }).join("\n\n");
 
         const whatsappMessage = `🏠 *Woonaanbod NL Alert – ${cityLabel}*\n\n${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} gevonden!\n\n${propertyList}\n\n👉 Bekijk alles: https://www.woonaanbod-nl.nl/nieuw-aanbod`;

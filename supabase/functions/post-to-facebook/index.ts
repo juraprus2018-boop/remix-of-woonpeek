@@ -176,7 +176,7 @@ type PostTarget = "page" | "group" | "both";
 function buildCaption(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const propertyUrl = propertyUrl(property as any);
+  const listingUrl = propertyUrl(property as any);
 
   const lines: string[] = [];
 
@@ -206,7 +206,7 @@ function buildCaption(property: Property): string {
 
   // CTA
   lines.push(`👉 Bekijk deze woning op Woonaanbod NL:`);
-  lines.push(propertyUrl);
+  lines.push(listingUrl);
   lines.push("");
 
   // Hashtags
