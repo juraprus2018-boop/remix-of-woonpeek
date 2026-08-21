@@ -129,6 +129,21 @@ const SearchPage = () => {
   const properties = data?.pages.flatMap(p => p.properties) || [];
   const totalCount = data?.pages[0]?.totalCount || 0;
 
+  const newest = useMemo(() => {
+    const dates = properties
+      .map((p: any) => (p.created_at ? new Date(p.created_at) : null))
+      .filter((d): d is Date => !!d && !isNaN(d.getTime()));
+    if (!dates.length) return null;
+    const latest = new Date(Math.max(...dates.map((d) => d.getTime())));
+    const days = Math.floor((Date.now() - latest.getTime()) / 86400000);
+    const relative =
+      days <= 0 ? "vandaag toegevoegd" : days === 1 ? "1 dag geleden toegevoegd" : `${days} dagen geleden toegevoegd`;
+    return {
+      date: latest.toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }),
+      relative,
+    };
+  }, [properties]);
+
   // Infinite scroll observer
   const loadMoreRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
