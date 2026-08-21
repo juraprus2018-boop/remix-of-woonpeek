@@ -20,7 +20,7 @@ const usePropertyComments = (propertyId: string) => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("property_comments")
-        .select("*")
+        .select("id, property_id, name, content, created_at")
         .eq("property_id", propertyId)
         .eq("is_approved", true)
         .order("created_at", { ascending: false });
