@@ -171,12 +171,12 @@ const PostcodePage = () => {
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link to={`/huren/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link to={`/huurwoningen/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
                     Huurwoningen
                   </Link>
                 </Button>
                 <Button asChild variant="outline">
-                  <Link to={`/kopen/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
+                  <Link to={`/koopwoningen/${cityLabel.toLowerCase().replace(/\s+/g, "-")}`}>
                     Koopwoningen
                   </Link>
                 </Button>

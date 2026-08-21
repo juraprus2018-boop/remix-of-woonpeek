@@ -92,10 +92,10 @@ const NieuwbouwCity = () => {
               <Link to={`/stad/${city}`}>Alle woningen in {cityName} <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to={`/huren/${city}`}>Huren in {cityName}</Link>
+              <Link to={`/huurwoningen/${city}`}>Huren in {cityName}</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to={`/kopen/${city}`}>Kopen in {cityName}</Link>
+              <Link to={`/koopwoningen/${city}`}>Kopen in {cityName}</Link>
             </Button>
             <Button asChild variant="outline">
               <Link to={`/energie/${city}`}>Energie in {cityName}</Link>

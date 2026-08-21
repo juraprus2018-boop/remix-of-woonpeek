@@ -80,19 +80,19 @@ const PopularCities = () => {
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/huren">
+          <Link to="/huurwoningen">
             <Button variant="outline" className="gap-2">
               Huurwoningen
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/appartement">
+          <Link to="/appartement-huren">
             <Button variant="outline" className="gap-2">
               Appartementen
               <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
-          <Link to="/kamer">
+          <Link to="/kamer-huren">
             <Button variant="outline" className="gap-2">
               Kamers
               <ArrowRight className="h-4 w-4" />

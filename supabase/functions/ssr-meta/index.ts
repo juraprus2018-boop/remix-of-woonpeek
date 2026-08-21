@@ -102,7 +102,7 @@ function slugToCity(slug: string): string {
 /** Per-route override for high-value SEO pages so Googlebot ziet juiste titel
  *  in initial HTML, niet pas na JS-hydratie. */
 function routeMeta(bare: string, locale: Locale): { title: string; description: string; ogTitle: string; ogDescription: string } | null {
-  // /huren/{city} of /huurwoningen/{city}
+  // /huurwoningen/{city} of /huurwoningen/{city}
   let m = bare.match(/^\/(?:huren|huurwoningen)\/([a-z0-9-]+)\/?$/i);
   if (m) {
     const city = slugToCity(m[1]);
@@ -122,8 +122,8 @@ function routeMeta(bare: string, locale: Locale): { title: string; description: 
           : `Annonces de location à jour à ${city}. Appartements, maisons, studios et chambres, mis à jour quotidiennement. Alertes gratuites via Woonaanbod NL.`;
     return { title, description: desc, ogTitle: title.replace(" | Woonaanbod NL", ""), ogDescription: desc };
   }
-  // /kopen/{city}
-  m = bare.match(/^\/kopen\/([a-z0-9-]+)\/?$/i);
+  // /koopwoningen/{city}
+  m = bare.match(/^\/koopwoningen\/([a-z0-9-]+)\/?$/i);
   if (m) {
     const city = slugToCity(m[1]);
     const title = locale === "nl"
@@ -176,11 +176,11 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
       breadcrumbs: [
         { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
         { name: "Huurwoningen", url: `${ORIGIN}${withLocale("/huurwoningen", locale)}` },
-        { name: city, url: `${ORIGIN}${withLocale(`/huren/${slug}`, locale)}` },
+        { name: city, url: `${ORIGIN}${withLocale(`/huurwoningen/${slug}`, locale)}` },
       ],
     };
   }
-  m = bare.match(/^\/kopen\/([a-z0-9-]+)\/?$/i);
+  m = bare.match(/^\/koopwoningen\/([a-z0-9-]+)\/?$/i);
   if (m) {
     const city = slugToCity(m[1]);
     const slug = m[1].toLowerCase();
@@ -194,7 +194,7 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
       breadcrumbs: [
         { name: "Home", url: `${ORIGIN}${withLocale("/", locale)}` },
         { name: "Koopwoningen", url: `${ORIGIN}${withLocale("/koopwoningen", locale)}` },
-        { name: city, url: `${ORIGIN}${withLocale(`/kopen/${slug}`, locale)}` },
+        { name: city, url: `${ORIGIN}${withLocale(`/koopwoningen/${slug}`, locale)}` },
       ],
     };
   }

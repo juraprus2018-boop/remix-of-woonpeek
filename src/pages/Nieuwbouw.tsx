@@ -105,7 +105,7 @@ const Nieuwbouw = () => {
         <section className="py-12 md:py-16">
           <div className="container flex flex-wrap gap-3">
             <Button asChild>
-              <Link to="/huren">Bekijk huuraanbod <ArrowRight className="ml-1 h-4 w-4" /></Link>
+              <Link to="/huurwoningen">Bekijk huuraanbod <ArrowRight className="ml-1 h-4 w-4" /></Link>
             </Button>
             <Button asChild variant="outline">
               <Link to="/energie">Vergelijk energie</Link>

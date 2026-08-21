@@ -80,13 +80,13 @@ const WoonQuiz = () => {
     const slug = answers.city ? cityToSlug(answers.city) : "";
     const base =
       answers.propertyType === "appartement"
-        ? "/appartementen"
+        ? "/appartement-huren"
         : answers.propertyType === "huis"
-          ? "/huizen"
+          ? "/huis-huren"
           : answers.propertyType === "studio"
-            ? "/studios"
+            ? "/studio-huren"
             : answers.propertyType === "kamer"
-              ? "/kamers"
+              ? "/kamer-huren"
               : answers.listingType === "koop"
                 ? "/koopwoningen"
                 : "/huurwoningen";

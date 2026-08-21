@@ -74,12 +74,12 @@ function buildPagesSitemap(now: string): string {
     { loc: "/plekken", changefreq: "daily", priority: "0.8" },
     { loc: "/op-kaart", changefreq: "daily", priority: "0.7" },
     { loc: "/vandaag", changefreq: "daily", priority: "0.8" },
-    { loc: "/huren", changefreq: "daily", priority: "0.8" },
-    { loc: "/kopen", changefreq: "daily", priority: "0.8" },
-    { loc: "/appartement", changefreq: "daily", priority: "0.7" },
-    { loc: "/huis", changefreq: "daily", priority: "0.7" },
-    { loc: "/studio", changefreq: "daily", priority: "0.7" },
-    { loc: "/kamer", changefreq: "daily", priority: "0.7" },
+    { loc: "/huurwoningen", changefreq: "daily", priority: "0.8" },
+    { loc: "/koopwoningen", changefreq: "daily", priority: "0.8" },
+    { loc: "/appartement-huren", changefreq: "daily", priority: "0.7" },
+    { loc: "/huis-huren", changefreq: "daily", priority: "0.7" },
+    { loc: "/studio-huren", changefreq: "daily", priority: "0.7" },
+    { loc: "/kamer-huren", changefreq: "daily", priority: "0.7" },
     { loc: "/plaatsen-start", changefreq: "weekly", priority: "0.7" },
     { loc: "/woonradar", changefreq: "monthly", priority: "0.6" },
     { loc: "/vragen", changefreq: "monthly", priority: "0.5" },
@@ -227,8 +227,8 @@ function buildCitiesSitemap(
     for (const income of [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000]) {
       xml += urlEntry(`/inkomen/${income}/${citySlug}`, date, "weekly", "0.6");
     }
-    xml += urlEntry(`/huren/${citySlug}`, date, "daily", "0.7");
-    xml += urlEntry(`/kopen/${citySlug}`, date, "daily", "0.7");
+    xml += urlEntry(`/huurwoningen/${citySlug}`, date, "daily", "0.7");
+    xml += urlEntry(`/koopwoningen/${citySlug}`, date, "daily", "0.7");
     for (const pt of propertyTypeSlugs) {
       if (cityTypeSet.has(`${citySlug}:${pt.type}`)) {
         xml += urlEntry(`/${pt.slug}/${citySlug}`, date, "daily", "0.6");
