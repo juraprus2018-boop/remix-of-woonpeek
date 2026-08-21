@@ -987,6 +987,8 @@ export type Database = {
       }
       properties: {
         Row: {
+          address_slug: string | null
+          available_from: string | null
           bathrooms: number | null
           bedrooms: number | null
           build_year: number | null
@@ -998,6 +1000,7 @@ export type Database = {
           house_number: string
           id: string
           images: string[] | null
+          last_checked_at: string
           latitude: number | null
           listing_type: Database["public"]["Enums"]["listing_type"]
           longitude: number | null
@@ -1017,6 +1020,8 @@ export type Database = {
           views_count: number
         }
         Insert: {
+          address_slug?: string | null
+          available_from?: string | null
           bathrooms?: number | null
           bedrooms?: number | null
           build_year?: number | null
@@ -1028,6 +1033,7 @@ export type Database = {
           house_number: string
           id?: string
           images?: string[] | null
+          last_checked_at?: string
           latitude?: number | null
           listing_type: Database["public"]["Enums"]["listing_type"]
           longitude?: number | null
@@ -1047,6 +1053,8 @@ export type Database = {
           views_count?: number
         }
         Update: {
+          address_slug?: string | null
+          available_from?: string | null
           bathrooms?: number | null
           bedrooms?: number | null
           build_year?: number | null
@@ -1058,6 +1066,7 @@ export type Database = {
           house_number?: string
           id?: string
           images?: string[] | null
+          last_checked_at?: string
           latitude?: number | null
           listing_type?: Database["public"]["Enums"]["listing_type"]
           longitude?: number | null
@@ -1600,6 +1609,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      build_address_slug: {
+        Args: { _house_number: string; _postal_code: string; _street: string }
+        Returns: string
+      }
       canonical_city_slug: { Args: { _name: string }; Returns: string }
       get_city_counts: {
         Args: never

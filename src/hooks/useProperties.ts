@@ -222,6 +222,17 @@ export const useProperty = (slugOrId: string) => {
         if (data) return data as Property;
       }
 
+      // Adres-slug (canonieke URL: /huurwoning/[stad]/[straat-huisnummer])
+      const { data: byAddress, error: addressError } = await supabase
+        .from("properties")
+        .select("*")
+        .eq("address_slug", slugOrId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (addressError) throw addressError;
+      if (byAddress) return byAddress as Property;
+
       // Fallback: lookup by exact slug (legacy URLs)
       const { data, error } = await supabase
         .from("properties")

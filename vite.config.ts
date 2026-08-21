@@ -134,7 +134,7 @@ async function prerenderHomeContentPlugin() {
     if (!url || !key) return [];
     try {
       const res = await fetch(
-        `${url}/rest/v1/properties?select=id,slug,title,city,price,listing_type,property_type,bedrooms,surface_area&status=eq.actief&order=created_at.desc&limit=24`,
+        `${url}/rest/v1/properties?select=id,slug,address_slug,title,city,price,listing_type,property_type,bedrooms,surface_area&status=eq.actief&order=created_at.desc&limit=24`,
         { headers: { apikey: key, Authorization: `Bearer ${key}` } },
       );
       if (!res.ok) return [];
@@ -153,7 +153,7 @@ async function prerenderHomeContentPlugin() {
 
       const listItems = listings
         .map((p) => {
-          const href = `/woning/${p.slug || p.id}`;
+          const href = `/${p.listing_type === "koop" ? "koopwoning" : "huurwoning"}/${String(p.city || "nederland").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/${p.address_slug || p.slug || p.id}`;
           const price = Number(p.price || 0).toLocaleString("nl-NL");
           const kind = p.listing_type === "koop" ? "Te koop" : "Te huur";
           const details = [

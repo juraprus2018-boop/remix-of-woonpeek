@@ -102,6 +102,20 @@ function slugToCity(slug: string): string {
 /** Per-route override for high-value SEO pages so Googlebot ziet juiste titel
  *  in initial HTML, niet pas na JS-hydratie. */
 function routeMeta(bare: string, locale: Locale): { title: string; description: string; ogTitle: string; ogDescription: string } | null {
+  // /huurwoning/{city}/{adres-slug} of /koopwoning/{city}/{adres-slug}
+  let mp = bare.match(/^\/(huurwoning|koopwoning)\/([a-z0-9-]+)\/([a-z0-9-]+)\/?$/i);
+  if (mp) {
+    const isRent = mp[1].toLowerCase() === "huurwoning";
+    const city = slugToCity(mp[2]);
+    const address = slugToCity(mp[3]);
+    const title = isRent
+      ? `${address}, ${city} te huur | Woonaanbod NL`
+      : `${address}, ${city} te koop | Woonaanbod NL`;
+    const desc = isRent
+      ? `${address} in ${city} te huur: huurprijs, woonoppervlak, aantal kamers, energielabel, beschikbaarheid en foto's. Dagelijks gecontroleerd door Woonaanbod NL.`
+      : `${address} in ${city} te koop: vraagprijs, woonoppervlak, aantal kamers, energielabel en foto's. Dagelijks gecontroleerd door Woonaanbod NL.`;
+    return { title, description: desc, ogTitle: title.replace(" | Woonaanbod NL", ""), ogDescription: desc };
+  }
   // /huurwoningen/{city} of /huurwoningen/{city}
   let m = bare.match(/^\/(?:huren|huurwoningen)\/([a-z0-9-]+)\/?$/i);
   if (m) {

@@ -297,7 +297,7 @@ function buildPropertiesSitemap(
 ): string {
   let xml = URLSET_OPEN;
   for (const p of properties) {
-    xml += urlEntry(`/aanbod/${p.slug || p.id}`, p.updated_at.split("T")[0], "weekly", "0.6");
+    xml += urlEntry(`/${p.listing_type === "koop" ? "koopwoning" : "huurwoning"}/${(p.city || "nederland").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/${p.address_slug || p.slug || p.id}`, p.updated_at.split("T")[0], "weekly", "0.6");
   }
   xml += `</urlset>`;
   return xml;
@@ -333,11 +333,11 @@ Deno.serve(async (req) => {
     if (type === "steden" || type === "woningen") {
       const pageSize = 1000;
       let from = 0;
-      const allProperties: Array<{ slug: string | null; id: string; city: string; updated_at: string; listing_type: string; property_type: string; neighborhood: string | null }> = [];
+      const allProperties: Array<{ slug: string | null; address_slug?: string | null; id: string; city: string; updated_at: string; listing_type: string; property_type: string; neighborhood: string | null }> = [];
       while (true) {
         const { data, error } = await supabase
           .from("properties")
-          .select("slug, id, city, updated_at, listing_type, property_type, neighborhood, postal_code")
+          .select("slug, address_slug, id, city, updated_at, listing_type, property_type, neighborhood, postal_code")
           .eq("status", "actief")
           .order("updated_at", { ascending: false })
           .range(from, from + pageSize - 1);

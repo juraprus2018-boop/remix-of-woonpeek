@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToggleFavorite } from "@/hooks/useFavorites";
 import { useFeedLogos } from "@/hooks/useFeedLogos";
 import { useAuth } from "@/contexts/AuthContext";
+import { propertyPath } from "@/lib/propertyUrl";
 import { cn } from "@/lib/utils";
 import { Database } from "@/integrations/supabase/types";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
@@ -58,7 +59,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const handleShareClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const url = `${window.location.origin}/aanbod/${property.slug || property.id}`;
+    const url = `${window.location.origin}${propertyPath(property)}`;
     if (navigator.share) {
       navigator.share({ title: property.title, url });
     } else {
@@ -97,7 +98,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
     .join(" - ");
 
   return (
-    <Link to={`/aanbod/${property.slug || property.id}`} className="group block" aria-label={property.title}>
+    <Link to={propertyPath(property)} className="group block" aria-label={property.title}>
       <article
         className={cn(
           "relative flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-all duration-200 hover:shadow-lg sm:flex-row",
