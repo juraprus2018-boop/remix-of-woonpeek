@@ -277,7 +277,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                   <p className="mt-1 text-[11px] text-muted-foreground">per maand</p>
                 )}
               </div>
-              <span className="text-sm font-semibold text-accent underline underline-offset-4">Meer info</span>
+              <span className="text-sm font-semibold text-primary underline underline-offset-4 transition-colors group-hover:text-accent">Meer info</span>
             </div>
           </div>
         </div>
