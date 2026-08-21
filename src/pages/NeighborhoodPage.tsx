@@ -88,7 +88,7 @@ const NeighborhoodPage = () => {
   const h1 = `Woningen in ${neighborhoodName}, ${cityName}`;
   const pageTitle = `Woningen in ${neighborhoodName}, ${cityName} – beschikbaar aanbod | Woonaanbod NL`;
   const pageDescription = `Bekijk ${totalCount} woningen in de wijk ${neighborhoodName} in ${cityName}. Vergelijk huurwoningen, appartementen en huizen in ${neighborhoodName}.`;
-  const canonical = `https://www.woonaanbod-nl.nl/wijk/${citySlug}/${neighborhoodSlug}`;
+  const canonical = `/buurt/${citySlug}/${neighborhoodSlug}`;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   const faqItems = useMemo(() => [

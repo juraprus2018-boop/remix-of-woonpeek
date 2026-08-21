@@ -86,7 +86,7 @@ const NewListings = () => {
 
   const title = t("meta.newTodayTitle", { count: totalCount });
   const description = t("meta.newTodayDesc", { count: totalCount, date: dateLabel });
-  const canonical = "/nieuw-aanbod";
+  const canonical = "/vandaag";
 
   const jsonLd = {
     "@context": "https://schema.org",

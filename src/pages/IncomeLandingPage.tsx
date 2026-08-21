@@ -180,7 +180,7 @@ const IncomeLandingPage = () => {
                 .filter((i) => i !== incomeNum)
                 .map((i) => (
                   <Button key={i} asChild variant="outline" size="sm">
-                    <Link to={`/huur-bij-inkomen-${i}-${city}`}>
+                    <Link to={`/inkomen/${i}/${city}`}>
                       €{i.toLocaleString("nl-NL")} bruto
                     </Link>
                   </Button>

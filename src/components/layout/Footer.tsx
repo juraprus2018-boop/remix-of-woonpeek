@@ -65,7 +65,7 @@ const Footer = () => {
               <li><Link to="/woz-waarde" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">WOZ-waarde opzoeken</Link></li>
               <li><Link to="/hypotheek-berekenen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Hypotheek berekenen</Link></li>
               <li><Link to="/budgetcheck" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Budgetcheck</Link></li>
-              <li><Link to="/huurprijsmonitor" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurprijsmonitor</Link></li>
+              <li><Link to="/woningmarkt" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Huurprijsmonitor</Link></li>
               <li><Link to="/verhuischecklist" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Verhuischecklist</Link></li>
             </ul>
           </div>

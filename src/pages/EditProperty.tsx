@@ -56,7 +56,7 @@ const EditProperty = () => {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      navigate("/inloggen");
+      navigate("/login");
     }
   }, [authLoading, user, navigate]);
 
@@ -66,7 +66,7 @@ const EditProperty = () => {
       // Check ownership
       if (user && property.user_id !== user.id) {
         toast({ variant: "destructive", title: "Geen toegang", description: "Je kunt alleen je eigen woningen bewerken." });
-        navigate("/mijn-woningen");
+        navigate("/mijn-aanbod");
         return;
       }
       setTitle(property.title);
@@ -191,7 +191,7 @@ const EditProperty = () => {
       });
 
       toast({ title: "Woning bijgewerkt", description: "Je wijzigingen zijn opgeslagen." });
-      navigate("/mijn-woningen");
+      navigate("/mijn-aanbod");
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Onbekende fout";
       toast({ variant: "destructive", title: "Bijwerken mislukt", description: message });
@@ -372,7 +372,7 @@ const EditProperty = () => {
                   </div>
                 </CardContent>
                 <CardFooter className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-                  <Button type="button" variant="outline" onClick={() => navigate("/mijn-woningen")} disabled={isSubmitting}>
+                  <Button type="button" variant="outline" onClick={() => navigate("/mijn-aanbod")} disabled={isSubmitting}>
                     Annuleren
                   </Button>
                   <Button type="submit" disabled={isSubmitting}>

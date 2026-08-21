@@ -54,7 +54,7 @@ const Profile = () => {
           <User className="mb-4 h-12 w-12 text-muted-foreground" />
           <h1 className="font-display text-2xl font-bold">Inloggen vereist</h1>
           <p className="mt-2 text-muted-foreground">Log in om je profiel te beheren.</p>
-          <Button className="mt-4" onClick={() => navigate("/inloggen")}>Inloggen</Button>
+          <Button className="mt-4" onClick={() => navigate("/login")}>Inloggen</Button>
         </main>
         <Footer />
       </div>

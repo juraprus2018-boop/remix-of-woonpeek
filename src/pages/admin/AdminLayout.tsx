@@ -42,7 +42,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      navigate("/inloggen");
+      navigate("/login");
     }
   }, [user, authLoading, navigate]);
 

@@ -326,7 +326,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
               )}
               <div className="mt-4 text-center">
                 <Link
-                  to={`/zoeken?aanbod=${listingType}${cityName ? `&locatie=${encodeURIComponent(cityName)}` : ""}`}
+                  to={`/woning-zoeken?aanbod=${listingType}${cityName ? `&locatie=${encodeURIComponent(cityName)}` : ""}`}
                 >
                   <Button variant="outline" className="gap-2">
                     Bekijk alle {label.plural.toLowerCase()}

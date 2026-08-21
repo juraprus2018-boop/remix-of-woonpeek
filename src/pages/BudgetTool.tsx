@@ -232,7 +232,7 @@ const BudgetTool = () => {
                     </p>
 
                     <Button asChild variant="outline" size="sm" className="w-full gap-1">
-                      <Link to={`/zoeken?locatie=${encodeURIComponent(result.city)}&aanbod=${listingType}&max_prijs=${budget}`}>
+                      <Link to={`/woning-zoeken?locatie=${encodeURIComponent(result.city)}&aanbod=${listingType}&max_prijs=${budget}`}>
                         Bekijk woningen <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </Button>

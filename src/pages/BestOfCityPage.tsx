@@ -29,7 +29,7 @@ const formatEuro = (n: number) =>
   new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(n);
 
 const VARIANT_CONFIG: Record<BestOfVariant, {
-  pathPrefix: string;
+  pathSuffix: string;
   h1: (city: string) => string;
   intro: (city: string) => string;
   metaTitle: (city: string, count: number) => string;
@@ -38,7 +38,7 @@ const VARIANT_CONFIG: Record<BestOfVariant, {
   breadcrumb: string;
 }> = {
   "goedkoopste-huur": {
-    pathPrefix: "goedkoopste-huurwoningen",
+    pathSuffix: "goedkoop-huur",
     h1: (city) => `De 10 goedkoopste huurwoningen in ${city}`,
     intro: (city) =>
       `Op zoek naar een betaalbare huurwoning in ${city}? Deze top 10 van goedkoopste huurwoningen wordt dagelijks bijgewerkt en toont het meest voordelige actuele aanbod. Reageer snel: betaalbare woningen in ${city} zijn vaak binnen enkele dagen weg.`,
@@ -49,7 +49,7 @@ const VARIANT_CONFIG: Record<BestOfVariant, {
     breadcrumb: "Goedkoopste huurwoningen",
   },
   "grootste-huur": {
-    pathPrefix: "grootste-huurwoningen",
+    pathSuffix: "grootste-huur",
     h1: (city) => `De 10 grootste huurwoningen in ${city}`,
     intro: (city) =>
       `Veel ruimte nodig in ${city}? Deze top 10 van grootste huurwoningen toont het ruimste aanbod op Woonaanbod NL. Ideaal voor gezinnen, woongroepen of wie thuis wil werken zonder concessies.`,
@@ -60,7 +60,7 @@ const VARIANT_CONFIG: Record<BestOfVariant, {
     breadcrumb: "Grootste huurwoningen",
   },
   "beste-buurten": {
-    pathPrefix: "beste-buurten",
+    pathSuffix: "buurten",
     h1: (city) => `De 10 beste buurten van ${city} om te wonen`,
     intro: (city) =>
       `Welke wijk past bij jou in ${city}? Deze top 10 buurten is samengesteld op basis van het actieve woningaanbod, gemiddelde huur- en koopprijzen en variatie in woningtypes. Vergelijk de wijken en vind jouw perfecte plek.`,
@@ -211,7 +211,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
 
   const cityName = validCityName ?? "";
   const Icon = config.icon;
-  const canonical = `https://www.woonaanbod-nl.nl/${config.pathPrefix}/${citySlug}`;
+  const canonical = `/toplijst/${citySlug}/${config.pathSuffix}`;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
   // ItemList JSON-LD for SEO
@@ -353,7 +353,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
                 .map((v) => (
                   <Link
                     key={v}
-                    to={`/${VARIANT_CONFIG[v].pathPrefix}/${citySlug}`}
+                    to={`/toplijst/${citySlug}/${VARIANT_CONFIG[v].pathSuffix}`}
                     className="group flex items-center justify-between rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                   >
                     <span className="font-medium text-foreground group-hover:text-primary">

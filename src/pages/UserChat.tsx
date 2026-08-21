@@ -57,7 +57,7 @@ const UserChat = () => {
   useChatRealtime(selectedConvoId);
 
   useEffect(() => {
-    if (!user) navigate("/inloggen");
+    if (!user) navigate("/login");
   }, [user, navigate]);
 
   useEffect(() => {
