@@ -14,9 +14,10 @@ import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
 interface LanguageSwitcherProps {
   variant?: "default" | "ghost" | "outline";
   align?: "start" | "center" | "end";
+  className?: string;
 }
 
-export function LanguageSwitcher({ variant = "ghost", align = "end" }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ variant = "ghost", align = "end", className }: LanguageSwitcherProps) {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,11 +32,12 @@ export function LanguageSwitcher({ variant = "ghost", align = "end" }: LanguageS
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={variant} size="sm" className="gap-2" aria-label={t("common.language")}>
+        <Button variant={variant} size="sm" className={`gap-2 ${className ?? ""}`} aria-label={t("common.language")}>
           <Globe className="h-4 w-4" strokeWidth={1.5} />
           <span className="text-xs font-medium uppercase tracking-wide">{current}</span>
         </Button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align={align} className="min-w-[10rem]">
         {SUPPORTED_LOCALES.map((lng) => (
           <DropdownMenuItem
