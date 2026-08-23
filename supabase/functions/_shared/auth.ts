@@ -40,13 +40,22 @@ export async function requireAdmin(
 
   if (isServiceRole(req)) return { response: null, userId: null };
 
-  const token = bearer(req);
-  if (!token) return deny(401, "Unauthorized");
-
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
   );
+
+  // Scheduled (pg_cron) invocations authenticate with a private shared secret.
+  const cronSecret = req.headers.get("x-cron-secret");
+  if (cronSecret) {
+    const { data: valid } = await supabase.rpc("verify_cron_secret", { _secret: cronSecret });
+    if (valid === true) return { response: null, userId: null };
+  }
+
+  const token = bearer(req);
+  if (!token) return deny(401, "Unauthorized");
+
+
 
   const { data: { user }, error } = await supabase.auth.getUser(token);
   if (error || !user) return deny(401, "Unauthorized");
