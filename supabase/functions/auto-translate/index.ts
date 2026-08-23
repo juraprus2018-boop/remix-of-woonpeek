@@ -95,6 +95,7 @@ Deno.serve(async (req) => {
     // after and then gets cache hits. This avoids a multi-second AI wait
     // blocking the language switch.
     const translateChunk = async (chunk: { h: string; text: string }[]) => {
+      if (aiPaused()) return;
       const numbered = chunk.map((m, idx) => `${idx + 1}. ${m.text.replace(/\n/g, " ")}`).join("\n");
 
       const prompt = `Translate the following Dutch UI strings to ${LANG_NAMES[lang]}.
@@ -124,9 +125,20 @@ ${numbered}`;
       });
 
       if (!aiResp.ok) {
-        console.error("AI gateway error", aiResp.status, await aiResp.text());
+        const text = await aiResp.text();
+        if (aiResp.status === 402 || aiResp.status === 403) {
+          // Terminal: credits exhausted or blocked by workspace policy. Never retry
+          // within this run; pause all AI translation for the cooldown window.
+          if (!aiPaused()) {
+            aiPausedUntil = Date.now() + AI_PAUSE_MS;
+            console.error("AI gateway blocked, pausing translations", aiResp.status, text);
+          }
+          return;
+        }
+        console.error("AI gateway error", aiResp.status, text);
         return;
       }
+
 
       const aiJson = await aiResp.json();
       const raw = aiJson?.choices?.[0]?.message?.content ?? "";
