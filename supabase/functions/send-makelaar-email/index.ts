@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -21,16 +22,34 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const gate = await requireAdmin(req, corsHeaders);
+  if (gate.response) return gate.response;
+
   try {
     const body = await req.json();
 
     const rawRecipients: { email: string; name?: string }[] = body.recipients || [
       { email: body.recipientEmail, name: body.recipientName }
     ];
-    const { subject, htmlContent, templateName, userId } = body;
+    const { subject, htmlContent, templateName } = body;
 
+    // Never trust a client-supplied userId: use the verified admin caller.
+    const userId = gate.userId;
     if (!userId) {
       throw new Error("Gebruiker niet gevonden voor verzending");
+    }
+
+    if (typeof subject !== "string" || !subject.trim() || subject.length > 300) {
+      throw new Error("Ongeldig onderwerp");
+    }
+    if (typeof htmlContent !== "string" || !htmlContent.trim() || htmlContent.length > 200000) {
+      throw new Error("Ongeldige inhoud");
+    }
+    if (typeof templateName !== "string" || !templateName.trim()) {
+      throw new Error("Ongeldige template");
+    }
+    if (rawRecipients.length > 50) {
+      throw new Error("Te veel ontvangers per verzoek");
     }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
