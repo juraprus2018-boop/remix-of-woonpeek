@@ -2,13 +2,18 @@
  * Genereert de TikTok OAuth-URL waar admin naartoe wordt gestuurd.
  * Returns: { url }
  */
+import { requireAdmin } from "../_shared/auth.ts";
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-Deno.serve((req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const gate = await requireAdmin(req, corsHeaders);
+  if (gate.response) return gate.response;
 
   const clientKey = Deno.env.get("TIKTOK_CLIENT_KEY");
   if (!clientKey) {
