@@ -174,18 +174,28 @@ ${numbered}`;
       }
     };
 
-    if (missing.length > 0) {
+    if (missing.length > 0 && !aiPaused()) {
       const CHUNK = 25;
       const chunks: { h: string; text: string }[][] = [];
       for (let i = 0; i < missing.length; i += CHUNK) chunks.push(missing.slice(i, i + CHUNK));
 
-      // Fire all chunks in parallel; keep running after the response is sent.
-      const work = Promise.all(chunks.map((c) => translateChunk(c).catch((e) => console.error(e))));
+      // Run chunks in small waves so a terminal gateway block (402/403) trips the
+      // circuit breaker and skips the remaining work instead of failing all at once.
+      const work = (async () => {
+        const WAVE = 3;
+        for (let i = 0; i < chunks.length; i += WAVE) {
+          if (aiPaused()) break;
+          await Promise.all(
+            chunks.slice(i, i + WAVE).map((c) => translateChunk(c).catch((e) => console.error(e))),
+          );
+        }
+      })();
       // deno-lint-ignore no-explicit-any
       const rt = (globalThis as any).EdgeRuntime;
       if (rt?.waitUntil) rt.waitUntil(work);
       else void work;
     }
+
 
     return new Response(
       JSON.stringify({ translations: result, pending: missing.map((m) => m.text) }),
