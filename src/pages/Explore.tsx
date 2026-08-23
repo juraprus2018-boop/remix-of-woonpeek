@@ -59,7 +59,7 @@ const ExplorePage = () => {
   const [citySearch, setCitySearch] = useState("");
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [mobileView, setMobileView] = useState<"list" | "map">("list");
+  const [mobileView, setMobileView] = useState<"list" | "map">("map");
   const isMobile = useIsMobile();
 
 
