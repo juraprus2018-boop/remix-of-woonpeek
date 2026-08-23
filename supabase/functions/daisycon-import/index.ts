@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
+import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -422,6 +423,9 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
+
+  const gate = await requireAdmin(req, corsHeaders);
+  if (gate.response) return gate.response;
 
   const startTime = Date.now();
   const TIME_BUDGET_MS = 120_000; // 120 seconds, leave buffer before edge function timeout

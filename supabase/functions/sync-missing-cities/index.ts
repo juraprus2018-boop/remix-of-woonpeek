@@ -10,6 +10,7 @@ const corsHeaders = {
 // Snapshot of frontend lists (generated; regenerate when src/lib/dutchCities.ts
 // or src/lib/municipalities.ts changes).
 import knownPlaces from "./known-places.json" with { type: "json" };
+import { requireAdmin } from "../_shared/auth.ts";
 const DUTCH_CITIES = knownPlaces.DUTCH_CITIES as string[];
 const MUNICIPALITY_KERNEN = knownPlaces.MUNICIPALITY_KERNEN as Record<
   string,
@@ -27,6 +28,9 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
+
+  const gate = await requireAdmin(req, corsHeaders);
+  if (gate.response) return gate.response;
 
   try {
     const supabase = createClient(
