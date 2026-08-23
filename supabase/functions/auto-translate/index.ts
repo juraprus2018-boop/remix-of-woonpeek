@@ -17,6 +17,13 @@ const LANG_NAMES: Record<string, string> = {
   fr: "French",
 };
 
+// Circuit breaker: when the AI gateway reports a terminal billing/policy block
+// (402 top-up needed / 403 blocked) we stop all further AI calls for a cooldown
+// window instead of firing every remaining chunk and every new request at it.
+const AI_PAUSE_MS = 15 * 60 * 1000;
+let aiPausedUntil = 0;
+const aiPaused = () => Date.now() < aiPausedUntil;
+
 async function sha256(text: string): Promise<string> {
   const buf = new TextEncoder().encode(text);
   const hash = await crypto.subtle.digest("SHA-256", buf);
@@ -24,6 +31,7 @@ async function sha256(text: string): Promise<string> {
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
 }
+
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
