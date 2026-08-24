@@ -19,6 +19,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import SearchFilters, { type SearchFilterValues } from "@/components/search/SearchFilters";
+import SearchAlertCTA from "@/components/alerts/SearchAlertCTA";
 import IncomeBanner from "@/components/search/IncomeBanner";
 import CommuteFilter, { type CommuteValue } from "@/components/search/CommuteFilter";
 import { useCommuteFilter } from "@/hooks/useCommuteFilter";
