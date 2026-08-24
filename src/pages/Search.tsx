@@ -369,6 +369,16 @@ const SearchPage = () => {
                   </p>
                 )}
               </div>
+              <SearchAlertCTA
+                className="mb-4"
+                city={debouncedCity || undefined}
+                listingType={filters.listingType || undefined}
+                propertyType={filters.propertyType || undefined}
+                maxPrice={effectiveMaxPrice}
+                minRooms={filters.minBedrooms}
+                source="search"
+              />
+
               <IncomeBanner
                 grossIncome={filters.grossIncome}
                 listingType={filters.listingType}
