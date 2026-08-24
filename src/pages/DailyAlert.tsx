@@ -10,7 +10,7 @@ const ALERT_FAQ = [
   {
     question: "Hoe vaak ontvang ik een woningalert?",
     answer:
-      "Je ontvangt elke maandagochtend één e-mail met het nieuwste woningaanbod van de afgelopen week. Geen spam, alleen relevant aanbod.",
+      "Zodra er nieuw aanbod bijkomt dat past bij jouw zoekopdracht, sturen we je een melding. Geen spam, alleen relevante woningen.",
   },
   {
     question: "Kan ik de alert filteren op stad?",
@@ -22,8 +22,8 @@ const ALERT_FAQ = [
     answer: "In elke alert-e-mail staat een uitschrijflink. Eén klik en je bent direct afgemeld.",
   },
   {
-    question: "Is de wekelijkse alert gratis?",
-    answer: "Ja, de wekelijkse woningalert is volledig gratis. Er zijn geen kosten aan verbonden.",
+    question: "Is de melding gratis?",
+    answer: "Ja, de melding is volledig gratis. Je hebt alleen een e-mailadres nodig, geen account.",
   },
 ];
 
@@ -31,7 +31,7 @@ const STEPS = [
   {
     icon: Mail,
     title: "1. Laat je e-mailadres achter",
-    text: "Kies je stad en vul je e-mailadres in. Meer heb je niet nodig, geen account, geen betaalgegevens.",
+    text: "Kies je stad of stel filters in en vul je e-mailadres in. Meer heb je niet nodig, geen account.",
   },
   {
     icon: Inbox,
@@ -41,7 +41,7 @@ const STEPS = [
   {
     icon: MousePointerClick,
     title: "3. Jij reageert als eerste",
-    text: "Maandagochtend staat het nieuwste aanbod in je inbox, met directe links naar de woningen.",
+    text: "Nieuw aanbod staat in je inbox met directe links, zodat je snel kunt reageren.",
   },
 ];
 
@@ -65,8 +65,8 @@ const DailyAlert = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Wekelijkse Woningalert – Ontvang nieuw aanbod per e-mail | Woonaanbod NL"
-        description="Schrijf je gratis in voor de Woonaanbod NL wekelijkse alert en ontvang elke maandag een e-mail met het nieuwste woningaanbod in Nederland."
+        title="Gratis woningmelding – Nieuw aanbod direct per e-mail | Woonaanbod NL"
+        description="Nieuwe woning gevonden? Ontvang direct een gratis melding per e-mail. Stel je zoekopdracht in, vul je e-mailadres in, geen account nodig."
         canonical="/woonradar"
       />
       <script
@@ -86,19 +86,18 @@ const DailyAlert = () => {
                 Gratis e-mailalert
               </span>
               <h1 className="mt-4 max-w-2xl font-display text-3xl font-bold md:text-4xl lg:text-5xl">
-                Woonradar: nieuw woningaanbod in je inbox
+                Nieuwe woning gevonden? Ontvang direct een gratis melding
               </h1>
               <p className="mt-4 max-w-xl text-lg text-primary-foreground/85">
-                Zet de radar aan voor jouw stad en ontvang elke maandag een overzicht van
-                alles wat er nieuw bij kwam. Zo hoef je niet elke dag zelf te zoeken en ben
-                je toch snel als er iets vrijkomt.
+                Stel je zoekopdracht in, laat je e-mailadres achter en je hoort het zodra er
+                een nieuwe woning bijkomt. Eén product, één melding, altijd gratis.
               </p>
               <ul className="mt-6 grid gap-2 text-sm text-primary-foreground/85 sm:grid-cols-2">
                 <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Eén e-mail per week
+                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Melding bij nieuw aanbod
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Zelf je stad kiezen
+                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Zelf je filters kiezen
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Geen account nodig
@@ -128,7 +127,7 @@ const DailyAlert = () => {
         {/* Hoe het werkt */}
         <section className="container py-12 md:py-16">
           <h2 className="font-display text-2xl font-bold text-foreground md:text-3xl">
-            Zo werkt de woonradar
+            Zo werkt de gratis woningmelding
           </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {STEPS.map(({ icon: Icon, title, text }) => (
@@ -158,8 +157,8 @@ const DailyAlert = () => {
                 </h2>
                 <p className="mt-3 text-muted-foreground">
                   In een krappe woningmarkt is snelheid het enige dat echt helpt. Woningen
-                  die maandag online komen, hebben dinsdag vaak al tientallen reacties. De
-                  woonradar zorgt dat je niet achter de feiten aanloopt.
+                  die vandaag online komen, hebben morgen vaak al tientallen reacties. Met een
+                  melding loop je niet achter de feiten aan.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-3">
@@ -181,7 +180,7 @@ const DailyAlert = () => {
         <section className="border-t border-border py-12 md:py-16">
           <div className="container">
             <h2 className="mb-6 font-display text-2xl font-bold text-foreground md:text-3xl">
-              Veelgestelde vragen over de woonradar
+              Veelgestelde vragen over de woningmelding
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
               {ALERT_FAQ.map((item) => (
