@@ -127,11 +127,12 @@ const DailyAlertSection = () => {
                 </div>
                 <div>
                   <h2 className="font-display text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-                    Alert voor nieuw woningaanbod
+                    Nieuwe woning gevonden? Ontvang direct een gratis melding.
                   </h2>
                   <p className="mt-1 text-base text-muted-foreground">
-                    Ontvang elke maandag een overzicht van nieuwe woningen in jouw stad.
+                    Kies je stad, vul je e-mailadres in en je hoort het zodra er nieuw aanbod bijkomt.
                   </p>
+
                 </div>
               </div>
 
