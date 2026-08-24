@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { requireAdmin } from "../_shared/auth.ts";
+import { citySlug, isValidPublicCity } from "../_shared/publicCity.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -74,11 +75,15 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const gate = await requireAdmin(req, corsHeaders);
-  if (gate.response) return gate.response;
-
   try {
     const { city, city_slug, force = false } = await req.json();
+
+    // Public visitors may trigger on-demand generation for a valid Dutch city
+    // name only. Forced regeneration stays admin-only.
+    if (force || !isValidPublicCity(city) || city_slug !== citySlug(String(city ?? ""))) {
+      const gate = await requireAdmin(req, corsHeaders);
+      if (gate.response) return gate.response;
+    }
 
     if (!city || !city_slug) {
       return new Response(JSON.stringify({ error: "city and city_slug required" }), {

@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { requireAdmin } from "../_shared/auth.ts";
+import { isValidPublicCity } from "../_shared/publicCity.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -11,12 +11,9 @@ Deno.serve(async (req) => {
     return new Response("ok", { headers: corsHeaders });
   }
 
-  const gate = await requireAdmin(req, corsHeaders);
-  if (gate.response) return gate.response;
-
   try {
     const { city } = await req.json();
-    if (!city || typeof city !== "string" || city.length < 2) {
+    if (!isValidPublicCity(city)) {
       return new Response(JSON.stringify({ error: "City is required" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
