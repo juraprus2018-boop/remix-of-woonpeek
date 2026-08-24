@@ -348,10 +348,17 @@ export type Database = {
           city: string | null
           created_at: string
           email: string
+          filter_key: string
           id: string
           is_active: boolean
           last_notified_at: string | null
+          listing_type: string | null
+          max_price: number | null
+          min_price: number | null
+          min_rooms: number | null
           phone_number: string | null
+          property_type: string | null
+          search_label: string | null
           source: string | null
           subscribed_at: string
           unsubscribed_at: string | null
@@ -363,10 +370,17 @@ export type Database = {
           city?: string | null
           created_at?: string
           email: string
+          filter_key?: string
           id?: string
           is_active?: boolean
           last_notified_at?: string | null
+          listing_type?: string | null
+          max_price?: number | null
+          min_price?: number | null
+          min_rooms?: number | null
           phone_number?: string | null
+          property_type?: string | null
+          search_label?: string | null
           source?: string | null
           subscribed_at?: string
           unsubscribed_at?: string | null
@@ -378,10 +392,17 @@ export type Database = {
           city?: string | null
           created_at?: string
           email?: string
+          filter_key?: string
           id?: string
           is_active?: boolean
           last_notified_at?: string | null
+          listing_type?: string | null
+          max_price?: number | null
+          min_price?: number | null
+          min_rooms?: number | null
           phone_number?: string | null
+          property_type?: string | null
+          search_label?: string | null
           source?: string | null
           subscribed_at?: string
           unsubscribed_at?: string | null
