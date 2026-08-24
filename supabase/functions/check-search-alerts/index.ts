@@ -135,18 +135,24 @@ Deno.serve(async (req) => {
       const sinceDate = subscriber.last_notified_at || subscriber.subscribed_at || subscriber.created_at;
       const subscriberCity = subscriber.city;
 
-      // Count new properties for this subscriber's city
-      let countQuery = supabase
-        .from("properties")
-        .select("id", { count: "exact", head: true })
-        .eq("status", "actief")
-        .gt("created_at", sinceDate);
+      const applyFilters = (q: any) => {
+        if (subscriberCity) q = q.ilike("city", subscriberCity);
+        if (subscriber.listing_type) q = q.eq("listing_type", subscriber.listing_type);
+        if (subscriber.property_type) q = q.eq("property_type", subscriber.property_type);
+        if (subscriber.min_price) q = q.gte("price", subscriber.min_price);
+        if (subscriber.max_price) q = q.lte("price", subscriber.max_price);
+        if (subscriber.min_rooms) q = q.gte("bedrooms", subscriber.min_rooms);
+        return q;
+      };
 
-      if (subscriberCity) {
-        countQuery = countQuery.ilike("city", subscriberCity);
-      }
-
-      const { count: filteredCount, error: filteredCountError } = await countQuery;
+      // Count new properties matching this subscriber's search
+      const { count: filteredCount, error: filteredCountError } = await applyFilters(
+        supabase
+          .from("properties")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "actief")
+          .gt("created_at", sinceDate)
+      );
 
       if (filteredCountError) {
         console.error("Count error for daily subscriber:", subscriber.email, filteredCountError);
@@ -156,19 +162,15 @@ Deno.serve(async (req) => {
       if (!filteredCount || filteredCount === 0) continue;
 
       // Fetch actual properties
-      let latestQuery = supabase
-        .from("properties")
-        .select("id, title, city, price, listing_type, property_type, slug, address_slug, street, house_number, images, surface_area, bedrooms")
-        .eq("status", "actief")
-        .gt("created_at", sinceDate)
-        .order("created_at", { ascending: false })
-        .limit(6);
-
-      if (subscriberCity) {
-        latestQuery = latestQuery.ilike("city", subscriberCity);
-      }
-
-      const { data: latestProperties, error: propsError } = await latestQuery;
+      const { data: latestProperties, error: propsError } = await applyFilters(
+        supabase
+          .from("properties")
+          .select("id, title, city, price, listing_type, property_type, slug, address_slug, street, house_number, images, surface_area, bedrooms")
+          .eq("status", "actief")
+          .gt("created_at", sinceDate)
+          .order("created_at", { ascending: false })
+          .limit(6)
+      );
 
       if (propsError) {
         console.error("Properties error for daily subscriber:", subscriber.email, propsError);
@@ -178,15 +180,17 @@ Deno.serve(async (req) => {
       if (!latestProperties || latestProperties.length === 0) continue;
 
       const cityLabel = subscriberCity || "Nederland";
+      const searchLabel = subscriber.search_label || `woningaanbod in ${cityLabel}`;
       const unsubscribeUrl = `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}`;
       const html = buildEmailHtml(
         latestProperties,
         `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel}!`,
-        `Hier is je wekelijks overzicht van het nieuwste woningaanbod in ${cityLabel}.`,
+        `Nieuw aanbod voor jouw zoekopdracht: ${searchLabel}.`,
         `https://www.woonaanbod-nl.nl/nieuw-aanbod`,
         unsubscribeUrl,
         filteredCount
       );
+
 
       // Send email
       try {
