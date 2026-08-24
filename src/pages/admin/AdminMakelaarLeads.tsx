@@ -127,21 +127,13 @@ const AdminMakelaarLeads = () => {
 
   const testFeedMutation = useMutation({
     mutationFn: async (url: string) => {
-      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-      const resp = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/makelaar-feed-import`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-          },
-          body: JSON.stringify({ feed_url: url }),
-        }
-      );
-      if (!resp.ok) throw new Error(await resp.text());
-      return resp.json();
+      const { data, error } = await supabase.functions.invoke("makelaar-feed-import", {
+        body: { feed_url: url },
+      });
+      if (error) throw error;
+      return data;
     },
+
     onSuccess: (data) => {
       toast.success(
         `Feed test: ${data.imported} geïmporteerd, ${data.skipped} overgeslagen, ${data.errors} fouten`
