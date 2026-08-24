@@ -75,14 +75,29 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Validate city (required)
+    // City is optional: no city means "heel Nederland".
     const cleanCity = String(city || "").trim();
-    if (!cleanCity) {
-      return new Response(JSON.stringify({ error: "Selecteer een stad." }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+
+    // Normalise search filters
+    const cleanListingType = ["huur", "koop"].includes(String(listing_type || "")) ? String(listing_type) : null;
+    const cleanPropertyType = String(property_type || "").trim().substring(0, 50) || null;
+    const toNumber = (v: unknown) => {
+      const n = Number(v);
+      return Number.isFinite(n) && n > 0 ? Math.round(n) : null;
+    };
+    const cleanMinPrice = toNumber(min_price);
+    const cleanMaxPrice = toNumber(max_price);
+    const cleanMinRooms = toNumber(min_rooms);
+    const cleanLabel = String(search_label || "").trim().substring(0, 200) || null;
+
+    const filterKey = [
+      cleanCity.toLowerCase(),
+      cleanListingType ?? "",
+      (cleanPropertyType ?? "").toLowerCase(),
+      cleanMinPrice ?? "",
+      cleanMaxPrice ?? "",
+      cleanMinRooms ?? "",
+    ].join("|");
 
     // Validate phone if WhatsApp enabled
     const wantWhatsapp = whatsapp_enabled === true;
@@ -111,21 +126,24 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Check existing
+    const areaLabel = cleanCity || "heel Nederland";
+
+    // Check existing subscription for this exact search
     const { data: existing, error: existingError } = await supabaseAdmin
       .from("daily_alert_subscribers")
       .select("*")
-      .ilike("email", targetEmail)
+      .eq("email", targetEmail)
+      .eq("filter_key", filterKey)
       .maybeSingle();
 
     if (existingError) throw existingError;
 
-    if (existing?.is_active && existing?.city === cleanCity) {
+    if (existing?.is_active) {
       return new Response(
         JSON.stringify({
           success: true,
           already_active: true,
-          message: `Je staat al ingeschreven voor alerts in ${cleanCity}.`,
+          message: `Je ontvangt al meldingen voor deze zoekopdracht in ${areaLabel}.`,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -138,7 +156,14 @@ Deno.serve(async (req) => {
       user_id: user?.id ?? existing?.user_id ?? null,
       is_active: true,
       unsubscribed_at: null,
-      city: cleanCity,
+      city: cleanCity || null,
+      filter_key: filterKey,
+      listing_type: cleanListingType,
+      property_type: cleanPropertyType,
+      min_price: cleanMinPrice,
+      max_price: cleanMaxPrice,
+      min_rooms: cleanMinRooms,
+      search_label: cleanLabel,
       phone_number: wantWhatsapp ? cleanPhone : existing?.phone_number ?? null,
       whatsapp_enabled: wantWhatsapp,
       source: String(source || (user ? "account" : "guest")).substring(0, 50),
@@ -148,11 +173,12 @@ Deno.serve(async (req) => {
 
     const { data: saved, error: upsertError } = await supabaseAdmin
       .from("daily_alert_subscribers")
-      .upsert(upsertPayload, { onConflict: "email" })
+      .upsert(upsertPayload, { onConflict: "email,filter_key" })
       .select("*")
       .single();
 
     if (upsertError) throw upsertError;
+
 
     // Send admin notification
     const client = new SMTPClient({
