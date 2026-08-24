@@ -51,7 +51,20 @@ Deno.serve(async (req) => {
     const jwt = authHeader.startsWith("Bearer ") ? authHeader.slice("Bearer ".length) : "";
 
     const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
-    const { email, city, phone_number, whatsapp_enabled, source, turnstileToken } = await req.json().catch(() => ({}));
+    const {
+      email,
+      city,
+      phone_number,
+      whatsapp_enabled,
+      source,
+      turnstileToken,
+      listing_type,
+      property_type,
+      min_price,
+      max_price,
+      min_rooms,
+      search_label,
+    } = await req.json().catch(() => ({}));
 
     // Validate captcha
     const captcha = await verifyTurnstileToken(String(turnstileToken || ""), req.headers.get("x-forwarded-for"));
