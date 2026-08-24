@@ -607,7 +607,7 @@ const CityPage = () => {
 
               <p>
                 Stel een gratis{" "}
-                <Link to="/woonradar" className="text-primary underline hover:no-underline">dagelijkse woningalert</Link>{" "}
+                <Link to="/woonradar" className="text-primary underline hover:no-underline">gratis woningmelding</Link>{" "}
                 in en ontvang elke dag het nieuwste aanbod van {cityName} in je inbox. Zo mis je geen enkele nieuwe woning.
               </p>
 

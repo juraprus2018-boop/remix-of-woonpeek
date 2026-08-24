@@ -60,12 +60,21 @@ const SearchAlerts = () => {
         />
         <Header />
 
-        <main className="flex flex-1 flex-col items-center justify-center">
+        <main className="flex flex-1 flex-col items-center justify-center px-4 text-center">
           <Bell className="mb-4 h-12 w-12 text-muted-foreground" />
-          <h1 className="font-display text-2xl font-bold">Inloggen vereist</h1>
-          <p className="mt-2 text-muted-foreground">Log in om zoekalerts in te stellen.</p>
-          <Button className="mt-4" onClick={() => navigate("/login")}>Inloggen</Button>
+          <h1 className="font-display text-2xl font-bold">Je opgeslagen meldingen</h1>
+          <p className="mt-2 max-w-md text-muted-foreground">
+            Log in om je meldingen hier te beheren. Wil je alleen een gratis melding bij nieuw
+            aanbod? Dat kan zonder account: stel je zoekopdracht in en vul je e-mailadres in.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Button onClick={() => navigate("/login")}>Inloggen</Button>
+            <Button variant="outline" onClick={() => navigate("/woning-zoeken")}>
+              Gratis melding instellen
+            </Button>
+          </div>
         </main>
+
         <Footer />
       </div>
     );

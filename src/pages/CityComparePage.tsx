@@ -201,7 +201,7 @@ const CityComparePage = () => {
                   {" "}of{" "}
                   <Link to={cityPath(cityName2)} className="text-primary underline hover:no-underline">{cityName2}</Link>.
                   Stel een{" "}
-                  <Link to="/woonradar" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>
+                  <Link to="/woonradar" className="text-primary underline hover:no-underline">gratis woningmelding</Link>
                   {" "}in om als eerste het nieuwste aanbod te ontvangen.
                 </p>
               </div>

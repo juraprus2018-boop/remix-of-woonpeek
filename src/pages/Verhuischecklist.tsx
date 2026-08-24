@@ -288,7 +288,7 @@ const Verhuischecklist = () => {
               nog op zoek naar je nieuwe plek?
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-background/70">
-              Zet de woonradar aan en krijg dagelijks nieuwe woningen die bij je passen in je inbox.
+              Stel je zoekopdracht in en ontvang direct een gratis melding bij nieuw aanbod.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Button
@@ -296,7 +296,7 @@ const Verhuischecklist = () => {
                 size="lg"
                 className="bg-accent text-accent-foreground hover:bg-accent/90"
               >
-                <Link to="/woonradar">Activeer de woonradar</Link>
+                <Link to="/woonradar">Gratis melding instellen</Link>
               </Button>
               <Button
                 asChild

@@ -73,7 +73,7 @@ const StudentenCity = () => {
     },
     {
       question: `Hoe vind ik snel een kamer in ${cityName}?`,
-      answer: `Stel een gratis dagelijkse alert in op Woonaanbod NL. Je krijgt dan direct een e-mail wanneer er nieuwe studentenkamers in ${cityName} online komen, vaak nog voordat ze massaal bezichtigd worden.`,
+      answer: `Stel een gratis melding in op Woonaanbod NL. Je krijgt dan direct een e-mail wanneer er nieuwe studentenkamers in ${cityName} online komen, vaak nog voordat ze massaal bezichtigd worden.`,
     },
     {
       question: `Wanneer kun je het beste een kamer zoeken in ${cityName}?`,
@@ -165,7 +165,7 @@ const StudentenCity = () => {
               {cityName} is één van Nederlands populairste studiesteden. De vraag naar studentenkamers is groot, vooral aan het begin van het collegejaar. Met Woonaanbod NL krijg je <strong>dagelijks vers aanbod</strong> uit meerdere bronnen, zodat je sneller kunt reageren dan andere zoekers.
             </p>
             <p>
-              Tip: combineer een <Link to="/woonradar" className="text-primary underline">gratis dagelijkse alert</Link> met een goed voorbereid voorstelbericht. Reageer binnen het uur op nieuwe kamers voor de grootste kans.
+              Tip: combineer een <Link to="/woonradar" className="text-primary underline">gratis melding</Link> met een goed voorbereid voorstelbericht. Reageer binnen het uur op nieuwe kamers voor de grootste kans.
             </p>
           </div>
         </section>

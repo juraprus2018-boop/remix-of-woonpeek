@@ -19,6 +19,7 @@ import ExploreMap from "@/components/explore/ExploreMap";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
+import SearchAlertCTA from "@/components/alerts/SearchAlertCTA";
 
 type PropertyType = Database["public"]["Enums"]["property_type"];
 
@@ -276,11 +277,22 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               </div>
             </div>
 
+            <SearchAlertCTA
+              className="mb-6"
+              city={cityName}
+              propertyType={propertyType}
+              listingType={filters.listingType || undefined}
+              maxPrice={filters.maxPrice}
+              minRooms={filters.minBedrooms}
+              source="type-city"
+            />
+
             <IncomeBanner
               grossIncome={filters.grossIncome}
               listingType={filters.listingType}
               onClear={() => setFilters({ ...filters, grossIncome: undefined })}
             />
+
 
             {/* Property grid - full width section, 3 cols */}
             {isLoading ? (
