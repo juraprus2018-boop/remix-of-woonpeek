@@ -19,6 +19,7 @@ import ExploreMap from "@/components/explore/ExploreMap";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
+import SearchAlertCTA from "@/components/alerts/SearchAlertCTA";
 
 type PropertyType = Database["public"]["Enums"]["property_type"];
 
