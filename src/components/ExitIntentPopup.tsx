@@ -54,7 +54,7 @@ const ExitIntentPopup = () => {
         body: { email: email.trim(), source: "exit-intent" },
       });
       if (error) throw error;
-      toast.success("Je ontvangt nu wekelijks het nieuwste woningaanbod!");
+      toast.success("Je ontvangt nu een melding bij nieuw woningaanbod!");
       dismiss();
     } catch {
       toast.error("Er ging iets mis. Probeer het opnieuw.");
@@ -125,10 +125,10 @@ const ExitIntentPopup = () => {
             <Bell className="h-7 w-7 text-primary" />
           </div>
           <h3 className="font-display text-xl font-bold text-foreground">
-            Mis geen nieuwe woningen!
+            Nieuwe woning gevonden?
           </h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Ontvang wekelijks gratis het nieuwste woningaanbod in je inbox. Eerder weten betekent sneller reageren.
+            Ontvang direct een gratis melding zodra er nieuw aanbod bijkomt. Eerder weten betekent sneller reageren.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 flex w-full gap-2">

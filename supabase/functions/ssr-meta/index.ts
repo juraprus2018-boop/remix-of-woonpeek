@@ -184,7 +184,7 @@ function routeBodyContent(bare: string, locale: Locale): { h1: string; intro: st
       faqs: [
         { q: `Hoeveel huurwoningen zijn er beschikbaar in ${city}?`, a: `Het aanbod verandert dagelijks. Woonaanbod NL toont continu actuele huurwoningen, appartementen, studio's en kamers in ${city} en omliggende plaatsen.` },
         { q: `Wat is de gemiddelde huur in ${city}?`, a: `De gemiddelde huurprijs hangt af van type woning en buurt. Op de stadpagina van ${city} vind je live prijsindicaties per kamer- en oppervlakteklasse.` },
-        { q: `Hoe stel ik een huuralert in voor ${city}?`, a: `Ga naar /woonradar, kies ${city} als locatie en stel je maximale huur en aantal kamers in. Je ontvangt dagelijks nieuwe woningen per e-mail, helemaal gratis.` },
+        { q: `Hoe stel ik een huuralert in voor ${city}?`, a: `Zoek op ${city}, stel je filters in en klik op 'Ontvang nieuw aanbod voor deze zoekopdracht'. Je vult alleen je e-mailadres in en krijgt gratis een melding bij nieuw aanbod.` },
         { q: `Kost Woonaanbod NL geld?`, a: `Nee. Zoeken, alerts en woningen plaatsen zijn 100% gratis. Er zijn geen verborgen kosten of abonnementen.` },
       ],
       breadcrumbs: [

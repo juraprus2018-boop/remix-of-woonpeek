@@ -36,7 +36,7 @@ const AlertUnsubscribe = () => {
         setMessage("Je was al afgemeld voor deze alerts.");
         setIsSuccess(true);
       } else if (data?.success) {
-        setMessage("Je bent succesvol afgemeld van de wekelijkse alerts.");
+        setMessage("Je bent succesvol afgemeld van de woningmeldingen.");
         setIsSuccess(true);
       } else {
         setMessage("Ongeldige of verlopen afmeldlink.");
@@ -53,7 +53,7 @@ const AlertUnsubscribe = () => {
     <div className="flex min-h-screen flex-col">
       <SEOHead
         title="Alert afmelden | Woonaanbod NL"
-        description="Meld je af voor wekelijkse e-mailalerts van Woonaanbod NL."
+        description="Meld je af voor de gratis woningmeldingen van Woonaanbod NL."
         canonical="/radarmeldingen/uit"
       />
       <Header />

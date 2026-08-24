@@ -300,7 +300,7 @@ const VerhuizenVanNaar = () => {
               </div>
             ) : (
               <p className="text-muted-foreground">
-                Op dit moment geen actief aanbod in {cityTo}. Zet de woonradar aan om als eerste op
+                Op dit moment geen actief aanbod in {cityTo}. Zet een gratis melding aan om als eerste op
                 de hoogte te zijn.
               </p>
             )}

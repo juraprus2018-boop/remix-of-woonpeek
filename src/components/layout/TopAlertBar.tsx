@@ -25,13 +25,13 @@ const TopAlertBar = () => {
       <div className="container flex items-center justify-center gap-2 py-2 text-sm font-medium">
         <Bell className="h-4 w-4 shrink-0 animate-[wiggle_1s_ease-in-out_infinite]" />
         <span className="hidden sm:inline">
-          Mis geen nieuwe woning meer!{" "}
+          Nieuwe woning gevonden?{" "}
         </span>
         <Link
           to="/woonradar"
           className="underline underline-offset-2 font-semibold hover:opacity-80 transition-opacity"
         >
-          Stel een gratis woningalert in
+          Ontvang direct een gratis melding
         </Link>
         <button
           onClick={handleDismiss}

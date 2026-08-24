@@ -110,7 +110,7 @@ const Cities = () => {
           </div>
           <p className="mt-2 max-w-2xl text-muted-foreground">
             Hier verandert het aanbod het snelst. Check deze steden vaker, of zet een
-            woonradar aan zodat je nieuwe woningen als eerste ziet.
+            gratis melding aan zodat je nieuwe woningen als eerste ziet.
           </p>
 
           {isLoading ? (
