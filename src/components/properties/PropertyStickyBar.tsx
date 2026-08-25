@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
+import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 
 interface PropertyStickyBarProps {
   propertyId: string;
