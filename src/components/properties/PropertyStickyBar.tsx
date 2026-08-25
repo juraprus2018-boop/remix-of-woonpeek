@@ -126,7 +126,7 @@ const PropertyStickyBar = ({
             size="sm"
             className="gap-1.5 whitespace-nowrap"
           >
-            {sourceUrl ? (
+            {normalizedSourceUrl ? (
               <>
                 <ExternalLink className="h-4 w-4" />
                 Reageer
