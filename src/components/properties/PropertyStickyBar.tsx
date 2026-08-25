@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
-import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 
 interface PropertyStickyBarProps {
   propertyId: string;
@@ -58,12 +57,10 @@ const PropertyStickyBar = ({
     maximumFractionDigits: 0,
   }).format(price);
 
-  const normalizedSourceUrl = normalizeAffiliateUrl(sourceUrl);
-
   const handleReact = () => {
-    if (normalizedSourceUrl) {
-      trackDaisyconClick(propertyId, normalizedSourceUrl, sourceSite || null);
-      window.open(normalizedSourceUrl, "_blank", "noopener,noreferrer");
+    if (sourceUrl) {
+      trackDaisyconClick(propertyId, sourceUrl, sourceSite || null);
+      window.open(sourceUrl, "_blank", "noopener,noreferrer");
     } else if (onContact) {
       onContact();
     }
@@ -126,7 +123,7 @@ const PropertyStickyBar = ({
             size="sm"
             className="gap-1.5 whitespace-nowrap"
           >
-            {normalizedSourceUrl ? (
+            {sourceUrl ? (
               <>
                 <ExternalLink className="h-4 w-4" />
                 Reageer

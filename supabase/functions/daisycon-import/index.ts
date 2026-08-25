@@ -1,7 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
-import { normalizeAffiliateUrl } from "../_shared/affiliateUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -247,14 +246,12 @@ function buildAffiliateLink(product: DaisyconProduct, feedMediaId: number, feedP
   const existing = product.link || product.link_url || product.deeplink || 
     product.url || product.affiliate_url || product.click_url ||
     product.tracking_url || product.link_to_product || product.product_url;
-  if (existing && typeof existing === "string") {
-    return normalizeAffiliateUrl(existing);
-  }
+  if (existing && typeof existing === "string") return existing;
 
   // Build Daisycon tracking link from SKU/unique ID
   const uniqueId = product.daisycon_unique_id || product.sku;
   if (uniqueId) {
-    return normalizeAffiliateUrl(`https://ds1.nl/c/?wi=${feedMediaId}&si=${feedProgramId}&li=${uniqueId}&ws=`);
+    return `https://ds1.nl/c/?wi=${feedMediaId}&si=${feedProgramId}&li=${uniqueId}&ws=`;
   }
 
   return null;

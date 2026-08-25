@@ -57,7 +57,6 @@ import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
-import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 import {
   Popover,
   PopoverContent,
@@ -195,7 +194,7 @@ const PropertyDetail = () => {
 
   const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
-  const sourceInfo = { source_url: normalizeAffiliateUrl(property.source_url), source_site: property.source_site };
+  const sourceInfo = { source_url: property.source_url, source_site: property.source_site };
   const sourceMeta = sourceInfo.source_site
     ? SOURCE_SITE_META[sourceInfo.source_site] || { label: sourceInfo.source_site, color: "hsl(var(--primary))" }
     : null;
