@@ -57,6 +57,7 @@ import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
 import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
+import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 import {
   Popover,
   PopoverContent,
