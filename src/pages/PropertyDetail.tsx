@@ -194,7 +194,7 @@ const PropertyDetail = () => {
 
   const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
-  const sourceInfo = { source_url: property.source_url, source_site: property.source_site };
+  const sourceInfo = { source_url: normalizeAffiliateUrl(property.source_url), source_site: property.source_site };
   const sourceMeta = sourceInfo.source_site
     ? SOURCE_SITE_META[sourceInfo.source_site] || { label: sourceInfo.source_site, color: "hsl(var(--primary))" }
     : null;
