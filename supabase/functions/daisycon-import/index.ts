@@ -1,6 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
+import { normalizeAffiliateUrl } from "../_shared/affiliateUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
