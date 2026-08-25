@@ -58,10 +58,12 @@ const PropertyStickyBar = ({
     maximumFractionDigits: 0,
   }).format(price);
 
+  const normalizedSourceUrl = normalizeAffiliateUrl(sourceUrl);
+
   const handleReact = () => {
-    if (sourceUrl) {
-      trackDaisyconClick(propertyId, sourceUrl, sourceSite || null);
-      window.open(sourceUrl, "_blank", "noopener,noreferrer");
+    if (normalizedSourceUrl) {
+      trackDaisyconClick(propertyId, normalizedSourceUrl, sourceSite || null);
+      window.open(normalizedSourceUrl, "_blank", "noopener,noreferrer");
     } else if (onContact) {
       onContact();
     }
