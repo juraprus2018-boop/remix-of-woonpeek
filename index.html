@@ -208,19 +208,13 @@
       }
     }
     </script>
-    <script>
-      // Defer AdSense to after page interactive (saves ~300ms on FCP/LCP)
-      window.addEventListener("load", function () {
-        setTimeout(function () {
-          var s = document.createElement("script");
-          s.async = true;
-          s.crossOrigin = "anonymous";
-          s.src =
-            "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3573780897509976";
-          document.head.appendChild(s);
-        }, 1500);
-      });
-    </script>
+    <!-- AdSense -->
+    <script
+      id="adsense-script"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3573780897509976"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
