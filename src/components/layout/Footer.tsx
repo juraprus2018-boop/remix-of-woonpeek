@@ -94,7 +94,7 @@ const Footer = () => {
                 info@woonaanbod-nl.nl
               </li>
               <li>
-                <a href="https://www.facebook.com/woonaanbod-nl" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                <a href="https://www.facebook.com/profile.php?id=61593864421175" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
                   <Facebook className="h-4 w-4" /> Facebook
                 </a>
               </li>
