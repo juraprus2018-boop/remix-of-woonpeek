@@ -81,10 +81,61 @@ Deno.serve(async (req) => {
       headers,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unexpected proxy error";
-    return json({ error: message }, 500);
+    console.warn("Image proxy error:", error instanceof Error ? error.message : error);
+    return placeholderResponse();
   }
 });
+
+const BROWSER_UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
+
+/**
+ * Fetch the upstream image with browser-like headers. Many listing sites use
+ * hotlink protection and reject unknown user agents or requests without a
+ * Referer, so we retry once with the target's own origin as Referer.
+ */
+async function fetchImage(targetUrl: URL): Promise<Response | null> {
+  const attempts: HeadersInit[] = [
+    {
+      "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+      "Accept-Language": "nl-NL,nl;q=0.9,en;q=0.8",
+      "User-Agent": BROWSER_UA,
+      "Referer": `${targetUrl.origin}/`,
+    },
+    {
+      "Accept": "image/avif,image/webp,image/*,*/*;q=0.8",
+      "User-Agent": BROWSER_UA,
+    },
+  ];
+
+  let last: Response | null = null;
+  for (const headers of attempts) {
+    try {
+      const res = await fetch(targetUrl.toString(), { redirect: "follow", headers });
+      if (res.ok) return res;
+      await res.body?.cancel();
+      last = res;
+    } catch (err) {
+      console.warn("Image fetch attempt failed:", err instanceof Error ? err.message : err);
+    }
+  }
+  return last;
+}
+
+const PLACEHOLDER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600"><rect width="800" height="600" fill="#eef2f6"/><g fill="none" stroke="#173e63" stroke-opacity="0.35" stroke-width="14" stroke-linejoin="round"><path d="M250 300 L400 190 L550 300"/><path d="M290 300 v130 h220 v-130"/></g></svg>`;
+
+/** Neutral house placeholder so listings never show a broken image. */
+function placeholderResponse() {
+  return new Response(PLACEHOLDER_SVG, {
+    status: 200,
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
+}
+
 
 function json(payload: Record<string, string>, status: number) {
   return new Response(JSON.stringify(payload), {
