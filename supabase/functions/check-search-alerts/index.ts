@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -56,17 +56,7 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const smtpClient = new SMTPClient({
-      connection: {
-        hostname: "woonaanbod-nl.nl",
-        port: 465,
-        tls: true,
-        auth: {
-          username: "info@woonaanbod-nl.nl",
-          password: Deno.env.get("SMTP_PASSWORD") || "",
-        },
-      },
-    });
+    const smtpClient = createSmtpClient();
 
     let searchAlertNotificationsSent = 0;
     let dailySubscriberNotificationsSent = 0;
@@ -109,7 +99,7 @@ Deno.serve(async (req) => {
 
         try {
           await smtpClient.send({
-            from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+            from: MAIL_FROM,
             to: userData.user.email,
             subject: `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`,
             content: "text/html",
@@ -195,7 +185,7 @@ Deno.serve(async (req) => {
       // Send email
       try {
         await smtpClient.send({
-          from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+          from: MAIL_FROM,
           to: subscriber.email,
           subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – Woonaanbod NL`,
           content: "text/html",

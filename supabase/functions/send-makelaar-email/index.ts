@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
 import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
@@ -121,20 +121,10 @@ Deno.serve(async (req) => {
       // Create a fresh SMTP client per email to avoid connection timeout issues
       let client: SMTPClient | null = null;
       try {
-        client = new SMTPClient({
-          connection: {
-            hostname: "woonaanbod-nl.nl",
-            port: 465,
-            tls: true,
-            auth: {
-              username: "info@woonaanbod-nl.nl",
-              password: Deno.env.get("SMTP_PASSWORD") || "",
-            },
-          },
-        });
+        client = createSmtpClient();
 
         await client.send({
-          from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+          from: MAIL_FROM,
           to: recipient.email,
           subject,
           content: "auto",
