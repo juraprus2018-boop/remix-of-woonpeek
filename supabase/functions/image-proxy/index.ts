@@ -48,22 +48,19 @@ Deno.serve(async (req) => {
       return json({ error: "Host is not allowed" }, 400);
     }
 
-    const upstream = await fetch(targetUrl.toString(), {
-      redirect: "follow",
-      headers: {
-        "Accept": "image/avif,image/webp,image/*,*/*;q=0.8",
-        "User-Agent": "Woonaanbod NLImageProxy/1.0",
-      },
-    });
+    const upstream = await fetchImage(targetUrl);
 
-    if (!upstream.ok) {
-      return json({ error: `Upstream image request failed with ${upstream.status}` }, 502);
+    if (!upstream || !upstream.ok) {
+      // Upstream hosts often block hotlinking or serve expired URLs. Returning a
+      // 502 leaves broken images in the UI, so serve a neutral placeholder instead.
+      return placeholderResponse();
     }
 
     const contentType = upstream.headers.get("content-type") || "";
     if (!contentType.startsWith("image/")) {
-      return json({ error: "Upstream response is not an image" }, 415);
+      return placeholderResponse();
     }
+
 
     const headers = new Headers({
       ...corsHeaders,
