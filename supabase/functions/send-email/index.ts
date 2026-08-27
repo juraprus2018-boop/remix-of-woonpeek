@@ -38,12 +38,12 @@ Deno.serve(async (req) => {
       });
     }
 
-    if (!isServiceRole(req) && !INTERNAL_RECIPIENTS.includes(to)) {
-      return new Response(JSON.stringify({ error: "Forbidden" }), {
-        status: 403,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+    // Arbitrary recipients require an internal service-role caller or an admin.
+    if (!INTERNAL_RECIPIENTS.includes(to)) {
+      const gate = await requireAdmin(req, corsHeaders);
+      if (gate.response) return gate.response;
     }
+
 
 
     const client = createSmtpClient();
