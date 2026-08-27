@@ -216,7 +216,7 @@ Deno.serve(async (req) => {
         .eq("id", subscriber.id);
     }
 
-    await smtpClient.close();
+    await closeSmtpQuietly(smtpClient);
 
     return new Response(
       JSON.stringify({

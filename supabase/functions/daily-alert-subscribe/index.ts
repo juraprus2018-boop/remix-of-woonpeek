@@ -202,7 +202,7 @@ Deno.serve(async (req) => {
         `,
       });
     } finally {
-      await client.close();
+      await closeSmtpQuietly(client);
     }
 
     const channels = ["e-mail"];
