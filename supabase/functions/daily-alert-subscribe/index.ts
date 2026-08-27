@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -181,22 +181,12 @@ Deno.serve(async (req) => {
 
 
     // Send admin notification
-    const client = new SMTPClient({
-      connection: {
-        hostname: "woonaanbod-nl.nl",
-        port: 465,
-        tls: true,
-        auth: {
-          username: "info@woonaanbod-nl.nl",
-          password: Deno.env.get("SMTP_PASSWORD") || "",
-        },
-      },
-    });
+    const client = createSmtpClient();
 
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
       await client.send({
-        from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+        from: MAIL_FROM,
         to: "info@woonaanbod-nl.nl",
         subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`,
         content: "text/html",
@@ -212,7 +202,7 @@ Deno.serve(async (req) => {
         `,
       });
     } finally {
-      await client.close();
+      await closeSmtpQuietly(client);
     }
 
     const channels = ["e-mail"];

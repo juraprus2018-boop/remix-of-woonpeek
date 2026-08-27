@@ -1,4 +1,4 @@
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
+import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
 import { isServiceRole } from "../_shared/auth.ts";
 
 const corsHeaders = {
@@ -46,20 +46,10 @@ Deno.serve(async (req) => {
     }
 
 
-    const client = new SMTPClient({
-      connection: {
-        hostname: "mail.woonaanbod-nl.nl",
-        port: 465,
-        tls: true,
-        auth: {
-          username: "info@woonaanbod-nl.nl",
-          password: Deno.env.get("SMTP_PASSWORD") || "",
-        },
-      },
-    });
+    const client = createSmtpClient();
 
     await client.send({
-      from: "Woonaanbod NL <info@woonaanbod-nl.nl>",
+      from: MAIL_FROM,
       to,
       subject,
       content: "text/html",
