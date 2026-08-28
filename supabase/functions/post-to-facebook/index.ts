@@ -1,16 +1,61 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 
-// ─── KILL SWITCH ────────────────────────────────────────────────────
-// Facebook + Instagram posting is fully disabled per user request.
-// Any invocation returns immediately without contacting the Graph API.
-const FACEBOOK_POSTING_DISABLED = true;
+// Facebook + Instagram autoposting is re-enabled for the Woonaanbod NL page.
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
+
+async function requirePoster(
+  req: Request,
+  supabase: any,
+  propertyId?: string
+): Promise<{ allowed: true; userId?: string } | { allowed: false; response: Response }> {
+  const deny = (status: number, error: string) => ({
+    allowed: false as const,
+    response: new Response(JSON.stringify({ error }), {
+      status,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    }),
+  });
+
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const authHeader = req.headers.get("Authorization") ?? req.headers.get("authorization") ?? "";
+  const token = authHeader.replace(/^Bearer\s+/i, "").trim();
+  const apikey = req.headers.get("apikey");
+  if (serviceKey && (token === serviceKey || apikey === serviceKey)) {
+    return { allowed: true };
+  }
+
+  const cronSecret = req.headers.get("x-cron-secret");
+  if (cronSecret) {
+    try {
+      const { data: valid } = await supabase.rpc("verify_cron_secret", { _secret: cronSecret });
+      if (valid === true) return { allowed: true };
+    } catch (e) {
+      console.error("verify_cron_secret error:", e);
+    }
+  }
+
+  if (!token) return deny(401, "Unauthorized");
+
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) return deny(401, "Unauthorized");
+
+  const { data: isAdmin } = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
+  if (isAdmin) return { allowed: true, userId: user.id };
+
+  if (propertyId) {
+    const { data: prop } = await supabase.from("properties").select("user_id").eq("id", propertyId).single();
+    if (prop?.user_id === user.id) return { allowed: true, userId: user.id };
+  }
+
+  return deny(403, "Forbidden");
+}
+
 
 const GRAPH_API = "https://graph.facebook.com/v21.0";
 const SITE_URL = "https://www.woonaanbod-nl.nl";
@@ -571,7 +616,7 @@ Deno.serve(async (req) => {
 
 
   const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
-  let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID");
+  let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID") || "1254508837756387";
 
   if (!PAGE_ACCESS_TOKEN) {
     return new Response(
@@ -605,8 +650,20 @@ Deno.serve(async (req) => {
   const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const supabase = createClient(supabaseUrl, supabaseKey);
 
+  let body: Record<string, unknown>;
   try {
-    const body = await req.json();
+    body = await req.json();
+  } catch {
+    return new Response(
+      JSON.stringify({ error: "Invalid JSON body" }),
+      { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+
+  const auth = await requirePoster(req, supabase, body.property_id as string | undefined);
+  if (!auth.allowed) return auth.response;
+
+  try {
     const {
       property_id,
       auto_post,
