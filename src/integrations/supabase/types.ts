@@ -1682,6 +1682,8 @@ export type Database = {
       market_stats: { Args: never; Returns: Json }
       market_stats_extra: { Args: never; Returns: Json }
       province_from_postal: { Args: { _pc: string }; Returns: string }
+      show_limit: { Args: never; Returns: number }
+      show_trgm: { Args: { "": string }; Returns: string[] }
       verify_cron_secret: { Args: { _secret: string }; Returns: boolean }
     }
     Enums: {
