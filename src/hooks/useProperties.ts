@@ -41,8 +41,27 @@ const sortConfig = (sortBy?: SortOption): { column: string; ascending: boolean }
 };
 
 const DEFAULT_BATCH_SIZE = 1000;
+// Harde bovengrens voor "alles ophalen"-modi zodat een groeiende tabel nooit tot timeouts leidt.
+const MAX_FULL_ROWS = 6000;
 
 // Woningen uit de Huurwoningen.nl-feed (feed_priority = 0) staan altijd bovenaan in elke sortering.
+
+// Batches worden op primary key opgehaald (goedkoop, geen sort van de hele tabel per batch)
+// en daarna client-side gesorteerd op feed_priority + gekozen sortering.
+const sortPropertiesClientSide = <T extends { feed_priority?: number | null; created_at?: string | null; price?: number | null }>(
+  rows: T[],
+  sortBy?: SortOption
+): T[] => {
+  const { column, ascending } = sortConfig(sortBy);
+  return [...rows].sort((a, b) => {
+    const fp = (a.feed_priority ?? 999) - (b.feed_priority ?? 999);
+    if (fp !== 0) return fp;
+    const av = column === "price" ? Number(a.price ?? 0) : new Date(a.created_at ?? 0).getTime();
+    const bv = column === "price" ? Number(b.price ?? 0) : new Date(b.created_at ?? 0).getTime();
+    return ascending ? av - bv : bv - av;
+  });
+};
+
 
 const applyPropertyFilters = <T,>(query: T, filters?: PropertyFilters) => {
   let q: any = query;
