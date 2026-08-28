@@ -136,8 +136,11 @@ const CreateProperty = () => {
       });
       if (selectedFiles.length > 0) {
         const imageUrls = await uploadImages(property.id);
-        if (imageUrls.length > 0) await supabase.from("properties").update({ images: imageUrls }).eq("id", property.id);
+      if (imageUrls.length > 0) await supabase.from("properties").update({ images: imageUrls }).eq("id", property.id);
       }
+      supabase.functions.invoke("post-to-facebook", { body: { property_id: property.id } }).catch((err) => {
+        console.error("Facebook autopost failed", err);
+      });
       supabase.functions.invoke("send-email", {
         body: {
           to: "info@woonaanbod-nl.nl",
