@@ -111,7 +111,7 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         let query = supabase
           .from("properties")
-          .select("*", { count: "exact" })
+          .select("*", { count: "estimated" })
           .order("feed_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
@@ -124,23 +124,19 @@ export const useProperties = (filters?: PropertyFilters) => {
         return { properties: (data as Property[]) || [], totalCount: count || 0 };
       }
 
-      // Full mode (all rows) - fetch in batches to avoid 1000-row API limit
-      const { count, error: countError } = await applyPropertyFilters(
-        supabase.from("properties").select("id", { count: "exact", head: true }),
-        filters
-      );
-      if (countError) throw countError;
-
+      // Full mode (all rows) - fetch in batches to avoid 1000-row API limit.
+      // Batches worden op id gesorteerd (pk-index) zodat Postgres niet per batch
+      // de volledige resultaatset hoeft te sorteren; sortering gebeurt client-side.
       const allProperties: Property[] = [];
       let from = 0;
 
-      while (true) {
+      while (from < MAX_FULL_ROWS) {
+        const batchSize = Math.min(DEFAULT_BATCH_SIZE, MAX_FULL_ROWS - from);
         let batchQuery = supabase
           .from("properties")
           .select("*")
-          .order("feed_priority", { ascending: true })
-          .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
-          .range(from, from + DEFAULT_BATCH_SIZE - 1);
+          .order("id", { ascending: true })
+          .range(from, from + batchSize - 1);
 
         batchQuery = applyPropertyFilters(batchQuery, filters);
 
@@ -150,11 +146,13 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         allProperties.push(...(data as Property[]));
 
-        if (data.length < DEFAULT_BATCH_SIZE) break;
-        from += DEFAULT_BATCH_SIZE;
+        if (data.length < batchSize) break;
+        from += batchSize;
       }
 
-      return { properties: allProperties, totalCount: count || allProperties.length };
+      const sorted = sortPropertiesClientSide(allProperties, filters?.sortBy);
+      return { properties: sorted, totalCount: sorted.length };
+
     },
   });
 };
