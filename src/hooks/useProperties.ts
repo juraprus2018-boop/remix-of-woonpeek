@@ -43,6 +43,8 @@ const sortConfig = (sortBy?: SortOption): { column: string; ascending: boolean }
 const DEFAULT_BATCH_SIZE = 1000;
 // Harde bovengrens voor "alles ophalen"-modi zodat een groeiende tabel nooit tot timeouts leidt.
 const MAX_FULL_ROWS = 6000;
+const MAX_MAP_ROWS = 15000;
+
 
 // Woningen uit de Huurwoningen.nl-feed (feed_priority = 0) staan altijd bovenaan in elke sortering.
 
