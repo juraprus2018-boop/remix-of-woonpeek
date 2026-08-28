@@ -167,7 +167,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
 
       let query = supabase
         .from("properties")
-        .select("*", { count: "exact" })
+        .select("*", { count: "estimated" })
         .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
@@ -194,15 +194,15 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
       const allMapProperties: Property[] = [];
       let from = 0;
 
-      while (true) {
+      while (from < MAX_MAP_ROWS) {
+        const batchSize = Math.min(DEFAULT_BATCH_SIZE, MAX_MAP_ROWS - from);
         let query = supabase
           .from("properties")
-          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site")
+          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site, feed_priority, created_at")
           .not("latitude", "is", null)
           .not("longitude", "is", null)
-          .order("feed_priority", { ascending: true })
-          .order(sortConfig((filters as any)?.sortBy).column, { ascending: sortConfig((filters as any)?.sortBy).ascending })
-          .range(from, from + DEFAULT_BATCH_SIZE - 1);
+          .order("id", { ascending: true })
+          .range(from, from + batchSize - 1);
 
         query = applyPropertyFilters(query, filters);
 
@@ -212,12 +212,13 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
 
         allMapProperties.push(...(data as unknown as Property[]));
 
-        if (data.length < DEFAULT_BATCH_SIZE) break;
-        from += DEFAULT_BATCH_SIZE;
+        if (data.length < batchSize) break;
+        from += batchSize;
       }
 
-      return allMapProperties;
+      return sortPropertiesClientSide(allMapProperties, (filters as any)?.sortBy);
     },
+
     enabled,
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
