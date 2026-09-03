@@ -113,7 +113,7 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         let query = supabase
           .from("properties")
-          .select("*", { count: "estimated" })
+          .select("*", { count: "exact" })
           .order("feed_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
@@ -169,7 +169,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
 
       let query = supabase
         .from("properties")
-        .select("*", { count: "estimated" })
+        .select("*", { count: "exact" })
         .order("feed_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
