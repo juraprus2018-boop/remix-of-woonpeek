@@ -186,16 +186,38 @@ export default function AutoTranslator() {
     let pending: Job[] = [];
     let scheduled = false;
 
+    const MAX_TEXTS_PER_REQUEST = 40;
+
     const requestTranslations = async (jobs: Job[], attempt: number) => {
       if (cancelled || jobs.length === 0) return;
+
+      // Keep each request small so the edge worker stays well within its
+      // resource limits (large batches previously caused 503s).
+      if (jobs.length > MAX_TEXTS_PER_REQUEST) {
+        for (let i = 0; i < jobs.length; i += MAX_TEXTS_PER_REQUEST) {
+          const slice = jobs.slice(i, i + MAX_TEXTS_PER_REQUEST);
+          const delay = (i / MAX_TEXTS_PER_REQUEST) * 250;
+          setTimeout(() => void requestTranslations(slice, attempt), delay);
+        }
+        return;
+      }
+
       const uniqueTexts = Array.from(new Set(jobs.map((m) => m.text)));
 
       try {
         const { data, error } = await supabase.functions.invoke("auto-translate", {
           body: { texts: uniqueTexts, lang },
         });
-        if (cancelled || error) {
-          for (const job of jobs) inFlightRef.current.delete(job.text);
+        if (cancelled) return;
+        if (error) {
+          // Transient edge failure (503 / worker unavailable): retry with backoff
+          // instead of silently leaving the page in Dutch.
+          if (attempt < 4) {
+            const delay = 1200 * Math.pow(2, attempt);
+            setTimeout(() => void requestTranslations(jobs, attempt + 1), delay);
+          } else {
+            for (const job of jobs) inFlightRef.current.delete(job.text);
+          }
           return;
         }
         const translations = (data?.translations ?? {}) as Record<string, string>;
@@ -225,9 +247,15 @@ export default function AutoTranslator() {
         }
       } catch (e) {
         console.warn("AutoTranslator request failed", e);
-        for (const job of jobs) inFlightRef.current.delete(job.text);
+        if (attempt < 4) {
+          const delay = 1200 * Math.pow(2, attempt);
+          setTimeout(() => void requestTranslations(jobs, attempt + 1), delay);
+        } else {
+          for (const job of jobs) inFlightRef.current.delete(job.text);
+        }
       }
     };
+
 
     const flush = async () => {
       scheduled = false;
