@@ -339,27 +339,49 @@ function injectMeta(html: string, url: URL): string {
   return out;
 }
 
+// In-memory cache for the base index.html (per isolate).
+let shellCache: { html: string; at: number } | null = null;
+const SHELL_TTL_MS = 5 * 60 * 1000;
+
+async function getShell(): Promise<string> {
+  const now = Date.now();
+  if (shellCache && now - shellCache.at < SHELL_TTL_MS) return shellCache.html;
+
+  const res = await fetch(ORIGIN + "/index.html", {
+    headers: { "x-no-prerender": "1", "user-agent": "ssr-meta/1.0" },
+    redirect: "follow",
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!res.ok) throw new Error(`Upstream ${res.status}`);
+  const html = await res.text();
+  shellCache = { html, at: now };
+  return html;
+}
+
+function minimalShell(): string {
+  return `<!doctype html><html lang="nl"><head><meta charset="utf-8" /><title>Woonaanbod NL</title><meta name="description" content="Woonaanbod NL" /><link rel="canonical" href="${ORIGIN}/" /><meta property="og:title" content="Woonaanbod NL" /><meta property="og:description" content="Woonaanbod NL" /><meta property="og:url" content="${ORIGIN}/" /><meta property="og:locale" content="nl_NL" /></head><body><div id="root"></div>\n    <script type="module" src="/src/main.tsx"></script></body></html>`;
+}
+
 Deno.serve(async (req) => {
+  const reqUrl = new URL(req.url);
+  const targetPath = reqUrl.searchParams.get("path") || "/";
+  const pageUrl = new URL(targetPath, ORIGIN);
+
+  // Guard against self-recursion: never prerender a request that already came
+  // through this function.
+  if (req.headers.get("x-no-prerender") === "1") {
+    return new Response("Not prerendered", { status: 204 });
+  }
+
+  let html: string;
   try {
-    const reqUrl = new URL(req.url);
-    // The original path the crawler hit – passed via ?path= from .htaccess,
-    // or fall back to the function's own pathname.
-    const targetPath = reqUrl.searchParams.get("path") || "/";
-    const pageUrl = new URL(targetPath, ORIGIN);
+    html = await getShell();
+  } catch (_err) {
+    html = shellCache?.html ?? minimalShell();
+  }
 
-    const upstream = await fetch(ORIGIN + "/index.html", {
-      headers: { "x-no-prerender": "1", "user-agent": "ssr-meta/1.0" },
-      redirect: "follow",
-    });
-
-    if (!upstream.ok) {
-      return new Response(`Upstream ${upstream.status}`, { status: 502 });
-    }
-
-    const html = await upstream.text();
-    const mutated = injectMeta(html, pageUrl);
-
-    return new Response(mutated, {
+  try {
+    return new Response(injectMeta(html, pageUrl), {
       status: 200,
       headers: {
         "content-type": "text/html; charset=utf-8",
@@ -371,3 +393,4 @@ Deno.serve(async (req) => {
     return new Response(`ssr-meta error: ${(err as Error).message}`, { status: 500 });
   }
 });
+
