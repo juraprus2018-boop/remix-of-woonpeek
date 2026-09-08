@@ -31,6 +31,7 @@ RewriteRule ^woning/([^/?]+)$ https://kppotnzwhxkflceiscto.supabase.co/functions
 # worden vervangen zodat /en /de /fr previews in juiste taal verschijnen.
 # Niet voor: woning-detail (heeft eigen og-property), assets, sitemaps, of self-fetch.
 RewriteCond %{HTTP:x-no-prerender} !=1
+RewriteCond %{REQUEST_URI} !^/index\.html$ [NC]
 RewriteCond %{REQUEST_URI} !^/woning/ [NC]
 RewriteCond %{REQUEST_URI} !^/(assets|src|favicon|robots|sitemap|feed|sw\.js|.*\.(?:js|css|png|jpe?g|webp|svg|ico|woff2?|xml|txt|json|map))($|/) [NC]
 RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|duckduckbot|yandex|baiduspider|facebook|facebot|meta|twitterbot|linkedinbot|slackbot|discordbot|whatsapp|telegrambot|skypeuripreview|pinterestbot|redditbot|applebot|bingpreview) [NC]
