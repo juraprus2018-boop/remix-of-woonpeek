@@ -216,8 +216,38 @@ Deno.serve(async (req) => {
           // SAFETY: Skip deactivation for feeds that returned 0 products
           // This prevents mass deactivation when a feed API is temporarily down
           const feedsWithoutProducts = feedNames.filter(n => !feedsWithProducts.has(n));
+          let staleDeactivated = 0;
           if (feedsWithoutProducts.length > 0) {
-            console.log(`Daisycon: Skipping deactivation for feeds with 0 products: ${feedsWithoutProducts.join(', ')}`);
+            console.log(`Daisycon: Skipping feed-diff deactivation for feeds with 0 products: ${feedsWithoutProducts.join(', ')}`);
+
+            // But do not keep listings "actief" forever when a feed stays empty:
+            // anything not refreshed by an import for 14+ days is considered gone.
+            const staleCutoff = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
+            while (true) {
+              const { data: staleProps, error: staleErr } = await supabase
+                .from("properties")
+                .select("id")
+                .in("source_site", feedsWithoutProducts)
+                .eq("status", "actief")
+                .lt("updated_at", staleCutoff)
+                .limit(500);
+
+              if (staleErr || !staleProps || staleProps.length === 0) break;
+
+              const ids = staleProps.map((p: any) => p.id);
+              for (let i = 0; i < ids.length; i += 100) {
+                const batch = ids.slice(i, i + 100);
+                await supabase
+                  .from("properties")
+                  .update({ status: "inactief", updated_at: new Date().toISOString() })
+                  .in("id", batch);
+                staleDeactivated += batch.length;
+              }
+              if (staleProps.length < 500) break;
+            }
+            console.log(`Daisycon: ${staleDeactivated} stale properties deactivated`);
+            totalDeactivated += staleDeactivated;
+            details.push({ source: "Daisycon (verouderd)", deactivated: staleDeactivated });
           }
           // Only deactivate from feeds that actually returned products
           const feedsToDeactivate = feedNames.filter(n => feedsWithProducts.has(n));
