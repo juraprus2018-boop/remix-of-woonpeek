@@ -45,6 +45,7 @@ const AdminDashboard = () => {
   const runImport = useRunDaisyconImport();
   const [resetting, setResetting] = useState(false);
   const [resetSource, setResetSource] = useState<string>("all");
+  const [resetScope, setResetScope] = useState<"active" | "inactive" | "both">("active");
   const [nuking, setNuking] = useState(false);
   const [nukeConfirm, setNukeConfirm] = useState("");
   const [nukeOpen, setNukeOpen] = useState(false);
@@ -95,11 +96,14 @@ const AdminDashboard = () => {
   const handleReset = async () => {
     setResetting(true);
     try {
-      const body = resetSource !== "all" ? { source_site: resetSource } : {};
+      const body: Record<string, string> = { scope: resetScope };
+      if (resetSource !== "all") body.source_site = resetSource;
       const { data, error } = await supabase.functions.invoke("admin-reset", { body });
       if (error) throw error;
-      const label = resetSource === "all" ? "Alles" : resetSource;
-      toast.success(`Reset voltooid (${label}): ${data.active_deleted || 0} woningen verwijderd`);
+      const label = resetSource === "all" ? "Alle bronnen" : resetSource;
+      const scopeLabel =
+        resetScope === "active" ? "actief" : resetScope === "inactive" ? "inactief" : "actief + inactief";
+      toast.success(`Reset voltooid (${label}, ${scopeLabel}): ${data.active_deleted || 0} woningen verwijderd`);
       queryClient.invalidateQueries({ queryKey: ["all-properties"] });
       queryClient.invalidateQueries({ queryKey: ["properties"] });
     } catch (e) {
@@ -190,10 +194,10 @@ const AdminDashboard = () => {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Data resetten</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Selecteer welke bron je wilt resetten. Dit verwijdert actieve woningen van die bron.
+                    Selecteer welke bron je wilt resetten en of je actieve, inactieve of alle woningen verwijdert.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
-                <div className="py-4">
+                <div className="space-y-3 py-4">
                   <Select value={resetSource} onValueChange={setResetSource}>
                     <SelectTrigger>
                       <SelectValue placeholder="Selecteer bron" />
@@ -205,6 +209,16 @@ const AdminDashboard = () => {
                           {source}
                         </SelectItem>
                       ))}
+                    </SelectContent>
+                  </Select>
+                  <Select value={resetScope} onValueChange={(v) => setResetScope(v as typeof resetScope)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecteer status" />
+                    </SelectTrigger>
+                    <SelectContent className="z-50 bg-popover">
+                      <SelectItem value="active">Alleen actieve woningen</SelectItem>
+                      <SelectItem value="inactive">Alleen inactieve woningen</SelectItem>
+                      <SelectItem value="both">Actief én inactief</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

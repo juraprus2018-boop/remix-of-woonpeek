@@ -45,51 +45,66 @@ Deno.serve(async (req) => {
     });
   }
 
-  // Parse optional source_site filter
+  // Parse optional source_site + status scope filter
   let sourceSite: string | null = null;
+  let scope: "active" | "inactive" | "both" = "active";
   try {
     const body = await req.json();
     sourceSite = body.source_site || null;
+    if (body.scope === "inactive" || body.scope === "both") scope = body.scope;
   } catch {
     // No body or invalid JSON — reset all
   }
+
+  const ACTIVE_STATUSES = ["actief", "verkocht", "verhuurd"];
+  const INACTIVE_STATUSES = ["inactief"];
+  const statuses =
+    scope === "both"
+      ? [...ACTIVE_STATUSES, ...INACTIVE_STATUSES]
+      : scope === "inactive"
+        ? INACTIVE_STATUSES
+        : ACTIVE_STATUSES;
 
   try {
     if (sourceSite) {
       // === Per-source reset ===
 
-      // 1. Delete scraped_properties for this source
-      const { error: e1 } = await supabase
-        .from("scraped_properties")
-        .delete()
-        .eq("source_site", sourceSite);
-      if (e1) console.error("Delete scraped_properties error:", e1.message);
+      // 1. Delete scraped_properties for this source (niet bij enkel-inactief opruimen)
+      if (scope !== "inactive") {
+        const { error: e1 } = await supabase
+          .from("scraped_properties")
+          .delete()
+          .eq("source_site", sourceSite);
+        if (e1) console.error("Delete scraped_properties error:", e1.message);
+      }
 
       // 2. Delete active properties for this source (keep inactief/verlopen)
       const { data: deletedActive, error: e2 } = await supabase
         .from("properties")
         .delete()
         .eq("source_site", sourceSite)
-        .in("status", ["actief", "verkocht", "verhuurd"])
+        .in("status", statuses)
         .select("id");
       if (e2) console.error("Delete properties error:", e2.message);
 
-      // 3. Reset properties_found for matching scraper
-      const { error: e3 } = await supabase
-        .from("scrapers")
-        .update({ properties_found: 0 })
-        .ilike("name", `%${sourceSite}%`);
-      if (e3) console.error("Reset scraper error:", e3.message);
+      if (scope !== "inactive") {
+        // 3. Reset properties_found for matching scraper
+        const { error: e3 } = await supabase
+          .from("scrapers")
+          .update({ properties_found: 0 })
+          .ilike("name", `%${sourceSite}%`);
+        if (e3) console.error("Reset scraper error:", e3.message);
 
-      // 4. Delete logs for matching scraper
-      const { data: matchingScrapers } = await supabase
-        .from("scrapers")
-        .select("id")
-        .ilike("name", `%${sourceSite}%`);
-      
-      if (matchingScrapers && matchingScrapers.length > 0) {
-        for (const s of matchingScrapers) {
-          await supabase.from("scraper_logs").delete().eq("scraper_id", s.id);
+        // 4. Delete logs for matching scraper
+        const { data: matchingScrapers } = await supabase
+          .from("scrapers")
+          .select("id")
+          .ilike("name", `%${sourceSite}%`);
+
+        if (matchingScrapers && matchingScrapers.length > 0) {
+          for (const s of matchingScrapers) {
+            await supabase.from("scraper_logs").delete().eq("scraper_id", s.id);
+          }
         }
       }
 
@@ -97,6 +112,7 @@ Deno.serve(async (req) => {
         JSON.stringify({
           success: true,
           source: sourceSite,
+          scope,
           active_deleted: deletedActive?.length || 0,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -104,42 +120,47 @@ Deno.serve(async (req) => {
     } else {
       // === Full reset ===
 
-      // 1. Reset properties_found on all scrapers
-      const { error: e1 } = await supabase
-        .from("scrapers")
-        .update({ properties_found: 0 })
-        .gte("properties_found", 0);
-      if (e1) console.error("Reset scrapers error:", e1.message);
+      if (scope !== "inactive") {
+        // 1. Reset properties_found on all scrapers
+        const { error: e1 } = await supabase
+          .from("scrapers")
+          .update({ properties_found: 0 })
+          .gte("properties_found", 0);
+        if (e1) console.error("Reset scrapers error:", e1.message);
 
-      // 2. Delete all scraped_properties
-      const { error: e2 } = await supabase
-        .from("scraped_properties")
-        .delete()
-        .neq("id", "00000000-0000-0000-0000-000000000000");
-      if (e2) console.error("Delete scraped_properties error:", e2.message);
+        // 2. Delete all scraped_properties
+        const { error: e2 } = await supabase
+          .from("scraped_properties")
+          .delete()
+          .neq("id", "00000000-0000-0000-0000-000000000000");
+        if (e2) console.error("Delete scraped_properties error:", e2.message);
+      }
 
-      // 3. Delete active properties (keep inactief/verlopen)
+      // 3. Delete properties in gekozen status-scope
       const { data: deletedActive, error: e3 } = await supabase
         .from("properties")
         .delete()
-        .in("status", ["actief", "verkocht", "verhuurd"])
+        .in("status", statuses)
         .select("id");
       if (e3) console.error("Delete active properties error:", e3.message);
 
-      // 4. Clear scraper logs
-      const { error: e4 } = await supabase
-        .from("scraper_logs")
-        .delete()
-        .neq("id", "00000000-0000-0000-0000-000000000000");
-      if (e4) console.error("Delete scraper_logs error:", e4.message);
+      if (scope !== "inactive") {
+        // 4. Clear scraper logs
+        const { error: e4 } = await supabase
+          .from("scraper_logs")
+          .delete()
+          .neq("id", "00000000-0000-0000-0000-000000000000");
+        if (e4) console.error("Delete scraper_logs error:", e4.message);
+      }
 
       return new Response(
         JSON.stringify({
           success: true,
-          scrapers_reset: true,
-          scraped_properties_cleared: true,
+          scope,
+          scrapers_reset: scope !== "inactive",
+          scraped_properties_cleared: scope !== "inactive",
           active_deleted: deletedActive?.length || 0,
-          logs_cleared: true,
+          logs_cleared: scope !== "inactive",
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
