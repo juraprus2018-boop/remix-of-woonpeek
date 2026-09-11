@@ -211,6 +211,16 @@ const AdminDashboard = () => {
                       ))}
                     </SelectContent>
                   </Select>
+                  <Select value={resetScope} onValueChange={(v) => setResetScope(v as typeof resetScope)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecteer status" />
+                    </SelectTrigger>
+                    <SelectContent className="z-50 bg-popover">
+                      <SelectItem value="active">Alleen actieve woningen</SelectItem>
+                      <SelectItem value="inactive">Alleen inactieve woningen</SelectItem>
+                      <SelectItem value="both">Actief én inactief</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Annuleren</AlertDialogCancel>
