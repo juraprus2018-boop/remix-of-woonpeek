@@ -45,6 +45,7 @@ const AdminDashboard = () => {
   const runImport = useRunDaisyconImport();
   const [resetting, setResetting] = useState(false);
   const [resetSource, setResetSource] = useState<string>("all");
+  const [resetScope, setResetScope] = useState<"active" | "inactive" | "both">("active");
   const [nuking, setNuking] = useState(false);
   const [nukeConfirm, setNukeConfirm] = useState("");
   const [nukeOpen, setNukeOpen] = useState(false);
