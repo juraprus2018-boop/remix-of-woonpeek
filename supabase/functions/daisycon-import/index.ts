@@ -694,6 +694,7 @@ Deno.serve(async (req) => {
             
             if (Object.keys(updates).length > 0) {
               updates.updated_at = new Date().toISOString();
+              updates.last_checked_at = new Date().toISOString();
               await supabase.from("properties").update(updates).eq("id", existing.id);
               updated++;
             } else {
