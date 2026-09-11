@@ -69,12 +69,14 @@ Deno.serve(async (req) => {
     if (sourceSite) {
       // === Per-source reset ===
 
-      // 1. Delete scraped_properties for this source
-      const { error: e1 } = await supabase
-        .from("scraped_properties")
-        .delete()
-        .eq("source_site", sourceSite);
-      if (e1) console.error("Delete scraped_properties error:", e1.message);
+      // 1. Delete scraped_properties for this source (niet bij enkel-inactief opruimen)
+      if (scope !== "inactive") {
+        const { error: e1 } = await supabase
+          .from("scraped_properties")
+          .delete()
+          .eq("source_site", sourceSite);
+        if (e1) console.error("Delete scraped_properties error:", e1.message);
+      }
 
       // 2. Delete active properties for this source (keep inactief/verlopen)
       const { data: deletedActive, error: e2 } = await supabase
