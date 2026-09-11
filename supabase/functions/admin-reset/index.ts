@@ -120,21 +120,23 @@ Deno.serve(async (req) => {
     } else {
       // === Full reset ===
 
-      // 1. Reset properties_found on all scrapers
-      const { error: e1 } = await supabase
-        .from("scrapers")
-        .update({ properties_found: 0 })
-        .gte("properties_found", 0);
-      if (e1) console.error("Reset scrapers error:", e1.message);
+      if (scope !== "inactive") {
+        // 1. Reset properties_found on all scrapers
+        const { error: e1 } = await supabase
+          .from("scrapers")
+          .update({ properties_found: 0 })
+          .gte("properties_found", 0);
+        if (e1) console.error("Reset scrapers error:", e1.message);
 
-      // 2. Delete all scraped_properties
-      const { error: e2 } = await supabase
-        .from("scraped_properties")
-        .delete()
-        .neq("id", "00000000-0000-0000-0000-000000000000");
-      if (e2) console.error("Delete scraped_properties error:", e2.message);
+        // 2. Delete all scraped_properties
+        const { error: e2 } = await supabase
+          .from("scraped_properties")
+          .delete()
+          .neq("id", "00000000-0000-0000-0000-000000000000");
+        if (e2) console.error("Delete scraped_properties error:", e2.message);
+      }
 
-      // 3. Delete active properties (keep inactief/verlopen)
+      // 3. Delete properties in gekozen status-scope
       const { data: deletedActive, error: e3 } = await supabase
         .from("properties")
         .delete()
