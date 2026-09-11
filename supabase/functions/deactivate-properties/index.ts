@@ -157,6 +157,8 @@ Deno.serve(async (req) => {
           const activeSourceUrls = new Set<string>();
           const feedNames: string[] = [];
           const feedsWithProducts = new Set<string>();
+          // Feeds that responded successfully but genuinely contain no products
+          const confirmedEmptyFeeds = new Set<string>();
 
           for (const feed of feeds) {
             feedNames.push(feed.name);
@@ -199,6 +201,8 @@ Deno.serve(async (req) => {
 
               if (products.length > 0) {
                 feedsWithProducts.add(feed.name);
+              } else {
+                confirmedEmptyFeeds.add(feed.name);
               }
 
               for (const product of products) {
