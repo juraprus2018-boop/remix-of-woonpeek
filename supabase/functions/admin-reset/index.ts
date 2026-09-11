@@ -87,22 +87,24 @@ Deno.serve(async (req) => {
         .select("id");
       if (e2) console.error("Delete properties error:", e2.message);
 
-      // 3. Reset properties_found for matching scraper
-      const { error: e3 } = await supabase
-        .from("scrapers")
-        .update({ properties_found: 0 })
-        .ilike("name", `%${sourceSite}%`);
-      if (e3) console.error("Reset scraper error:", e3.message);
+      if (scope !== "inactive") {
+        // 3. Reset properties_found for matching scraper
+        const { error: e3 } = await supabase
+          .from("scrapers")
+          .update({ properties_found: 0 })
+          .ilike("name", `%${sourceSite}%`);
+        if (e3) console.error("Reset scraper error:", e3.message);
 
-      // 4. Delete logs for matching scraper
-      const { data: matchingScrapers } = await supabase
-        .from("scrapers")
-        .select("id")
-        .ilike("name", `%${sourceSite}%`);
-      
-      if (matchingScrapers && matchingScrapers.length > 0) {
-        for (const s of matchingScrapers) {
-          await supabase.from("scraper_logs").delete().eq("scraper_id", s.id);
+        // 4. Delete logs for matching scraper
+        const { data: matchingScrapers } = await supabase
+          .from("scrapers")
+          .select("id")
+          .ilike("name", `%${sourceSite}%`);
+
+        if (matchingScrapers && matchingScrapers.length > 0) {
+          for (const s of matchingScrapers) {
+            await supabase.from("scraper_logs").delete().eq("scraper_id", s.id);
+          }
         }
       }
 
@@ -110,6 +112,7 @@ Deno.serve(async (req) => {
         JSON.stringify({
           success: true,
           source: sourceSite,
+          scope,
           active_deleted: deletedActive?.length || 0,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
