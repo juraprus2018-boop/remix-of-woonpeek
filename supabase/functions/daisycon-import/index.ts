@@ -698,11 +698,24 @@ Deno.serve(async (req) => {
               updated++;
             } else {
               skipped++;
+              unchangedIds.push(existing.id);
             }
           } else {
             toInsert.push(propData);
           }
         }
+
+        // Mark unchanged-but-still-listed properties as freshly seen so the
+        // cleanup job does not consider them stale.
+        for (let i = 0; i < unchangedIds.length; i += 200) {
+          const batch = unchangedIds.slice(i, i + 200);
+          const { error: touchErr } = await supabase
+            .from("properties")
+            .update({ last_checked_at: new Date().toISOString() })
+            .in("id", batch);
+          if (touchErr) console.warn(`Feed ${feed.name}: touch last_checked_at failed: ${touchErr.message}`);
+        }
+
 
         // Batch insert new properties in chunks of 100
         console.log(`Feed ${feed.name}: inserting ${toInsert.length} new properties in batches...`);
