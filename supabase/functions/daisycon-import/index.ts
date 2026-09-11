@@ -613,6 +613,7 @@ Deno.serve(async (req) => {
         let imported = 0;
         let skipped = 0;
         let updated = 0;
+        const unchangedIds: string[] = [];
 
         // Map all products to property data
         const allPropertyData: any[] = [];
