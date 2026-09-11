@@ -81,7 +81,7 @@ Deno.serve(async (req) => {
         .from("properties")
         .delete()
         .eq("source_site", sourceSite)
-        .in("status", ["actief", "verkocht", "verhuurd"])
+        .in("status", statuses)
         .select("id");
       if (e2) console.error("Delete properties error:", e2.message);
 
@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
       const { data: deletedActive, error: e3 } = await supabase
         .from("properties")
         .delete()
-        .in("status", ["actief", "verkocht", "verhuurd"])
+        .in("status", statuses)
         .select("id");
       if (e3) console.error("Delete active properties error:", e3.message);
 
