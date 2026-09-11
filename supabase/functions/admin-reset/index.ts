@@ -45,14 +45,25 @@ Deno.serve(async (req) => {
     });
   }
 
-  // Parse optional source_site filter
+  // Parse optional source_site + status scope filter
   let sourceSite: string | null = null;
+  let scope: "active" | "inactive" | "both" = "active";
   try {
     const body = await req.json();
     sourceSite = body.source_site || null;
+    if (body.scope === "inactive" || body.scope === "both") scope = body.scope;
   } catch {
     // No body or invalid JSON — reset all
   }
+
+  const ACTIVE_STATUSES = ["actief", "verkocht", "verhuurd"];
+  const INACTIVE_STATUSES = ["inactief"];
+  const statuses =
+    scope === "both"
+      ? [...ACTIVE_STATUSES, ...INACTIVE_STATUSES]
+      : scope === "inactive"
+        ? INACTIVE_STATUSES
+        : ACTIVE_STATUSES;
 
   try {
     if (sourceSite) {
