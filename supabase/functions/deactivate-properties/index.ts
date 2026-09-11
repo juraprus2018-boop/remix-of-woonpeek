@@ -216,33 +216,49 @@ Deno.serve(async (req) => {
           // SAFETY: Skip deactivation for feeds that returned 0 products
           // This prevents mass deactivation when a feed API is temporarily down
           const feedsWithoutProducts = feedNames.filter(n => !feedsWithProducts.has(n));
+          // Only feeds that responded successfully with an empty product list are
+          // eligible for stale cleanup. Failed/unreachable feeds are never used.
+          const staleEligibleFeeds = feedsWithoutProducts.filter(n => confirmedEmptyFeeds.has(n));
           let staleDeactivated = 0;
           if (feedsWithoutProducts.length > 0) {
             console.log(`Daisycon: Skipping feed-diff deactivation for feeds with 0 products: ${feedsWithoutProducts.join(', ')}`);
-
-            // But do not keep listings "actief" forever when a feed stays empty:
-            // anything not refreshed by an import for 14+ days is considered gone.
+          }
+          if (staleEligibleFeeds.length > 0) {
+            // Do not keep listings "actief" forever when a feed stays empty:
+            // anything the importer has not seen for 14+ days is considered gone.
             const staleCutoff = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString();
-            while (true) {
+            let guard = 0;
+            while (guard++ < 100) {
               const { data: staleProps, error: staleErr } = await supabase
                 .from("properties")
                 .select("id")
-                .in("source_site", feedsWithoutProducts)
+                .in("source_site", staleEligibleFeeds)
                 .eq("status", "actief")
-                .lt("updated_at", staleCutoff)
+                .lt("last_checked_at", staleCutoff)
                 .limit(500);
 
-              if (staleErr || !staleProps || staleProps.length === 0) break;
+              if (staleErr) {
+                console.error("Stale query failed:", staleErr.message);
+                break;
+              }
+              if (!staleProps || staleProps.length === 0) break;
 
               const ids = staleProps.map((p: any) => p.id);
+              let updateFailed = false;
               for (let i = 0; i < ids.length; i += 100) {
                 const batch = ids.slice(i, i + 100);
-                await supabase
+                const { error: updErr } = await supabase
                   .from("properties")
                   .update({ status: "inactief", updated_at: new Date().toISOString() })
                   .in("id", batch);
+                if (updErr) {
+                  console.error("Stale deactivation update failed:", updErr.message);
+                  updateFailed = true;
+                  break;
+                }
                 staleDeactivated += batch.length;
               }
+              if (updateFailed) break;
               if (staleProps.length < 500) break;
             }
             console.log(`Daisycon: ${staleDeactivated} stale properties deactivated`);
