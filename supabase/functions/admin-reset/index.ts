@@ -144,20 +144,23 @@ Deno.serve(async (req) => {
         .select("id");
       if (e3) console.error("Delete active properties error:", e3.message);
 
-      // 4. Clear scraper logs
-      const { error: e4 } = await supabase
-        .from("scraper_logs")
-        .delete()
-        .neq("id", "00000000-0000-0000-0000-000000000000");
-      if (e4) console.error("Delete scraper_logs error:", e4.message);
+      if (scope !== "inactive") {
+        // 4. Clear scraper logs
+        const { error: e4 } = await supabase
+          .from("scraper_logs")
+          .delete()
+          .neq("id", "00000000-0000-0000-0000-000000000000");
+        if (e4) console.error("Delete scraper_logs error:", e4.message);
+      }
 
       return new Response(
         JSON.stringify({
           success: true,
-          scrapers_reset: true,
-          scraped_properties_cleared: true,
+          scope,
+          scrapers_reset: scope !== "inactive",
+          scraped_properties_cleared: scope !== "inactive",
           active_deleted: deletedActive?.length || 0,
-          logs_cleared: true,
+          logs_cleared: scope !== "inactive",
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
