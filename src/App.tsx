@@ -138,6 +138,62 @@ const LegacyCityRedirect = () => {
   return <Navigate to={`/stad/${slug}${location.search}`} replace />;
 };
 
+/**
+ * Oude, samengestelde SEO-URLs (bijv. /verhuizen-naar-eindhoven) kunnen niet als
+ * route-patroon worden gematcht omdat React Router geen deel-segment params
+ * ondersteunt. Deze fallback vangt ze op vóór de 404 en stuurt door.
+ */
+const LEGACY_PREFIX_REDIRECTS: Array<{ prefix: string; build: (rest: string) => string | null }> = [
+  { prefix: "verhuizen-naar-", build: (rest) => (rest ? `/stadsgids/${rest}` : null) },
+  { prefix: "woningen-postcode-", build: (rest) => (rest ? `/postcode/${rest}` : null) },
+  {
+    prefix: "huurwoningen-onder-",
+    build: (rest) => {
+      const i = rest.indexOf("-");
+      return i > 0 ? `/budget-huur/${rest.slice(0, i)}/${rest.slice(i + 1)}` : null;
+    },
+  },
+  {
+    prefix: "koopwoningen-onder-",
+    build: (rest) => {
+      const i = rest.indexOf("-");
+      return i > 0 ? `/budget-koop/${rest.slice(0, i)}/${rest.slice(i + 1)}` : null;
+    },
+  },
+  {
+    prefix: "huur-bij-inkomen-",
+    build: (rest) => {
+      const i = rest.indexOf("-");
+      return i > 0 ? `/inkomen/${rest.slice(0, i)}/${rest.slice(i + 1)}` : null;
+    },
+  },
+  { prefix: "vergelijk/", build: (rest) => (rest.includes("-vs-") ? `/duel/${rest}` : null) },
+];
+
+const NotFoundWithLegacyBridge = () => {
+  const location = useLocation();
+  let path = location.pathname.replace(/\/+$/, "");
+  let localePrefix = "";
+  const localeMatch = path.match(/^\/(en|de|fr)(?=\/|$)/);
+  if (localeMatch) {
+    localePrefix = localeMatch[0];
+    path = path.slice(localePrefix.length);
+  }
+  const bare = path.replace(/^\//, "");
+
+  for (const { prefix, build } of LEGACY_PREFIX_REDIRECTS) {
+    if (bare.startsWith(prefix)) {
+      const target = build(bare.slice(prefix.length));
+      if (target) {
+        return <Navigate to={`${localePrefix}${target}${location.search}`} replace />;
+      }
+    }
+  }
+  return <NotFound />;
+};
+
+
+
 const RouterSideEffects = () => {
   usePageTracking();
   return (
