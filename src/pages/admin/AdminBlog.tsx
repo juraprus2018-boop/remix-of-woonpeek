@@ -43,6 +43,44 @@ const AdminBlog = () => {
   const createPost = useCreateBlogPost();
   const updatePost = useUpdateBlogPost();
   const deletePost = useDeleteBlogPost();
+  const queryClient = useQueryClient();
+  const [generating, setGenerating] = useState(false);
+
+  const { data: runs } = useQuery({
+    queryKey: ["blog-generation-log"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("blog_generation_log")
+        .select("id, status, message, slug, trigger, created_at")
+        .order("created_at", { ascending: false })
+        .limit(5);
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const handleGenerate = async () => {
+    setGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-blog-post", {
+        body: { trigger: "admin", force: true },
+      });
+      if (error) throw error;
+      if (data?.success) {
+        toast.success(data.message || "Artikel gegenereerd");
+      } else {
+        toast.error(data?.error || "Genereren mislukt");
+      }
+    } catch (e: any) {
+      toast.error(e?.message || "Genereren mislukt");
+    } finally {
+      setGenerating(false);
+      queryClient.invalidateQueries({ queryKey: ["blog-posts"] });
+      queryClient.invalidateQueries({ queryKey: ["blog-generation-log"] });
+    }
+  };
+
+
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
