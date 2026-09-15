@@ -244,6 +244,25 @@ const TOOL_DEFINITION = {
   },
 };
 
+async function logRun(
+  supabase: any,
+  status: string,
+  message: string | null,
+  slug: string | null,
+  trigger: string,
+) {
+  try {
+    await supabase.from("blog_generation_log").insert({
+      status,
+      message: message ? message.slice(0, 1000) : null,
+      slug,
+      trigger,
+    });
+  } catch (err) {
+    console.error("Could not write blog_generation_log:", err);
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -252,17 +271,26 @@ Deno.serve(async (req) => {
   const gate = await requireAdmin(req, corsHeaders);
   if (gate.response) return gate.response;
 
+  let payload: any = {};
+  try {
+    payload = await req.json();
+  } catch { /* no body */ }
+  const trigger = typeof payload?.trigger === "string" ? payload.trigger : "manual";
+  const force = payload?.force === true;
+
+  const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+  const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    return new Response(JSON.stringify({ success: false, error: "Supabase config missing" }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
-
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      throw new Error("Supabase config missing");
-    }
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
     // Check if we already posted in the last 2 days (buffer for 3-day schedule)
     const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
@@ -273,13 +301,15 @@ Deno.serve(async (req) => {
       .eq("status", "published")
       .limit(1);
 
-    if (recentPosts && recentPosts.length > 0) {
+    if (!force && recentPosts && recentPosts.length > 0) {
       console.log("Already published a blog post recently, skipping.");
+      await logRun(supabase, "skipped", "Er is recent al een artikel gepubliceerd", null, trigger);
       return new Response(
         JSON.stringify({ success: true, message: "Already posted recently" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
 
     // Step 1: Fetch popular search queries from database
     console.log("Fetching popular search queries...");
