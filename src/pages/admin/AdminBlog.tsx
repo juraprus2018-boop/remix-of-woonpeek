@@ -187,7 +187,13 @@ const AdminBlog = () => {
             <h1 className="font-display text-2xl font-bold text-foreground">Blog</h1>
             <p className="text-sm text-muted-foreground">Beheer je blogartikelen</p>
           </div>
+          <div className="flex items-center gap-2">
+          <Button variant="outline" className="gap-2" onClick={handleGenerate} disabled={generating}>
+            {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+            Nu artikel genereren
+          </Button>
           <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+
             <DialogTrigger asChild>
               <Button className="gap-2">
                 <Plus className="h-4 w-4" />
