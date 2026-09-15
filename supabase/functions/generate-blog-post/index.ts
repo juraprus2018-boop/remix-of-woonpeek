@@ -244,6 +244,25 @@ const TOOL_DEFINITION = {
   },
 };
 
+async function logRun(
+  supabase: any,
+  status: string,
+  message: string | null,
+  slug: string | null,
+  trigger: string,
+) {
+  try {
+    await supabase.from("blog_generation_log").insert({
+      status,
+      message: message ? message.slice(0, 1000) : null,
+      slug,
+      trigger,
+    });
+  } catch (err) {
+    console.error("Could not write blog_generation_log:", err);
+  }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -252,17 +271,26 @@ Deno.serve(async (req) => {
   const gate = await requireAdmin(req, corsHeaders);
   if (gate.response) return gate.response;
 
+  let payload: any = {};
+  try {
+    payload = await req.json();
+  } catch { /* no body */ }
+  const trigger = typeof payload?.trigger === "string" ? payload.trigger : "manual";
+  const force = payload?.force === true;
+
+  const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+  const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    return new Response(JSON.stringify({ success: false, error: "Supabase config missing" }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
-
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      throw new Error("Supabase config missing");
-    }
-
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
     // Check if we already posted in the last 2 days (buffer for 3-day schedule)
     const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
@@ -273,13 +301,15 @@ Deno.serve(async (req) => {
       .eq("status", "published")
       .limit(1);
 
-    if (recentPosts && recentPosts.length > 0) {
+    if (!force && recentPosts && recentPosts.length > 0) {
       console.log("Already published a blog post recently, skipping.");
+      await logRun(supabase, "skipped", "Er is recent al een artikel gepubliceerd", null, trigger);
       return new Response(
         JSON.stringify({ success: true, message: "Already posted recently" }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
+
 
     // Step 1: Fetch popular search queries from database
     console.log("Fetching popular search queries...");
@@ -360,33 +390,72 @@ Het is vandaag ${new Date().toLocaleDateString("nl-NL", { weekday: "long", day: 
 Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voor mensen die actief op zoek zijn naar een woning in Nederland. Gebruik concrete voorbeelden en cijfers waar mogelijk. Gebruik GEEN em-dashes.`;
     }
 
-    // Step 3: Generate the article with AI
+    // Step 3: Generate the article with AI (with bounded retries)
     console.log(`Generating blog about: ${topicCategory}`);
-    const aiResponse = await fetch(
-      "https://ai.gateway.lovable.dev/v1/chat/completions",
-      {
+
+    const aiBody = JSON.stringify({
+      model: "google/gemini-2.5-flash",
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
+      tools: [TOOL_DEFINITION],
+      tool_choice: { type: "function", function: { name: "create_blog_post" } },
+    });
+
+    let aiResponse: Response | null = null;
+    const maxAttempts = 4;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${LOVABLE_API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          model: "google/gemini-2.5-flash",
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: userPrompt },
-          ],
-          tools: [TOOL_DEFINITION],
-          tool_choice: { type: "function", function: { name: "create_blog_post" } },
-        }),
-      }
-    );
+        body: aiBody,
+      });
 
-    if (!aiResponse.ok) {
+      if (aiResponse.ok) break;
+
       const errText = await aiResponse.text();
       console.error("AI gateway error:", aiResponse.status, errText);
-      throw new Error(`AI gateway returned ${aiResponse.status}`);
+
+      // Terminal statuses: never retry.
+      if (aiResponse.status === 402 || aiResponse.status === 403) {
+        let gatewayMessage = errText;
+        try {
+          gatewayMessage = JSON.parse(errText)?.message || errText;
+        } catch { /* keep raw text */ }
+        const blockedMessage =
+          aiResponse.status === 402
+            ? `Geen AI-credits meer beschikbaar: ${gatewayMessage}. Vul de AI-credits aan in Lovable, daarna gaat de blog automatisch weer verder.`
+            : `AI is geblokkeerd door een instelling in de werkruimte: ${gatewayMessage}.`;
+        await logRun(supabase, "blocked", blockedMessage, null, trigger);
+        return new Response(
+          JSON.stringify({ success: false, blocked: true, error: blockedMessage }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+
+      if (aiResponse.status === 400 || aiResponse.status === 401) {
+        throw new Error(`AI gateway returned ${aiResponse.status}: ${errText.slice(0, 300)}`);
+      }
+
+      // 429 / 5xx: retry with backoff.
+      if (attempt === maxAttempts) {
+        throw new Error(`AI gateway returned ${aiResponse.status} na ${maxAttempts} pogingen`);
+      }
+      const retryAfter = Number(aiResponse.headers.get("retry-after") || "0");
+      const waitMs = retryAfter > 0 ? retryAfter * 1000 : Math.min(30000, 2000 * 2 ** (attempt - 1));
+      console.log(`Retrying AI request in ${waitMs}ms (attempt ${attempt + 1}/${maxAttempts})`);
+      await new Promise((r) => setTimeout(r, waitMs));
     }
+
+    if (!aiResponse || !aiResponse.ok) {
+      throw new Error("AI gateway request failed");
+    }
+
 
     const aiData = await aiResponse.json();
 
@@ -411,17 +480,28 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
 
     console.log(`Generated article: "${article.title}"`);
 
-    // Step 4: Get an admin user as author
+    // Step 4: Get an admin user as author (fallback: any profile)
     const { data: adminRole } = await supabase
       .from("user_roles")
       .select("user_id")
       .eq("role", "admin")
       .limit(1)
-      .single();
+      .maybeSingle();
 
-    if (!adminRole) {
-      throw new Error("No admin user found to set as author");
+    let authorId: string | null = adminRole?.user_id ?? null;
+    if (!authorId) {
+      const { data: anyProfile } = await supabase
+        .from("profiles")
+        .select("user_id")
+        .order("created_at", { ascending: true })
+        .limit(1)
+        .maybeSingle();
+      authorId = anyProfile?.user_id ?? null;
     }
+    if (!authorId) {
+      throw new Error("Geen gebruiker gevonden om als auteur te gebruiken");
+    }
+
 
     // Step 5: Save to database with enriched metadata
     const slug = generateSlug(article.title);
@@ -443,7 +523,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
       content: article.content,
       meta_title: article.meta_title || null,
       meta_description: JSON.stringify(seoMeta),
-      author_id: adminRole.user_id,
+      author_id: authorId,
       status: "published",
       published_at: now,
     };
@@ -544,6 +624,8 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
       facebookResult = { error: String(fbErr) };
     }
 
+    await logRun(supabase, "success", `Artikel "${article.title}" gepubliceerd`, slug, trigger);
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -557,10 +639,12 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
     );
   } catch (error) {
     console.error("Error generating blog post:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    await logRun(supabase, "error", message, null, trigger);
     return new Response(
       JSON.stringify({
         success: false,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: message,
       }),
       {
         status: 500,
@@ -569,3 +653,4 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
     );
   }
 });
+

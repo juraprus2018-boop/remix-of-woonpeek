@@ -22,9 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Pencil, Trash2, Loader2, ExternalLink } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, ExternalLink, Sparkles, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 
 const generateSlug = (title: string) =>
   title
@@ -40,6 +43,44 @@ const AdminBlog = () => {
   const createPost = useCreateBlogPost();
   const updatePost = useUpdateBlogPost();
   const deletePost = useDeleteBlogPost();
+  const queryClient = useQueryClient();
+  const [generating, setGenerating] = useState(false);
+
+  const { data: runs } = useQuery({
+    queryKey: ["blog-generation-log"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("blog_generation_log")
+        .select("id, status, message, slug, trigger, created_at")
+        .order("created_at", { ascending: false })
+        .limit(5);
+      if (error) throw error;
+      return data;
+    },
+  });
+
+  const handleGenerate = async () => {
+    setGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-blog-post", {
+        body: { trigger: "admin", force: true },
+      });
+      if (error) throw error;
+      if (data?.success) {
+        toast.success(data.message || "Artikel gegenereerd");
+      } else {
+        toast.error(data?.error || "Genereren mislukt");
+      }
+    } catch (e: any) {
+      toast.error(e?.message || "Genereren mislukt");
+    } finally {
+      setGenerating(false);
+      queryClient.invalidateQueries({ queryKey: ["blog-posts"] });
+      queryClient.invalidateQueries({ queryKey: ["blog-generation-log"] });
+    }
+  };
+
+
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -146,7 +187,13 @@ const AdminBlog = () => {
             <h1 className="font-display text-2xl font-bold text-foreground">Blog</h1>
             <p className="text-sm text-muted-foreground">Beheer je blogartikelen</p>
           </div>
+          <div className="flex items-center gap-2">
+          <Button variant="outline" className="gap-2" onClick={handleGenerate} disabled={generating}>
+            {generating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+            Nu artikel genereren
+          </Button>
           <Dialog open={dialogOpen} onOpenChange={(open) => { setDialogOpen(open); if (!open) resetForm(); }}>
+
             <DialogTrigger asChild>
               <Button className="gap-2">
                 <Plus className="h-4 w-4" />
@@ -245,7 +292,35 @@ const AdminBlog = () => {
               </div>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
+
+        {runs && runs.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Automatische artikelen (elke 3 dagen)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {runs.map((run: any) => (
+                <div key={run.id} className="flex items-start gap-2 text-sm">
+                  {run.status === "success" ? (
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  ) : (
+                    <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                  )}
+                  <div>
+                    <span className="text-muted-foreground">
+                      {new Date(run.created_at).toLocaleString("nl-NL")}
+                    </span>
+                    <p>{run.message || run.status}</p>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
+
+
 
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
