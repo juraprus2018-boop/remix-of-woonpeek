@@ -624,6 +624,8 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
       facebookResult = { error: String(fbErr) };
     }
 
+    await logRun(supabase, "success", `Artikel "${article.title}" gepubliceerd`, slug, trigger);
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -637,10 +639,12 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
     );
   } catch (error) {
     console.error("Error generating blog post:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    await logRun(supabase, "error", message, null, trigger);
     return new Response(
       JSON.stringify({
         success: false,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: message,
       }),
       {
         status: 500,
@@ -649,3 +653,4 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
     );
   }
 });
+
