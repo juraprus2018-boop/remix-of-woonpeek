@@ -292,7 +292,35 @@ const AdminBlog = () => {
               </div>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
+
+        {runs && runs.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Automatische artikelen (elke 3 dagen)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {runs.map((run: any) => (
+                <div key={run.id} className="flex items-start gap-2 text-sm">
+                  {run.status === "success" ? (
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  ) : (
+                    <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                  )}
+                  <div>
+                    <span className="text-muted-foreground">
+                      {new Date(run.created_at).toLocaleString("nl-NL")}
+                    </span>
+                    <p>{run.message || run.status}</p>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
+
+
 
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
