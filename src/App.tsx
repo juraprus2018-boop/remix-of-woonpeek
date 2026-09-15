@@ -130,18 +130,10 @@ const ParamRedirect = ({ to }: { to: string }) => {
   return <Navigate to={`${resolved}${location.search}`} replace />;
 };
 
-const LegacyCityRedirect = () => {
-  const { city } = useParams<{ city: string }>();
-  const location = useLocation();
-  if (!city) return <Navigate to="/woonaanbod-per-stad" replace />;
-  const slug = city.startsWith("woningen-") ? city.slice("woningen-".length) : city;
-  return <Navigate to={`/stad/${slug}${location.search}`} replace />;
-};
-
 /**
  * Oude, samengestelde SEO-URLs (bijv. /verhuizen-naar-eindhoven) kunnen niet als
  * route-patroon worden gematcht omdat React Router geen deel-segment params
- * ondersteunt. Deze fallback vangt ze op vóór de 404 en stuurt door.
+ * ondersteunt. Deze helper vangt ze op en levert het nieuwe pad.
  */
 const LEGACY_PREFIX_REDIRECTS: Array<{ prefix: string; build: (rest: string) => string | null }> = [
   { prefix: "verhuizen-naar-", build: (rest) => (rest ? `/stadsgids/${rest}` : null) },
@@ -170,9 +162,9 @@ const LEGACY_PREFIX_REDIRECTS: Array<{ prefix: string; build: (rest: string) => 
   { prefix: "vergelijk/", build: (rest) => (rest.includes("-vs-") ? `/duel/${rest}` : null) },
 ];
 
-const NotFoundWithLegacyBridge = () => {
-  const location = useLocation();
-  let path = location.pathname.replace(/\/+$/, "");
+/** Geeft het nieuwe pad voor een oude samengestelde URL, of null. */
+const resolveLegacyPrefixPath = (pathname: string, search: string): string | null => {
+  let path = pathname.replace(/\/+$/, "");
   let localePrefix = "";
   const localeMatch = path.match(/^\/(en|de|fr)(?=\/|$)/);
   if (localeMatch) {
@@ -184,13 +176,29 @@ const NotFoundWithLegacyBridge = () => {
   for (const { prefix, build } of LEGACY_PREFIX_REDIRECTS) {
     if (bare.startsWith(prefix)) {
       const target = build(bare.slice(prefix.length));
-      if (target) {
-        return <Navigate to={`${localePrefix}${target}${location.search}`} replace />;
-      }
+      if (target) return `${localePrefix}${target}${search}`;
     }
   }
+  return null;
+};
+
+const LegacyCityRedirect = () => {
+  const { city } = useParams<{ city: string }>();
+  const location = useLocation();
+  const legacy = resolveLegacyPrefixPath(location.pathname, location.search);
+  if (legacy) return <Navigate to={legacy} replace />;
+  if (!city) return <Navigate to="/woonaanbod-per-stad" replace />;
+  const slug = city.startsWith("woningen-") ? city.slice("woningen-".length) : city;
+  return <Navigate to={`/stad/${slug}${location.search}`} replace />;
+};
+
+const NotFoundWithLegacyBridge = () => {
+  const location = useLocation();
+  const legacy = resolveLegacyPrefixPath(location.pathname, location.search);
+  if (legacy) return <Navigate to={legacy} replace />;
   return <NotFound />;
 };
+
 
 
 
