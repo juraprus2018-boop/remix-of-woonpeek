@@ -360,33 +360,72 @@ Het is vandaag ${new Date().toLocaleDateString("nl-NL", { weekday: "long", day: 
 Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voor mensen die actief op zoek zijn naar een woning in Nederland. Gebruik concrete voorbeelden en cijfers waar mogelijk. Gebruik GEEN em-dashes.`;
     }
 
-    // Step 3: Generate the article with AI
+    // Step 3: Generate the article with AI (with bounded retries)
     console.log(`Generating blog about: ${topicCategory}`);
-    const aiResponse = await fetch(
-      "https://ai.gateway.lovable.dev/v1/chat/completions",
-      {
+
+    const aiBody = JSON.stringify({
+      model: "google/gemini-2.5-flash",
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        { role: "user", content: userPrompt },
+      ],
+      tools: [TOOL_DEFINITION],
+      tool_choice: { type: "function", function: { name: "create_blog_post" } },
+    });
+
+    let aiResponse: Response | null = null;
+    const maxAttempts = 4;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${LOVABLE_API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          model: "google/gemini-2.5-flash",
-          messages: [
-            { role: "system", content: SYSTEM_PROMPT },
-            { role: "user", content: userPrompt },
-          ],
-          tools: [TOOL_DEFINITION],
-          tool_choice: { type: "function", function: { name: "create_blog_post" } },
-        }),
-      }
-    );
+        body: aiBody,
+      });
 
-    if (!aiResponse.ok) {
+      if (aiResponse.ok) break;
+
       const errText = await aiResponse.text();
       console.error("AI gateway error:", aiResponse.status, errText);
-      throw new Error(`AI gateway returned ${aiResponse.status}`);
+
+      // Terminal statuses: never retry.
+      if (aiResponse.status === 402 || aiResponse.status === 403) {
+        let gatewayMessage = errText;
+        try {
+          gatewayMessage = JSON.parse(errText)?.message || errText;
+        } catch { /* keep raw text */ }
+        const blockedMessage =
+          aiResponse.status === 402
+            ? `Geen AI-credits meer beschikbaar: ${gatewayMessage}. Vul de AI-credits aan in Lovable, daarna gaat de blog automatisch weer verder.`
+            : `AI is geblokkeerd door een instelling in de werkruimte: ${gatewayMessage}.`;
+        await logRun(supabase, "blocked", blockedMessage, null, trigger);
+        return new Response(
+          JSON.stringify({ success: false, blocked: true, error: blockedMessage }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+
+      if (aiResponse.status === 400 || aiResponse.status === 401) {
+        throw new Error(`AI gateway returned ${aiResponse.status}: ${errText.slice(0, 300)}`);
+      }
+
+      // 429 / 5xx: retry with backoff.
+      if (attempt === maxAttempts) {
+        throw new Error(`AI gateway returned ${aiResponse.status} na ${maxAttempts} pogingen`);
+      }
+      const retryAfter = Number(aiResponse.headers.get("retry-after") || "0");
+      const waitMs = retryAfter > 0 ? retryAfter * 1000 : Math.min(30000, 2000 * 2 ** (attempt - 1));
+      console.log(`Retrying AI request in ${waitMs}ms (attempt ${attempt + 1}/${maxAttempts})`);
+      await new Promise((r) => setTimeout(r, waitMs));
     }
+
+    if (!aiResponse || !aiResponse.ok) {
+      throw new Error("AI gateway request failed");
+    }
+
 
     const aiData = await aiResponse.json();
 
