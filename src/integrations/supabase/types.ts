@@ -89,6 +89,33 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_generation_log: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          slug: string | null
+          status: string
+          trigger: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          slug?: string | null
+          status: string
+          trigger?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          slug?: string | null
+          status?: string
+          trigger?: string | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author_id: string
