@@ -523,7 +523,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
       content: article.content,
       meta_title: article.meta_title || null,
       meta_description: JSON.stringify(seoMeta),
-      author_id: adminRole.user_id,
+      author_id: authorId,
       status: "published",
       published_at: now,
     };
