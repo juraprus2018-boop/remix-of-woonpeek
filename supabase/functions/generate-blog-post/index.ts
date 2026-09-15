@@ -480,17 +480,28 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
 
     console.log(`Generated article: "${article.title}"`);
 
-    // Step 4: Get an admin user as author
+    // Step 4: Get an admin user as author (fallback: any profile)
     const { data: adminRole } = await supabase
       .from("user_roles")
       .select("user_id")
       .eq("role", "admin")
       .limit(1)
-      .single();
+      .maybeSingle();
 
-    if (!adminRole) {
-      throw new Error("No admin user found to set as author");
+    let authorId: string | null = adminRole?.user_id ?? null;
+    if (!authorId) {
+      const { data: anyProfile } = await supabase
+        .from("profiles")
+        .select("user_id")
+        .order("created_at", { ascending: true })
+        .limit(1)
+        .maybeSingle();
+      authorId = anyProfile?.user_id ?? null;
     }
+    if (!authorId) {
+      throw new Error("Geen gebruiker gevonden om als auteur te gebruiken");
+    }
+
 
     // Step 5: Save to database with enriched metadata
     const slug = generateSlug(article.title);
