@@ -431,7 +431,7 @@ Deno.serve(async (req) => {
   if (gate.response) return gate.response;
 
   const startTime = Date.now();
-  const TIME_BUDGET_MS = 120_000; // 120 seconds, leave buffer before edge function timeout
+  const TIME_BUDGET_MS = 105_000; // stay well under the 150s platform idle timeout
 
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -474,7 +474,16 @@ Deno.serve(async (req) => {
         return aTime - bTime; // oldest (or never imported) first
       });
       console.log(`Feed processing order: ${feeds.map((f: any) => `${f.name} (last: ${f.last_import_at || 'never'})`).join(', ')}`);
+      // One feed per invocation: a single large feed needs more time than the
+      // platform allows, so the cron runs several times and rotation covers all.
+      feeds.splice(1);
+      // Claim the turn immediately so a cut-off run still rotates onward.
+      await supabase
+        .from("daisycon_feeds")
+        .update({ last_import_at: new Date().toISOString() })
+        .eq("id", feeds[0].id);
     }
+
 
     // Create import job for progress tracking
     const { data: job } = await supabase
@@ -630,25 +639,36 @@ Deno.serve(async (req) => {
 
         console.log(`Feed ${feed.name}: ${allPropertyData.length} valid products to process`);
 
-        // Get all existing source_urls for this feed in one query
-        const sourceUrls = allPropertyData.map(p => p.source_url);
+        // Load existing properties for this feed by source_site (paginated).
+        // NOTE: filtering with .in("source_url", [...]) built request URLs of
+        // ~100KB which the API rejected, so nothing was found and every item
+        // was treated as new.
+        const wantedUrls = new Set(allPropertyData.map((p) => p.source_url));
         const existingMap = new Map<string, { id: string; status: string; images: string[]; title: string; latitude: number | null; longitude: number | null; build_year: number | null; energy_label: string | null }>();
-        
-        // Query in batches of 500 (Supabase IN filter limit)
-        for (let i = 0; i < sourceUrls.length; i += 500) {
-          const batch = sourceUrls.slice(i, i + 500);
-          const { data: existingRows } = await supabase
+
+        const PAGE = 1000;
+        for (let offset = 0; ; offset += PAGE) {
+          const { data: existingRows, error: existingErr } = await supabase
             .from("properties")
             .select("id, source_url, status, images, title, latitude, longitude, build_year, energy_label")
-            .in("source_url", batch);
-          if (existingRows) {
-            for (const row of existingRows) {
-              existingMap.set(row.source_url!, { id: row.id, status: row.status, images: row.images || [], title: row.title, latitude: row.latitude, longitude: row.longitude, build_year: row.build_year, energy_label: row.energy_label });
+            .eq("source_site", feed.name)
+            .order("id", { ascending: true })
+            .range(offset, offset + PAGE - 1);
+          if (existingErr) {
+            console.error(`Feed ${feed.name}: existing lookup failed: ${existingErr.message}`);
+            break;
+          }
+          if (!existingRows || existingRows.length === 0) break;
+          for (const row of existingRows) {
+            if (row.source_url && wantedUrls.has(row.source_url)) {
+              existingMap.set(row.source_url, { id: row.id, status: row.status, images: row.images || [], title: row.title, latitude: row.latitude, longitude: row.longitude, build_year: row.build_year, energy_label: row.energy_label });
             }
           }
+          if (existingRows.length < PAGE) break;
         }
 
         console.log(`Feed ${feed.name}: ${existingMap.size} existing properties found`);
+
 
         // Separate new inserts from updates
         const toInsert: any[] = [];
@@ -729,10 +749,13 @@ Deno.serve(async (req) => {
           }
 
           const batch = toInsert.slice(i, i + 100);
+          // Upsert with ignoreDuplicates so a single already-known source_url
+          // does not force slow one-by-one retries for the whole batch.
           const { error: batchErr, data: insertedData } = await supabase
             .from("properties")
-            .insert(batch)
+            .upsert(batch, { onConflict: "source_url", ignoreDuplicates: true })
             .select("id, slug, address_slug, city, listing_type");
+
           
           if (batchErr) {
             // If batch fails (e.g. duplicate), try individual inserts
