@@ -350,10 +350,18 @@ Deno.serve(async (req) => {
     }
 
     if (type === "pages") {
-      return new Response(buildPagesSitemap(now), {
+      const { data: blogRows } = await supabase
+        .from("blog_posts")
+        .select("slug")
+        .eq("status", "published")
+        .order("published_at", { ascending: false })
+        .limit(1000);
+      const blogSlugs = (blogRows || []).map((r: { slug: string }) => r.slug).filter(Boolean);
+      return new Response(buildPagesSitemap(now, blogSlugs), {
         headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
       });
     }
+
 
     if (type === "steden" || type === "woningen") {
       const pageSize = 1000;
