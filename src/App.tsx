@@ -79,6 +79,9 @@ const AdminTikTok = lazy(() => import("./pages/admin/AdminTikTok"));
 const Transparantie = lazy(() => import("./pages/Transparantie"));
 const MakelaarPage = lazy(() => import("./pages/MakelaarPage"));
 const Woordenboek = lazy(() => import("./pages/Woordenboek"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+
 const Verhuischecklist = lazy(() => import("./pages/Verhuischecklist"));
 const VerhuizenVanNaar = lazy(() => import("./pages/VerhuizenVanNaar"));
 const ContractCheck = lazy(() => import("./pages/ContractCheck"));
@@ -300,6 +303,9 @@ const PAGES: RouteDef[] = [
   { path: "/vragen", element: <FAQ /> },
   { path: "/over", element: <About /> },
   { path: "/woordenboek", element: <Woordenboek /> },
+  { path: "/blog", element: <Blog /> },
+  { path: "/blog/:slug", element: <BlogPost /> },
+
 
   // Tools
   { path: "/budgetcheck", element: <BudgetTool /> },
