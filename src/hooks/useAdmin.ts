@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
+import { ZIG_PORTALS } from "@/lib/zigPortals";
+
 
 export const useIsAdmin = () => {
   const { user } = useAuth();
