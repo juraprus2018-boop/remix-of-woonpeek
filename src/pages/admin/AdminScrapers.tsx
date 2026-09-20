@@ -29,6 +29,9 @@ import {
   useUploadFeedLogo,
   useRunWooniezieImport,
   useWooniezieStats,
+  useRunZigPortalImport,
+  useZigPortalStats,
+
   useActiveImportJob,
 } from "@/hooks/useAdmin";
 import {
