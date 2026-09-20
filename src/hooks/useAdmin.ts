@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Database } from "@/integrations/supabase/types";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
+import { ZIG_PORTALS } from "@/lib/zigPortals";
+
 
 export const useIsAdmin = () => {
   const { user } = useAuth();
@@ -389,6 +391,62 @@ export const useWooniezieStats = () => {
     },
   });
 };
+
+// Zig/Woonmatch portals (same platform as Wooniezie)
+export const useRunZigPortalImport = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (opts: { portal?: string; includeKoop?: boolean } = {}) => {
+      const { data, error } = await supabase.functions.invoke("zig-portal-import", {
+        body: { portal: opts.portal || "all", include_koop: opts.includeKoop || false },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      return data as {
+        imported: number;
+        updated: number;
+        skipped: number;
+        errors: number;
+        results: { portal: string; imported: number; updated: number; skipped: number; errors: number }[];
+      };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["properties"] });
+      queryClient.invalidateQueries({ queryKey: ["all-properties"] });
+      queryClient.invalidateQueries({ queryKey: ["zig-portal-stats"] });
+    },
+  });
+};
+
+export const useZigPortalStats = () => {
+  return useQuery({
+    queryKey: ["zig-portal-stats"],
+    queryFn: async () => {
+      const entries = await Promise.all(
+        ZIG_PORTALS.map(async (portal) => {
+          const { count } = await supabase
+            .from("properties")
+            .select("id", { count: "exact", head: true })
+            .eq("source_site", portal.name)
+            .eq("status", "actief");
+          const { data: scraper } = await supabase
+            .from("scrapers")
+            .select("last_run_at, last_run_status")
+            .eq("name", portal.name)
+            .maybeSingle();
+          return {
+            ...portal,
+            active: count || 0,
+            lastRun: scraper?.last_run_at || null,
+            lastStatus: scraper?.last_run_status || null,
+          };
+        })
+      );
+      return entries;
+    },
+  });
+};
+
 
 // Import job progress tracking
 export interface ImportJob {

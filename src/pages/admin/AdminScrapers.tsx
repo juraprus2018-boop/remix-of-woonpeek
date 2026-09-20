@@ -29,6 +29,9 @@ import {
   useUploadFeedLogo,
   useRunWooniezieImport,
   useWooniezieStats,
+  useRunZigPortalImport,
+  useZigPortalStats,
+
   useActiveImportJob,
 } from "@/hooks/useAdmin";
 import {
@@ -69,6 +72,12 @@ const AdminDaisycon = () => {
   const wooniezieImport = useRunWooniezieImport();
   const { data: wooniezieStats } = useWooniezieStats();
   const [wooniezieIncludeKoop, setWooniezieIncludeKoop] = useState(false);
+
+  // Woonmatch portalen
+  const zigImport = useRunZigPortalImport();
+  const { data: zigStats } = useZigPortalStats();
+  const [zigIncludeKoop, setZigIncludeKoop] = useState(false);
+
 
   const [showAddFeed, setShowAddFeed] = useState(false);
   const [showConnect, setShowConnect] = useState(false);
@@ -338,6 +347,87 @@ const AdminDaisycon = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Zig/Woonmatch portals (zelfde platform als Wooniezie) */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="h-5 w-5" />
+                  Woonmatch portalen
+                </CardTitle>
+                <CardDescription>
+                  {zigStats?.length ?? 10} corporatieportalen op hetzelfde platform als Wooniezie
+                </CardDescription>
+              </div>
+              <Button
+                onClick={async () => {
+                  try {
+                    toast.info("Import van alle portalen gestart...");
+                    const result = await zigImport.mutateAsync({ includeKoop: zigIncludeKoop });
+                    toast.success(`${result.imported} nieuw, ${result.updated} heractiveerd, ${result.skipped} overgeslagen`);
+                  } catch (e) {
+                    toast.error("Import mislukt: " + (e instanceof Error ? e.message : "onbekend"));
+                  }
+                }}
+                disabled={zigImport.isPending}
+                className="gap-2"
+              >
+                {zigImport.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
+                Alles importeren
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="zig-include-koop"
+                checked={zigIncludeKoop}
+                onCheckedChange={(c) => setZigIncludeKoop(c === true)}
+              />
+              <Label htmlFor="zig-include-koop" className="text-sm">Incl. koopwoningen</Label>
+            </div>
+            <div className="divide-y rounded-md border">
+              {(zigStats ?? []).map((portal) => (
+                <div key={portal.key} className="flex flex-col gap-2 p-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="space-y-0.5 text-sm">
+                    <p className="font-medium">{portal.name}</p>
+                    <p className="text-muted-foreground">
+                      {portal.active} actieve woningen
+                      {portal.lastRun && (
+                        <> · {formatDistanceToNow(new Date(portal.lastRun), { addSuffix: true, locale: nl })}</>
+                      )}
+                      {portal.lastStatus && (
+                        <Badge variant={portal.lastStatus === "success" ? "default" : "secondary"} className="ml-2 text-xs">
+                          {portal.lastStatus}
+                        </Badge>
+                      )}
+                    </p>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={zigImport.isPending}
+                    onClick={async () => {
+                      try {
+                        toast.info(`${portal.name} import gestart...`);
+                        const result = await zigImport.mutateAsync({ portal: portal.key, includeKoop: zigIncludeKoop });
+                        toast.success(`${portal.name}: ${result.imported} nieuw, ${result.skipped} overgeslagen`);
+                      } catch (e) {
+                        toast.error(`${portal.name} mislukt: ` + (e instanceof Error ? e.message : "onbekend"));
+                      }
+                    }}
+                  >
+                    Importeer
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+
 
         {/* Connection Status */}
         <Card>
