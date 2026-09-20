@@ -8,6 +8,12 @@ const corsHeaders = {
 };
 
 const INDEXING_API_URL = "https://indexing.googleapis.com/v3/urlNotifications:publish";
+// Indexing API default daily quota is 200 publishes; stay safely under it.
+const MAX_SUBMISSIONS = 190;
+
+function base64Url(input: string): string {
+  return btoa(input).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -22,40 +28,74 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const googleServiceAccountJson = Deno.env.get("GOOGLE_SERVICE_ACCOUNT_JSON");
 
-    if (!googleServiceAccountJson) {
+    // Fail fast with a clear message when the secret is missing or a placeholder.
+    if (
+      !googleServiceAccountJson ||
+      googleServiceAccountJson.includes("PLACEHOLDE") ||
+      !googleServiceAccountJson.trim().startsWith("{")
+    ) {
       return new Response(
-        JSON.stringify({ error: "GOOGLE_SERVICE_ACCOUNT_JSON secret not configured" }),
+        JSON.stringify({
+          error:
+            "GOOGLE_SERVICE_ACCOUNT_JSON ontbreekt of is nog een placeholder. Plaats de JSON-sleutel van een Google Service Account (Indexing API geactiveerd, e-mailadres als eigenaar in Search Console) in de project-secrets.",
+        }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const serviceAccount = JSON.parse(googleServiceAccountJson);
+    let serviceAccount: { client_email?: string; private_key?: string };
+    try {
+      serviceAccount = JSON.parse(googleServiceAccountJson);
+    } catch {
+      return new Response(
+        JSON.stringify({ error: "GOOGLE_SERVICE_ACCOUNT_JSON is geen geldige JSON." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    if (!serviceAccount.client_email || !serviceAccount.private_key) {
+      return new Response(
+        JSON.stringify({
+          error: "Service account JSON mist client_email of private_key.",
+        }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Get properties created in the last 24 hours
+    // Properties created OR updated in the last 24 hours (imports refresh updated_at).
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
     const { data: newProperties, error } = await supabase
       .from("properties")
       .select("id, slug, address_slug, city, listing_type")
       .eq("status", "actief")
-      .gte("created_at", oneDayAgo)
+      .gte("updated_at", oneDayAgo)
       .not("slug", "is", null)
+      .order("updated_at", { ascending: false })
       .limit(200);
 
     if (error) throw error;
 
-    if (!newProperties || newProperties.length === 0) {
+    // Blog posts published in the last 24 hours.
+    const { data: newPosts } = await supabase
+      .from("blog_posts")
+      .select("slug")
+      .eq("status", "published")
+      .gte("published_at", oneDayAgo)
+      .limit(20);
+
+    if ((!newProperties || newProperties.length === 0) && (!newPosts || newPosts.length === 0)) {
       return new Response(
-        JSON.stringify({ message: "No new properties to index", count: 0 }),
+        JSON.stringify({ message: "No new URLs to index", count: 0 }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     // Generate JWT for Google API
     const now = Math.floor(Date.now() / 1000);
-    const header = btoa(JSON.stringify({ alg: "RS256", typ: "JWT" }));
-    const claim = btoa(JSON.stringify({
+    const header = base64Url(JSON.stringify({ alg: "RS256", typ: "JWT" }));
+    const claim = base64Url(JSON.stringify({
       iss: serviceAccount.client_email,
       scope: "https://www.googleapis.com/auth/indexing",
       aud: "https://oauth2.googleapis.com/token",
@@ -101,11 +141,11 @@ Deno.serve(async (req) => {
     const accessToken = tokenData.access_token;
     let submitted = 0;
     let errors = 0;
+    let quotaHit = false;
     const logEntries: Array<{url: string; url_type: string; status: string; response_status: number | null; response_body: string | null}> = [];
 
-    // Submit property URLs
-    for (const prop of newProperties) {
-      const url = propertyUrl(prop as any);
+    const submitUrl = async (url: string, urlType: string): Promise<void> => {
+      if (quotaHit || submitted >= MAX_SUBMISSIONS) return;
       try {
         const res = await fetch(INDEXING_API_URL, {
           method: "POST",
@@ -119,7 +159,7 @@ Deno.serve(async (req) => {
         const resBody = await res.text();
         logEntries.push({
           url,
-          url_type: "property",
+          url_type: urlType,
           status: res.ok ? "submitted" : "error",
           response_status: res.status,
           response_body: resBody.substring(0, 500),
@@ -130,15 +170,19 @@ Deno.serve(async (req) => {
         } else {
           console.error(`Failed to index ${url}: ${resBody}`);
           errors++;
+          // 403 with quota/permission errors: stop, retrying won't help today.
+          if (res.status === 403 || res.status === 429) {
+            quotaHit = true;
+          }
         }
-      } catch (e) {
+      } catch (e: any) {
         console.error(`Error indexing ${url}:`, e);
         logEntries.push({
           url,
-          url_type: "property",
+          url_type: urlType,
           status: "error",
           response_status: null,
-          response_body: e.message?.substring(0, 500) || "Unknown error",
+          response_body: e?.message?.substring(0, 500) || "Unknown error",
         });
         errors++;
       }
@@ -146,43 +190,23 @@ Deno.serve(async (req) => {
       if (submitted % 50 === 0 && submitted > 0) {
         await new Promise((r) => setTimeout(r, 1000));
       }
+    };
+
+    // Submit property URLs
+    for (const prop of newProperties || []) {
+      await submitUrl(propertyUrl(prop as any), "property");
     }
 
-    // Submit city pages
-    const uniqueCities = [...new Set(newProperties.map((p) => p.city))];
+    // Submit city pages for cities with fresh properties
+    const uniqueCities = [...new Set((newProperties || []).map((p) => p.city))];
     for (const city of uniqueCities.slice(0, 20)) {
       const citySlug = city.toLowerCase().replace(/\s+/g, "-");
-      const url = `https://www.woonaanbod-nl.nl/woningen-${citySlug}`;
-      try {
-        const res = await fetch(INDEXING_API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({ url, type: "URL_UPDATED" }),
-        });
+      await submitUrl(`https://www.woonaanbod-nl.nl/woningen-${citySlug}`, "city");
+    }
 
-        const resBody = await res.text();
-        logEntries.push({
-          url,
-          url_type: "city",
-          status: res.ok ? "submitted" : "error",
-          response_status: res.status,
-          response_body: resBody.substring(0, 500),
-        });
-
-        if (res.ok) submitted++;
-      } catch (e) {
-        console.error(`Error indexing city ${city}:`, e);
-        logEntries.push({
-          url,
-          url_type: "city",
-          status: "error",
-          response_status: null,
-          response_body: e.message?.substring(0, 500) || "Unknown error",
-        });
-      }
+    // Submit fresh blog posts
+    for (const post of newPosts || []) {
+      await submitUrl(`https://www.woonaanbod-nl.nl/blog/${post.slug}`, "blog");
     }
 
     // Batch insert log entries
@@ -195,20 +219,22 @@ Deno.serve(async (req) => {
       }
     }
 
-    console.log(`Google Indexing: ${submitted} submitted, ${errors} errors out of ${newProperties.length} properties + ${uniqueCities.length} cities`);
+    console.log(`Google Indexing: ${submitted} submitted, ${errors} errors, quotaHit=${quotaHit}`);
 
     return new Response(
       JSON.stringify({
         message: "Indexing complete",
-        properties: newProperties.length,
+        properties: newProperties?.length ?? 0,
         cities: uniqueCities.length,
+        blogPosts: newPosts?.length ?? 0,
         submitted,
         errors,
+        quotaHit,
         logged: logEntries.length,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-  } catch (err) {
+  } catch (err: any) {
     console.error("Google Indexing error:", err);
     return new Response(
       JSON.stringify({ error: err.message }),
