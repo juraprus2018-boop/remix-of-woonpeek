@@ -271,7 +271,9 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
   } else {
     await supabase.from("scrapers").insert({
       name: portal.name,
-      base_url: portal.host,
+      website_url: portal.host,
+      description: `Woonmatch-portaal, dagelijkse import van ${portal.name}`,
+
       is_active: true,
       last_run_at: nowIso,
       last_run_status: result.errors > 0 ? "partial" : "success",
