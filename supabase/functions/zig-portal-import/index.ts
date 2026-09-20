@@ -245,7 +245,20 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
 
   await submitToIndexNow(newUrls);
 
+  // Listings that disappeared from the portal for 3+ days go inactive (never deleted, for SEO).
+  const staleCutoff = new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString();
+  const { data: stale, error: staleError } = await supabase
+    .from("properties")
+    .update({ status: "inactief", updated_at: nowIso })
+    .eq("source_site", portal.name)
+    .eq("status", "actief")
+    .lt("last_checked_at", staleCutoff)
+    .select("id");
+  if (staleError) console.error(`${portal.name}: deactivation error ${staleError.message}`);
+  else if (stale?.length) console.log(`${portal.name}: ${stale.length} listings deactivated`);
+
   // Keep the scrapers overview in sync
+
   const { data: scraper } = await supabase
     .from("scrapers")
     .select("id, properties_found")
