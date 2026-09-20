@@ -2,3 +2,4 @@
 - [Inkomen Landingspagina's](mem://features/inkomen-landingspaginas) — SEO-pagina's per stad/inkomen met 3x huur regel filtering
 - [Woningmarkt Databronpagina's](mem://features/woningmarkt-databronpaginas) — /woningmarkt hub + 9 subpagina's met bron, aantal woningen, periode en methodologie
 - [SMTP Mailserver](mem://tech/email-smtp-server) — Eigen mailserver mail.woonaanbod-nl.nl:465, secrets SMTP_HOST/PORT/USER/PASSWORD
+- [Woonmatch Portalen](mem://tech/integraties/woonmatch-portalen) — 10 Zig-portalen (Klik voor Wonen, SVNK, OFW...), zelfde API als Wooniezie, cron 03:15 UTC
