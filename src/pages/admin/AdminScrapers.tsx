@@ -70,6 +70,12 @@ const AdminDaisycon = () => {
   const { data: wooniezieStats } = useWooniezieStats();
   const [wooniezieIncludeKoop, setWooniezieIncludeKoop] = useState(false);
 
+  // Woonmatch portalen
+  const zigImport = useRunZigPortalImport();
+  const { data: zigStats } = useZigPortalStats();
+  const [zigIncludeKoop, setZigIncludeKoop] = useState(false);
+
+
   const [showAddFeed, setShowAddFeed] = useState(false);
   const [showConnect, setShowConnect] = useState(false);
   const [showEditFeed, setShowEditFeed] = useState(false);
