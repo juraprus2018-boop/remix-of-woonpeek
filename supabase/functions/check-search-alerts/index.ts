@@ -96,7 +96,7 @@ Deno.serve(async (req) => {
         const html = buildEmailHtml(properties, `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", "https://www.woonaanbod-nl.nl/zoeken", null);
 
         try {
-          await smtpClient.send({
+          await sendMail({
             from: MAIL_FROM,
             to: userData.user.email,
             subject: `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`,
@@ -182,7 +182,7 @@ Deno.serve(async (req) => {
 
       // Send email
       try {
-        await smtpClient.send({
+        await sendMail({
           from: MAIL_FROM,
           to: subscriber.email,
           subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – Woonaanbod NL`,
@@ -214,7 +214,6 @@ Deno.serve(async (req) => {
         .eq("id", subscriber.id);
     }
 
-    await closeSmtpQuietly(smtpClient);
 
     return new Response(
       JSON.stringify({
