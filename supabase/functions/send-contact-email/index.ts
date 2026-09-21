@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
+import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -80,10 +80,8 @@ Deno.serve(async (req) => {
       </div>
     `;
 
-    const smtpClient = createSmtpClient();
-
     // Send to owner
-    await smtpClient.send({
+    await sendMail({
       from: MAIL_FROM,
       to: ownerEmail,
       subject: `Nieuw bericht over: ${property.title}`,
@@ -92,15 +90,13 @@ Deno.serve(async (req) => {
     });
 
     // Send copy to Woonaanbod NL
-    await smtpClient.send({
+    await sendMail({
       from: MAIL_FROM,
       to: "info@woonaanbod-nl.nl",
       subject: `[Kopie] Contactbericht: ${property.title}`,
       content: "text/html",
       html,
     });
-
-    await smtpClient.close();
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
