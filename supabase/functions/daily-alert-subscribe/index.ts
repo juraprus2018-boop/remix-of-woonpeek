@@ -199,8 +199,8 @@ Deno.serve(async (req) => {
           <p><strong>Tijdstip:</strong> ${new Date().toLocaleString("nl-NL")}</p>
         `,
       });
-    } finally {
-      await closeSmtpQuietly(client);
+    } catch (mailError) {
+      console.error("Alert-inschrijving notificatie mislukt:", mailError);
     }
 
     const channels = ["e-mail"];

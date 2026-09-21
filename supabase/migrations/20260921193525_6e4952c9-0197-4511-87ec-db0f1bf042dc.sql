@@ -1,0 +1,1 @@
+CREATE INDEX IF NOT EXISTS idx_properties_source_site_id ON public.properties (source_site, id);
