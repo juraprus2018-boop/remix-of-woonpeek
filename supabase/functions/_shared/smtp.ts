@@ -13,18 +13,51 @@ export const SMTP_USER = Deno.env.get("SMTP_USER") || "info@woonaanbod-nl.nl";
 export const MAIL_FROM = `Woonaanbod NL <${SMTP_USER}>`;
 
 
-export function createSmtpClient(): SMTPClient {
+export function createSmtpClient(port: number = SMTP_PORT): SMTPClient {
   return new SMTPClient({
     connection: {
       hostname: SMTP_HOST,
-      port: SMTP_PORT,
-      tls: SMTP_PORT === 465,
+      port,
+      tls: port === 465,
       auth: {
         username: SMTP_USER,
         password: Deno.env.get("SMTP_PASSWORD") || "",
       },
     },
   });
+}
+
+/**
+ * Ports to try, in order. The edge runtime sometimes cannot route implicit-TLS
+ * port 465 ("No route to host"), so fall back to STARTTLS 587 and plain 25.
+ */
+const FALLBACK_PORTS = [SMTP_PORT, 587, 25].filter(
+  (port, index, all) => all.indexOf(port) === index,
+);
+
+type MailMessage = Parameters<SMTPClient["send"]>[0];
+
+/**
+ * Send one message, retrying on the fallback ports when the connection itself
+ * fails. Throws the last error when every port is unreachable.
+ */
+export async function sendMail(message: MailMessage): Promise<number> {
+  let lastError: unknown;
+  for (const port of FALLBACK_PORTS) {
+    const client = createSmtpClient(port);
+    try {
+      await client.send(message);
+      await closeSmtpQuietly(client);
+      return port;
+    } catch (err) {
+      lastError = err;
+      await closeSmtpQuietly(client);
+      console.warn(
+        `SMTP send via ${SMTP_HOST}:${port} failed: ${err instanceof Error ? err.message : err}`,
+      );
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error("SMTP send failed on all ports");
 }
 
 /** Close an SMTP client without letting a never-opened connection throw. */
