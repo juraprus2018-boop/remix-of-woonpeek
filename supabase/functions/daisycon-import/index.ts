@@ -674,7 +674,17 @@ Deno.serve(async (req) => {
         const toInsert: any[] = [];
         const genericTitles = ["appartement", "huis", "studio", "kamer", "woning", "room", "house", "apartment"];
 
+        let processedCount = 0;
+        let budgetStopped = false;
         for (const propData of allPropertyData) {
+          // Sequential per-row updates can outlast the platform limit; stop in
+          // time so the run finishes instead of being cut off with a 504.
+          processedCount++;
+          if (processedCount % 25 === 0 && Date.now() - startTime > TIME_BUDGET_MS) {
+            console.log(`Feed ${feed.name}: time budget exceeded during updates at ${processedCount}/${allPropertyData.length}`);
+            budgetStopped = true;
+            break;
+          }
           const existing = existingMap.get(propData.source_url);
           if (existing) {
             // Always sync ALL fields from feed to keep data fresh
