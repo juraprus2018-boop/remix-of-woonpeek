@@ -181,11 +181,9 @@ Deno.serve(async (req) => {
 
 
     // Send admin notification
-    const client = createSmtpClient();
-
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
-      await client.send({
+      await sendMail({
         from: MAIL_FROM,
         to: "info@woonaanbod-nl.nl",
         subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`,
