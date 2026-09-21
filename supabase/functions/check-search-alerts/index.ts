@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
-import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
+import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

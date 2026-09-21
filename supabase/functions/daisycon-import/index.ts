@@ -735,6 +735,9 @@ Deno.serve(async (req) => {
             toInsert.push(propData);
           }
         }
+        if (budgetStopped) {
+          skipped += allPropertyData.length - processedCount;
+        }
 
         // Mark unchanged-but-still-listed properties as freshly seen so the
         // cleanup job does not consider them stale.
