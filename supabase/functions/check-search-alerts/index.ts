@@ -56,8 +56,6 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const smtpClient = createSmtpClient();
-
     let searchAlertNotificationsSent = 0;
     let dailySubscriberNotificationsSent = 0;
     let whatsappNotificationsSent = 0;
