@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
+import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -181,11 +181,9 @@ Deno.serve(async (req) => {
 
 
     // Send admin notification
-    const client = createSmtpClient();
-
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
-      await client.send({
+      await sendMail({
         from: MAIL_FROM,
         to: "info@woonaanbod-nl.nl",
         subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`,
@@ -201,8 +199,8 @@ Deno.serve(async (req) => {
           <p><strong>Tijdstip:</strong> ${new Date().toLocaleString("nl-NL")}</p>
         `,
       });
-    } finally {
-      await closeSmtpQuietly(client);
+    } catch (mailError) {
+      console.error("Alert-inschrijving notificatie mislukt:", mailError);
     }
 
     const channels = ["e-mail"];

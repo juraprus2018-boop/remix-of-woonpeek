@@ -1,4 +1,4 @@
-import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
+import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
 import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
@@ -46,17 +46,13 @@ Deno.serve(async (req) => {
 
 
 
-    const client = createSmtpClient();
-
-    await client.send({
+    await sendMail({
       from: MAIL_FROM,
       to,
       subject,
       content: "text/html",
       html,
     });
-
-    await client.close();
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

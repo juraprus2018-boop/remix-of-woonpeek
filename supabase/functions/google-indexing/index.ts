@@ -192,21 +192,21 @@ Deno.serve(async (req) => {
       }
     };
 
-    // Submit property URLs
-    for (const prop of newProperties || []) {
-      await submitUrl(propertyUrl(prop as any), "property");
+    // Blog posts and city pages go first: they are few, high value, and would
+    // otherwise be starved by the daily flood of refreshed property URLs.
+    for (const post of newPosts || []) {
+      await submitUrl(`https://www.woonaanbod-nl.nl/blog/${post.slug}`, "blog");
     }
 
-    // Submit city pages for cities with fresh properties
     const uniqueCities = [...new Set((newProperties || []).map((p) => p.city))];
     for (const city of uniqueCities.slice(0, 20)) {
       const citySlug = city.toLowerCase().replace(/\s+/g, "-");
       await submitUrl(`https://www.woonaanbod-nl.nl/woningen-${citySlug}`, "city");
     }
 
-    // Submit fresh blog posts
-    for (const post of newPosts || []) {
-      await submitUrl(`https://www.woonaanbod-nl.nl/blog/${post.slug}`, "blog");
+    // Property URLs fill the remaining daily budget
+    for (const prop of newProperties || []) {
+      await submitUrl(propertyUrl(prop as any), "property");
     }
 
     // Batch insert log entries

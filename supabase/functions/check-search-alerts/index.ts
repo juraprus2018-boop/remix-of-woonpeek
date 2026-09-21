@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
-import { createSmtpClient, closeSmtpQuietly, MAIL_FROM, type SMTPClient } from "../_shared/smtp.ts";
+import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -56,8 +56,6 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const smtpClient = createSmtpClient();
-
     let searchAlertNotificationsSent = 0;
     let dailySubscriberNotificationsSent = 0;
     let whatsappNotificationsSent = 0;
@@ -98,7 +96,7 @@ Deno.serve(async (req) => {
         const html = buildEmailHtml(properties, `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", "https://www.woonaanbod-nl.nl/zoeken", null);
 
         try {
-          await smtpClient.send({
+          await sendMail({
             from: MAIL_FROM,
             to: userData.user.email,
             subject: `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`,
@@ -184,7 +182,7 @@ Deno.serve(async (req) => {
 
       // Send email
       try {
-        await smtpClient.send({
+        await sendMail({
           from: MAIL_FROM,
           to: subscriber.email,
           subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – Woonaanbod NL`,
@@ -216,7 +214,6 @@ Deno.serve(async (req) => {
         .eq("id", subscriber.id);
     }
 
-    await closeSmtpQuietly(smtpClient);
 
     return new Response(
       JSON.stringify({
