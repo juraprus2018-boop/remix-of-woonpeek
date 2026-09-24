@@ -196,17 +196,28 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
 
   const existing = new Map<string, { id: string; status: string }>();
   for (const part of chunk(allUrls, 200)) {
-    const { data, error } = await supabase
-      .from("properties")
-      .select("id, status, source_url")
-      .in("source_url", part);
-    if (error) {
-      console.error(`${portal.name}: lookup error ${error.message}`);
-      result.errors++;
-      continue;
+    // A failed lookup would make existing listings look new, so retry before giving up.
+    let lastError: string | null = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const { data, error } = await supabase
+        .from("properties")
+        .select("id, status, source_url")
+        .in("source_url", part);
+      if (!error) {
+        for (const row of data || []) existing.set(row.source_url, { id: row.id, status: row.status });
+        lastError = null;
+        break;
+      }
+      lastError = error.message;
+      await new Promise((r) => setTimeout(r, 500 * (attempt + 1)));
     }
-    for (const row of data || []) existing.set(row.source_url, { id: row.id, status: row.status });
+    if (lastError) {
+      console.error(`${portal.name}: lookup failed after retries: ${lastError}`);
+      result.errors++;
+      return result; // Abort this portal rather than risk duplicate-insert batch failures.
+    }
   }
+
 
   const nowIso = new Date().toISOString();
 
@@ -229,10 +240,12 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
   // Insert new listings in batches
   const toInsert = allUrls.filter((u) => !existing.has(u)).map((u) => mapToProperty(portal, bySourceUrl.get(u)!));
   for (const part of chunk(toInsert, 50)) {
+    // Upsert so one already-known source_url cannot drop the other 49 new listings.
     const { data, error } = await supabase
       .from("properties")
-      .insert(part)
+      .upsert(part, { onConflict: "source_url", ignoreDuplicates: true })
       .select("id, slug, address_slug, city, listing_type");
+
     if (error) {
       console.error(`${portal.name}: insert error ${error.message}`);
       result.errors += part.length;
