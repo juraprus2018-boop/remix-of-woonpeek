@@ -29,6 +29,7 @@ import { useNewTodayCount } from "@/hooks/useNewTodayCount";
 import { Skeleton } from "@/components/ui/skeleton";
 import PropertyCard from "@/components/properties/PropertyCard";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
+import RecentComments from "@/components/home/RecentComments";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
@@ -399,6 +400,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* RECENTE REACTIES */}
+      <RecentComments />
 
       {/* ENERGIE TEASER — affiliate */}
       <section className="py-10">
