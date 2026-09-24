@@ -292,8 +292,8 @@ Deno.serve(async (req) => {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
-    // Check if we already posted in the last 2 days (buffer for 3-day schedule)
-    const twoDaysAgo = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString();
+    // Daily cron; skip if a post was published in the last ~44h => one post every 2 days
+    const twoDaysAgo = new Date(Date.now() - 44 * 60 * 60 * 1000).toISOString();
     const { data: recentPosts } = await supabase
       .from("blog_posts")
       .select("id")
