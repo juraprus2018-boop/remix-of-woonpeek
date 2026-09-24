@@ -80,6 +80,7 @@ const Transparantie = lazy(() => import("./pages/Transparantie"));
 const MakelaarPage = lazy(() => import("./pages/MakelaarPage"));
 const Woordenboek = lazy(() => import("./pages/Woordenboek"));
 const Blog = lazy(() => import("./pages/Blog"));
+const Reacties = lazy(() => import("./pages/Reacties"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 
 const Verhuischecklist = lazy(() => import("./pages/Verhuischecklist"));
@@ -304,6 +305,7 @@ const PAGES: RouteDef[] = [
   { path: "/over", element: <About /> },
   { path: "/woordenboek", element: <Woordenboek /> },
   { path: "/blog", element: <Blog /> },
+  { path: "/reacties", element: <Reacties /> },
   { path: "/blog/:slug", element: <BlogPost /> },
 
 

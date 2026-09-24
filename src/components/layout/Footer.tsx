@@ -83,6 +83,7 @@ const Footer = () => {
               <li><Link to="/transparantie" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Transparantie</Link></li>
               <li><Link to="/woordenboek" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Woordenboek</Link></li>
               <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Blog</Link></li>
+              <li><Link to="/reacties" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Reacties</Link></li>
 
               <li><a href="/feed.xml" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">RSS feed</a></li>
             </ul>
