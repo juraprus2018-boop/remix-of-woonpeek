@@ -609,7 +609,8 @@ Deno.serve(async (req) => {
 
 
   const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
-  let PAGE_ID = Deno.env.get("FACEBOOK_PAGE_ID") || "1254508837756387";
+  let PAGE_ID =
+    Deno.env.get("FACEBOOK_PAGE_ID_OVERRIDE") || Deno.env.get("FACEBOOK_PAGE_ID") || "";
 
   if (!PAGE_ACCESS_TOKEN) {
     return new Response(
@@ -618,19 +619,19 @@ Deno.serve(async (req) => {
     );
   }
 
-  // Auto-detect Page ID if not set
-  if (!PAGE_ID) {
-    try {
-      const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
-      const meData = await meRes.json();
-      if (meData.id) {
-        PAGE_ID = meData.id;
-        console.log("Auto-detected Page ID:", PAGE_ID);
-      }
-    } catch (e) {
-      console.error("Failed to auto-detect Page ID:", e);
+  // Altijd de pagina van het token gebruiken als die afwijkt van de config,
+  // anders faalt het plaatsen met "Unsupported post request".
+  try {
+    const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
+    const meData = await meRes.json();
+    if (meData?.id && meData.id !== PAGE_ID) {
+      console.log(`Page ID from token: ${meData.id} (config was ${PAGE_ID || "empty"})`);
+      PAGE_ID = meData.id;
     }
+  } catch (e) {
+    console.error("Failed to detect Page ID from token:", e);
   }
+
 
   if (!PAGE_ID) {
     return new Response(
