@@ -195,7 +195,8 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
   const allUrls = [...bySourceUrl.keys()];
 
   const existing = new Map<string, { id: string; status: string }>();
-  for (const part of chunk(allUrls, 200)) {
+  // Small chunks: long source URLs in a big IN-list exceed the request URL limit.
+  for (const part of chunk(allUrls, 40)) {
     // A failed lookup would make existing listings look new, so retry before giving up.
     let lastError: string | null = null;
     for (let attempt = 0; attempt < 3; attempt++) {
@@ -223,7 +224,7 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
 
   // Refresh + reactivate existing listings
   const seenIds = [...existing.values()].map((e) => e.id);
-  for (const part of chunk(seenIds, 200)) {
+  for (const part of chunk(seenIds, 100)) {
     await supabase.from("properties").update({ last_checked_at: nowIso }).in("id", part);
   }
   const reactivateIds = [...existing.values()].filter((e) => e.status === "inactief").map((e) => e.id);
