@@ -216,110 +216,132 @@ interface Property {
 
 type PostTarget = "page" | "group" | "both";
 
-// ─── Caption Builder ────────────────────────────────────────────────
+// Caption Builder (geen emoji's, gevarieerde opbouw)
+
+const OPENINGS: Array<(city: string, kind: string) => string> = [
+  (c, k) => `Nieuwe ${k} beschikbaar in ${c}`,
+  (c) => `Nieuw woningaanbod in ${c}`,
+  (c) => `Deze woning is zojuist toegevoegd in ${c}`,
+  (c, k) => `Nieuwe ${k} gevonden in ${c}`,
+  (c) => `Vandaag nieuw toegevoegd in ${c}`,
+  (c, k) => `Net binnen: ${k} in ${c}`,
+  (c) => `Op zoek naar een woning in ${c}? Deze is net toegevoegd`,
+  (c, k) => `Een nieuwe ${k} in ${c} staat online`,
+  (c) => `Vers aanbod in ${c}`,
+  (c, k) => `Zojuist geplaatst: ${k} in ${c}`,
+  (c) => `Nieuw op Woonaanbod NL: een woning in ${c}`,
+];
+
+const CLICK_CTAS = [
+  "Bekijk alle foto's, voorwaarden en woningdetails:",
+  "Bekijk de volledige woning en foto's:",
+  "Meer informatie over deze woning:",
+  "Bekijk of deze woning bij je past:",
+  "Alle details van deze woning bekijken:",
+  "Foto's en voorwaarden vind je hier:",
+  "Lees alles over deze woning:",
+  "Bekijk de woning op Woonaanbod NL:",
+];
+
+const FOLLOW_CTAS = [
+  "Dagelijks komen er nieuwe woningen bij. Volg Woonaanbod NL om nieuw aanbod sneller te zien.",
+  "Op zoek naar een woning? Volg Woonaanbod NL voor dagelijks nieuw aanbod.",
+  "Mis nieuw woningaanbod niet. Volg onze pagina voor nieuwe woningen in heel Nederland.",
+  "We plaatsen dagelijks nieuw woningaanbod. Volg Woonaanbod NL om op de hoogte te blijven.",
+  "Wil je als eerste nieuwe woningen zien? Volg Woonaanbod NL.",
+  "Elke dag nieuw aanbod uit heel Nederland. Volg onze pagina en blijf op de hoogte.",
+  "Zoek je nog? Volg Woonaanbod NL, we delen dagelijks nieuwe woningen.",
+  "Nieuwe woningen gaan vaak snel. Volg Woonaanbod NL om niets te missen.",
+];
+
+function hashStr(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+/** Kiest een variant; het dagnummer verschuift de keuze zodat dezelfde variant niet dagelijks terugkomt. */
+function pick<T>(list: T[], seed: number, salt: number): T {
+  const day = Math.floor(Date.now() / 86400000);
+  const rnd = Math.floor(Math.random() * list.length);
+  return list[(seed + salt + day * 3 + rnd) % list.length];
+}
+
+function kindLabel(p: Property): string {
+  const t = (p.property_type || "").toLowerCase();
+  const huur = p.listing_type === "huur";
+  if (t === "appartement") return huur ? "huurappartement" : "koopappartement";
+  if (t === "studio") return huur ? "huurstudio" : "studio te koop";
+  if (t === "kamer") return "kamer te huur";
+  return huur ? "huurwoning" : "koopwoning";
+}
+
+function stripSymbols(s: string): string {
+  return s
+    .replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}]/gu, "")
+    .replace(/[•►▶✓✔★☆→←↑↓|]/g, "")
+    .replace(/[—–]/g, ",")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function buildCaption(property: Property): string {
-  const typeLabel = capitalize(property.property_type);
-  const priceFormatted = formatPrice(property.price, property.listing_type);
+  const city = property.city || "Nederland";
+  const seed = hashStr(property.id);
   const listingUrl = propertyUrl(property as any);
+  const priceFormatted = property.price ? formatPrice(property.price, property.listing_type) : "";
 
   const lines: string[] = [];
-
-  // Headline
-  const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
-  lines.push(`🏠 ${typeLabel} ${listingLabel} in ${property.city} – ${priceFormatted}`);
+  lines.push(pick(OPENINGS, seed, 0)(city, kindLabel(property)));
   lines.push("");
-
-  // Key specs
-  const specs: string[] = [];
-  specs.push(`📍 ${property.street} ${property.house_number}, ${property.city}`);
-  specs.push(`💰 ${priceFormatted}`);
-  if (property.surface_area) specs.push(`📐 ${property.surface_area} m²`);
-  if (property.bedrooms) specs.push(`🛏️ ${property.bedrooms} slaapkamer${property.bedrooms > 1 ? "s" : ""}`);
-  if (property.bathrooms) specs.push(`🛁 ${property.bathrooms} badkamer${property.bathrooms > 1 ? "s" : ""}`);
-  if (property.energy_label) specs.push(`⚡ Energielabel ${property.energy_label}`);
-  if (property.build_year) specs.push(`🏗️ Bouwjaar ${property.build_year}`);
-  lines.push(specs.join("\n"));
+  lines.push(buildDescription(property, priceFormatted));
   lines.push("");
-
-  // Description
-  const desc = buildDescription(property);
-  if (desc) {
-    lines.push(desc);
-    lines.push("");
-  }
-
-  // CTA
-  lines.push(`👉 Bekijk deze woning op Woonaanbod NL:`);
+  lines.push(pick(CLICK_CTAS, seed, 7));
   lines.push(listingUrl);
   lines.push("");
-
-  // Hashtags
-  const hashtags = buildHashtags(property);
-  lines.push(hashtags);
-
+  lines.push(pick(FOLLOW_CTAS, seed, 13));
+  lines.push("");
+  lines.push(buildHashtags(property));
   return lines.join("\n");
 }
 
-function buildDescription(property: Property): string {
-  // Use existing description if available (truncated for Facebook)
+function buildDescription(property: Property, price: string): string {
+  const street = stripSymbols(`${(property.street || "").split(",")[0]} ${property.house_number && property.house_number !== "-" ? property.house_number : ""}`);
+  const type = (property.property_type || "woning").toLowerCase();
+  const huur = property.listing_type === "huur";
+  const sentences: string[] = [];
+
+  const noun = type === "woning" || type === "huis" ? "Dit huis" : type === "appartement" ? "Dit appartement" : `Deze ${type}`;
+  const where = street ? `aan de ${street} in ${property.city}` : `in ${property.city}`;
+  if (price) {
+    sentences.push(huur
+      ? `${noun} ${where} is te huur voor ${price}.`
+      : `${noun} ${where} staat te koop voor ${price}.`);
+  } else {
+    sentences.push(`${noun} ${where} is ${huur ? "te huur" : "te koop"}.`);
+  }
+
+  const specs: string[] = [];
+  if (property.surface_area) specs.push(`${property.surface_area} m2 woonoppervlakte`);
+  if (property.bedrooms && property.bedrooms > 0) specs.push(`${property.bedrooms} slaapkamer${property.bedrooms > 1 ? "s" : ""}`);
+  if (specs.length) sentences.push(`De woning heeft ${specs.join(" en ")}.`);
+  if (property.energy_label) sentences.push(`Energielabel ${property.energy_label}.`);
+
   if (property.description) {
-    const clean = property.description
-      .replace(/<[^>]*>/g, "") // strip HTML
-      .replace(/\s+/g, " ")
-      .trim();
-    if (clean.length > 10) {
-      // Truncate to ~200 chars at word boundary
-      if (clean.length > 200) {
-        const truncated = clean.substring(0, 200).replace(/\s\S*$/, "");
-        return `${truncated}...`;
-      }
-      return clean;
-    }
+    const clean = stripSymbols(property.description.replace(/<[^>]*>/g, " "));
+    const first = clean.match(/^[^.!?]{20,180}[.!?]/)?.[0];
+    if (first && sentences.length < 4) sentences.push(first);
   }
 
-  // Generate fallback description from available data
-  const typeLabel = capitalize(property.property_type);
-  const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
-  const parts: string[] = [`${typeLabel} ${listingLabel} in ${property.city}.`];
-
-  if (property.surface_area) {
-    parts.push(`Deze woning heeft een oppervlakte van ${property.surface_area} m².`);
-  }
-  if (property.bedrooms && property.bedrooms > 0) {
-    parts.push(`Beschikt over ${property.bedrooms} slaapkamer${property.bedrooms > 1 ? "s" : ""}.`);
-  }
-
-  return parts.join(" ");
+  return sentences.slice(0, 4).join(" ");
 }
 
 function buildHashtags(property: Property): string {
-  const tags = new Set<string>();
-
-  // Type-based
-  if (property.listing_type === "huur") {
-    tags.add("#huurwoning");
-    tags.add("#tehuur");
-  } else {
-    tags.add("#koopwoning");
-    tags.add("#tekoop");
-  }
-
-  // Property type
-  const typeTag = `#${property.property_type.toLowerCase()}`;
-  tags.add(typeTag);
-
-  // City
-  const cityTag = `#${property.city.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
-  tags.add(cityTag);
-
-  // General
-  tags.add("#woning");
-  tags.add("#woonaanbod-nl");
-  tags.add("#woningmarkt");
-  tags.add("#nederland");
-
-  return Array.from(tags).slice(0, 8).join(" ");
+  const typeTag = property.listing_type === "huur" ? "#huurwoning" : "#koopwoning";
+  const cityTag = `#${(property.city || "Nederland")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9]/g, "")}`;
+  return [typeTag, "#woningaanbod", cityTag].join(" ");
 }
 
 function formatPrice(price: number, listingType: string): string {
