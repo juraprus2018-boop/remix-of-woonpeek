@@ -1149,6 +1149,13 @@ const PropertyDetail = () => {
             </div>
           </div>
         </section>
+
+        {/* ── Publicatiedatum ── */}
+        <div className="container pb-8">
+          <p className="text-center text-[11px] text-muted-foreground/70">
+            Gepubliceerd: <time dateTime={new Date(property.created_at).toISOString()}>{publishedAt}</time>
+          </p>
+        </div>
       </main>
 
       <Footer />
