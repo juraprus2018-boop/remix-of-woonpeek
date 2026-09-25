@@ -195,7 +195,8 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
   const allUrls = [...bySourceUrl.keys()];
 
   const existing = new Map<string, { id: string; status: string }>();
-  for (const part of chunk(allUrls, 200)) {
+  // Small chunks: long source URLs in a big IN-list exceed the request URL limit.
+  for (const part of chunk(allUrls, 40)) {
     // A failed lookup would make existing listings look new, so retry before giving up.
     let lastError: string | null = null;
     for (let attempt = 0; attempt < 3; attempt++) {
@@ -223,7 +224,7 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
 
   // Refresh + reactivate existing listings
   const seenIds = [...existing.values()].map((e) => e.id);
-  for (const part of chunk(seenIds, 200)) {
+  for (const part of chunk(seenIds, 100)) {
     await supabase.from("properties").update({ last_checked_at: nowIso }).in("id", part);
   }
   const reactivateIds = [...existing.values()].filter((e) => e.status === "inactief").map((e) => e.id);
@@ -239,21 +240,28 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
 
   // Insert new listings in batches
   const toInsert = allUrls.filter((u) => !existing.has(u)).map((u) => mapToProperty(portal, bySourceUrl.get(u)!));
+  const cols = "id, slug, address_slug, city, listing_type";
   for (const part of chunk(toInsert, 50)) {
-    // Upsert so one already-known source_url cannot drop the other 49 new listings.
-    const { data, error } = await supabase
-      .from("properties")
-      .upsert(part, { onConflict: "source_url", ignoreDuplicates: true })
-      .select("id, slug, address_slug, city, listing_type");
-
+    // Fast path: whole batch at once.
+    const { data, error } = await supabase.from("properties").insert(part).select(cols);
+    let rows = data || [];
     if (error) {
-      console.error(`${portal.name}: insert error ${error.message}`);
-      result.errors += part.length;
-      continue;
+      // One conflicting row (same url/address already known) must not drop the rest: retry one by one.
+      rows = [];
+      for (const row of part) {
+        const single = await supabase.from("properties").insert(row).select(cols);
+        if (single.error) {
+          if (single.error.code === "23505") result.skipped++;
+          else {
+            console.error(`${portal.name}: insert error ${single.error.message}`);
+            result.errors++;
+          }
+        } else if (single.data) rows.push(...single.data);
+      }
     }
-    result.imported += data?.length || 0;
+    result.imported += rows.length;
     // deno-lint-ignore no-explicit-any
-    for (const row of data || []) newUrls.push(propertyUrl(row as any));
+    for (const row of rows) newUrls.push(propertyUrl(row as any));
   }
 
   await submitToIndexNow(newUrls);
