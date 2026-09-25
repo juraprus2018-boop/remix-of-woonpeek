@@ -311,13 +311,14 @@ function buildDescription(property: Property, price: string): string {
   const huur = property.listing_type === "huur";
   const sentences: string[] = [];
 
+  const noun = type === "woning" || type === "huis" ? "Dit huis" : type === "appartement" ? "Dit appartement" : `Deze ${type}`;
   const where = street ? `aan de ${street} in ${property.city}` : `in ${property.city}`;
   if (price) {
     sentences.push(huur
-      ? `Dit ${type === "woning" ? "huis" : type} ${where} is te huur voor ${price}.`
-      : `Dit ${type === "woning" ? "huis" : type} ${where} staat te koop voor ${price}.`);
+      ? `${noun} ${where} is te huur voor ${price}.`
+      : `${noun} ${where} staat te koop voor ${price}.`);
   } else {
-    sentences.push(`Dit ${type === "woning" ? "huis" : type} ${where} is ${huur ? "te huur" : "te koop"}.`);
+    sentences.push(`${noun} ${where} is ${huur ? "te huur" : "te koop"}.`);
   }
 
   const specs: string[] = [];
