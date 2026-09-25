@@ -240,21 +240,28 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
 
   // Insert new listings in batches
   const toInsert = allUrls.filter((u) => !existing.has(u)).map((u) => mapToProperty(portal, bySourceUrl.get(u)!));
+  const cols = "id, slug, address_slug, city, listing_type";
   for (const part of chunk(toInsert, 50)) {
-    // Upsert so one already-known source_url cannot drop the other 49 new listings.
-    const { data, error } = await supabase
-      .from("properties")
-      .upsert(part, { onConflict: "source_url", ignoreDuplicates: true })
-      .select("id, slug, address_slug, city, listing_type");
-
+    // Fast path: whole batch at once.
+    const { data, error } = await supabase.from("properties").insert(part).select(cols);
+    let rows = data || [];
     if (error) {
-      console.error(`${portal.name}: insert error ${error.message}`);
-      result.errors += part.length;
-      continue;
+      // One conflicting row (same url/address already known) must not drop the rest: retry one by one.
+      rows = [];
+      for (const row of part) {
+        const single = await supabase.from("properties").insert(row).select(cols);
+        if (single.error) {
+          if (single.error.code === "23505") result.skipped++;
+          else {
+            console.error(`${portal.name}: insert error ${single.error.message}`);
+            result.errors++;
+          }
+        } else if (single.data) rows.push(...single.data);
+      }
     }
-    result.imported += data?.length || 0;
+    result.imported += rows.length;
     // deno-lint-ignore no-explicit-any
-    for (const row of data || []) newUrls.push(propertyUrl(row as any));
+    for (const row of rows) newUrls.push(propertyUrl(row as any));
   }
 
   await submitToIndexNow(newUrls);
