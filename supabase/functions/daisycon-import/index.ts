@@ -762,11 +762,12 @@ Deno.serve(async (req) => {
           }
 
           const batch = toInsert.slice(i, i + 100);
-          // Upsert with ignoreDuplicates so a single already-known source_url
-          // does not force slow one-by-one retries for the whole batch.
+          // Plain insert: the source_url unique index is partial, so an
+          // ON CONFLICT upsert always fails (42P10). Duplicates are already
+          // filtered above; the fallback below handles any leftover conflict.
           const { error: batchErr, data: insertedData } = await supabase
             .from("properties")
-            .upsert(batch, { onConflict: "source_url", ignoreDuplicates: true })
+            .insert(batch)
             .select("id, slug, address_slug, city, listing_type");
 
           
