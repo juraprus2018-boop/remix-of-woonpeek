@@ -9,14 +9,40 @@ const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
 // Dataset 85984NED = Regionale kerncijfers Nederland, RegioS = Gemeente codes (GM####)
-const CBS_BASE = "https://opendata.cbs.nl/ODataApi/odata/85984NED";
+// CBS heeft opendata.cbs.nl uitgefaseerd; primair dataderden.cbs.nl, oud host als fallback.
+const CBS_BASES = [
+  "https://dataderden.cbs.nl/ODataApi/OData/85984NED",
+  "https://opendata.cbs.nl/ODataApi/odata/85984NED",
+];
+
+async function cbsFetch(path: string): Promise<any> {
+  let lastErr: unknown = null;
+  for (const base of CBS_BASES) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 12000);
+        const res = await fetch(`${base}${path}`, {
+          headers: { Accept: "application/json" },
+          signal: controller.signal,
+        });
+        clearTimeout(timer);
+        if (!res.ok) {
+          lastErr = new Error(`CBS ${res.status} at ${base}`);
+          break; // host antwoordt maar faalt -> volgende host
+        }
+        return await res.json();
+      } catch (err) {
+        lastErr = err;
+        if (attempt === 0) await new Promise((r) => setTimeout(r, 800));
+      }
+    }
+  }
+  throw lastErr instanceof Error ? lastErr : new Error("CBS onbereikbaar");
+}
 
 async function findRegionCode(cityName: string): Promise<{ code: string; title: string } | null> {
-  // RegioS lookup: filter by Title containing city name
-  const url = `${CBS_BASE}/RegioS?$filter=startswith(Key,'GM')`;
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) return null;
-  const json = await res.json();
+  const json = await cbsFetch(`/RegioS?$filter=startswith(Key,'GM')`);
   const regions: Array<{ Key: string; Title: string; Description: string }> = json.value || [];
   const target = cityName.toLowerCase().trim();
   // exact match first
@@ -28,10 +54,7 @@ async function findRegionCode(cityName: string): Promise<{ code: string; title: 
 }
 
 async function fetchCityStats(regionCode: string) {
-  const url = `${CBS_BASE}/TypedDataSet?$filter=RegioS eq '${regionCode}'&$orderby=Perioden desc&$top=1`;
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) throw new Error(`CBS fetch failed: ${res.status}`);
-  const json = await res.json();
+  const json = await cbsFetch(`/TypedDataSet?$filter=RegioS eq '${regionCode}'&$orderby=Perioden desc&$top=1`);
   return (json.value && json.value[0]) || null;
 }
 
