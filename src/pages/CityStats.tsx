@@ -121,8 +121,8 @@ export default function CityStats() {
           {error && !loading && (
             <Card>
               <CardContent className="py-12 text-center space-y-3">
-                <p className="text-muted-foreground">{error}</p>
-                <Button asChild variant="outline"><Link to={`/stad/${city}`}>Terug naar {cityName}</Link></Button>
+                <p className="text-muted-foreground">De CBS-cijfers van {cityName} zijn tijdelijk niet beschikbaar. Probeer het later opnieuw.</p>
+                <Button asChild variant="outline"><Link to={`/stad/${city}`}>Bekijk woningen in {cityName}</Link></Button>
               </CardContent>
             </Card>
           )}
