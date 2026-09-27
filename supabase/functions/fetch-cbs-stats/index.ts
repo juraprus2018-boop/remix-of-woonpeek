@@ -128,6 +128,25 @@ Deno.serve(async (req) => {
     });
   } catch (err) {
     console.error("fetch-cbs-stats error", err);
+    // Vangnet: serveer verlopen cache als CBS onbereikbaar is
+    try {
+      const { city } = await req.clone().json().catch(() => ({}));
+      if (city && typeof city === "string") {
+        const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+        const { data: stale } = await supabase
+          .from("cbs_stats_cache")
+          .select("*")
+          .eq("city_slug", slugify(city))
+          .maybeSingle();
+        if (stale) {
+          return new Response(JSON.stringify({ ...stale.data, _cached: true, _stale: true, city_name: stale.city_name, region_code: stale.region_code }), {
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+      }
+    } catch (fallbackErr) {
+      console.error("fetch-cbs-stats stale fallback error", fallbackErr);
+    }
     return new Response(JSON.stringify({ error: err instanceof Error ? err.message : "Unknown" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
