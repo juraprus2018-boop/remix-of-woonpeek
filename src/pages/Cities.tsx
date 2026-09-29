@@ -62,6 +62,27 @@ const Cities = () => {
         description={t("meta.citiesDesc")}
         canonical={ROUTES.cities}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: t("meta.citiesTitle"),
+            url: "https://www.woonaanbod-nl.nl" + ROUTES.cities,
+            mainEntity: {
+              "@type": "ItemList",
+              numberOfItems: (cities || []).length,
+              itemListElement: (cities || []).slice(0, 100).map((c: any, i: number) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name: typeof c === "string" ? c : c?.name ?? c?.city,
+              })),
+            },
+          }),
+        }}
+      />
+
       <Header />
       <main className="flex-1">
         {/* Intro */}

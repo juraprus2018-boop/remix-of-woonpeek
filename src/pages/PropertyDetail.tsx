@@ -402,7 +402,7 @@ const PropertyDetail = () => {
         description={seoDescription}
         canonical={canonicalPath}
         ogImage={property.images?.length ? property.images[0] : undefined}
-        ogType="article"
+        ogType="website"
       />
       
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateJsonLd) }} />
