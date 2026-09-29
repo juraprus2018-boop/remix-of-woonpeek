@@ -880,7 +880,7 @@ const PropertyDetail = () => {
             {/* ── Sidebar ── */}
             <div className="lg:col-span-1">
               <div className="sticky top-24 space-y-4">
-                <AdSlot slotKey="property_detail" className="my-0" />
+                <AdSlot slotKey="property_detail" className="my-0" advertiser={property.source_site} />
                 {/* Price + CTA Card */}
                 <Card className="overflow-hidden shadow-lg">
                   <CardContent className="p-6 space-y-4">
