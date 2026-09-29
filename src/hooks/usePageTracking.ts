@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { trackPageView } from "@/lib/analytics";
 
 const getSessionId = () => {
   let sid = sessionStorage.getItem("wp_session_id");
@@ -27,6 +28,7 @@ export const usePageTracking = () => {
     ) return;
 
     lastPath.current = fullPath;
+    trackPageView(fullPath);
 
     const sessionId = getSessionId();
     supabase.from("page_views").insert({

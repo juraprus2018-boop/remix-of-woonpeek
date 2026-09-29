@@ -1610,6 +1610,63 @@ export type Database = {
         }
         Relationships: []
       }
+      traffic_daily_page: {
+        Row: {
+          bezoeken: number
+          bron: string
+          dag: string
+          pagina: string
+          sessies: number
+        }
+        Insert: {
+          bezoeken?: number
+          bron: string
+          dag: string
+          pagina: string
+          sessies?: number
+        }
+        Update: {
+          bezoeken?: number
+          bron?: string
+          dag?: string
+          pagina?: string
+          sessies?: number
+        }
+        Relationships: []
+      }
+      traffic_daily_source: {
+        Row: {
+          apparaat: string
+          bezoeken: number
+          bron: string
+          campagne: string
+          dag: string
+          ref_host: string
+          sessies: number
+          utm_source: string
+        }
+        Insert: {
+          apparaat?: string
+          bezoeken?: number
+          bron: string
+          campagne?: string
+          dag: string
+          ref_host?: string
+          sessies?: number
+          utm_source?: string
+        }
+        Update: {
+          apparaat?: string
+          bezoeken?: number
+          bron?: string
+          campagne?: string
+          dag?: string
+          ref_host?: string
+          sessies?: number
+          utm_source?: string
+        }
+        Relationships: []
+      }
       translations_cache: {
         Row: {
           created_at: string
@@ -1681,6 +1738,7 @@ export type Database = {
         Returns: string
       }
       canonical_city_slug: { Args: { _name: string }; Returns: string }
+      classify_traffic_source: { Args: { referrer: string }; Returns: string }
       deactivate_duplicate_properties: { Args: never; Returns: number }
       get_city_counts: {
         Args: never
@@ -1711,6 +1769,7 @@ export type Database = {
       market_stats: { Args: never; Returns: Json }
       market_stats_extra: { Args: never; Returns: Json }
       province_from_postal: { Args: { _pc: string }; Returns: string }
+      rollup_traffic_daily: { Args: { days_back?: number }; Returns: undefined }
       verify_cron_secret: { Args: { _secret: string }; Returns: boolean }
     }
     Enums: {

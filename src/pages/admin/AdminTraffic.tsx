@@ -25,7 +25,6 @@ const PERIODS = [
   { days: 1, label: "Vandaag" },
   { days: 7, label: "7 dagen" },
   { days: 30, label: "30 dagen" },
-  { days: 90, label: "90 dagen" },
 ];
 
 const Bar = ({ value, max }: { value: number; max: number }) => (
