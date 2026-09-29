@@ -8,11 +8,11 @@ const slugify = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-// Dataset 85984NED = Regionale kerncijfers Nederland, RegioS = Gemeente codes (GM####)
-// CBS heeft opendata.cbs.nl uitgefaseerd; primair dataderden.cbs.nl, oud host als fallback.
+// Dataset 70072ned = Regionale kerncijfers Nederland (85984NED is door CBS ingetrokken).
+// RegioS bevat gemeentecodes (GM####).
 const CBS_BASES = [
-  "https://dataderden.cbs.nl/ODataApi/OData/85984NED",
-  "https://opendata.cbs.nl/ODataApi/odata/85984NED",
+  "https://opendata.cbs.nl/ODataApi/odata/70072ned",
+  "https://dataderden.cbs.nl/ODataApi/OData/70072ned",
 ];
 
 async function cbsFetch(path: string): Promise<any> {
@@ -21,7 +21,7 @@ async function cbsFetch(path: string): Promise<any> {
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
         const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 12000);
+        const timer = setTimeout(() => controller.abort(), 15000);
         const res = await fetch(`${base}${path}`, {
           headers: { Accept: "application/json" },
           signal: controller.signal,
@@ -45,18 +45,33 @@ async function findRegionCode(cityName: string): Promise<{ code: string; title: 
   const json = await cbsFetch(`/RegioS?$filter=startswith(Key,'GM')`);
   const regions: Array<{ Key: string; Title: string; Description: string }> = json.value || [];
   const target = cityName.toLowerCase().trim();
+  // opgeheven gemeenten achteraan
+  const active = regions.filter((r) => !/Opgeheven/i.test(r.Description || ""));
+  const ordered = [...active, ...regions.filter((r) => /Opgeheven/i.test(r.Description || ""))];
   // exact match first
-  let hit = regions.find((r) => r.Title.toLowerCase().trim() === target);
-  if (!hit) hit = regions.find((r) => r.Title.toLowerCase().replace(/\s*\(.*\)\s*/, "").trim() === target);
-  if (!hit) hit = regions.find((r) => slugify(r.Title) === slugify(cityName));
+  let hit = ordered.find((r) => r.Title.toLowerCase().trim() === target);
+  if (!hit) hit = ordered.find((r) => r.Title.toLowerCase().replace(/\s*\(.*\)\s*/, "").trim() === target);
+  if (!hit) hit = ordered.find((r) => slugify(r.Title) === slugify(cityName));
   if (!hit) return null;
   return { code: hit.Key.trim(), title: hit.Title.trim() };
 }
 
+// Niet elk veld is in elk jaar gevuld; neem per veld de meest recente waarde.
 async function fetchCityStats(regionCode: string) {
-  const json = await cbsFetch(`/TypedDataSet?$filter=RegioS eq '${regionCode}'&$orderby=Perioden desc&$top=1`);
-  return (json.value && json.value[0]) || null;
+  const json = await cbsFetch(`/TypedDataSet?$filter=startswith(RegioS,'${regionCode}')`);
+  const rows: any[] = json.value || [];
+  if (!rows.length) return null;
+  const sorted = rows.sort((a, b) => String(a.Perioden).localeCompare(String(b.Perioden)));
+  const merged: Record<string, any> = {};
+  for (const row of sorted) {
+    for (const [k, v] of Object.entries(row)) {
+      if (v !== null && v !== undefined && !(typeof v === "string" && !v.trim())) merged[k] = v;
+    }
+  }
+  merged.Perioden = sorted[sorted.length - 1].Perioden;
+  return merged;
 }
+
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
