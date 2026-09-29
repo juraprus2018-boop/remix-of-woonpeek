@@ -1,15 +1,10 @@
 ---
 name: ad-slots-systeem
-description: Admin-managed Google Ads (AdSense) snippets per location via ad_slots table, rendered with AdSlot component on homepage, city, search and property detail pages
+description: Advertentieplekken tonen automatisch Daisycon-banners van aangesloten aanbieders (AdSense is verwijderd)
 type: feature
 ---
-Database table `ad_slots` (slot_key UNIQUE, name, description, ad_code, is_active) beheert advertentie HTML snippets. RLS: publiek mag alleen actieve slots lezen (nodig voor frontend), admins beheren alles.
+AdSense is uit. `AdSlot` toont nu automatisch Daisycon-banners uit tabel `daisycon_banners` (volledig automatisch, geen handmatige goedkeuring, op verzoek gebruiker).
 
-Slots geseed: `homepage`, `city_page`, `search_page`, `property_detail`.
-
-Frontend:
-- Hook: `src/hooks/useAdSlot.ts` (10min cache).
-- Component: `src/components/ads/AdSlot.tsx` injecteert HTML en re-executes inline `<script>` tags zodat AdSense initialiseert. Renders niets als ad_code leeg of slot inactief.
-- Geplaatst op: `src/pages/Index.tsx` (na RecentlyViewed), `src/pages/CityPage.tsx` (tussen hero en results), `src/pages/Search.tsx` (boven results), `src/pages/PropertyDetail.tsx` (boven Reageer-CTA in sidebar).
-
-Admin UI: `/admin/advertenties` (`src/pages/admin/AdminAds.tsx`). Plak AdSense snippet in textarea, toggle is_active, klik Opslaan. Cache wordt invalidated voor `["ad-slot", slotKey]`.
+- Sync: edge function `daisycon-banners-sync` leest `/publishers/{id}/material/ads?media_id=...` (alleen type image/*, programma via `si=` in click_url), cron `daisycon-banners-daily` 05:00 UTC. Niet meer aangeboden banners worden inactief.
+- Plaatsing: homepage, stadspagina, zoekresultaten (brede 970/728x90, mobiel 320x100/50), woningdetail-sidebar (300x250/336x280/250x250) met voorkeur voor banner van de bron van die woning.
+- Klik-subid: `ws=woonaanbod-banner`.

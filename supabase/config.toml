@@ -42,3 +42,6 @@ verify_jwt = false
 
 [functions.ssr-meta]
 verify_jwt = false
+
+[functions.daisycon-banners-sync]
+verify_jwt = false

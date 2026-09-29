@@ -30,6 +30,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import PropertyCard from "@/components/properties/PropertyCard";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import RecentComments from "@/components/home/RecentComments";
+import AdSlot from "@/components/ads/AdSlot";
 import { cityToSlug } from "@/lib/cities";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
@@ -400,6 +401,10 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <div className="container">
+        <AdSlot slotKey="homepage" />
+      </div>
 
       {/* RECENTE REACTIES */}
       <RecentComments />
