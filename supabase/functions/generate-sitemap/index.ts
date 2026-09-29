@@ -50,7 +50,17 @@ ${alternates}
 `;
 }
 
-function buildSitemapIndex(lastmod: string): string {
+const FN_URL = "https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap";
+function buildSitemapIndex(lastmod: string, live = false): string {
+  if (live) {
+    return `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${["pages", "steden", "woningen"].map((t) => `  <sitemap>
+    <loc>${FN_URL}?type=${t}</loc>
+    <lastmod>${lastmod}</lastmod>
+  </sitemap>`).join("\n")}
+</sitemapindex>`;
+  }
   return `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
@@ -343,8 +353,8 @@ Deno.serve(async (req) => {
   try {
     const now = new Date().toISOString().split("T")[0];
 
-    if (type === "index") {
-      return new Response(buildSitemapIndex(now), {
+    if (type === "index" || type === "live") {
+      return new Response(buildSitemapIndex(now, type === "live"), {
         headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
       });
     }
