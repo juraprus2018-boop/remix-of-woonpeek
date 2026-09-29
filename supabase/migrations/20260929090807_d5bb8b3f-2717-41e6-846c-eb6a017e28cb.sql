@@ -1,0 +1,1 @@
+alter function public.admin_traffic_overview(int) volatile;
