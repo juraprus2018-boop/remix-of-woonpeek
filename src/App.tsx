@@ -358,6 +358,7 @@ const ADMIN_PAGES: RouteDef[] = [
   { path: "/admin/gebruikers", element: <AdminUsers /> },
   { path: "/admin/gebruikers/:userId", element: <AdminUserDetail /> },
   { path: "/admin/dagoverzicht", element: <AdminDailyActivity /> },
+  { path: "/admin/verkeer", element: <AdminTraffic /> },
   { path: "/admin/facebook", element: <AdminFacebookQueue /> },
   { path: "/admin/tiktok", element: <AdminTikTok /> },
   { path: "/admin/leads", element: <AdminMakelaarLeads /> },
