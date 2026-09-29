@@ -1675,6 +1675,7 @@ export type Database = {
           property_title: string
         }[]
       }
+      admin_traffic_overview: { Args: { days?: number }; Returns: Json }
       build_address_slug: {
         Args: { _house_number: string; _postal_code: string; _street: string }
         Returns: string
