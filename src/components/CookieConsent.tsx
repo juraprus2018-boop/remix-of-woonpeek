@@ -16,18 +16,8 @@ const getStoredConsent = (): ConsentChoice => {
   return null;
 };
 
-/** Activate AdSense script (Google Analytics staat statisch in index.html) */
-const activateAnalytics = () => {
-  if (!document.getElementById("adsense-script")) {
-    const adsenseScript = document.createElement("script");
-    adsenseScript.id = "adsense-script";
-    adsenseScript.async = true;
-    adsenseScript.crossOrigin = "anonymous";
-    adsenseScript.src =
-      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3573780897509976";
-    document.head.appendChild(adsenseScript);
-  }
-};
+/** Google Analytics staat statisch in index.html; geen advertentiescripts meer. */
+const activateAnalytics = () => {};
 
 const CookieConsent = () => {
   const [consent, setConsent] = useState<ConsentChoice>(getStoredConsent);
