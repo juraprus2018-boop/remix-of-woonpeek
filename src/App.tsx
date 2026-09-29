@@ -43,6 +43,7 @@ const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
 const AdminUserDetail = lazy(() => import("./pages/admin/AdminUserDetail"));
 const AdminDailyActivity = lazy(() => import("./pages/admin/AdminDailyActivity"));
+const AdminTraffic = lazy(() => import("./pages/admin/AdminTraffic"));
 const AdminFacebookQueue = lazy(() => import("./pages/admin/AdminFacebookQueue"));
 const AdminMakelaarLeads = lazy(() => import("./pages/admin/AdminMakelaarLeads"));
 const AdminEmailSender = lazy(() => import("./pages/admin/AdminEmailSender"));
@@ -358,6 +359,7 @@ const ADMIN_PAGES: RouteDef[] = [
   { path: "/admin/gebruikers", element: <AdminUsers /> },
   { path: "/admin/gebruikers/:userId", element: <AdminUserDetail /> },
   { path: "/admin/dagoverzicht", element: <AdminDailyActivity /> },
+  { path: "/admin/verkeer", element: <AdminTraffic /> },
   { path: "/admin/facebook", element: <AdminFacebookQueue /> },
   { path: "/admin/tiktok", element: <AdminTikTok /> },
   { path: "/admin/leads", element: <AdminMakelaarLeads /> },
