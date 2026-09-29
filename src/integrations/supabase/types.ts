@@ -439,6 +439,68 @@ export type Database = {
         }
         Relationships: []
       }
+      daisycon_banners: {
+        Row: {
+          advertiser_name: string | null
+          click_url: string
+          created_at: string
+          feed_id: string | null
+          height: number | null
+          id: string
+          image_url: string
+          is_active: boolean
+          last_seen_at: string
+          material_id: string
+          media_id: number
+          name: string | null
+          program_id: number
+          updated_at: string
+          width: number | null
+        }
+        Insert: {
+          advertiser_name?: string | null
+          click_url: string
+          created_at?: string
+          feed_id?: string | null
+          height?: number | null
+          id?: string
+          image_url: string
+          is_active?: boolean
+          last_seen_at?: string
+          material_id: string
+          media_id: number
+          name?: string | null
+          program_id: number
+          updated_at?: string
+          width?: number | null
+        }
+        Update: {
+          advertiser_name?: string | null
+          click_url?: string
+          created_at?: string
+          feed_id?: string | null
+          height?: number | null
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          last_seen_at?: string
+          material_id?: string
+          media_id?: number
+          name?: string | null
+          program_id?: number
+          updated_at?: string
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daisycon_banners_feed_id_fkey"
+            columns: ["feed_id"]
+            isOneToOne: false
+            referencedRelation: "daisycon_feeds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       daisycon_clicks: {
         Row: {
           created_at: string
