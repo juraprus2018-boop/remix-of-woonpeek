@@ -296,12 +296,16 @@ const SearchPage = () => {
                     size="sm"
                     onClick={() => setViewMode("list")}
                     className="rounded-r-none"
+                    aria-label="Toon als lijst"
+                    aria-pressed={viewMode === "list"}
                   >
                     <List className="h-4 w-4" />
                   </Button>
                   <Button
                     variant={viewMode === "map" ? "secondary" : "ghost"}
                     size="sm"
+                    aria-label="Toon op kaart"
+                    aria-pressed={viewMode === "map"}
                     onClick={() => setViewMode("map")}
                     className="rounded-l-none"
                   >
