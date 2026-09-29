@@ -1,0 +1,1 @@
+CREATE POLICY "No direct access to cron config" ON private.cron_config AS RESTRICTIVE FOR ALL TO public USING (false) WITH CHECK (false);
