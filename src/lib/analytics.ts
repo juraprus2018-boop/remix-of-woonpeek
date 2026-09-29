@@ -1,9 +1,6 @@
 // Google Analytics (GA4). Het meet-ID is een publieke waarde en mag in de code staan.
 // Zet hier het ID dat je in Google Analytics ziet staan (begint met G-).
-export const GA_MEASUREMENT_ID =
-  (import.meta.env.VITE_GOOGLE_ANALYTICS_MEASUREMENT_ID as string | undefined) ||
-  (import.meta.env.VITE_LOVABLE_CONNECTOR_GOOGLE_ANALYTICS_API_KEY as string | undefined) ||
-  "";
+export const GA_MEASUREMENT_ID = "G-8MWWMFY858";
 
 declare global {
   interface Window {
