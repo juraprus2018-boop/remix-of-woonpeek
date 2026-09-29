@@ -97,6 +97,16 @@ Deno.serve(async (req) => {
     if (!publisherId) throw new Error("DAISYCON_PUBLISHER_ID ontbreekt");
     const token = await getToken(supabase);
 
+    if (Array.isArray(body.probe)) {
+      const out: any[] = [];
+      for (const p of body.probe.slice(0, 30)) {
+        const r = await fetch(`${API}/publishers/${publisherId}${p}`, { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } });
+        out.push({ p, s: r.status, t: (await r.text()).slice(0, 400) });
+      }
+      return new Response(JSON.stringify(out), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+
     const { data: feeds } = await supabase.from("daisycon_feeds")
       .select("id, name, program_id, media_id").eq("is_active", true);
 
