@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { initAnalytics } from "@/lib/analytics";
 
 type ConsentChoice = "all" | "necessary" | null;
 
@@ -16,8 +17,8 @@ const getStoredConsent = (): ConsentChoice => {
   return null;
 };
 
-/** Google Analytics staat statisch in index.html; geen advertentiescripts meer. */
-const activateAnalytics = () => {};
+/** Google Analytics start alleen na toestemming; geen advertentiescripts. */
+const activateAnalytics = () => initAnalytics();
 
 const CookieConsent = () => {
   const [consent, setConsent] = useState<ConsentChoice>(getStoredConsent);
