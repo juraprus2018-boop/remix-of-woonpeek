@@ -109,32 +109,60 @@ Deno.serve(async (req) => {
 
     const { data: feeds } = await supabase.from("daisycon_feeds")
       .select("id, name, program_id, media_id").eq("is_active", true);
+    const feedByProgram = new Map<number, any>();
+    for (const f of feeds ?? []) if (!feedByProgram.has(f.program_id)) feedByProgram.set(f.program_id, f);
+    const mediaIds = [...new Set((feeds ?? []).map((f: any) => f.media_id))];
 
-    const seen = new Set<string>();
-    const report: any[] = [];
+    const now = new Date().toISOString();
+    const rows: any[] = [];
     const debug: any[] = [];
-    for (const feed of feeds ?? []) {
-      const key = `${feed.program_id}-${feed.media_id}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      const items = await fetchBanners(token, publisherId, feed.program_id, feed.media_id, debug);
-      const rows = items.map((i: any) => normalize(i, feed.program_id, feed.media_id)).filter(Boolean)
-        .map((r: any) => ({ ...r, feed_id: feed.id, advertiser_name: feed.name, is_active: true, last_seen_at: new Date().toISOString() }));
-      if (rows.length) {
-        const { error } = await supabase.from("daisycon_banners")
-          .upsert(rows, { onConflict: "program_id,media_id,material_id" });
-        if (error) console.error("upsert", feed.name, error.message);
+    let scanned = 0;
+    for (const mediaId of mediaIds) {
+      for (let page = 1; page <= 40; page++) {
+        const r = await fetch(`${API}/publishers/${publisherId}/material/ads?media_id=${mediaId}&page=${page}&per_page=250`,
+          { headers: { Authorization: `Bearer ${token}`, Accept: "application/json" } });
+        if (!r.ok) { debug.push({ page, s: r.status }); break; }
+        const list = await r.json();
+        if (!Array.isArray(list) || list.length === 0) break;
+        scanned += list.length;
+        for (const ad of list) {
+          const type = String(ad.type ?? "");
+          if (!type.startsWith("image/")) continue;
+          const click = String(ad.click_url ?? "");
+          const si = Number(click.match(/[?&]si=(\d+)/)?.[1]);
+          const feed = feedByProgram.get(si);
+          if (!feed) continue;
+          let img = String(ad.content ?? "");
+          const m = img.match(/src=["']([^"']+)["']/i);
+          if (m) img = m[1];
+          img = img.replace(/&amp;/g, "&").replace(/#MEDIA_ID#/g, String(mediaId)).replace(/#SUB_ID#/g, "woonaanbod-banner");
+          if (img.startsWith("//")) img = "https:" + img;
+          if (!/^https?:\/\//.test(img)) { if (debug.length < 3) debug.push(ad); continue; }
+          let clickUrl = click.replace(/#MEDIA_ID#/g, String(mediaId)).replace(/#SUB_ID#/g, "woonaanbod-banner");
+          if (clickUrl.startsWith("//")) clickUrl = "https:" + clickUrl;
+          rows.push({
+            feed_id: feed.id, program_id: si, media_id: mediaId, material_id: String(ad.id),
+            advertiser_name: feed.name, name: ad.name ?? null,
+            width: Number(ad.width) || null, height: Number(ad.height) || null,
+            image_url: img, click_url: clickUrl, is_active: true, last_seen_at: now,
+          });
+        }
+        if (list.length < 250) break;
       }
-      // Deactivate banners no longer offered, only when the API returned a list
-      if (items.length) {
-        await supabase.from("daisycon_banners").update({ is_active: false })
-          .eq("program_id", feed.program_id).eq("media_id", feed.media_id)
-          .lt("last_seen_at", new Date(Date.now() - 60 * 60_000).toISOString());
-      }
-      report.push({ feed: feed.name, found: items.length, saved: rows.length });
     }
 
-    return new Response(JSON.stringify({ success: true, report, ...(body.debug ? { debug } : {}) }), {
+    for (let i = 0; i < rows.length; i += 200) {
+      const { error } = await supabase.from("daisycon_banners")
+        .upsert(rows.slice(i, i + 200), { onConflict: "program_id,media_id,material_id" });
+      if (error) debug.push({ upsert: error.message });
+    }
+    if (rows.length) {
+      await supabase.from("daisycon_banners").update({ is_active: false }).lt("last_seen_at", now);
+    }
+    const perAdvertiser: Record<string, number> = {};
+    rows.forEach((r) => { perAdvertiser[r.advertiser_name] = (perAdvertiser[r.advertiser_name] ?? 0) + 1; });
+
+    return new Response(JSON.stringify({ success: true, scanned, saved: rows.length, perAdvertiser, ...(body.debug ? { debug } : {}) }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
