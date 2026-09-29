@@ -1680,6 +1680,7 @@ export type Database = {
         Returns: string
       }
       canonical_city_slug: { Args: { _name: string }; Returns: string }
+      deactivate_duplicate_properties: { Args: never; Returns: number }
       get_city_counts: {
         Args: never
         Returns: {
