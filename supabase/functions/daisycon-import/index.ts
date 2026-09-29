@@ -380,6 +380,64 @@ function mapDaisyconToProperty(product: DaisyconProduct, sourceSite: string, sou
   // Build a descriptive title instead of using generic ones like "appartement"
   const rawTitle = product.title || "";
   const genericTitles = ["appartement", "huis", "studio", "kamer", "woning", "room", "house", "apartment"];
+        // Insert NEW listings first: the per-row update loop below can run out
+        // of time, and new listings must never be starved by it.
+        for (const pd of allPropertyData) if (!existingMap.has(pd.source_url)) toInsert.push(pd);
+        // Batch insert new properties in chunks of 100
+        console.log(`Feed ${feed.name}: inserting ${toInsert.length} new properties in batches...`);
+        for (let i = 0; i < toInsert.length; i += 100) {
+          // Check time budget within large insert loops
+          if (Date.now() - startTime > TIME_BUDGET_MS) {
+            console.log(`Feed ${feed.name}: Time budget exceeded during inserts at batch ${i}/${toInsert.length}`);
+            skipped += toInsert.length - i;
+            break;
+          }
+
+          const batch = toInsert.slice(i, i + 100);
+          // Plain insert: the source_url unique index is partial, so an
+          // ON CONFLICT upsert always fails (42P10). Duplicates are already
+          // filtered above; the fallback below handles any leftover conflict.
+          const { error: batchErr, data: insertedData } = await supabase
+            .from("properties")
+            .insert(batch)
+            .select("id, slug, address_slug, city, listing_type");
+
+          
+          if (batchErr) {
+            // If batch fails (e.g. duplicate), try individual inserts
+            console.warn(`Batch insert error at ${i}: ${batchErr.message}, falling back to individual inserts`);
+            for (const item of batch) {
+              const { data: singleData, error: singleErr } = await supabase
+                .from("properties")
+                .insert(item)
+                .select("id, slug, address_slug, city, listing_type")
+                .single();
+              if (singleErr) {
+                skipped++;
+              } else {
+                imported++;
+                if (singleData) indexNowUrls.push(propertyUrl(singleData as any));
+              }
+            }
+          } else {
+            imported += insertedData?.length || batch.length;
+            if (insertedData) {
+              for (const row of insertedData) {
+                indexNowUrls.push(propertyUrl(row as any));
+              }
+            }
+          }
+
+          // Update job progress periodically
+          if (jobId && i % 500 === 0) {
+            await supabase.from("import_jobs").update({
+              imported: totalImported + imported,
+              updated: totalUpdated + updated,
+              skipped: totalSkipped + skipped,
+              message: `Feed "${feed.name}": ${imported + updated + skipped}/${allPropertyData.length} verwerkt...`,
+            }).eq("id", jobId);
+          }
+        }
   const isGeneric = !rawTitle || genericTitles.includes(rawTitle.trim().toLowerCase());
 
   let title: string;
@@ -731,8 +789,6 @@ Deno.serve(async (req) => {
               skipped++;
               unchangedIds.push(existing.id);
             }
-          } else {
-            toInsert.push(propData);
           }
         }
         if (budgetStopped) {
@@ -751,61 +807,6 @@ Deno.serve(async (req) => {
         }
 
 
-        // Batch insert new properties in chunks of 100
-        console.log(`Feed ${feed.name}: inserting ${toInsert.length} new properties in batches...`);
-        for (let i = 0; i < toInsert.length; i += 100) {
-          // Check time budget within large insert loops
-          if (Date.now() - startTime > TIME_BUDGET_MS) {
-            console.log(`Feed ${feed.name}: Time budget exceeded during inserts at batch ${i}/${toInsert.length}`);
-            skipped += toInsert.length - i;
-            break;
-          }
-
-          const batch = toInsert.slice(i, i + 100);
-          // Plain insert: the source_url unique index is partial, so an
-          // ON CONFLICT upsert always fails (42P10). Duplicates are already
-          // filtered above; the fallback below handles any leftover conflict.
-          const { error: batchErr, data: insertedData } = await supabase
-            .from("properties")
-            .insert(batch)
-            .select("id, slug, address_slug, city, listing_type");
-
-          
-          if (batchErr) {
-            // If batch fails (e.g. duplicate), try individual inserts
-            console.warn(`Batch insert error at ${i}: ${batchErr.message}, falling back to individual inserts`);
-            for (const item of batch) {
-              const { data: singleData, error: singleErr } = await supabase
-                .from("properties")
-                .insert(item)
-                .select("id, slug, address_slug, city, listing_type")
-                .single();
-              if (singleErr) {
-                skipped++;
-              } else {
-                imported++;
-                if (singleData) indexNowUrls.push(propertyUrl(singleData as any));
-              }
-            }
-          } else {
-            imported += insertedData?.length || batch.length;
-            if (insertedData) {
-              for (const row of insertedData) {
-                indexNowUrls.push(propertyUrl(row as any));
-              }
-            }
-          }
-
-          // Update job progress periodically
-          if (jobId && i % 500 === 0) {
-            await supabase.from("import_jobs").update({
-              imported: totalImported + imported,
-              updated: totalUpdated + updated,
-              skipped: totalSkipped + skipped,
-              message: `Feed "${feed.name}": ${imported + updated + skipped}/${allPropertyData.length} verwerkt...`,
-            }).eq("id", jobId);
-          }
-        }
 
         // Update feed stats
         await supabase
