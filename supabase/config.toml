@@ -45,3 +45,6 @@ verify_jwt = false
 
 [functions.daisycon-banners-sync]
 verify_jwt = false
+
+[functions.ga-config]
+verify_jwt = false

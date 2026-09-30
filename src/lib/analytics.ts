@@ -10,10 +10,12 @@ declare global {
 
 let initialized = false;
 
-export const gtag = (...args: unknown[]) => {
+// Google verwerkt alleen het echte `arguments`-object, geen gewone array.
+export function gtag(..._args: unknown[]) {
   if (!window.dataLayer) window.dataLayer = [];
-  window.dataLayer.push(args);
-};
+  // eslint-disable-next-line prefer-rest-params
+  window.dataLayer.push(arguments);
+}
 
 export const initAnalytics = () => {
   if (initialized || !GA_MEASUREMENT_ID || typeof document === "undefined") return;
