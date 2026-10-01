@@ -281,7 +281,7 @@ const AdminGoogleRanking = () => {
   }, [mainTab, visitorMarkers, liveVisitors?.count]);
 
   // Fetch indexing log
-  const { data: indexingLog, isLoading: logLoading } = useQuery({
+  const { data: indexingLog, isLoading: logLoading, refetch: refetchIndexingLog } = useQuery({
     queryKey: ["google-indexing-log"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -293,6 +293,35 @@ const AdminGoogleRanking = () => {
       return data;
     },
   });
+
+  // Test: submit a single URL to the Google Indexing API
+  const [indexTestUrl, setIndexTestUrl] = useState("https://www.woonaanbod-nl.nl/");
+  const [indexTestResult, setIndexTestResult] = useState<string | null>(null);
+  const [indexTestLoading, setIndexTestLoading] = useState(false);
+
+  const runIndexTest = async () => {
+    setIndexTestLoading(true);
+    setIndexTestResult(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("google-indexing", {
+        body: { test_url: indexTestUrl },
+      });
+      if (error) throw error;
+      if (data?.ok) {
+        setIndexTestResult(`Gelukt: Google heeft de URL ontvangen (HTTP ${data.status}).`);
+        toast.success("URL succesvol bij Google aangemeld");
+      } else {
+        setIndexTestResult(`Mislukt (HTTP ${data?.status ?? "?"}): ${data?.google_response || data?.error || "onbekende fout"}`);
+        toast.error("Aanmelden bij Google mislukt");
+      }
+      refetchIndexingLog();
+    } catch (e: any) {
+      setIndexTestResult(`Fout: ${e?.message || "onbekend"}`);
+      toast.error("Test mislukt");
+    } finally {
+      setIndexTestLoading(false);
+    }
+  };
 
   // Fetch rank tracking data
   const { data: rankData, isLoading: rankLoading, refetch: refetchRank } = useQuery({
@@ -723,6 +752,29 @@ const AdminGoogleRanking = () => {
           </CardContent>
         </Card>
       </div>
+
+      <Card>
+        <CardHeader><CardTitle>Test met 1 URL</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Stuur één URL direct naar de Google Indexing API om te controleren of de koppeling werkt.
+          </p>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Input
+              value={indexTestUrl}
+              onChange={(e) => setIndexTestUrl(e.target.value)}
+              placeholder="https://www.woonaanbod-nl.nl/..."
+              className="flex-1"
+            />
+            <Button onClick={runIndexTest} disabled={indexTestLoading || !indexTestUrl.startsWith("https://www.woonaanbod-nl.nl/")}>
+              {indexTestLoading ? "Versturen..." : "Test versturen"}
+            </Button>
+          </div>
+          {indexTestResult && (
+            <p className="text-sm rounded-md border p-3 bg-muted/50 break-all">{indexTestResult}</p>
+          )}
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader><CardTitle>Indexering Log</CardTitle></CardHeader>
