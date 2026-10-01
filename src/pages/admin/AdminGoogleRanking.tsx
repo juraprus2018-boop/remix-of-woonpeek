@@ -281,7 +281,7 @@ const AdminGoogleRanking = () => {
   }, [mainTab, visitorMarkers, liveVisitors?.count]);
 
   // Fetch indexing log
-  const { data: indexingLog, isLoading: logLoading } = useQuery({
+  const { data: indexingLog, isLoading: logLoading, refetch: refetchIndexingLog } = useQuery({
     queryKey: ["google-indexing-log"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -293,6 +293,35 @@ const AdminGoogleRanking = () => {
       return data;
     },
   });
+
+  // Test: submit a single URL to the Google Indexing API
+  const [indexTestUrl, setIndexTestUrl] = useState("https://www.woonaanbod-nl.nl/");
+  const [indexTestResult, setIndexTestResult] = useState<string | null>(null);
+  const [indexTestLoading, setIndexTestLoading] = useState(false);
+
+  const runIndexTest = async () => {
+    setIndexTestLoading(true);
+    setIndexTestResult(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("google-indexing", {
+        body: { test_url: indexTestUrl },
+      });
+      if (error) throw error;
+      if (data?.ok) {
+        setIndexTestResult(`Gelukt: Google heeft de URL ontvangen (HTTP ${data.status}).`);
+        toast.success("URL succesvol bij Google aangemeld");
+      } else {
+        setIndexTestResult(`Mislukt (HTTP ${data?.status ?? "?"}): ${data?.google_response || data?.error || "onbekende fout"}`);
+        toast.error("Aanmelden bij Google mislukt");
+      }
+      refetchIndexingLog();
+    } catch (e: any) {
+      setIndexTestResult(`Fout: ${e?.message || "onbekend"}`);
+      toast.error("Test mislukt");
+    } finally {
+      setIndexTestLoading(false);
+    }
+  };
 
   // Fetch rank tracking data
   const { data: rankData, isLoading: rankLoading, refetch: refetchRank } = useQuery({
