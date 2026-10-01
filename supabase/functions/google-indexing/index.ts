@@ -63,6 +63,19 @@ Deno.serve(async (req) => {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Test mode: submit a single URL and return Google's raw response.
+    let testUrl: string | null = null;
+    if (req.method === "POST") {
+      try {
+        const body = await req.json();
+        if (typeof body?.test_url === "string" && body.test_url.startsWith("https://www.woonaanbod-nl.nl/")) {
+          testUrl = body.test_url;
+        }
+      } catch {
+        // no body: normal scheduled run
+      }
+    }
+
     // Properties created OR updated in the last 24 hours (imports refresh updated_at).
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
