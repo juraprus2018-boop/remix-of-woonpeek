@@ -31,26 +31,24 @@ export function buildCaption(p: {
   surface_area?: number | null;
   bedrooms?: number | null;
   property_type?: string | null;
+  url?: string | null;
 }): string {
   const cleanCity = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
   const tags = [
-    "#woonaanbod-nl",
-    "#woningnederland",
-    p.listing_type === "huur" ? "#huurwoning" : "#koopwoning",
-    p.listing_type === "huur" ? "#tehuur" : "#tekoop",
+    "#huurwoning",
+    "#tehuur",
     `#${cleanCity}`,
     `#wonenin${cleanCity}`,
+    "#woningzoeken",
     "#nederland",
-    "#vastgoed",
-    "#dreamhome",
     "#fyp",
   ].join(" ");
-  const type = p.listing_type === "huur" ? "Te huur" : "Te koop";
+  const type = p.property_type ? `${p.property_type.charAt(0).toUpperCase()}${p.property_type.slice(1)} te huur` : "Te huur";
   return [
     `🏡 ${type} in ${p.city}`,
     `💰 ${fmtPriceNL(p.price, p.listing_type)}${p.surface_area ? ` · ${p.surface_area} m²` : ""}${p.bedrooms != null ? ` · ${p.bedrooms} slpk` : ""}`,
     "",
-    "👉 Volledige info via Woonaanbod NL.nl (link in bio)",
+    p.url ? `👉 Bekijk deze woning: ${p.url}` : "👉 Bekijk op woonaanbod-nl.nl",
     "",
     tags,
   ].join("\n");

@@ -29,7 +29,7 @@ Deno.serve(async (req) => {
 
   const url = new URL("https://www.tiktok.com/v2/auth/authorize/");
   url.searchParams.set("client_key", clientKey);
-  url.searchParams.set("scope", "user.info.basic,video.upload");
+  url.searchParams.set("scope", "user.info.basic,video.upload,video.publish");
   url.searchParams.set("response_type", "code");
   url.searchParams.set("redirect_uri", redirectUri);
   url.searchParams.set("state", state);
