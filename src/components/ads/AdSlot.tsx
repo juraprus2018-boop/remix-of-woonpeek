@@ -24,6 +24,7 @@ const RECT_SLOTS: AdSlotKey[] = ["property_detail"];
 const WIDE = [[970, 90], [728, 90]];
 const MOBILE = [[320, 100], [320, 50]];
 const RECT = [[300, 250], [336, 280], [250, 250]];
+const DEFAULT_ADVERTISER = "Huurwoningen.nl";
 
 const fits = (b: Banner, sizes: number[][]) => sizes.some(([w, h]) => b.width === w && b.height === h);
 
@@ -43,7 +44,8 @@ const useBanners = () =>
 
 const pickOne = (list: Banner[], advertiser?: string | null) => {
   if (!list.length) return null;
-  const own = advertiser ? list.filter((b) => b.advertiser_name?.toLowerCase() === advertiser.toLowerCase()) : [];
+  const preferred = advertiser || DEFAULT_ADVERTISER;
+  const own = list.filter((b) => b.advertiser_name?.toLowerCase() === preferred.toLowerCase());
   const pool = own.length ? own : list;
   return pool[Math.floor(Math.random() * pool.length)];
 };

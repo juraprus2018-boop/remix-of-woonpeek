@@ -255,9 +255,9 @@ const Index = () => {
         </div>
       </section>
 
-
-
-
+      <div className="container">
+        <AdSlot slotKey="homepage" advertiser="Huurwoningen.nl" />
+      </div>
       {/* NIEUW AANBOD */}
       <section className="pb-14 pt-8 md:pb-16 md:pt-10">
         <div className="container">
@@ -285,8 +285,13 @@ const Index = () => {
               ? Array.from({ length: 6 }).map((_, i) => (
                   <Skeleton key={i} className="h-56 rounded-2xl" />
                 ))
-              : featured.map((p: any) => (
-                  <PropertyCard key={p.id} property={p} />
+              : featured.map((p: any, index: number) => (
+                  <div key={p.id} className="contents">
+                    <PropertyCard property={p} />
+                    {index === 5 && (
+                      <AdSlot slotKey="homepage" advertiser="Huurwoningen.nl" className="my-2" />
+                    )}
+                  </div>
                 ))}
 
           </div>
@@ -401,10 +406,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      <div className="container">
-        <AdSlot slotKey="homepage" />
-      </div>
 
       {/* RECENTE REACTIES */}
       <RecentComments />

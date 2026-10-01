@@ -361,7 +361,7 @@ const SearchPage = () => {
 
             {/* Results */}
             <div className="flex-1">
-              <AdSlot slotKey="search_page" />
+              <AdSlot slotKey="search_page" advertiser="Huurwoningen.nl" />
               <div className="mb-4 rounded-2xl border bg-card p-4">
                 <p className="font-display text-lg font-semibold text-foreground">
                   {isLoading
@@ -428,12 +428,16 @@ const SearchPage = () => {
               viewMode === "list" ? (
                   <>
                     <div className="flex flex-col gap-5">
-                      {visibleListProperties.map((property) => (
-                        <PropertyCard
-                          key={property.id}
-                          property={property}
-                          userIncome={filters.grossIncome}
-                        />
+                      {visibleListProperties.map((property, index) => (
+                        <div key={property.id} className="contents">
+                          <PropertyCard
+                            property={property}
+                            userIncome={filters.grossIncome}
+                          />
+                          {index === 5 && (
+                            <AdSlot slotKey="search_page" advertiser="Huurwoningen.nl" className="my-2" />
+                          )}
+                        </div>
                       ))}
                     </div>
                     {/* Infinite scroll trigger */}
