@@ -754,6 +754,29 @@ const AdminGoogleRanking = () => {
       </div>
 
       <Card>
+        <CardHeader><CardTitle>Test met 1 URL</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Stuur één URL direct naar de Google Indexing API om te controleren of de koppeling werkt.
+          </p>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Input
+              value={indexTestUrl}
+              onChange={(e) => setIndexTestUrl(e.target.value)}
+              placeholder="https://www.woonaanbod-nl.nl/..."
+              className="flex-1"
+            />
+            <Button onClick={runIndexTest} disabled={indexTestLoading || !indexTestUrl.startsWith("https://www.woonaanbod-nl.nl/")}>
+              {indexTestLoading ? "Versturen..." : "Test versturen"}
+            </Button>
+          </div>
+          {indexTestResult && (
+            <p className="text-sm rounded-md border p-3 bg-muted/50 break-all">{indexTestResult}</p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
         <CardHeader><CardTitle>Indexering Log</CardTitle></CardHeader>
         <CardContent>
           {logLoading ? (
