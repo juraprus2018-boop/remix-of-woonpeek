@@ -751,9 +751,6 @@ const PropertyDetail = () => {
                     </ul>
                   </div>
                 )}
-                <p className="mt-3 text-sm text-muted-foreground">
-                  Gegevens {sourceMeta ? `overgenomen van ${sourceMeta.label}` : "aangeleverd door de verhuurder"} en voor het laatst gecontroleerd op {lastCheckedAt}.
-                </p>
               </section>
 
               {/* ── Map + Address ── */}
