@@ -35,7 +35,6 @@ import {
   ExternalLink,
   Home,
   Copy,
-  MessageCircle,
   Camera,
   Search,
 
