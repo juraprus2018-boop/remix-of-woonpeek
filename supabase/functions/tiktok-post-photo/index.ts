@@ -6,6 +6,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 import { buildCaption, getValidTikTokToken } from "../_shared/tiktok.ts";
 import { requireAdmin } from "../_shared/auth.ts";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -24,6 +25,7 @@ interface PropertyRow {
   house_number: string | null;
   images: string[] | null;
   slug: string | null;
+  address_slug: string | null;
 }
 
 /**
@@ -37,19 +39,14 @@ async function rehostPhotos(
   urls: string[],
 ): Promise<string[]> {
   const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-  const out: string[] = [];
-  for (let i = 0; i < urls.length; i++) {
-    const src = urls[i];
+  const results = await Promise.all(urls.map(async (src, i): Promise<string | null> => {
     // Already on our domain? Skip rehost.
-    if (src.includes(".supabase.co/storage/")) {
-      out.push(src);
-      continue;
-    }
+    if (src.includes(".supabase.co/storage/")) return src;
     try {
       const res = await fetch(src, {
         headers: { "User-Agent": "Mozilla/5.0 Woonaanbod NL/1.0" },
       });
-      if (!res.ok) continue;
+      if (!res.ok) return null;
       const ct = res.headers.get("content-type") || "image/jpeg";
       const ext = ct.includes("png") ? "png" : ct.includes("webp") ? "webp" : "jpg";
       const buf = new Uint8Array(await res.arrayBuffer());
@@ -59,14 +56,15 @@ async function rehostPhotos(
         .upload(path, buf, { contentType: ct, upsert: true });
       if (error) {
         console.error("rehost upload err", path, error.message);
-        continue;
+        return null;
       }
-      out.push(`${supabaseUrl}/storage/v1/object/public/tiktok-media/${path}`);
+      return `${supabaseUrl}/storage/v1/object/public/tiktok-media/${path}`;
     } catch (e) {
       console.error("rehost fetch err", src, e instanceof Error ? e.message : e);
+      return null;
     }
-  }
-  return out;
+  }));
+  return results.filter((u): u is string => !!u);
 }
 
 Deno.serve(async (req) => {
@@ -96,20 +94,22 @@ Deno.serve(async (req) => {
       const { data } = await sb.from("properties").select("*").eq("id", propertyId).maybeSingle();
       prop = data as PropertyRow | null;
     } else {
-      const { data: posted } = await sb.from("tiktok_posts").select("property_id");
+      const { data: posted } = await sb.from("tiktok_posts").select("property_id").neq("status", "failed");
       const excluded = (posted ?? []).map((r: { property_id: string }) => r.property_id);
       let q = sb
         .from("properties")
         .select("*")
         .eq("status", "actief")
+        .eq("listing_type", "huur")
         .order("created_at", { ascending: false })
-        .limit(30);
+        .limit(60);
       if (excluded.length) q = q.not("id", "in", `(${excluded.join(",")})`);
       const { data } = await q;
       prop = ((data as PropertyRow[] | null) ?? []).find((p) => (p.images?.length ?? 0) >= 2) ?? null;
     }
 
     if (!prop) throw new Error("No suitable property to post");
+    if (prop.listing_type !== "huur") throw new Error("Alleen huurwoningen worden op TikTok geplaatst");
     const sourcePhotos = (prop.images ?? []).slice(0, 35); // TikTok max 35
     if (sourcePhotos.length < 2) throw new Error(`Property ${prop.id} has fewer than 2 images`);
 
@@ -129,6 +129,7 @@ Deno.serve(async (req) => {
       surface_area: prop.surface_area,
       bedrooms: prop.bedrooms,
       property_type: prop.property_type,
+      url: `${propertyUrl(prop)}?utm_source=tiktok&utm_medium=social&utm_campaign=tiktok-auto`,
     });
 
     const title =
