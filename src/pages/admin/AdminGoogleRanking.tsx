@@ -237,7 +237,7 @@ const AdminGoogleRanking = () => {
       scrollWheelZoom: false,
       maxBounds: [[50.5, 3.0], [53.7, 7.5]],
     });
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
     }).addTo(map);
 

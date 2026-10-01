@@ -89,7 +89,7 @@ const RentHeatmapPage = () => {
       aggregates.reduce((s, a) => s + a.lng, 0) / aggregates.length,
     ];
     const map = L.map(mapRef.current, { center, zoom: 12, scrollWheelZoom: false });
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a>',
     }).addTo(map);
 
