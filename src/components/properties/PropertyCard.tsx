@@ -20,6 +20,8 @@ import { Database } from "@/integrations/supabase/types";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { optimizeImage, buildSrcSet } from "@/lib/imageOptimization";
 import { getStockPropertyImage } from "@/lib/stockImages";
+import { format } from "date-fns";
+import { nl } from "date-fns/locale";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
@@ -70,8 +72,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const hoursAgo = (Date.now() - new Date(property.created_at).getTime()) / (1000 * 60 * 60);
   const isToday = hoursAgo < 24;
   const isNew = hoursAgo < 7 * 24;
-  const days = Math.floor(hoursAgo / 24);
-  const daysAgoLabel = days <= 0 ? "vandaag" : days === 1 ? "gisteren" : `${days} dagen geleden`;
+
 
   const dealLabel = (() => {
     if (!cityAvgPrice || cityAvgPrice <= 0) return null;
@@ -222,7 +223,9 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                 </Badge>
               )}
               {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
-              <Badge variant="outline">Geplaatst {daysAgoLabel}</Badge>
+              <Badge variant="outline" className="font-normal">
+                Gepubliceerd: {format(new Date(property.created_at), "d MMMM yyyy", { locale: nl })}
+              </Badge>
               {(property.views_count ?? 0) > 0 && (
                 <Badge variant="outline">{property.views_count}x bekeken</Badge>
               )}
