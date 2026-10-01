@@ -63,6 +63,19 @@ Deno.serve(async (req) => {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
+    // Test mode: submit a single URL and return Google's raw response.
+    let testUrl: string | null = null;
+    if (req.method === "POST") {
+      try {
+        const body = await req.json();
+        if (typeof body?.test_url === "string" && body.test_url.startsWith("https://www.woonaanbod-nl.nl/")) {
+          testUrl = body.test_url;
+        }
+      } catch {
+        // no body: normal scheduled run
+      }
+    }
+
     // Properties created OR updated in the last 24 hours (imports refresh updated_at).
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
@@ -139,6 +152,30 @@ Deno.serve(async (req) => {
     }
 
     const accessToken = tokenData.access_token;
+
+    if (testUrl) {
+      const res = await fetch(INDEXING_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ url: testUrl, type: "URL_UPDATED" }),
+      });
+      const resBody = await res.text();
+      await supabase.from("google_indexing_log").insert({
+        url: testUrl,
+        url_type: "test",
+        status: res.ok ? "submitted" : "error",
+        response_status: res.status,
+        response_body: resBody.substring(0, 500),
+      });
+      return new Response(
+        JSON.stringify({ test_url: testUrl, ok: res.ok, status: res.status, google_response: resBody }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     let submitted = 0;
     let errors = 0;
     let quotaHit = false;
