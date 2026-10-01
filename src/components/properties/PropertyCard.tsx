@@ -222,7 +222,9 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                 </Badge>
               )}
               {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
-              <Badge variant="outline">Geplaatst {daysAgoLabel}</Badge>
+              <Badge variant="outline" className="font-normal">
+                Gepubliceerd: {format(new Date(property.created_at), "d MMMM yyyy", { locale: nl })}
+              </Badge>
               {(property.views_count ?? 0) > 0 && (
                 <Badge variant="outline">{property.views_count}x bekeken</Badge>
               )}
