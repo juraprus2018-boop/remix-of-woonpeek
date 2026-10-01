@@ -20,6 +20,7 @@ import FAQSchema from "@/components/seo/FAQSchema";
 import SearchFilters, { type SearchFilterValues } from "@/components/search/SearchFilters";
 import ExploreMap from "@/components/explore/ExploreMap";
 import { useTranslation } from "react-i18next";
+import AdSlot from "@/components/ads/AdSlot";
 
 type ListingType = Database["public"]["Enums"]["listing_type"];
 
@@ -259,6 +260,10 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
           </div>
         </section>
 
+        <div className="w-full px-4 md:px-8">
+          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
+        </div>
+
         {/* Properties */}
         <section className="w-full px-4 py-8 md:px-8">
           {/* Filters bovenaan, 1 regel */}
@@ -313,7 +318,12 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
               ) : (
                 <div className="flex flex-col gap-5">
                   {visibleProperties.map((property, i) => (
-                    <PropertyRowCard key={property.id} property={property} priority={i < 2} />
+                    <div key={property.id} className="contents">
+                      <PropertyRowCard property={property} priority={i < 2} />
+                      {i === 5 && (
+                        <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
+                      )}
+                    </div>
                   ))}
                 </div>
               )}

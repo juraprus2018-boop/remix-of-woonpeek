@@ -265,7 +265,7 @@ const CityPage = () => {
         </section>
 
         <div className="container">
-          <AdSlot slotKey="city_page" />
+          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
         </div>
 
         <section className="container py-8">
@@ -427,13 +427,17 @@ const CityPage = () => {
                 <>
                     <div className="flex flex-col gap-5">
 
-                    {filteredProperties.slice(0, visibleCount).map((property) => (
-                      <PropertyCard
-                        key={property.id}
-                        property={property}
-                        cityAvgPrice={marketData?.avgPriceByType?.[property.property_type]}
-                        userIncome={filters.grossIncome}
-                      />
+                    {filteredProperties.slice(0, visibleCount).map((property, index) => (
+                      <div key={property.id} className="contents">
+                        <PropertyCard
+                          property={property}
+                          cityAvgPrice={marketData?.avgPriceByType?.[property.property_type]}
+                          userIncome={filters.grossIncome}
+                        />
+                        {index === 5 && (
+                          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
+                        )}
+                      </div>
                     ))}
                   </div>
                   {visibleCount < filteredProperties.length && (

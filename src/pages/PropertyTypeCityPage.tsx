@@ -20,6 +20,7 @@ import { cityPath, citySlugToName } from "@/lib/cities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
 import SearchAlertCTA from "@/components/alerts/SearchAlertCTA";
+import AdSlot from "@/components/ads/AdSlot";
 
 type PropertyType = Database["public"]["Enums"]["property_type"];
 
@@ -309,8 +310,13 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   </div>
                 ) : (
                   <div className="flex flex-col gap-5">
-                    {visibleProperties.map((property) => (
-                      <PropertyCard key={property.id} property={property} userIncome={filters.grossIncome} />
+                    {visibleProperties.map((property, index) => (
+                      <div key={property.id} className="contents">
+                        <PropertyCard property={property} userIncome={filters.grossIncome} />
+                        {index === 5 && (
+                          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
+                        )}
+                      </div>
                     ))}
                   </div>
                 )}
@@ -340,6 +346,10 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
               )}
             </div>
         </section>
+
+        <div className="container">
+          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
+        </div>
 
 
         {/* SEO text: [Woningtype] in [stad] */}
