@@ -78,6 +78,7 @@ import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import AdSlot from "@/components/ads/AdSlot";
 import PropertyStickyBar from "@/components/properties/PropertyStickyBar";
+import { WhatsAppIcon, whatsappShareHref } from "@/components/properties/WhatsAppShare";
 
 const SOURCE_SITE_META: Record<string, { label: string; color: string }> = {
   wooniezie: { label: "Wooniezie", color: "#FF6B00" },
@@ -644,9 +645,9 @@ const PropertyDetail = () => {
                     {isPropertyFavorite ? "Opgeslagen" : "Opslaan"}
                   </Button>
                 )}
-                <Button variant="ghost" size="sm" className="text-[#25D366]" asChild>
-                  <a href={`https://wa.me/?text=${encodeURIComponent(property.title + " " + window.location.href)}`} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-1.5 h-4 w-4" /> WhatsApp
+                <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
+                  <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon className="mr-1.5 h-4 w-4" /> WhatsApp
                   </a>
                 </Button>
                 {typeof navigator.share === "function" ? (
@@ -964,6 +965,19 @@ const PropertyDetail = () => {
                         </DialogContent>
                       </Dialog>
                     )}
+
+                    {/* WhatsApp share */}
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="w-full gap-2 border-[#25D366]/60 text-[#25D366] hover:bg-[#25D366]/10 hover:text-[#25D366]"
+                    >
+                      <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
+                        <WhatsAppIcon className="h-5 w-5" />
+                        Deel met vrienden
+                      </a>
+                    </Button>
 
                   </CardContent>
                 </Card>

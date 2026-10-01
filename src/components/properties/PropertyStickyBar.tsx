@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
+import { WhatsAppIcon, whatsappShareHref } from "@/components/properties/WhatsAppShare";
 import { cn } from "@/lib/utils";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
@@ -121,6 +122,18 @@ const PropertyStickyBar = ({
               </Link>
             </Button>
           )}
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="gap-1.5 border-[#25D366]/60 text-[#25D366] hover:bg-[#25D366]/10 hover:text-[#25D366]"
+            title="Deel deze woning via WhatsApp"
+          >
+            <a href={whatsappShareHref(title)} target="_blank" rel="noopener noreferrer">
+              <WhatsAppIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Deel</span>
+            </a>
+          </Button>
           <Button
             onClick={handleReact}
             size="sm"
