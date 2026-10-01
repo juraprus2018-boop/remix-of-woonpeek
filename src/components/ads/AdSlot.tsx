@@ -90,7 +90,7 @@ const AdSlot = ({ slotKey, className = "", advertiser }: AdSlotProps) => {
 
   return (
     <aside className={`my-6 ${className}`}>
-      <p className="mb-1 text-center text-[10px] uppercase tracking-widest text-muted-foreground">Advertentie</p>
+      <p className="mb-0.5 text-center text-[9px] leading-none text-muted-foreground/50">Advertentie</p>
       {chosen.mobile ? (
         <>
           {chosen.main && <BannerLink b={chosen.main} className="hidden md:block" />}
