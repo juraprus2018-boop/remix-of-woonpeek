@@ -595,11 +595,6 @@ const PropertyDetail = () => {
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <Badge variant="secondary" className="capitalize">{property.listing_type === "huur" ? "Te huur" : "Te koop"}</Badge>
                   <Badge variant="outline" className="capitalize">{property.property_type}</Badge>
-                  {sourceMeta && (
-                    <Badge variant="outline" style={{ borderColor: sourceMeta.color, color: sourceMeta.color }}>
-                      {sourceMeta.label}
-                    </Badge>
-                  )}
                 </div>
                 <h1 className="font-display text-2xl font-bold leading-tight md:text-3xl lg:text-4xl">
                   {h1Title}
