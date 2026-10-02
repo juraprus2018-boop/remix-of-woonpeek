@@ -176,7 +176,7 @@ const MunicipalityCitySelect = ({
         </div>
         <PopoverContent
           align="start"
-          className="w-[--radix-popover-trigger-width] p-0"
+          className="w-[var(--radix-popover-trigger-width)] min-w-[280px] p-0"
           onOpenAutoFocus={(e) => {
             // Focus blijft op de trigger-gebruik; cmdk-input krijgt focus via autofocus.
             e.preventDefault();
