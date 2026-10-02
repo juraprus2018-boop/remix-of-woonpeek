@@ -25,6 +25,8 @@ const DailyAlertSection = () => {
     mutationFn: async (payload: {
       email?: string;
       city: string;
+      property_type?: string;
+      search_label?: string;
       turnstileToken?: string | null;
     }) => {
       const { data, error } = await supabase.functions.invoke("daily-alert-subscribe", {
@@ -41,7 +43,7 @@ const DailyAlertSection = () => {
       });
       setEmail("");
       setCity("");
-      setTurnstileToken(null);
+      setPropertyType("");
       setTurnstileToken(null);
     },
     onError: (error: unknown) => {
