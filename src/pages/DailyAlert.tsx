@@ -77,7 +77,7 @@ const DailyAlert = () => {
       <main className="flex-1">
         {/* Hero */}
         <section className="border-b border-border bg-primary text-primary-foreground">
-          <div className="container grid items-center gap-10 py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="container grid items-center gap-8 py-8 md:py-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <Breadcrumbs
                 items={[{ label: "Home", href: "/" }, { label: "Woonmelding" }]}
@@ -92,7 +92,7 @@ const DailyAlert = () => {
                 Stel je zoekopdracht in, laat je e-mailadres achter en je hoort het zodra er
                 een nieuwe woning bijkomt. Eén product, één melding, altijd gratis.
               </p>
-              <ul className="mt-6 grid gap-2 text-sm text-primary-foreground/85 sm:grid-cols-2">
+              <ul className="mt-6 hidden gap-2 text-sm text-primary-foreground/85 sm:grid sm:grid-cols-2">
                 <li className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Melding bij nieuw aanbod
                 </li>
@@ -108,7 +108,7 @@ const DailyAlert = () => {
               </ul>
             </div>
 
-            <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+            <div className="relative mx-auto hidden w-full max-w-sm lg:block lg:max-w-none">
               <div className="overflow-hidden rounded-3xl border border-primary-foreground/15 shadow-xl">
                 <img
                   src={alertIllustration}
