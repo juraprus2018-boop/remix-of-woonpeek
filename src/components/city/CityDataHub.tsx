@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import LocalizedLink from "@/components/LocalizedLink";
+import { L as LocalizedLink } from "@/components/LocalizedLink";
 import { cityToSlug } from "@/lib/cities";
 import { ArrowRight } from "lucide-react";
 
