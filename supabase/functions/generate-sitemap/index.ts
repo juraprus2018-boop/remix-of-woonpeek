@@ -170,7 +170,7 @@ function buildPagesSitemap(now: string, blogSlugs: string[] = []): string {
 }
 
 function buildCitiesSitemap(
-  properties: Array<{ city: string; updated_at: string; listing_type: string; property_type: string; neighborhood: string | null }>,
+  properties: Array<{ city: string; updated_at: string; listing_type: string; property_type: string; neighborhood: string | null; price?: number | null; bedrooms?: number | null }>,
   searchQueries: Array<{ city: string; listing_type: string | null; property_type: string | null; max_price: number | null; min_bedrooms: number | null; count: number }> = [],
   cityGuides: Array<{ city_slug: string; updated_at: string }> = [],
   postcodes: string[] = [],
@@ -192,6 +192,22 @@ function buildCitiesSitemap(
   ];
 
   const cityTypeSet = new Set<string>();
+  // Indexeerbaarheidsregel: filterpagina alleen in sitemap bij >= MIN_LISTINGS aanbod.
+  const MIN_LISTINGS = 6;
+  const counts = new Map<string, number>();
+  const inc = (k: string) => counts.set(k, (counts.get(k) || 0) + 1);
+  for (const p of properties) {
+    const cs = p.city.trim().toLowerCase().replace(/\s+/g, "-");
+    const lt = p.listing_type === "koop" ? "koopwoningen" : "huurwoningen";
+    inc(`${lt}:${cs}`);
+    if (lt === "huurwoningen") inc(`${lt}:${cs}:${p.property_type}`);
+    const price = Number(p.price || 0);
+    const priceSteps = lt === "huurwoningen" ? [1000, 1250, 1500, 2000] : [300000, 400000, 500000];
+    for (const step of priceSteps) if (price > 0 && price <= step) inc(`${lt}:${cs}:onder-${step}`);
+    const beds = Number(p.bedrooms || 0);
+    for (const b of [1, 2, 3]) if (beds >= b) inc(`${lt}:${cs}:${b}-slaapkamers`);
+  }
+  const has = (k: string) => (counts.get(k) || 0) >= MIN_LISTINGS;
   const cityNeighborhoods = new Map<string, Set<string>>();
   for (const p of properties) {
     const citySlug = p.city.trim().toLowerCase().replace(/\s+/g, "-");
@@ -206,26 +222,6 @@ function buildCitiesSitemap(
   const defaultPrices = new Set([750, 1000, 1250, 1500, 2000]);
   const defaultBedrooms = new Set([1, 2, 3, 4]);
 
-  // Collect extra filtered URLs from search queries
-  const extraUrls = new Set<string>();
-  for (const q of searchQueries) {
-    if (!q.city) continue;
-    const citySlug = q.city.trim().toLowerCase().replace(/\s+/g, "-");
-    if (!cityMap.has(citySlug)) continue; // only cities with active properties
-
-    if (q.max_price && q.max_price > 0) {
-      const rounded = Math.round(q.max_price);
-      if (!defaultPrices.has(rounded)) {
-        extraUrls.add(`${SITE_URL}/aanbod-in/${citySlug}/onder-${rounded}`);
-      }
-    }
-    if (q.min_bedrooms && q.min_bedrooms > 0) {
-      if (!defaultBedrooms.has(q.min_bedrooms)) {
-        extraUrls.add(`${SITE_URL}/aanbod-in/${citySlug}/${q.min_bedrooms}-kamers`);
-      }
-    }
-  }
-
   let xml = URLSET_OPEN;
   for (const [citySlug, lastMod] of cityMap) {
     const date = lastMod.split("T")[0];
@@ -235,57 +231,26 @@ function buildCitiesSitemap(
     xml += urlEntry(`/studenten/${citySlug}`, date, "weekly", "0.6");
     xml += urlEntry(`/woz-waarde/${citySlug}`, date, "monthly", "0.6");
     xml += urlEntry(`/verhuisservice/${citySlug}`, date, "monthly", "0.6");
-    // Feature-based filter landings (text-match)
-    for (const feat of ["met-tuin", "met-balkon", "gemeubileerd", "huisdieren-toegestaan"]) {
-      xml += urlEntry(`/aanbod-in/${citySlug}/${feat}`, date, "weekly", "0.5");
-    }
     // Verhuizen-naar gids per stad
     xml += urlEntry(`/stadsgids/${citySlug}`, date, "monthly", "0.6");
     // Best-of listicle pages per city
     for (const slug of ["goedkoop-huur", "grootste-huur", "buurten"]) {
       xml += urlEntry(`/toplijst/${citySlug}/${slug}`, date, "weekly", "0.6");
     }
-    // Budget landingspagina's per stad (huur en koop)
-    for (const budget of [750, 1000, 1250, 1500, 2000, 2500]) {
-      xml += urlEntry(`/budget-huur/${budget}/${citySlug}`, date, "weekly", "0.6");
-    }
-    for (const budget of [200000, 300000, 400000, 500000, 750000, 1000000]) {
-      xml += urlEntry(`/budget-koop/${budget}/${citySlug}`, date, "weekly", "0.6");
-    }
     // Inkomen-landingspagina's per stad (3x huur regel)
     for (const income of [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000]) {
       xml += urlEntry(`/inkomen/${income}/${citySlug}`, date, "weekly", "0.6");
     }
-    xml += urlEntry(`/huurwoningen/${citySlug}`, date, "daily", "0.7");
-    xml += urlEntry(`/koopwoningen/${citySlug}`, date, "daily", "0.7");
-    for (const pt of propertyTypeSlugs) {
-      if (cityTypeSet.has(`${citySlug}:${pt.type}`)) {
-        xml += urlEntry(`/${pt.slug}/${citySlug}`, date, "daily", "0.6");
-        // Combination: property type + price filter
-        for (const price of [750, 1000, 1250, 1500, 2000]) {
-          xml += urlEntry(`/${pt.slug}/${citySlug}/onder-${price}`, date, "daily", "0.5");
-        }
-        // Combination: property type + bedroom filter
-        for (const beds of [1, 2, 3, 4]) {
-          xml += urlEntry(`/${pt.slug}/${citySlug}/${beds}-kamers`, date, "daily", "0.5");
-        }
+    // Canonieke aanbodstructuur: /huurwoningen/{stad}/{filter}, alleen bij genoeg aanbod.
+    for (const lt of ["huurwoningen", "koopwoningen"]) {
+      if (!has(`${lt}:${citySlug}`)) continue;
+      xml += urlEntry(`/${lt}/${citySlug}`, date, "daily", "0.8");
+      const filters = lt === "huurwoningen"
+        ? ["appartement", "huis", "studio", "kamer", "onder-1000", "onder-1250", "onder-1500", "onder-2000", "1-slaapkamers", "2-slaapkamers", "3-slaapkamers"]
+        : ["onder-300000", "onder-400000", "onder-500000", "1-slaapkamers", "2-slaapkamers", "3-slaapkamers"];
+      for (const f of filters) {
+        if (has(`${lt}:${citySlug}:${f}`)) xml += urlEntry(`/${lt}/${citySlug}/${f}`, date, "daily", "0.6");
       }
-    }
-    // Listing type + price/bedroom combos
-    for (const lt of [{ slug: "huurwoningen" }, { slug: "koopwoningen" }]) {
-      for (const price of [750, 1000, 1250, 1500, 2000]) {
-        xml += urlEntry(`/${lt.slug}/${citySlug}/onder-${price}`, date, "daily", "0.5");
-      }
-      for (const beds of [1, 2, 3, 4]) {
-        xml += urlEntry(`/${lt.slug}/${citySlug}/${beds}-kamers`, date, "daily", "0.5");
-      }
-    }
-    // Generic price/bedroom filters (no type/listing prefix)
-    for (const price of [750, 1000, 1250, 1500, 2000]) {
-      xml += urlEntry(`/aanbod-in/${citySlug}/onder-${price}`, date, "daily", "0.5");
-    }
-    for (const beds of [1, 2, 3, 4]) {
-      xml += urlEntry(`/aanbod-in/${citySlug}/${beds}-kamers`, date, "daily", "0.5");
     }
     xml += urlEntry(`/vandaag/${citySlug}`, date, "daily", "0.6");
     xml += urlEntry(`/markt/${citySlug}`, date, "daily", "0.7");
@@ -303,14 +268,7 @@ function buildCitiesSitemap(
     }
   }
 
-  // Add extra URLs from popular search queries
   const today = new Date().toISOString().split("T")[0];
-  for (const loc of extraUrls) {
-    // extraUrls already include SITE_URL prefix; convert back to path for urlEntry
-    const path = loc.startsWith(SITE_URL) ? loc.slice(SITE_URL.length) : loc;
-    xml += urlEntry(path, today, "daily", "0.5");
-  }
-
   // Postcode landingspagina's (uniek 4-cijferig)
   for (const pc of postcodes) {
     xml += urlEntry(`/postcode/${pc}`, today, "weekly", "0.5");
@@ -380,7 +338,7 @@ Deno.serve(async (req) => {
       while (true) {
         const { data, error } = await supabase
           .from("properties")
-          .select("slug, address_slug, id, city, updated_at, listing_type, property_type, neighborhood, postal_code")
+          .select("slug, address_slug, id, city, updated_at, listing_type, property_type, neighborhood, postal_code, price, bedrooms")
           .eq("status", "actief")
           .order("updated_at", { ascending: false })
           .range(from, from + pageSize - 1);
