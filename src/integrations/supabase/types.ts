@@ -89,6 +89,111 @@ export type Database = {
         }
         Relationships: []
       }
+      agencies: {
+        Row: {
+          city: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          feed_last_count: number | null
+          feed_last_message: string | null
+          feed_last_status: string | null
+          feed_last_sync_at: string | null
+          feed_type: string
+          feed_url: string | null
+          id: string
+          is_visible: boolean
+          logo_url: string | null
+          name: string
+          owner_user_id: string
+          phone: string | null
+          slug: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          feed_last_count?: number | null
+          feed_last_message?: string | null
+          feed_last_status?: string | null
+          feed_last_sync_at?: string | null
+          feed_type?: string
+          feed_url?: string | null
+          id?: string
+          is_visible?: boolean
+          logo_url?: string | null
+          name: string
+          owner_user_id: string
+          phone?: string | null
+          slug: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          feed_last_count?: number | null
+          feed_last_message?: string | null
+          feed_last_status?: string | null
+          feed_last_sync_at?: string | null
+          feed_type?: string
+          feed_url?: string | null
+          id?: string
+          is_visible?: boolean
+          logo_url?: string | null
+          name?: string
+          owner_user_id?: string
+          phone?: string | null
+          slug?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      agency_events: {
+        Row: {
+          agency_id: string
+          created_at: string
+          event_type: string
+          id: string
+          property_id: string | null
+        }
+        Insert: {
+          agency_id: string
+          created_at?: string
+          event_type: string
+          id?: string
+          property_id?: string | null
+        }
+        Update: {
+          agency_id?: string
+          created_at?: string
+          event_type?: string
+          id?: string
+          property_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agency_events_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agency_events_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_generation_log: {
         Row: {
           created_at: string
@@ -1098,6 +1203,7 @@ export type Database = {
       properties: {
         Row: {
           address_slug: string | null
+          agency_id: string | null
           available_from: string | null
           bathrooms: number | null
           bedrooms: number | null
@@ -1132,6 +1238,7 @@ export type Database = {
         }
         Insert: {
           address_slug?: string | null
+          agency_id?: string | null
           available_from?: string | null
           bathrooms?: number | null
           bedrooms?: number | null
@@ -1166,6 +1273,7 @@ export type Database = {
         }
         Update: {
           address_slug?: string | null
+          agency_id?: string | null
           available_from?: string | null
           bathrooms?: number | null
           bedrooms?: number | null
@@ -1198,7 +1306,15 @@ export type Database = {
           user_id?: string
           views_count?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "properties_agency_id_fkey"
+            columns: ["agency_id"]
+            isOneToOne: false
+            referencedRelation: "agencies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       property_comments: {
         Row: {
@@ -1779,6 +1895,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_agencies: {
+        Args: never
+        Returns: {
+          active_count: number
+          city: string
+          created_at: string
+          email: string
+          feed_last_message: string
+          feed_last_status: string
+          feed_last_sync_at: string
+          feed_type: string
+          feed_url: string
+          id: string
+          is_visible: boolean
+          name: string
+          slug: string
+        }[]
+      }
       admin_list_property_comments: {
         Args: { _filter?: string }
         Returns: {
@@ -1794,7 +1928,12 @@ export type Database = {
           property_title: string
         }[]
       }
+      admin_set_agency_visible: {
+        Args: { _id: string; _visible: boolean }
+        Returns: undefined
+      }
       admin_traffic_overview: { Args: { days?: number }; Returns: Json }
+      agency_dashboard_stats: { Args: { _days?: number }; Returns: Json }
       build_address_slug: {
         Args: { _house_number: string; _postal_code: string; _street: string }
         Returns: string
@@ -1810,12 +1949,46 @@ export type Database = {
         }[]
       }
       get_home_stats: { Args: never; Returns: Json }
+      get_my_agency: {
+        Args: never
+        Returns: {
+          city: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          feed_last_count: number | null
+          feed_last_message: string | null
+          feed_last_status: string | null
+          feed_last_sync_at: string | null
+          feed_type: string
+          feed_url: string | null
+          id: string
+          is_visible: boolean
+          logo_url: string | null
+          name: string
+          owner_user_id: string
+          phone: string | null
+          slug: string
+          updated_at: string
+          website: string | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "agencies"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      log_agency_event: {
+        Args: { _agency_id: string; _event_type: string; _property_id: string }
+        Returns: undefined
       }
       log_search_query: {
         Args: {

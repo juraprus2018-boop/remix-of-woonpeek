@@ -60,7 +60,7 @@ const Register = () => {
         title: "Registratie succesvol!",
         description: "Controleer je e-mail om je account te bevestigen.",
       });
-      navigate("/login");
+      navigate(`/login${window.location.search}`);
     }
 
     setIsLoading(false);

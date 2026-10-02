@@ -134,6 +134,12 @@ const CreateProperty = () => {
         bedrooms: bedrooms ? Number(bedrooms) : null,
         bathrooms: bathrooms ? Number(bathrooms) : null,
       });
+      // Makelaar? Koppel de woning aan het kantoorprofiel.
+      const { data: myAgency } = await supabase.rpc("get_my_agency");
+      const agencyRow = Array.isArray(myAgency) ? myAgency[0] : null;
+      if (agencyRow?.id) {
+        await supabase.from("properties").update({ agency_id: agencyRow.id, source_site: agencyRow.name }).eq("id", property.id);
+      }
       if (selectedFiles.length > 0) {
         const imageUrls = await uploadImages(property.id);
       if (imageUrls.length > 0) await supabase.from("properties").update({ images: imageUrls }).eq("id", property.id);

@@ -110,7 +110,7 @@ const Login = () => {
         title: "Welkom terug!",
         description: "Je bent succesvol ingelogd.",
       });
-      navigate("/");
+      navigate(new URLSearchParams(window.location.search).get("redirect")?.startsWith("/") ? new URLSearchParams(window.location.search).get("redirect")! : "/");
     }
 
     setIsLoading(false);

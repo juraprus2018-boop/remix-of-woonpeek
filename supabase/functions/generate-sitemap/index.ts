@@ -78,8 +78,11 @@ ${["pages", "steden", "woningen"].map((t) => `  <sitemap>
 </sitemapindex>`;
 }
 
-function buildPagesSitemap(now: string, blogSlugs: string[] = []): string {
+function buildPagesSitemap(now: string, blogSlugs: string[] = [], agencySlugs: string[] = []): string {
   const staticPages = [
+    { loc: "/voor-makelaars", changefreq: "weekly", priority: "0.7" },
+    { loc: "/makelaars", changefreq: "daily", priority: "0.6" },
+    ...agencySlugs.map((s) => ({ loc: `/makelaars/${s}`, changefreq: "daily", priority: "0.6" })),
     { loc: "/", changefreq: "daily", priority: "1.0" },
     { loc: "/blog", changefreq: "daily", priority: "0.8" },
 
@@ -325,7 +328,9 @@ Deno.serve(async (req) => {
         .order("published_at", { ascending: false })
         .limit(1000);
       const blogSlugs = (blogRows || []).map((r: { slug: string }) => r.slug).filter(Boolean);
-      return new Response(buildPagesSitemap(now, blogSlugs), {
+      const { data: agencyRows } = await supabase.from("agencies").select("slug").eq("is_visible", true).limit(5000);
+      const agencySlugs = (agencyRows || []).map((r: { slug: string }) => r.slug);
+      return new Response(buildPagesSitemap(now, blogSlugs, agencySlugs), {
         headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
       });
     }
