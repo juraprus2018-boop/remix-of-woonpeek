@@ -33,7 +33,7 @@ const TYPE_LABELS: Record<PropertyType, { singular: string; plural: string; slug
   huis: { singular: "huis", plural: "Huizen", slug: "huis-huren" },
   studio: { singular: "studio", plural: "Studio's", slug: "studio-huren" },
   kamer: { singular: "kamer", plural: "Kamers", slug: "kamer-huren" },
-
+  vakantiehuis: { singular: "vakantiehuis", plural: "Vakantiehuizen", slug: "vakantiehuis-huren" },
 };
 
 const EMPTY_FILTERS: SearchFilterValues = {
