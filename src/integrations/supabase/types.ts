@@ -2012,7 +2012,12 @@ export type Database = {
       energy_label: "A++" | "A+" | "A" | "B" | "C" | "D" | "E" | "F" | "G"
       listing_type: "huur" | "koop"
       property_status: "actief" | "verhuurd" | "verkocht" | "inactief"
-      property_type: "appartement" | "huis" | "studio" | "kamer"
+      property_type:
+        | "appartement"
+        | "huis"
+        | "studio"
+        | "kamer"
+        | "vakantiehuis"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2144,7 +2149,7 @@ export const Constants = {
       energy_label: ["A++", "A+", "A", "B", "C", "D", "E", "F", "G"],
       listing_type: ["huur", "koop"],
       property_status: ["actief", "verhuurd", "verkocht", "inactief"],
-      property_type: ["appartement", "huis", "studio", "kamer"],
+      property_type: ["appartement", "huis", "studio", "kamer", "vakantiehuis"],
     },
   },
 } as const

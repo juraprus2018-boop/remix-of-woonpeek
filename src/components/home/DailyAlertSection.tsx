@@ -12,11 +12,18 @@ import MunicipalityCitySelect from "@/components/search/MunicipalityCitySelect";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const PROPERTY_TYPE_LABELS: Record<string, string> = {
+  appartement: "Appartement",
+  huis: "Huis",
+  vakantiehuis: "Vakantiehuis",
+};
+
 const DailyAlertSection = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
+  const [propertyType, setPropertyType] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
 
@@ -24,6 +31,8 @@ const DailyAlertSection = () => {
     mutationFn: async (payload: {
       email?: string;
       city: string;
+      property_type?: string;
+      search_label?: string;
       turnstileToken?: string | null;
     }) => {
       const { data, error } = await supabase.functions.invoke("daily-alert-subscribe", {
@@ -40,7 +49,7 @@ const DailyAlertSection = () => {
       });
       setEmail("");
       setCity("");
-      setTurnstileToken(null);
+      setPropertyType("");
       setTurnstileToken(null);
     },
     onError: (error: unknown) => {
@@ -86,6 +95,10 @@ const DailyAlertSection = () => {
     subscribe.mutate({
       email: user ? undefined : email.trim().toLowerCase(),
       city,
+      property_type: propertyType || undefined,
+      search_label: propertyType
+        ? `${PROPERTY_TYPE_LABELS[propertyType]} in ${city}`
+        : undefined,
       turnstileToken,
     });
   };
@@ -144,6 +157,24 @@ const DailyAlertSection = () => {
                   onChange={setCity}
                   className="sm:max-w-sm"
                 />
+
+                {/* Property type (optional) */}
+                <div>
+                  <label htmlFor="alert-property-type" className="mb-1.5 block text-sm font-medium text-foreground">
+                    Woningtype
+                  </label>
+                  <select
+                    id="alert-property-type"
+                    value={propertyType}
+                    onChange={(e) => setPropertyType(e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:max-w-sm"
+                  >
+                    <option value="">Alle woningtypes</option>
+                    <option value="appartement">Appartement</option>
+                    <option value="huis">Huis</option>
+                    <option value="vakantiehuis">Vakantiehuis</option>
+                  </select>
+                </div>
 
                 {/* Email field for guests */}
                 {!user && (

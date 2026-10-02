@@ -165,7 +165,7 @@ const CreateProperty = () => {
 
   const isSubmitting = createProperty.isPending || isUploading;
 
-  const propertyTypeLabels: Record<PropertyType, string> = { appartement: "Appartement", huis: "Huis", studio: "Studio", kamer: "Kamer" };
+  const propertyTypeLabels: Record<PropertyType, string> = { appartement: "Appartement", huis: "Huis", studio: "Studio", kamer: "Kamer", vakantiehuis: "Vakantiehuis" };
 
   return (
     <div className="flex min-h-screen flex-col bg-muted/30">
