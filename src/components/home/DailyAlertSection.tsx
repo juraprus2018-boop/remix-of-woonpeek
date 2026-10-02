@@ -158,6 +158,24 @@ const DailyAlertSection = () => {
                   className="sm:max-w-sm"
                 />
 
+                {/* Property type (optional) */}
+                <div>
+                  <label htmlFor="alert-property-type" className="mb-1.5 block text-sm font-medium text-foreground">
+                    Woningtype
+                  </label>
+                  <select
+                    id="alert-property-type"
+                    value={propertyType}
+                    onChange={(e) => setPropertyType(e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:max-w-sm"
+                  >
+                    <option value="">Alle woningtypes</option>
+                    <option value="appartement">Appartement</option>
+                    <option value="huis">Huis</option>
+                    <option value="vakantiehuis">Vakantiehuis</option>
+                  </select>
+                </div>
+
                 {/* Email field for guests */}
                 {!user && (
                   <div>
