@@ -80,7 +80,7 @@ const DailyAlert = () => {
           <div className="container grid items-center gap-10 py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <Breadcrumbs
-                items={[{ label: "Home", href: "/" }, { label: "Woonradar" }]}
+                items={[{ label: "Home", href: "/" }, { label: "Woonmelding" }]}
               />
               <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground">
                 Gratis e-mailalert
@@ -112,7 +112,7 @@ const DailyAlert = () => {
               <div className="overflow-hidden rounded-3xl border border-primary-foreground/15 shadow-xl">
                 <img
                   src={alertIllustration}
-                  alt="Woonradar stuurt nieuw woningaanbod per e-mail"
+                  alt="Woningmelding stuurt nieuw woningaanbod per e-mail"
                   width={1024}
                   height={1024}
                   loading="eager"
@@ -123,6 +123,9 @@ const DailyAlert = () => {
             </div>
           </div>
         </section>
+
+        {/* Inschrijven — direct zichtbaar bij openen */}
+        <DailyAlertSection />
 
         {/* Hoe het werkt */}
         <section className="container py-12 md:py-16">
@@ -143,9 +146,6 @@ const DailyAlert = () => {
             ))}
           </div>
         </section>
-
-        {/* Inschrijven */}
-        <DailyAlertSection />
 
         {/* Voordelen */}
         <section className="border-t border-border bg-muted/40 py-12 md:py-16">
