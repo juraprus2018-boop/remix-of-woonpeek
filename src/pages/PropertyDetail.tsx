@@ -1,3 +1,5 @@
+import AgencyBadge from "@/components/properties/AgencyBadge";
+import { logAgencyEvent } from "@/lib/agency";
 import { useParams, Link, useLocation, Navigate } from "react-router-dom";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
@@ -917,10 +919,13 @@ const PropertyDetail = () => {
 
                     <Separator />
 
+                    {property.agency_id && <AgencyBadge agencyId={property.agency_id} propertyId={property.id} />}
+
                     {/* Primary CTA */}
                     {sourceInfo.source_url ? (
                       <Button className="w-full" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
+                        if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
                       }}>
                         <ExternalLink className="mr-2 h-4 w-4" />
