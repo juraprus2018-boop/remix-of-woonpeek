@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import TurnstileWidget from "@/components/security/TurnstileWidget";
-import dailyAlertImg from "@/assets/daily-alert-illustration.jpg";
 import MunicipalityCitySelect from "@/components/search/MunicipalityCitySelect";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -118,96 +117,83 @@ const DailyAlertSection = () => {
   }, []);
 
   return (
-    <section id="daily-alert" className="bg-surface-cream py-16 md:py-20 scroll-mt-24">
+    <section id="daily-alert" className="scroll-mt-24 bg-surface-cream py-8 md:py-10">
       <div className="container">
-        <div className="overflow-hidden rounded-3xl border border-border bg-background shadow-lg">
-          <div className="grid md:grid-cols-5">
-            {/* Image side */}
-            <div className="hidden md:col-span-2 md:block">
-              <img
-                src={dailyAlertImg}
-                alt="Gratis woningmelding per e-mail"
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
+        <div className="mx-auto max-w-5xl rounded-2xl border-2 border-primary/20 bg-background p-5 shadow-md md:p-6">
+          <div className="grid gap-4 md:grid-cols-[1.2fr_1fr_1.3fr_auto] md:items-end">
+            <MunicipalityCitySelect
+              id="alert-city"
+              value={city}
+              onChange={setCity}
+              hideHelper
+            />
+
+            <div>
+              <label
+                htmlFor="alert-property-type"
+                className="mb-1.5 block text-sm font-medium text-foreground"
+              >
+                Woningtype
+              </label>
+              <select
+                id="alert-property-type"
+                value={propertyType}
+                onChange={(e) => setPropertyType(e.target.value)}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
+                <option value="">Alle woningtypes</option>
+                <option value="appartement">Appartement</option>
+                <option value="huis">Huis</option>
+                <option value="vakantiehuis">Vakantiehuis</option>
+              </select>
             </div>
 
-            {/* Content side */}
-            <div className="p-6 md:col-span-3 md:p-10">
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-terracotta/15">
-                  <BellRing className="h-6 w-6 text-terracotta" />
-                </div>
-                <div>
-                  <h2 className="font-display text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
-                    Nieuwe woning gevonden? Ontvang direct een gratis melding.
-                  </h2>
-                  <p className="mt-1 text-base text-muted-foreground">
-                    Kies je stad, vul je e-mailadres in en je hoort het zodra er nieuw aanbod bijkomt.
-                  </p>
-
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {/* City selector (required) */}
-                <MunicipalityCitySelect
-                  id="alert-city"
-                  value={city}
-                  onChange={setCity}
-                  className="sm:max-w-sm"
+            {!user ? (
+              <div>
+                <label
+                  htmlFor="alert-email"
+                  className="mb-1.5 block text-sm font-medium text-foreground"
+                >
+                  E-mailadres *
+                </label>
+                <Input
+                  id="alert-email"
+                  type="email"
+                  placeholder="jouw@email.nl"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSubmit();
+                  }}
                 />
-
-                {/* Property type (optional) */}
-                <div>
-                  <label htmlFor="alert-property-type" className="mb-1.5 block text-sm font-medium text-foreground">
-                    Woningtype
-                  </label>
-                  <select
-                    id="alert-property-type"
-                    value={propertyType}
-                    onChange={(e) => setPropertyType(e.target.value)}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:max-w-sm"
-                  >
-                    <option value="">Alle woningtypes</option>
-                    <option value="appartement">Appartement</option>
-                    <option value="huis">Huis</option>
-                    <option value="vakantiehuis">Vakantiehuis</option>
-                  </select>
-                </div>
-
-                {/* Email field for guests */}
-                {!user && (
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium text-foreground">
-                      E-mailadres *
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder="jouw@email.nl"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="sm:max-w-sm"
-                    />
-                  </div>
-                )}
-
-                {user && (
-                  <p className="text-sm text-muted-foreground">
-                    E-mail alerts naar: <span className="font-medium text-foreground">{user.email}</span>
-                  </p>
-                )}
-
-
-
-                <TurnstileWidget siteKey={turnstileSiteKey} onTokenChange={handleTokenChange} />
-
-                <Button onClick={handleSubmit} disabled={subscribe.isPending} className="gap-2">
-                  {subscribe.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
-                  Activeer woningalert
-                </Button>
               </div>
-            </div>
+            ) : (
+              <div>
+                <span className="mb-1.5 block text-sm font-medium text-foreground">
+                  E-mailadres
+                </span>
+                <div className="flex h-10 items-center truncate rounded-md border border-input bg-muted/40 px-3 text-sm text-foreground">
+                  {user.email}
+                </div>
+              </div>
+            )}
+
+            <Button
+              onClick={handleSubmit}
+              disabled={subscribe.isPending}
+              className="h-12 w-full gap-2 px-8 text-base md:w-auto"
+            >
+              {subscribe.isPending ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <BellRing className="h-5 w-5" />
+              )}
+              Gratis inschrijven
+            </Button>
+          </div>
+
+          <div className="mt-4">
+            <TurnstileWidget siteKey={turnstileSiteKey} onTokenChange={handleTokenChange} />
           </div>
         </div>
       </div>

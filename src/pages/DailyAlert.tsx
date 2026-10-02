@@ -4,7 +4,6 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import DailyAlertSection from "@/components/home/DailyAlertSection";
 import SEOHead from "@/components/seo/SEOHead";
 import { Mail, Clock, Filter, ShieldCheck, MousePointerClick, Inbox } from "lucide-react";
-import alertIllustration from "@/assets/woonmelding-illustratie.jpg";
 
 const ALERT_FAQ = [
   {
@@ -75,52 +74,15 @@ const DailyAlert = () => {
       />
       <Header />
       <main className="flex-1">
-        {/* Hero */}
+        {/* Compacte header-balk — daaronder direct het inschrijfformulier */}
         <section className="border-b border-border bg-primary text-primary-foreground">
-          <div className="container grid items-center gap-8 py-8 md:py-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div>
-              <Breadcrumbs
-                items={[{ label: "Home", href: "/" }, { label: "Woonmelding" }]}
-              />
-              <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground">
-                Gratis e-mailalert
-              </span>
-              <h1 className="mt-4 max-w-2xl font-display text-3xl font-bold md:text-4xl lg:text-5xl">
-                Nieuwe woning gevonden? Ontvang direct een gratis melding
-              </h1>
-              <p className="mt-4 max-w-xl text-lg text-primary-foreground/85">
-                Stel je zoekopdracht in, laat je e-mailadres achter en je hoort het zodra er
-                een nieuwe woning bijkomt. Eén product, één melding, altijd gratis.
-              </p>
-              <ul className="mt-6 hidden gap-2 text-sm text-primary-foreground/85 sm:grid sm:grid-cols-2">
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Melding bij nieuw aanbod
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Zelf je filters kiezen
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Geen account nodig
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Altijd opzegbaar
-                </li>
-              </ul>
-            </div>
-
-            <div className="relative mx-auto hidden w-full max-w-sm lg:block lg:max-w-none">
-              <div className="overflow-hidden rounded-3xl border border-primary-foreground/15 shadow-xl">
-                <img
-                  src={alertIllustration}
-                  alt="Woningmelding stuurt nieuw woningaanbod per e-mail"
-                  width={1024}
-                  height={1024}
-                  loading="eager"
-                  decoding="async"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
+          <div className="container py-5 md:py-6">
+            <Breadcrumbs
+              items={[{ label: "Home", href: "/" }, { label: "Woonmelding" }]}
+            />
+            <h1 className="mt-3 max-w-3xl font-display text-2xl font-bold md:text-3xl">
+              Nieuwe woning gevonden? Ontvang direct een gratis melding
+            </h1>
           </div>
         </section>
 

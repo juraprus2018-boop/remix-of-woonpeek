@@ -25,6 +25,8 @@ interface MunicipalityCitySelectProps {
   id?: string;
   /** Extra className voor de wrapper. */
   className?: string;
+  /** Hulptekst onder het veld verbergen (compacte formulieren). */
+  hideHelper?: boolean;
 }
 
 interface PlaceOption {
