@@ -78,6 +78,7 @@ const Footer = () => {
               <li><Link to="/privacy" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPrivacy")}</Link></li>
               <li><Link to="/disclaimer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkDisclaimer")}</Link></li>
               <li><Link to="/over" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAbout")}</Link></li>
+              <li><Link to="/voor-makelaars" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Gratis plaatsen voor makelaars</Link></li>
               <li><Link to="/samenwerken" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkPartner")}</Link></li>
               <li><Link to="/budgetcheck" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkBudget")}</Link></li>
               <li><Link to="/transparantie" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Transparantie</Link></li>

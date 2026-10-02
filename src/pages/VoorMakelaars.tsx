@@ -29,7 +29,6 @@ const VoorMakelaars = () => {
         title="Woningaanbod gratis plaatsen als makelaar | Woonaanbod NL"
         description="Plaats je volledige woningaanbod gratis op Woonaanbod NL. Koppel je XML-, JSON- of Realworks-feed en bereik dagelijks extra woningzoekers. Geen abonnement."
       />
-      <FAQSchema items={FAQ} />
       <Header />
       <main className="flex-1">
         <section className="border-b bg-primary text-primary-foreground">
@@ -111,14 +110,7 @@ const VoorMakelaars = () => {
 
         <section className="container py-14">
           <h2 className="font-display text-3xl font-semibold text-foreground">Veelgestelde vragen</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {FAQ.map((f) => (
-              <div key={f.question} className="rounded-lg border bg-card p-5">
-                <h3 className="font-semibold text-foreground">{f.question}</h3>
-                <p className="mt-2 text-muted-foreground">{f.answer}</p>
-              </div>
-            ))}
-          </div>
+          <div className="mt-6"><FAQSchema items={FAQ} /></div>
           <div className="mt-10 rounded-lg bg-primary p-8 text-primary-foreground md:flex md:items-center md:justify-between">
             <div>
               <h2 className="font-display text-2xl font-semibold">Klaar om je aanbod te tonen?</h2>

@@ -59,6 +59,11 @@ const AlertUnsubscribe = lazy(() => import("./pages/AlertUnsubscribe"));
 const DailyAlert = lazy(() => import("./pages/DailyAlert"));
 const About = lazy(() => import("./pages/About"));
 const Samenwerking = lazy(() => import("./pages/Samenwerking"));
+const VoorMakelaars = lazy(() => import("./pages/VoorMakelaars"));
+const AgenciesList = lazy(() => import("./pages/AgenciesList"));
+const AgencyPage = lazy(() => import("./pages/AgencyPage"));
+const MakelaarPortal = lazy(() => import("./pages/MakelaarPortal"));
+const AdminAgencies = lazy(() => import("./pages/admin/AdminAgencies"));
 const AdminChat = lazy(() => import("./pages/admin/AdminChat"));
 const AdminComments = lazy(() => import("./pages/admin/AdminComments"));
 const AdminSearchQueries = lazy(() => import("./pages/admin/AdminSearchQueries"));
@@ -323,6 +328,10 @@ const PAGES: RouteDef[] = [
 
   // B2B
   { path: "/samenwerken", element: <Samenwerking /> },
+  { path: "/voor-makelaars", element: <VoorMakelaars /> },
+  { path: "/makelaars", element: <AgenciesList /> },
+  { path: "/makelaars/:slug", element: <AgencyPage /> },
+  { path: "/makelaar-portal", element: <MakelaarPortal /> },
   { path: "/makelaar/:slug", element: <MakelaarPage /> },
   { path: "/transparantie", element: <Transparantie /> },
 
@@ -352,6 +361,7 @@ const ADMIN_PAGES: RouteDef[] = [
   { path: "/admin/facebook", element: <AdminFacebookQueue /> },
   { path: "/admin/tiktok", element: <AdminTikTok /> },
   { path: "/admin/leads", element: <AdminMakelaarLeads /> },
+  { path: "/admin/makelaars", element: <AdminAgencies /> },
   { path: "/admin/email", element: <AdminEmailSender /> },
   { path: "/admin/alerts", element: <AdminAlertSubscribers /> },
   { path: "/admin/berichten", element: <AdminChat /> },
