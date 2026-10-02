@@ -147,14 +147,14 @@ const LEGACY_PREFIX_REDIRECTS: Array<{ prefix: string; build: (rest: string) => 
     prefix: "huurwoningen-onder-",
     build: (rest) => {
       const i = rest.indexOf("-");
-      return i > 0 ? `/budget-huur/${rest.slice(0, i)}/${rest.slice(i + 1)}` : null;
+      return i > 0 ? `/huurwoningen/${rest.slice(i + 1)}/onder-${rest.slice(0, i)}` : null;
     },
   },
   {
     prefix: "koopwoningen-onder-",
     build: (rest) => {
       const i = rest.indexOf("-");
-      return i > 0 ? `/budget-koop/${rest.slice(0, i)}/${rest.slice(i + 1)}` : null;
+      return i > 0 ? `/koopwoningen/${rest.slice(i + 1)}/onder-${rest.slice(0, i)}` : null;
     },
   },
   {
@@ -194,7 +194,7 @@ const LegacyCityRedirect = () => {
   if (legacy) return <Navigate to={legacy} replace />;
   if (!city) return <Navigate to="/woonaanbod-per-stad" replace />;
   const slug = city.startsWith("woningen-") ? city.slice("woningen-".length) : city;
-  return <Navigate to={`/stad/${slug}${location.search}`} replace />;
+  return <Navigate to={city.startsWith("woningen-") ? `/huurwoningen/${slug}${location.search}` : `/stad/${slug}${location.search}`} replace />;
 };
 
 const NotFoundWithLegacyBridge = () => {
@@ -273,22 +273,11 @@ const PAGES: RouteDef[] = [
 
   // Property type
   { path: "/appartement-huren", element: <PropertyTypeCityPage propertyType="appartement" /> },
-  { path: "/appartement-huren/:city", element: <PropertyTypeCityPage propertyType="appartement" /> },
-  { path: "/appartement-huren/:city/:filter", element: <FilteredLandingPage propertyType="appartement" /> },
   { path: "/huis-huren", element: <PropertyTypeCityPage propertyType="huis" /> },
-  { path: "/huis-huren/:city", element: <PropertyTypeCityPage propertyType="huis" /> },
-  { path: "/huis-huren/:city/:filter", element: <FilteredLandingPage propertyType="huis" /> },
   { path: "/studio-huren", element: <PropertyTypeCityPage propertyType="studio" /> },
-  { path: "/studio-huren/:city", element: <PropertyTypeCityPage propertyType="studio" /> },
-  { path: "/studio-huren/:city/:filter", element: <FilteredLandingPage propertyType="studio" /> },
   { path: "/kamer-huren", element: <PropertyTypeCityPage propertyType="kamer" /> },
-  { path: "/kamer-huren/:city", element: <PropertyTypeCityPage propertyType="kamer" /> },
-  { path: "/kamer-huren/:city/:filter", element: <FilteredLandingPage propertyType="kamer" /> },
-  { path: "/aanbod-in/:city/:filter", element: <FilteredLandingPage /> },
 
   // Budget / inkomen landings
-  { path: "/budget-huur/:budget/:city", element: <BudgetLandingPage listingType="huur" /> },
-  { path: "/budget-koop/:budget/:city", element: <BudgetLandingPage listingType="koop" /> },
   { path: "/inkomen/:income/:city", element: <IncomeLandingPage /> },
 
   // 50 long-tail SEO gidsen per stad

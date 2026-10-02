@@ -836,14 +836,14 @@ const PropertyDetail = () => {
                   <Link to={`/koopwoningen/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Koopwoningen in {property.city}
                   </Link>
-                  <Link to={`/appartement-huren/${citySlugVal}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/huurwoningen/${citySlugVal}/appartement`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Appartementen in {property.city}
                   </Link>
-                  <Link to={`/aanbod-in/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link to={`/huurwoningen/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Woningen onder €1.000
                   </Link>
                   {property.bedrooms && (
-                    <Link to={`/aanbod-in/${citySlugVal}/${property.bedrooms}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                    <Link to={`/huurwoningen/${citySlugVal}/${property.bedrooms}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                       {property.bedrooms} kamers in {property.city}
                     </Link>
                   )}

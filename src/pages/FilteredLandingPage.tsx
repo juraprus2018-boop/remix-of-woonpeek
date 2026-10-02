@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate, useLocation } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -58,11 +58,13 @@ const PropertyCardSkeleton = () => (
  */
 const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageProps = {}) => {
   const { city: citySlug, filter } = useParams<{ city: string; filter: string }>();
+  const location = useLocation();
+  const legacyBeds = filter?.match(/^(\d+)-kamers$/);
   const cityName = citySlug ? citySlugToName(citySlug) : "Nederland";
 
   // Parse filter from URL
   const parsed = useMemo(() => {
-    const base = { maxPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined };
+    const base = { maxPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined, typeFromFilter: undefined as PropertyType | undefined };
     if (!filter) return base;
 
     const priceMatch = filter.match(/^onder-(\d+)$/);
@@ -71,7 +73,11 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       return { ...base, maxPrice: price, label: `onder ${formatEuro(price)}` };
     }
 
-    const bedroomMatch = filter.match(/^(\d+)-kamers$/);
+    if (filter in TYPE_LABELS) {
+      return { ...base, typeFromFilter: filter as PropertyType, label: "" };
+    }
+
+    const bedroomMatch = filter.match(/^(\d+)-(?:slaap)?kamers$/);
     if (bedroomMatch) {
       const beds = parseInt(bedroomMatch[1], 10);
       return { ...base, minBedrooms: beds, label: `met ${beds} kamers` };
@@ -97,15 +103,16 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     maxPrice: parsed.maxPrice,
     minBedrooms: parsed.minBedrooms,
     textMatch: parsed.textMatch,
-    propertyType: propertyType || undefined,
-    listingType: listingType || undefined,
+    propertyType: propertyType || parsed.typeFromFilter || undefined,
+    listingType: listingType || "huur",
     disablePagination: true,
   });
 
   const properties = data?.properties || [];
   const totalCount = data?.totalCount || 0;
 
-  const typeLabel = propertyType ? TYPE_LABELS[propertyType] : null;
+  const effectiveType = propertyType || parsed.typeFromFilter;
+  const typeLabel = effectiveType ? TYPE_LABELS[effectiveType] : null;
   const listingLabel = listingType === "huur" ? "huur" : listingType === "koop" ? "koop" : null;
   const typePrefix = typeLabel ? typeLabel.plural : listingLabel === "huur" ? "Huurwoningen" : listingLabel === "koop" ? "Koopwoningen" : "Woningen";
   const typePrefixLower = typePrefix.toLowerCase();
@@ -150,13 +157,14 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     : `${totalCount} ${typePrefixLower} in ${cityName} ${filterLabel}. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
 
   // Build canonical based on route type
-  const canonicalBase = typeLabel
-    ? `https://www.woonaanbod-nl.nl/${typeLabel.slug}/${citySlug}/${filter}`
-    : listingLabel === "huur"
-    ? `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}/${filter}`
-    : listingLabel === "koop"
-    ? `https://www.woonaanbod-nl.nl/koopwoningen/${citySlug}/${filter}`
-    : `https://www.woonaanbod-nl.nl/aanbod-in/${citySlug}/${filter}`;
+  // Eén canonieke structuur: /huurwoningen|koopwoningen/{stad}/{filter}
+  const ltSlug = listingType === "koop" ? "koopwoningen" : "huurwoningen";
+  const normalizedFilter = parsed.minBedrooms ? `${parsed.minBedrooms}-slaapkamers` : filter;
+  const INDEXABLE = /^(appartement|huis|studio|kamer|onder-\d+|[1-3]-slaapkamers)$/;
+  const isIndexable = !isLoading && totalCount >= 6 && !!normalizedFilter && INDEXABLE.test(normalizedFilter);
+  const canonicalBase = isIndexable
+    ? `https://www.woonaanbod-nl.nl/${ltSlug}/${citySlug}/${normalizedFilter}`
+    : `https://www.woonaanbod-nl.nl/${ltSlug}/${citySlug}`;
   const canonical = canonicalBase;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
@@ -239,9 +247,13 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     [h1, pageDescription, canonical, totalCount, properties]
   );
 
+  if (legacyBeds) {
+    return <Navigate to={location.pathname.replace(/\/\d+-kamers$/, `/${legacyBeds[1]}-slaapkamers`) + location.search} replace />;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} noindex={!isLoading && !isIndexable} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
@@ -397,7 +409,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                 </span>
               </Link>
               <Link
-                to={`/appartement-huren/${citySlug}`}
+                to={`/huurwoningen/${citySlug}/appartement`}
                 className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
               >
                 <MapPin className="h-5 w-5 text-primary" />
@@ -409,7 +421,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
               {PRICE_THRESHOLDS.filter((p) => p !== parsed.maxPrice).slice(0, 3).map((price) => (
                 <Link
                   key={`price-${price}`}
-                  to={`/aanbod-in/${citySlug}/onder-${price}`}
+                  to={`/huurwoningen/${citySlug}/onder-${price}`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <MapPin className="h-5 w-5 text-primary" />
@@ -422,7 +434,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
               {BEDROOM_OPTIONS.filter((b) => b !== parsed.minBedrooms).slice(0, 3).map((beds) => (
                 <Link
                   key={`beds-${beds}`}
-                  to={`/aanbod-in/${citySlug}/${beds}-kamers`}
+                  to={`/huurwoningen/${citySlug}/${beds}-slaapkamers`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <MapPin className="h-5 w-5 text-primary" />

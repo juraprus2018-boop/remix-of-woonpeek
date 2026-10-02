@@ -222,7 +222,7 @@ const NeighborhoodPage = () => {
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Huurwoningen in {cityName}</span>
               </Link>
-              <Link to={`/appartement-huren/${citySlug}`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
+              <Link to={`/huurwoningen/${citySlug}/appartement`} className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md">
                 <MapPin className="h-5 w-5 text-primary" />
                 <span className="font-medium text-foreground group-hover:text-primary transition-colors">Appartementen in {cityName}</span>
               </Link>

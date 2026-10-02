@@ -452,14 +452,14 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
               {cityName && (
                 <p>
                   Naast {label.plural.toLowerCase()} vind je op Woonaanbod NL ook{" "}
-                  <Link to={`/appartement-huren/${citySlug}`} className="text-primary underline hover:no-underline">
+                  <Link to={`/huurwoningen/${citySlug}/appartement`} className="text-primary underline hover:no-underline">
                     appartementen in {cityName}
                   </Link>,{" "}
-                  <Link to={`/huis-huren/${citySlug}`} className="text-primary underline hover:no-underline">
+                  <Link to={`/huurwoningen/${citySlug}/huis`} className="text-primary underline hover:no-underline">
                     huizen in {cityName}
                   </Link>{" "}
                   en{" "}
-                  <Link to={`/studio-huren/${citySlug}`} className="text-primary underline hover:no-underline">
+                  <Link to={`/huurwoningen/${citySlug}/studio`} className="text-primary underline hover:no-underline">
                     studio's in {cityName}
                   </Link>. Vergelijk het volledige aanbod en vind de woning die bij jou past.
                 </p>
@@ -534,7 +534,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </Link>
                 )}
                 <Link
-                  to={`/appartement-huren/${citySlug}`}
+                  to={`/huurwoningen/${citySlug}/appartement`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <span className="font-medium text-foreground group-hover:text-primary transition-colors">
@@ -542,7 +542,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </span>
                 </Link>
                 <Link
-                  to={`/huis-huren/${citySlug}`}
+                  to={`/huurwoningen/${citySlug}/huis`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <span className="font-medium text-foreground group-hover:text-primary transition-colors">
