@@ -17,6 +17,7 @@ const DailyAlertSection = () => {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
+  const [propertyType, setPropertyType] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
 
