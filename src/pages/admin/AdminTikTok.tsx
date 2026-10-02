@@ -280,7 +280,12 @@ const AdminTikTok = () => {
                 {account ? "Opnieuw verbinden" : "Verbind TikTok"}
               </Button>
               {account && (
-                <Button onClick={() => handleAutoPost()} disabled={autoPosting} className="gap-2">
+                <Button
+                  onClick={() => handleAutoPost()}
+                  disabled={autoPosting}
+                  variant="outline"
+                  className="gap-2"
+                >
                   {autoPosting ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
@@ -293,7 +298,6 @@ const AdminTikTok = () => {
                 <Button
                   onClick={() => handleAutoPost(undefined, "photo")}
                   disabled={autoPosting}
-                  variant="secondary"
                   className="gap-2"
                 >
                   {autoPosting ? (
