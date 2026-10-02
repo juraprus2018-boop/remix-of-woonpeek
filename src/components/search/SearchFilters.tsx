@@ -16,7 +16,7 @@ import { MapPin, X, Wallet } from "lucide-react";
 import { type FilterFacets } from "@/hooks/useProperties";
 import { cn } from "@/lib/utils";
 
-type PropertyType = "appartement" | "huis" | "studio" | "kamer";
+type PropertyType = "appartement" | "huis" | "studio" | "kamer" | "vakantiehuis";
 type ListingType = "huur" | "koop";
 
 export interface SearchFilterValues {
@@ -44,6 +44,7 @@ const propertyTypeKeys: Record<string, string> = {
   huis: "filters.typeHouse",
   studio: "filters.typeStudio",
   kamer: "filters.typeRoom",
+  vakantiehuis: "filters.typeVacationHome",
 };
 
 const listingTypeKeys: Record<string, string> = {
@@ -72,7 +73,7 @@ const SearchFilters = ({
     onChange({ ...filters, ...patch });
   };
 
-  const propertyTypes: PropertyType[] = ["appartement", "huis", "studio", "kamer"];
+  const propertyTypes: PropertyType[] = ["appartement", "huis", "studio", "kamer", "vakantiehuis"];
   const listingTypes: ListingType[] = ["huur", "koop"];
   const bedroomOptions = [1, 2, 3, 4];
   const surfaceOptions = [25, 50, 75, 100];
