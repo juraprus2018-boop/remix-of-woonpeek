@@ -1,26 +1,25 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin } from "lucide-react";
+import { Check, ChevronsUpDown, MapPin, Search, X } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import { DUTCH_CITIES } from "@/lib/dutchCities";
-import {
-  MUNICIPALITY_KERNEN,
-  getKernen,
-  hasMultipleKernen,
-} from "@/lib/municipalities";
+import { MUNICIPALITY_KERNEN } from "@/lib/municipalities";
 import { supabase } from "@/integrations/supabase/client";
 import { citySlug } from "@/lib/citySlug";
+import { cn } from "@/lib/utils";
 
 interface MunicipalityCitySelectProps {
   /** Geselecteerde plaatsnaam (kern of enkelvoudige gemeente). */
   value: string;
-  /** Wordt aangeroepen met de definitieve plaatsnaam (kern). */
+  /** Wordt aangeroepen met de definitieve plaatsnaam. */
   onChange: (city: string) => void;
   /** Optioneel ID voor labels (bijv. voor a11y). */
   id?: string;
@@ -28,13 +27,26 @@ interface MunicipalityCitySelectProps {
   className?: string;
 }
 
+interface PlaceOption {
+  name: string;
+  /** Optionele onderliggende gemeente (voor kernen). */
+  municipality?: string;
+}
+
+/** Zoek normaliseren: lowercase, accenten eruit (Sneek/Burgum/Fryslân e.d.). */
+const normalize = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/'/g, "");
+
+const MAX_RESULTS = 60;
+
 /**
- * Two-step selector: eerst gemeente, dan kern (indien van toepassing).
- *
- * - Gemeentes met meerdere kernen tonen een tweede dropdown.
- * - Enkelvoudige gemeentes (bijv. Amsterdam) selecteren direct de stad.
- * - Backwards compatible: `value` mag een kern zijn; we proberen dan de
- *   bovenliggende gemeente te detecteren.
+ * Zoekveld met autocomplete: typ om direct te zoeken in alle gemeentes én
+ * kernen (dorpen). Klik of Enter selecteert. Vervangt de oude twee-staps
+ * dropdown, die bij honderden gemeentes onbruikbaar traag was.
  */
 const MunicipalityCitySelect = ({
   value,
@@ -42,6 +54,10 @@ const MunicipalityCitySelect = ({
   id,
   className,
 }: MunicipalityCitySelectProps) => {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
   // Auto-toegevoegde plaatsen uit de DB (extra_cities) worden mee gemerged
   // zodat kernen die de sync-job ontdekt direct beschikbaar zijn.
   const { data: extraCities } = useQuery({
@@ -57,117 +73,160 @@ const MunicipalityCitySelect = ({
     staleTime: 5 * 60_000,
   });
 
-  // Lijst van alle gemeentes (zowel composiet als enkelvoudig + extra).
-  const municipalities = useMemo(() => {
-    // Dedupliceer op canonical slug zodat varianten als "'s-Heerenberg" /
-    // "s-Heerenberg" of "Bergen (NH)" / "Bergen NH" niet dubbel verschijnen.
-    const bySlug = new Map<string, string>();
-    const add = (name: string) => {
+  // Alle kiesbare opties: gemeentes eerst, daarna kernen van samengestelde
+  // gemeentes. Dedupliceer op canonical slug zodat varianten als
+  // "'s-Heerenberg" / "s-Heerenberg" niet dubbel verschijnen.
+  const options = useMemo<PlaceOption[]>(() => {
+    const bySlug = new Map<string, PlaceOption>();
+    const add = (name: string, municipality?: string) => {
       const key = citySlug(name);
-      if (!key) return;
-      if (!bySlug.has(key)) bySlug.set(key, name);
+      if (!key || bySlug.has(key)) return;
+      bySlug.set(key, { name, municipality });
     };
-    DUTCH_CITIES.forEach(add);
-    Object.keys(MUNICIPALITY_KERNEN).forEach(add);
-    (extraCities ?? []).forEach(add);
-    return Array.from(bySlug.values()).sort((a, b) =>
-      a.localeCompare(b, "nl"),
-    );
+
+    DUTCH_CITIES.forEach((c) => add(c));
+    Object.keys(MUNICIPALITY_KERNEN).forEach((m) => add(m));
+    (extraCities ?? []).forEach((c) => add(c));
+    Object.entries(MUNICIPALITY_KERNEN).forEach(([muni, kernen]) => {
+      kernen.forEach((k) => add(k, muni));
+    });
+
+    return Array.from(bySlug.values()).sort((a, b) => a.name.localeCompare(b.name, "nl"));
   }, [extraCities]);
 
-  // Detecteer huidige gemeente op basis van `value`.
-  const detectMunicipality = (city: string): string => {
-    if (!city) return "";
-    if (MUNICIPALITY_KERNEN[city]) return city; // is zelf een gemeente
-    // Zoek gemeente waar deze kern bij hoort
-    for (const [muni, kernen] of Object.entries(MUNICIPALITY_KERNEN)) {
-      if (kernen.includes(city)) return muni;
+  const filtered = useMemo(() => {
+    const q = normalize(search.trim());
+    if (!q) return options.slice(0, MAX_RESULTS);
+
+    const starts: PlaceOption[] = [];
+    const includes: PlaceOption[] = [];
+    for (const opt of options) {
+      const n = normalize(opt.name);
+      const m = opt.municipality ? normalize(opt.municipality) : "";
+      if (n.startsWith(q)) {
+        starts.push(opt);
+      } else if (n.includes(q) || m.includes(q)) {
+        includes.push(opt);
+      }
+      if (starts.length + includes.length >= MAX_RESULTS * 2) break;
     }
-    return city; // enkelvoudig: gemeente == kern
-  };
+    return [...starts, ...includes].slice(0, MAX_RESULTS);
+  }, [options, search]);
 
-  const [municipality, setMunicipality] = useState<string>(() => detectMunicipality(value));
-
-  // Sync wanneer `value` extern verandert (bijv. reset).
+  // Sync wanneer `value` extern verandert (bijv. reset of prefill).
   useEffect(() => {
-    setMunicipality(detectMunicipality(value));
+    if (value) setSearch("");
   }, [value]);
 
-  const showKernen = hasMultipleKernen(municipality);
-  const kernen = useMemo(() => (showKernen ? getKernen(municipality) : []), [
-    municipality,
-    showKernen,
-  ]);
+  const select = (option: PlaceOption) => {
+    onChange(option.name);
+    setOpen(false);
+    setSearch("");
+    triggerRef.current?.focus();
+  };
 
-  const handleMunicipalityChange = (next: string) => {
-    setMunicipality(next);
-    if (hasMultipleKernen(next)) {
-      // Reset kern-keuze; gebruiker moet expliciet kern kiezen.
-      onChange("");
-    } else {
-      // Enkelvoudige gemeente: direct selecteren.
-      onChange(next);
-    }
+  const clear = () => {
+    onChange("");
+    setSearch("");
   };
 
   return (
     <div className={className}>
-      <div className="space-y-3">
-        {/* Stap 1: Gemeente */}
-        <div>
-          <label
-            htmlFor={id ? `${id}-muni` : undefined}
-            className="mb-1.5 block text-sm font-medium text-foreground"
-          >
-            <MapPin className="mr-1 inline-block h-4 w-4" />
-            Gemeente
-          </label>
-          <Select value={municipality} onValueChange={handleMunicipalityChange}>
-            <SelectTrigger id={id ? `${id}-muni` : undefined} className="w-full">
-              <SelectValue placeholder="Kies een gemeente..." />
-            </SelectTrigger>
-            <SelectContent>
-              {municipalities.map((m) => (
-                <SelectItem key={m} value={m}>
-                  {m}
-                  {hasMultipleKernen(m) && (
-                    <span className="ml-1 text-xs text-muted-foreground">
-                      ({MUNICIPALITY_KERNEN[m].length} kernen)
-                    </span>
-                  )}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Stap 2: Kern (alleen bij samengestelde gemeentes) */}
-        {showKernen && (
-          <div>
-            <label
-              htmlFor={id ? `${id}-kern` : undefined}
-              className="mb-1.5 block text-sm font-medium text-foreground"
+      <label
+        htmlFor={id ? `${id}-place` : undefined}
+        className="mb-1.5 block text-sm font-medium text-foreground"
+      >
+        <MapPin className="mr-1 inline-block h-4 w-4" />
+        Plaats of gemeente
+      </label>
+      <Popover open={open} onOpenChange={setOpen}>
+        <div className="flex gap-2">
+          <PopoverTrigger asChild>
+            <button
+              ref={triggerRef}
+              id={id ? `${id}-place` : undefined}
+              type="button"
+              role="combobox"
+              aria-expanded={open}
+              className={cn(
+                "flex h-10 flex-1 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-left text-sm ring-offset-background transition-colors",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                value ? "text-foreground" : "text-muted-foreground",
+              )}
             >
-              Kern / dorp
-            </label>
-            <Select value={value} onValueChange={onChange}>
-              <SelectTrigger id={id ? `${id}-kern` : undefined} className="w-full">
-                <SelectValue placeholder={`Kies een kern in ${municipality}...`} />
-              </SelectTrigger>
-              <SelectContent>
-                {kernen.map((k) => (
-                  <SelectItem key={k} value={k}>
-                    {k}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <p className="mt-1.5 text-xs text-muted-foreground">
-              Gemeente {municipality} bestaat uit meerdere kernen. Kies de plaats waarvoor je alerts wilt.
-            </p>
-          </div>
-        )}
-      </div>
+              <span className="flex min-w-0 items-center gap-2">
+                <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+                <span className="truncate">
+                  {value || "Zoek je stad of dorp (bijv. Eindhoven)"}
+                </span>
+              </span>
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </button>
+          </PopoverTrigger>
+          {value && (
+            <button
+              type="button"
+              aria-label="Keuze wissen"
+              onClick={clear}
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-input bg-background text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+        <PopoverContent
+          align="start"
+          className="w-[--radix-popover-trigger-width] p-0"
+          onOpenAutoFocus={(e) => {
+            // Focus blijft op de trigger-gebruik; cmdk-input krijgt focus via autofocus.
+            e.preventDefault();
+          }}
+        >
+          <Command shouldFilter={false}>
+            <div className="flex items-center border-b px-3">
+              <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+              <CommandInput
+                value={search}
+                onValueChange={setSearch}
+                placeholder="Typ een plaats of gemeente..."
+                className="h-11 border-0 bg-transparent focus:ring-0"
+                autoFocus
+              />
+            </div>
+            <CommandList>
+              <CommandEmpty>Geen plaats gevonden. Probeer een andere spelling.</CommandEmpty>
+              <CommandGroup>
+                {filtered.map((opt) => {
+                  const selected = value === opt.name;
+                  return (
+                    <CommandItem
+                      key={`${opt.municipality ?? ""}-${opt.name}`}
+                      value={opt.name}
+                      onSelect={() => select(opt)}
+                      className="cursor-pointer"
+                    >
+                      <Check
+                        className={cn("mr-2 h-4 w-4 shrink-0", selected ? "opacity-100" : "opacity-0")}
+                      />
+                      <span className="truncate">
+                        {opt.name}
+                        {opt.municipality && (
+                          <span className="ml-1 text-xs text-muted-foreground">
+                            · gemeente {opt.municipality}
+                          </span>
+                        )}
+                      </span>
+                    </CommandItem>
+                  );
+                })}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+      <p className="mt-1.5 text-xs text-muted-foreground">
+        Typ de naam van je stad of dorp. Je ontvangt alleen meldingen voor deze plaats.
+      </p>
     </div>
   );
 };
