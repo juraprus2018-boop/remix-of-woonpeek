@@ -62,7 +62,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   // Parse filter from URL
   const parsed = useMemo(() => {
-    const base = { maxPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined };
+    const base = { maxPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined, typeFromFilter: undefined as PropertyType | undefined };
     if (!filter) return base;
 
     const priceMatch = filter.match(/^onder-(\d+)$/);
@@ -71,7 +71,11 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       return { ...base, maxPrice: price, label: `onder ${formatEuro(price)}` };
     }
 
-    const bedroomMatch = filter.match(/^(\d+)-kamers$/);
+    if (filter in TYPE_LABELS) {
+      return { ...base, typeFromFilter: filter as PropertyType, label: "" };
+    }
+
+    const bedroomMatch = filter.match(/^(\d+)-(?:slaap)?kamers$/);
     if (bedroomMatch) {
       const beds = parseInt(bedroomMatch[1], 10);
       return { ...base, minBedrooms: beds, label: `met ${beds} kamers` };
@@ -97,15 +101,16 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     maxPrice: parsed.maxPrice,
     minBedrooms: parsed.minBedrooms,
     textMatch: parsed.textMatch,
-    propertyType: propertyType || undefined,
-    listingType: listingType || undefined,
+    propertyType: propertyType || parsed.typeFromFilter || undefined,
+    listingType: listingType || "huur",
     disablePagination: true,
   });
 
   const properties = data?.properties || [];
   const totalCount = data?.totalCount || 0;
 
-  const typeLabel = propertyType ? TYPE_LABELS[propertyType] : null;
+  const effectiveType = propertyType || parsed.typeFromFilter;
+  const typeLabel = effectiveType ? TYPE_LABELS[effectiveType] : null;
   const listingLabel = listingType === "huur" ? "huur" : listingType === "koop" ? "koop" : null;
   const typePrefix = typeLabel ? typeLabel.plural : listingLabel === "huur" ? "Huurwoningen" : listingLabel === "koop" ? "Koopwoningen" : "Woningen";
   const typePrefixLower = typePrefix.toLowerCase();
@@ -150,13 +155,14 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     : `${totalCount} ${typePrefixLower} in ${cityName} ${filterLabel}. ✓ Dagelijks bijgewerkt ✓ Gratis alerts ✓ ${currentMonth} ${currentYear}`;
 
   // Build canonical based on route type
-  const canonicalBase = typeLabel
-    ? `https://www.woonaanbod-nl.nl/${typeLabel.slug}/${citySlug}/${filter}`
-    : listingLabel === "huur"
-    ? `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}/${filter}`
-    : listingLabel === "koop"
-    ? `https://www.woonaanbod-nl.nl/koopwoningen/${citySlug}/${filter}`
-    : `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}/${filter}`;
+  // Eén canonieke structuur: /huurwoningen|koopwoningen/{stad}/{filter}
+  const ltSlug = listingType === "koop" ? "koopwoningen" : "huurwoningen";
+  const normalizedFilter = parsed.minBedrooms ? `${parsed.minBedrooms}-slaapkamers` : filter;
+  const INDEXABLE = /^(appartement|huis|studio|kamer|onder-\d+|[1-3]-slaapkamers)$/;
+  const isIndexable = !isLoading && totalCount >= 6 && !!normalizedFilter && INDEXABLE.test(normalizedFilter);
+  const canonicalBase = isIndexable
+    ? `https://www.woonaanbod-nl.nl/${ltSlug}/${citySlug}/${normalizedFilter}`
+    : `https://www.woonaanbod-nl.nl/${ltSlug}/${citySlug}`;
   const canonical = canonicalBase;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
@@ -241,7 +247,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} noindex={!isLoading && !isIndexable} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
