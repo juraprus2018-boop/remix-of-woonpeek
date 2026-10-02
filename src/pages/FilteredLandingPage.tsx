@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate, useLocation } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -58,6 +58,8 @@ const PropertyCardSkeleton = () => (
  */
 const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageProps = {}) => {
   const { city: citySlug, filter } = useParams<{ city: string; filter: string }>();
+  const location = useLocation();
+  const legacyBeds = filter?.match(/^(\d+)-kamers$/);
   const cityName = citySlug ? citySlugToName(citySlug) : "Nederland";
 
   // Parse filter from URL
@@ -244,6 +246,10 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     ],
     [h1, pageDescription, canonical, totalCount, properties]
   );
+
+  if (legacyBeds) {
+    return <Navigate to={location.pathname.replace(/\/\d+-kamers$/, `/${legacyBeds[1]}-slaapkamers`) + location.search} replace />;
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
