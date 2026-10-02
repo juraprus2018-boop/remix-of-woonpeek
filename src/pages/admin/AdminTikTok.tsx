@@ -122,7 +122,7 @@ const AdminTikTok = () => {
         supabase
           .from("properties")
           .select(
-            "id,title,city,price,listing_type,property_type,surface_area,bedrooms,bathrooms,energy_label,street,house_number,images,slug,created_at"
+            "id,title,city,price,listing_type,property_type,surface_area,bedrooms,bathrooms,energy_label,street,house_number,images,slug,address_slug,created_at"
           )
           .eq("status", "actief")
           .eq("listing_type", "huur")
@@ -170,7 +170,7 @@ const AdminTikTok = () => {
     setBusyId(p.id);
     try {
       await downloadSlidesZip(p as SlideProperty);
-      toast.success("ZIP met 5 slides gedownload");
+      toast.success(`ZIP met maximaal 35 slides gedownload`);
     } catch (e: any) {
       toast.error("Download mislukt", { description: e?.message });
     } finally {

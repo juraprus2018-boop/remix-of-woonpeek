@@ -35,6 +35,7 @@ export function buildCaption(p: {
 }): string {
   const cleanCity = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
   const tags = [
+    "#woonaanbodnl",
     "#huurwoning",
     "#tehuur",
     `#${cleanCity}`,
@@ -48,7 +49,7 @@ export function buildCaption(p: {
     `🏡 ${type} in ${p.city}`,
     `💰 ${fmtPriceNL(p.price, p.listing_type)}${p.surface_area ? ` · ${p.surface_area} m²` : ""}${p.bedrooms != null ? ` · ${p.bedrooms} slpk` : ""}`,
     "",
-    p.url ? `👉 Bekijk deze woning: ${p.url}` : "👉 Bekijk op woonaanbod-nl.nl",
+    p.url ? `👉 Bekijk de woning en reageer direct: ${p.url}` : "👉 Bekijk op woonaanbod-nl.nl",
     "",
     tags,
   ].join("\n");

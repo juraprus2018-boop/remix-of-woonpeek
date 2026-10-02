@@ -297,7 +297,7 @@ export function buildTikTokCaption(p: SlideProperty): string {
 export function buildHashtags(p: SlideProperty): string {
   const citySlug = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
   const tags = [
-    "#woonaanbod-nl",
+    "#woonaanbodnl",
     "#woningnederland",
     p.listing_type === "huur" ? "#huurwoning" : "#koopwoning",
     p.listing_type === "huur" ? "#tehuur" : "#tekoop",
