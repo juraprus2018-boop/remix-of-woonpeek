@@ -129,7 +129,7 @@ const LongtailLanding = () => {
                 <p className="mt-2 text-muted-foreground">
                   {properties.length > 0
                     ? `${properties.length} woning${properties.length === 1 ? "" : "en"} gevonden in ${page.city}`
-                    : `Op dit moment geen woningen die volledig matchen. Stel een Woonradar in om als eerste bericht te krijgen.`}
+                    : `Op dit moment geen woningen die volledig matchen. Stel een gratis melding in om als eerste bericht te krijgen.`}
                 </p>
               </div>
               <Button asChild variant="ghost">
