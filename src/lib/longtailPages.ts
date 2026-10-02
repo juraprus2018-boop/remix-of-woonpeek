@@ -60,7 +60,7 @@ export const LONGTAIL_PAGES: LongtailPage[] = [
     sections: [
       { h2: "Waar vind je balkons in Amsterdam?", body: "De meeste huurwoningen met balkon zitten in Oost (Watergraafsmeer, Indische Buurt), West (Bos en Lommer, Westerpark) en Nieuw-West. In de grachtengordel is een balkon zeldzaam, maar dakterrassen komen wel voor in dakappartementen." },
       { h2: "Wat betaal je gemiddeld?", body: "Een tweekamerappartement met balkon ligt in 2026 tussen €1.650 en €2.400 per maand, afhankelijk van buurt en oppervlakte. Buiten de ring rond Amstelveen of Diemen vind je het vanaf €1.350." },
-      { h2: "Snel reageren is alles", body: "Populaire balkonwoningen in Amsterdam worden binnen 48 uur verhuurd. Zet een Woonradar aan en krijg per e-mail of WhatsApp meteen bericht wanneer nieuw aanbod live komt." },
+      { h2: "Snel reageren is alles", body: "Populaire balkonwoningen in Amsterdam worden binnen 48 uur verhuurd. Zet de gratis melding aan en krijg per e-mail meteen bericht wanneer nieuw aanbod live komt." },
     ],
     faq: [
       { q: "Hoeveel huurwoningen met balkon zijn er gemiddeld in Amsterdam?", a: "Op een doorsnee weekdag staan er 60 tot 120 verhuuradvertenties met balkon online. In het weekend daalt dat tijdelijk." },
@@ -85,7 +85,7 @@ export const LONGTAIL_PAGES: LongtailPage[] = [
     faq: [
       { q: "Mag ik in een huurtuin een schuurtje plaatsen?", a: "Alleen met schriftelijke toestemming van de verhuurder en als het binnen de welstandsregels van de gemeente Amsterdam past." },
       { q: "Is een gemeenschappelijke binnentuin ook 'tuin'?", a: "Nee, in onze filtering rekenen we alleen privé buitenruimte als tuin. Gedeelde tuinen vermelden we apart in de omschrijving." },
-      { q: "Hoe vaak komt er een tuinwoning beschikbaar?", a: "Gemiddeld 8 tot 15 nieuwe aanbiedingen per week. Een Woonradar voorkomt dat je iets mist." },
+      { q: "Hoe vaak komt er een tuinwoning beschikbaar?", a: "Gemiddeld 8 tot 15 nieuwe aanbiedingen per week. Een gratis melding voorkomt dat je iets mist." },
     ],
     filters: { listingType: "huur", textMatch: "tuin" },
     related: ["huurwoning-amsterdam-met-balkon", "eengezinswoning-amstelveen-huren"],

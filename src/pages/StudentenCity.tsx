@@ -117,7 +117,7 @@ const StudentenCity = () => {
                 </p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Button asChild size="lg">
-                    <Link to="/woonradar"><Bell className="mr-2 h-4 w-4" /> Gratis kamer-alert</Link>
+                    <Link to="/woonmelding"><Bell className="mr-2 h-4 w-4" /> Gratis kamer-alert</Link>
                   </Button>
                   <Button asChild variant="outline" size="lg">
                     <Link to={cityPath(cityName)}>Alle woningen in {cityName} <ArrowRight className="ml-2 h-4 w-4" /></Link>
@@ -165,7 +165,7 @@ const StudentenCity = () => {
               {cityName} is één van Nederlands populairste studiesteden. De vraag naar studentenkamers is groot, vooral aan het begin van het collegejaar. Met Woonaanbod NL krijg je <strong>dagelijks vers aanbod</strong> uit meerdere bronnen, zodat je sneller kunt reageren dan andere zoekers.
             </p>
             <p>
-              Tip: combineer een <Link to="/woonradar" className="text-primary underline">gratis melding</Link> met een goed voorbereid voorstelbericht. Reageer binnen het uur op nieuwe kamers voor de grootste kans.
+              Tip: combineer een <Link to="/woonmelding" className="text-primary underline">gratis melding</Link> met een goed voorbereid voorstelbericht. Reageer binnen het uur op nieuwe kamers voor de grootste kans.
             </p>
           </div>
         </section>

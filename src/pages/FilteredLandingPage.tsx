@@ -348,7 +348,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                   </p>
                   <p>
                     Tip: stel een{" "}
-                    <Link to="/woonradar" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>{" "}
+                    <Link to="/woonmelding" className="text-primary underline hover:no-underline">gratis dagelijkse alert</Link>{" "}
                     in voor woningen in {cityName} onder {formatEuro(parsed.maxPrice!)}. Zo ben je altijd als eerste op de hoogte van betaalbaar nieuw aanbod.
                   </p>
                 </>
@@ -375,7 +375,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                   </p>
                   <p>
                     Stel een{" "}
-                    <Link to="/woonradar" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
+                    <Link to="/woonmelding" className="text-primary underline hover:no-underline">dagelijkse alert</Link>{" "}
                     in om als eerste op de hoogte te zijn van nieuwe woningen in {cityName}.
                   </p>
                 </>

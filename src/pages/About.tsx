@@ -224,7 +224,7 @@ const About = () => {
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
-                <Link to="/woonradar">
+                <Link to="/woonmelding">
                   <Button size="lg" variant="outline" className="gap-2">
                     Zet een alert aan
                     <Bell className="h-5 w-5" />

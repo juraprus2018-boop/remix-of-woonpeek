@@ -31,7 +31,7 @@ const CTASection = () => {
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/woonradar">
+              <Link to="/woonmelding">
                 <Button
                   size="lg"
                   variant="outline"

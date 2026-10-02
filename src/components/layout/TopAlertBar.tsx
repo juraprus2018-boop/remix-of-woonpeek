@@ -28,7 +28,7 @@ const TopAlertBar = () => {
           Nieuwe woning gevonden?{" "}
         </span>
         <Link
-          to="/woonradar"
+          to="/woonmelding"
           className="underline underline-offset-2 font-semibold hover:opacity-80 transition-opacity"
         >
           Ontvang direct een gratis melding

@@ -98,7 +98,7 @@ const Header = () => {
     { to: "/vandaag", icon: CalendarDays, label: t("nav.discoverItems.newListings") },
     { to: "/op-kaart", icon: Map, label: t("nav.discoverItems.map") },
     { to: "/woonaanbod-per-stad", icon: MapPin, label: t("common.cities") },
-    { to: "/woonradar", icon: Bell, label: t("nav.discoverItems.dailyAlert") },
+    { to: "/woonmelding", icon: Bell, label: t("nav.discoverItems.dailyAlert") },
     { to: "/woonkompas", icon: Sparkles, label: t("nav.discoverItems.quiz") },
   ];
 

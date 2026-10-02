@@ -14,7 +14,7 @@ export const ROUTES = {
   search: "/woning-zoeken",
   map: "/op-kaart",
   newToday: "/vandaag",
-  alert: "/woonradar",
+  alert: "/woonmelding",
   // Account
   login: "/login",
   register: "/aanmelden",
@@ -95,6 +95,7 @@ export const LEGACY_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: "/kaart", to: ROUTES.map },
   { from: "/nieuw-aanbod", to: ROUTES.newToday },
   { from: "/dagelijkse-alert", to: ROUTES.alert },
+  { from: "/woonradar", to: ROUTES.alert },
   { from: "/inloggen", to: ROUTES.login },
   { from: "/registreren", to: ROUTES.register },
   { from: "/profiel", to: ROUTES.profile },

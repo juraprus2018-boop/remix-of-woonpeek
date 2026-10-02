@@ -296,7 +296,7 @@ const Verhuischecklist = () => {
                 size="lg"
                 className="bg-accent text-accent-foreground hover:bg-accent/90"
               >
-                <Link to="/woonradar">Gratis melding instellen</Link>
+                <Link to="/woonmelding">Gratis melding instellen</Link>
               </Button>
               <Button
                 asChild

@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import DailyAlertSection from "@/components/home/DailyAlertSection";
 import SEOHead from "@/components/seo/SEOHead";
 import { Mail, Clock, Filter, ShieldCheck, MousePointerClick, Inbox } from "lucide-react";
-import alertIllustration from "@/assets/woonradar-illustratie.jpg";
+import alertIllustration from "@/assets/woonmelding-illustratie.jpg";
 
 const ALERT_FAQ = [
   {
@@ -67,7 +67,7 @@ const DailyAlert = () => {
       <SEOHead
         title="Gratis woningmelding – Nieuw aanbod direct per e-mail | Woonaanbod NL"
         description="Nieuwe woning gevonden? Ontvang direct een gratis melding per e-mail. Stel je zoekopdracht in, vul je e-mailadres in, geen account nodig."
-        canonical="/woonradar"
+        canonical="/woonmelding"
       />
       <script
         type="application/ld+json"
@@ -77,10 +77,10 @@ const DailyAlert = () => {
       <main className="flex-1">
         {/* Hero */}
         <section className="border-b border-border bg-primary text-primary-foreground">
-          <div className="container grid items-center gap-10 py-10 md:py-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="container grid items-center gap-8 py-8 md:py-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
               <Breadcrumbs
-                items={[{ label: "Home", href: "/" }, { label: "Woonradar" }]}
+                items={[{ label: "Home", href: "/" }, { label: "Woonmelding" }]}
               />
               <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-sun px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground">
                 Gratis e-mailalert
@@ -92,7 +92,7 @@ const DailyAlert = () => {
                 Stel je zoekopdracht in, laat je e-mailadres achter en je hoort het zodra er
                 een nieuwe woning bijkomt. Eén product, één melding, altijd gratis.
               </p>
-              <ul className="mt-6 grid gap-2 text-sm text-primary-foreground/85 sm:grid-cols-2">
+              <ul className="mt-6 hidden gap-2 text-sm text-primary-foreground/85 sm:grid sm:grid-cols-2">
                 <li className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-sun" /> Melding bij nieuw aanbod
                 </li>
@@ -108,11 +108,11 @@ const DailyAlert = () => {
               </ul>
             </div>
 
-            <div className="relative mx-auto w-full max-w-sm lg:max-w-none">
+            <div className="relative mx-auto hidden w-full max-w-sm lg:block lg:max-w-none">
               <div className="overflow-hidden rounded-3xl border border-primary-foreground/15 shadow-xl">
                 <img
                   src={alertIllustration}
-                  alt="Woonradar stuurt nieuw woningaanbod per e-mail"
+                  alt="Woningmelding stuurt nieuw woningaanbod per e-mail"
                   width={1024}
                   height={1024}
                   loading="eager"
@@ -123,6 +123,9 @@ const DailyAlert = () => {
             </div>
           </div>
         </section>
+
+        {/* Inschrijven — direct zichtbaar bij openen */}
+        <DailyAlertSection />
 
         {/* Hoe het werkt */}
         <section className="container py-12 md:py-16">
@@ -143,9 +146,6 @@ const DailyAlert = () => {
             ))}
           </div>
         </section>
-
-        {/* Inschrijven */}
-        <DailyAlertSection />
 
         {/* Voordelen */}
         <section className="border-t border-border bg-muted/40 py-12 md:py-16">

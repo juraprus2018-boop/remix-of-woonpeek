@@ -396,7 +396,7 @@ const EmptyState = ({ cityName }: { cityName: string }) => (
       Er is op dit moment te weinig actief aanbod om een top 10 samen te stellen. Stel een gratis alert in om bericht te krijgen wanneer nieuwe woningen beschikbaar komen.
     </p>
     <Button asChild className="mt-4">
-      <Link to="/woonradar">Alert aanmaken</Link>
+      <Link to="/woonmelding">Alert aanmaken</Link>
     </Button>
   </div>
 );

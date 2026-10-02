@@ -251,7 +251,7 @@ const PAGES: RouteDef[] = [
   { path: "/aanbod/:slug", element: <PropertyDetail /> },
   { path: "/vandaag", element: <NewListings /> },
   { path: "/vandaag/:city", element: <NewListingsCity /> },
-  { path: "/woonradar", element: <DailyAlert /> },
+  { path: "/woonmelding", element: <DailyAlert /> },
   { path: "/radarmeldingen", element: <SearchAlerts /> },
   { path: "/radarmeldingen/uit/:token", element: <AlertUnsubscribe /> },
 
