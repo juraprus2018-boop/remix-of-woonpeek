@@ -156,7 +156,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     ? `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}/${filter}`
     : listingLabel === "koop"
     ? `https://www.woonaanbod-nl.nl/koopwoningen/${citySlug}/${filter}`
-    : `https://www.woonaanbod-nl.nl/aanbod-in/${citySlug}/${filter}`;
+    : `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}/${filter}`;
   const canonical = canonicalBase;
   const canonicalPath = canonical.replace(/^https?:\/\/[^/]*/i, "");
 
@@ -397,7 +397,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
                 </span>
               </Link>
               <Link
-                to={`/appartement-huren/${citySlug}`}
+                to={`/huurwoningen/${citySlug}/appartement`}
                 className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
               >
                 <MapPin className="h-5 w-5 text-primary" />
@@ -409,7 +409,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
               {PRICE_THRESHOLDS.filter((p) => p !== parsed.maxPrice).slice(0, 3).map((price) => (
                 <Link
                   key={`price-${price}`}
-                  to={`/aanbod-in/${citySlug}/onder-${price}`}
+                  to={`/huurwoningen/${citySlug}/onder-${price}`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <MapPin className="h-5 w-5 text-primary" />
@@ -422,7 +422,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
               {BEDROOM_OPTIONS.filter((b) => b !== parsed.minBedrooms).slice(0, 3).map((beds) => (
                 <Link
                   key={`beds-${beds}`}
-                  to={`/aanbod-in/${citySlug}/${beds}-kamers`}
+                  to={`/huurwoningen/${citySlug}/${beds}-slaapkamers`}
                   className="group flex items-center gap-3 rounded-xl border bg-card p-4 transition-shadow hover:shadow-md"
                 >
                   <MapPin className="h-5 w-5 text-primary" />

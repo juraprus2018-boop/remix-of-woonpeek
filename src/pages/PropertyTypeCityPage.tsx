@@ -466,12 +466,12 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
                   Koopwoningen in {cityName}
                 </Link>
                 {[750, 1000, 1500].map((price) => (
-                  <Link key={price} to={`/aanbod-in/${citySlug}/onder-${price}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link key={price} to={`/huurwoningen/${citySlug}/onder-${price}`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Woningen onder €{price.toLocaleString("nl-NL")}
                   </Link>
                 ))}
                 {[2, 3].map((beds) => (
-                  <Link key={beds} to={`/aanbod-in/${citySlug}/${beds}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                  <Link key={beds} to={`/huurwoningen/${citySlug}/${beds}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     {beds} kamers in {cityName}
                   </Link>
                 ))}

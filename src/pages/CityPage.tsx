@@ -235,9 +235,9 @@ const CityPage = () => {
               <p className="mt-3 text-base leading-relaxed text-muted-foreground max-w-3xl">
                 Bekijk <strong>{huurCount} huurwoningen in {cityName}</strong> op één pagina. Dagelijks vers aanbod van tientallen bronnen, met{" "}
                 <Link to={`/huurwoningen/${citySlug}`} className="text-primary hover:underline">alle huurwoningen in {cityName}</Link>,{" "}
-                <Link to={`/appartement-huren/${citySlug}`} className="text-primary hover:underline">appartementen te huur</Link>,{" "}
-                <Link to={`/kamer-huren/${citySlug}`} className="text-primary hover:underline">kamers</Link> en{" "}
-                <Link to={`/studio-huren/${citySlug}`} className="text-primary hover:underline">studio's</Link>. Plus markt, buurten en gratis alerts.
+                <Link to={`/huurwoningen/${citySlug}/appartement`} className="text-primary hover:underline">appartementen te huur</Link>,{" "}
+                <Link to={`/huurwoningen/${citySlug}/kamer`} className="text-primary hover:underline">kamers</Link> en{" "}
+                <Link to={`/huurwoningen/${citySlug}/studio`} className="text-primary hover:underline">studio's</Link>. Plus markt, buurten en gratis alerts.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <div className="rounded-full bg-card px-4 py-2 text-sm text-foreground shadow-sm">
@@ -320,23 +320,23 @@ const CityPage = () => {
               </Link>
               {huurCount > 0 && (
                 <>
-                  <Link to={`/budget-huur/1000/${citySlug}`}>
+                  <Link to={`/huurwoningen/${citySlug}/onder-1000`}>
                     <Button variant="outline" size="sm">Huur onder €1.000</Button>
                   </Link>
-                  <Link to={`/budget-huur/1500/${citySlug}`}>
+                  <Link to={`/huurwoningen/${citySlug}/onder-1500`}>
                     <Button variant="outline" size="sm">Huur onder €1.500</Button>
                   </Link>
-                  <Link to={`/budget-huur/2000/${citySlug}`}>
+                  <Link to={`/huurwoningen/${citySlug}/onder-2000`}>
                     <Button variant="outline" size="sm">Huur onder €2.000</Button>
                   </Link>
                 </>
               )}
               {koopCount > 0 && (
                 <>
-                  <Link to={`/budget-koop/300000/${citySlug}`}>
+                  <Link to={`/koopwoningen/${citySlug}/onder-300000`}>
                     <Button variant="outline" size="sm">Koop onder €300.000</Button>
                   </Link>
-                  <Link to={`/budget-koop/500000/${citySlug}`}>
+                  <Link to={`/koopwoningen/${citySlug}/onder-500000`}>
                     <Button variant="outline" size="sm">Koop onder €500.000</Button>
                   </Link>
                 </>
@@ -509,10 +509,10 @@ const CityPage = () => {
             <h3 className="font-display text-lg font-semibold text-foreground mb-3">Op woningtype</h3>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4 mb-6">
               {[
-                { label: "Appartementen", href: `/appartement-huren/${citySlug}` },
-                { label: "Huizen", href: `/huis-huren/${citySlug}` },
-                { label: "Studio's", href: `/studio-huren/${citySlug}` },
-                { label: "Kamers", href: `/kamer-huren/${citySlug}` },
+                { label: "Appartementen", href: `/huurwoningen/${citySlug}/appartement` },
+                { label: "Huizen", href: `/huurwoningen/${citySlug}/huis` },
+                { label: "Studio's", href: `/huurwoningen/${citySlug}/studio` },
+                { label: "Kamers", href: `/huurwoningen/${citySlug}/kamer` },
               ].map((item) => (
                 <Link key={item.href} to={item.href} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   {item.label} in {cityName}
@@ -541,7 +541,7 @@ const CityPage = () => {
             <h3 className="font-display text-lg font-semibold text-foreground mb-3">Op maximale prijs</h3>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 mb-6">
               {[750, 1000, 1250, 1500, 2000].map((price) => (
-                <Link key={price} to={`/aanbod-in/${citySlug}/onder-${price}`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                <Link key={price} to={`/huurwoningen/${citySlug}/onder-${price}`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   Woningen onder €{price.toLocaleString("nl-NL")}
                 </Link>
               ))}
@@ -551,7 +551,7 @@ const CityPage = () => {
             <h3 className="font-display text-lg font-semibold text-foreground mb-3">Op aantal kamers</h3>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4 mb-6">
               {[1, 2, 3, 4].map((beds) => (
-                <Link key={beds} to={`/aanbod-in/${citySlug}/${beds}-kamers`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                <Link key={beds} to={`/huurwoningen/${citySlug}/${beds}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                   {beds} {beds === 1 ? "kamer" : "kamers"} in {cityName}
                 </Link>
               ))}
@@ -589,10 +589,10 @@ const CityPage = () => {
               </h3>
               <p>
                 Het aanbod in {cityName} omvat alle woningtypes:{" "}
-                <Link to={`/appartement-huren/${citySlug}`} className="text-primary underline hover:no-underline">appartementen in {cityName}</Link>,{" "}
-                <Link to={`/huis-huren/${citySlug}`} className="text-primary underline hover:no-underline">huizen in {cityName}</Link>,{" "}
-                <Link to={`/studio-huren/${citySlug}`} className="text-primary underline hover:no-underline">studio's in {cityName}</Link> en{" "}
-                <Link to={`/kamer-huren/${citySlug}`} className="text-primary underline hover:no-underline">kamers in {cityName}</Link>.
+                <Link to={`/huurwoningen/${citySlug}/appartement`} className="text-primary underline hover:no-underline">appartementen in {cityName}</Link>,{" "}
+                <Link to={`/huurwoningen/${citySlug}/huis`} className="text-primary underline hover:no-underline">huizen in {cityName}</Link>,{" "}
+                <Link to={`/huurwoningen/${citySlug}/studio`} className="text-primary underline hover:no-underline">studio's in {cityName}</Link> en{" "}
+                <Link to={`/huurwoningen/${citySlug}/kamer`} className="text-primary underline hover:no-underline">kamers in {cityName}</Link>.
               </p>
 
               <h3 className="font-display text-lg font-semibold text-foreground pt-2">
@@ -600,13 +600,13 @@ const CityPage = () => {
               </h3>
               <p>
                 Op zoek naar een <strong>goedkope huurwoning in {cityName}</strong>? Bekijk woningen{" "}
-                <Link to={`/aanbod-in/${citySlug}/onder-750`} className="text-primary underline hover:no-underline">onder €750</Link>,{" "}
-                <Link to={`/aanbod-in/${citySlug}/onder-1000`} className="text-primary underline hover:no-underline">onder €1.000</Link> of{" "}
-                <Link to={`/aanbod-in/${citySlug}/onder-1500`} className="text-primary underline hover:no-underline">onder €1.500</Link>.
+                <Link to={`/huurwoningen/${citySlug}/onder-750`} className="text-primary underline hover:no-underline">onder €750</Link>,{" "}
+                <Link to={`/huurwoningen/${citySlug}/onder-1000`} className="text-primary underline hover:no-underline">onder €1.000</Link> of{" "}
+                <Link to={`/huurwoningen/${citySlug}/onder-1500`} className="text-primary underline hover:no-underline">onder €1.500</Link>.
                 Zoek je meer ruimte? Filter op{" "}
-                <Link to={`/aanbod-in/${citySlug}/2-kamers`} className="text-primary underline hover:no-underline">2 kamers</Link>,{" "}
-                <Link to={`/aanbod-in/${citySlug}/3-kamers`} className="text-primary underline hover:no-underline">3 kamers</Link> of{" "}
-                <Link to={`/aanbod-in/${citySlug}/4-kamers`} className="text-primary underline hover:no-underline">4+ kamers</Link>.
+                <Link to={`/huurwoningen/${citySlug}/2-slaapkamers`} className="text-primary underline hover:no-underline">2 kamers</Link>,{" "}
+                <Link to={`/huurwoningen/${citySlug}/3-slaapkamers`} className="text-primary underline hover:no-underline">3 kamers</Link> of{" "}
+                <Link to={`/huurwoningen/${citySlug}/4-slaapkamers`} className="text-primary underline hover:no-underline">4+ kamers</Link>.
               </p>
 
               <p>
