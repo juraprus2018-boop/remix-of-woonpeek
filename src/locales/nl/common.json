@@ -198,7 +198,8 @@
     "typeStudio": "Studio",
     "typeRoom": "Kamer",
     "forRent": "Te huur",
-    "forSale": "Te koop"
+    "forSale": "Te koop",
+    "typeVacationHome": "Vakantiehuis"
   },
   "home": {
     "location": "Locatie",

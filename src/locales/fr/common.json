@@ -198,7 +198,8 @@
     "typeStudio": "Studio",
     "typeRoom": "Chambre",
     "forRent": "À louer",
-    "forSale": "À vendre"
+    "forSale": "À vendre",
+    "typeVacationHome": "Maison de vacances"
   },
   "home": {
     "location": "Lieu",
