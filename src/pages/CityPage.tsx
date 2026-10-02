@@ -98,7 +98,6 @@ const CityPage = () => {
 
   const allProperties = allPropertiesQuery.data?.properties || [];
   const filteredProperties = filteredPropertiesQuery.data?.properties || [];
-  const totalCount = allPropertiesQuery.data?.totalCount || 0;
   const filteredCount = filteredPropertiesQuery.data?.totalCount || 0;
   const isLoading = allPropertiesQuery.isLoading || filteredPropertiesQuery.isLoading;
 
@@ -123,6 +122,8 @@ const CityPage = () => {
   });
   const huurCount = countData?.huur || 0;
   const koopCount = countData?.koop || 0;
+  // Eén telbron: exacte tellingen per type, met de lijsttelling als ondergrens.
+  const totalCount = Math.max(huurCount + koopCount, allPropertiesQuery.data?.totalCount || 0);
   const { data: marketData } = useCityMarketData(cityName);
 
 
@@ -240,9 +241,11 @@ const CityPage = () => {
                 <Link to={`/huurwoningen/${citySlug}/studio`} className="text-primary hover:underline">studio's</Link>. Plus markt, buurten en gratis alerts.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
-                <div className="rounded-full bg-card px-4 py-2 text-sm text-foreground shadow-sm">
-                  {totalCount} totaal aanbod
-                </div>
+                {totalCount > 0 && (
+                  <div className="rounded-full bg-card px-4 py-2 text-sm text-foreground shadow-sm">
+                    {totalCount} totaal aanbod
+                  </div>
+                )}
                 <Link to={`/huurwoningen/${citySlug}`}>
                   <Button variant="outline" size="sm" className="gap-2">
                     Huurwoningen
