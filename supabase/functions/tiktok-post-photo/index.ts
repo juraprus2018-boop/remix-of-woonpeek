@@ -26,6 +26,13 @@ interface PropertyRow {
   images: string[] | null;
   slug: string | null;
   address_slug: string | null;
+  created_at: string;
+}
+
+const MAX_PHOTOS = 35;
+
+function usablePhotos(images: string[] | null): string[] {
+  return [...new Set((images ?? []).filter((url) => /^https:\/\//i.test(url)))].slice(0, MAX_PHOTOS);
 }
 
 /**
@@ -105,12 +112,12 @@ Deno.serve(async (req) => {
         .limit(60);
       if (excluded.length) q = q.not("id", "in", `(${excluded.join(",")})`);
       const { data } = await q;
-      prop = ((data as PropertyRow[] | null) ?? []).find((p) => (p.images?.length ?? 0) >= 2) ?? null;
+      prop = ((data as PropertyRow[] | null) ?? []).find((p) => usablePhotos(p.images).length >= 2) ?? null;
     }
 
     if (!prop) throw new Error("No suitable property to post");
     if (prop.listing_type !== "huur") throw new Error("Alleen huurwoningen worden op TikTok geplaatst");
-    const sourcePhotos = (prop.images ?? []).slice(0, 35); // TikTok max 35
+    const sourcePhotos = usablePhotos(prop.images);
     if (sourcePhotos.length < 2) throw new Error(`Property ${prop.id} has fewer than 2 images`);
 
     // Rehost externe foto's naar tiktok-media bucket (TikTok URL ownership eis)
@@ -186,6 +193,7 @@ Deno.serve(async (req) => {
         property_id: prop.id,
         publish_id: publishId,
         photo_count: photos.length,
+        property_url: propertyUrl(prop),
         message:
           PRIVACY_LEVEL === "PUBLIC_TO_EVERYONE"
             ? "Foto-carrousel direct gepubliceerd op TikTok."

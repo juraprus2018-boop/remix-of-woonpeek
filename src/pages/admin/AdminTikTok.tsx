@@ -98,11 +98,11 @@ const AdminTikTok = () => {
         body: propertyId ? { property_id: propertyId } : {},
       });
       if (error) throw error;
-      const res = data as { success: boolean; message?: string; error?: string };
+      const res = data as { success: boolean; message?: string; error?: string; photo_count?: number };
       if (!res.success) throw new Error(res.error || "Onbekende fout");
       toast.success(
         mode === "photo"
-          ? "Foto-carrousel staat in je TikTok inbox"
+          ? `Foto-post verstuurd${res.photo_count ? ` met ${res.photo_count} foto's` : ""}`
           : "Video staat in je TikTok inbox",
         { description: res.message ?? "Open de TikTok app en tap 'Post'." },
       );
@@ -125,6 +125,7 @@ const AdminTikTok = () => {
             "id,title,city,price,listing_type,property_type,surface_area,bedrooms,bathrooms,energy_label,street,house_number,images,slug,created_at"
           )
           .eq("status", "actief")
+          .eq("listing_type", "huur")
           .order("created_at", { ascending: false })
           .limit(PAGE_SIZE),
         (supabase as any).from("tiktok_posts").select("property_id,posted_at"),
@@ -221,7 +222,7 @@ const AdminTikTok = () => {
               TikTok automatisch
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Volledig automatisch: dagelijks wordt een nieuwe woning omgezet naar een 9:16 video en in jouw TikTok inbox geplaatst. Open TikTok en tap 1× 'Post'.
+              Recente huurwoningen met echte foto's, directe woninglink en automatische fotoposts.
             </p>
           </div>
           <Button onClick={handleOpenTikTok} variant="default" className="gap-2">
@@ -285,7 +286,7 @@ const AdminTikTok = () => {
                   ) : (
                     <Zap className="h-4 w-4" />
                   )}
-                  Post nieuwste (video)
+                  Post nieuwste als video
                 </Button>
               )}
               {account && (
@@ -300,7 +301,7 @@ const AdminTikTok = () => {
                   ) : (
                     <Zap className="h-4 w-4" />
                   )}
-                  Post nieuwste (foto's)
+                  Post nieuwste met alle foto's
                 </Button>
               )}
             </div>
@@ -309,10 +310,10 @@ const AdminTikTok = () => {
 
         {/* Werkwijze */}
         <Card className="bg-muted/40 p-5">
-          <h2 className="mb-3 font-display text-base font-semibold">Werkwijze (≈ 30 sec per post)</h2>
+          <h2 className="mb-3 font-display text-base font-semibold">Handmatig plaatsen</h2>
           <ol className="space-y-1.5 text-sm text-muted-foreground">
             <li><strong>1.</strong> Klik <em>Genereer slides</em> bij een woning → preview verschijnt.</li>
-            <li><strong>2.</strong> Klik <em>Download ZIP</em> → 5 jpg's verschijnen in je downloads.</li>
+            <li><strong>2.</strong> Klik <em>Download ZIP</em> → alle beschikbare woningfoto's verschijnen, maximaal 35 slides.</li>
             <li><strong>3.</strong> Klik <em>Kopieer caption</em> → tekst staat klaar op klembord.</li>
             <li><strong>4.</strong> Klik <em>Open TikTok Upload</em>, kies <em>Foto's</em>, sleep de 5 jpg's erin op volgorde.</li>
             <li><strong>5.</strong> Plak caption (Cmd/Ctrl+V), publiceer, klik tot slot <em>Markeer als gepost</em>.</li>
@@ -366,6 +367,9 @@ const AdminTikTok = () => {
                             {p.listing_type === "huur" ? "/mnd" : ""}
                             {p.surface_area ? ` · ${p.surface_area} m²` : ""}
                           </p>
+                          <p className="mt-1 text-xs text-muted-foreground">
+                            Nieuw sinds {new Date(p.created_at).toLocaleDateString("nl-NL")} · {p.images?.length ?? 0} foto's
+                          </p>
                         </div>
                         {postedAt && (
                           <Badge variant="secondary" className="gap-1">
@@ -379,7 +383,7 @@ const AdminTikTok = () => {
                         {account && (
                           <Button
                             size="sm"
-                            onClick={() => handleAutoPost(p.id)}
+                            onClick={() => handleAutoPost(p.id, "photo")}
                             disabled={autoPosting}
                             className="gap-1"
                           >
@@ -388,7 +392,7 @@ const AdminTikTok = () => {
                             ) : (
                               <Zap className="h-4 w-4" />
                             )}
-                            Auto-post naar TikTok
+                            Post alle foto's
                           </Button>
                         )}
                         <Button
