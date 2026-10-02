@@ -45,10 +45,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-[0.22em] text-background">{t("footer.popularSearches")}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/appartement-huren/amsterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.apartments")} Amsterdam</Link></li>
+              <li><Link to="/huurwoningen/amsterdam/appartement" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.apartments")} Amsterdam</Link></li>
               <li><Link to="/huurwoningen/rotterdam" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Rotterdam</Link></li>
-              <li><Link to="/appartement-huren/utrecht" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.apartments")} Utrecht</Link></li>
-              <li><Link to="/kamer-huren/eindhoven" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rooms")} Eindhoven</Link></li>
+              <li><Link to="/huurwoningen/utrecht/appartement" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.apartments")} Utrecht</Link></li>
+              <li><Link to="/huurwoningen/eindhoven/kamer" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rooms")} Eindhoven</Link></li>
               <li><Link to="/huurwoningen/den-haag/onder-1000" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Den Haag &lt; €1.000</Link></li>
               <li><Link to="/huurwoningen/groningen" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("nav.categories.rentals")} Groningen</Link></li>
               <li><Link to="/woonradar" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">{t("footer.linkAlert")}</Link></li>
