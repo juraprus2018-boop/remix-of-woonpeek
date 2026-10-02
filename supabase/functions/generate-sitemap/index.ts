@@ -107,7 +107,7 @@ function buildPagesSitemap(now: string, blogSlugs: string[] = [], agencySlugs: s
     { loc: "/studio-huren", changefreq: "daily", priority: "0.7" },
     { loc: "/kamer-huren", changefreq: "daily", priority: "0.7" },
     { loc: "/plaatsen-start", changefreq: "weekly", priority: "0.7" },
-    { loc: "/woonradar", changefreq: "monthly", priority: "0.6" },
+    { loc: "/woonmelding", changefreq: "monthly", priority: "0.6" },
     { loc: "/vragen", changefreq: "monthly", priority: "0.5" },
     { loc: "/woordenboek", changefreq: "monthly", priority: "0.7" },
     { loc: "/transparantie", changefreq: "monthly", priority: "0.4" },

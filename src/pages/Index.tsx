@@ -438,7 +438,7 @@ const Index = () => {
                 </p>
               </div>
               <div className="flex flex-col gap-3 lg:items-end">
-                <Link to="/woonradar" className="w-full lg:w-auto">
+                <Link to="/woonmelding" className="w-full lg:w-auto">
                   <Button
                     size="lg"
                     className="h-14 w-full gap-2 rounded-xl bg-primary-foreground px-8 text-base font-extrabold text-primary shadow-lg hover:bg-primary-foreground/90 lg:w-auto"

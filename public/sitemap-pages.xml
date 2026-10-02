@@ -243,15 +243,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/plaatsen-start" />
   </url>
   <url>
-    <loc>https://www.woonaanbod-nl.nl/woonradar</loc>
+    <loc>https://www.woonaanbod-nl.nl/woonmelding</loc>
     <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woonradar" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.woonaanbod-nl.nl/en/woonradar" />
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.woonaanbod-nl.nl/de/woonradar" />
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.woonaanbod-nl.nl/fr/woonradar" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/woonradar" />
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woonmelding" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.woonaanbod-nl.nl/en/woonmelding" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.woonaanbod-nl.nl/de/woonmelding" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.woonaanbod-nl.nl/fr/woonmelding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/woonmelding" />
   </url>
   <url>
     <loc>https://www.woonaanbod-nl.nl/vragen</loc>

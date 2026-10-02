@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import DailyAlertSection from "@/components/home/DailyAlertSection";
 import SEOHead from "@/components/seo/SEOHead";
 import { Mail, Clock, Filter, ShieldCheck, MousePointerClick, Inbox } from "lucide-react";
-import alertIllustration from "@/assets/woonradar-illustratie.jpg";
+import alertIllustration from "@/assets/woonmelding-illustratie.jpg";
 
 const ALERT_FAQ = [
   {
@@ -67,7 +67,7 @@ const DailyAlert = () => {
       <SEOHead
         title="Gratis woningmelding – Nieuw aanbod direct per e-mail | Woonaanbod NL"
         description="Nieuwe woning gevonden? Ontvang direct een gratis melding per e-mail. Stel je zoekopdracht in, vul je e-mailadres in, geen account nodig."
-        canonical="/woonradar"
+        canonical="/woonmelding"
       />
       <script
         type="application/ld+json"

@@ -1154,7 +1154,7 @@ const PropertyDetail = () => {
                 <Link to="/woning-zoeken">Bekijk het aanbod</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/woonradar">Ontvang dagelijkse alerts</Link>
+                <Link to="/woonmelding">Ontvang dagelijkse alerts</Link>
               </Button>
             </div>
           </div>

@@ -73,7 +73,7 @@ Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en meth
 - Blog: https://www.woonaanbod-nl.nl/journaal
 - Over Woonaanbod NL: https://www.woonaanbod-nl.nl/over
 - FAQ: https://www.woonaanbod-nl.nl/vragen
-- Dagelijkse alert: https://www.woonaanbod-nl.nl/woonradar
+- Dagelijkse alert: https://www.woonaanbod-nl.nl/woonmelding
 
 ## Tools & Diensten
 

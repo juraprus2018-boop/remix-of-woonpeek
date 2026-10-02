@@ -98,7 +98,7 @@ const LongtailLanding = () => {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link to="/woonradar">Krijg meldingen per e-mail</Link>
+                <Link to="/woonmelding">Krijg meldingen per e-mail</Link>
               </Button>
             </div>
           </div>

@@ -207,7 +207,7 @@ const RentIndexPage = () => {
             <p>
               Bekijk ook de <Link to={`/heatmap/${citySlug}`} className="text-primary underline">huurprijs heatmap van {cityName}</Link> voor verschillen tussen postcodes, of het <Link to={cityPath(cityName)} className="text-primary underline">actuele aanbod</Link>.
             </p>
-            <Link to="/woonradar" className="mt-2 inline-flex items-center gap-1 text-primary underline">
+            <Link to="/woonmelding" className="mt-2 inline-flex items-center gap-1 text-primary underline">
               Ontvang nieuwe woningen direct in je mailbox <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

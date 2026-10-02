@@ -149,7 +149,7 @@ const PostcodePage = () => {
                       <Link to="/woning-zoeken">Bekijk alle woningen</Link>
                     </Button>
                     <Button asChild variant="outline">
-                      <Link to="/woonradar">
+                      <Link to="/woonmelding">
                         Alert aanmaken <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>

@@ -200,14 +200,14 @@ const SocialeHuurWachttijd = () => {
                 <p className="mt-2 text-sm text-muted-foreground">
                   Voor wie nu een woning nodig heeft is de vrije sector vaak de enige optie. Op
                   Woonaanbod NL verschijnt elke dag nieuw vrije sector huuraanbod. Zet een gratis
-                  woonradar en je krijgt het meteen in je mailbox.
+                  melding aan en je krijgt het meteen in je mailbox.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link
-                    to="/woonradar"
+                    to="/woonmelding"
                     className="inline-flex items-center rounded-lg border-2 border-foreground bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/90"
                   >
-                    Zet woonradar aan
+                    Zet je melding aan
                   </Link>
                   <Link
                     to="/huurwoningen"

@@ -113,7 +113,7 @@ const DailyAlertSection = () => {
             <div className="hidden md:col-span-2 md:block">
               <img
                 src={dailyAlertImg}
-                alt="Wekelijkse woningalerts"
+                alt="Gratis woningmelding per e-mail"
                 className="h-full w-full object-cover"
                 loading="lazy"
               />

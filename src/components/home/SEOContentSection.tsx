@@ -32,7 +32,7 @@ const SEOContentSection = () => {
           </p>
           <p>
             Zet onze gratis{" "}
-            <Link to="/woonradar" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
+            <Link to="/woonmelding" className="text-primary hover:underline">dagelijkse alert</Link>{" "}
             aan en krijg automatisch een mail wanneer er iets binnenkomt dat klopt.
             Check ook even het{" "}
             <Link to="/vandaag" className="text-primary hover:underline">nieuw aanbod van vandaag</Link>{" "}

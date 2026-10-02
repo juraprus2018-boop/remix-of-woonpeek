@@ -14,7 +14,7 @@ export const ROUTES = {
   search: "/woning-zoeken",
   map: "/op-kaart",
   newToday: "/vandaag",
-  alert: "/woonradar",
+  alert: "/woonmelding",
   // Account
   login: "/login",
   register: "/aanmelden",

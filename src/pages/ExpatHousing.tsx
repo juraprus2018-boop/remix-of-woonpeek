@@ -194,7 +194,7 @@ const ExpatHousing = () => {
                   registration fee.
                 </p>
                 <Link
-                  to="/woonradar"
+                  to="/woonmelding"
                   className="mt-3 inline-flex items-center rounded-lg border-2 border-foreground bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/90"
                 >
                   Set up alert

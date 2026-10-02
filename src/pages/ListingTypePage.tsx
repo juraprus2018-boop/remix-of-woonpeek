@@ -250,7 +250,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 )}
                 {cityName && (
                   <Link
-                    to="/woonradar"
+                    to="/woonmelding"
                     className="rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20"
                   >
                     Dagelijkse alert instellen
@@ -359,7 +359,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   Stel een alert in om als eerste op de hoogte te zijn wanneer er nieuw aanbod komt.
                 </p>
                 <div className="mt-4 flex gap-3">
-                  <Link to="/woonradar">
+                  <Link to="/woonmelding">
                     <Button>Alert instellen</Button>
                   </Link>
                   <Link to="/woning-zoeken">
@@ -426,7 +426,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </p>
                   <p>
                     Tip: stel een gratis{" "}
-                    <Link to="/woonradar" className="text-primary underline hover:no-underline">
+                    <Link to="/woonmelding" className="text-primary underline hover:no-underline">
                       dagelijkse alert
                     </Link>{" "}
                     in en ontvang elke dag een overzicht van nieuwe huurwoningen
@@ -476,7 +476,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                 <li>
                   <strong>Reageer snel</strong>: Nieuwe {label.plural.toLowerCase()} in {locationLabel} zijn
                   vaak snel weg. Stel een{" "}
-                  <Link to="/woonradar" className="text-primary underline hover:no-underline">
+                  <Link to="/woonmelding" className="text-primary underline hover:no-underline">
                     dagelijkse alert
                   </Link>{" "}
                   in om als eerste op de hoogte te zijn.
