@@ -30,6 +30,12 @@ const Samenwerking = () => {
       />
       <Header />
       <main className="flex-1">
+        <div className="border-b bg-primary text-primary-foreground">
+          <div className="container flex flex-wrap items-center justify-between gap-3 py-4">
+            <p className="font-medium">Makelaar of verhuurder? Plaats je volledige woningaanbod gratis op Woonaanbod NL.</p>
+            <Link to="/voor-makelaars" className="rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground">Plaats je woningaanbod gratis</Link>
+          </div>
+        </div>
         {/* Hero */}
         <section className="border-b bg-muted/30 py-12 md:py-16">
           <div className="container text-center">
