@@ -1,4 +1,5 @@
 import JSZip from "jszip";
+import { propertyUrl } from "@/lib/propertyUrl";
 
 export interface SlideProperty {
   id: string;
@@ -15,6 +16,8 @@ export interface SlideProperty {
   house_number?: string | null;
   images: string[];
   slug?: string | null;
+  address_slug?: string | null;
+  created_at?: string | null;
 }
 
 const W = 1080;
@@ -235,7 +238,7 @@ async function slideStats(p: SlideProperty): Promise<Blob> {
   ctx.fillText("Bekijk op Woonaanbod NL.nl", W / 2, H - 195);
 
   ctx.font = "500 32px 'Plus Jakarta Sans', system-ui, sans-serif";
-  ctx.fillText("Link in bio", W / 2, H - 150);
+  ctx.fillText("Directe woninglink in de caption", W / 2, H - 150);
 
   drawWatermark(ctx);
 
@@ -246,17 +249,16 @@ export async function generateSlides(p: SlideProperty): Promise<Blob[]> {
   const slides: Blob[] = [];
   slides.push(await slideHero(p));
 
-  const photos = (p.images || []).slice(1, 4);
-  const captions = [
-    `${p.surface_area ? `${p.surface_area} m²` : "Ruim"} · ${p.bedrooms != null ? `${p.bedrooms} slpk` : "comfort"}`,
-    `${p.city}${p.energy_label ? ` · Label ${p.energy_label}` : ""}`,
-    "Snel reageren? Link in bio",
-  ];
+  const photos = (p.images || []).filter(Boolean).slice(1, 34);
   for (let i = 0; i < photos.length; i++) {
-    slides.push(await slidePhoto(p, photos[i], captions[i] ?? ""));
+    const caption = i === 0
+      ? `${p.surface_area ? `${p.surface_area} m²` : "Ruim"} · ${p.bedrooms != null ? `${p.bedrooms} slpk` : "comfort"}`
+      : i === photos.length - 1
+        ? `Bekijk deze woning in ${p.city}`
+        : `${p.city}${p.energy_label && i === 1 ? ` · Label ${p.energy_label}` : ""}`;
+    slides.push(await slidePhoto(p, photos[i], caption));
   }
-  // Pad with stats slide and ensure 5 slides
-  slides.push(await slideStats(p));
+  if (slides.length < 35) slides.push(await slideStats(p));
   return slides;
 }
 
@@ -280,11 +282,12 @@ export async function downloadSlidesZip(p: SlideProperty): Promise<void> {
 export function buildTikTokCaption(p: SlideProperty): string {
   const price = fmtPrice(p.price, p.listing_type);
   const type = p.listing_type === "huur" ? "Te huur" : "Te koop";
+  const url = `${propertyUrl(p)}?utm_source=tiktok&utm_medium=social&utm_campaign=tiktok-dashboard`;
   const lines = [
     `🏡 ${type} in ${p.city}`,
     `💰 ${price}${p.surface_area ? ` · ${p.surface_area} m²` : ""}${p.bedrooms != null ? ` · ${p.bedrooms} slpk` : ""}`,
     "",
-    "👉 Volledige info & reageren via Woonaanbod NL.nl (link in bio)",
+    `👉 Bekijk de woning en reageer direct: ${url}`,
     "",
     buildHashtags(p),
   ];
@@ -294,7 +297,7 @@ export function buildTikTokCaption(p: SlideProperty): string {
 export function buildHashtags(p: SlideProperty): string {
   const citySlug = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
   const tags = [
-    "#woonaanbod-nl",
+    "#woonaanbodnl",
     "#woningnederland",
     p.listing_type === "huur" ? "#huurwoning" : "#koopwoning",
     p.listing_type === "huur" ? "#tehuur" : "#tekoop",

@@ -5,6 +5,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 import { buildCaption, getValidTikTokToken } from "../_shared/tiktok.ts";
 import { requireAdmin } from "../_shared/auth.ts";
+import { propertyUrl } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -26,6 +27,7 @@ interface PropertyRow {
   house_number: string | null;
   images: string[] | null;
   slug: string | null;
+  address_slug: string | null;
 }
 
 function fmtPrice(p: number, t: string) {
@@ -39,7 +41,7 @@ function fmtPrice(p: number, t: string) {
 }
 
 function buildShotstackTimeline(p: PropertyRow) {
-  const photos = (p.images ?? []).slice(0, 5);
+  const photos = [...new Set((p.images ?? []).filter((url) => /^https:\/\//i.test(url)))].slice(0, 10);
   const SLIDE_LEN = 3; // seconden per foto
   const FADE = 0.5;
   const tracks: any[] = [];
@@ -219,6 +221,7 @@ Deno.serve(async (req) => {
         .from("properties")
         .select("*")
         .eq("status", "actief")
+        .eq("listing_type", "huur")
         .order("created_at", { ascending: false })
         .limit(20);
       if (excluded.length) q = q.not("id", "in", `(${excluded.join(",")})`);
@@ -227,6 +230,7 @@ Deno.serve(async (req) => {
     }
 
     if (!prop) throw new Error("No suitable property to post");
+    if (prop.listing_type !== "huur") throw new Error("Alleen huurwoningen worden op TikTok geplaatst");
     if (!prop.images || prop.images.length < 2) {
       throw new Error(`Property ${prop.id} has fewer than 2 images`);
     }
@@ -252,6 +256,7 @@ Deno.serve(async (req) => {
       surface_area: prop.surface_area,
       bedrooms: prop.bedrooms,
       property_type: prop.property_type,
+      url: `${propertyUrl(prop)}?utm_source=tiktok&utm_medium=social&utm_campaign=tiktok-auto-video`,
     });
 
     // DIRECT_POST: publiceert direct op het profiel zonder draft.
