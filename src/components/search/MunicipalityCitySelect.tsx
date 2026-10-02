@@ -25,6 +25,8 @@ interface MunicipalityCitySelectProps {
   id?: string;
   /** Extra className voor de wrapper. */
   className?: string;
+  /** Hulptekst onder het veld verbergen (compacte formulieren). */
+  hideHelper?: boolean;
 }
 
 interface PlaceOption {
@@ -53,6 +55,7 @@ const MunicipalityCitySelect = ({
   onChange,
   id,
   className,
+  hideHelper,
 }: MunicipalityCitySelectProps) => {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -223,9 +226,11 @@ const MunicipalityCitySelect = ({
           </Command>
         </PopoverContent>
       </Popover>
-      <p className="mt-1.5 text-xs text-muted-foreground">
-        Typ de naam van je stad of dorp. Je ontvangt alleen meldingen voor deze plaats.
-      </p>
+      {!hideHelper && (
+        <p className="mt-1.5 text-xs text-muted-foreground">
+          Typ de naam van je stad of dorp. Je ontvangt alleen meldingen voor deze plaats.
+        </p>
+      )}
     </div>
   );
 };
