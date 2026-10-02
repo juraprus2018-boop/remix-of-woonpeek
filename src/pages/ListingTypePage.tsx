@@ -9,6 +9,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import SimilarProperties from "@/components/city/SimilarProperties";
 import RelatedCities from "@/components/city/RelatedCities";
+import CityDataHub from "@/components/city/CityDataHub";
 import { useProperties, useNearbyProperties, useFilterFacets } from "@/hooks/useProperties";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -581,6 +582,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         </section>
 
         {/* Related cities */}
+        {citySlug && cityName && listingType === "huur" && <CityDataHub cityName={cityName} currentPath={`/huurwoningen/${citySlug}`} />}
         {citySlug && cityName && <RelatedCities currentCity={cityName} />}
       </main>
       <Footer />

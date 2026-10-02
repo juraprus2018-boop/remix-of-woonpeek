@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import SimilarProperties from "@/components/city/SimilarProperties";
 import RelatedCities from "@/components/city/RelatedCities";
+import CityDataHub from "@/components/city/CityDataHub";
 import { useProperties } from "@/hooks/useProperties";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -466,6 +467,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         </section>
 
         {/* Andere steden */}
+        {citySlug && <CityDataHub cityName={cityName} />}
         {citySlug && <RelatedCities currentCity={cityName} />}
       </main>
       <Footer />

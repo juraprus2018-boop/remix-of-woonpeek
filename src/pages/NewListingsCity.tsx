@@ -7,6 +7,7 @@ import PropertyCard from "@/components/properties/PropertyCard";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import RelatedCities from "@/components/city/RelatedCities";
+import CityDataHub from "@/components/city/CityDataHub";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
@@ -229,6 +230,7 @@ const NewListingsCity = () => {
           </div>
         </section>
 
+        <CityDataHub cityName={cityName} currentPath={`/vandaag/${citySlug}`} />
         <RelatedCities currentCity={cityName} />
       </main>
       <Footer />
