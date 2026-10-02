@@ -12,6 +12,12 @@ import MunicipalityCitySelect from "@/components/search/MunicipalityCitySelect";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const PROPERTY_TYPE_LABELS: Record<string, string> = {
+  appartement: "Appartement",
+  huis: "Huis",
+  vakantiehuis: "Vakantiehuis",
+};
+
 const DailyAlertSection = () => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -89,6 +95,10 @@ const DailyAlertSection = () => {
     subscribe.mutate({
       email: user ? undefined : email.trim().toLowerCase(),
       city,
+      property_type: propertyType || undefined,
+      search_label: propertyType
+        ? `${PROPERTY_TYPE_LABELS[propertyType]} in ${city}`
+        : undefined,
       turnstileToken,
     });
   };
