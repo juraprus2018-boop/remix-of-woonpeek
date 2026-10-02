@@ -17,4 +17,6 @@ Er is **één** alert-product op de hele site. Belofte overal identiek:
   (city optioneel, listing_type, property_type, min_price, max_price, min_rooms, search_label, filter_key).
   Unieke combinatie is (email, filter_key), dus meerdere zoekopdrachten per e-mailadres.
 - Verzending: `check-search-alerts` filtert per abonnee op die kolommen; cron job 5 loopt elk uur (20 * * * *).
-- `/woonradar` blijft de landingspagina van dit ene product; `/radarmeldingen` is enkel beheer voor ingelogde gebruikers.
+- `/woonmelding` blijft de landingspagina van dit ene product (voorheen
+  `/woonradar`, die URL redirectt door); `/radarmeldingen` is enkel beheer
+  voor ingelogde gebruikers.
