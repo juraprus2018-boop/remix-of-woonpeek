@@ -112,13 +112,13 @@ Deno.serve(async (req) => {
         .limit(60);
       if (excluded.length) q = q.not("id", "in", `(${excluded.join(",")})`);
       const { data } = await q;
-      prop = ((data as PropertyRow[] | null) ?? []).find((p) => usablePhotos(p.images).length >= 2) ?? null;
+      prop = ((data as PropertyRow[] | null) ?? []).find((p) => usablePhotos(p.images).length >= 4) ?? null;
     }
 
     if (!prop) throw new Error("No suitable property to post");
     if (prop.listing_type !== "huur") throw new Error("Alleen huurwoningen worden op TikTok geplaatst");
     const sourcePhotos = usablePhotos(prop.images);
-    if (sourcePhotos.length < 2) throw new Error(`Property ${prop.id} has fewer than 2 images`);
+    if (sourcePhotos.length < 4) throw new Error(`Property ${prop.id} has fewer than 4 images`);
 
     // Rehost externe foto's naar tiktok-media bucket (TikTok URL ownership eis)
     const photos = await rehostPhotos(sb, prop.id, sourcePhotos);
