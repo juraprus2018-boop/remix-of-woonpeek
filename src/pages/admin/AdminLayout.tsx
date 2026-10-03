@@ -81,6 +81,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { to: "/admin/tiktok", label: "TikTok", icon: Music2 },
     { to: "/admin/leads", label: "Makelaar Leads", icon: Handshake },
     { to: "/admin/makelaars", label: "Aangesloten makelaars", icon: Handshake },
+    { to: "/admin/pers", label: "Pers", icon: FileText },
     { to: "/admin/email", label: "E-mail Sender", icon: Mail },
     { to: "/admin/alerts", label: "Alert Abonnees", icon: BellRing },
     { to: "/admin/berichten", label: "Berichten", icon: MessageCircle },

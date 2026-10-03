@@ -64,6 +64,9 @@ const AgenciesList = lazy(() => import("./pages/AgenciesList"));
 const AgencyPage = lazy(() => import("./pages/AgencyPage"));
 const MakelaarPortal = lazy(() => import("./pages/MakelaarPortal"));
 const AdminAgencies = lazy(() => import("./pages/admin/AdminAgencies"));
+const AdminPress = lazy(() => import("./pages/admin/AdminPress"));
+const Press = lazy(() => import("./pages/Press"));
+const PressRelease = lazy(() => import("./pages/PressRelease"));
 const AdminChat = lazy(() => import("./pages/admin/AdminChat"));
 const AdminComments = lazy(() => import("./pages/admin/AdminComments"));
 const AdminSearchQueries = lazy(() => import("./pages/admin/AdminSearchQueries"));
@@ -290,6 +293,8 @@ const PAGES: RouteDef[] = [
 
   // Data / SEO
   { path: "/woningmarkt", element: <MarketData /> },
+  { path: "/pers", element: <Press /> },
+  { path: "/pers/:slug", element: <PressRelease /> },
   { path: "/woningmarkt/:slug", element: <MarketTopicPage /> },
   { path: "/heatmap/:city", element: <RentHeatmapPage /> },
   { path: "/huurprijs-index/:city", element: <RentIndexPage /> },
@@ -362,6 +367,7 @@ const ADMIN_PAGES: RouteDef[] = [
   { path: "/admin/tiktok", element: <AdminTikTok /> },
   { path: "/admin/leads", element: <AdminMakelaarLeads /> },
   { path: "/admin/makelaars", element: <AdminAgencies /> },
+  { path: "/admin/pers", element: <AdminPress /> },
   { path: "/admin/email", element: <AdminEmailSender /> },
   { path: "/admin/alerts", element: <AdminAlertSubscribers /> },
   { path: "/admin/berichten", element: <AdminChat /> },
