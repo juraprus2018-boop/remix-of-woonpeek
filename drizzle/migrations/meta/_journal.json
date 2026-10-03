@@ -29,6 +29,13 @@
       "when": 1791055516935,
       "tag": "0003_press_snapshot_immutable",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791055569832,
+      "tag": "0004_press_public_policy_fix",
+      "breakpoints": true
     }
   ]
 }
