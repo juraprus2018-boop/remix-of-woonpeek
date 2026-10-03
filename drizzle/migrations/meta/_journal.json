@@ -8,6 +8,34 @@
       "when": 1790970503217,
       "tag": "0000_add_vakantiehuis_property_type",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791055228160,
+      "tag": "0001_create_press_releases",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791055250255,
+      "tag": "0002_public_press_contact_setting",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791055516935,
+      "tag": "0003_press_snapshot_immutable",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791055569832,
+      "tag": "0004_press_public_policy_fix",
+      "breakpoints": true
     }
   ]
 }
