@@ -239,7 +239,7 @@ Deno.serve(async (req) => {
   try { body = await req.json(); } catch { /* empty */ }
   const kind = body.kind === "landelijk" ? "landelijk" : body.kind === "lokaal" ? "lokaal" : null;
   if (!kind) return json({ error: "kind moet 'lokaal' of 'landelijk' zijn" }, 400);
-  const manual = body.manual === true && !!gate.userId;
+  const manual = body.manual === true; // caller is already admin, service role or cron
   const now = amsterdamNow();
 
   if (!manual) {
