@@ -114,6 +114,11 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="https://www.tiktok.com/@woonaanbod" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
+                  <TikTokIcon className="h-4 w-4" /> TikTok
+                </a>
+              </li>
+              <li>
                 <a href="https://www.linkedin.com/company/woonaanbod-nl/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">
                   <Linkedin className="h-4 w-4" /> LinkedIn
                 </a>
