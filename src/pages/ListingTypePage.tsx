@@ -18,6 +18,7 @@ import { cityPath, citySlugToName } from "@/lib/cities";
 import { isValidDutchCity, getValidCityName } from "@/lib/dutchCities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
+import NotFound from "./NotFound";
 import SearchFilters, { type SearchFilterValues } from "@/components/search/SearchFilters";
 import ExploreMap from "@/components/explore/ExploreMap";
 import { useTranslation } from "react-i18next";
@@ -214,6 +215,11 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
   // Redirect invalid cities after all hooks
   if (shouldRedirect) {
     return <Navigate to="/niet-gevonden" replace />;
+  }
+
+  // Onbekende stad zonder aanbod: toon een echte 404-pagina (geen lege landingspagina).
+  if (isInvalidCity && !isLoading && !hasListings) {
+    return <NotFound />;
   }
 
   return (

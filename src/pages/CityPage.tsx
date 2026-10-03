@@ -1,7 +1,8 @@
 import { useMemo, useState, useCallback } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "./NotFound";
 import { supabase } from "@/integrations/supabase/client";
 import { isValidDutchCity, getValidCityName } from "@/lib/dutchCities";
 import Header from "@/components/layout/Header";
@@ -203,9 +204,9 @@ const CityPage = () => {
     [cityName, filteredCount, filteredProperties, pageDescription, canonical]
   );
 
-  // Redirect to 404 if city doesn't exist in our known list
+  // Toon een echte 404-pagina als de stad niet in onze bekende lijst staat.
   if (isInvalidCity) {
-    return <Navigate to="/niet-gevonden" replace />;
+    return <NotFound />;
   }
 
   return (

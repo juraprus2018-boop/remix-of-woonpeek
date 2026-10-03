@@ -16,6 +16,8 @@ import { ArrowRight, MapPin, Search } from "lucide-react";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
+import NotFound from "./NotFound";
+import { isValidDutchCity } from "@/lib/dutchCities";
 
 type PropertyType = Database["public"]["Enums"]["property_type"];
 type ListingType = Database["public"]["Enums"]["listing_type"];
@@ -247,6 +249,11 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     ],
     [h1, pageDescription, canonical, totalCount, properties]
   );
+
+  // Onbekende stad zonder aanbod: toon een echte 404-pagina (geen lege landingspagina).
+  if (citySlug && !isValidDutchCity(citySlug) && !isLoading && totalCount === 0) {
+    return <NotFound />;
+  }
 
   if (legacyBeds) {
     return <Navigate to={location.pathname.replace(/\/\d+-kamers$/, `/${legacyBeds[1]}-slaapkamers`) + location.search} replace />;
