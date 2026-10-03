@@ -1164,6 +1164,99 @@ export type Database = {
         }
         Relationships: []
       }
+      press_generation_log: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          message: string | null
+          release_id: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          message?: string | null
+          release_id?: string | null
+          status: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          message?: string | null
+          release_id?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      press_releases: {
+        Row: {
+          body: string | null
+          chart: Json | null
+          city_name: string | null
+          city_slug: string | null
+          created_at: string
+          data: Json
+          findings: Json
+          fingerprint: string | null
+          id: string
+          kind: string
+          methodology: string
+          published_at: string
+          reference_date: string
+          sample_size: number
+          slug: string
+          status: string
+          summary: string
+          title: string
+          topic: string | null
+        }
+        Insert: {
+          body?: string | null
+          chart?: Json | null
+          city_name?: string | null
+          city_slug?: string | null
+          created_at?: string
+          data?: Json
+          findings?: Json
+          fingerprint?: string | null
+          id?: string
+          kind: string
+          methodology: string
+          published_at?: string
+          reference_date: string
+          sample_size?: number
+          slug: string
+          status?: string
+          summary: string
+          title: string
+          topic?: string | null
+        }
+        Update: {
+          body?: string | null
+          chart?: Json | null
+          city_name?: string | null
+          city_slug?: string | null
+          created_at?: string
+          data?: Json
+          findings?: Json
+          fingerprint?: string | null
+          id?: string
+          kind?: string
+          methodology?: string
+          published_at?: string
+          reference_date?: string
+          sample_size?: number
+          slug?: string
+          status?: string
+          summary?: string
+          title?: string
+          topic?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

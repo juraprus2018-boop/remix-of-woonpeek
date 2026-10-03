@@ -8,6 +8,13 @@
       "when": 1790970503217,
       "tag": "0000_add_vakantiehuis_property_type",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791055228160,
+      "tag": "0001_create_press_releases",
+      "breakpoints": true
     }
   ]
 }
