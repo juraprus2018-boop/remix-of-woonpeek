@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://www.woonaanbod-nl.nl/sitemap-pages.xml</loc>
-    <lastmod>2026-08-26</lastmod>
+    <loc>https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=pages</loc>
   </sitemap>
   <sitemap>
-    <loc>https://www.woonaanbod-nl.nl/sitemap-steden.xml</loc>
-    <lastmod>2026-08-26</lastmod>
+    <loc>https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=steden</loc>
   </sitemap>
   <sitemap>
-    <loc>https://www.woonaanbod-nl.nl/sitemap-woningen.xml</loc>
-    <lastmod>2026-08-26</lastmod>
+    <loc>https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=woningen</loc>
   </sitemap>
 </sitemapindex>

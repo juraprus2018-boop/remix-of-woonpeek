@@ -16,6 +16,8 @@ import { ArrowRight, MapPin, Search } from "lucide-react";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
+import NotFound from "./NotFound";
+import { isValidDutchCity } from "@/lib/dutchCities";
 
 type PropertyType = Database["public"]["Enums"]["property_type"];
 type ListingType = Database["public"]["Enums"]["listing_type"];
