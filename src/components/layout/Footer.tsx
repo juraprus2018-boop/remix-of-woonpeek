@@ -92,7 +92,7 @@ const Footer = () => {
               <li><Link to="/blog" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Blog</Link></li>
               <li><Link to="/reacties" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">Reacties</Link></li>
 
-              <li><a href="/feed.xml" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">RSS feed</a></li>
+              <li><a href="https://kppotnzwhxkflceiscto.supabase.co/functions/v1/rss-feed" className="text-background/70 transition-colors hover:text-background hover:underline underline-offset-4">RSS feed</a></li>
             </ul>
           </div>
 
