@@ -115,6 +115,8 @@ const Verhuiskosten = lazy(() => import("./pages/Verhuiskosten"));
 const SocialeHuurWachttijd = lazy(() => import("./pages/SocialeHuurWachttijd"));
 const HuurcontractUitleg = lazy(() => import("./pages/HuurcontractUitleg"));
 const ExpatHousing = lazy(() => import("./pages/ExpatHousing"));
+const GuideLandingPage = lazy(() => import("./pages/GuideLandingPage"));
+import { GUIDE_PAGES } from "@/lib/guidePages";
 
 
 const queryClient = new QueryClient({
@@ -328,6 +330,7 @@ const PAGES: RouteDef[] = [
   { path: "/contract-check", element: <ContractCheck /> },
   { path: "/verhuiskosten", element: <Verhuiskosten /> },
   { path: "/sociale-huur-wachttijd", element: <SocialeHuurWachttijd /> },
+  ...GUIDE_PAGES.map((g) => ({ path: g.path, element: <GuideLandingPage guide={g} /> })),
   { path: "/huurcontract-uitleg", element: <HuurcontractUitleg /> },
   { path: "/expat-housing", element: <ExpatHousing /> },
 
