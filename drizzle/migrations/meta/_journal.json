@@ -15,6 +15,13 @@
       "when": 1791055228160,
       "tag": "0001_create_press_releases",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791055250255,
+      "tag": "0002_public_press_contact_setting",
+      "breakpoints": true
     }
   ]
 }
