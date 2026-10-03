@@ -1,11 +1,10 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { propertyUrl, SITE_URL } from "../_shared/propertyUrl.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
-
-const BASE = "https://www.woonaanbod-nl.nl";
 
 const escapeXml = (s: string) =>
   s
@@ -15,9 +14,7 @@ const escapeXml = (s: string) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 
-const citySlug = (c: string) => (c || "nederland").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   const supabase = createClient(
@@ -27,7 +24,7 @@ serve(async (req) => {
 
   const { data, error } = await supabase
     .from("properties")
-    .select("id, slug, address_slug, title, description, city, price, listing_type, images, created_at")
+    .select("id, address_slug, slug, title, description, city, price, listing_type, images, created_at")
     .eq("status", "actief")
     .order("created_at", { ascending: false })
     .limit(50);
@@ -38,9 +35,9 @@ serve(async (req) => {
 
   const items = (data ?? [])
     .map((p) => {
-      const link = `${BASE}/${p.listing_type === "koop" ? "koopwoning" : "huurwoning"}/${citySlug(p.city)}/${p.address_slug ?? p.slug ?? p.id}`;
+      const link = propertyUrl(p);
       const desc = p.description?.slice(0, 400) ?? p.title;
-      const img = p.images?.[0];
+      const img = Array.isArray(p.images) ? p.images[0] : undefined;
       const price = new Intl.NumberFormat("nl-NL", {
         style: "currency",
         currency: "EUR",
@@ -63,8 +60,8 @@ serve(async (req) => {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Woonaanbod NL - Nieuwste woningen</title>
-    <link>${BASE}</link>
-    <atom:link href="${BASE}/feed.xml" rel="self" type="application/rss+xml" />
+    <link>${SITE_URL}</link>
+    <atom:link href="https://kppotnzwhxkflceiscto.supabase.co/functions/v1/rss-feed" rel="self" type="application/rss+xml" />
     <description>De 50 nieuwste huur- en koopwoningen op Woonaanbod NL</description>
     <language>nl-NL</language>
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
