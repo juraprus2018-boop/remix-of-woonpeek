@@ -125,6 +125,14 @@ function buildPagesSitemap(now: string, blogSlugs: string[] = [], agencySlugs: s
     { loc: "/sociale-huur-wachttijd", changefreq: "weekly", priority: "0.8" },
     { loc: "/huurcontract-uitleg", changefreq: "monthly", priority: "0.8" },
     { loc: "/expat-housing", changefreq: "monthly", priority: "0.8" },
+    { loc: "/particulier-huren", changefreq: "weekly", priority: "0.8" },
+    { loc: "/vrije-sector-huur", changefreq: "weekly", priority: "0.8" },
+    { loc: "/tijdelijke-woonruimte", changefreq: "weekly", priority: "0.8" },
+    { loc: "/urgentie-aanvragen", changefreq: "weekly", priority: "0.8" },
+    { loc: "/scheiden-geen-woning", changefreq: "weekly", priority: "0.8" },
+    { loc: "/gemeubileerd-huren", changefreq: "weekly", priority: "0.8" },
+    { loc: "/antikraak-wonen", changefreq: "weekly", priority: "0.8" },
+    { loc: "/permanent-wonen-recreatiewoning", changefreq: "weekly", priority: "0.8" },
   ];
 
   // 50 long-tail SEO gidsen — sync met src/lib/longtailPages.ts
