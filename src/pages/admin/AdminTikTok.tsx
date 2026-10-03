@@ -127,14 +127,16 @@ const AdminTikTok = () => {
           .eq("status", "actief")
           .eq("listing_type", "huur")
           .order("created_at", { ascending: false })
-          .limit(PAGE_SIZE),
+          .limit(300),
         (supabase as any).from("tiktok_posts").select("property_id,posted_at"),
       ]);
       if (propsRes.error) throw propsRes.error;
       const postedMap = new Map<string, string>(
         ((postedRes.data as any[]) || []).map((r) => [r.property_id, r.posted_at])
       );
-      return { props: propsRes.data || [], posted: postedMap };
+      // Alleen woningen met genoeg echte foto's voor een volwaardige carrousel.
+      const props = (propsRes.data || []).filter((p: any) => new Set((p.images || []).filter(Boolean)).size >= 4).slice(0, PAGE_SIZE);
+      return { props, posted: postedMap };
     },
   });
 
