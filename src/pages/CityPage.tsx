@@ -1,7 +1,8 @@
 import { useMemo, useState, useCallback } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import NotFound from "./NotFound";
 import { supabase } from "@/integrations/supabase/client";
 import { isValidDutchCity, getValidCityName } from "@/lib/dutchCities";
 import Header from "@/components/layout/Header";
