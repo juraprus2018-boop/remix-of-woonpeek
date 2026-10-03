@@ -115,23 +115,68 @@ function specs(p: SlideProperty) {
   return [p.surface_area ? `${p.surface_area} m²` : null, p.bedrooms != null ? `${p.bedrooms} slpk` : null, p.energy_label ? `Label ${p.energy_label}` : null].filter(Boolean) as string[];
 }
 
-// SLIDE 1: hero
+// Brand logo drawn on canvas: house icon + "woonaanbod" + orange "-nl.nl".
+function drawLogo(ctx: CanvasRenderingContext2D, x: number, y: number, s = 1) {
+  const size = 84 * s;
+  ctx.fillStyle = ACCENT; roundRect(ctx, x, y, size, size, 20 * s);
+  ctx.fillStyle = NAVY_DEEP;
+  ctx.beginPath();
+  ctx.moveTo(x + size * 0.5, y + size * 0.2);
+  ctx.lineTo(x + size * 0.82, y + size * 0.48);
+  ctx.lineTo(x + size * 0.72, y + size * 0.48);
+  ctx.lineTo(x + size * 0.72, y + size * 0.8);
+  ctx.lineTo(x + size * 0.28, y + size * 0.8);
+  ctx.lineTo(x + size * 0.28, y + size * 0.48);
+  ctx.lineTo(x + size * 0.18, y + size * 0.48);
+  ctx.closePath(); ctx.fill();
+  ctx.textBaseline = "middle"; ctx.textAlign = "left";
+  ctx.font = `800 ${56 * s}px ${FONT}`;
+  ctx.fillStyle = CREAM; ctx.fillText("woonaanbod", x + size + 22 * s, y + size / 2 + 2);
+  const w = ctx.measureText("woonaanbod").width;
+  ctx.fillStyle = ACCENT; ctx.fillText("-nl.nl", x + size + 22 * s + w, y + size / 2 + 2);
+  ctx.textBaseline = "alphabetic";
+}
+
+function wrapLines(ctx: CanvasRenderingContext2D, text: string, maxW: number, maxLines: number) {
+  const words = text.split(/\s+/); const lines: string[] = []; let cur = "";
+  for (const w of words) {
+    const t = cur ? `${cur} ${w}` : w;
+    if (ctx.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t;
+  }
+  if (cur) lines.push(cur);
+  if (lines.length > maxLines) { lines.length = maxLines; lines[maxLines - 1] = lines[maxLines - 1].replace(/\s*\S*$/, "") + "…"; }
+  return lines;
+}
+
+// SLIDE 1: hero — logo bar, photo, solid info panel with name, place and price.
 async function slideHero(p: SlideProperty, img: HTMLImageElement | null, total: number): Promise<Blob> {
   const c = newCanvas(); const ctx = c.getContext("2d")!;
-  if (img) drawCover(ctx, img, 0, 0, W, H); else { ctx.fillStyle = NAVY; ctx.fillRect(0, 0, W, H); }
-  shade(ctx, 0.35, 0.95);
-  pill(ctx, p.listing_type === "huur" ? "NIEUW TE HUUR" : "NIEUW TE KOOP", 60, 70, ACCENT, NAVY_DEEP);
-  drawBrand(ctx);
+  ctx.fillStyle = NAVY_DEEP; ctx.fillRect(0, 0, W, H);
+  const TOP = 200, PHOTO_H = 900;
+  if (img) { ctx.save(); ctx.beginPath(); ctx.rect(0, TOP, W, PHOTO_H); ctx.clip(); drawCover(ctx, img, 0, TOP, W, PHOTO_H); ctx.restore(); }
+  else { ctx.fillStyle = NAVY; ctx.fillRect(0, TOP, W, PHOTO_H); }
+  drawLogo(ctx, 60, 58);
+  pill(ctx, p.listing_type === "huur" ? "NIEUW TE HUUR" : "NIEUW TE KOOP", 60, TOP + 40, ACCENT, NAVY_DEEP, 36);
 
-  ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.font = `600 44px ${FONT}`;
-  ctx.fillText(`${(p.property_type ?? "woning").replace(/^./, (m) => m.toUpperCase())} in`, 60, H - 560);
-  ctx.fillStyle = CREAM; ctx.font = `800 120px ${FONT}`;
-  ctx.fillText(p.city, 60, H - 430);
-  ctx.fillStyle = ACCENT; ctx.font = `800 96px ${FONT}`;
-  ctx.fillText(fmtPrice(p.price, p.listing_type), 60, H - 310);
+  // info panel
+  const py = TOP + PHOTO_H;
+  ctx.fillStyle = NAVY; ctx.fillRect(0, py, W, H - py);
+  ctx.fillStyle = ACCENT; ctx.fillRect(0, py, W, 10);
+  let y = py + 120;
+  ctx.fillStyle = CREAM; ctx.font = `800 70px ${FONT}`;
+  for (const line of wrapLines(ctx, p.title || `Woning in ${p.city}`, W - 120, 2)) { ctx.fillText(line, 60, y); y += 84; }
+  y += 6;
+  const addr = [p.street && `${p.street}${p.house_number ? " " + p.house_number : ""}`, p.city].filter(Boolean).join(", ");
+  ctx.fillStyle = "rgba(255,255,255,0.85)"; ctx.font = `600 46px ${FONT}`;
+  ctx.fillText(`📍 ${addr}`, 60, y); y += 130;
+  ctx.fillStyle = ACCENT; ctx.font = `800 120px ${FONT}`;
+  ctx.fillText(fmtPrice(p.price, p.listing_type), 60, y); y += 50;
   let x = 60;
-  for (const s of specs(p)) x += pill(ctx, s, x, H - 250, "rgba(255,255,255,0.16)", CREAM, 36) + 16;
-  if (total > 1) { ctx.fillStyle = "rgba(255,255,255,0.8)"; ctx.font = `600 34px ${FONT}`; ctx.fillText(`Swipe voor alle ${total} foto's  →`, 60, H - 90); }
+  for (const s of specs(p)) x += pill(ctx, s, x, y, "rgba(255,255,255,0.14)", CREAM, 38) + 16;
+  if (total > 1) {
+    ctx.fillStyle = "rgba(255,255,255,0.75)"; ctx.font = `600 38px ${FONT}`;
+    ctx.fillText(`Swipe voor alle ${total} foto's  →`, 60, H - 80);
+  }
   return toJpeg(c);
 }
 
