@@ -217,6 +217,11 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
     return <Navigate to="/niet-gevonden" replace />;
   }
 
+  // Onbekende stad zonder aanbod: toon een echte 404-pagina (geen lege landingspagina).
+  if (isInvalidCity && !isLoading && !hasListings) {
+    return <NotFound />;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} />

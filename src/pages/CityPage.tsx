@@ -203,9 +203,9 @@ const CityPage = () => {
     [cityName, filteredCount, filteredProperties, pageDescription, canonical]
   );
 
-  // Redirect to 404 if city doesn't exist in our known list
+  // Toon een echte 404-pagina als de stad niet in onze bekende lijst staat.
   if (isInvalidCity) {
-    return <Navigate to="/niet-gevonden" replace />;
+    return <NotFound />;
   }
 
   return (
