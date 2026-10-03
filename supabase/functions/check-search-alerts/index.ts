@@ -293,6 +293,16 @@ function buildEmailHtml(
         </a>
       </p>
       <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
+      <div style="background:#f1f5f9;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
+        <p style="color:#374151;font-size:13px;line-height:1.6;margin:0;">
+          Hoi! Fijn dat je Woonaanbod NL gebruikt bij het zoeken naar een huurwoning. Zou je ons willen helpen met een korte review op Google? Het kost maar een minuutje en helpt andere woningzoekenden ons te vinden:
+        </p>
+        <p style="text-align:center;margin:10px 0 0;">
+          <a href="https://g.page/r/CYZL1fpfWpFOEBM/review" style="display:inline-block;background:#173e63;color:#fff;text-decoration:none;padding:9px 22px;border-radius:8px;font-weight:700;font-size:13px;">
+            ⭐ Laat een Google-review achter
+          </a>
+        </p>
+      </div>
       <p style="color:#999;font-size:11px;text-align:center;">
         Je ontvangt dit bericht omdat je een woningalert hebt ingesteld op Woonaanbod NL.
         ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#999;">Afmelden</a>` : `<a href="https://www.woonaanbod-nl.nl/zoekalerts" style="color:#999;">Beheer alerts</a>`}
