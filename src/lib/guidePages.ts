@@ -95,7 +95,7 @@ export const GUIDE_PAGES: GuidePage[] = [
       { q: "Heb ik een wachtlijst nodig voor vrije sector huur?", a: "Nee. Je reageert direct bij de verhuurder of makelaar." },
     ],
     listings: { title: "Nieuw vrije sector aanbod", maxPrice: 3000 },
-    related: ["/particulier-huren", "/budget-tool", "/sociale-huur-wachttijd"],
+    related: ["/particulier-huren", "/budgetcheck", "/sociale-huur-wachttijd"],
   },
   {
     path: "/tijdelijke-woonruimte",

@@ -11,7 +11,7 @@ import { GUIDE_PAGES, type GuidePage } from "@/lib/guidePages";
 
 const RELATED_LABELS: Record<string, string> = {
   "/woonmelding": "Gratis woonmelding",
-  "/budget-tool": "Budgettool",
+  "/budgetcheck": "Budgettool",
   "/sociale-huur-wachttijd": "Wachttijd sociale huur",
   "/expat-housing": "Expat housing",
 };
