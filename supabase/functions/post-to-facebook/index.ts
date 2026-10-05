@@ -630,7 +630,7 @@ Deno.serve(async (req) => {
 
 
 
-  const PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
+  let PAGE_ACCESS_TOKEN = Deno.env.get("FACEBOOK_PAGE_ACCESS_TOKEN");
   let PAGE_ID =
     Deno.env.get("FACEBOOK_PAGE_ID_OVERRIDE") || Deno.env.get("FACEBOOK_PAGE_ID") || "";
 
@@ -641,17 +641,35 @@ Deno.serve(async (req) => {
     );
   }
 
-  // Altijd de pagina van het token gebruiken als die afwijkt van de config,
-  // anders faalt het plaatsen met "Unsupported post request".
+  // Het token kan een gebruikerstoken OF een paginatoken zijn.
+  // Bij een gebruikerstoken: haal via /me/accounts de echte pagina + paginatoken op
+  // (die bevat ook meteen het gekoppelde Instagram-bedrijfsaccount).
+  let igAccountIdFromPages: string | null = null;
   try {
-    const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
-    const meData = await meRes.json();
-    if (meData?.id && meData.id !== PAGE_ID) {
-      console.log(`Page ID from token: ${meData.id} (config was ${PAGE_ID || "empty"})`);
-      PAGE_ID = meData.id;
+    const accountsRes = await fetch(
+      `${GRAPH_API}/me/accounts?fields=id,name,access_token,instagram_business_account&limit=100&access_token=${PAGE_ACCESS_TOKEN}`
+    );
+    const accountsData = await accountsRes.json();
+    const pages: any[] = Array.isArray(accountsData?.data) ? accountsData.data : [];
+    if (pages.length > 0) {
+      const match = pages.find((p) => p.id === PAGE_ID) || pages[0];
+      if (match?.id && match?.access_token) {
+        console.log(`Using page "${match.name}" (${match.id}) from /me/accounts`);
+        PAGE_ID = match.id;
+        PAGE_ACCESS_TOKEN = match.access_token;
+        igAccountIdFromPages = match.instagram_business_account?.id || null;
+      }
+    } else {
+      // Paginatoken: /me geeft de pagina zelf terug.
+      const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
+      const meData = await meRes.json();
+      if (meData?.id && meData.id !== PAGE_ID) {
+        console.log(`Page ID from token: ${meData.id} (config was ${PAGE_ID || "empty"})`);
+        PAGE_ID = meData.id;
+      }
     }
   } catch (e) {
-    console.error("Failed to detect Page ID from token:", e);
+    console.error("Failed to resolve page from token:", e);
   }
 
 
@@ -818,9 +836,9 @@ Deno.serve(async (req) => {
         .slice(0, count);
 
       // Resolve Instagram account ID once
-      let igAccountId: string | null = null;
+      let igAccountId: string | null = igAccountIdFromPages;
       try {
-        igAccountId = await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
+        if (!igAccountId) igAccountId = await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
         if (igAccountId) {
           console.log("Instagram Business Account ID:", igAccountId);
         } else {
@@ -928,7 +946,7 @@ Deno.serve(async (req) => {
       }
 
       // Instagram for manual posts too
-      const igId = await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
+      const igId = igAccountIdFromPages || await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
       if (igId) {
         const igResult = await postPropertyToInstagram(property as Property, igId, PAGE_ACCESS_TOKEN, supabase);
         channelResults.push({ channel: "instagram", ...igResult });
