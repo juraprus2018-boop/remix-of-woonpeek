@@ -717,11 +717,15 @@ Deno.serve(async (req) => {
       const debugData = await debugRes.json();
       const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
       const meData = await meRes.json();
+      const igRes = await fetch(`${GRAPH_API}/${PAGE_ID}?fields=instagram_business_account,connected_instagram_account&access_token=${PAGE_ACCESS_TOKEN}`);
+      const igData = await igRes.json();
 
       return new Response(
         JSON.stringify({
-          token_info: debugData,
+          token_scopes: debugData?.data?.scopes ?? null,
+          token_valid: debugData?.data?.is_valid ?? null,
           me: meData,
+          instagram: igData,
           page_id_configured: PAGE_ID,
           group_id_configured: groupId || null,
           target,
