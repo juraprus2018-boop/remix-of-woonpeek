@@ -836,9 +836,9 @@ Deno.serve(async (req) => {
         .slice(0, count);
 
       // Resolve Instagram account ID once
-      let igAccountId: string | null = null;
+      let igAccountId: string | null = igAccountIdFromPages;
       try {
-        igAccountId = await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
+        if (!igAccountId) igAccountId = await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
         if (igAccountId) {
           console.log("Instagram Business Account ID:", igAccountId);
         } else {
@@ -946,7 +946,7 @@ Deno.serve(async (req) => {
       }
 
       // Instagram for manual posts too
-      const igId = await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
+      const igId = igAccountIdFromPages || await getInstagramAccountId(PAGE_ID, PAGE_ACCESS_TOKEN);
       if (igId) {
         const igResult = await postPropertyToInstagram(property as Property, igId, PAGE_ACCESS_TOKEN, supabase);
         channelResults.push({ channel: "instagram", ...igResult });
