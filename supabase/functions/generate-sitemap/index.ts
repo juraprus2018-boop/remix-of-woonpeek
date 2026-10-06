@@ -324,8 +324,17 @@ Deno.serve(async (req) => {
   try {
     const now = new Date().toISOString().split("T")[0];
 
-    if (type === "index" || type === "live") {
-      return new Response(buildSitemapIndex(now, type === "live"), {
+    if (type === "index") {
+      const D = "https://www.woonaanbod-nl.nl";
+      const files = ["sitemap-pages.xml", "sitemap-steden-1.xml", "sitemap-steden-2.xml", "sitemap-steden-3.xml", "sitemap-woningen.xml"];
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${files.map((f) => `  <sitemap><loc>${D}/${f}</loc></sitemap>`).join("\n")}\n</sitemapindex>\n`;
+      return new Response(xml, {
+        headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+      });
+    }
+
+    if (type === "live") {
+      return new Response(buildSitemapIndex(now, true), {
         headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
       });
     }
