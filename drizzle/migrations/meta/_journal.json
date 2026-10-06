@@ -36,6 +36,13 @@
       "when": 1791055569832,
       "tag": "0004_press_public_policy_fix",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791274384246,
+      "tag": "0005_tighten_open_insert_policies",
+      "breakpoints": true
     }
   ]
 }
