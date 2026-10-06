@@ -128,6 +128,77 @@ const Header = () => {
 
   const getInitials = (email: string) => email.substring(0, 2).toUpperCase();
 
+  const menuPreferences = (
+    <>
+                {/* Account row */}
+                {user ? (
+                  <div className="mt-3 md:mt-6 flex items-center justify-between border-t-2 border-foreground/10 pt-3 md:pt-5">
+                    <Link to="/account" onClick={close} className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-accent">
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="bg-primary text-[10px] text-primary-foreground">
+                          {getInitials(user.email || "U")}
+                        </AvatarFallback>
+                      </Avatar>
+                      {t("common.myAccount")}
+                    </Link>
+                    <Button
+                      onClick={() => { handleSignOut(); close(); }}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-destructive hover:underline"
+                    >
+                      <LogOut className="h-3.5 w-3.5" /> {t("common.logout")}
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="mt-3 md:mt-6 grid grid-cols-2 gap-2 border-t-2 border-foreground/10 pt-3 md:pt-5">
+                    <Link to="/login" onClick={close}>
+                      <Button variant="outline" className="h-11 w-full rounded-full border-2 border-foreground text-sm font-bold">
+                        {t("common.login")}
+                      </Button>
+                    </Link>
+                    <Link to="/aanmelden" onClick={close}>
+                      <Button className="h-11 w-full rounded-full bg-foreground text-sm font-bold text-background hover:bg-accent">
+                        {t("common.register")}
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+                {/* Taalkeuze — altijd zichtbaar in het menu (ook mobiel) */}
+                <div className="mt-3 md:mt-6 border-t-2 border-foreground/10 pt-3 md:pt-5">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-foreground/50">
+                    {t("common.language")}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {SUPPORTED_LOCALES.map((lng) => {
+                      const target =
+                        withLocale(stripLocale(location.pathname), lng) + location.search + location.hash;
+                      return (
+                        <Button
+                          key={lng}
+                          type="button"
+                          onClick={() => {
+                            close();
+                            navigate(target);
+                          }}
+                          variant="ghost"
+                          className={`h-auto whitespace-normal rounded-full border-2 px-4 py-2 text-sm font-bold transition-colors ${
+                            currentLocale === lng
+                              ? "border-foreground bg-foreground text-background"
+                              : "border-foreground/20 text-foreground hover:border-foreground"
+                          }`}
+                        >
+                          <span className="mr-1.5 text-xs uppercase opacity-60">{lng}</span>
+                          {LOCALE_LABELS[lng]}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+
+
+    </>
+  );
+
   return (
     <>
       <header className="sticky top-0 z-40 w-full border-b-2 border-foreground bg-background">
@@ -144,7 +215,7 @@ const Header = () => {
               onClick={handleNearby}
               disabled={locating}
               size="sm"
-              className="hidden md:inline-flex h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap"
+              className="hidden lg:inline-flex h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap"
             >
               {locating ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4" />}
               {t("common.nearbyRentals")}
@@ -155,7 +226,7 @@ const Header = () => {
               asChild
               size="sm"
               variant="outline"
-              className="hidden md:inline-flex h-11 gap-1.5 rounded-full border-2 border-foreground px-5 font-bold whitespace-nowrap"
+              className="hidden lg:inline-flex h-11 gap-1.5 rounded-full border-2 border-foreground px-5 font-bold whitespace-nowrap"
             >
               <Link to="/op-kaart">
                 <Map className="h-4 w-4" />
@@ -166,7 +237,7 @@ const Header = () => {
             {/* Taalkeuze pill */}
             <LanguageSwitcher
               variant="ghost"
-              className="h-[42px] rounded-full bg-sun px-3.5 font-bold text-foreground hover:bg-sun/90 md:h-11 md:px-4"
+              className="hidden md:inline-flex h-[42px] rounded-full bg-sun px-3.5 font-bold text-foreground hover:bg-sun/90 md:h-11 md:px-4"
             />
 
             {/* Auth — desktop only */}
@@ -289,8 +360,12 @@ const Header = () => {
             </div>
           </div>
 
+          <div className="relative z-10 shrink-0 border-b border-border px-5 pb-4 md:hidden">
+            {menuPreferences}
+          </div>
+
           {/* Scrollable body: big typographic links + city column */}
-          <div className="relative z-10 flex-1 overflow-y-auto">
+          <div className="relative z-10 min-h-0 flex-1 overflow-y-auto">
             <div className="container grid gap-12 py-10 md:py-14 lg:grid-cols-[1.6fr_1fr] lg:gap-16 lg:py-16">
               {/* Sections */}
               <div className="grid gap-8 sm:grid-cols-2">
@@ -356,70 +431,7 @@ const Header = () => {
                   </Link>
                 </div>
 
-                {/* Taalkeuze — altijd zichtbaar in het menu (ook mobiel) */}
-                <div className="mt-6 border-t-2 border-foreground/10 pt-5">
-                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-foreground/50">
-                    {t("common.language")}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {SUPPORTED_LOCALES.map((lng) => {
-                      const target =
-                        withLocale(stripLocale(location.pathname), lng) + location.search + location.hash;
-                      return (
-                        <button
-                          key={lng}
-                          type="button"
-                          onClick={() => {
-                            close();
-                            navigate(target);
-                          }}
-                          className={`rounded-full border-2 px-4 py-2 text-sm font-bold transition-colors ${
-                            currentLocale === lng
-                              ? "border-foreground bg-foreground text-background"
-                              : "border-foreground/20 text-foreground hover:border-foreground"
-                          }`}
-                        >
-                          <span className="mr-1.5 text-xs uppercase opacity-60">{lng}</span>
-                          {LOCALE_LABELS[lng]}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-
-                {/* Account row */}
-                {user ? (
-                  <div className="mt-6 flex items-center justify-between border-t-2 border-foreground/10 pt-5">
-                    <Link to="/account" onClick={close} className="flex items-center gap-2 text-sm font-semibold text-foreground hover:text-accent">
-                      <Avatar className="h-8 w-8">
-                        <AvatarFallback className="bg-primary text-[10px] text-primary-foreground">
-                          {getInitials(user.email || "U")}
-                        </AvatarFallback>
-                      </Avatar>
-                      {t("common.myAccount")}
-                    </Link>
-                    <button
-                      onClick={() => { handleSignOut(); close(); }}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-destructive hover:underline"
-                    >
-                      <LogOut className="h-3.5 w-3.5" /> {t("common.logout")}
-                    </button>
-                  </div>
-                ) : (
-                  <div className="mt-6 grid grid-cols-2 gap-2 border-t-2 border-foreground/10 pt-5">
-                    <Link to="/login" onClick={close}>
-                      <Button variant="outline" className="h-11 w-full rounded-full border-2 border-foreground text-sm font-bold">
-                        {t("common.login")}
-                      </Button>
-                    </Link>
-                    <Link to="/aanmelden" onClick={close}>
-                      <Button className="h-11 w-full rounded-full bg-foreground text-sm font-bold text-background hover:bg-accent">
-                        {t("common.register")}
-                      </Button>
-                    </Link>
-                  </div>
-                )}
+                <div className="hidden md:block">{menuPreferences}</div>
               </aside>
             </div>
           </div>

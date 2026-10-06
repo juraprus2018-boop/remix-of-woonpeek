@@ -49,30 +49,30 @@ const RecentComments = () => {
           </Link>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-3">
           {data.map((c: any) => (
-            <article key={c.id} className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <article key={c.id} className="flex min-w-0 max-w-full flex-col rounded-2xl border border-border bg-card p-6 shadow-sm">
               <div className="mb-3 flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10">
                   <User className="h-4 w-4 text-primary" />
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{c.name}</p>
+                <div className="min-w-0">
+                  <p className="break-words text-sm font-semibold text-foreground">{c.name}</p>
                   <p className="text-xs text-muted-foreground">
                     {formatDistanceToNow(new Date(c.created_at), { addSuffix: true, locale: nl })}
                   </p>
                 </div>
               </div>
-              <p className="line-clamp-4 flex-1 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+              <p className="line-clamp-4 min-w-0 flex-1 [overflow-wrap:anywhere] whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
                 {c.content}
               </p>
               {c.properties && (
                 <Link
                   to={propertyPath(c.properties)}
-                  className="mt-4 flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2 text-sm font-medium text-primary hover:underline"
+                  className="mt-4 flex min-w-0 max-w-full items-center gap-2 rounded-lg bg-muted/50 px-3 py-2 text-sm font-medium text-primary hover:underline"
                 >
                   <MapPin className="h-4 w-4 shrink-0" />
-                  <span className="truncate">
+                  <span className="min-w-0 truncate">
                     {c.properties.title}
                     {c.properties.city ? `, ${c.properties.city}` : ""}
                   </span>
