@@ -13,12 +13,6 @@ RewriteRule ^(.*)$ https://www.woonaanbod-nl.nl/$1 [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-# Sitemap proxy to edge function
-RewriteRule ^sitemap\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=index [R=301,L]
-RewriteRule ^sitemap-pages\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=pages [R=301,L]
-RewriteRule ^sitemap-steden\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=steden [R=301,L]
-RewriteRule ^sitemap-woningen\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=woningen [R=301,L]
-RewriteRule ^sitemap-blog\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap?type=blog [R=301,L]
 RewriteRule ^feed\.xml$ https://kppotnzwhxkflceiscto.supabase.co/functions/v1/rss-feed [R=302,L]
 
 # Social crawlers (Facebook/WhatsApp/etc.) krijgen server-side OG metadata per woning

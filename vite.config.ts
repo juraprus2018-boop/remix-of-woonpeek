@@ -5,18 +5,18 @@ import fs from "fs";
 import { componentTagger } from "lovable-tagger";
 
 // Fetches the generated sitemaps at build time and writes them as static
-// files, so https://www.woonaanbod-nl.nl/sitemap.xml resolves on our own domain.
+// files in public/, so all sitemaps resolve on our own domain.
+// public/sitemap.xml (the index) is static and never overwritten here.
+// The steden sitemap is split into 3 urlset files to stay under 9 MB each.
 function sitemapPlugin() {
   const base = `${process.env.VITE_SUPABASE_URL || ""}/functions/v1/generate-sitemap`;
   const targets: Array<[string, string]> = [
-    ["index", "sitemap.xml"],
     ["pages", "sitemap-pages.xml"],
-    ["steden", "sitemap-steden.xml"],
+    ["steden", "sitemap-steden"],
     ["woningen", "sitemap-woningen.xml"],
   ];
-  // Oversized sitemaps (>9MB) can't live in git, so they are written to dist/
-  // in closeBundle (after Vite has emptied the output dir) instead of public/.
-  const oversized: Array<[string, string]> = [];
+  const write = (file: string, xml: string) =>
+    fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
   return {
     name: "static-sitemaps",
     apply: "build" as const,
@@ -29,27 +29,26 @@ function sitemapPlugin() {
             if (!res.ok) return;
             const xml = await res.text();
             if (!xml.trim().startsWith("<?xml")) return;
-            if (Buffer.byteLength(xml) > 9_000_000) {
-              oversized.push([file, xml]);
-            } else {
-              fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
+            if (type !== "steden") {
+              write(file, xml);
+              return;
+            }
+            const openMatch = xml.match(/<urlset[^>]*>/);
+            if (!openMatch) return;
+            const header = xml.slice(0, (openMatch.index ?? 0) + openMatch[0].length);
+            const urls = xml.match(/<url>[\s\S]*?<\/url>/g) || [];
+            if (!urls.length) return;
+            const parts = 3;
+            const size = Math.ceil(urls.length / parts);
+            for (let i = 0; i < parts; i++) {
+              const chunk = urls.slice(i * size, (i + 1) * size);
+              write(`sitemap-steden-${i + 1}.xml`, `${header}\n${chunk.join("\n")}\n</urlset>\n`);
             }
           } catch {
             // keep the previously committed file on failure
           }
         }),
       );
-    },
-    closeBundle() {
-      const dir = path.resolve(__dirname, "dist");
-      for (const [file, xml] of oversized) {
-        try {
-          fs.mkdirSync(dir, { recursive: true });
-          fs.writeFileSync(path.join(dir, file), xml);
-        } catch {
-          // non-fatal
-        }
-      }
     },
   };
 }
