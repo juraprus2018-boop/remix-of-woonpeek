@@ -215,7 +215,7 @@ const Header = () => {
               onClick={handleNearby}
               disabled={locating}
               size="sm"
-              className="hidden md:inline-flex h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap"
+              className="hidden lg:inline-flex h-11 gap-1.5 rounded-full bg-sun px-5 font-bold text-foreground shadow-sm hover:bg-sun/90 whitespace-nowrap"
             >
               {locating ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPin className="h-4 w-4" />}
               {t("common.nearbyRentals")}
@@ -226,7 +226,7 @@ const Header = () => {
               asChild
               size="sm"
               variant="outline"
-              className="hidden md:inline-flex h-11 gap-1.5 rounded-full border-2 border-foreground px-5 font-bold whitespace-nowrap"
+              className="hidden lg:inline-flex h-11 gap-1.5 rounded-full border-2 border-foreground px-5 font-bold whitespace-nowrap"
             >
               <Link to="/op-kaart">
                 <Map className="h-4 w-4" />
@@ -237,7 +237,7 @@ const Header = () => {
             {/* Taalkeuze pill */}
             <LanguageSwitcher
               variant="ghost"
-              className="h-[42px] rounded-full bg-sun px-3.5 font-bold text-foreground hover:bg-sun/90 md:h-11 md:px-4"
+              className="hidden md:inline-flex h-[42px] rounded-full bg-sun px-3.5 font-bold text-foreground hover:bg-sun/90 md:h-11 md:px-4"
             />
 
             {/* Auth — desktop only */}
