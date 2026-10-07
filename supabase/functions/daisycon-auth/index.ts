@@ -249,6 +249,7 @@ Deno.serve(async (req) => {
       // Only programs approved for media woonaanbod-nl (418821)
       const subscriptions = (Array.isArray(allSubs) ? allSubs : []).filter((s: any) => {
         const mids = s.media_ids || (s.media_id ? [s.media_id] : []);
+        if (!mids.length) return true;
         return mids.map(Number).includes(ALLOWED_MEDIA_ID);
       }).map((s: any) => ({ ...s, media_id: ALLOWED_MEDIA_ID }));
 
