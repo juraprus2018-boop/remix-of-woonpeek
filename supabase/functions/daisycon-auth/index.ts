@@ -244,7 +244,14 @@ Deno.serve(async (req) => {
         throw new Error(`Kon programma's niet ophalen [${subsRes.status}]`);
       }
 
-      const subscriptions = await subsRes.json();
+      const ALLOWED_MEDIA_ID = 418821;
+      const allSubs = await subsRes.json();
+      // Only programs approved for media woonaanbod-nl (418821)
+      const subscriptions = (Array.isArray(allSubs) ? allSubs : []).filter((s: any) => {
+        const mids = s.media_ids || (s.media_id ? [s.media_id] : []);
+        if (!mids.length) return true;
+        return mids.map(Number).includes(ALLOWED_MEDIA_ID);
+      }).map((s: any) => ({ ...s, media_id: ALLOWED_MEDIA_ID }));
 
       // Collect all unique program IDs and fetch names
       const allProgramIds = new Set<number>();
@@ -280,8 +287,9 @@ Deno.serve(async (req) => {
 
       let mediaList: any[] = [];
       if (mediaRes.ok) {
-        mediaList = await mediaRes.json();
+        mediaList = (await mediaRes.json()).filter((m: any) => Number(m.id) === ALLOWED_MEDIA_ID);
       }
+      if (mediaList.length === 0) mediaList = [{ id: ALLOWED_MEDIA_ID, name: "woonaanbod-nl" }];
 
       // Check which programs have product feeds available
       // Try all known media IDs since each program may work with different media
