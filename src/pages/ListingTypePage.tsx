@@ -194,6 +194,8 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         description: pageDesc,
         url: canonical,
         isPartOf: { "@type": "WebSite", name: "Woonaanbod NL", url: "https://www.woonaanbod-nl.nl" },
+        about: cityName ? { "@type": "City", name: cityName, containedInPlace: { "@type": "Country", name: "Nederland", identifier: "NL" } } : { "@type": "Country", name: "Nederland", identifier: "NL" },
+        spatialCoverage: { "@type": "Place", name: cityName || "Nederland", address: { "@type": "PostalAddress", ...(cityName ? { addressLocality: cityName } : {}), addressCountry: "NL" } },
       },
       {
         "@context": "https://schema.org",
@@ -224,7 +226,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} />
+      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} geoPlacename={cityName} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
