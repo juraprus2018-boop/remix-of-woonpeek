@@ -109,7 +109,7 @@ const Header = () => {
 
   const lettingItems = [
     { to: "/plaatsen-start", icon: PlusCircle, label: t("nav.lettingItems.post") },
-    { to: "/voor-makelaars", icon: Mail, label: "Voor makelaars" },
+    { to: "/voor-makelaars", icon: Building2, label: "Voor makelaars" },
     { to: "/samenwerken", icon: Mail, label: t("nav.lettingItems.partner") },
     { to: "/over", icon: HelpCircle, label: t("footer.linkAbout") },
   ];

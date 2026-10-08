@@ -407,6 +407,27 @@ const Index = () => {
         </div>
       </section>
 
+      {/* MAKELAAR CTA */}
+      <section className="border-y border-border bg-muted/40 py-10">
+        <div className="container flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <Building2 className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="font-display text-lg font-bold text-foreground">Makelaar of verhuurder?</h2>
+              <p className="text-sm text-muted-foreground">Plaats je volledige woningaanbod gratis en bereik extra woningzoekers.</p>
+            </div>
+          </div>
+          <Link to="/voor-makelaars" className="shrink-0">
+            <Button className="gap-2">
+              Plaats je aanbod gratis
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* RECENTE REACTIES */}
       <RecentComments />
 
