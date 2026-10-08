@@ -48,3 +48,6 @@ verify_jwt = false
 
 [functions.ga-config]
 verify_jwt = false
+
+[functions.send-welcome-email]
+verify_jwt = false
