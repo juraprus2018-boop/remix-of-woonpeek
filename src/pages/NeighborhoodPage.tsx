@@ -111,6 +111,11 @@ const NeighborhoodPage = () => {
       description: pageDescription,
       url: canonical,
       isPartOf: { "@type": "WebSite", name: "Woonaanbod NL", url: "https://www.woonaanbod-nl.nl" },
+      about: {
+        "@type": "Place",
+        name: `${neighborhoodName}, ${cityName}`,
+        containedInPlace: { "@type": "City", name: cityName, containedInPlace: { "@type": "Country", name: "Nederland" } },
+      },
     },
     {
       "@context": "https://schema.org",

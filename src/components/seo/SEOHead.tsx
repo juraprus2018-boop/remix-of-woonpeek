@@ -62,7 +62,7 @@ const setJsonLd = (id: string, data: unknown) => {
   el.textContent = JSON.stringify(data);
 };
 
-const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex }: SEOHeadProps) => {
+const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex, geoPlacename, geoPosition }: SEOHeadProps) => {
   const location = useLocation();
 
   useEffect(() => {
@@ -198,7 +198,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         document.getElementById("seo-jsonld-breadcrumbs")?.remove();
       }
     }
-  }, [title, description, canonical, ogImage, ogType, noindex, location.pathname]);
+  }, [title, description, canonical, ogImage, ogType, noindex, geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname]);
 
 
 

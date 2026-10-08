@@ -180,10 +180,21 @@ const CityPage = () => {
         name: `Woningen in ${cityName}`,
         description: pageDescription,
         url: canonical,
+        inLanguage: "nl-NL",
         isPartOf: {
           "@type": "WebSite",
           name: "Woonaanbod NL",
           url: "https://www.woonaanbod-nl.nl",
+        },
+        about: {
+          "@type": "City",
+          name: cityName,
+          containedInPlace: { "@type": "Country", name: "Nederland", identifier: "NL" },
+        },
+        spatialCoverage: {
+          "@type": "Place",
+          name: cityName,
+          address: { "@type": "PostalAddress", addressLocality: cityName, addressCountry: "NL" },
         },
       },
       // ItemList / Carousel (Google-supported rich result)
@@ -211,7 +222,7 @@ const CityPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonical} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonical} geoPlacename={cityName} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
