@@ -457,7 +457,10 @@ const PropertyDetail = () => {
                 >
                   <img
                     src={optimizeImage(images[0], { width: 1600, quality: 86 })}
-                    alt={property.title}
+                    alt={`${typeLabel} ${listingLabel}: ${[property.street, property.house_number].filter(Boolean).join(" ") || property.title}${property.city ? `, ${property.city}` : ""} - hoofdfoto`}
+                    width={1600}
+                    height={960}
+                    fetchPriority="high"
                     loading="eager"
                     decoding="async"
                     className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[340px] lg:h-[480px]"
@@ -480,7 +483,9 @@ const PropertyDetail = () => {
                       >
                         <img
                           src={optimizeImage(img, { width: 900, quality: 82 })}
-                          alt={`${property.title} - foto ${idx + 1}`}
+                          alt={`Foto ${idx + 1} van ${images.length} - ${[property.street, property.house_number].filter(Boolean).join(" ") || property.title}${property.city ? `, ${property.city}` : ""} (${typeLabel} ${listingLabel})`}
+                          width={900}
+                          height={540}
                           loading="eager"
                           decoding="async"
                           className="h-[125px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[164px] lg:h-[234px]"
@@ -505,7 +510,10 @@ const PropertyDetail = () => {
               >
                 <img
                   src={optimizeImage(images[0], { width: 1920, quality: 88 })}
-                  alt={property.title}
+                  alt={`${typeLabel} ${listingLabel}: ${[property.street, property.house_number].filter(Boolean).join(" ") || property.title}${property.city ? `, ${property.city}` : ""}`}
+                  width={1920}
+                  height={1080}
+                  fetchPriority="high"
                   loading="eager"
                   decoding="async"
                   className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] sm:h-[380px] lg:h-[480px]"
@@ -535,7 +543,7 @@ const PropertyDetail = () => {
             <div className="relative flex items-center justify-center" style={{ minHeight: "70vh" }}>
               <img
                 src={images[currentImageIndex]}
-                alt={`${property.title} - foto ${currentImageIndex + 1}`}
+                alt={`Foto ${currentImageIndex + 1} van ${images.length} - ${[property.street, property.house_number].filter(Boolean).join(" ") || property.title}${property.city ? `, ${property.city}` : ""}`}
                 className="max-h-[80vh] max-w-full object-contain"
                 onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
               />
@@ -557,7 +565,7 @@ const PropertyDetail = () => {
               <div className="flex gap-1 overflow-x-auto bg-black p-2">
                 {images.map((img, i) => (
                   <button key={i} onClick={() => setCurrentImageIndex(i)} className={cn("h-16 w-20 flex-shrink-0 overflow-hidden rounded transition-all", i === currentImageIndex ? "ring-2 ring-primary" : "opacity-50 hover:opacity-80")}>
-                    <img src={img} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
+                    <img src={img} alt={`Miniatuur foto ${i + 1} - ${[property.street, property.house_number].filter(Boolean).join(" ") || property.title}${property.city ? `, ${property.city}` : ""}`} loading="lazy" width={80} height={64} className="h-full w-full object-cover" onError={(e) => { e.currentTarget.src = propertyPlaceholder; }} />
                   </button>
                 ))}
               </div>

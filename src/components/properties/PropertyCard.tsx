@@ -119,7 +119,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
               )}
               <img
                 src={hasOwn ? optimizeImage(heroSrc, { width: 640, height: 400, quality: 74 }) : heroSrc}
-                alt={property.title}
+                alt={`${property.property_type ? property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1) : "Woning"} ${property.listing_type === "koop" ? "te koop" : "te huur"} aan ${[property.street, property.house_number].filter(Boolean).join(" ")}${property.city ? ` in ${property.city}` : ""} - Woonaanbod NL`}
                 loading={priority ? "eager" : "lazy"}
                 fetchPriority={priority ? "high" : "auto"}
                 decoding="async"
