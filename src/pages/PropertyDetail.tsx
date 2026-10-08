@@ -41,6 +41,7 @@ import {
   Search,
 
   ArrowRight,
+  Check,
   Building2,
   Ruler,
   Tag,
@@ -931,7 +932,12 @@ const PropertyDetail = () => {
 
                     {/* Primary CTA */}
                     {sourceInfo.source_url ? (
-                      <Button className="w-full" size="lg" onClick={() => {
+                      <div className="space-y-4">
+                        <div>
+                          <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
+                          <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
+                        </div>
+                      <Button className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
@@ -940,9 +946,23 @@ const PropertyDetail = () => {
                         });
                         window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
                       }}>
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        Reageer op deze woning
+                        Reageer nu <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
+                        <ul className="space-y-3 rounded-2xl bg-primary/5 p-4 text-sm text-foreground">
+                          {[
+                            "Huurwoningen, appartementen, studio's en kamers in heel Nederland",
+                            "Ontvang nieuw aanbod via e-mail en reageer meteen",
+                            "Direct doorgestuurd naar de officiële aanbieder",
+                          ].map((usp) => (
+                            <li key={usp} className="flex items-start gap-3">
+                              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                                <Check className="h-3.5 w-3.5 text-primary" />
+                              </span>
+                              {usp}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
                         <DialogTrigger asChild>
@@ -1180,7 +1200,7 @@ const PropertyDetail = () => {
         </div>
       </main>
 
-      <Footer />
+      <div className="pb-24 md:pb-0"><Footer /></div>
     </div>
   );
 };
