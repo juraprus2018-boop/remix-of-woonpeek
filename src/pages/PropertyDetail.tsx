@@ -934,6 +934,10 @@ const PropertyDetail = () => {
                       <Button className="w-full" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
+                        toast({
+                          title: `Je gaat naar ${sourceMeta?.label || sourceInfo.source_site || "de aanbieder"}`,
+                          description: "Maak daar gratis een account aan om direct te reageren en een bezichtiging aan te vragen.",
+                        });
                         window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
                       }}>
                         <ExternalLink className="mr-2 h-4 w-4" />

@@ -1268,6 +1268,7 @@ export type Database = {
           phone: string | null
           updated_at: string
           user_id: string
+          welcome_sent_at: string | null
         }
         Insert: {
           avatar_url?: string | null
@@ -1279,6 +1280,7 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id: string
+          welcome_sent_at?: string | null
         }
         Update: {
           avatar_url?: string | null
@@ -1290,6 +1292,7 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           user_id?: string
+          welcome_sent_at?: string | null
         }
         Relationships: []
       }
