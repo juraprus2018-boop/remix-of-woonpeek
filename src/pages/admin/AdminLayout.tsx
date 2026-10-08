@@ -113,13 +113,13 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 z-50 h-screen w-64 border-r bg-card transition-transform duration-200 lg:translate-x-0",
+          "fixed left-0 top-0 z-50 h-[100dvh] w-64 overflow-hidden border-r bg-card transition-transform duration-200 lg:translate-x-0",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
-          <div className="flex h-16 items-center justify-between border-b px-6">
+          <div className="flex h-16 shrink-0 items-center justify-between border-b px-6">
             <div className="flex items-center gap-2">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <HomeIcon className="h-5 w-5 text-primary-foreground" />
@@ -137,7 +137,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 space-y-1 p-4">
+          <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-contain p-4">
             {navItems.map((item) => (
               <Link
                 key={item.to}
@@ -156,7 +156,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </nav>
 
           {/* Back to site */}
-          <div className="border-t p-4">
+          <div className="shrink-0 border-t p-4">
             <Link to="/">
               <Button variant="ghost" className="w-full justify-start gap-2">
                 <ArrowLeft className="h-4 w-4" />
