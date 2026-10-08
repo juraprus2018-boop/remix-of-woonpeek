@@ -53,6 +53,7 @@ const PostcodePage = () => {
         title={title}
         description={description}
         canonical={`/postcode/${postcode}`}
+        geoPlacename={cityLabel || undefined}
       />
       <Header />
 

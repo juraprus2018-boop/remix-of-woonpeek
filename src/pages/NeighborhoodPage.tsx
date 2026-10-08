@@ -142,7 +142,7 @@ const NeighborhoodPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} geoPlacename={`${neighborhoodName}, ${cityName}`} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
