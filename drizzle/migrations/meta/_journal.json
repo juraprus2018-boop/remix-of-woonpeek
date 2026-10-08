@@ -50,6 +50,13 @@
       "when": 1791482970828,
       "tag": "0006_huurzone_listing_priority",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791484285111,
+      "tag": "0007_profiles_welcome_sent",
+      "breakpoints": true
     }
   ]
 }

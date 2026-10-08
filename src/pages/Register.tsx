@@ -45,6 +45,9 @@ const Register = () => {
         description: error.message,
       });
     } else {
+      supabase.auth.getSession().then(({ data }) => {
+        if (data.session) supabase.functions.invoke("send-welcome-email").catch(() => {});
+      });
       supabase.functions.invoke("send-email", {
         body: {
           to: "info@woonaanbod-nl.nl",

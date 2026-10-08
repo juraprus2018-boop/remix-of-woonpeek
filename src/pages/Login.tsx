@@ -110,7 +110,8 @@ const Login = () => {
         title: "Welkom terug!",
         description: "Je bent succesvol ingelogd.",
       });
-      navigate(new URLSearchParams(window.location.search).get("redirect")?.startsWith("/") ? new URLSearchParams(window.location.search).get("redirect")! : "/");
+      supabase.functions.invoke("send-welcome-email").catch(() => {});
+      navigate(new URLSearchParams(window.location.search).get("redirect")?.startsWith("/") ? new URLSearchParams(window.location.search).get("redirect")! : "/account");
     }
 
     setIsLoading(false);

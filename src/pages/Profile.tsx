@@ -15,6 +15,7 @@ import { useProfile, useUpdateProfile } from "@/hooks/useProfile";
 import { supabase } from "@/integrations/supabase/client";
 import { User, Loader2, Camera } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import AccountDashboard from "@/components/account/AccountDashboard";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -124,10 +125,11 @@ const Profile = () => {
       <Header />
       <main className="flex-1">
         <div className="container py-8">
-          <div className="mx-auto max-w-lg">
-            <h1 className="mb-6 font-display text-2xl font-bold">Mijn profiel</h1>
+          <AccountDashboard name={profile?.display_name || user.email?.split("@")[0] || "woningzoeker"} />
+          <div className="mt-12 grid gap-6 lg:grid-cols-2">
+            <h2 className="font-display text-xl font-bold lg:col-span-2">Profielinstellingen</h2>
 
-            <Card className="mb-6">
+            <Card>
               <CardContent className="flex flex-col items-center pt-6">
                 <div className="relative">
                   <Avatar className="h-24 w-24">
