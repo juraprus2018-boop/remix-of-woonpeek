@@ -1994,6 +1994,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_delete_agency: { Args: { _id: string }; Returns: undefined }
       admin_list_agencies: {
         Args: never
         Returns: {
