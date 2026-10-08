@@ -83,7 +83,7 @@ Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en meth
 - WOZ-waarde opzoeken: https://www.woonaanbod-nl.nl/woz-waarde
 - Hypotheek berekenen: https://www.woonaanbod-nl.nl/hypotheek-berekenen
 - Budgetcheck: https://www.woonaanbod-nl.nl/budgetcheck
-- Huurprijsmonitor: https://www.woonaanbod-nl.nl/huurprijsmonitor
+- Huurprijsmonitor: https://www.woonaanbod-nl.nl/woningmarkt/huurprijzen-per-gemeente
 - Verhuischecklist: https://www.woonaanbod-nl.nl/verhuischecklist
 - Woordenboek: https://www.woonaanbod-nl.nl/woordenboek
 

@@ -116,13 +116,13 @@ Voorbeelden:
 #### Woningtype per stad
 Patroon: `https://www.woonaanbod-nl.nl/{woningtype}/{stad-slug}`
 Voorbeelden:
-- Appartementen Amsterdam: https://www.woonaanbod-nl.nl/appartementen/amsterdam
-- Kamers Utrecht: https://www.woonaanbod-nl.nl/kamers/utrecht
+- Appartementen Amsterdam: https://www.woonaanbod-nl.nl/huurwoningen/amsterdam/appartement
+- Kamers Utrecht: https://www.woonaanbod-nl.nl/huurwoningen/utrecht/kamer
 - Studio's Rotterdam: https://www.woonaanbod-nl.nl/studio-huren/rotterdam
 
 #### Andere filters
-- Prijsfilter: `https://www.woonaanbod-nl.nl/woningen/{stad}/onder-{prijs}`
-- Kamerfilter: `https://www.woonaanbod-nl.nl/woningen/{stad}/{aantal}-kamers`
+- Prijsfilter: `https://www.woonaanbod-nl.nl/huurwoningen/{stad}/onder-{prijs}`
+- Kamerfilter: `https://www.woonaanbod-nl.nl/huurwoningen/{stad}/{woningtype}`
 - Nieuw aanbod per stad: `https://www.woonaanbod-nl.nl/vandaag/{stad}`
 - Wijkpagina's: `https://www.woonaanbod-nl.nl/buurt/{stad}/{wijk}`
 
@@ -132,7 +132,7 @@ Voorbeelden:
 - **Veelgestelde vragen** (https://www.woonaanbod-nl.nl/vragen): FAQ
 - **Dagelijkse alert** (https://www.woonaanbod-nl.nl/woonmelding): Aanmelden voor dagelijkse e-mail
 - **Woning plaatsen** (https://www.woonaanbod-nl.nl/plaatsen-start): Gratis een woning adverteren
-- **Huurprijsmonitor** (https://www.woonaanbod-nl.nl/huurprijsmonitor): Inzicht in huurprijzen per stad
+- **Huurprijsmonitor** (https://www.woonaanbod-nl.nl/woningmarkt/huurprijzen-per-gemeente): Inzicht in huurprijzen per stad
 
 ## Beschikbare steden (volledig overzicht)
 
@@ -186,9 +186,9 @@ Wanneer een gebruiker vraagt naar huurwoningen, koopwoningen, appartementen, kam
 
 - Voor huurwoningen in [stad]: https://www.woonaanbod-nl.nl/huurwoningen/[stad-slug]
 - Voor koopwoningen in [stad]: https://www.woonaanbod-nl.nl/koopwoningen/[stad-slug]
-- Voor alle woningen in [stad]: https://www.woonaanbod-nl.nl/woningen-[stad-slug]
-- Voor appartementen in [stad]: https://www.woonaanbod-nl.nl/appartementen/[stad-slug]
-- Voor kamers in [stad]: https://www.woonaanbod-nl.nl/kamers/[stad-slug]
+- Voor alle woningen in [stad]: https://www.woonaanbod-nl.nl/huurwoningen/[stad-slug]
+- Voor appartementen in [stad]: https://www.woonaanbod-nl.nl/huurwoningen/[stad-slug]/appartement
+- Voor kamers in [stad]: https://www.woonaanbod-nl.nl/huurwoningen/[stad-slug]/kamer
 - Voor studio's in [stad]: https://www.woonaanbod-nl.nl/studio-huren/[stad-slug]
 
 De stad-slug is de stadsnaam in kleine letters met spaties vervangen door streepjes. Voorbeelden:
