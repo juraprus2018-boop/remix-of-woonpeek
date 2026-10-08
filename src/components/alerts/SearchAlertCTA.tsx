@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import alertIllustration from "@/assets/woonmelding-illustratie.jpg";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -129,6 +130,52 @@ const SearchAlertCTA = ({
     );
   }
 
+  if (variant === "card") {
+    return (
+      <div className={`overflow-hidden rounded-3xl border border-primary/15 bg-primary/5 p-3 md:p-4 ${className}`}>
+        <div className="grid items-center gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-6">
+          <img
+            src={alertIllustration}
+            alt="Illustratie: e-mailmelding bij nieuw woningaanbod"
+            loading="lazy"
+            width={640}
+            height={420}
+            className="aspect-[16/10] w-full rounded-2xl object-cover"
+          />
+          <div className="px-2 pb-2 md:px-0 md:pb-0 md:pr-4">
+            <h3 className="font-display text-2xl font-bold leading-tight text-primary">
+              Direct updates ontvangen in je e-mail?
+            </h3>
+            <p className="mt-2 text-base text-muted-foreground">
+              Ontvang meteen een e-mail als er nieuw aanbod is voor {searchLabel}. Zo mis je niks en kan je als eerste reageren!
+            </p>
+            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+              {!user && (
+                <Input
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  placeholder="jouw@email.nl"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="h-12 rounded-full bg-background px-5 text-base"
+                  aria-label="E-mailadres voor woningmelding"
+                />
+              )}
+              <Button type="submit" disabled={loading} size="lg" className="h-14 w-full gap-2 rounded-full text-base font-bold">
+                {loading && <Loader2 className="h-4 w-4 animate-spin" />}
+                Ja, ik wil niks missen!
+              </Button>
+            </form>
+            <p className="mt-2 text-center text-xs text-muted-foreground">
+              Gratis, geen account nodig en met één klik weer uit te zetten.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={wrapperClass}>
       <div className="flex items-start gap-3">
@@ -139,10 +186,6 @@ const SearchAlertCTA = ({
           <p className="font-display text-lg font-semibold text-foreground">
             Nieuwe woning gevonden? Ontvang direct een gratis melding.
           </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Voor jouw zoekopdracht: {searchLabel}. Alleen je e-mailadres, geen account nodig.
-          </p>
-
           <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2 sm:flex-row">
             {!user && (
               <Input
@@ -158,12 +201,9 @@ const SearchAlertCTA = ({
             )}
             <Button type="submit" disabled={loading} className="gap-2">
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-              Ontvang nieuw aanbod voor deze zoekopdracht
+              Ja, ik wil niks missen!
             </Button>
           </form>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Gratis en met één klik weer uit te zetten.
-          </p>
         </div>
       </div>
     </div>

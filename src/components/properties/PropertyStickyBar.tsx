@@ -71,10 +71,23 @@ const PropertyStickyBar = ({
   };
 
   return (
+    <>
+    {/* Mobile: always visible at the bottom */}
+    <div className="fixed inset-x-0 bottom-0 z-[55] border-t border-border bg-background shadow-[0_-4px_20px_-8px_hsl(var(--foreground)/0.25)] md:hidden">
+      <div className="flex items-center gap-3 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="shrink-0">
+          <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{listingType === "huur" ? "per maand" : "koopprijs"}</p>
+        </div>
+        <Button onClick={handleReact} size="lg" className="h-12 flex-1 gap-2 rounded-full text-base font-bold">
+          Reageren <ArrowRight className="h-5 w-5" />
+        </Button>
+      </div>
+    </div>
     <div
       className={cn(
-        "fixed inset-x-0 top-20 md:top-24 z-[55] border-b border-border bg-background/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/85 transition-all duration-300",
-        visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        "fixed inset-x-0 bottom-0 z-[55] hidden border-t border-border bg-background/95 shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/85 transition-all duration-300 md:block",
+        visible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0 pointer-events-none"
       )}
       aria-hidden={!visible}
     >
