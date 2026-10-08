@@ -20,6 +20,7 @@ interface ExploreMapProps {
   properties: Property[];
   hoveredPropertyId?: string | null;
   commute?: CommuteRouteInfo | null;
+  onBoundsChange?: (bounds: { south: number; north: number; west: number; east: number }) => void;
 }
 
 // Netherlands bounding box
@@ -73,7 +74,9 @@ const createPriceIcon = (price: number, isHovered = false) => {
 };
 
 
-const ExploreMap = ({ properties, hoveredPropertyId, commute }: ExploreMapProps) => {
+const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: ExploreMapProps) => {
+  const boundsCallbackRef = useRef(onBoundsChange);
+  boundsCallbackRef.current = onBoundsChange;
   const mapRef = useRef<L.Map | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
@@ -103,6 +106,14 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute }: ExploreMapProps)
       subdomains: "abcd",
       maxZoom: 19,
     }).addTo(mapRef.current);
+
+    const reportBounds = () => {
+      const bounds = mapRef.current?.getBounds();
+      if (!bounds) return;
+      boundsCallbackRef.current?.({ south: bounds.getSouth(), north: bounds.getNorth(), west: bounds.getWest(), east: bounds.getEast() });
+    };
+    mapRef.current.on("moveend", reportBounds);
+    reportBounds();
 
     // Style zoom controls
     const zoomControl = containerRef.current.querySelector(".leaflet-control-zoom");

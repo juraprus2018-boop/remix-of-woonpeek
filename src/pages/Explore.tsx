@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useProperties, useMapProperties, useCityList, type SortOption } from "@/hooks/useProperties";
+import { useProperties, useMapProperties, type SortOption } from "@/hooks/useProperties";
 import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
@@ -57,6 +57,7 @@ const ExplorePage = () => {
   const [propertyType, setPropertyType] = useState<string | null>(null);
   const [minBedrooms, setMinBedrooms] = useState<string | null>(null);
   const [citySearch, setCitySearch] = useState("");
+  const [mapBounds, setMapBounds] = useState<{ south: number; north: number; west: number; east: number } | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [mobileView, setMobileView] = useState<"list" | "map">("map");
@@ -128,7 +129,7 @@ const ExplorePage = () => {
   }, [searchParams]);
 
   // Use paginated query for the list (fast initial load)
-  const { data: listData, isLoading } = useProperties({
+  const { data: listData, isPending: isLoading, isError: isListError, refetch: refetchList } = useProperties({
     listingType: listingType || undefined,
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
@@ -141,15 +142,18 @@ const ExplorePage = () => {
   // Separate lightweight query for map markers (only when map visible)
   // When a postcode filter is active we ALWAYS need the full set (not just the
   // first paginated page), otherwise the list shows fewer results than the map.
-  const showMap = !isMobile || mobileView === "map" || !!postcodeCoords;
-  const { data: mapData, isLoading: isMapLoading } = useMapProperties({
+  const { data: mapData, isPending: isMapLoading, isError: isMapError, refetch: refetchMap } = useMapProperties({
     listingType: listingType || undefined,
-    sourceSite: selectedSource || undefined,
-    city: selectedCity || undefined,
     propertyType: (propertyType as any) || undefined,
     minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
     sortBy,
-  }, showMap);
+  });
+
+  const matchesSelection = useCallback((p: { city: string; source_site: string | null }) =>
+    (!selectedCity || p.city.toLowerCase() === selectedCity.toLowerCase()) &&
+    (!selectedSource || p.source_site === selectedSource), [selectedCity, selectedSource]);
+  const resultsLoading = isLoading || geocoding || (!!postcodeCoords && isMapLoading);
+  const resultsError = isListError || (!!postcodeCoords && isMapError);
 
 
   const paginatedList = listData?.properties || [];
@@ -160,7 +164,7 @@ const ExplorePage = () => {
   // of paginated results and shows fewer matches than the map).
   const filteredProperties = useMemo(() => {
     if (!postcodeCoords) return paginatedList;
-    const fullSet = (mapData || []) as any[];
+    const fullSet = (mapData || []).filter(matchesSelection);
     const nearby = fullSet.filter((p: any) => {
       if (!p.latitude || !p.longitude) return false;
       return (
@@ -175,44 +179,51 @@ const ExplorePage = () => {
     if (sortBy === "price_asc") return [...nearby].sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
     if (sortBy === "price_desc") return [...nearby].sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
     return nearby;
-  }, [paginatedList, mapData, postcodeCoords, distanceKm, sortBy]);
+  }, [paginatedList, mapData, postcodeCoords, distanceKm, sortBy, matchesSelection]);
 
   // Map properties from the lightweight query
   const filteredMapProperties = useMemo(() => {
-    const props = (mapData || []) as any[];
+    const props = (mapData || []).filter(matchesSelection);
     if (!postcodeCoords) return props;
     return props.filter((p: any) => {
       if (!p.latitude || !p.longitude) return false;
       return haversineKm(postcodeCoords.lat, postcodeCoords.lng, Number(p.latitude), Number(p.longitude)) <= distanceKm;
     });
-  }, [mapData, postcodeCoords, distanceKm]);
+  }, [mapData, postcodeCoords, distanceKm, matchesSelection]);
 
-  const { data: cities = [] } = useCityList();
+  // Facets use the complete loaded set, restricted to the current area.
+  const areaProperties = useMemo(() => (mapData || []).filter((p) => {
+    if (p.latitude == null || p.longitude == null) return false;
+    if (postcodeCoords) return haversineKm(postcodeCoords.lat, postcodeCoords.lng, Number(p.latitude), Number(p.longitude)) <= distanceKm;
+    if (!mapBounds) return true;
+    return Number(p.latitude) >= mapBounds.south && Number(p.latitude) <= mapBounds.north &&
+      Number(p.longitude) >= mapBounds.west && Number(p.longitude) <= mapBounds.east;
+  }), [mapData, postcodeCoords, distanceKm, mapBounds]);
 
-  // Live filtering van de plaatsenlijst op basis van de zoekbalk.
   const visibleCities = useMemo(() => {
+    const counts = new Map<string, number>();
     const q = citySearch.trim().toLowerCase();
-    if (!q) return cities;
-    return cities.filter(({ name }) => name.toLowerCase().includes(q));
-  }, [cities, citySearch]);
+    for (const p of areaProperties) {
+      if (selectedSource && p.source_site !== selectedSource) continue;
+      const name = p.city.trim();
+      if (!name || (q && !name.toLowerCase().includes(q))) continue;
+      counts.set(name, (counts.get(name) || 0) + 1);
+    }
+    return Array.from(counts, ([name, count]) => ({ name, count }))
+      .sort((a, b) => a.name.localeCompare(b.name, "nl"));
+  }, [areaProperties, citySearch, selectedSource]);
 
-
-  // Bron-counts berekenen vanuit de volledige mapData set zodat de aantallen
-  // kloppen met de actieve filters (city/listingType/postcode).
   const activeSources = useMemo(() => {
     const counts = new Map<string, number>();
-    const source = postcodeCoords ? filteredMapProperties : (mapData || []);
-    for (const p of source as any[]) {
-      const key = (p.source_site || "").toLowerCase();
-      if (!key) continue;
-      counts.set(key, (counts.get(key) || 0) + 1);
+    for (const p of areaProperties) {
+      if (selectedCity && p.city.toLowerCase() !== selectedCity.toLowerCase()) continue;
+      const key = p.source_site;
+      if (key) counts.set(key, (counts.get(key) || 0) + 1);
     }
-    return Object.entries(SOURCE_SITE_LABELS).map(([value, label]) => ({
-      value,
-      label,
-      count: counts.get(value) || 0,
-    }));
-  }, [mapData, filteredMapProperties, postcodeCoords]);
+    return Array.from(counts, ([value, count]) => ({
+      value, label: SOURCE_SITE_LABELS[value.toLowerCase()] || value, count,
+    })).sort((a, b) => a.label.localeCompare(b.label, "nl"));
+  }, [areaProperties, selectedCity]);
 
   const [hoveredPropertyId, setHoveredPropertyId] = useState<string | null>(null);
   const [listPage, setListPage] = useState(1);
@@ -259,7 +270,7 @@ const ExplorePage = () => {
         <div>
           <h2 className="font-display text-lg font-bold">Verkennen</h2>
           <p className="text-sm text-muted-foreground">
-            {isLoading ? "Laden..." : `${totalCount} woningen`}
+            {resultsLoading ? "Laden..." : resultsError ? "Laden mislukt" : `${postcodeCoords ? filteredProperties.length : totalCount} woningen`}
           </p>
         </div>
         {isMobile && (
@@ -363,7 +374,9 @@ const ExplorePage = () => {
           onValueChange={(v) => setSelectedSource(v === "all" ? null : v)}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Alle bronnen" />
+            <SelectValue placeholder="Alle bronnen">
+              {selectedSource ? (SOURCE_SITE_LABELS[selectedSource.toLowerCase()] || selectedSource) : "Alle bronnen"}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent className="z-50 bg-popover">
             <SelectItem value="all">Alle bronnen</SelectItem>
@@ -442,7 +455,7 @@ const ExplorePage = () => {
 
       <div className="p-5">
         <Label htmlFor="explore-city-search" className="mb-2 block text-sm font-medium">
-          Plaatsen
+          Plaatsen in de buurt
         </Label>
         <div className="relative mb-3">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -481,7 +494,7 @@ const ExplorePage = () => {
               key={name}
               onClick={() => {
                 setSelectedCity(selectedCity === name ? null : name);
-                if (name) clearPostcode(); // Clear postcode when selecting city
+                // Keep the search radius when selecting a nearby city.
                 if (isMobile) setSidebarOpen(false);
               }}
               className={cn(
@@ -503,7 +516,8 @@ const ExplorePage = () => {
               </span>
             </button>
           ))}
-          {visibleCities.length === 0 && !isLoading && (
+          {isMapLoading && <p className="py-4 text-sm text-muted-foreground">Plaatsen laden...</p>}
+          {visibleCities.length === 0 && !isMapLoading && !isMapError && (
             <p className="py-4 text-center text-sm text-muted-foreground">
               {citySearch ? `Geen plaats gevonden voor "${citySearch}"` : "Geen plaatsen beschikbaar"}
             </p>
@@ -514,12 +528,20 @@ const ExplorePage = () => {
     </>
   );
   const renderPropertyList = () => {
-    if (isLoading) {
+    if (resultsLoading) {
       return (
-        <div className="flex items-center justify-center py-12">
+        <div role="status" className="flex items-center justify-center gap-3 py-12">
           <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <span className="text-sm text-muted-foreground">Woningen laden...</span>
         </div>
       );
+    }
+
+    if (resultsError) {
+      return <div role="alert" className="flex flex-col items-center gap-3 py-12">
+        <p className="text-muted-foreground">Woningen konden niet worden geladen.</p>
+        <Button variant="outline" onClick={() => { refetchList(); refetchMap(); }}>Opnieuw proberen</Button>
+      </div>;
     }
 
     if (filteredProperties.length === 0) {
@@ -607,7 +629,7 @@ const ExplorePage = () => {
                   Filters
                 </Button>
                 <span className="text-xs text-muted-foreground">
-                  {isLoading ? "Laden..." : `${filteredProperties.length} woningen`}
+                  {resultsLoading ? "Laden..." : resultsError ? "Laden mislukt" : `${postcodeCoords ? filteredProperties.length : totalCount} woningen`}
                 </span>
               </div>
               {/* Mobile view toggle */}
@@ -671,6 +693,7 @@ const ExplorePage = () => {
                       <ExploreMap
                         properties={filteredMapProperties as any}
                         hoveredPropertyId={hoveredPropertyId}
+                         onBoundsChange={setMapBounds}
                       />
                     </Suspense>
                   )}
@@ -709,6 +732,7 @@ const ExplorePage = () => {
                     <ExploreMap
                       properties={filteredMapProperties as any}
                       hoveredPropertyId={hoveredPropertyId}
+                         onBoundsChange={setMapBounds}
                     />
                   </Suspense>
                 )}
