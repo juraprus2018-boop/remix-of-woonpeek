@@ -79,7 +79,7 @@ const PropertyStickyBar = ({
           <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
           <p className="mt-1 text-xs text-muted-foreground">{listingType === "huur" ? "per maand" : "koopprijs"}</p>
         </div>
-        <Button onClick={handleReact} size="lg" className="h-12 flex-1 gap-2 rounded-full text-base font-bold">
+        <Button onClick={handleReact} variant="accent" size="lg" className="h-12 flex-1 gap-2 rounded-full text-base font-bold">
           Reageren <ArrowRight className="h-5 w-5" />
         </Button>
       </div>
@@ -149,6 +149,7 @@ const PropertyStickyBar = ({
           </Button>
           <Button
             onClick={handleReact}
+            variant="accent"
             size="sm"
             className="gap-1.5 whitespace-nowrap"
           >
