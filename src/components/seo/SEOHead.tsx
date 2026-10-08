@@ -10,6 +10,10 @@ interface SEOHeadProps {
   ogImage?: string;
   ogType?: string;
   noindex?: boolean;
+  /** City/place name for geo.placename meta tag */
+  geoPlacename?: string;
+  /** Coordinates for geo.position / ICBM meta tags */
+  geoPosition?: { lat: number; lng: number };
 }
 
 
@@ -121,6 +125,22 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
     if (ogImage) setMeta("twitter:image", ogImage);
+
+    // Geo meta tags (local relevance signals for Bing and regional engines)
+    const setNamedMeta = (name: string, content: string | null) => {
+      let el = document.querySelector(`meta[name="${name}"]`);
+      if (!content) { el?.remove(); return; }
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute("name", name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    setNamedMeta("geo.region", "NL");
+    setNamedMeta("geo.placename", geoPlacename || null);
+    setNamedMeta("geo.position", geoPosition ? `${geoPosition.lat};${geoPosition.lng}` : null);
+    setNamedMeta("ICBM", geoPosition ? `${geoPosition.lat}, ${geoPosition.lng}` : null);
 
     // Auto WebPage JSON-LD tied to Organization + WebSite on every route.
     if (!noindex) {
