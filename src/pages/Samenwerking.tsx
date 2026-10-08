@@ -2,25 +2,18 @@ import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Handshake, ExternalLink } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Handshake } from "lucide-react";
+
+const PARTNERS = [
+  { name: "Huurzone", tagline: "Landelijk aanbod van huurwoningen en appartementen" },
+  { name: "Huurwoningen", tagline: "Breed aanbod van particuliere en professionele verhuurders" },
+  { name: "Kamernet", tagline: "Specialist in kamers, studio's en gedeelde woonruimte" },
+  { name: "DirectWonen", tagline: "Direct beschikbare huurwoningen in heel Nederland" },
+  { name: "Huurstunt", tagline: "Dagelijks actueel aanbod van makelaars en verhuurders" },
+  { name: "Renthunter", tagline: "Huurwoningen verzameld uit heel Nederland" },
+];
 
 const Samenwerking = () => {
-  const { data: feeds, isLoading } = useQuery({
-    queryKey: ["daisycon-feeds-public"],
-    queryFn: async () => {
-      const { data, error } = await (supabase as any)
-        .from("daisycon_feeds")
-        .select("name, logo_url, is_active")
-        .eq("is_active", true)
-        .order("name");
-      if (error) throw error;
-      return data as { name: string; logo_url: string | null; is_active: boolean }[];
-    },
-    staleTime: 10 * 60 * 1000,
-  });
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -60,45 +53,21 @@ const Samenwerking = () => {
             <h2 className="font-display mb-8 text-center text-2xl font-bold text-foreground">
               Aangesloten aanbieders
             </h2>
-
-            {isLoading ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <Skeleton key={i} className="h-40 rounded-xl" />
-                ))}
-              </div>
-            ) : (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {(feeds || []).map((feed) => (
-                  <div
-                    key={feed.name}
-                    className="flex flex-col items-center gap-4 rounded-xl border bg-card p-6 text-center shadow-sm transition-shadow hover:shadow-md"
-                  >
-                    {feed.logo_url ? (
-                      <img
-                        src={feed.logo_url}
-                        alt={`Logo ${feed.name}`}
-                        className="h-12 max-w-[160px] object-contain"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-xl font-bold text-muted-foreground">
-                        {feed.name.charAt(0)}
-                      </div>
-                    )}
-                    <span className="font-display text-lg font-semibold text-foreground">
-                      {feed.name}
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {PARTNERS.map((p) => (
+                <div
+                  key={p.name}
+                  className="flex flex-col items-center gap-4 rounded-xl border bg-card p-6 text-center shadow-sm"
+                >
+                  <div className="flex h-16 w-full items-center justify-center rounded-lg bg-primary/5">
+                    <span className="font-display text-2xl font-extrabold tracking-tight text-primary">
+                      {p.name}
                     </span>
                   </div>
-                ))}
-              </div>
-            )}
-
-            {!isLoading && (!feeds || feeds.length === 0) && (
-              <p className="text-center text-muted-foreground">
-                Er zijn momenteel geen partners beschikbaar.
-              </p>
-            )}
+                  <p className="text-sm text-muted-foreground">{p.tagline}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
