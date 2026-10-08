@@ -494,7 +494,7 @@ const ExplorePage = () => {
               key={name}
               onClick={() => {
                 setSelectedCity(selectedCity === name ? null : name);
-                if (name) clearPostcode(); // Clear postcode when selecting city
+                // Keep the search radius when selecting a nearby city.
                 if (isMobile) setSidebarOpen(false);
               }}
               className={cn(

@@ -1,4 +1,4 @@
 # Kaartpagina
-- [ ] Laadstatus tonen totdat de benodigde resultaten beschikbaar zijn.
-- [ ] Plaatsen beperken tot kaartgebied of postcodestraal.
-- [ ] Bronnen zonder aanbod verbergen en de werking controleren.
+- [x] Laadstatus tonen totdat de benodigde resultaten beschikbaar zijn.
+- [x] Plaatsen beperken tot kaartgebied of postcodestraal.
+- [x] Bronnen zonder aanbod verbergen en de werking controleren.
