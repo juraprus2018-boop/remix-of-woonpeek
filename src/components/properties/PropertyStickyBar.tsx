@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
+import { ArrowRight, Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
 import { WhatsAppIcon, whatsappShareHref } from "@/components/properties/WhatsAppShare";
 import { cn } from "@/lib/utils";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
@@ -167,6 +167,7 @@ const PropertyStickyBar = ({
         </div>
       </div>
     </div>
+    </>
   );
 };
 
