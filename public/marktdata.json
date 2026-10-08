@@ -4,885 +4,903 @@
   "license": "CC BY 4.0 – overname met bronvermelding en link",
   "method": "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
   "national": {
-    "total": 8285,
-    "new_7d": 8285,
-    "buy_avg": 375697,
-    "new_30d": 8285,
-    "rent_avg": 1536,
-    "buy_total": 15,
+    "total": 10483,
+    "new_7d": 3903,
+    "buy_avg": 514971,
+    "new_30d": 7773,
+    "rent_avg": 1749,
+    "buy_total": 19,
     "buy_median": 375000,
-    "buy_per_m2": 3842,
-    "rent_total": 8270,
-    "rent_median": 1263,
-    "rent_per_m2": 25.4,
-    "buy_under_400k": 13,
-    "rent_under_1500": 4894
+    "buy_per_m2": 6035,
+    "rent_total": 10464,
+    "rent_median": 1525,
+    "rent_per_m2": 22.59,
+    "buy_under_400k": 15,
+    "rent_under_1500": 5208
   },
-  "generated_at": "2026-08-26T10:25:58.463239+00:00",
+  "generated_at": "2026-10-08T20:57:45.955847+00:00",
   "buy_avg_cities": [
     {
       "n": 3,
-      "city": "Best",
-      "avg_price": 347583,
-      "median_price": 355000
-    },
-    {
-      "n": 3,
       "city": "Eindhoven",
-      "avg_price": 390833,
+      "avg_price": 350833,
       "median_price": 385000
     },
     {
       "n": 3,
       "city": "Waalre",
-      "avg_price": 378900,
-      "median_price": 395000
+      "avg_price": 379483,
+      "median_price": 385000
     }
   ],
   "rent_avg_cities": [
     {
-      "n": 1297,
+      "n": 1640,
       "city": "Amsterdam",
-      "avg_price": 2130,
-      "median_price": 1900
+      "avg_price": 2681,
+      "median_price": 2600
     },
     {
-      "n": 861,
+      "n": 842,
       "city": "Rotterdam",
-      "avg_price": 1753,
-      "median_price": 1600
+      "avg_price": 1980,
+      "median_price": 1895
     },
     {
-      "n": 475,
-      "city": "Den Haag",
-      "avg_price": 2009,
-      "median_price": 1850
-    },
-    {
-      "n": 346,
-      "city": "Eindhoven",
-      "avg_price": 1422,
-      "median_price": 1350
-    },
-    {
-      "n": 339,
-      "city": "Groningen",
-      "avg_price": 883,
-      "median_price": 695
-    },
-    {
-      "n": 311,
+      "n": 398,
       "city": "Utrecht",
-      "avg_price": 1586,
-      "median_price": 1500
+      "avg_price": 1752,
+      "median_price": 1734
     },
     {
-      "n": 225,
-      "city": "Enschede",
-      "avg_price": 646,
-      "median_price": 480
+      "n": 395,
+      "city": "Den Haag",
+      "avg_price": 2254,
+      "median_price": 2250
     },
     {
-      "n": 217,
-      "city": "Tilburg",
-      "avg_price": 1060,
-      "median_price": 843
+      "n": 295,
+      "city": "Eindhoven",
+      "avg_price": 1529,
+      "median_price": 1495
     },
     {
-      "n": 204,
+      "n": 282,
+      "city": "Breda",
+      "avg_price": 1147,
+      "median_price": 935
+    },
+    {
+      "n": 250,
+      "city": "Groningen",
+      "avg_price": 1067,
+      "median_price": 910
+    },
+    {
+      "n": 220,
       "city": "Maastricht",
-      "avg_price": 1255,
-      "median_price": 965
+      "avg_price": 1336,
+      "median_price": 1204
     },
     {
-      "n": 148,
-      "city": "Delft",
-      "avg_price": 1035,
-      "median_price": 721
+      "n": 218,
+      "city": "Tilburg",
+      "avg_price": 1178,
+      "median_price": 950
     },
     {
-      "n": 143,
+      "n": 166,
+      "city": "Haarlem",
+      "avg_price": 2112,
+      "median_price": 2150
+    },
+    {
+      "n": 163,
+      "city": "Amstelveen",
+      "avg_price": 2607,
+      "median_price": 2700
+    },
+    {
+      "n": 158,
+      "city": "'s-Gravenhage",
+      "avg_price": 2447,
+      "median_price": 2345
+    },
+    {
+      "n": 142,
       "city": "Arnhem",
-      "avg_price": 1058,
-      "median_price": 820
+      "avg_price": 1215,
+      "median_price": 1105
+    },
+    {
+      "n": 136,
+      "city": "Almere",
+      "avg_price": 1655,
+      "median_price": 1695
     },
     {
       "n": 135,
-      "city": "Haarlem",
-      "avg_price": 2027,
-      "median_price": 2000
+      "city": "Leiden",
+      "avg_price": 1628,
+      "median_price": 1485
     },
     {
-      "n": 120,
-      "city": "Almere",
-      "avg_price": 1407,
-      "median_price": 1232
-    },
-    {
-      "n": 115,
+      "n": 104,
       "city": "Nijmegen",
-      "avg_price": 1058,
-      "median_price": 800
+      "avg_price": 1293,
+      "median_price": 1054
     },
     {
-      "n": 103,
-      "city": "Amstelveen",
-      "avg_price": 2355,
-      "median_price": 2125
-    },
-    {
-      "n": 101,
-      "city": "Breda",
-      "avg_price": 1353,
-      "median_price": 1250
+      "n": 102,
+      "city": "Enschede",
+      "avg_price": 1021,
+      "median_price": 845
     },
     {
       "n": 97,
-      "city": "Leiden",
-      "avg_price": 1510,
-      "median_price": 1390
-    },
-    {
-      "n": 90,
-      "city": "Heerlen",
-      "avg_price": 787,
-      "median_price": 607
+      "city": "Zwolle",
+      "avg_price": 1080,
+      "median_price": 843
     },
     {
       "n": 82,
-      "city": "Leeuwarden",
-      "avg_price": 785,
-      "median_price": 592
-    },
-    {
-      "n": 69,
-      "city": "Hoofddorp",
-      "avg_price": 1862,
-      "median_price": 2095
-    },
-    {
-      "n": 60,
-      "city": "Diemen",
-      "avg_price": 1784,
-      "median_price": 1891
-    },
-    {
-      "n": 56,
       "city": "Hilversum",
-      "avg_price": 1746,
-      "median_price": 1350
+      "avg_price": 2027,
+      "median_price": 2050
     },
     {
-      "n": 53,
-      "city": "Zaandam",
-      "avg_price": 1571,
-      "median_price": 1550
+      "n": 82,
+      "city": "Delft",
+      "avg_price": 1554,
+      "median_price": 1512
     },
     {
-      "n": 52,
+      "n": 77,
+      "city": "Roosendaal",
+      "avg_price": 1035,
+      "median_price": 934
+    },
+    {
+      "n": 71,
+      "city": "Leeuwarden",
+      "avg_price": 1058,
+      "median_price": 1015
+    },
+    {
+      "n": 64,
+      "city": "Heerlen",
+      "avg_price": 1003,
+      "median_price": 933
+    },
+    {
+      "n": 64,
       "city": "Amersfoort",
-      "avg_price": 1232,
-      "median_price": 1170
+      "avg_price": 1483,
+      "median_price": 1600
     },
     {
-      "n": 52,
-      "city": "Zwolle",
-      "avg_price": 1008,
-      "median_price": 889
-    },
-    {
-      "n": 47,
-      "city": "Den Bosch",
-      "avg_price": 1383,
-      "median_price": 1250
-    },
-    {
-      "n": 47,
+      "n": 64,
       "city": "Schiedam",
-      "avg_price": 1386,
-      "median_price": 1175
+      "avg_price": 1765,
+      "median_price": 1748
     },
     {
-      "n": 39,
-      "city": "Nieuwegein",
-      "avg_price": 1425,
-      "median_price": 1400
-    },
-    {
-      "n": 38,
-      "city": "Wageningen",
-      "avg_price": 621,
-      "median_price": 514
-    },
-    {
-      "n": 37,
-      "city": "Apeldoorn",
-      "avg_price": 941,
-      "median_price": 830
-    },
-    {
-      "n": 35,
+      "n": 59,
       "city": "Alkmaar",
-      "avg_price": 1162,
+      "avg_price": 1127,
       "median_price": 1013
     },
     {
-      "n": 35,
+      "n": 58,
+      "city": "Harderwijk",
+      "avg_price": 972,
+      "median_price": 931
+    },
+    {
+      "n": 51,
+      "city": "Apeldoorn",
+      "avg_price": 1182,
+      "median_price": 1139
+    },
+    {
+      "n": 50,
+      "city": "Den Bosch",
+      "avg_price": 1662,
+      "median_price": 1688
+    },
+    {
+      "n": 49,
+      "city": "Zaandam",
+      "avg_price": 1715,
+      "median_price": 1753
+    },
+    {
+      "n": 48,
       "city": "Helmond",
-      "avg_price": 1117,
-      "median_price": 900
+      "avg_price": 1151,
+      "median_price": 1043
     },
     {
-      "n": 33,
-      "city": "Rijswijk",
-      "avg_price": 1426,
-      "median_price": 1300
-    },
-    {
-      "n": 30,
-      "city": "Roermond",
-      "avg_price": 1165,
-      "median_price": 1195
-    },
-    {
-      "n": 29,
-      "city": "Bilthoven",
-      "avg_price": 1428,
-      "median_price": 1240
-    },
-    {
-      "n": 29,
-      "city": "Hengelo",
-      "avg_price": 815,
-      "median_price": 695
-    },
-    {
-      "n": 28,
+      "n": 47,
       "city": "Zoetermeer",
-      "avg_price": 1340,
-      "median_price": 1252
+      "avg_price": 1306,
+      "median_price": 1210
     },
     {
-      "n": 26,
-      "city": "Ede",
-      "avg_price": 1137,
-      "median_price": 955
+      "n": 47,
+      "city": "Wageningen",
+      "avg_price": 652,
+      "median_price": 430
     },
     {
-      "n": 26,
-      "city": "Capelle aan den IJssel",
-      "avg_price": 1203,
-      "median_price": 938
-    },
-    {
-      "n": 26,
+      "n": 46,
       "city": "Veldhoven",
-      "avg_price": 1679,
-      "median_price": 1774
+      "avg_price": 1902,
+      "median_price": 1850
+    },
+    {
+      "n": 43,
+      "city": "Hoofddorp",
+      "avg_price": 2041,
+      "median_price": 2095
+    },
+    {
+      "n": 42,
+      "city": "Purmerend",
+      "avg_price": 1421,
+      "median_price": 1532
+    },
+    {
+      "n": 42,
+      "city": "Wassenaar",
+      "avg_price": 3943,
+      "median_price": 3750
+    },
+    {
+      "n": 41,
+      "city": "Roermond",
+      "avg_price": 1283,
+      "median_price": 1250
+    },
+    {
+      "n": 38,
+      "city": "Ermelo",
+      "avg_price": 887,
+      "median_price": 861
+    },
+    {
+      "n": 38,
+      "city": "Venlo",
+      "avg_price": 1186,
+      "median_price": 1150
     }
   ],
   "rent_per_m2_cities": [
     {
       "n": 4,
-      "city": "Velp",
-      "per_m2": 42.62,
-      "avg_area": 37,
-      "avg_price": 1324
+      "city": "Schaijk",
+      "per_m2": 39.92,
+      "avg_area": 35,
+      "avg_price": 1423
     },
     {
-      "n": 7,
-      "city": "Velp Gld",
-      "per_m2": 41.07,
-      "avg_area": 17,
-      "avg_price": 671
-    },
-    {
-      "n": 9,
+      "n": 6,
       "city": "Loenen aan de Vecht",
-      "per_m2": 39.85,
-      "avg_area": 84,
-      "avg_price": 2714
+      "per_m2": 33.54,
+      "avg_area": 83,
+      "avg_price": 2294
     },
     {
-      "n": 9,
-      "city": "Weesp",
-      "per_m2": 38.14,
-      "avg_area": 60,
-      "avg_price": 1356
-    },
-    {
-      "n": 22,
-      "city": "Voorburg",
-      "per_m2": 33.57,
-      "avg_area": 73,
-      "avg_price": 1771
-    },
-    {
-      "n": 210,
-      "city": "Tilburg",
-      "per_m2": 33.36,
-      "avg_area": 44,
-      "avg_price": 1080
-    },
-    {
-      "n": 10,
-      "city": "Badhoevedorp",
-      "per_m2": 33.19,
-      "avg_area": 66,
-      "avg_price": 1554
-    },
-    {
-      "n": 138,
-      "city": "Delft",
-      "per_m2": 32,
-      "avg_area": 42,
-      "avg_price": 1075
-    },
-    {
-      "n": 10,
-      "city": "Nijkerk",
-      "per_m2": 31.84,
-      "avg_area": 71,
-      "avg_price": 1126
+      "n": 1028,
+      "city": "Amsterdam",
+      "per_m2": 30.7,
+      "avg_area": 86,
+      "avg_price": 2572
     },
     {
       "n": 4,
-      "city": "De Bilt",
-      "per_m2": 31.39,
-      "avg_area": 46,
-      "avg_price": 1254
+      "city": "Rijen",
+      "per_m2": 29.92,
+      "avg_area": 45,
+      "avg_price": 1056
     },
     {
-      "n": 317,
+      "n": 239,
       "city": "Groningen",
-      "per_m2": 30.49,
+      "per_m2": 29.75,
+      "avg_area": 49,
+      "avg_price": 1092
+    },
+    {
+      "n": 287,
+      "city": "Utrecht",
+      "per_m2": 29.26,
+      "avg_area": 70,
+      "avg_price": 1675
+    },
+    {
+      "n": 4,
+      "city": "Loosdrecht",
+      "per_m2": 28.43,
+      "avg_area": 116,
+      "avg_price": 3238
+    },
+    {
+      "n": 93,
+      "city": "Leiden",
+      "per_m2": 28.07,
+      "avg_area": 66,
+      "avg_price": 1701
+    },
+    {
+      "n": 10,
+      "city": "Heemstede",
+      "per_m2": 27.47,
+      "avg_area": 101,
+      "avg_price": 2706
+    },
+    {
+      "n": 121,
+      "city": "Amstelveen",
+      "per_m2": 27.37,
+      "avg_area": 107,
+      "avg_price": 2700
+    },
+    {
+      "n": 158,
+      "city": "Tilburg",
+      "per_m2": 27.08,
+      "avg_area": 53,
+      "avg_price": 1094
+    },
+    {
+      "n": 9,
+      "city": "Velp",
+      "per_m2": 26.9,
       "avg_area": 41,
-      "avg_price": 913
+      "avg_price": 778
     },
     {
-      "n": 1285,
-      "city": "Amsterdam",
-      "per_m2": 30.31,
-      "avg_area": 80,
-      "avg_price": 2141
-    },
-    {
-      "n": 22,
-      "city": "Zeist",
-      "per_m2": 30.03,
-      "avg_area": 82,
-      "avg_price": 1473
-    },
-    {
-      "n": 15,
-      "city": "Vlissingen",
-      "per_m2": 30.01,
-      "avg_area": 48,
-      "avg_price": 1238
+      "n": 39,
+      "city": "Hoofddorp",
+      "per_m2": 26.85,
+      "avg_area": 84,
+      "avg_price": 1987
     },
     {
       "n": 9,
       "city": "Noordwijk",
-      "per_m2": 29.06,
-      "avg_area": 71,
-      "avg_price": 1943
+      "per_m2": 26.63,
+      "avg_area": 77,
+      "avg_price": 1939
     },
     {
-      "n": 4,
-      "city": "Stadskanaal",
-      "per_m2": 28.39,
-      "avg_area": 36,
-      "avg_price": 811
+      "n": 9,
+      "city": "Lunteren",
+      "per_m2": 26.62,
+      "avg_area": 50,
+      "avg_price": 1045
     },
     {
-      "n": 95,
-      "city": "Leiden",
-      "per_m2": 28.29,
-      "avg_area": 61,
-      "avg_price": 1533
+      "n": 9,
+      "city": "Oegstgeest",
+      "per_m2": 26.21,
+      "avg_area": 92,
+      "avg_price": 1816
+    },
+    {
+      "n": 550,
+      "city": "Rotterdam",
+      "per_m2": 25.92,
+      "avg_area": 84,
+      "avg_price": 2020
     },
     {
       "n": 6,
-      "city": "Alblasserdam",
-      "per_m2": 28.28,
-      "avg_area": 64,
-      "avg_price": 1479
+      "city": "Abcoude",
+      "per_m2": 25.81,
+      "avg_area": 220,
+      "avg_price": 4295
     },
     {
-      "n": 44,
-      "city": "Schiedam",
-      "per_m2": 28.28,
-      "avg_area": 68,
-      "avg_price": 1438
-    },
-    {
-      "n": 25,
-      "city": "Lelystad",
-      "per_m2": 28.2,
-      "avg_area": 81,
-      "avg_price": 1551
-    },
-    {
-      "n": 5,
-      "city": "Bennekom",
-      "per_m2": 28.17,
-      "avg_area": 46,
-      "avg_price": 822
-    },
-    {
-      "n": 848,
-      "city": "Rotterdam",
-      "per_m2": 28.16,
-      "avg_area": 74,
-      "avg_price": 1769
-    },
-    {
-      "n": 110,
-      "city": "Nijmegen",
-      "per_m2": 27.89,
-      "avg_area": 54,
-      "avg_price": 1083
-    },
-    {
-      "n": 308,
-      "city": "Utrecht",
-      "per_m2": 27.86,
-      "avg_area": 70,
-      "avg_price": 1596
-    },
-    {
-      "n": 5,
-      "city": "Naaldwijk",
-      "per_m2": 27.69,
-      "avg_area": 103,
-      "avg_price": 2003
-    },
-    {
-      "n": 202,
-      "city": "Maastricht",
-      "per_m2": 26.81,
-      "avg_area": 62,
-      "avg_price": 1263
-    },
-    {
-      "n": 471,
+      "n": 392,
       "city": "Den Haag",
-      "per_m2": 26.8,
-      "avg_area": 86,
-      "avg_price": 2009
+      "per_m2": 25.59,
+      "avg_area": 96,
+      "avg_price": 2266
     },
     {
-      "n": 134,
-      "city": "Haarlem",
-      "per_m2": 26.79,
-      "avg_area": 84,
-      "avg_price": 2037
+      "n": 5,
+      "city": "Stadskanaal",
+      "per_m2": 25.42,
+      "avg_area": 40,
+      "avg_price": 801
     },
     {
-      "n": 34,
-      "city": "Wageningen",
-      "per_m2": 26.63,
-      "avg_area": 37,
-      "avg_price": 650
+      "n": 6,
+      "city": "Badhoevedorp",
+      "per_m2": 25.25,
+      "avg_area": 141,
+      "avg_price": 3433
     },
     {
-      "n": 4,
-      "city": "Vinkeveen",
-      "per_m2": 26.34,
-      "avg_area": 100,
-      "avg_price": 2624
-    },
-    {
-      "n": 138,
-      "city": "Arnhem",
-      "per_m2": 26.26,
-      "avg_area": 56,
-      "avg_price": 1080
-    },
-    {
-      "n": 26,
-      "city": "Capelle aan den IJssel",
-      "per_m2": 26.09,
-      "avg_area": 67,
-      "avg_price": 1203
-    },
-    {
-      "n": 214,
-      "city": "Enschede",
-      "per_m2": 25.8,
-      "avg_area": 34,
-      "avg_price": 657
-    },
-    {
-      "n": 38,
-      "city": "Nieuwegein",
-      "per_m2": 25.78,
-      "avg_area": 72,
-      "avg_price": 1446
-    },
-    {
-      "n": 4,
-      "city": "Diessen",
-      "per_m2": 25.46,
-      "avg_area": 72,
-      "avg_price": 1425
-    },
-    {
-      "n": 82,
-      "city": "Leeuwarden",
-      "per_m2": 25.34,
-      "avg_area": 44,
-      "avg_price": 785
+      "n": 19,
+      "city": "The hague",
+      "per_m2": 24.66,
+      "avg_area": 87,
+      "avg_price": 2000
     },
     {
       "n": 7,
-      "city": "Heemstede",
-      "per_m2": 25.28,
+      "city": "Baarn",
+      "per_m2": 24.52,
+      "avg_area": 66,
+      "avg_price": 1588
+    },
+    {
+      "n": 72,
+      "city": "Zwolle",
+      "per_m2": 24.36,
+      "avg_area": 55,
+      "avg_price": 1061
+    },
+    {
+      "n": 16,
+      "city": "Zeist",
+      "per_m2": 24.25,
       "avg_area": 82,
-      "avg_price": 2021
+      "avg_price": 1358
+    },
+    {
+      "n": 122,
+      "city": "Haarlem",
+      "per_m2": 23.99,
+      "avg_area": 88,
+      "avg_price": 2033
+    },
+    {
+      "n": 172,
+      "city": "Maastricht",
+      "per_m2": 23.96,
+      "avg_area": 71,
+      "avg_price": 1324
+    },
+    {
+      "n": 13,
+      "city": "Brielle",
+      "per_m2": 23.9,
+      "avg_area": 89,
+      "avg_price": 2089
+    },
+    {
+      "n": 5,
+      "city": "Veghel",
+      "per_m2": 23.88,
+      "avg_area": 88,
+      "avg_price": 2165
+    },
+    {
+      "n": 7,
+      "city": "Naarden",
+      "per_m2": 23.75,
+      "avg_area": 88,
+      "avg_price": 2149
+    },
+    {
+      "n": 65,
+      "city": "Delft",
+      "per_m2": 23.65,
+      "avg_area": 77,
+      "avg_price": 1578
+    },
+    {
+      "n": 16,
+      "city": "Zandvoort",
+      "per_m2": 23.53,
+      "avg_area": 94,
+      "avg_price": 2282
+    },
+    {
+      "n": 79,
+      "city": "Enschede",
+      "per_m2": 23.47,
+      "avg_area": 67,
+      "avg_price": 1106
+    },
+    {
+      "n": 102,
+      "city": "Arnhem",
+      "per_m2": 23.27,
+      "avg_area": 60,
+      "avg_price": 1160
     },
     {
       "n": 4,
-      "city": "Warmond",
-      "per_m2": 25.23,
-      "avg_area": 73,
-      "avg_price": 1713
+      "city": "Bennekom",
+      "per_m2": 23.16,
+      "avg_area": 95,
+      "avg_price": 1725
     },
     {
-      "n": 4,
-      "city": "Vlagtwedde",
-      "per_m2": 25.22,
-      "avg_area": 110,
-      "avg_price": 2675
+      "n": 38,
+      "city": "Schiedam",
+      "per_m2": 22.87,
+      "avg_area": 85,
+      "avg_price": 1741
     },
     {
-      "n": 56,
-      "city": "Hilversum",
-      "per_m2": 25.16,
-      "avg_area": 80,
-      "avg_price": 1746
+      "n": 5,
+      "city": "Hellevoetsluis",
+      "per_m2": 22.86,
+      "avg_area": 96,
+      "avg_price": 2271
+    },
+    {
+      "n": 9,
+      "city": "Geldrop",
+      "per_m2": 22.77,
+      "avg_area": 72,
+      "avg_price": 1061
+    },
+    {
+      "n": 224,
+      "city": "Eindhoven",
+      "per_m2": 22.64,
+      "avg_area": 81,
+      "avg_price": 1544
+    },
+    {
+      "n": 23,
+      "city": "Lelystad",
+      "per_m2": 22.62,
+      "avg_area": 90,
+      "avg_price": 1570
     }
   ],
   "new_this_week_cities": [
     {
-      "n": 1305,
+      "n": 542,
       "city": "Amsterdam",
-      "avg_price": 2201
+      "avg_price": 2148
     },
     {
-      "n": 861,
+      "n": 288,
       "city": "Rotterdam",
-      "avg_price": 1753
+      "avg_price": 1789
     },
     {
-      "n": 475,
-      "city": "Den Haag",
-      "avg_price": 2009
-    },
-    {
-      "n": 354,
-      "city": "Eindhoven",
-      "avg_price": 4703
-    },
-    {
-      "n": 339,
+      "n": 176,
       "city": "Groningen",
-      "avg_price": 883
+      "avg_price": 1018
     },
     {
-      "n": 311,
+      "n": 160,
+      "city": "Eindhoven",
+      "avg_price": 2873
+    },
+    {
+      "n": 157,
+      "city": "Den Haag",
+      "avg_price": 1916
+    },
+    {
+      "n": 146,
       "city": "Utrecht",
-      "avg_price": 1586
+      "avg_price": 1618
     },
     {
-      "n": 229,
-      "city": "Enschede",
-      "avg_price": 638
-    },
-    {
-      "n": 217,
+      "n": 130,
       "city": "Tilburg",
       "avg_price": 1060
     },
     {
-      "n": 204,
+      "n": 113,
       "city": "Maastricht",
-      "avg_price": 1255
-    },
-    {
-      "n": 148,
-      "city": "Delft",
-      "avg_price": 1035
-    },
-    {
-      "n": 143,
-      "city": "Arnhem",
-      "avg_price": 1058
-    },
-    {
-      "n": 135,
-      "city": "Haarlem",
-      "avg_price": 2027
-    },
-    {
-      "n": 120,
-      "city": "Almere",
-      "avg_price": 1407
-    },
-    {
-      "n": 115,
-      "city": "Nijmegen",
-      "avg_price": 1058
-    },
-    {
-      "n": 104,
-      "city": "Amstelveen",
-      "avg_price": 2477
-    },
-    {
-      "n": 101,
-      "city": "Breda",
-      "avg_price": 1353
-    },
-    {
-      "n": 97,
-      "city": "Leiden",
-      "avg_price": 1510
+      "avg_price": 1096
     },
     {
       "n": 90,
-      "city": "Heerlen",
-      "avg_price": 787
-    },
-    {
-      "n": 82,
-      "city": "Leeuwarden",
-      "avg_price": 785
+      "city": "Breda",
+      "avg_price": 1164
     },
     {
       "n": 69,
-      "city": "Hoofddorp",
-      "avg_price": 1862
+      "city": "Leiden",
+      "avg_price": 1323
     },
     {
-      "n": 60,
-      "city": "Diemen",
-      "avg_price": 1784
+      "n": 57,
+      "city": "Arnhem",
+      "avg_price": 1044
     },
     {
-      "n": 56,
-      "city": "Hilversum",
-      "avg_price": 1746
+      "n": 55,
+      "city": "Enschede",
+      "avg_price": 1056
+    },
+    {
+      "n": 54,
+      "city": "Amstelveen",
+      "avg_price": 2262
     },
     {
       "n": 53,
-      "city": "Zaandam",
-      "avg_price": 1571
-    },
-    {
-      "n": 52,
-      "city": "Amersfoort",
-      "avg_price": 1232
-    },
-    {
-      "n": 52,
       "city": "Zwolle",
-      "avg_price": 1008
+      "avg_price": 940
+    },
+    {
+      "n": 51,
+      "city": "Nijmegen",
+      "avg_price": 1112
+    },
+    {
+      "n": 49,
+      "city": "Haarlem",
+      "avg_price": 1858
+    },
+    {
+      "n": 44,
+      "city": "Almere",
+      "avg_price": 1512
+    },
+    {
+      "n": 38,
+      "city": "Leeuwarden",
+      "avg_price": 976
+    },
+    {
+      "n": 32,
+      "city": "Delft",
+      "avg_price": 1238
+    },
+    {
+      "n": 31,
+      "city": "Apeldoorn",
+      "avg_price": 1119
+    },
+    {
+      "n": 29,
+      "city": "Amersfoort",
+      "avg_price": 1427
+    },
+    {
+      "n": 27,
+      "city": "Alkmaar",
+      "avg_price": 1082
+    },
+    {
+      "n": 27,
+      "city": "Heerlen",
+      "avg_price": 946
+    },
+    {
+      "n": 27,
+      "city": "Veldhoven",
+      "avg_price": 1814
+    },
+    {
+      "n": 26,
+      "city": "Hilversum",
+      "avg_price": 1837
     }
   ],
   "buy_under_400k_cities": [
     {
       "n": 3,
-      "city": "Best",
-      "avg_price": 347583,
-      "min_price": 318750
+      "city": "Waalre",
+      "avg_price": 379483,
+      "min_price": 358450
     },
     {
-      "n": 3,
-      "city": "Waalre",
-      "avg_price": 378900,
-      "min_price": 341700
+      "n": 2,
+      "city": "Best",
+      "avg_price": 372000,
+      "min_price": 369000
     },
     {
       "n": 2,
       "city": "Eindhoven",
-      "avg_price": 376250,
-      "min_price": 367500
-    },
-    {
-      "n": 2,
-      "city": "Veldhoven",
-      "avg_price": 387250,
-      "min_price": 375000
-    },
-    {
-      "n": 1,
-      "city": "Asten",
-      "avg_price": 389000,
-      "min_price": 389000
+      "avg_price": 316250,
+      "min_price": 247500
     },
     {
       "n": 1,
       "city": "Bergeijk",
-      "avg_price": 345000,
-      "min_price": 345000
+      "avg_price": 340000,
+      "min_price": 340000
     },
     {
       "n": 1,
-      "city": "Valkenswaard",
-      "avg_price": 370000,
-      "min_price": 370000
+      "city": "Den Burg",
+      "avg_price": 325000,
+      "min_price": 325000
+    },
+    {
+      "n": 1,
+      "city": "Herkingen",
+      "avg_price": 300000,
+      "min_price": 300000
+    },
+    {
+      "n": 1,
+      "city": "Nieuwe-Tonge",
+      "avg_price": 305000,
+      "min_price": 305000
+    },
+    {
+      "n": 1,
+      "city": "Oude-Tonge",
+      "avg_price": 310000,
+      "min_price": 310000
+    },
+    {
+      "n": 1,
+      "city": "Sommelsdijk",
+      "avg_price": 325000,
+      "min_price": 325000
+    },
+    {
+      "n": 1,
+      "city": "Son en Breugel",
+      "avg_price": 395000,
+      "min_price": 395000
+    },
+    {
+      "n": 1,
+      "city": "Veldhoven",
+      "avg_price": 399500,
+      "min_price": 399500
     }
   ],
   "rent_under_1500_cities": [
     {
-      "n": 543,
+      "n": 350,
       "city": "Amsterdam",
-      "avg_price": 1036,
-      "min_price": 1
+      "avg_price": 862,
+      "min_price": 200
     },
     {
-      "n": 393,
+      "n": 291,
       "city": "Rotterdam",
-      "avg_price": 980,
-      "min_price": 362
-    },
-    {
-      "n": 303,
-      "city": "Groningen",
-      "avg_price": 737,
-      "min_price": 355
-    },
-    {
-      "n": 216,
-      "city": "Enschede",
-      "avg_price": 553,
-      "min_price": 180
-    },
-    {
-      "n": 208,
-      "city": "Eindhoven",
-      "avg_price": 905,
-      "min_price": 90
-    },
-    {
-      "n": 170,
-      "city": "Den Haag",
-      "avg_price": 970,
-      "min_price": 257
-    },
-    {
-      "n": 167,
-      "city": "Tilburg",
-      "avg_price": 814,
-      "min_price": 329
-    },
-    {
-      "n": 157,
-      "city": "Utrecht",
-      "avg_price": 974,
-      "min_price": 425
-    },
-    {
-      "n": 139,
-      "city": "Maastricht",
-      "avg_price": 817,
-      "min_price": 365
-    },
-    {
-      "n": 115,
-      "city": "Arnhem",
-      "avg_price": 824,
-      "min_price": 245
-    },
-    {
-      "n": 112,
-      "city": "Delft",
-      "avg_price": 677,
-      "min_price": 340
-    },
-    {
-      "n": 90,
-      "city": "Nijmegen",
-      "avg_price": 794,
-      "min_price": 275
-    },
-    {
-      "n": 84,
-      "city": "Heerlen",
-      "avg_price": 692,
-      "min_price": 340
-    },
-    {
-      "n": 77,
-      "city": "Almere",
-      "avg_price": 980,
-      "min_price": 450
-    },
-    {
-      "n": 77,
-      "city": "Leeuwarden",
-      "avg_price": 689,
+      "avg_price": 1000,
       "min_price": 300
     },
     {
-      "n": 67,
+      "n": 226,
       "city": "Breda",
-      "avg_price": 899,
-      "min_price": 400
+      "avg_price": 842,
+      "min_price": 30
     },
     {
-      "n": 51,
+      "n": 202,
+      "city": "Groningen",
+      "avg_price": 832,
+      "min_price": 345
+    },
+    {
+      "n": 164,
+      "city": "Tilburg",
+      "avg_price": 859,
+      "min_price": 56
+    },
+    {
+      "n": 156,
+      "city": "Utrecht",
+      "avg_price": 945,
+      "min_price": 455
+    },
+    {
+      "n": 153,
+      "city": "Eindhoven",
+      "avg_price": 964,
+      "min_price": 265
+    },
+    {
+      "n": 152,
+      "city": "Maastricht",
+      "avg_price": 943,
+      "min_price": 350
+    },
+    {
+      "n": 93,
+      "city": "Arnhem",
+      "avg_price": 854,
+      "min_price": 295
+    },
+    {
+      "n": 91,
+      "city": "Den Haag",
+      "avg_price": 843,
+      "min_price": 292
+    },
+    {
+      "n": 86,
+      "city": "Enschede",
+      "avg_price": 806,
+      "min_price": 180
+    },
+    {
+      "n": 74,
+      "city": "Zwolle",
+      "avg_price": 837,
+      "min_price": 398
+    },
+    {
+      "n": 71,
+      "city": "Roosendaal",
+      "avg_price": 878,
+      "min_price": 32
+    },
+    {
+      "n": 69,
       "city": "Leiden",
-      "avg_price": 825,
-      "min_price": 361
+      "avg_price": 885,
+      "min_price": 382
     },
     {
-      "n": 44,
-      "city": "Amstelveen",
-      "avg_price": 1099,
-      "min_price": 776
+      "n": 65,
+      "city": "Nijmegen",
+      "avg_price": 797,
+      "min_price": 350
+    },
+    {
+      "n": 61,
+      "city": "Heerlen",
+      "avg_price": 933,
+      "min_price": 295
+    },
+    {
+      "n": 60,
+      "city": "Leeuwarden",
+      "avg_price": 888,
+      "min_price": 300
+    },
+    {
+      "n": 59,
+      "city": "Almere",
+      "avg_price": 955,
+      "min_price": 445
+    },
+    {
+      "n": 53,
+      "city": "Harderwijk",
+      "avg_price": 875,
+      "min_price": 480
+    },
+    {
+      "n": 46,
+      "city": "Alkmaar",
+      "avg_price": 931,
+      "min_price": 463
     },
     {
       "n": 43,
-      "city": "Zwolle",
-      "avg_price": 842,
-      "min_price": 427
-    },
-    {
-      "n": 36,
-      "city": "Amersfoort",
-      "avg_price": 966,
-      "min_price": 425
-    },
-    {
-      "n": 36,
       "city": "Wageningen",
       "avg_price": 534,
       "min_price": 205
     },
     {
-      "n": 35,
-      "city": "Haarlem",
-      "avg_price": 1056,
-      "min_price": 550
-    },
-    {
-      "n": 33,
-      "city": "Apeldoorn",
-      "avg_price": 836,
-      "min_price": 400
-    },
-    {
-      "n": 32,
-      "city": "Den Bosch",
-      "avg_price": 1018,
+      "n": 41,
+      "city": "Delft",
+      "avg_price": 921,
       "min_price": 350
     },
     {
-      "n": 30,
-      "city": "Hilversum",
-      "avg_price": 982,
+      "n": 39,
+      "city": "Haarlem",
+      "avg_price": 934,
+      "min_price": 450
+    },
+    {
+      "n": 37,
+      "city": "'s-Gravenhage",
+      "avg_price": 1006,
+      "min_price": 276
+    },
+    {
+      "n": 37,
+      "city": "Apeldoorn",
+      "avg_price": 931,
       "min_price": 450
     }
   ]

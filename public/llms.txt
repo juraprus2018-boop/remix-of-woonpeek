@@ -4,11 +4,11 @@
 
 ## Wat is Woonaanbod NL?
 
-Woonaanbod NL is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Woonaanbod NL volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 6.000+ actieve woningen in meer dan 50 steden.
+Woonaanbod NL is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Woonaanbod NL volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 10.000+ actieve woningen in meer dan 50 steden.
 
 ## Kernfeatures
 
-- **6.000+ actieve woningen** uit heel Nederland, dagelijks bijgewerkt
+- **10.000+ actieve woningen** uit heel Nederland, dagelijks bijgewerkt
 - **100% gratis** – zoeken, plaatsen en dagelijkse alerts kosten niets
 - **Gratis dagelijkse woningalert** – ontvang nieuwe woningen per e-mail
 - **Uitgebreide zoekfilters** – stad, prijs, type, slaapkamers, huur/koop
@@ -70,7 +70,7 @@ Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en meth
 - Alle steden: https://www.woonaanbod-nl.nl/woonaanbod-per-stad
 - Verkennen (kaart): https://www.woonaanbod-nl.nl/op-kaart
 - Nieuw aanbod: https://www.woonaanbod-nl.nl/vandaag
-- Blog: https://www.woonaanbod-nl.nl/journaal
+- Blog: https://www.woonaanbod-nl.nl/blog
 - Over Woonaanbod NL: https://www.woonaanbod-nl.nl/over
 - FAQ: https://www.woonaanbod-nl.nl/vragen
 - Dagelijkse alert: https://www.woonaanbod-nl.nl/woonmelding
@@ -83,14 +83,14 @@ Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en meth
 - WOZ-waarde opzoeken: https://www.woonaanbod-nl.nl/woz-waarde
 - Hypotheek berekenen: https://www.woonaanbod-nl.nl/hypotheek-berekenen
 - Budgetcheck: https://www.woonaanbod-nl.nl/budgetcheck
-- Huurprijsmonitor: https://www.woonaanbod-nl.nl/huurprijsmonitor
+- Huurprijsmonitor: https://www.woonaanbod-nl.nl/woningmarkt/huurprijzen-per-gemeente
 - Verhuischecklist: https://www.woonaanbod-nl.nl/verhuischecklist
 - Woordenboek: https://www.woonaanbod-nl.nl/woordenboek
 
 ## Contact
 
 - Website: https://www.woonaanbod-nl.nl
-- Over ons: https://www.woonaanbod-nl.nl/over-woonaanbod-nl
+- Over ons: https://www.woonaanbod-nl.nl/over
 
 ## Uitgebreide documentatie
 
@@ -118,7 +118,7 @@ Op de homepage vul je je bruto maandinkomen in. Woonaanbod NL berekent automatis
 
 ## Datapunten
 
-- Aantal actieve woningen: 6.000+
+- Aantal actieve woningen: 10.000+
 - Aantal steden: 50+
 - Talen: Nederlands (primair), Engels, Duits, Frans
 - Update-frequentie woningaanbod: dagelijks (continue scraping + API)

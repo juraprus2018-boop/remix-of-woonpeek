@@ -232,6 +232,8 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
         description: pageDescription,
         url: canonical,
         isPartOf: { "@type": "WebSite", name: "Woonaanbod NL", url: "https://www.woonaanbod-nl.nl" },
+        about: { "@type": "City", name: cityName, containedInPlace: { "@type": "Country", name: "Nederland", identifier: "NL" } },
+        spatialCoverage: { "@type": "Place", name: cityName, address: { "@type": "PostalAddress", addressLocality: cityName, addressCountry: "NL" } },
       },
       {
         "@context": "https://schema.org",
@@ -261,7 +263,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} noindex={!isLoading && !isIndexable} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} noindex={!isLoading && !isIndexable} geoPlacename={cityName} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (

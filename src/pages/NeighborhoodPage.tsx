@@ -111,6 +111,11 @@ const NeighborhoodPage = () => {
       description: pageDescription,
       url: canonical,
       isPartOf: { "@type": "WebSite", name: "Woonaanbod NL", url: "https://www.woonaanbod-nl.nl" },
+      about: {
+        "@type": "Place",
+        name: `${neighborhoodName}, ${cityName}`,
+        containedInPlace: { "@type": "City", name: cityName, containedInPlace: { "@type": "Country", name: "Nederland" } },
+      },
     },
     {
       "@context": "https://schema.org",
@@ -137,7 +142,7 @@ const NeighborhoodPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} />
+      <SEOHead title={pageTitle} description={pageDescription} canonical={canonicalPath} geoPlacename={`${neighborhoodName}, ${cityName}`} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (

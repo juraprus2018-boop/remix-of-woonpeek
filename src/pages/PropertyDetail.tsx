@@ -406,6 +406,8 @@ const PropertyDetail = () => {
         canonical={canonicalPath}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="website"
+        geoPlacename={property.city || undefined}
+        geoPosition={property.latitude && property.longitude ? { lat: Number(property.latitude), lng: Number(property.longitude) } : undefined}
       />
       
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateJsonLd) }} />
