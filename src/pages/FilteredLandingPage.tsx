@@ -92,6 +92,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       "met-balkon": { text: "balkon", label: "met balkon" },
       "gemeubileerd": { text: "gemeubileerd", label: "gemeubileerd" },
       "huisdieren-toegestaan": { text: "huisdier", label: "waar huisdieren zijn toegestaan" },
+      "expat": { text: "expat", label: "voor expats" },
     };
     if (filter in FEATURES) {
       const f = FEATURES[filter];

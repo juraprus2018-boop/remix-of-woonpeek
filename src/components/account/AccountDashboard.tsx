@@ -7,7 +7,8 @@ import PropertyCard from "@/components/properties/PropertyCard";
 import { useProperties } from "@/hooks/useProperties";
 import { useFavorites } from "@/hooks/useFavorites";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
-import { Bell, Heart, Zap, ExternalLink, Plug, Wifi, Calculator } from "lucide-react";
+import { useState } from "react";
+import { Bell, Heart, Zap, ExternalLink, Plug, Wifi, Calculator, Home, Truck, PackageCheck, CheckCircle2, Circle } from "lucide-react";
 
 const useHuurzoneLink = () =>
   useQuery({
@@ -98,27 +99,74 @@ const AccountDashboard = ({ name }: { name: string }) => {
         </section>
       )}
 
-      <section>
-        <h2 className="mb-3 font-display text-xl font-bold">Alvast geregeld voor je verhuizing</h2>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {[
-            { to: "/energie", icon: Plug, t: "Energie vergelijken", d: "Bespaar op je eerste jaar" },
-            { to: "/internet", icon: Wifi, t: "Internet & TV", d: "Direct online in je nieuwe huis" },
-            { to: "/budgetcheck", icon: Calculator, t: "Budgetcheck", d: "Welke huur past bij je inkomen?" },
-          ].map(({ to, icon: Icon, t, d }) => (
-            <Link key={to} to={to}>
-              <Card className="h-full transition-colors hover:border-primary">
-                <CardContent className="p-5">
-                  <Icon className="mb-2 h-6 w-6 text-primary" />
-                  <p className="font-semibold">{t}</p>
-                  <p className="text-sm text-muted-foreground">{d}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <Verhuisbox />
     </div>
+  );
+};
+
+const VERHUIS_STEPS = [
+  { id: "woning", to: "/vandaag", icon: Home, t: "Woning vinden en reageren", d: "Bekijk het nieuwste aanbod en reageer snel" },
+  { id: "budget", to: "/budgetcheck", icon: Calculator, t: "Budget checken", d: "Welke huur past bij je inkomen?" },
+  { id: "energie", to: "/energie", icon: Plug, t: "Energiecontract regelen", d: "Vergelijk en bespaar op je eerste jaar" },
+  { id: "internet", to: "/internet", icon: Wifi, t: "Internet en tv aanvragen", d: "Op tijd online bij de sleuteloverdracht" },
+  { id: "verhuizen", to: "/verhuischecklist", icon: Truck, t: "Verhuizing plannen", d: "Checklist, verhuisservice en adres doorgeven" },
+];
+
+const Verhuisbox = () => {
+  const [done, setDone] = useState<string[]>(() => {
+    try { return JSON.parse(localStorage.getItem("verhuisbox") || "[]"); } catch { return []; }
+  });
+  const toggle = (id: string) => {
+    const next = done.includes(id) ? done.filter((x) => x !== id) : [...done, id];
+    setDone(next);
+    localStorage.setItem("verhuisbox", JSON.stringify(next));
+  };
+  const pct = Math.round((done.length / VERHUIS_STEPS.length) * 100);
+
+  return (
+    <section>
+      <Card className="border-2">
+        <CardContent className="p-5 md:p-6">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="flex items-center gap-2 font-display text-xl font-bold">
+              <PackageCheck className="h-5 w-5 text-primary" /> Jouw gratis Verhuisbox
+            </h2>
+            <span className="text-sm font-semibold text-primary">{done.length}/{VERHUIS_STEPS.length} klaar</span>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">Vink af wat je geregeld hebt, zo vergeet je niets.</p>
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-muted">
+            <div className="h-full bg-primary transition-all" style={{ width: `${pct}%` }} />
+          </div>
+          <ul className="mt-4 space-y-2">
+            {VERHUIS_STEPS.map(({ id, to, icon: Icon, t, d }) => {
+              const isDone = done.includes(id);
+              return (
+                <li key={id} className="flex items-center gap-3 rounded-lg border p-3">
+                  <button
+                    type="button"
+                    onClick={() => toggle(id)}
+                    aria-label={isDone ? `${t} niet afgevinkt` : `${t} afvinken`}
+                    className="shrink-0"
+                  >
+                    {isDone ? <CheckCircle2 className="h-6 w-6 text-primary" /> : <Circle className="h-6 w-6 text-muted-foreground" />}
+                  </button>
+                  <Icon className="h-5 w-5 shrink-0 text-primary" />
+                  <div className="min-w-0 flex-1">
+                    <p className={`font-semibold ${isDone ? "text-muted-foreground line-through" : ""}`}>{t}</p>
+                    <p className="text-sm text-muted-foreground">{d}</p>
+                  </div>
+                  {!isDone && (
+                    <Button asChild size="sm" variant="outline" className="shrink-0">
+                      <Link to={to}>Regel</Link>
+                    </Button>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </CardContent>
+      </Card>
+    </section>
   );
 };
 

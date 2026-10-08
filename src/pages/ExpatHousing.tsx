@@ -223,14 +223,18 @@ const ExpatHousing = () => {
             <h2 className="font-display text-2xl md:text-3xl lowercase">best cities for expats</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {TOP_CITIES.map((c) => (
-                <Link
+                <div
                   key={c.slug}
-                  to={`/stad/${c.slug}`}
-                  className="rounded-2xl border-2 border-foreground bg-background p-5 transition-colors hover:bg-accent/10"
+                  className="rounded-2xl border-2 border-foreground bg-background p-5"
                 >
                   <p className="font-display text-lg lowercase">{c.name}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{c.note}</p>
-                </Link>
+                  <div className="mt-3 flex flex-wrap gap-3 text-sm font-semibold">
+                    <Link to={`/huurwoningen/${c.slug}/expat`} className="text-primary hover:underline">Expat rentals</Link>
+                    <Link to={`/huurwoningen/${c.slug}/gemeubileerd`} className="text-primary hover:underline">Furnished</Link>
+                    <Link to={`/huurwoningen/${c.slug}`} className="text-primary hover:underline">All rentals</Link>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
