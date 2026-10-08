@@ -7,7 +7,8 @@ import PropertyCard from "@/components/properties/PropertyCard";
 import { useProperties } from "@/hooks/useProperties";
 import { useFavorites } from "@/hooks/useFavorites";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
-import { Bell, Heart, Zap, ExternalLink, Plug, Wifi, Calculator } from "lucide-react";
+import { useState } from "react";
+import { Bell, Heart, Zap, ExternalLink, Plug, Wifi, Calculator, Home, Truck, PackageCheck, CheckCircle2, Circle } from "lucide-react";
 
 const useHuurzoneLink = () =>
   useQuery({
@@ -166,7 +167,6 @@ const Verhuisbox = () => {
         </CardContent>
       </Card>
     </section>
-    </div>
   );
 };
 
