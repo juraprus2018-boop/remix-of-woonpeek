@@ -41,6 +41,7 @@ import {
   Search,
 
   ArrowRight,
+  Check,
   Building2,
   Ruler,
   Tag,
