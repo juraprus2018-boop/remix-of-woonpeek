@@ -46,17 +46,17 @@ const MAX_FULL_ROWS = 6000;
 const MAX_MAP_ROWS = 15000;
 
 
-// Woningen uit de Huurwoningen.nl-feed (feed_priority = 0) staan altijd bovenaan in elke sortering.
+// Woningen uit de Huurzone.nl-feed (provider_priority = 0) staan altijd bovenaan in elke sortering.
 
 // Batches worden op primary key opgehaald (goedkoop, geen sort van de hele tabel per batch)
-// en daarna client-side gesorteerd op feed_priority + gekozen sortering.
-const sortPropertiesClientSide = <T extends { feed_priority?: number | null; created_at?: string | null; price?: number | null }>(
+// en daarna client-side gesorteerd op provider_priority + gekozen sortering.
+const sortPropertiesClientSide = <T extends { provider_priority?: number | null; created_at?: string | null; price?: number | null }>(
   rows: T[],
   sortBy?: SortOption
 ): T[] => {
   const { column, ascending } = sortConfig(sortBy);
   return [...rows].sort((a, b) => {
-    const fp = (a.feed_priority ?? 999) - (b.feed_priority ?? 999);
+    const fp = (a.provider_priority ?? 999) - (b.provider_priority ?? 999);
     if (fp !== 0) return fp;
     const av = column === "price" ? Number(a.price ?? 0) : new Date(a.created_at ?? 0).getTime();
     const bv = column === "price" ? Number(b.price ?? 0) : new Date(b.created_at ?? 0).getTime();
@@ -114,7 +114,7 @@ export const useProperties = (filters?: PropertyFilters) => {
         let query = supabase
           .from("properties")
           .select("*", { count: "exact" })
-          .order("feed_priority", { ascending: true })
+          .order("provider_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
 
@@ -170,7 +170,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
       let query = supabase
         .from("properties")
         .select("*", { count: "exact" })
-        .order("feed_priority", { ascending: true })
+        .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
 
@@ -200,7 +200,7 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
         const batchSize = Math.min(DEFAULT_BATCH_SIZE, MAX_MAP_ROWS - from);
         let query = supabase
           .from("properties")
-          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site, feed_priority, created_at")
+          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site, provider_priority, created_at")
           .not("latitude", "is", null)
           .not("longitude", "is", null)
           .order("id", { ascending: true })
@@ -411,7 +411,7 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
       }
 
       const { data, error } = await query
-        .order("feed_priority", { ascending: true })
+        .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(12);
 
@@ -432,7 +432,7 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
         .eq("status", "actief")
         .eq("city", city)
         .eq("listing_type", listingType as ListingType)
-        .order("feed_priority", { ascending: true })
+        .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(4);
       if (currentId && uuidRegex.test(currentId)) {
@@ -573,7 +573,7 @@ export const useNearbyProperties = (
         .from("properties")
         .select("*")
         .eq("status", "actief")
-        .order("feed_priority", { ascending: true })
+        .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .limit(limit);
 

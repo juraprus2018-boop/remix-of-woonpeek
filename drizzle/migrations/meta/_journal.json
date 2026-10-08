@@ -43,6 +43,13 @@
       "when": 1791274384246,
       "tag": "0005_tighten_open_insert_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1791482970828,
+      "tag": "0006_huurzone_listing_priority",
+      "breakpoints": true
     }
   ]
 }

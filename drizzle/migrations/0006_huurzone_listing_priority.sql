@@ -1,0 +1,4 @@
+ALTER TABLE public.properties ADD COLUMN provider_priority integer GENERATED ALWAYS AS (CASE WHEN lower(coalesce(source_site,'')) IN ('huurzone.nl','huurzone') THEN 0 WHEN lower(coalesce(source_site,'')) IN ('huurwoningen.nl','huurwoningen','kamernet','kamernet.nl','directwonen.nl','directwonen','huurstunt','huurstunt.nl') THEN 1 WHEN source_site IS NULL THEN 4 ELSE 5 END) STORED;
+CREATE INDEX properties_active_provider_newest_idx ON public.properties (provider_priority, created_at DESC) WHERE status='actief';
+CREATE INDEX properties_active_provider_price_idx ON public.properties (provider_priority, price) WHERE status='actief';
+COMMENT ON COLUMN public.properties.feed_priority IS 'DEPRECATED: listing display uses provider_priority; retained for legacy consumers.';
