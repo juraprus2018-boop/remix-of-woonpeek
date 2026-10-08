@@ -29,7 +29,7 @@ const AccountDashboard = ({ name }: { name: string }) => {
   const { data: huurzone } = useHuurzoneLink();
   const { data: recent } = useProperties({ listingType: "huur", pageSize: 6, sortBy: "newest" });
   const { data: favorites } = useFavorites();
-  const items = (recent as any)?.data ?? (Array.isArray(recent) ? recent : []);
+  const items = recent?.properties ?? [];
 
   const openHuurzone = () => {
     if (!huurzone) return;
@@ -62,7 +62,7 @@ const AccountDashboard = ({ name }: { name: string }) => {
       </Card>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Link to="/favorieten">
+        <Link to="/opgeslagen">
           <Card className="h-full transition-colors hover:border-primary">
             <CardContent className="flex items-center gap-3 p-5">
               <Heart className="h-6 w-6 text-primary" />
@@ -102,8 +102,8 @@ const AccountDashboard = ({ name }: { name: string }) => {
         <h2 className="mb-3 font-display text-xl font-bold">Alvast geregeld voor je verhuizing</h2>
         <div className="grid gap-4 sm:grid-cols-3">
           {[
-            { to: "/energie-vergelijken", icon: Plug, t: "Energie vergelijken", d: "Bespaar op je eerste jaar" },
-            { to: "/internet-vergelijken", icon: Wifi, t: "Internet & TV", d: "Direct online in je nieuwe huis" },
+            { to: "/energie", icon: Plug, t: "Energie vergelijken", d: "Bespaar op je eerste jaar" },
+            { to: "/internet", icon: Wifi, t: "Internet & TV", d: "Direct online in je nieuwe huis" },
             { to: "/budgetcheck", icon: Calculator, t: "Budgetcheck", d: "Welke huur past bij je inkomen?" },
           ].map(({ to, icon: Icon, t, d }) => (
             <Link key={to} to={to}>
