@@ -937,7 +937,7 @@ const PropertyDetail = () => {
                           <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
                           <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
                         </div>
-                      <Button className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
+                      <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
@@ -966,7 +966,7 @@ const PropertyDetail = () => {
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
                         <DialogTrigger asChild>
-                          <Button className="w-full" size="lg">
+                          <Button variant="accent" className="w-full" size="lg">
                             <Mail className="mr-2 h-4 w-4" />
                             Vraag meer informatie
                           </Button>
