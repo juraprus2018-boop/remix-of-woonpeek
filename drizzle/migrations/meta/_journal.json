@@ -64,6 +64,13 @@
       "when": 1791489272472,
       "tag": "0008_admin_delete_agency",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1791489440765,
+      "tag": "0009_restore_signup_profile_trigger",
+      "breakpoints": true
     }
   ]
 }

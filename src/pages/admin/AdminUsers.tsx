@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Loader2, Users, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
@@ -63,7 +64,7 @@ const formatDate = (date: string | null) => {
 };
 
 const AdminUsers = () => {
-  const { data: users, isLoading } = useAdminUsers();
+  const { data: users, isLoading, isError, refetch } = useAdminUsers();
   const navigate = useNavigate();
 
   return (
@@ -80,6 +81,11 @@ const AdminUsers = () => {
         {isLoading ? (
           <div className="flex justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : isError ? (
+          <div className="space-y-3 py-8 text-center">
+            <p className="text-destructive">Gebruikers konden niet worden geladen.</p>
+            <Button variant="outline" onClick={() => refetch()}>Opnieuw proberen</Button>
           </div>
         ) : (
           <>
