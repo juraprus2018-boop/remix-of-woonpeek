@@ -172,11 +172,12 @@ Deno.serve(async (req) => {
       const unsubscribeUrl = `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}`;
       const html = buildEmailHtml(
         latestProperties,
-        `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel}!`,
+        `Nieuwe woningen te huur in en rondom ${cityLabel}`,
         `Nieuw aanbod voor jouw zoekopdracht: ${searchLabel}.`,
         `https://www.woonaanbod-nl.nl/nieuw-aanbod`,
         unsubscribeUrl,
-        filteredCount
+        filteredCount,
+        cityLabel
       );
 
 
@@ -185,7 +186,7 @@ Deno.serve(async (req) => {
         await sendMail({
           from: MAIL_FROM,
           to: subscriber.email,
-          subject: `${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} in ${cityLabel} – Woonaanbod NL`,
+          subject: alertSubject(cityLabel),
           content: "text/html",
           html,
         });
@@ -233,80 +234,134 @@ Deno.serve(async (req) => {
   }
 });
 
+function esc(v: unknown) {
+  return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function dayPart() {
+  const h = Number(new Intl.DateTimeFormat("nl-NL", { hour: "numeric", hour12: false, timeZone: "Europe/Amsterdam" }).format(new Date()));
+  if (h < 12) return "Voor de middag";
+  if (h < 18) return "Vanmiddag";
+  return "Vanavond";
+}
+
+export function alertSubject(cityLabel: string) {
+  const date = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "long", timeZone: "Europe/Amsterdam" }).format(new Date());
+  return `${dayPart()}: verse huurvondsten in ${cityLabel} van ${date}`;
+}
+
 function buildEmailHtml(
   properties: any[],
   heading: string,
   subheading: string,
   ctaUrl: string,
   unsubscribeUrl: string | null,
-  totalCount?: number
+  totalCount?: number,
+  cityLabel?: string,
 ) {
-  const propertyCardsHtml = properties
-    .map((p) => {
-      const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(p.price);
-      const url = propertyUrl(p as any);
-      const image = p.images && p.images.length > 0 ? p.images[0] : "";
-      const details: string[] = [];
-      if (p.surface_area) details.push(`${p.surface_area} m²`);
-      if (p.bedrooms) details.push(`${p.bedrooms} slpk`);
-      if (p.property_type) details.push(p.property_type);
-      return `
-        <td style="width:50%;padding:6px;vertical-align:top;">
-          <a href="${url}" style="text-decoration:none;color:inherit;display:block;">
-            <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;background:#fff;">
-              ${image ? `<img src="${image}" alt="${p.title}" style="width:100%;height:140px;object-fit:cover;display:block;" />` : `<div style="width:100%;height:140px;background:#f3f4f6;"></div>`}
-              <div style="padding:10px;">
-                <div style="font-weight:700;color:#0f766e;font-size:16px;margin-bottom:2px;">${priceFormatted}${p.listing_type === "huur" ? "/mnd" : ""}</div>
-                <div style="font-weight:600;font-size:13px;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.title}</div>
-                <div style="font-size:12px;color:#666;margin-top:2px;">${p.city}${details.length > 0 ? ` · ${details.join(" · ")}` : ""}</div>
-              </div>
-            </div>
-          </a>
-        </td>`;
-    })
-    .join("");
-
-  let gridHtml = "";
-  for (let r = 0; r < properties.length; r += 2) {
-    const allCards = propertyCardsHtml.split("</td>");
-    const card1 = allCards[r] + "</td>";
-    const card2 = r + 1 < properties.length ? allCards[r + 1] + "</td>" : "<td></td>";
-    gridHtml += `<tr>${card1}${card2}</tr>`;
-  }
-
   const count = totalCount ?? properties.length;
+  const citySlug = cityLabel && cityLabel !== "Nederland" ? cityLabel.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "";
+  const overviewUrl = citySlug ? `https://www.woonaanbod-nl.nl/huurwoningen/${citySlug}` : ctaUrl;
+  const fmt = (n: number) => new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 2 }).format(n);
+  const typeLabel = (t?: string) => t ? t.charAt(0).toUpperCase() + t.slice(1) : "Woning";
 
-  return `
-    <div style="font-family:'Segoe UI',Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9fafb;padding:20px;border-radius:12px;">
-      <div style="text-align:center;margin-bottom:16px;">
-        <h1 style="color:#0f766e;font-size:22px;margin:0;">🏠 Woonaanbod NL</h1>
-      </div>
-      <h2 style="color:#1a1a1a;font-size:20px;text-align:center;margin-bottom:4px;">${heading}</h2>
-      <p style="color:#666;text-align:center;margin-bottom:16px;font-size:14px;">${subheading}</p>
-      <table style="width:100%;border-collapse:collapse;border-spacing:0;" cellpadding="0" cellspacing="0">
-        ${gridHtml}
-      </table>
-      ${count > 6 ? `<p style="text-align:center;color:#666;font-size:13px;margin-top:8px;">...en ${count - 6} meer</p>` : ""}
-      <p style="text-align:center;margin:20px 0;">
-        <a href="${ctaUrl}" style="display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:12px 28px;border-radius:8px;font-weight:700;font-size:15px;">
-          Bekijk alle woningen →
-        </a>
+  const rows = properties.map((p) => {
+    const url = propertyUrl(p as any);
+    const image = p.images?.[0] || "";
+    const facts: string[] = [];
+    if (p.surface_area) facts.push(`${p.surface_area} m²`);
+    if (p.bedrooms) facts.push(`${p.bedrooms} ${p.bedrooms === 1 ? "kamer" : "kamers"}`);
+    facts.push(`${fmt(Number(p.price))}${p.listing_type === "huur" ? " p.m." : ""}`);
+    return `
+      <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+        <table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr>
+          <td width="132" style="vertical-align:top;">
+            <a href="${url}">${image
+              ? `<img src="${esc(image)}" width="120" height="90" alt="${esc(p.title)}" style="display:block;width:120px;height:90px;object-fit:cover;border-radius:8px;" />`
+              : `<div style="width:120px;height:90px;background:#e8eef5;border-radius:8px;"></div>`}</a>
+          </td>
+          <td style="vertical-align:top;">
+            <a href="${url}" style="color:#173e63;font-weight:700;font-size:15px;text-decoration:none;">${esc(typeLabel(p.property_type))} in ${esc(p.city)}</a>
+            <div style="font-size:13px;color:#475569;margin:3px 0;">${esc([p.street, p.house_number].filter(Boolean).join(" ") || p.title)}</div>
+            <div style="font-size:13px;color:#15803d;margin:3px 0;">✅ Beschikbaar</div>
+            <div style="font-size:13px;color:#0f172a;font-weight:600;">${facts.join(" • ")}</div>
+            <a href="${url}" style="display:inline-block;margin-top:6px;color:#3d7ab8;font-weight:700;font-size:13px;text-decoration:none;">reageren »</a>
+          </td>
+        </tr></table>
+      </td></tr>`;
+  }).join("");
+
+  const tips = [
+    "Verhuurders krijgen soms tientallen reacties op één woning. Maak daarom meteen duidelijk wie je bent en waarom je interesse hebt.",
+    "Stel jezelf kort voor: je leeftijd, je huidige woonsituatie en met wie je wilt gaan wonen.",
+    "Vertel hoe je werk eruitziet (loondienst, zzp, thuiswerken) en noem praktische zaken zoals een huisdier of een verhuurdersreferentie.",
+    "Leg uit waarom juist deze woning je aanspreekt: de buurt, de indeling of de ligging. Zo zie je er niet uit als een standaardbericht.",
+    "Houd het kort. Een paar zinnen over wie je bent, je situatie en waarom deze woning past, is genoeg.",
+  ];
+  const tipsHtml = tips.map((t, i) => `
+    <tr>
+      <td width="34" style="vertical-align:top;padding:6px 0;"><div style="width:24px;height:24px;line-height:24px;border-radius:12px;background:#173e63;color:#ffffff;text-align:center;font-size:12px;font-weight:700;">${i + 1}</div></td>
+      <td style="vertical-align:top;padding:6px 0;font-size:13px;line-height:1.55;color:#334155;">${t}</td>
+    </tr>`).join("");
+
+  return `<!DOCTYPE html><html lang="nl"><body style="margin:0;padding:0;background:#ffffff;">
+  <div style="display:none;max-height:0;overflow:hidden;">${esc(subheading)}</div>
+  <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;"><tr><td align="center" style="padding:16px 8px;">
+  <table width="600" cellpadding="0" cellspacing="0" role="presentation" style="max-width:600px;width:100%;font-family:Manrope,'Segoe UI',Arial,sans-serif;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;">
+    <tr><td style="background:#173e63;padding:20px 26px;">
+      <table cellpadding="0" cellspacing="0" role="presentation"><tr>
+        <td><img src="https://www.woonaanbod-nl.nl/icon-192.png" width="38" height="38" alt="Woonaanbod NL" style="display:block;border-radius:8px;" /></td>
+        <td style="padding-left:12px;color:#ffffff;font-size:20px;font-family:Sora,Arial,sans-serif;">woonaanbod<span style="font-weight:700;color:#9cc3ea;">-nl.nl</span></td>
+      </tr></table>
+    </td></tr>
+
+    <tr><td style="padding:26px 26px 6px;">
+      <table cellpadding="0" cellspacing="0" role="presentation"><tr>
+        <td style="vertical-align:top;padding-right:14px;"><div style="min-width:46px;height:46px;line-height:46px;border-radius:10px;background:#e8a317;color:#173e63;text-align:center;font-size:22px;font-weight:800;">${count}</div></td>
+        <td style="vertical-align:top;font-size:16px;line-height:1.5;color:#0f172a;font-weight:600;">Heb je het al gezien? In ${esc(cityLabel || "Nederland")} ${count === 1 ? "staat" : "staan"} ${count} ${count === 1 ? "nieuwe huurwoning" : "nieuwe huurwoningen"} voor je klaar. Zit jouw nieuwe thuis ertussen?</td>
+      </tr></table>
+      <p style="font-size:14px;line-height:1.6;color:#475569;margin:16px 0 0;">${esc(subheading)} Reageer snel: de beste woningen zijn vaak binnen een dag weg.</p>
+    </td></tr>
+
+    <tr><td style="padding:16px 26px 0;">
+      <div style="font-family:Sora,Arial,sans-serif;font-size:17px;font-weight:700;color:#173e63;margin-bottom:4px;">${esc(heading)}</div>
+      <table width="100%" cellpadding="0" cellspacing="0" role="presentation">${rows}</table>
+      ${count > properties.length ? `<p style="font-size:13px;color:#64748b;margin:10px 0 0;">...en nog ${count - properties.length} andere woningen.</p>` : ""}
+      <p style="text-align:center;margin:22px 0 6px;">
+        <a href="${overviewUrl}" style="display:inline-block;background:#173e63;color:#ffffff;text-decoration:none;padding:13px 28px;border-radius:10px;font-weight:700;font-size:15px;">Bekijk al het aanbod in ${esc(cityLabel || "Nederland")} »</a>
       </p>
-      <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0;" />
-      <div style="background:#f1f5f9;border-radius:10px;padding:16px 18px;margin-bottom:16px;">
-        <p style="color:#374151;font-size:13px;line-height:1.6;margin:0;">
-          Hoi! Fijn dat je Woonaanbod NL gebruikt bij het zoeken naar een huurwoning. Zou je ons willen helpen met een korte review op Google? Het kost maar een minuutje en helpt andere woningzoekenden ons te vinden:
-        </p>
-        <p style="text-align:center;margin:10px 0 0;">
-          <a href="https://g.page/r/CYZL1fpfWpFOEBM/review" style="display:inline-block;background:#173e63;color:#fff;text-decoration:none;padding:9px 22px;border-radius:8px;font-weight:700;font-size:13px;">
-            ⭐ Laat een Google-review achter
-          </a>
-        </p>
+      <p style="font-size:12px;color:#94a3b8;text-align:center;margin:8px 0 0;">Let op: vragen over woningen kunnen we helaas niet per e-mail beantwoorden.</p>
+    </td></tr>
+
+    <tr><td style="padding:22px 26px 0;">
+      <div style="background:#f4f7fb;border-radius:12px;padding:18px 20px;">
+        <div style="font-size:16px;font-weight:700;color:#173e63;margin-bottom:6px;">🧩 Zoek je iets specifiekers?</div>
+        <p style="font-size:13px;line-height:1.6;color:#334155;margin:0 0 12px;">Stel een extra Woonmelding in met jouw plaats, woningtype en maximale huur. Komt er iets binnen dat past, dan hoor je het meteen.</p>
+        <a href="https://www.woonaanbod-nl.nl/woonmelding" style="color:#3d7ab8;font-weight:700;font-size:13px;text-decoration:none;">zoekprofiel instellen »</a>
       </div>
-      <p style="color:#999;font-size:11px;text-align:center;">
-        Je ontvangt dit bericht omdat je een woningalert hebt ingesteld op Woonaanbod NL.
-        ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#999;">Afmelden</a>` : `<a href="https://www.woonaanbod-nl.nl/zoekalerts" style="color:#999;">Beheer alerts</a>`}
-      </p>
-    </div>
-  `;
+    </td></tr>
+
+    <tr><td style="padding:22px 26px 0;">
+      <div style="font-size:16px;font-weight:700;color:#173e63;margin-bottom:6px;">Maak van je eerste bericht meer dan een reactie</div>
+      <table width="100%" cellpadding="0" cellspacing="0" role="presentation">${tipsHtml}</table>
+    </td></tr>
+
+    <tr><td style="padding:22px 26px;">
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:16px 18px;text-align:center;">
+        <p style="color:#334155;font-size:13px;line-height:1.6;margin:0 0 10px;">Hoi! Fijn dat je Woonaanbod NL gebruikt bij het zoeken naar een huurwoning. Zou je ons willen helpen met een korte review op Google? Het kost maar een minuutje en helpt andere woningzoekenden ons te vinden.</p>
+        <a href="https://g.page/r/CYZL1fpfWpFOEBM/review" style="display:inline-block;background:#e8a317;color:#173e63;text-decoration:none;padding:9px 22px;border-radius:8px;font-weight:700;font-size:13px;">⭐ Laat een Google-review achter</a>
+      </div>
+    </td></tr>
+
+    <tr><td style="background:#f4f7fb;padding:18px 26px;border-top:1px solid #e2e8f0;text-align:center;font-size:12px;line-height:1.6;color:#64748b;">
+      <a href="https://www.woonaanbod-nl.nl/privacy" style="color:#64748b;">Privacybeleid</a> ∙
+      <a href="mailto:info@woonaanbod-nl.nl" style="color:#64748b;">Contact</a> ∙
+      ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#64748b;">Afmelden</a>` : `<a href="https://www.woonaanbod-nl.nl/zoekalerts" style="color:#64748b;">Beheer alerts</a>`} ∙
+      <a href="https://www.woonaanbod-nl.nl/voorwaarden" style="color:#64748b;">Algemene voorwaarden</a>
+      <br />Je ontvangt deze mail omdat je een Woonmelding hebt ingesteld op Woonaanbod NL.
+      <br />© ${new Date().getFullYear()} Woonaanbod NL
+    </td></tr>
+  </table>
+  </td></tr></table>
+</body></html>`;
 }
