@@ -129,6 +129,7 @@ const Onboarding = ({ userId, defaultEmail, onDone }: { userId: string; defaultE
       feed_type: feedType, feed_url: feedType === "handmatig" ? null : feedUrl.trim() || null,
     });
     if (error) { setSaving(false); return toast({ variant: "destructive", title: "Opslaan mislukt", description: error.message }); }
+    supabase.functions.invoke("send-agency-welcome").catch(() => {});
     if (feedType !== "handmatig" && feedUrl) {
       toast({ title: "Profiel aangemaakt", description: "We halen je aanbod nu op. Dit kan een minuut duren." });
       await supabase.functions.invoke("agency-feed-import", { body: { mode: "sync" } });

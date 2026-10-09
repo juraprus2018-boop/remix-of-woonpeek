@@ -37,3 +37,9 @@ project_id = "kppotnzwhxkflceiscto"
     verify_jwt = false
   [functions.track-email-open]
     verify_jwt = false
+
+[functions.preview-transactional-email]
+verify_jwt = false
+
+[functions.send-agency-welcome]
+verify_jwt = false
