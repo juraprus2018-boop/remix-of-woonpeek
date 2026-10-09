@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
 
         try {
           await sendTemplateEmail("alert-digest", userData.user.email, {
-            templateData: digestData(properties, properties.length, alert.city || "Nederland", `Nieuwe woningen voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`),
+            templateData: { ...digestData(properties, properties.length, alert.city || "Nederland", `Nieuwe woningen voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`), manageUrl: "https://www.woonaanbod-nl.nl/radarmeldingen" },
             idempotencyKey: `alert-digest-search-${alert.id}-${new Date().toISOString().slice(0, 10)}`,
           });
           await supabase.from("search_alerts").update({ last_notified_at: new Date().toISOString() }).eq("id", alert.id);
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
       const searchLabel = subscriber.search_label || `woningaanbod in ${cityLabel}`;
       try {
         await sendTemplateEmail("alert-digest", subscriber.email, {
-          templateData: digestData(latestProperties, filteredCount, cityLabel, `Nieuwe woningen te huur in en rondom ${cityLabel}`, `Nieuw aanbod voor jouw zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel)),
+          templateData: { ...digestData(latestProperties, filteredCount, cityLabel, `Nieuwe woningen te huur in en rondom ${cityLabel}`, `Nieuw aanbod voor jouw zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel)), unsubscribeUrl: `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}` },
           idempotencyKey: `alert-digest-daily-${subscriber.id}-${new Date().toISOString().slice(0, 10)}`,
         });
         dailySubscriberNotificationsSent++;

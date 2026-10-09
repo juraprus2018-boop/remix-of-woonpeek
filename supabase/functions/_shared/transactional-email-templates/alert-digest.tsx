@@ -12,6 +12,8 @@ interface Props {
   overviewUrl?: string
   homes?: Home[]
   subject?: string
+  unsubscribeUrl?: string
+  manageUrl?: string
 }
 
 const tips = [
@@ -22,7 +24,7 @@ const tips = [
   'Houd het kort. Een paar zinnen over wie je bent, je situatie en waarom deze woning past, is genoeg.',
 ]
 
-const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUrl = `${SITE}/nieuw-aanbod`, homes = [] }: Props) => (
+const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUrl = `${SITE}/nieuw-aanbod`, homes = [], unsubscribeUrl, manageUrl }: Props) => (
   <Layout preview={`${count} nieuwe huurwoningen in ${city}`}>
     <table role="presentation" cellPadding={0} cellSpacing={0}><tbody><tr>
       <td style={{ verticalAlign: 'top', paddingRight: '14px' }}>
@@ -85,6 +87,16 @@ const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUr
       <div style={{ color: '#334155', fontSize: '13px', lineHeight: '1.6', marginBottom: '10px' }}>Fijn dat je Woonaanbod NL gebruikt. Zou je ons willen helpen met een korte review op Google? Het kost maar een minuutje en helpt andere woningzoekenden ons te vinden.</div>
       <CTA href="https://g.page/r/CYZL1fpfWpFOEBM/review" gold>⭐ Laat een Google-review achter</CTA>
     </div>
+
+    {unsubscribeUrl || manageUrl ? (
+      <Text style={{ fontSize: '12px', color: '#94a3b8', textAlign: 'center' as const, margin: '20px 0 0', lineHeight: '1.6' }}>
+        Je ontvangt deze e-mail omdat je een Woonmelding hebt ingesteld op Woonaanbod NL.
+        <br />
+        {manageUrl ? <Link href={manageUrl} style={{ color: ACCENT }}>Beheer je alerts</Link> : null}
+        {manageUrl && unsubscribeUrl ? ' · ' : ''}
+        {unsubscribeUrl ? <Link href={unsubscribeUrl} style={{ color: ACCENT }}>Afmelden voor deze meldingen</Link> : null}
+      </Text>
+    ) : null}
   </Layout>
 )
 
@@ -96,6 +108,8 @@ export const template = {
     city: 'Rotterdam', count: 3, subject: 'Voor de middag: verse huurvondsten in Rotterdam van 9 oktober',
     intro: 'Nieuw aanbod voor jouw zoekopdracht: woningaanbod in Rotterdam.',
     overviewUrl: 'https://www.woonaanbod-nl.nl/huurwoningen/rotterdam',
+    unsubscribeUrl: 'https://www.woonaanbod-nl.nl/alerts/afmelden/voorbeeld-token',
+    manageUrl: 'https://www.woonaanbod-nl.nl/radarmeldingen',
     homes: [
       { url: 'https://www.woonaanbod-nl.nl', title: 'Appartement in Rotterdam', address: 'Coolsingel 10', facts: '45 m² • 2 kamers • € 1.050,00 p.m.' },
       { url: 'https://www.woonaanbod-nl.nl', title: 'Appartement in Rotterdam', address: 'Witte de Withstraat 3', facts: '52 m² • 2 kamers • € 920,00 p.m.' },
