@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
+import { sendTemplateEmail } from "../_shared/transactional-email-templates/send-email.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -64,38 +64,20 @@ Deno.serve(async (req) => {
     const sanitizedMessage = message.substring(0, 2000).replace(/[<>]/g, "");
     const sanitizedPhone = sender_phone ? sender_phone.substring(0, 20).replace(/[<>]/g, "") : null;
 
-    const html = `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
-        <h2 style="color:#1a1a1a;">Nieuw bericht over je woning</h2>
-        <p style="color:#666;">Je hebt een bericht ontvangen over <strong>${property.title}</strong> (${property.street} ${property.house_number}, ${property.city}).</p>
-        <div style="background:#f9f9f9;padding:16px;border-radius:8px;margin:16px 0;">
-          <p style="margin:0 0 8px;"><strong>Van:</strong> ${sanitizedName} (${sender_email})</p>
-          ${sanitizedPhone ? `<p style="margin:0 0 8px;"><strong>Telefoon:</strong> ${sanitizedPhone}</p>` : ""}
-          <p style="margin:0;"><strong>Bericht:</strong></p>
-          <p style="white-space:pre-wrap;margin:8px 0 0;">${sanitizedMessage}</p>
-        </div>
-        <p style="color:#666;font-size:14px;">Je kunt direct reageren door te antwoorden op ${sender_email}.</p>
-        <hr style="border:none;border-top:1px solid #eee;margin:24px 0;"/>
-        <p style="color:#999;font-size:12px;">Dit bericht is verzonden via Woonaanbod NL.</p>
-      </div>
-    `;
-
-    // Send to owner
-    await sendMail({
-      from: MAIL_FROM,
-      to: ownerEmail,
-      subject: `Nieuw bericht over: ${property.title}`,
-      content: "text/html",
-      html,
+    const submissionId = crypto.randomUUID();
+    const data = {
+      propertyTitle: property.title,
+      address: [property.street, property.house_number].filter(Boolean).join(" ") + (property.city ? `, ${property.city}` : ""),
+      senderName: sanitizedName,
+      senderEmail: sender_email,
+      senderPhone: sanitizedPhone,
+      message: sanitizedMessage,
+    };
+    await sendTemplateEmail("property-contact", ownerEmail, {
+      templateData: data, replyTo: sender_email, idempotencyKey: `property-contact-${submissionId}`,
     });
-
-    // Send copy to Woonaanbod NL
-    await sendMail({
-      from: MAIL_FROM,
-      to: "info@woonaanbod-nl.nl",
-      subject: `[Kopie] Contactbericht: ${property.title}`,
-      content: "text/html",
-      html,
+    await sendTemplateEmail("property-contact", "info@woonaanbod-nl.nl", {
+      templateData: { ...data, isCopy: true }, replyTo: sender_email, idempotencyKey: `property-contact-copy-${submissionId}`,
     });
 
     return new Response(JSON.stringify({ success: true }), {
