@@ -108,6 +108,8 @@ export const template = {
     city: 'Rotterdam', count: 3, subject: 'Voor de middag: verse huurvondsten in Rotterdam van 9 oktober',
     intro: 'Nieuw aanbod voor jouw zoekopdracht: woningaanbod in Rotterdam.',
     overviewUrl: 'https://www.woonaanbod-nl.nl/huurwoningen/rotterdam',
+    unsubscribeUrl: 'https://www.woonaanbod-nl.nl/alerts/afmelden/voorbeeld-token',
+    manageUrl: 'https://www.woonaanbod-nl.nl/radarmeldingen',
     homes: [
       { url: 'https://www.woonaanbod-nl.nl', title: 'Appartement in Rotterdam', address: 'Coolsingel 10', facts: '45 m² • 2 kamers • € 1.050,00 p.m.' },
       { url: 'https://www.woonaanbod-nl.nl', title: 'Appartement in Rotterdam', address: 'Witte de Withstraat 3', facts: '52 m² • 2 kamers • € 920,00 p.m.' },
