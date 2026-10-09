@@ -355,9 +355,9 @@ function buildEmailHtml(
 
     <tr><td style="background:#f4f7fb;padding:18px 26px;border-top:1px solid #e2e8f0;text-align:center;font-size:12px;line-height:1.6;color:#64748b;">
       <a href="https://www.woonaanbod-nl.nl/privacy" style="color:#64748b;">Privacybeleid</a> ∙
-      <a href="https://www.woonaanbod-nl.nl/contact" style="color:#64748b;">Contact</a> ∙
+      <a href="mailto:info@woonaanbod-nl.nl" style="color:#64748b;">Contact</a> ∙
       ${unsubscribeUrl ? `<a href="${unsubscribeUrl}" style="color:#64748b;">Afmelden</a>` : `<a href="https://www.woonaanbod-nl.nl/zoekalerts" style="color:#64748b;">Beheer alerts</a>`} ∙
-      <a href="https://www.woonaanbod-nl.nl/algemene-voorwaarden" style="color:#64748b;">Algemene voorwaarden</a>
+      <a href="https://www.woonaanbod-nl.nl/voorwaarden" style="color:#64748b;">Algemene voorwaarden</a>
       <br />Je ontvangt deze mail omdat je een Woonmelding hebt ingesteld op Woonaanbod NL.
       <br />© ${new Date().getFullYear()} Woonaanbod NL
     </td></tr>
