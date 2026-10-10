@@ -2,135 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-  Woonaanbod NL Design System — Marine #173E63 + goud accent #E6A23C
-  Blauwtinten: #173E63 (primary), #2F6B9A (secondary blue), #EAF2F8 (licht blauw)
-  Neutraal: #F7F9FB (licht), #FFFFFF, tekst #17212B
-  Display: Sora. Body: Manrope.
-*/
-
+/* Woonaanbod NL: Ink navy, orange, chalk, slate and night. Sora throughout. */
 @layer base {
   :root {
-    /* #F7F9FB */
-    --background: 210 33% 98%;
-    /* #17212B */
-    --foreground: 210 30% 13%;
-
+    --background: 38 33% 95%;
+    --foreground: 221 51% 16%;
     --card: 0 0% 100%;
-    --card-foreground: 210 30% 13%;
-
+    --card-foreground: 221 51% 16%;
     --popover: 0 0% 100%;
-    --popover-foreground: 210 30% 13%;
-
-    /* #173E63 */
-    --primary: 209 62% 24%;
+    --popover-foreground: 221 51% 16%;
+    --primary: 221 51% 16%;
     --primary-foreground: 0 0% 100%;
-
-    /* #EAF2F8 */
-    --secondary: 206 50% 95%;
-    --secondary-foreground: 209 62% 24%;
-
-    --muted: 206 40% 96%;
-    --muted-foreground: 210 16% 42%;
-
-    /* Goud accent #E6A23C */
-    --accent: 36 77% 57%;
-    --accent-foreground: 210 30% 13%;
-
+    --secondary: 38 25% 91%;
+    --secondary-foreground: 221 51% 16%;
+    --muted: 38 20% 92%;
+    /* Darker slate for accessible body text on chalk and white. */
+    --muted-foreground: 219 16% 40%;
+    --accent: 16 100% 60%;
+    --accent-foreground: 221 51% 16%;
     --destructive: 4 68% 48%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 206 30% 90%;
-    --input: 206 30% 87%;
-    --ring: 206 53% 39%;
-
+    --border: 218 17% 78%;
+    --input: 218 17% 68%;
+    --ring: 16 100% 60%;
     --radius: 1rem;
-
     --success: 162 52% 34%;
     --success-foreground: 0 0% 100%;
-    --warning: 36 77% 57%;
-    --warning-foreground: 210 30% 13%;
-
-    /* Legacy aliases */
-    --terracotta: 36 77% 57%;
-    --terracotta-foreground: 210 30% 13%;
-    --terracotta-soft: 36 70% 88%;
-
-    --surface-cream: 206 50% 95%;
-    --surface-cream-deep: 206 45% 90%;
-
-    --hero: 209 62% 24%;
+    --warning: 16 100% 60%;
+    --warning-foreground: 221 51% 16%;
+    --terracotta: 16 100% 60%;
+    --terracotta-foreground: 221 51% 16%;
+    --terracotta-soft: 16 75% 91%;
+    --surface-cream: 38 33% 95%;
+    --surface-cream-deep: 38 25% 90%;
+    --hero: 221 51% 16%;
     --hero-foreground: 0 0% 100%;
-    --hero-muted: 206 30% 78%;
-
-    /* Brand accent aliases (namen behouden voor compatibiliteit) */
-    --sun: 36 77% 57%;
-    --sun-soft: 206 45% 90%;
-    --sun-tint: 206 50% 95%;
-    --ink: 209 62% 18%;
-    --leaf: 206 53% 39%;
-    --sage: 206 50% 95%;
-    --forest: 209 62% 18%;
-    --moss: 206 53% 39%;
-
-    --shadow-sm: 0 1px 2px 0 hsl(210 30% 13% / 0.06);
-    --shadow-md: 0 6px 18px -4px hsl(210 30% 13% / 0.10);
-    --shadow-lg: 0 22px 44px -16px hsl(210 30% 13% / 0.16);
-    --shadow-xl: 0 38px 72px -20px hsl(210 30% 13% / 0.22);
-
-    --sidebar-background: 209 62% 18%;
+    --hero-muted: 218 17% 72%;
+    --sun: 16 100% 60%;
+    --sun-soft: 16 75% 91%;
+    --sun-tint: 38 33% 95%;
+    --ink: 221 57% 10%;
+    --leaf: 16 100% 60%;
+    --sage: 38 25% 91%;
+    --forest: 221 51% 16%;
+    --moss: 221 51% 16%;
+    --slate: 218 17% 62%;
+    --shadow-sm: 0 1px 2px 0 hsl(221 51% 16% / 0.06);
+    --shadow-md: 0 6px 18px -4px hsl(221 51% 16% / 0.10);
+    --shadow-lg: 0 22px 44px -16px hsl(221 51% 16% / 0.16);
+    --shadow-xl: 0 38px 72px -20px hsl(221 51% 16% / 0.22);
+    --sidebar-background: 221 57% 10%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 36 77% 57%;
-    --sidebar-primary-foreground: 210 30% 13%;
-    --sidebar-accent: 206 53% 30%;
+    --sidebar-primary: 16 100% 60%;
+    --sidebar-primary-foreground: 221 51% 16%;
+    --sidebar-accent: 221 35% 22%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 206 40% 28%;
-    --sidebar-ring: 36 77% 57%;
+    --sidebar-border: 218 17% 35%;
+    --sidebar-ring: 16 100% 60%;
   }
-
   .dark {
-    --background: 210 35% 9%;
-    --foreground: 206 30% 94%;
-
-    --card: 209 35% 13%;
-    --card-foreground: 206 30% 94%;
-
-    --popover: 209 35% 13%;
-    --popover-foreground: 206 30% 94%;
-
-    --primary: 206 53% 55%;
-    --primary-foreground: 210 30% 10%;
-
-    --secondary: 209 28% 18%;
-    --secondary-foreground: 206 30% 94%;
-
-    --muted: 209 28% 18%;
-    --muted-foreground: 206 16% 70%;
-
-    --accent: 36 77% 57%;
-    --accent-foreground: 210 30% 13%;
-
+    --background: 221 57% 10%;
+    --foreground: 38 33% 95%;
+    --card: 221 51% 16%;
+    --card-foreground: 38 33% 95%;
+    --popover: 221 51% 16%;
+    --popover-foreground: 38 33% 95%;
+    --primary: 218 32% 78%;
+    --primary-foreground: 221 57% 10%;
+    --secondary: 221 35% 22%;
+    --secondary-foreground: 38 33% 95%;
+    --muted: 221 35% 22%;
+    --muted-foreground: 218 17% 72%;
+    --accent: 16 100% 60%;
+    --accent-foreground: 221 57% 10%;
     --destructive: 4 62% 48%;
-    --destructive-foreground: 206 30% 94%;
-
-    --border: 209 24% 22%;
-    --input: 209 24% 22%;
-    --ring: 36 77% 57%;
-
-    --hero: 210 40% 8%;
-    --hero-foreground: 206 30% 94%;
-
-    --surface-cream: 209 30% 14%;
-    --surface-cream-deep: 209 28% 18%;
-    --sun-tint: 209 30% 14%;
-    --sun-soft: 209 28% 20%;
-    --sun: 36 77% 57%;
-    --sage: 209 30% 16%;
+    --destructive-foreground: 38 33% 95%;
+    --border: 218 17% 35%;
+    --input: 218 17% 40%;
+    --ring: 16 100% 60%;
+    --hero: 221 57% 10%;
+    --hero-foreground: 38 33% 95%;
+    --surface-cream: 221 51% 16%;
+    --surface-cream-deep: 221 35% 22%;
+    --sun-tint: 221 51% 16%;
+    --sun-soft: 221 35% 22%;
+    --sage: 221 35% 22%;
   }
 }
-
-
-
 
 @layer base {
   * {
@@ -143,7 +101,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     font-weight: 400;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -152,22 +110,22 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sora', 'Manrope', sans-serif;
-    @apply font-extrabold tracking-tight;
-    letter-spacing: -0.02em;
+    font-family: 'Sora', system-ui, sans-serif;
+    @apply font-extrabold;
+    letter-spacing: 0;
     line-height: 1.1;
   }
 
   .font-serif-display {
-    font-family: 'Sora', 'Manrope', sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     font-weight: 900;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 
   .font-display {
-    font-family: 'Sora', 'Manrope', sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     font-weight: 900;
-    letter-spacing: -0.025em;
+    letter-spacing: 0;
   }
 
   p {
