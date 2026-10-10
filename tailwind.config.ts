@@ -30,9 +30,9 @@ export default {
         lg: ["1.1875rem", { lineHeight: "1.85rem" }],
       },
       fontFamily: {
-        sans: ["Manrope", "Inter", "system-ui", "sans-serif"],
-        display: ["Sora", "Manrope", "sans-serif"],
-        serif: ["Sora", "Manrope", "sans-serif"],
+        sans: ["Sora", "system-ui", "sans-serif"],
+        display: ["Sora", "system-ui", "sans-serif"],
+        serif: ["Sora", "system-ui", "sans-serif"],
       },
 
       colors: {
@@ -89,8 +89,8 @@ export default {
         },
         brand: {
           DEFAULT: "hsl(var(--primary))",
-          blue: "hsl(206 53% 39%)",
-          light: "hsl(206 50% 95%)",
+          blue: "hsl(var(--primary))",
+          light: "hsl(var(--secondary))",
           gold: "hsl(var(--accent))",
         },
       },
