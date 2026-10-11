@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import alertIllustration from "@/assets/woonmelding-illustratie.jpg";
+import { confirmAlertSubscription } from "./AlertSubscriptionConfirmation";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -92,10 +93,7 @@ const SearchAlertCTA = ({
       if (data?.error) throw new Error(data.error);
       setDone(true);
       setEmail("");
-      toast({
-        title: "Melding staat aan",
-        description: data?.message || `Je ontvangt nieuw aanbod voor: ${searchLabel}.`,
-      });
+      confirmAlertSubscription(data, user?.email || cleanedEmail, searchLabel);
     } catch (err) {
       toast({
         variant: "destructive",
