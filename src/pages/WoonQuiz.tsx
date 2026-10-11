@@ -13,6 +13,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import { Sparkles, ArrowRight, ArrowLeft, Home, Building2, DoorOpen, Bed, Bell, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { confirmAlertSubscription } from "@/components/alerts/AlertSubscriptionConfirmation";
 
 type Answers = {
   listingType?: "huur" | "koop";
@@ -57,10 +58,7 @@ const WoonQuiz = () => {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       setAlertDone(true);
-      toast({
-        title: "Je bent ingeschreven",
-        description: data?.message || `Je krijgt dagelijks nieuw aanbod in ${answers.city}.`,
-      });
+      confirmAlertSubscription(data, alertEmail.trim(), answers.city);
     } catch (err) {
       toast({
         variant: "destructive",

@@ -21,12 +21,14 @@ import { template as welcome } from './welcome.tsx'
 import { template as propertyContact } from './property-contact.tsx'
 import { template as agencyWelcome } from './agency-welcome.tsx'
 import { template as alertDigest } from './alert-digest.tsx'
+import { template as alertSubscriptionWelcome } from './alert-subscription-welcome.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'welcome': welcome,
   'property-contact': propertyContact,
   'agency-welcome': agencyWelcome,
   'alert-digest': alertDigest,
+  'alert-subscription-welcome': alertSubscriptionWelcome,
   // Add templates here as they are created, e.g.:
   // 'welcome': welcomeTemplate,
 }
