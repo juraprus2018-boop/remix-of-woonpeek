@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Download, Mail, Phone, BarChart3 } from "lucide-react";
 import { PRESS_KIND_LABEL, formatDateNL, usePressContact } from "@/lib/press";
+import brandLogo from "@/assets/brand/logo-color.png.asset.json";
 
 const Press = () => {
   const { data: contact } = usePressContact();
@@ -89,9 +90,9 @@ const Press = () => {
             </div>
             <div className="rounded-xl border bg-card p-5">
               <h2 className="font-display text-lg font-semibold">Logo downloaden</h2>
-              <img src="/pers/woonaanbod-nl-logo.svg" alt="Logo Woonaanbod NL" className="mt-3 w-full rounded border" />
+              <img src={brandLogo.url} alt="Logo Woonaanbod NL" width={1920} height={283} className="mt-3 w-full rounded border bg-card p-3" />
               <div className="mt-3 flex flex-wrap gap-2">
-                <Button asChild size="sm" variant="outline"><a href="/pers/woonaanbod-nl-logo.svg" download><Download className="mr-1 h-4 w-4" />SVG</a></Button>
+                <Button asChild size="sm" variant="outline"><a href={brandLogo.url} download="woonaanbod-nl-logo.png"><Download className="mr-1 h-4 w-4" />Logo PNG</a></Button>
                 <Button asChild size="sm" variant="outline"><a href="/icon-512.png" download="woonaanbod-nl-icoon.png"><Download className="mr-1 h-4 w-4" />Icoon PNG</a></Button>
               </div>
             </div>
