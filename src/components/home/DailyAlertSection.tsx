@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import TurnstileWidget from "@/components/security/TurnstileWidget";
 import MunicipalityCitySelect from "@/components/search/MunicipalityCitySelect";
-import { confirmAlertSubscription } from "@/components/alerts/AlertSubscriptionConfirmation";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -43,7 +42,10 @@ const DailyAlertSection = () => {
       return data;
     },
     onSuccess: (data) => {
-      confirmAlertSubscription(data, user?.email || email.trim(), city);
+      toast({
+        title: "Gelukt",
+        description: data?.message || "Je bent ingeschreven voor alerts.",
+      });
       setEmail("");
       setCity("");
       setPropertyType("");

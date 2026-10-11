@@ -1,6 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { sendMail, MAIL_FROM } from "../_shared/smtp.ts";
-import { sendTemplateEmail } from "../_shared/transactional-email-templates/send-email.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -46,9 +45,8 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!supabaseUrl || !serviceRoleKey) throw new Error("Missing backend configuration");
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const authHeader = req.headers.get("Authorization") ?? "";
     const jwt = authHeader.startsWith("Bearer ") ? authHeader.slice("Bearer ".length) : "";
 
@@ -153,17 +151,6 @@ Deno.serve(async (req) => {
 
     const isReactivation = Boolean(existing && !existing.is_active);
 
-    // Limit new search subscriptions per recipient; active duplicates never send again.
-    const { count, error: rateError } = await supabaseAdmin.from("daily_alert_subscribers")
-      .select("id", { count: "exact", head: true }).eq("email", targetEmail)
-      .gte("updated_at", new Date(Date.now() - 60 * 60 * 1000).toISOString());
-    if (rateError) throw rateError;
-    if ((count ?? 0) >= 5) {
-      return new Response(JSON.stringify({ error: "Je hebt meerdere meldingen ingesteld. Probeer het over een uur opnieuw." }), {
-        status: 429, headers: { ...corsHeaders, "Content-Type": "application/json", "Retry-After": "3600" },
-      });
-    }
-
     const upsertPayload = {
       email: targetEmail,
       user_id: user?.id ?? existing?.user_id ?? null,
@@ -193,20 +180,7 @@ Deno.serve(async (req) => {
     if (upsertError) throw upsertError;
 
 
-    let confirmationEmailSent = false;
-    try {
-      const result = await sendTemplateEmail("alert-subscription-welcome", targetEmail, {
-        templateData: { searchLabel: cleanLabel || `${cleanPropertyType || "Woningen"} in ${areaLabel}` },
-        idempotencyKey: `alert-subscription-welcome-${saved.id}-${saved.updated_at}`,
-        replyTo: "info@woonaanbod-nl.nl",
-      });
-      confirmationEmailSent = result.sent;
-    } catch (mailError) {
-      console.error("Alert confirmation email failed:", mailError);
-    }
-
-    // Preserve the existing owner notification without delaying the confirmation.
-    EdgeRuntime.waitUntil((async () => {
+    // Send admin notification
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
       await sendMail({
@@ -228,7 +202,6 @@ Deno.serve(async (req) => {
     } catch (mailError) {
       console.error("Alert-inschrijving notificatie mislukt:", mailError);
     }
-    })());
 
     const channels = ["e-mail"];
     if (wantWhatsapp) channels.push("WhatsApp");
@@ -237,7 +210,6 @@ Deno.serve(async (req) => {
       JSON.stringify({
         success: true,
         already_active: false,
-        confirmation_email_sent: confirmationEmailSent,
         message: `Je bent ingeschreven voor woningalerts in ${cleanCity} via ${channels.join(" en ")}.`,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }

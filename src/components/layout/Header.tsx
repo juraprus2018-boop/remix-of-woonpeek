@@ -9,7 +9,6 @@ import {
   TrendingUp, BookOpen, HelpCircle, Mail, X
 } from "lucide-react";
 import Logo from "@/components/brand/Logo";
-import AlertSubscriptionConfirmation from "@/components/alerts/AlertSubscriptionConfirmation";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -131,10 +130,6 @@ const Header = () => {
 
   const menuPreferences = (
     <>
-      <Button asChild className="mt-3 h-12 w-full gap-2 font-bold">
-        <Link to="/woonmelding" onClick={close}><Bell className="h-5 w-5" />Gratis woningalert</Link>
-      </Button>
-      <p className="mt-1 text-center text-xs text-muted-foreground">Geen account nodig</p>
                 {/* Account row */}
                 {user ? (
                   <div className="mt-3 md:mt-6 flex items-center justify-between border-t-2 border-foreground/10 pt-3 md:pt-5">
@@ -314,19 +309,7 @@ const Header = () => {
             </button>
           </div>
         </div>
-        <div className="border-t border-accent/25 bg-primary text-primary-foreground">
-          <div className="container flex flex-wrap items-center justify-between gap-2 py-2.5">
-            <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-2 text-sm font-bold"><Bell className="h-4 w-4 shrink-0 text-accent" />Gratis woningalert</p>
-              <p className="text-xs text-primary-foreground/80">Nieuw aanbod in je mail. Geen account nodig.</p>
-            </div>
-            <Button asChild size="sm" className="h-10 shrink-0 px-3 font-bold">
-              <Link to="/woonmelding">Zet alert aan</Link>
-            </Button>
-          </div>
-        </div>
       </header>
-      <AlertSubscriptionConfirmation />
 
       {/* FULLSCREEN OVERLAY MENU */}
       <div

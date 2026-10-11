@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { confirmAlertSubscription } from "@/components/alerts/AlertSubscriptionConfirmation";
 
 const DISMISSED_KEY = "woonaanbod-nl_exit_popup_dismissed";
 const COOLDOWN_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
@@ -51,13 +50,12 @@ const ExitIntentPopup = () => {
     if (!email.trim()) return;
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke("daily-alert-subscribe", {
+      const { error } = await supabase.functions.invoke("daily-alert-subscribe", {
         body: { email: email.trim(), source: "exit-intent" },
       });
       if (error) throw error;
-      if (data?.error) throw new Error(data.error);
+      toast.success("Je ontvangt nu een melding bij nieuw woningaanbod!");
       dismiss();
-      confirmAlertSubscription(data, email.trim());
     } catch {
       toast.error("Er ging iets mis. Probeer het opnieuw.");
     } finally {

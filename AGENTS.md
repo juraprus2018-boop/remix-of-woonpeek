@@ -9,4 +9,3 @@
 
 - Explore derives city and source facets from loaded map listings within the viewport or postcode radius, excluding each facet's own selection so users can switch filters without extra nationwide queries.
 - Shared Logo renders the uploaded color or light CDN asset, while favicon and installed-app icons remain local public files, so every placement uses the supplied identity without duplicating artwork.
-- Alert signup confirmations use one shared dialog and send a fixed managed email after saving the subscription, so every entry point reports the real send outcome consistently.
