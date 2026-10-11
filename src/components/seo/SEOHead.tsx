@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, CANONICAL_URL, type Locale } from "@/lib/brand";
 import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
+import socialAsset from "@/assets/brand/social.png.asset.json";
 
 interface SEOHeadProps {
   title: string;
@@ -118,13 +119,14 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setMeta("og:type", ogType);
     setMeta("og:locale", locale === "nl" ? "nl_NL" : locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : "fr_FR");
     if (resolvedCanonical) setMeta("og:url", resolvedCanonical);
-    if (ogImage) setMeta("og:image", ogImage);
+    const resolvedImage = ogImage || `${CANONICAL_URL}${socialAsset.url}`;
+    setMeta("og:image", resolvedImage);
     setMeta("og:site_name", "Woonaanbod NL");
 
-    setMeta("twitter:card", ogImage ? "summary_large_image" : "summary");
+    setMeta("twitter:card", "summary_large_image");
     setMeta("twitter:title", title);
     setMeta("twitter:description", description);
-    if (ogImage) setMeta("twitter:image", ogImage);
+    setMeta("twitter:image", resolvedImage);
 
     // Geo meta tags (local relevance signals for Bing and regional engines)
     const setNamedMeta = (name: string, content: string | null) => {

@@ -4,6 +4,6 @@
 - [x] Bronnen zonder aanbod verbergen en de werking controleren.
 
 # Nieuwe huisstijl
-- [ ] Aangeleverde logo's, favicon en app-iconen verwerken.
-- [ ] Kleuren en Sora toepassen zonder pagina-indeling of functionaliteit te wijzigen.
-- [ ] Website en logo's controleren; niet publiceren.
+- [x] Aangeleverde logo's, favicon en app-iconen verwerken.
+- [x] Kleuren en Sora toepassen zonder pagina-indeling of functionaliteit te wijzigen.
+- [x] Website en logo's controleren; niet publiceren.
