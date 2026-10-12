@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
 
         try {
           await sendTemplateEmail("alert-digest", userData.user.email, {
-            templateData: { ...digestData(properties, properties.length, alert.city || "Nederland", `Nieuwe woningen voor "${alert.name}"`, "Hier zijn de nieuwste resultaten voor jouw zoekalert.", `${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`), manageUrl: "https://www.woonaanbod-nl.nl/radarmeldingen" },
+            templateData: { ...digestData(properties, properties.length, alert.city || "Nederland", `Jouw selectie: ${alert.name}`, "Dit aanbod sluit aan op de filters van jouw Woonmelding.", `Woonmelding: ${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`), manageUrl: "https://www.woonaanbod-nl.nl/radarmeldingen" },
             idempotencyKey: `alert-digest-search-${alert.id}-${new Date().toISOString().slice(0, 10)}`,
           });
           await supabase.from("search_alerts").update({ last_notified_at: new Date().toISOString() }).eq("id", alert.id);
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
       const searchLabel = subscriber.search_label || `woningaanbod in ${cityLabel}`;
       try {
         await sendTemplateEmail("alert-digest", subscriber.email, {
-          templateData: { ...digestData(latestProperties, filteredCount, cityLabel, `Nieuwe woningen te huur in en rondom ${cityLabel}`, `Nieuw aanbod voor jouw zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel)), unsubscribeUrl: `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}` },
+          templateData: { ...digestData(latestProperties, filteredCount, cityLabel, `Jouw selectie in ${cityLabel}`, `Je zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel, filteredCount)), unsubscribeUrl: `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}` },
           idempotencyKey: `alert-digest-daily-${subscriber.id}-${new Date().toISOString().slice(0, 10)}`,
         });
         dailySubscriberNotificationsSent++;
@@ -217,16 +217,8 @@ function esc(v: unknown) {
   return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
-function dayPart() {
-  const h = Number(new Intl.DateTimeFormat("nl-NL", { hour: "numeric", hour12: false, timeZone: "Europe/Amsterdam" }).format(new Date()));
-  if (h < 12) return "Voor de middag";
-  if (h < 18) return "Vanmiddag";
-  return "Vanavond";
-}
-
-export function alertSubject(cityLabel: string) {
-  const date = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "long", timeZone: "Europe/Amsterdam" }).format(new Date());
-  return `${dayPart()}: verse huurvondsten in ${cityLabel} van ${date}`;
+export function alertSubject(cityLabel: string, count: number) {
+  return `Woonmelding ${cityLabel}: ${count} nieuwe ${count === 1 ? "woning" : "woningen"} voor jou`;
 }
 
 function digestData(properties: any[], count: number, city: string, heading: string, intro: string, subject: string) {
