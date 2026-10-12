@@ -9,5 +9,5 @@
 - [x] Website en logo's controleren; niet publiceren.
 
 # Woningmails
-- [ ] Eigen huisstijl, originele onderwerpregels en compacte woningselectie toepassen.
-- [ ] Afmeldlinks behouden, voorbeeld controleren en mailfunctie bijwerken.
+- [x] Eigen huisstijl, originele onderwerpregels en compacte woningselectie toepassen.
+- [x] Afmeldlinks behouden, voorbeeld controleren en mailfunctie bijwerken.
