@@ -11,6 +11,8 @@ import { useToast } from "@/hooks/use-toast";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
 import SEOHead from "@/components/seo/SEOHead";
+import HuurzoneTip from "@/components/ads/HuurzoneTip";
+import { CheckCircle2 } from "lucide-react";
 
 
 const Register = () => {
@@ -18,6 +20,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [registered, setRegistered] = useState(false);
   const { signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
