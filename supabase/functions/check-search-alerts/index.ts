@@ -105,7 +105,7 @@ Deno.serve(async (req) => {
 
         try {
           await sendTemplateEmail("alert-digest", userData.user.email, {
-            templateData: { ...digestData(properties, properties.length, alert.city || "Nederland", `Jouw selectie: ${alert.name}`, "Dit aanbod sluit aan op de filters van jouw Woonmelding.", `Woonmelding: ${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`), manageUrl: "https://www.woonaanbod-nl.nl/radarmeldingen" },
+            templateData: { ...digestData(properties, properties.length, alert.city || "Nederland", `Jouw selectie: ${alert.name}`, "Dit aanbod sluit aan op de filters van jouw Woonmelding.", `Woonmelding: ${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`), manageUrl: "https://www.woonaanbod-nl.nl/radarmeldingen", partnerTipUrl: huurzoneUrl, partnerTipText: `Op zoek naar meer woningen in ${alert.city || "Nederland"}? Bekijk ook het particuliere aanbod via partner Huurzone.` },
             idempotencyKey: `alert-digest-search-${alert.id}-${new Date().toISOString().slice(0, 10)}`,
           });
           await supabase.from("search_alerts").update({ last_notified_at: new Date().toISOString() }).eq("id", alert.id);
@@ -176,7 +176,7 @@ Deno.serve(async (req) => {
       const searchLabel = subscriber.search_label || `woningaanbod in ${cityLabel}`;
       try {
         await sendTemplateEmail("alert-digest", subscriber.email, {
-          templateData: { ...digestData(latestProperties, filteredCount, cityLabel, `Jouw selectie in ${cityLabel}`, `Je zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel, filteredCount)), unsubscribeUrl: `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}` },
+          templateData: { ...digestData(latestProperties, filteredCount, cityLabel, `Jouw selectie in ${cityLabel}`, `Je zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel, filteredCount)), unsubscribeUrl: `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}`, partnerTipUrl: huurzoneUrl, partnerTipText: `Op zoek naar meer woningen in ${cityLabel}? Bekijk ook het particuliere aanbod via partner Huurzone.` },
           idempotencyKey: `alert-digest-daily-${subscriber.id}-${new Date().toISOString().slice(0, 10)}`,
         });
         dailySubscriberNotificationsSent++;
