@@ -219,6 +219,10 @@ const Login = () => {
                   Registreer hier
                 </Link>
               </p>
+              <HuurzoneTip
+                title="Zoek je een huurwoning?"
+                text="Veel verhuurders op onze site verhuren via Huurzone. Met een gratis account daar reageer je direct op nieuwe woningen."
+              />
             </CardFooter>
           </form>
         </Card>
