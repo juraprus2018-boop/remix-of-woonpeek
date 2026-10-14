@@ -18,12 +18,14 @@ interface Props {
   subject?: string
   unsubscribeUrl?: string
   manageUrl?: string
+  partnerTipUrl?: string
+  partnerTipText?: string
 }
 
 const paragraph = { fontSize: '14px', lineHeight: '1.7', color: THEME.muted, margin: '0 0 16px' }
 const action = { backgroundColor: THEME.accent, color: THEME.ink, fontSize: '14px', fontWeight: 700, borderRadius: '6px', padding: '13px 22px', textDecoration: 'none' }
 
-const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUrl = `${SITE}/nieuw-aanbod`, homes = [], unsubscribeUrl, manageUrl }: Props) => (
+const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUrl = `${SITE}/nieuw-aanbod`, homes = [], unsubscribeUrl, manageUrl, partnerTipUrl, partnerTipText }: Props) => (
   <Html lang="nl" dir="ltr">
     <Head />
     <Preview>{`${count} nieuwe ${count === 1 ? 'woning' : 'woningen'} voor jouw zoekopdracht. Bekijk de foto's, prijzen en details.`}</Preview>
@@ -32,6 +34,15 @@ const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUr
         <Section style={{ padding: '24px', borderBottom: `3px solid ${THEME.accent}` }}>
           <Link href={SITE}><Img src={LOGO} width="220" alt="Woonaanbod NL" style={{ display: 'block', maxWidth: '100%', height: 'auto' }} /></Link>
         </Section>
+        {partnerTipUrl ? (
+          <Section style={{ padding: '16px 24px 0' }}>
+            <Section style={{ backgroundColor: THEME.paper, border: `1px solid ${THEME.line}`, borderRadius: '6px', padding: '14px 16px' }}>
+              <Text style={{ color: THEME.muted, fontSize: '10px', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', margin: '0 0 4px' }}>Advertentie · Partner</Text>
+              <Text style={{ ...paragraph, fontSize: '13px', margin: '0 0 10px' }}>{partnerTipText || 'Op zoek naar meer aanbod? Bekijk ook het particuliere aanbod via partner Huurzone.'}</Text>
+              <Button href={partnerTipUrl} style={action}>Bekijk het particuliere aanbod bij Huurzone</Button>
+            </Section>
+          </Section>
+        ) : null}
         <Section style={{ padding: '28px 24px 12px' }}>
           <Text style={{ color: THEME.muted, fontSize: '12px', fontWeight: 700, margin: '0 0 10px' }}>JOUW WOONMELDING · {city}</Text>
           <Text style={{ fontSize: '26px', lineHeight: '1.3', fontWeight: 700, color: THEME.ink, margin: '0 0 14px' }}>{count === 1 ? 'Een nieuwe plek om te bekijken.' : 'Nieuwe plekken. Nieuwe mogelijkheden.'}</Text>
@@ -90,6 +101,7 @@ export const template = {
     heading: 'Jouw selectie in Rotterdam', intro: 'Je zoekopdracht: woningaanbod in Rotterdam.',
     overviewUrl: `${SITE}/huurwoningen/rotterdam`,
     unsubscribeUrl: `${SITE}/alerts/afmelden/voorbeeld-token`, manageUrl: `${SITE}/radarmeldingen`,
+    partnerTipUrl: `${SITE}/nieuw-aanbod`, partnerTipText: 'Op zoek naar meer aanbod? Bekijk ook het particuliere aanbod via partner Huurzone.',
     homes: [
       { url: `${SITE}/huurwoningen/rotterdam`, title: 'Appartement in Rotterdam', address: 'Coolsingel 10', facts: '45 m² • 2 kamers • € 1.050,00 p.m.' },
       { url: `${SITE}/huurwoningen/rotterdam`, title: 'Appartement in Rotterdam', address: 'Witte de Withstraat 3', facts: '52 m² • 2 kamers • € 920,00 p.m.' },
