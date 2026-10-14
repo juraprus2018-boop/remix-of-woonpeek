@@ -56,6 +56,16 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
+    // Partner-tip (Huurzone): éénmalig de actieve kliklink ophalen
+    const { data: huurzoneBanner } = await supabase
+      .from("daisycon_banners")
+      .select("click_url")
+      .ilike("advertiser_name", "huurzone%")
+      .eq("is_active", true)
+      .limit(1)
+      .maybeSingle();
+    const huurzoneUrl = (huurzoneBanner?.click_url as string | undefined) ?? undefined;
+
     let searchAlertNotificationsSent = 0;
     let dailySubscriberNotificationsSent = 0;
     let whatsappNotificationsSent = 0;
