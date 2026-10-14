@@ -187,6 +187,7 @@ const Register = () => {
               </p>
             </CardFooter>
           </form>
+          )}
         </Card>
       </div>
     </div>
