@@ -108,11 +108,35 @@ const Register = () => {
             <Link to="/" className="mx-auto mb-4">
               <Logo size="h-10" />
             </Link>
-            <CardTitle className="text-2xl">Registreren</CardTitle>
+            <CardTitle className="text-2xl">{registered ? "Je account is klaar!" : "Registreren"}</CardTitle>
             <CardDescription>
-              Maak een account aan om woningen te plaatsen en favorieten op te slaan
+              {registered
+                ? "Controleer je e-mail om je account te bevestigen."
+                : "Maak een account aan om woningen te plaatsen en favorieten op te slaan"}
             </CardDescription>
           </CardHeader>
+          {registered ? (
+            <CardContent className="space-y-4">
+              <div className="flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/5 p-4">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <p className="text-sm text-muted-foreground">
+                  We hebben een bevestigingsmail gestuurd naar <strong className="text-foreground">{email}</strong>.
+                  Klik op de link in die mail om je account te activeren.
+                </p>
+              </div>
+              <HuurzoneTip
+                title="Tip: reageer vaak sneller met Huurzone"
+                text="Veel verhuurders op onze site verhuren via Huurzone. Met een gratis account daar reageer je direct zodra er iets nieuws online komt."
+              />
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => navigate(`/login${window.location.search}`)}
+              >
+                Verder naar inloggen
+              </Button>
+            </CardContent>
+          ) : (
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
