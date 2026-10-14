@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
 import SEOHead from "@/components/seo/SEOHead";
+import HuurzoneTip from "@/components/ads/HuurzoneTip";
 
 
 const Login = () => {
