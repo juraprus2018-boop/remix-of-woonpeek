@@ -155,6 +155,42 @@ export type Database = {
         }
         Relationships: []
       }
+      agency_claim_requests: {
+        Row: {
+          city: string | null
+          contact_name: string | null
+          created_at: string
+          email: string
+          id: string
+          office_name: string
+          phone: string | null
+          status: string
+          website: string | null
+        }
+        Insert: {
+          city?: string | null
+          contact_name?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          office_name: string
+          phone?: string | null
+          status?: string
+          website?: string | null
+        }
+        Update: {
+          city?: string | null
+          contact_name?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          office_name?: string
+          phone?: string | null
+          status?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       agency_events: {
         Row: {
           agency_id: string
