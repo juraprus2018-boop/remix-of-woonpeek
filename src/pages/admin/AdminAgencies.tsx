@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "./AdminLayout";
+import AgencyClaimRequests from "@/components/admin/AgencyClaimRequests";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "@/hooks/use-toast";
@@ -81,6 +82,7 @@ const AdminAgencies = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <AgencyClaimRequests />
     </AdminLayout>
   );
 };

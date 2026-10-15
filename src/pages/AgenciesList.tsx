@@ -46,6 +46,13 @@ const AgenciesList = () => {
             ))}
           </div>
         )}
+        <div className="mt-10 flex flex-col items-start gap-3 rounded-2xl border-2 border-accent/30 bg-card p-6 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="font-display text-xl font-bold text-foreground">Staat jouw kantoor er nog niet bij?</p>
+            <p className="text-muted-foreground">Claim gratis je kantoorpagina en zet je volledige aanbod online.</p>
+          </div>
+          <Link to="/makelaars/claim" className="rounded-full bg-accent px-6 py-3 font-semibold text-accent-foreground">Claim je kantoor</Link>
+        </div>
       </main>
       <Footer />
     </div>
