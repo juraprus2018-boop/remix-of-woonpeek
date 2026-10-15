@@ -49,7 +49,7 @@ Antwoord ALLEEN met geldig JSON, geen markdown of uitleg.`;
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
+      model: "google/gemini-3.8-flash",
       messages: [
         { role: "system", content: "Je bent een Nederlandse copywriter gespecialiseerd in lokale gidsen voor steden." },
         { role: "user", content: prompt },
