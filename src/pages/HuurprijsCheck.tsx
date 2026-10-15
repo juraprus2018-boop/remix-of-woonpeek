@@ -66,7 +66,6 @@ const HuurprijsCheck = () => {
         description="Gratis huurprijs check: tel de WWS-punten van je huurwoning en zie direct of je huur te hoog is volgens de Wet betaalbare huur."
         canonical="/huurprijs-check"
       />
-      <FAQSchema faqs={faqs} />
       <Header />
       <main className="container flex-1 py-8">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Huurprijs check" }]} />
@@ -113,15 +112,7 @@ const HuurprijsCheck = () => {
           </section>
         </div>
 
-        <section className="mt-10 space-y-4">
-          <h2 className="font-display text-2xl font-bold text-foreground">Veelgestelde vragen</h2>
-          {faqs.map((f) => (
-            <div key={f.question} className="rounded-xl border bg-card p-4">
-              <h3 className="font-semibold text-foreground">{f.question}</h3>
-              <p className="mt-1 text-muted-foreground">{f.answer}</p>
-            </div>
-          ))}
-        </section>
+        <FAQSchema items={faqs} title="Veelgestelde vragen" className="mt-10" />
       </main>
       <Footer />
     </div>
