@@ -394,7 +394,7 @@ Zorg dat het artikel actueel aanvoelt, praktische tips bevat, en relevant is voo
     console.log(`Generating blog about: ${topicCategory}`);
 
     const aiBody = JSON.stringify({
-      model: "google/gemini-2.5-flash",
+      model: "google/gemini-3.8-flash",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         { role: "user", content: userPrompt },
