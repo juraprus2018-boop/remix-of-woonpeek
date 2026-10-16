@@ -81,6 +81,7 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: 
   const containerRef = useRef<HTMLDivElement>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
   const clusterGroupRef = useRef<any>(null);
+  const priceByIdRef = useRef<Map<string, number>>(new Map());
   const routeLayerRef = useRef<L.GeoJSON | null>(null);
   const workMarkerRef = useRef<L.Marker | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -182,12 +183,16 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: 
     });
 
     const withCoords = properties.filter((p) => p.latitude && p.longitude);
+    priceByIdRef.current = new Map(withCoords.map((p) => [p.id, Number(p.price)]));
+    prevHoveredRef.current = null;
 
+    const markers: L.Marker[] = [];
     for (const property of withCoords) {
+      // Popup-inhoud pas opbouwen bij openen (scheelt duizenden HTML-strings bij laden)
       const marker = L.marker(
         [Number(property.latitude), Number(property.longitude)],
         { icon: createPriceIcon(Number(property.price), false), zIndexOffset: 0 }
-      ).bindPopup(`
+      ).bindPopup(() => `
         <div style="min-width:220px;padding:4px 6px 6px;font-family:system-ui,sans-serif">
           ${property.images?.[0] ? `<img src="${property.images[0]}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block" />` : ""}
           <div style="font-weight:600;font-size:14px;line-height:1.3;margin-bottom:4px">${property.title}</div>
@@ -200,17 +205,21 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: 
         </div>
       `, { maxWidth: 250, className: "custom-popup" });
 
-      marker.on("popupopen", (e) => {
-        const el = (e as any).popup?.getElement?.() as HTMLElement | undefined;
-        const btn = el?.querySelector(`button[data-route-id="${property.id}"]`) as HTMLButtonElement | null;
-        if (btn) {
-          btn.onclick = () => setSelectedId(property.id);
-        }
-      });
+      if (commute) {
+        marker.on("popupopen", (e) => {
+          const el = (e as any).popup?.getElement?.() as HTMLElement | undefined;
+          const btn = el?.querySelector(`button[data-route-id="${property.id}"]`) as HTMLButtonElement | null;
+          if (btn) {
+            btn.onclick = () => setSelectedId(property.id);
+          }
+        });
+      }
 
       markersRef.current.set(property.id, marker);
-      clusterGroup.addLayer(marker);
+      markers.push(marker);
     }
+    // In één keer toevoegen is veel sneller dan per marker
+    clusterGroup.addLayers(markers);
 
     map.addLayer(clusterGroup);
     clusterGroupRef.current = clusterGroup;
@@ -224,18 +233,27 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: 
     }
   }, [properties]);
 
-  // Highlight hovered marker
+  // Highlight hovered marker: alleen de vorige en de nieuwe marker bijwerken,
+  // nooit alle markers (met >10.000 woningen liep de pagina daarop vast).
+  const prevHoveredRef = useRef<string | null>(null);
   useEffect(() => {
-    markersRef.current.forEach((marker, id) => {
-      const p = properties.find((x) => x.id === id);
-      marker.setIcon(createPriceIcon(Number(p?.price ?? 0), id === hoveredPropertyId));
-      if (id === hoveredPropertyId) {
-        marker.setZIndexOffset(1000);
-      } else {
-        marker.setZIndexOffset(0);
+    const prev = prevHoveredRef.current;
+    if (prev && prev !== hoveredPropertyId) {
+      const m = markersRef.current.get(prev);
+      if (m) {
+        m.setIcon(createPriceIcon(Number(priceByIdRef.current.get(prev) ?? 0), false));
+        m.setZIndexOffset(0);
       }
-    });
-  }, [hoveredPropertyId, properties]);
+    }
+    if (hoveredPropertyId) {
+      const m = markersRef.current.get(hoveredPropertyId);
+      if (m) {
+        m.setIcon(createPriceIcon(Number(priceByIdRef.current.get(hoveredPropertyId) ?? 0), true));
+        m.setZIndexOffset(1000);
+      }
+    }
+    prevHoveredRef.current = hoveredPropertyId ?? null;
+  }, [hoveredPropertyId]);
 
   // Clear selection when commute is removed
   useEffect(() => {
