@@ -196,7 +196,7 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
       // Alleen de eerste foto ophalen (images->0) i.p.v. alle foto-URLs: veel minder data.
       const columns = "id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, first_image:images->0, latitude, longitude, status, bedrooms, surface_area, source_site, provider_priority, created_at";
       const fetchBatch = async (from: number, withCount = false) => {
-        let query = supabase
+        let query: any = (supabase as any)
           .from("properties")
           .select(columns, withCount ? { count: "exact" } : undefined)
           .not("latitude", "is", null)
