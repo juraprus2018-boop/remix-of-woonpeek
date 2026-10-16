@@ -193,29 +193,42 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
   return useQuery({
     queryKey: ["map-properties", filters],
     queryFn: async () => {
-      const allMapProperties: Property[] = [];
-      let from = 0;
-
-      while (from < MAX_MAP_ROWS) {
-        const batchSize = Math.min(DEFAULT_BATCH_SIZE, MAX_MAP_ROWS - from);
-        let query = supabase
+      // Alleen de eerste foto ophalen (images->0) i.p.v. alle foto-URLs: veel minder data.
+      const columns = "id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, first_image:images->0, latitude, longitude, status, bedrooms, surface_area, source_site, provider_priority, created_at";
+      const fetchBatch = async (from: number, withCount = false) => {
+        let query: any = (supabase as any)
           .from("properties")
-          .select("id, title, price, listing_type, property_type, city, street, house_number, slug, address_slug, images, latitude, longitude, status, bedrooms, surface_area, source_site, provider_priority, created_at")
+          .select(columns, withCount ? { count: "exact" } : undefined)
           .not("latitude", "is", null)
           .not("longitude", "is", null)
           .order("id", { ascending: true })
-          .range(from, from + batchSize - 1);
-
+          .range(from, from + DEFAULT_BATCH_SIZE - 1);
         query = applyPropertyFilters(query, filters);
-
-        const { data, error } = await query;
+        const { data, error, count } = await query;
         if (error) throw error;
-        if (!data || data.length === 0) break;
+        return { rows: (data || []) as any[], count: count ?? 0 };
+      };
 
-        allMapProperties.push(...(data as unknown as Property[]));
+      // Eerste batch + totaal, daarna de rest parallel (max 4 tegelijk) i.p.v. 15 stappen na elkaar.
+      const first = await fetchBatch(0, true);
+      const total = Math.min(first.count || first.rows.length, MAX_MAP_ROWS);
+      const offsets: number[] = [];
+      for (let o = DEFAULT_BATCH_SIZE; o < total; o += DEFAULT_BATCH_SIZE) offsets.push(o);
 
-        if (data.length < batchSize) break;
-        from += batchSize;
+      const results: any[][] = [first.rows];
+      const CONCURRENCY = 4;
+      for (let i = 0; i < offsets.length; i += CONCURRENCY) {
+        const chunk = await Promise.all(offsets.slice(i, i + CONCURRENCY).map((o) => fetchBatch(o)));
+        results.push(...chunk.map((c) => c.rows));
+      }
+
+      const seen = new Set<string>();
+      const allMapProperties: Property[] = [];
+      for (const r of results.flat()) {
+        if (seen.has(r.id)) continue;
+        seen.add(r.id);
+        const { first_image, ...rest } = r;
+        allMapProperties.push({ ...rest, images: first_image ? [first_image] : [] } as Property);
       }
 
       return sortPropertiesClientSide(allMapProperties, (filters as any)?.sortBy);
