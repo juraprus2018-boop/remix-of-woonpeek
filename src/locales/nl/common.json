@@ -113,7 +113,7 @@
     "forRent": "Te huur",
     "homesCount": "{{count}} huurwoningen",
     "rooms": "{{count}} kamers",
-    "perMonth": "/mnd"
+    "perMonth": "per maand"
   },
   "footer": {
     "tagline": "Scoor jouw",

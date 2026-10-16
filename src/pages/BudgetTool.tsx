@@ -119,7 +119,7 @@ const BudgetTool = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? "/mnd" : ""}? | Woonaanbod NL`}
+        title={`Wat kun je ${isHuur ? "huren" : "kopen"} voor ${formatPrice(budget)}${isHuur ? " per maand" : ""}? | Woonaanbod NL`}
         description={`Ontdek wat je kunt ${isHuur ? "huren" : "kopen"} met een budget van ${formatPrice(budget)}${isHuur ? " per maand" : ""}. Vergelijk steden op gemiddeld oppervlak, kamers en beschikbaarheid.`}
         canonical="/budgetcheck"
       />
@@ -129,7 +129,7 @@ const BudgetTool = () => {
         <StockBanner
           seed={`budget-tool-${listingType}-${budget}`}
           eyebrow="Budget tool"
-          title={<>Wat kun je {isHuur ? "huren" : "kopen"} voor {formatPrice(budget)}{isHuur ? "/mnd" : ""}?</>}
+          title={<>Wat kun je {isHuur ? "huren" : "kopen"} voor {formatPrice(budget)}{isHuur ? " per maand" : ""}?</>}
           subtitle="Vergelijk steden en ontdek waar je het meeste waarde krijgt voor je budget."
         >
           <Breadcrumbs items={[
@@ -148,7 +148,7 @@ const BudgetTool = () => {
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-semibold text-foreground">Budget</label>
                   <span className="text-2xl font-bold text-primary">
-                    {formatPrice(budget)}{isHuur ? "/mnd" : ""}
+                    {formatPrice(budget)}{isHuur ? " per maand" : ""}
                   </span>
                 </div>
                 <Slider

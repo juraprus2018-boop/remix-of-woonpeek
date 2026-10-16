@@ -98,7 +98,7 @@ const PropertyStickyBar = ({
             <span className="truncate font-display text-base font-bold text-foreground sm:text-lg">
               {formattedPrice}
               {listingType === "huur" && (
-                <span className="text-xs font-medium text-muted-foreground sm:text-sm"> /mnd</span>
+                <span className="text-xs font-medium text-muted-foreground sm:text-sm"> per maand</span>
               )}
             </span>
           </div>

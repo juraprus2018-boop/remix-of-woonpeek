@@ -35,7 +35,7 @@ const formatPrice = (price: number, listingType: string) => {
     currency: "EUR",
     minimumFractionDigits: 0,
   }).format(price);
-  return listingType === "huur" ? `${formatted}/mnd` : formatted;
+  return listingType === "huur" ? `${formatted} per maand` : formatted;
 };
 
 const shortPrice = (price: number) => {
