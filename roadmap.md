@@ -1,6 +1,6 @@
 # Kaartpagina
-- [ ] Nieuw uitgebreid blogartikel en perspublicatie maken met gecontroleerde aanbodcijfers en beeld.
-- [ ] Beide publicaties opslaan en via de website controleren.
+- [x] Nieuw uitgebreid blogartikel en perspublicatie maken met gecontroleerde aanbodcijfers en beeld.
+- [x] Beide publicaties opslaan en via de website controleren.
 - [x] Laadstatus tonen totdat de benodigde resultaten beschikbaar zijn.
 - [x] Plaatsen beperken tot kaartgebied of postcodestraal.
 - [x] Bronnen zonder aanbod verbergen en de werking controleren.
