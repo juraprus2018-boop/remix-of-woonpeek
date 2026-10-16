@@ -242,7 +242,7 @@ const TotalMonthlyCosts = ({
                   onChange={(e) => setter(Math.max(0, Number(e.target.value) || 0))}
                   className="h-9 w-24 text-right font-display font-bold"
                 />
-                <span className="text-xs text-muted-foreground">/mnd</span>
+                <span className="text-xs text-muted-foreground">per maand</span>
               </div>
               <div className="md:w-44 md:text-right">
                 {cta ? (

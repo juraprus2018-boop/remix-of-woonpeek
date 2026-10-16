@@ -32,7 +32,7 @@ const PROXY = `https://${import.meta.env.VITE_SUPABASE_PROJECT_ID}.supabase.co/f
 
 function fmtPrice(p: number, listingType: string) {
   const v = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(p);
-  return listingType === "huur" ? `${v} /mnd` : v;
+  return listingType === "huur" ? `${v} per maand` : v;
 }
 
 function tryLoad(src: string): Promise<HTMLImageElement> {

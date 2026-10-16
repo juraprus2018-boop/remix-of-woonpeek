@@ -209,7 +209,7 @@ const PropertyDetail = () => {
 
   const formatPrice = (price: number, listingType: string) => {
     const formatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(price);
-    return listingType === "huur" ? `${formatted}/mnd` : formatted;
+    return listingType === "huur" ? `${formatted} per maand` : formatted;
   };
 
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -226,7 +226,7 @@ const PropertyDetail = () => {
   const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Woonaanbod NL`;
 
   // Meta Description
-  const seoDescription = `Bekijk deze ${property.property_type} in ${property.city}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? "/mnd" : ""}. Bekijk foto's, informatie en vraag direct meer info aan.`;
+  const seoDescription = `Bekijk deze ${property.property_type} in ${property.city}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? " per maand" : ""}. Bekijk foto's, informatie en vraag direct meer info aan.`;
 
   // H1: [Woningtype] te huur/koop in [stad] – [kamers]
   const h1Title = `${typeLabel} ${listingLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;

@@ -102,7 +102,7 @@ const AdminProperties = () => {
       currency: "EUR",
       minimumFractionDigits: 0,
     }).format(price);
-    return listingType === "huur" ? `${formatted}/mnd` : formatted;
+    return listingType === "huur" ? `${formatted} per maand` : formatted;
   };
 
   const buildFacebookGroupPostText = (property: NonNullable<typeof properties>[number]) => {

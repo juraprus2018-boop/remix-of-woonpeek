@@ -361,7 +361,7 @@ const CreateProperty = () => {
                     <SummaryRow label="Titel" value={title} />
                     <SummaryRow label="Type" value={`${propertyTypeLabels[propertyType]} · ${listingType === "huur" ? "Te huur" : "Te koop"}`} />
                     <SummaryRow label="Adres" value={`${street} ${houseNumber}, ${postalCode} ${city}`} />
-                    <SummaryRow label="Prijs" value={`€${Number(price).toLocaleString("nl-NL")}${listingType === "huur" ? " /mnd" : ""}`} />
+                    <SummaryRow label="Prijs" value={`€${Number(price).toLocaleString("nl-NL")}${listingType === "huur" ? " per maand" : ""}`} />
                     {surfaceArea && <SummaryRow label="Oppervlakte" value={`${surfaceArea} m²`} />}
                     {bedrooms && <SummaryRow label="Slaapkamers" value={bedrooms} />}
                     {bathrooms && <SummaryRow label="Badkamers" value={bathrooms} />}

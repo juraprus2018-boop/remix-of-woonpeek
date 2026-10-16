@@ -54,13 +54,13 @@ const IncomeLandingPage = () => {
 
   const title = `Huurwoningen bij ${formattedIncome} bruto inkomen in ${cityName} | Woonaanbod NL`;
   const description = stats?.count
-    ? `${stats.count} huurwoningen tot ${formattedMaxRent}/mnd in ${cityName} bij een bruto inkomen van ${formattedIncome}. Voldoet aan de 3x huur regel van verhuurders.`
+    ? `${stats.count} huurwoningen tot ${formattedMaxRent} per maand in ${cityName} bij een bruto inkomen van ${formattedIncome}. Voldoet aan de 3x huur regel van verhuurders.`
     : `Bereken welke huurwoningen in ${cityName} passen bij ${formattedIncome} bruto inkomen. Volgens de 3x huur regel maximaal ${formattedMaxRent} per maand.`;
 
   const intro = `Met een bruto maandinkomen van ${formattedIncome} kun je in ${cityName} huurwoningen bekijken tot ongeveer ${formattedMaxRent} per maand. Bijna alle verhuurders in Nederland hanteren de zogenoemde "3x huur regel": je bruto inkomen moet minimaal driemaal de kale huurprijs zijn. Op deze pagina tonen we alleen het aanbod dat aan deze norm voldoet, zodat je geen tijd verliest aan woningen waar je niet voor in aanmerking komt.`;
 
   const explanation = stats?.count && stats.avgSurface > 0
-    ? `Op basis van het huidige aanbod in ${cityName} krijg je gemiddeld ${stats.avgSurface}m² woonruimte voor maximaal ${formattedMaxRent}/mnd. De goedkoopste huurwoning binnen jouw inkomensgrens start vanaf €${stats.minPrice.toLocaleString("nl-NL")} per maand.`
+    ? `Op basis van het huidige aanbod in ${cityName} krijg je gemiddeld ${stats.avgSurface}m² woonruimte voor maximaal ${formattedMaxRent} per maand. De goedkoopste huurwoning binnen jouw inkomensgrens start vanaf €${stats.minPrice.toLocaleString("nl-NL")} per maand.`
     : `Op dit moment is er geen actief aanbod in ${cityName} dat aansluit bij ${formattedIncome} bruto inkomen. Maak een gratis alert aan om direct bericht te krijgen wanneer een passende woning beschikbaar komt.`;
 
   const faqItems: FAQItem[] = [
@@ -159,7 +159,7 @@ const IncomeLandingPage = () => {
             ) : (
               <Card>
                 <CardContent className="space-y-4 p-8 text-center">
-                  <p className="text-lg">Geen aanbod tot {formattedMaxRent}/mnd in {cityName}.</p>
+                  <p className="text-lg">Geen aanbod tot {formattedMaxRent} per maand in {cityName}.</p>
                   <Button asChild>
                     <Link to="/woonmelding">
                       Alert aanmaken <ArrowRight className="ml-2 h-4 w-4" />

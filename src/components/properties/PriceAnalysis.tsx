@@ -75,7 +75,7 @@ const PriceAnalysis = ({ price, surfaceArea, city, listingType, propertyType }: 
       : "text-muted-foreground";
 
   const isHuur = listingType === "huur";
-  const priceLabel = isHuur ? "/mnd" : "";
+  const priceLabel = isHuur ? " per maand" : "";
 
   return (
     <section>

@@ -108,7 +108,7 @@ const IncomeChecker = () => {
             <div className="mt-4 rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm">
               <p>
                 Met <strong>€{incomeNum.toLocaleString("nl-NL")}</strong> bruto p/m kun je huurwoningen tot{" "}
-                <strong className="text-primary">€{maxRent.toLocaleString("nl-NL")}/mnd</strong> bekijken
+                <strong className="text-primary">€{maxRent.toLocaleString("nl-NL")} per maand</strong> bekijken
                 {nearestBracket && nearestBracket !== incomeNum && (
                   <span className="text-muted-foreground"> (tonen op €{nearestBracket.toLocaleString("nl-NL")} bracket)</span>
                 )}
