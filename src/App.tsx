@@ -77,6 +77,7 @@ const UserChat = lazy(() => import("./pages/UserChat"));
 const BudgetTool = lazy(() => import("./pages/BudgetTool"));
 const CityComparePage = lazy(() => import("./pages/CityComparePage"));
 const HuurprijsCheck = lazy(() => import("./pages/HuurprijsCheck"));
+const BorgTerugvorderen = lazy(() => import("./pages/BorgTerugvorderen"));
 const ClaimKantoor = lazy(() => import("./pages/ClaimKantoor"));
 const HuurprijsMonitor = lazy(() => import("./pages/HuurprijsMonitor"));
 const PostcodePage = lazy(() => import("./pages/PostcodePage"));
@@ -343,6 +344,7 @@ const PAGES: RouteDef[] = [
   { path: "/makelaars/claim", element: <ClaimKantoor /> },
   { path: "/makelaars/:slug", element: <AgencyPage /> },
   { path: "/huurprijs-check", element: <HuurprijsCheck /> },
+  { path: "/borg-terugvorderen", element: <BorgTerugvorderen /> },
   { path: "/makelaar-portal", element: <MakelaarPortal /> },
   { path: "/makelaar/:slug", element: <MakelaarPage /> },
   { path: "/transparantie", element: <Transparantie /> },

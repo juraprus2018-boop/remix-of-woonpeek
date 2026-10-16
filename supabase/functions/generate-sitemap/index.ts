@@ -115,6 +115,7 @@ function buildPagesSitemap(now: string, blogSlugs: string[] = [], agencySlugs: s
     { loc: "/transparantie", changefreq: "monthly", priority: "0.4" },
     { loc: "/budgetcheck", changefreq: "monthly", priority: "0.5" },
     { loc: "/huurprijs-check", changefreq: "monthly", priority: "0.7" },
+    { loc: "/borg-terugvorderen", changefreq: "monthly", priority: "0.7" },
     { loc: "/makelaars/claim", changefreq: "monthly", priority: "0.4" },
     { loc: "/verhuischecklist", changefreq: "monthly", priority: "0.8" },
     { loc: "/energie", changefreq: "monthly", priority: "0.7" },
