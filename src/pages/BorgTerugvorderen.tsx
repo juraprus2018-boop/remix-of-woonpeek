@@ -106,7 +106,6 @@ ${v(f.naam, "Jouw naam")}`;
         description="Borg niet terug of onterechte bemiddelingskosten betaald? Maak gratis een voorbeeldbrief met de juiste wetsartikelen en download hem als PDF."
         canonical="/borg-terugvorderen"
       />
-      <FAQSchema faqs={faqs} />
       <style>{`@media print { body * { visibility: hidden; } #brief, #brief * { visibility: visible; } #brief { position: absolute; inset: 0; border: 0; padding: 20mm; } }`}</style>
       <Header />
       <main className="container py-8">
@@ -162,22 +161,12 @@ ${v(f.naam, "Jouw naam")}`;
           <h2 className="mt-2 font-display text-xl font-bold text-foreground">Op zoek naar een nieuwe huurwoning?</h2>
           <p className="mt-1 text-muted-foreground">Bekijk het actuele aanbod of laat je direct mailen als er een passende woning bijkomt.</p>
           <div className="mt-4 flex flex-wrap gap-2">
-            <Button asChild><Link to="/zoeken">Bekijk huurwoningen</Link></Button>
+            <Button asChild><Link to="/huurwoningen">Bekijk huurwoningen</Link></Button>
             <Button asChild variant="outline"><Link to="/woonmelding">Woonmelding instellen</Link></Button>
           </div>
         </section>
 
-        <section className="mt-10">
-          <h2 className="font-display text-2xl font-bold text-foreground">Veelgestelde vragen</h2>
-          <div className="mt-4 space-y-4">
-            {faqs.map((q) => (
-              <div key={q.question} className="rounded-xl border bg-card p-5">
-                <h3 className="font-semibold text-foreground">{q.question}</h3>
-                <p className="mt-1 text-muted-foreground">{q.answer}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <section className="mt-10"><FAQSchema items={faqs} title="Veelgestelde vragen" /></section>
       </main>
       <Footer />
     </>
