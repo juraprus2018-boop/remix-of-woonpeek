@@ -22,6 +22,7 @@ import { optimizeImage, buildSrcSet } from "@/lib/imageOptimization";
 import { getStockPropertyImage } from "@/lib/stockImages";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
+import { useWoonmatch, woonmatchScore } from "@/lib/woonmatch";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
@@ -47,6 +48,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const { user } = useAuth();
   const { toggle, isFavorite, isLoading } = useToggleFavorite();
   const { data: feedLogos } = useFeedLogos();
+  const woonmatch = useWoonmatch();
   const isPropertyFavorite = isFavorite(property.id);
 
   const sourceLogo =
@@ -81,6 +83,15 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
     if (diff >= 0.15) return "te-duur";
     return null;
   })();
+
+  const match = property.listing_type === "huur" && property.status === "actief"
+    ? woonmatchScore(woonmatch, {
+        price: Number(property.price),
+        bedrooms: property.bedrooms,
+        property_type: property.property_type,
+        city: property.city,
+      })
+    : null;
 
   const requiredIncome = Number(property.price) * 3;
   const fitsBudget =
@@ -197,6 +208,22 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
         {/* Body */}
         <div className="flex flex-1 flex-col gap-4 p-5 lg:flex-row lg:gap-6">
           <div className="min-w-0 flex-1">
+            {match !== null && (
+              <div className="mb-2">
+                <span
+                  className={cn(
+                    "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold",
+                    match >= 85 ? "bg-accent text-accent-foreground" : match >= 60 ? "bg-secondary text-secondary-foreground" : "bg-muted text-muted-foreground"
+                  )}
+                >
+                  {match}% Woonmatch
+                </span>
+                {match >= 85 && (
+                  <span className="ml-2 text-xs font-medium text-foreground">Past bij jouw wensen, wees er snel bij</span>
+                )}
+              </div>
+            )}
+
 
             <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
               {property.title}
