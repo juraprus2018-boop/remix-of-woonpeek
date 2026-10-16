@@ -370,7 +370,7 @@ const AdminTikTok = () => {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {p.city} · €{Number(p.price).toLocaleString("nl-NL")}
-                            {p.listing_type === "huur" ? "/mnd" : ""}
+                            {p.listing_type === "huur" ? " per maand" : ""}
                             {p.surface_area ? ` · ${p.surface_area} m²` : ""}
                           </p>
                           <p className="mt-1 text-xs text-muted-foreground">
