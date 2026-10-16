@@ -28,6 +28,7 @@ const PressRelease = () => {
   const chart = p?.chart as unknown as PressChart | null;
   const table = (p?.data as any)?.table as PressTable | undefined;
   const findings = (p?.findings as unknown as string[]) ?? [];
+  const editorial = p?.data as { cover_image?: string; cover_alt?: string; cover_caption?: string; related_blog_slug?: string } | undefined;
   const url = `${CANONICAL_URL}/pers/${slug}`;
   const citation = p ? `Bron: Woonaanbod NL, ${p.title}, peildatum ${formatDateNL(p.reference_date)}, ${url}` : "";
 
@@ -68,7 +69,13 @@ const PressRelease = () => {
         ) : (
           <div className="container grid gap-8 py-10 lg:grid-cols-[1fr_320px]">
             <article className="space-y-8">
-              {p.body && <p className="text-muted-foreground">{p.body}</p>}
+              {editorial?.cover_image && (
+                <figure>
+                  <img src={editorial.cover_image} alt={editorial.cover_alt || p.title} width={1536} height={1024} className="aspect-[3/2] w-full rounded-lg object-cover" />
+                  {editorial.cover_caption && <figcaption className="mt-2 text-xs text-muted-foreground">{editorial.cover_caption}</figcaption>}
+                </figure>
+              )}
+              {p.body && <div className="space-y-4 text-muted-foreground">{p.body.split(/\n\n+/).map((paragraph, i) => <p key={i}>{paragraph}</p>)}</div>}
               <section>
                 <h2 className="mb-3 font-display text-xl font-bold">Belangrijkste bevindingen</h2>
                 <ul className="list-disc space-y-2 pl-5">{findings.map((f) => <li key={f}>{f}</li>)}</ul>
@@ -132,6 +139,7 @@ const PressRelease = () => {
                   <p className="mt-2"><Link to={`/huurwoningen/${p.city_slug}`} className="text-primary hover:underline">Actuele huurwoningen in {p.city_name}</Link></p>
                 )}
                 <p className="mt-2"><Link to="/woningmarkt" className="text-primary hover:underline">Woningmarkt in cijfers</Link></p>
+                {editorial?.related_blog_slug && <p className="mt-2"><Link to={`/blog/${editorial.related_blog_slug}`} className="text-primary hover:underline">Uitleg en praktische zoektips bij deze cijfers</Link></p>}
               </div>
             </aside>
           </div>
