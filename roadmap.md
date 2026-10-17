@@ -1,4 +1,6 @@
 # Kaartpagina
+- [x] Belangrijkste stadspagina’s verrijken met actuele huurdata, geverifieerde lokale informatie en aanbodlinks.
+- [x] Cijfers, aanbodlinks en weergave van stadspagina’s testen zonder te publiceren.
 - [x] Nieuw uitgebreid blogartikel en perspublicatie maken met gecontroleerde aanbodcijfers en beeld.
 - [x] Beide publicaties opslaan en via de website controleren.
 - [x] Laadstatus tonen totdat de benodigde resultaten beschikbaar zijn.

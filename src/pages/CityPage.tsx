@@ -14,9 +14,8 @@ import SearchFilters, { type SearchFilterValues } from "@/components/search/Sear
 import IncomeBanner from "@/components/search/IncomeBanner";
 import RelatedCities from "@/components/city/RelatedCities";
 import SimilarProperties from "@/components/city/SimilarProperties";
-import CityMarketStats, { useCityMarketData } from "@/components/city/CityMarketStats";
-import CityPulse from "@/components/city/CityPulse";
-import CityNeighborhoods from "@/components/city/CityNeighborhoods";
+import { useCityMarketData } from "@/components/city/CityMarketStats";
+import CityRentalInsights from "@/components/city/CityRentalInsights";
 import CityRentalTips from "@/components/city/CityRentalTips";
 import CityRealtors from "@/components/city/CityRealtors";
 import NewThisWeekSection from "@/components/city/NewThisWeekSection";
@@ -484,14 +483,7 @@ const CityPage = () => {
           </div>
         </section>
 
-        {/* Slimme marktinzichten (uniek per stad) */}
-        <CityPulse cityName={cityName} />
-
-        {/* Market stats */}
-        <CityMarketStats cityName={cityName} />
-
-        {/* Neighborhoods */}
-        <CityNeighborhoods cityName={cityName} citySlug={citySlug} />
+        <CityRentalInsights cityName={cityName} />
 
         {/* Rental tips */}
         <CityRentalTips cityName={cityName} totalCount={totalCount} />
