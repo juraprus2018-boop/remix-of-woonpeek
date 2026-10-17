@@ -10,6 +10,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import SimilarProperties from "@/components/city/SimilarProperties";
 import RelatedCities from "@/components/city/RelatedCities";
 import CityDataHub from "@/components/city/CityDataHub";
+import CityRentalInsights from "@/components/city/CityRentalInsights";
 import { useProperties, useNearbyProperties, useFilterFacets } from "@/hooks/useProperties";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -406,6 +407,8 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
             </div>
           )}
         </section>
+
+        {cityName && listingType === "huur" && <CityRentalInsights cityName={cityName} />}
 
         {/* SEO Text */}
         <section className="border-t bg-muted/30 py-12">
