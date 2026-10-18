@@ -136,7 +136,7 @@ const AffordabilityWidget = ({ price, listingType }: AffordabilityWidgetProps) =
           </div>
         </div>
 
-        <p className="text-xs text-muted-foreground text-center">{result.explanation}</p>
+        <p className="text-xs text-muted-foreground text-center">{result.explanation} Standaardbedrag, pas aan.</p>
       </CardContent>
     </Card>
   );
