@@ -1,3 +1,4 @@
+import { canonicalizeCity } from "../_shared/importNormalization.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { isServiceRole } from "../_shared/auth.ts";
@@ -19,6 +20,7 @@ function parseJsonFeed(text: string): XmlProperty[] {
     const imgs = pick(o, ["images", "photos", "fotos", "media"]);
     const images = Array.isArray(imgs) ? imgs.map((i: any) => (typeof i === "string" ? i : i?.url || i?.src)).filter((u: any) => typeof u === "string" && /^https?:\/\//.test(u)) : undefined;
     return {
+      source_raw: o,
       title: pick(o, ["title", "titel", "name", "naam"]),
       street: pick(o, ["street", "straat", "straatnaam"]),
       house_number: pick(o, ["house_number", "housenumber", "huisnummer"])?.toString(),
@@ -64,7 +66,8 @@ function toRow(p: XmlProperty, agency: any) {
     agency_id: agency.id,
     title: (p.title || `${p.street || "Woning"} ${p.house_number || ""}, ${p.city}`).slice(0, 200),
     description: stripHtml(p.description),
-    property_type: mapPropertyType(p.property_type || p.title || ""),
+    source_raw: p.source_raw,
+    property_type: mapPropertyType(p.property_type || ""),
     listing_type: listing,
     price: p.price,
     surface_area: p.surface_area ? Math.round(p.surface_area) : null,
@@ -75,7 +78,7 @@ function toRow(p: XmlProperty, agency: any) {
     street: p.street || "-",
     house_number: p.house_number || "-",
     postal_code: (p.postal_code || "").replace(/\s/g, "").toUpperCase() || "-",
-    city: p.city.trim(),
+    city: canonicalizeCity(p.city),
     neighborhood: p.neighborhood || null,
     latitude: p.latitude || null,
     longitude: p.longitude || null,
@@ -100,7 +103,9 @@ async function importAgency(supabase: any, agency: any) {
     const k = key(r); seen.add(k);
     const id = byKey.get(k);
     if (id) {
-      const { error } = await supabase.from("properties").update(r).eq("id", id);
+      // Preserve address-derived URLs on refresh.
+      const { city, street, house_number, ...refresh } = r;
+      const { error } = await supabase.from("properties").update(refresh).eq("id", id);
       error ? failed++ : updated++;
     } else {
       const { data, error } = await supabase.from("properties").insert(r).select("id, city, listing_type, address_slug, slug").single();

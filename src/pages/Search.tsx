@@ -1,5 +1,6 @@
+import { EMPTY_FILTERS, parseSearchFilters, serializeSearchFilters, validateSearchFilters } from "@/lib/searchFilters";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -29,17 +30,6 @@ import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 
-const EMPTY_FILTERS: SearchFilterValues = {
-  city: "",
-  propertyType: "",
-  listingType: "",
-  maxPrice: undefined,
-  minBedrooms: undefined,
-  minSurface: undefined,
-  includeInactive: false,
-  grossIncome: undefined,
-};
-
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
@@ -47,38 +37,21 @@ const SearchPage = () => {
   const [commute, setCommute] = useState<CommuteValue | null>(null);
   const pageSize = 12;
 
-  const [filters, setFilters] = useState<SearchFilterValues>({
-    ...EMPTY_FILTERS,
-    city: searchParams.get("locatie") || "",
-    propertyType: (searchParams.get("type") as SearchFilterValues["propertyType"]) || "",
-    listingType: (searchParams.get("aanbod") as SearchFilterValues["listingType"]) || "",
-    maxPrice: searchParams.get("max_prijs") ? Number(searchParams.get("max_prijs")) : searchParams.get("maxPrijs") ? Number(searchParams.get("maxPrijs")) : undefined,
-    minBedrooms: searchParams.get("min_kamers") ? Number(searchParams.get("min_kamers")) : undefined,
-    grossIncome: searchParams.get("inkomen") ? Number(searchParams.get("inkomen")) : undefined,
-  });
-
-  // Debounced city value for the actual query
-  const [debouncedCity, setDebouncedCity] = useState(filters.city);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
-
-  useEffect(() => {
-    debounceRef.current = setTimeout(() => {
-      setDebouncedCity(filters.city);
-    }, 400);
-    return () => clearTimeout(debounceRef.current);
-  }, [filters.city]);
-
-  // Sync URL params when filters change (use debounced city)
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (debouncedCity) params.set("locatie", debouncedCity);
-    if (filters.propertyType) params.set("type", filters.propertyType);
-    if (filters.listingType) params.set("aanbod", filters.listingType);
-    if (filters.maxPrice) params.set("max_prijs", String(filters.maxPrice));
-    if (filters.minBedrooms) params.set("min_kamers", String(filters.minBedrooms));
-    if (filters.grossIncome) params.set("inkomen", String(filters.grossIncome));
-    setSearchParams(params, { replace: true });
-  }, [debouncedCity, filters.propertyType, filters.listingType, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
+  // The URL is the single source of truth, including refresh and browser history.
+  const filters = useMemo(() => parseSearchFilters(searchParams), [searchParams]);
+  const setFilters = useCallback((value: SearchFilterValues) => {
+    const params = serializeSearchFilters(value);
+    if (searchParams.get("weergave") === "kaart") params.set("weergave", "kaart");
+    setSearchParams(params);
+  }, [searchParams, setSearchParams]);
+  const debouncedCity = filters.city;
+  const validationError = validateSearchFilters(filters);
+  useEffect(() => { setViewMode(searchParams.get("weergave") === "kaart" ? "map" : "list"); }, [searchParams]);
+  const changeView = (mode: "list" | "map") => {
+    const params = serializeSearchFilters(filters);
+    if (mode === "map") params.set("weergave", "kaart");
+    setSearchParams(params);
+  };
 
   // Log search queries for analytics
   const lastLoggedRef = useRef("");
@@ -114,7 +87,7 @@ const SearchPage = () => {
     city: debouncedCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
-    maxPrice: effectiveMaxPrice,
+    maxPrice: validationError ? undefined : effectiveMaxPrice,
     minBedrooms: filters.minBedrooms,
     includeInactive: filters.includeInactive,
   });
@@ -123,14 +96,15 @@ const SearchPage = () => {
     city: debouncedCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
-    maxPrice: effectiveMaxPrice,
+    minPrice: validationError ? undefined : filters.minPrice,
+    maxPrice: validationError ? undefined : effectiveMaxPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
     includeInactive: filters.includeInactive,
     pageSize,
   });
-  const properties = data?.pages.flatMap(p => p.properties) || [];
-  const totalCount = data?.pages[0]?.totalCount || 0;
+  const properties = validationError ? [] : data?.pages.flatMap(p => p.properties) || [];
+  const totalCount = validationError ? 0 : data?.pages[0]?.totalCount || 0;
 
   const newest = useMemo(() => {
     const dates = properties
@@ -164,9 +138,11 @@ const SearchPage = () => {
     city: debouncedCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
-    maxPrice: effectiveMaxPrice,
+    minPrice: validationError ? undefined : filters.minPrice,
+    maxPrice: validationError ? undefined : effectiveMaxPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
+    includeInactive: filters.includeInactive,
   }, viewMode === "map" || !!commute);
 
   // Apply commute filter to the appropriate dataset
@@ -195,25 +171,24 @@ const SearchPage = () => {
   }, []);
 
   const visibleListProperties = dedupeProperties((commuteActive ? commuteFiltered : properties) as typeof properties);
-  const visibleMapProperties = dedupeProperties((commuteActive ? commuteFiltered : (mapProperties || [])) as any[]);
+  const visibleMapProperties = validationError ? [] : dedupeProperties((commuteActive ? commuteFiltered : (mapProperties || [])) as any[]);
 
   const handleFilterChange = useCallback((newFilters: SearchFilterValues) => {
     setFilters(newFilters);
-  }, []);
+  }, [setFilters]);
 
   const clearFilters = useCallback(() => {
     setFilters(EMPTY_FILTERS);
-    setDebouncedCity("");
     setSearchParams(new URLSearchParams());
-  }, [setSearchParams]);
+  }, [setSearchParams, setFilters]);
 
   const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.maxPrice;
 
   const { t } = useTranslation();
 
   const seoTitle = useMemo(() => {
-    const loc = debouncedCity ? ` ${t("hero.popular") ? "" : ""}${debouncedCity ? ` — ${debouncedCity}` : ""}` : "";
-    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const loc = debouncedCity ? ` ${t("hero.popular") ? "" : ""}${debouncedCity ? ` · ${debouncedCity}` : ""}` : "";
+    const locPart = debouncedCity ? ` · ${debouncedCity}` : "";
     const key =
       filters.listingType === "huur" ? "meta.searchTitleHuur"
       : filters.listingType === "koop" ? "meta.searchTitleKoop"
@@ -228,7 +203,7 @@ const SearchPage = () => {
       : "meta.searchTitleAll";
     // Extract bare noun (strip " | Woonaanbod NL" and any "{{loc}}")
     const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Woonaanbod NL\s*$/i, "").trim().toLowerCase();
-    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const locPart = debouncedCity ? ` · ${debouncedCity}` : "";
     return t("meta.searchDesc", { total: totalCount, typeWord, loc: locPart });
   }, [debouncedCity, filters.listingType, totalCount, t]);
 
@@ -296,7 +271,7 @@ const SearchPage = () => {
                   <Button
                     variant={viewMode === "list" ? "secondary" : "ghost"}
                     size="sm"
-                    onClick={() => setViewMode("list")}
+                    onClick={() => changeView("list")}
                     className="rounded-r-none"
                     aria-label="Toon als lijst"
                     aria-pressed={viewMode === "list"}
@@ -308,7 +283,7 @@ const SearchPage = () => {
                     size="sm"
                     aria-label="Toon op kaart"
                     aria-pressed={viewMode === "map"}
-                    onClick={() => setViewMode("map")}
+                    onClick={() => changeView("map")}
                     className="rounded-l-none"
                   >
                     <MapIcon className="h-4 w-4" />
@@ -363,12 +338,18 @@ const SearchPage = () => {
 
             {/* Results */}
             <div className="min-w-0 flex-1">
-              <div className="mb-4">
-                <HuurzoneTip
-                  title="Op zoek naar een huurwoning?"
-                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone."
-                  buttonText="Bekijk huurwoningen bij Huurzone"
-                />
+              <div className="mb-4 space-y-3">
+                <h1 className="font-display text-xl font-semibold">Woningen zoeken{filters.city ? ` in ${filters.city}` : ""}</h1>
+                <div className="flex flex-wrap items-center gap-2" aria-label="Actieve filters">
+                  {Object.entries(filters).filter(([, value]) => value !== undefined && value !== "" && value !== false).map(([key, value]) => {
+                    const labels: Record<string, string> = { city: String(value), minPrice: `minimaal € ${Number(value).toLocaleString("nl-NL")}`, maxPrice: `maximaal € ${Number(value).toLocaleString("nl-NL")}`, minBedrooms: `${value}+ kamers`, minSurface: `${value}+ m²`, grossIncome: `inkomen € ${Number(value).toLocaleString("nl-NL")}`, includeInactive: "ook inactief" };
+                    const label = labels[key] ?? String(value);
+                    return <Button key={key} variant="secondary" size="sm" aria-label={`Verwijder ${label}`} onClick={() => setFilters({ ...filters, [key]: EMPTY_FILTERS[key as keyof SearchFilterValues] })}>{label} ×</Button>;
+                  })}
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>Alles wissen</Button>
+                </div>
+                {validationError && <p role="alert" className="text-sm text-destructive">{validationError}</p>}
+                <Link className="inline-block text-sm font-medium text-primary underline underline-offset-4" to={`/woonmelding?${new URLSearchParams(Object.entries({ plaats: filters.city, max_prijs: effectiveMaxPrice !== undefined ? String(effectiveMaxPrice) : "", type: filters.propertyType, aanbod: filters.listingType }).filter(([, value]) => value !== ""))}`}>Bewaar zoekopdracht</Link>
               </div>
               <div className="mb-4 rounded-2xl border bg-card p-4">
                 <p className="font-display text-lg font-semibold text-foreground">
@@ -382,15 +363,7 @@ const SearchPage = () => {
                   </p>
                 )}
               </div>
-              <SearchAlertCTA
-                className="mb-4"
-                city={debouncedCity || undefined}
-                listingType={filters.listingType || undefined}
-                propertyType={filters.propertyType || undefined}
-                maxPrice={effectiveMaxPrice}
-                minRooms={filters.minBedrooms}
-                source="search"
-              />
+
 
               <IncomeBanner
                 grossIncome={filters.grossIncome}
@@ -415,7 +388,7 @@ const SearchPage = () => {
                   </Button>
                 </div>
               )}
-              <div className="mb-5"><WoonmatchSetup /></div>
+
               {isLoading ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 6 }).map((_, i) => (
@@ -478,7 +451,7 @@ const SearchPage = () => {
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <Search className="mb-4 h-12 w-12 text-muted-foreground" />
                   <h3 className="font-display text-lg font-semibold">Geen woningen gevonden</h3>
-                  <p className="text-muted-foreground">Pas je filters aan om meer resultaten te zien</p>
+                  <p className="text-muted-foreground">Verhoog je maximumprijs, kies minder kamers of zoek in een andere plaats om meer resultaten te zien.</p>
                   {hasActiveFilters && (
                     <Button variant="outline" className="mt-4" onClick={clearFilters}>
                       Filters wissen
@@ -487,6 +460,24 @@ const SearchPage = () => {
                 </div>
               )}
 
+              <div className="mb-4">
+                <HuurzoneTip
+                  title="Op zoek naar een huurwoning?"
+                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone."
+                  buttonText="Bekijk huurwoningen bij Huurzone"
+                />
+              </div>
+
+              <SearchAlertCTA
+                className="mb-4"
+                city={debouncedCity || undefined}
+                listingType={filters.listingType || undefined}
+                propertyType={filters.propertyType || undefined}
+                maxPrice={effectiveMaxPrice}
+                minRooms={filters.minBedrooms}
+                source="search"
+              />
+              <div className="mt-5"><WoonmatchSetup /></div>
               {/* Pagination removed - using infinite scroll */}
             </div>
           </div>

@@ -11,7 +11,7 @@ interface PropertyStickyBarProps {
   propertyId: string;
   title: string;
   city: string;
-  price: number;
+  price: number | null;
   listingType: string;
   bedrooms?: number | null;
   surfaceArea?: number | null;
@@ -52,12 +52,12 @@ const PropertyStickyBar = ({
     return () => observer.disconnect();
   }, [triggerRef]);
 
-  const formattedPrice = new Intl.NumberFormat("nl-NL", {
+  const formattedPrice = price === null ? "Onbekend" : new Intl.NumberFormat("nl-NL", {
     style: "currency",
     currency: "EUR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(price);
+  }).format(price ?? 0);
 
   const normalizedSourceUrl = normalizeAffiliateUrl(sourceUrl);
 
@@ -74,13 +74,14 @@ const PropertyStickyBar = ({
     <>
     {/* Mobile: always visible at the bottom */}
     <div className="fixed inset-x-0 bottom-0 z-[55] border-t border-border bg-background shadow-[0_-4px_20px_-8px_hsl(var(--foreground)/0.25)] md:hidden">
+      <p className="px-4 pt-2 text-xs text-muted-foreground">Advertentie · Partner. Externe site, eigen accountvoorwaarden of kosten mogelijk. Zoeken en alerts bij ons zijn gratis.</p>
       <div className="flex items-center gap-3 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="shrink-0">
           <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
           <p className="mt-1 text-xs text-muted-foreground">{listingType === "huur" ? "per maand" : "koopprijs"}</p>
         </div>
-        <Button onClick={handleReact} variant="accent" size="lg" className="h-12 flex-1 gap-2 rounded-full text-base font-bold">
-          Reageren <ArrowRight className="h-5 w-5" />
+        <Button onClick={handleReact} variant="accent" size="lg" className="h-auto min-h-12 flex-1 gap-2 whitespace-normal rounded-full py-2 text-xs font-bold">
+          Bekijk en reageer bij {sourceSite || "de aanbieder"} <ArrowRight className="h-5 w-5" />
         </Button>
       </div>
     </div>
@@ -92,6 +93,7 @@ const PropertyStickyBar = ({
       aria-hidden={!visible}
     >
       <div className="container flex items-center justify-between gap-3 py-2.5 sm:py-3">
+        <p className="max-w-xs text-xs text-muted-foreground">Advertentie · Partner. Externe site met mogelijke accountvoorwaarden of kosten. Zoeken en alerts bij ons zijn gratis.</p>
         {/* Info: price + features */}
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2">
@@ -151,17 +153,17 @@ const PropertyStickyBar = ({
             onClick={handleReact}
             variant="accent"
             size="sm"
-            className="gap-1.5 whitespace-nowrap"
+            className="h-auto max-w-xs gap-1.5 whitespace-normal py-2"
           >
             {normalizedSourceUrl ? (
               <>
                 <ExternalLink className="h-4 w-4" />
-                Reageer
+                Bekijk en reageer bij {sourceSite || "de aanbieder"}
               </>
             ) : (
               <>
                 <Mail className="h-4 w-4" />
-                Reageer
+                Bekijk en reageer bij {sourceSite || "de aanbieder"}
               </>
             )}
           </Button>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { L as Link } from "@/components/LocalizedLink";
 import {
   Heart,
   Bed,

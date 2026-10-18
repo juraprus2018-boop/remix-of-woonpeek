@@ -1,3 +1,5 @@
+import PropertyReport from "@/components/properties/PropertyReport";
+import { derivePropertyFacts } from "@/lib/propertyFacts";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
 import { useParams, Link, useLocation, Navigate } from "react-router-dom";
@@ -20,7 +22,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
 import PropertyComments from "@/components/properties/PropertyComments";
-import CompetitionMeter from "@/components/properties/CompetitionMeter";
+
 import {
   Heart,
   Share2,
@@ -51,7 +53,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import MortgageCalculator from "@/components/properties/MortgageCalculator";
-import ChanceEstimator from "@/components/properties/ChanceEstimator";
+
 import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
@@ -197,6 +199,7 @@ const PropertyDetail = () => {
     );
   }
 
+  const facts = derivePropertyFacts(property);
   const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
   const sourceInfo = { source_url: normalizeAffiliateUrl(property.source_url), source_site: property.source_site };
@@ -207,7 +210,8 @@ const PropertyDetail = () => {
     ? feedLogos[sourceInfo.source_site.toLowerCase()]
     : undefined;
 
-  const formatPrice = (price: number, listingType: string) => {
+  const formatPrice = (price: number | null, listingType: string) => {
+    if (price === null) return "Onbekend";
     const formatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(price);
     return listingType === "huur" ? `${formatted} per maand` : formatted;
   };
@@ -218,9 +222,9 @@ const PropertyDetail = () => {
   const citySlugVal = property.city.toLowerCase().replace(/\s+/g, "-");
   const typeLabel = property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1);
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
-  const bedroomsLabel = property.bedrooms ? `${property.bedrooms} kamers` : null;
-  const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
-  const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
+  const bedroomsLabel = facts.bedrooms ? `${facts.bedrooms} slaapkamers` : null;
+  const surfaceLabel = facts.surfaceArea ? `${facts.surfaceArea} m²` : null;
+  const priceFormatted = facts.priceLabel;
 
   // Meta Title: [Woningtype] in [stad] – [kamers] – €[prijs]
   const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Woonaanbod NL`;
@@ -235,31 +239,29 @@ const PropertyDetail = () => {
   const canonicalUrl = `https://www.woonaanbod-nl.nl${canonicalPath}`;
   const fullAddress = formatAddress(property);
   const amenities = extractAmenities(property.description);
-  const publishedAt = new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
-  const lastCheckedAt = new Date((property as any).last_checked_at || (property as any).updated_at || property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
-  const availableFrom = (property as any).available_from
-    ? new Date((property as any).available_from).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })
-    : property.status === "actief" ? "Per direct beschikbaar" : "Niet meer beschikbaar";
-  const statusLabel = property.status === "actief" ? "Beschikbaar" : property.status === "inactief" ? "Verlopen" : property.status;
+  const publishedAt = facts.createdLabel;
+  const lastCheckedAt = facts.checkedLabel;
+  const availableFrom = facts.availability;
+  const statusLabel = property.status === "actief" ? "Actieve advertentie" : property.status;
   const dataRows: Array<{ label: string; value: string }> = [
     { label: "Adres", value: [(property.street || "").split(",")[0].trim(), (property.house_number || "").trim() === "-" ? "" : (property.house_number || "").trim()].filter(Boolean).join(" ") || property.title },
     { label: "Stad", value: property.city },
     { label: "Postcode", value: property.postal_code || "Onbekend" },
     ...(property.neighborhood ? [{ label: "Buurt", value: property.neighborhood }] : []),
     { label: "Huur of koop", value: property.listing_type === "huur" ? "Te huur" : "Te koop" },
-    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(Number(property.price), property.listing_type) },
-    ...(property.surface_area ? [{ label: "Woonoppervlak", value: `${property.surface_area} m²` }] : []),
-    ...(property.surface_area ? [{ label: "Prijs per m²", value: `€${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}` }] : []),
-    ...(property.bedrooms ? [{ label: "Aantal kamers", value: String(property.bedrooms + 1) }] : []),
-    ...(property.bedrooms ? [{ label: "Slaapkamers", value: String(property.bedrooms) }] : []),
-    ...(property.bathrooms ? [{ label: "Badkamers", value: String(property.bathrooms) }] : []),
+    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(facts.price, property.listing_type) },
+    { label: "Woonoppervlak", value: facts.surfaceArea === null ? "Onbekend" : `${facts.surfaceArea} m²` },
+    ...(facts.surfaceArea ? [{ label: "Prijs per m²", value: `€${Math.round((facts.price ?? 0) / facts.surfaceArea).toLocaleString("nl-NL")}` }] : []),
+    { label: "Aantal kamers", value: facts.roomsLabel },
+    { label: "Slaapkamers", value: facts.bedroomsLabel },
+    ...(facts.bathrooms ? [{ label: "Badkamers", value: String(facts.bathrooms) }] : []),
     { label: "Woningtype", value: typeLabel },
     ...(property.build_year ? [{ label: "Bouwjaar", value: String(property.build_year) }] : []),
-    { label: "Energielabel", value: property.energy_label || "Niet opgegeven" },
-    { label: "Beschikbaarheid", value: availableFrom },
+    { label: "Energielabel", value: property.energy_label || "Onbekend" },
+    { label: facts.availabilityLabel, value: availableFrom },
     { label: "Status", value: statusLabel },
-    { label: "Publicatiedatum", value: publishedAt },
-    { label: "Laatste controle", value: lastCheckedAt },
+    { label: "Toegevoegd aan Woonaanbod", value: publishedAt },
+    { label: "Laatst gecontroleerd", value: lastCheckedAt },
     { label: "Bron", value: sourceMeta?.label || "Woonaanbod NL" },
     { label: "Aantal foto's", value: String(images.length) },
   ];
@@ -297,14 +299,14 @@ const PropertyDetail = () => {
         "longitude": Number(property.longitude),
       },
     } : {}),
-    ...(property.surface_area ? {
+    ...(facts.surfaceArea ? {
       "floorSize": {
         "@type": "QuantitativeValue",
-        "value": property.surface_area,
+        "value": facts.surfaceArea,
         "unitCode": "MTK",
       },
     } : {}),
-    ...(property.bedrooms ? { "numberOfRooms": property.bedrooms } : {}),
+    ...(facts.bedrooms ? { "numberOfBedrooms": facts.bedrooms } : {}),
     "about": {
       "@type": accommodationType(property.property_type),
       "name": fullAddress || property.title,
@@ -315,9 +317,9 @@ const PropertyDetail = () => {
         "addressLocality": property.city,
         "addressCountry": "NL",
       },
-      ...(property.surface_area ? { "floorSize": { "@type": "QuantitativeValue", "value": property.surface_area, "unitCode": "MTK" } } : {}),
-      ...(property.bedrooms ? { "numberOfBedrooms": property.bedrooms } : {}),
-      ...(property.bathrooms ? { "numberOfBathroomsTotal": property.bathrooms } : {}),
+      ...(facts.surfaceArea ? { "floorSize": { "@type": "QuantitativeValue", "value": facts.surfaceArea, "unitCode": "MTK" } } : {}),
+      ...(facts.bedrooms ? { "numberOfBedrooms": facts.bedrooms } : {}),
+      ...(facts.bathrooms ? { "numberOfBathroomsTotal": facts.bathrooms } : {}),
       ...(property.build_year ? { "yearBuilt": property.build_year } : {}),
       ...(property.energy_label ? {
         "additionalProperty": [{ "@type": "PropertyValue", "name": "Energielabel", "value": property.energy_label }],
@@ -326,11 +328,11 @@ const PropertyDetail = () => {
         "amenityFeature": amenities.map((a) => ({ "@type": "LocationFeatureSpecification", "name": a, "value": true })),
       } : {}),
     },
-    ...(property.bathrooms ? { "numberOfBathroomsTotal": property.bathrooms } : {}),
+    ...(facts.bathrooms ? { "numberOfBathroomsTotal": facts.bathrooms } : {}),
     ...(property.build_year ? { "yearBuilt": property.build_year } : {}),
     "offers": {
       "@type": "Offer",
-      "price": Number(property.price),
+      "price": facts.price ?? 0,
       "priceCurrency": "EUR",
       "availability": property.status === "actief"
         ? "https://schema.org/InStock"
@@ -352,11 +354,11 @@ const PropertyDetail = () => {
   const faqItems = [
     {
       question: `Wat is de ${priceLabel}prijs van ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `De ${priceLabel}prijs van deze ${property.property_type} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(Number(property.price), property.listing_type)}.${property.surface_area ? ` De prijs per m² komt neer op €${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}.` : ""}`,
+      answer: `De ${priceLabel}prijs van deze ${property.property_type} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(facts.price, property.listing_type)}.${facts.surfaceArea ? ` De prijs per m² komt neer op €${Math.round((facts.price ?? 0) / facts.surfaceArea).toLocaleString("nl-NL")}.` : ""}`,
     },
     {
-      question: `Hoeveel kamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `Deze ${property.property_type} heeft ${property.bedrooms ? property.bedrooms + " slaapkamer(s)" : "een onbekend aantal slaapkamers"}${property.bathrooms ? " en " + property.bathrooms + " badkamer(s)" : ""}.${property.surface_area ? ` De woonoppervlakte is ${property.surface_area} m².` : ""}`,
+      question: `Hoeveel slaapkamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
+      answer: `Deze ${property.property_type} heeft ${facts.bedrooms ? facts.bedrooms + " slaapkamer(s)" : "een onbekend aantal slaapkamers"}${facts.bathrooms ? " en " + facts.bathrooms + " badkamer(s)" : ""}.${facts.surfaceArea ? ` De woonoppervlakte is ${facts.surfaceArea} m².` : ""}`,
     },
     {
       question: `Wat voor type woning is ${property.street} ${property.house_number}?`,
@@ -365,7 +367,7 @@ const PropertyDetail = () => {
     {
       question: `Is ${property.street} ${property.house_number} in ${property.city} nog beschikbaar?`,
       answer: property.status === "actief"
-        ? `Ja, deze woning is momenteel actief beschikbaar op Woonaanbod NL. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
+        ? `Controleer de beschikbaarheid bij de aanbieder. Volgens onze gegevens: deze woning is momenteel actief beschikbaar op Woonaanbod NL. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
         : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Woonaanbod NL.`,
     },
   ];
@@ -386,9 +388,10 @@ const PropertyDetail = () => {
   const kenmerken = [
     { icon: Building2, label: "Type", value: typeLabel },
     { icon: Tag, label: "Aanbod", value: `Te ${property.listing_type}` },
-    property.surface_area ? { icon: Maximize, label: "Oppervlakte", value: `${property.surface_area} m²` } : null,
-    property.bedrooms ? { icon: Bed, label: "Slaapkamers", value: String(property.bedrooms) } : null,
-    property.bathrooms ? { icon: Bath, label: "Badkamers", value: String(property.bathrooms) } : null,
+    facts.surfaceArea ? { icon: Maximize, label: "Oppervlakte", value: `${facts.surfaceArea} m²` } : null,
+    { icon: Bed, label: "Slaapkamers", value: facts.bedroomsLabel },
+    { icon: Home, label: "Aantal kamers", value: facts.roomsLabel },
+    facts.bathrooms ? { icon: Bath, label: "Badkamers", value: String(facts.bathrooms) } : null,
     property.build_year ? { icon: Calendar, label: "Bouwjaar", value: String(property.build_year) } : null,
     property.energy_label ? { icon: Zap, label: "Energielabel", value: property.energy_label } : null,
     property.neighborhood ? { icon: MapPin, label: "Buurt", value: property.neighborhood } : null,
@@ -420,10 +423,10 @@ const PropertyDetail = () => {
         propertyId={property.id}
         title={property.title}
         city={property.city}
-        price={Number(property.price)}
+        price={facts.price}
         listingType={property.listing_type}
-        bedrooms={property.bedrooms}
-        surfaceArea={property.surface_area}
+        bedrooms={facts.bedrooms}
+        surfaceArea={facts.surfaceArea}
         sourceUrl={sourceInfo.source_url}
         sourceSite={sourceInfo.source_site}
         energyLabel={property.energy_label}
@@ -431,7 +434,7 @@ const PropertyDetail = () => {
         onContact={() => setContactOpen(true)}
       />
 
-      <main className="flex-1">
+      <main className="flex-1 pb-64 md:pb-32">
         {/* ── Inactive Banner ── */}
         {property.status !== "actief" && (
           <div className="bg-destructive/10 border-b border-destructive/20">
@@ -467,7 +470,7 @@ const PropertyDetail = () => {
                     fetchPriority="high"
                     loading="eager"
                     decoding="async"
-                    className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[340px] lg:h-[480px]"
+                    className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[340px] lg:h-[340px]"
                     onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
                   />
                 </button>
@@ -492,7 +495,7 @@ const PropertyDetail = () => {
                           height={540}
                           loading="eager"
                           decoding="async"
-                          className="h-[125px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[164px] lg:h-[234px]"
+                          className="h-[125px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] sm:h-[164px] lg:h-[164px]"
                           onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
                         />
                         {isLast && remaining > 0 && (
@@ -520,7 +523,7 @@ const PropertyDetail = () => {
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
-                  className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] sm:h-[380px] lg:h-[480px]"
+                  className="h-[260px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02] sm:h-[380px] lg:h-[340px]"
                   onError={(e) => { e.currentTarget.src = propertyPlaceholder; }}
                 />
               </button>
@@ -618,27 +621,27 @@ const PropertyDetail = () => {
                   <span>{property.street} {property.house_number}, {property.postal_code} {property.city}</span>
                 </div>
                 <p className="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">
-                  {formatPrice(Number(property.price), property.listing_type)}
+                  {formatPrice(facts.price, property.listing_type)}
                 </p>
 
                 {/* Quick stats row */}
                 <div className="mt-4 flex flex-wrap gap-4 text-sm">
-                  {property.surface_area && (
+                  {facts.surfaceArea && (
                     <div className="flex items-center gap-1.5 text-muted-foreground">
                       <Maximize className="h-4 w-4" />
-                      <span className="font-medium text-foreground">{property.surface_area} m²</span>
+                      <span className="font-medium text-foreground">{facts.surfaceArea} m²</span>
                     </div>
                   )}
-                  {property.bedrooms && (
+                  {facts.bedrooms && (
                     <div className="flex items-center gap-1.5 text-muted-foreground">
                       <Bed className="h-4 w-4" />
-                      <span className="font-medium text-foreground">{property.bedrooms} slaapkamers</span>
+                      <span className="font-medium text-foreground">{facts.bedrooms} slaapkamers</span>
                     </div>
                   )}
-                  {property.bathrooms && (
+                  {facts.bathrooms && (
                     <div className="flex items-center gap-1.5 text-muted-foreground">
                       <Bath className="h-4 w-4" />
-                      <span className="font-medium text-foreground">{property.bathrooms} badkamers</span>
+                      <span className="font-medium text-foreground">{facts.bathrooms} badkamers</span>
                     </div>
                   )}
                   {property.energy_label && (
@@ -650,6 +653,12 @@ const PropertyDetail = () => {
                 </div>
               </div>
 
+              {facts.conflicts.length > 0 && <p className="rounded-lg border border-border bg-muted/40 p-3 text-sm text-muted-foreground">Gegevens in de omschrijving wijken af, controleer bij de aanbieder</p>}
+              {sourceInfo.source_url && <div id="reageren" className="space-y-2 rounded-xl border border-border bg-card p-4">
+                <p className="text-xs text-muted-foreground">Advertentie · Partner</p>
+                <p className="text-sm text-muted-foreground">Je gaat naar een externe site. De aanbieder kan eigen accountvoorwaarden of kosten hanteren. Zoeken en alerts op Woonaanbod zijn gratis.</p>
+                <Button className="h-auto whitespace-normal py-3" asChild><a href={sourceInfo.source_url} target="_blank" rel="sponsored noopener noreferrer" onClick={() => trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null)}>Bekijk en reageer bij {sourceMeta?.label || "de aanbieder"}</a></Button>
+              </div>}
               {/* Action row */}
               <div className="flex flex-wrap gap-2 border-y py-3">
                 {user && (
@@ -685,14 +694,9 @@ const PropertyDetail = () => {
               </div>
 
               {/* ── Competition meter (urgency / social proof) ── */}
-              <CompetitionMeter
-                propertyId={property.id}
-                viewsCount={property.views_count || 0}
-                createdAt={property.created_at}
-                listingType={property.listing_type as "huur" | "koop"}
-                city={property.city}
-              />
 
+
+              <PropertyReport propertyId={property.id} />
               {/* ── Description ── */}
               <section>
                 <h2 className="font-display text-xl font-semibold mb-3">
@@ -856,9 +860,9 @@ const PropertyDetail = () => {
                   <Link to={`/huurwoningen/${citySlugVal}/onder-1000`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
                     Woningen onder €1.000
                   </Link>
-                  {property.bedrooms && (
-                    <Link to={`/huurwoningen/${citySlugVal}/${property.bedrooms}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
-                      {property.bedrooms} kamers in {property.city}
+                  {facts.bedrooms && (
+                    <Link to={`/huurwoningen/${citySlugVal}/${facts.bedrooms}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                      {facts.bedrooms} slaapkamers in {property.city}
                     </Link>
                   )}
                 </div>
@@ -895,7 +899,7 @@ const PropertyDetail = () => {
                         {property.listing_type === "huur" ? "Maandhuur" : "Koopprijs"}
                       </p>
                       <p className="mt-1 font-display text-3xl font-bold text-primary">
-                        {formatPrice(Number(property.price), property.listing_type)}
+                        {formatPrice(facts.price, property.listing_type)}
                       </p>
                     </div>
 
@@ -903,22 +907,22 @@ const PropertyDetail = () => {
 
                     {/* Quick specs */}
                     <div className="space-y-2.5">
-                      {property.surface_area && (
+                      {facts.surfaceArea && (
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Oppervlakte</span>
-                          <span className="font-medium">{property.surface_area} m²</span>
+                          <span className="font-medium">{facts.surfaceArea} m²</span>
                         </div>
                       )}
-                      {property.bedrooms && (
+                      {facts.bedrooms && (
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Slaapkamers</span>
-                          <span className="font-medium">{property.bedrooms}</span>
+                          <span className="font-medium">{facts.bedrooms}</span>
                         </div>
                       )}
-                      {property.bathrooms && (
+                      {facts.bathrooms && (
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Badkamers</span>
-                          <span className="font-medium">{property.bathrooms}</span>
+                          <span className="font-medium">{facts.bathrooms}</span>
                         </div>
                       )}
                       {property.build_year && (
@@ -937,19 +941,19 @@ const PropertyDetail = () => {
                     {sourceInfo.source_url ? (
                       <div className="space-y-4">
                         <div>
-                          <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
-                          <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
+                          <h2 className="font-display text-2xl font-bold text-primary">Bekijk de aanbieder</h2>
+                          <p className="mt-1 text-muted-foreground">Je verlaat Woonaanbod. De aanbieder kan eigen accountvoorwaarden of kosten hanteren. Zoeken en alerts op Woonaanbod zijn gratis.</p>
                         </div>
-                      <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
+                      <Button variant="accent" className="h-auto min-h-14 w-full whitespace-normal rounded-full py-3 text-sm font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
                           title: `Je gaat naar ${sourceMeta?.label || sourceInfo.source_site || "de aanbieder"}`,
-                          description: "Maak daar gratis een account aan om direct te reageren en een bezichtiging aan te vragen.",
+                          description: "De aanbieder kan eigen accountvoorwaarden of kosten hanteren.",
                         });
                         window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
                       }}>
-                        Reageer nu <ArrowRight className="ml-2 h-5 w-5" />
+                        Bekijk en reageer bij {sourceMeta?.label || "de aanbieder"} <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                         <ul className="space-y-3 rounded-2xl bg-primary/5 p-4 text-sm text-foreground">
                           {[
@@ -965,7 +969,7 @@ const PropertyDetail = () => {
                             </li>
                           ))}
                         </ul>
-                        {property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
+                        
                       </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
@@ -1095,15 +1099,15 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Mortgage Calculator for koop ── */}
-        {property.listing_type === "koop" && (
+        {facts.price !== null && property.listing_type === "koop" && (
           <section className="border-t py-12">
             <div className="container grid gap-6 lg:grid-cols-2">
-              <AffordabilityWidget price={property.price} listingType="koop" />
-              <MortgageCalculator propertyPrice={property.price} />
+              <AffordabilityWidget price={facts.price ?? 0} listingType="koop" />
+              <MortgageCalculator propertyPrice={facts.price ?? 0} />
             </div>
             <div className="container mt-6">
               <NibudBudgetBreakdown
-                monthlyHousingCost={Math.round((property.price * 0.045) / 12 + 250)}
+                monthlyHousingCost={Math.round(((facts.price ?? 0) * 0.045) / 12 + 250)}
                 listingType="koop"
                 city={property.city}
               />
@@ -1112,11 +1116,11 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Budget-indicatie voor huur ── */}
-        {property.listing_type === "huur" && (
+        {facts.price !== null && property.listing_type === "huur" && (
           <section className="border-t py-12">
             <div className="container">
               <NibudBudgetBreakdown
-                monthlyHousingCost={property.price}
+                monthlyHousingCost={facts.price ?? 0}
                 listingType="huur"
                 city={property.city}
               />
@@ -1129,11 +1133,11 @@ const PropertyDetail = () => {
         <section className="border-t py-10">
           <div className="container">
             <TotalMonthlyCosts
-              basePrice={property.price}
+              basePrice={facts.price ?? 0}
               listingType={property.listing_type}
               energyLabel={property.energy_label}
-              surfaceArea={property.surface_area}
-              bedrooms={property.bedrooms}
+              surfaceArea={facts.surfaceArea}
+              bedrooms={facts.bedrooms}
               city={property.city}
               propertyId={property.id}
             />
@@ -1145,7 +1149,7 @@ const PropertyDetail = () => {
           <div className="container space-y-6">
             <EnergyLabelCost
               energyLabel={property.energy_label}
-              surfaceArea={property.surface_area}
+              surfaceArea={facts.surfaceArea}
               city={property.city}
             />
             <EnergyCompareTeaser variant="property" context={property.city} />

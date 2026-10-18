@@ -9,7 +9,7 @@ const ALERT_FAQ = [
   {
     question: "Hoe vaak ontvang ik een woningalert?",
     answer:
-      "Zodra er nieuw aanbod bijkomt dat past bij jouw zoekopdracht, sturen we je een melding. Geen spam, alleen relevante woningen.",
+      "Je ontvangt maximaal één e-mail per dag, alleen als er nieuw aanbod is dat past bij jouw zoekopdracht.",
   },
   {
     question: "Kan ik de alert filteren op stad?",
@@ -35,11 +35,11 @@ const STEPS = [
   {
     icon: Inbox,
     title: "2. Wij verzamelen het aanbod",
-    text: "Elke dag halen we nieuwe woningen op bij makelaars, verhuurders en corporaties en bundelen die voor jou.",
+    text: "We verzamelen nieuw aanbod dat bij jouw criteria past. Je ontvangt maximaal één e-mail per dag.",
   },
   {
     icon: MousePointerClick,
-    title: "3. Jij reageert als eerste",
+    title: "3. Reageer op passend aanbod",
     text: "Nieuw aanbod staat in je inbox met directe links, zodat je snel kunt reageren.",
   },
 ];
@@ -64,8 +64,8 @@ const DailyAlert = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead
-        title="Gratis woningmelding – Nieuw aanbod direct per e-mail | Woonaanbod NL"
-        description="Nieuwe woning gevonden? Ontvang direct een gratis melding per e-mail. Stel je zoekopdracht in, vul je e-mailadres in, geen account nodig."
+        title="Gratis woningmelding | Passend nieuw aanbod per e-mail | Woonaanbod NL"
+        description="Ontvang maximaal één gratis woningmelding per dag bij passend nieuw aanbod. Stel je zoekopdracht in, vul je e-mailadres in, geen account nodig."
         canonical="/woonmelding"
       />
       <script
@@ -74,19 +74,19 @@ const DailyAlert = () => {
       />
       <Header />
       <main className="flex-1">
-        {/* Compacte header-balk — daaronder direct het inschrijfformulier */}
+        {/* Compacte header-balk  , daaronder direct het inschrijfformulier */}
         <section className="border-b border-border bg-primary text-primary-foreground">
           <div className="container py-5 md:py-6">
             <Breadcrumbs
               items={[{ label: "Home", href: "/" }, { label: "Woonmelding" }]}
             />
             <h1 className="mt-3 max-w-3xl font-display text-2xl font-bold md:text-3xl">
-              Nieuwe woning gevonden? Ontvang direct een gratis melding
+              Passend nieuw aanbod? Ontvang maximaal één woonmelding per dag
             </h1>
           </div>
         </section>
 
-        {/* Inschrijven — direct zichtbaar bij openen */}
+        {/* Inschrijven  , direct zichtbaar bij openen */}
         <DailyAlertSection />
 
         {/* Hoe het werkt */}

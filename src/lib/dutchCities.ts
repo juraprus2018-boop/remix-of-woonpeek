@@ -1,3 +1,4 @@
+import { canonicalizeCity } from "./cityAliases";
 /**
  * Comprehensive list of Dutch municipalities and well-known places.
  * Used for SEO: all these places get valid landing pages even without active listings.
@@ -355,7 +356,7 @@ for (const city of DUTCH_CITIES) {
     .trim()
     .toLowerCase()
     .replace(/\s+/g, "-");
-  slugToCity.set(slug, city);
+  slugToCity.set(slug, canonicalizeCity(city));
 }
 
 /**
