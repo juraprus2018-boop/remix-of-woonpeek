@@ -188,14 +188,8 @@ Deno.serve(async (req) => {
           .maybeSingle();
 
         if (existing) {
-          // Reactivate if it was set to inactive
-          if (existing.status === "inactief") {
-            await supabase
-              .from("properties")
-              .update({ status: "actief", updated_at: new Date().toISOString() })
-              .eq("id", existing.id);
-            console.log(`Reactivated: ${sourceUrl}`);
-          }
+          const { city, street, house_number, ...refresh } = mapToProperty(item);
+          await supabase.from("properties").update({ ...refresh, last_checked_at: new Date().toISOString() }).eq("id", existing.id);
           totalSkipped++;
           continue;
         }

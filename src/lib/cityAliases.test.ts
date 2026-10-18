@@ -18,7 +18,7 @@ describe('feed fidelity', () => {
   it('never treats total rooms as bedrooms and retains raw XML', () => {
     const xml = '<property><city>Weert</city><rooms>3</rooms><price>1795</price></property>';
     const [row] = parseXmlFeed(xml);
-    expect(row.bedrooms).toBeUndefined();
+    expect(row.bedrooms).toBeNull();
     expect(row.source_raw).toEqual({ xml });
   });
 });

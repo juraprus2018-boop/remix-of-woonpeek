@@ -1,3 +1,4 @@
+import { parseSearchFilters, serializeSearchFilters } from "@/lib/searchFilters";
 import { canonicalizeCity, cityKey } from "@/lib/cityAliases";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -51,12 +52,13 @@ const PROPERTY_TYPE_LABELS: Record<string, string> = {
 };
 
 const ExplorePage = () => {
-  const [searchParams] = useSearchParams();
-  const [selectedCity, setSelectedCity] = useState<string | null>(null);
-  const [listingType, setListingType] = useState<ListingType | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlFilters = useMemo(() => parseSearchFilters(searchParams), [searchParams]);
+  const [selectedCity, setSelectedCity] = useState<string | null>(urlFilters.city || null);
+  const [listingType, setListingType] = useState<ListingType | null>(urlFilters.listingType || null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
-  const [propertyType, setPropertyType] = useState<string | null>(null);
-  const [minBedrooms, setMinBedrooms] = useState<string | null>(null);
+  const [propertyType, setPropertyType] = useState<string | null>(urlFilters.propertyType || null);
+  const [minBedrooms, setMinBedrooms] = useState<string | null>(urlFilters.minBedrooms?.toString() || null);
   const [citySearch, setCitySearch] = useState("");
   const [mapBounds, setMapBounds] = useState<{ south: number; north: number; west: number; east: number } | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
@@ -131,7 +133,11 @@ const ExplorePage = () => {
 
   // Use paginated query for the list (fast initial load)
   const { data: listData, isPending: isLoading, isError: isListError, refetch: refetchList } = useProperties({
-    listingType: listingType || undefined,
+    minPrice: urlFilters.minPrice,
+    maxPrice: urlFilters.grossIncome && listingType !== "koop" ? Math.min(urlFilters.maxPrice ?? Infinity, Math.floor(urlFilters.grossIncome / 3)) : urlFilters.maxPrice,
+    minSurface: urlFilters.minSurface,
+    includeInactive: urlFilters.includeInactive,
+    listingType: listingType || (urlFilters.grossIncome ? "huur" : undefined),
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
     propertyType: (propertyType as any) || undefined,
@@ -144,7 +150,11 @@ const ExplorePage = () => {
   // When a postcode filter is active we ALWAYS need the full set (not just the
   // first paginated page), otherwise the list shows fewer results than the map.
   const { data: mapData, isPending: isMapLoading, isError: isMapError, refetch: refetchMap } = useMapProperties({
-    listingType: listingType || undefined,
+    minPrice: urlFilters.minPrice,
+    maxPrice: urlFilters.grossIncome && listingType !== "koop" ? Math.min(urlFilters.maxPrice ?? Infinity, Math.floor(urlFilters.grossIncome / 3)) : urlFilters.maxPrice,
+    minSurface: urlFilters.minSurface,
+    includeInactive: urlFilters.includeInactive,
+    listingType: listingType || (urlFilters.grossIncome ? "huur" : undefined),
     propertyType: (propertyType as any) || undefined,
     minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
     sortBy,
@@ -638,7 +648,7 @@ const ExplorePage = () => {
                 <Button
                   variant={mobileView === "list" ? "secondary" : "ghost"}
                   size="sm"
-                  onClick={() => setMobileView("list")}
+                  onClick={() => { setMobileView("list"); const params = new URLSearchParams(searchParams); serializeSearchFilters({ ...urlFilters, city: selectedCity || "", listingType: listingType || "", propertyType: (propertyType || "") as typeof urlFilters.propertyType, minBedrooms: minBedrooms ? Number(minBedrooms) : undefined }).forEach((value, key) => params.set(key, value)); params.set("weergave", "lijst"); setSearchParams(params); }}
                   className="rounded-none h-8 px-3 gap-1.5"
                 >
                   <List className="h-3.5 w-3.5" />
@@ -647,7 +657,7 @@ const ExplorePage = () => {
                 <Button
                   variant={mobileView === "map" ? "secondary" : "ghost"}
                   size="sm"
-                  onClick={() => setMobileView("map")}
+                  onClick={() => { setMobileView("map"); const params = new URLSearchParams(searchParams); params.set("weergave", "kaart"); setSearchParams(params); }}
                   className="rounded-none h-8 px-3 gap-1.5"
                 >
                   <MapIcon className="h-3.5 w-3.5" />

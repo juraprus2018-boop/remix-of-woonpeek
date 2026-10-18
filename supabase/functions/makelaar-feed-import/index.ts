@@ -293,6 +293,7 @@ Deno.serve(async (req) => {
               .maybeSingle();
 
             if (existing) {
+              await supabase.from("properties").update({ source_raw: item.source_raw, bedrooms: item.bedrooms ?? null, property_type: mapPropertyType(item.property_type || ""), last_checked_at: new Date().toISOString() }).eq("id", existing.id);
               totalSkipped++;
               continue;
             }

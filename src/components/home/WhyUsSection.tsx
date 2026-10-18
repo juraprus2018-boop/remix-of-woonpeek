@@ -29,7 +29,7 @@ const benefits = [
   {
     icon: Heart,
     title: "Zoeken zonder abonnement",
-    description: "Je kunt woningen op de site bekijken. Eventuele voorwaarden staan bij de betreffende functie.",
+    description: "Bekijk woningen en bewaar interessante opties met de beschikbare functies.",
   },
 ];
 

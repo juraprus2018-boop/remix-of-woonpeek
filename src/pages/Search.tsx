@@ -87,7 +87,6 @@ const SearchPage = () => {
     city: debouncedCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
-    minPrice: validationError ? undefined : filters.minPrice,
     maxPrice: validationError ? undefined : effectiveMaxPrice,
     minBedrooms: filters.minBedrooms,
     includeInactive: filters.includeInactive,
@@ -143,6 +142,7 @@ const SearchPage = () => {
     maxPrice: validationError ? undefined : effectiveMaxPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
+    includeInactive: filters.includeInactive,
   }, viewMode === "map" || !!commute);
 
   // Apply commute filter to the appropriate dataset
@@ -175,12 +175,12 @@ const SearchPage = () => {
 
   const handleFilterChange = useCallback((newFilters: SearchFilterValues) => {
     setFilters(newFilters);
-  }, []);
+  }, [setFilters]);
 
   const clearFilters = useCallback(() => {
     setFilters(EMPTY_FILTERS);
     setSearchParams(new URLSearchParams());
-  }, [setSearchParams]);
+  }, [setSearchParams, setFilters]);
 
   const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.maxPrice;
 

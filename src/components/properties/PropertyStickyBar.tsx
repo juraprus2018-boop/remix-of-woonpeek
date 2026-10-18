@@ -153,17 +153,17 @@ const PropertyStickyBar = ({
             onClick={handleReact}
             variant="accent"
             size="sm"
-            className="gap-1.5 whitespace-nowrap"
+            className="h-auto max-w-xs gap-1.5 whitespace-normal py-2"
           >
             {normalizedSourceUrl ? (
               <>
                 <ExternalLink className="h-4 w-4" />
-                Reageer
+                Bekijk en reageer bij {sourceSite || "de aanbieder"}
               </>
             ) : (
               <>
                 <Mail className="h-4 w-4" />
-                Reageer
+                Bekijk en reageer bij {sourceSite || "de aanbieder"}
               </>
             )}
           </Button>

@@ -218,20 +218,14 @@ async function importPortal(supabase: any, portal: Portal, includeKoop: boolean)
   const nowIso = new Date().toISOString();
 
   // Refresh + reactivate existing listings
-  const seenIds = [...existing.values()].map((e) => e.id);
-  for (const part of chunk(seenIds, 100)) {
-    await supabase.from("properties").update({ last_checked_at: nowIso }).in("id", part);
-  }
-  const reactivateIds = [...existing.values()].filter((e) => e.status === "inactief").map((e) => e.id);
-  for (const part of chunk(reactivateIds, 200)) {
-    const { error } = await supabase
-      .from("properties")
-      .update({ status: "actief", updated_at: nowIso, last_checked_at: nowIso })
-      .in("id", part);
+  for (const [url, entry] of existing) {
+    const item = bySourceUrl.get(url);
+    if (!item) continue;
+    const { city, street, house_number, ...refresh } = mapToProperty(portal, item);
+    const { error } = await supabase.from("properties").update({ ...refresh, last_checked_at: nowIso }).eq("id", entry.id);
     if (error) result.errors++;
-    else result.updated += part.length;
+    else result.updated++;
   }
-  result.skipped += existing.size - reactivateIds.length;
 
   // Insert new listings in batches
   const toInsert = allUrls.filter((u) => !existing.has(u)).map((u) => mapToProperty(portal, bySourceUrl.get(u)!));

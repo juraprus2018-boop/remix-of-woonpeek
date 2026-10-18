@@ -769,9 +769,6 @@ Deno.serve(async (req) => {
             updates.source_raw = propData.source_raw;
             if (propData.bathrooms) updates.bathrooms = propData.bathrooms;
             if (propData.description) updates.description = propData.description;
-            if (propData.street && propData.street !== "Onbekend") updates.street = propData.street;
-            if (propData.house_number && propData.house_number !== "-") updates.house_number = propData.house_number;
-            if (propData.city && propData.city !== "Onbekend") updates.city = propData.city;
             if (propData.postal_code && propData.postal_code !== "0000AA") updates.postal_code = propData.postal_code;
             
             if (Object.keys(updates).length > 0) {

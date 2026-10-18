@@ -103,7 +103,9 @@ async function importAgency(supabase: any, agency: any) {
     const k = key(r); seen.add(k);
     const id = byKey.get(k);
     if (id) {
-      const { error } = await supabase.from("properties").update(r).eq("id", id);
+      // Preserve address-derived URLs on refresh.
+      const { city, street, house_number, ...refresh } = r;
+      const { error } = await supabase.from("properties").update(refresh).eq("id", id);
       error ? failed++ : updated++;
     } else {
       const { data, error } = await supabase.from("properties").insert(r).select("id, city, listing_type, address_slug, slug").single();

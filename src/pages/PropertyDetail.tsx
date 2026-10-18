@@ -1,3 +1,4 @@
+import PropertyReport from "@/components/properties/PropertyReport";
 import { derivePropertyFacts } from "@/lib/propertyFacts";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
@@ -209,7 +210,8 @@ const PropertyDetail = () => {
     ? feedLogos[sourceInfo.source_site.toLowerCase()]
     : undefined;
 
-  const formatPrice = (price: number, listingType: string) => {
+  const formatPrice = (price: number | null, listingType: string) => {
+    if (price === null) return "Onbekend";
     const formatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(price);
     return listingType === "huur" ? `${formatted} per maand` : formatted;
   };
@@ -222,7 +224,7 @@ const PropertyDetail = () => {
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
   const bedroomsLabel = facts.bedrooms ? `${facts.bedrooms} slaapkamers` : null;
   const surfaceLabel = facts.surfaceArea ? `${facts.surfaceArea} m²` : null;
-  const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(facts.price ?? 0);
+  const priceFormatted = facts.priceLabel;
 
   // Meta Title: [Woningtype] in [stad] – [kamers] – €[prijs]
   const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Woonaanbod NL`;
@@ -247,9 +249,9 @@ const PropertyDetail = () => {
     { label: "Postcode", value: property.postal_code || "Onbekend" },
     ...(property.neighborhood ? [{ label: "Buurt", value: property.neighborhood }] : []),
     { label: "Huur of koop", value: property.listing_type === "huur" ? "Te huur" : "Te koop" },
-    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(facts.price ?? 0, property.listing_type) },
-    ...(facts.surfaceArea ? [{ label: "Woonoppervlak", value: `${facts.surfaceArea} m²` }] : []),
-    ...(facts.surfaceArea ? [{ label: "Prijs per m²", value: `€${Math.round(facts.price ?? 0 / facts.surfaceArea).toLocaleString("nl-NL")}` }] : []),
+    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(facts.price, property.listing_type) },
+    { label: "Woonoppervlak", value: facts.surfaceArea === null ? "Onbekend" : `${facts.surfaceArea} m²` },
+    ...(facts.surfaceArea ? [{ label: "Prijs per m²", value: `€${Math.round((facts.price ?? 0) / facts.surfaceArea).toLocaleString("nl-NL")}` }] : []),
     { label: "Aantal kamers", value: facts.roomsLabel },
     { label: "Slaapkamers", value: facts.bedroomsLabel },
     ...(facts.bathrooms ? [{ label: "Badkamers", value: String(facts.bathrooms) }] : []),
@@ -352,10 +354,10 @@ const PropertyDetail = () => {
   const faqItems = [
     {
       question: `Wat is de ${priceLabel}prijs van ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `De ${priceLabel}prijs van deze ${property.property_type} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(facts.price ?? 0, property.listing_type)}.${facts.surfaceArea ? ` De prijs per m² komt neer op €${Math.round(facts.price ?? 0 / facts.surfaceArea).toLocaleString("nl-NL")}.` : ""}`,
+      answer: `De ${priceLabel}prijs van deze ${property.property_type} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(facts.price, property.listing_type)}.${facts.surfaceArea ? ` De prijs per m² komt neer op €${Math.round((facts.price ?? 0) / facts.surfaceArea).toLocaleString("nl-NL")}.` : ""}`,
     },
     {
-      question: `Hoeveel kamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
+      question: `Hoeveel slaapkamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
       answer: `Deze ${property.property_type} heeft ${facts.bedrooms ? facts.bedrooms + " slaapkamer(s)" : "een onbekend aantal slaapkamers"}${facts.bathrooms ? " en " + facts.bathrooms + " badkamer(s)" : ""}.${facts.surfaceArea ? ` De woonoppervlakte is ${facts.surfaceArea} m².` : ""}`,
     },
     {
@@ -387,7 +389,8 @@ const PropertyDetail = () => {
     { icon: Building2, label: "Type", value: typeLabel },
     { icon: Tag, label: "Aanbod", value: `Te ${property.listing_type}` },
     facts.surfaceArea ? { icon: Maximize, label: "Oppervlakte", value: `${facts.surfaceArea} m²` } : null,
-    facts.bedrooms ? { icon: Bed, label: "Slaapkamers", value: String(facts.bedrooms) } : null,
+    { icon: Bed, label: "Slaapkamers", value: facts.bedroomsLabel },
+    { icon: Home, label: "Aantal kamers", value: facts.roomsLabel },
     facts.bathrooms ? { icon: Bath, label: "Badkamers", value: String(facts.bathrooms) } : null,
     property.build_year ? { icon: Calendar, label: "Bouwjaar", value: String(property.build_year) } : null,
     property.energy_label ? { icon: Zap, label: "Energielabel", value: property.energy_label } : null,
@@ -420,7 +423,7 @@ const PropertyDetail = () => {
         propertyId={property.id}
         title={property.title}
         city={property.city}
-        price={facts.price ?? 0}
+        price={facts.price}
         listingType={property.listing_type}
         bedrooms={facts.bedrooms}
         surfaceArea={facts.surfaceArea}
@@ -618,7 +621,7 @@ const PropertyDetail = () => {
                   <span>{property.street} {property.house_number}, {property.postal_code} {property.city}</span>
                 </div>
                 <p className="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">
-                  {formatPrice(facts.price ?? 0, property.listing_type)}
+                  {formatPrice(facts.price, property.listing_type)}
                 </p>
 
                 {/* Quick stats row */}
@@ -693,6 +696,7 @@ const PropertyDetail = () => {
               {/* ── Competition meter (urgency / social proof) ── */}
 
 
+              <PropertyReport propertyId={property.id} />
               {/* ── Description ── */}
               <section>
                 <h2 className="font-display text-xl font-semibold mb-3">
@@ -895,7 +899,7 @@ const PropertyDetail = () => {
                         {property.listing_type === "huur" ? "Maandhuur" : "Koopprijs"}
                       </p>
                       <p className="mt-1 font-display text-3xl font-bold text-primary">
-                        {formatPrice(facts.price ?? 0, property.listing_type)}
+                        {formatPrice(facts.price, property.listing_type)}
                       </p>
                     </div>
 
