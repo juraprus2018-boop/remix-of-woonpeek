@@ -74,7 +74,7 @@ const DailyAlert = () => {
       />
       <Header />
       <main className="flex-1">
-        {/* Compacte header-balk — daaronder direct het inschrijfformulier */}
+        {/* Compacte header-balk  , daaronder direct het inschrijfformulier */}
         <section className="border-b border-border bg-primary text-primary-foreground">
           <div className="container py-5 md:py-6">
             <Breadcrumbs
@@ -86,7 +86,7 @@ const DailyAlert = () => {
           </div>
         </section>
 
-        {/* Inschrijven — direct zichtbaar bij openen */}
+        {/* Inschrijven  , direct zichtbaar bij openen */}
         <DailyAlertSection />
 
         {/* Hoe het werkt */}

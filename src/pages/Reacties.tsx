@@ -40,7 +40,7 @@ const Reacties = () => {
             <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Reacties" }]} />
             <h1 className="mt-4 font-display text-3xl font-bold md:text-4xl">Reacties van woningzoekers</h1>
             <p className="mt-3 text-muted-foreground">
-              Lees wat anderen schrijven over woningen uit ons aanbod. Klik op een woning om hem te bekijken of zelf te reageren.
+              Lees wat anderen schrijven over woningen uit ons aanbod. Dit zijn openbare opmerkingen, geen klantbeoordelingen of aanvragen bij de verhuurder. Gebruik de aanbiedersknop op de woningpagina om op de woning te reageren.
             </p>
           </div>
         </section>

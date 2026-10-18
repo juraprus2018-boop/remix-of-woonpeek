@@ -35,10 +35,10 @@ const RecentComments = () => {
               Reacties
             </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground md:text-4xl">
-              Wat woningzoekers zeggen
+              Openbare reacties bij woningen
             </h2>
             <p className="mt-2 text-muted-foreground">
-              Ervaringen, vragen en tips van bezoekers bij het actuele aanbod.
+              Vragen en opmerkingen van bezoekers, geen klantbeoordelingen.
             </p>
           </div>
           <Link

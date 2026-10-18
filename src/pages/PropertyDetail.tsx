@@ -1099,15 +1099,15 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Mortgage Calculator for koop ── */}
-        {property.listing_type === "koop" && (
+        {facts.price !== null && property.listing_type === "koop" && (
           <section className="border-t py-12">
             <div className="container grid gap-6 lg:grid-cols-2">
-              <AffordabilityWidget price={property.price} listingType="koop" />
-              <MortgageCalculator propertyPrice={property.price} />
+              <AffordabilityWidget price={facts.price ?? 0} listingType="koop" />
+              <MortgageCalculator propertyPrice={facts.price ?? 0} />
             </div>
             <div className="container mt-6">
               <NibudBudgetBreakdown
-                monthlyHousingCost={Math.round((property.price * 0.045) / 12 + 250)}
+                monthlyHousingCost={Math.round(((facts.price ?? 0) * 0.045) / 12 + 250)}
                 listingType="koop"
                 city={property.city}
               />
@@ -1116,11 +1116,11 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Budget-indicatie voor huur ── */}
-        {property.listing_type === "huur" && (
+        {facts.price !== null && property.listing_type === "huur" && (
           <section className="border-t py-12">
             <div className="container">
               <NibudBudgetBreakdown
-                monthlyHousingCost={property.price}
+                monthlyHousingCost={facts.price ?? 0}
                 listingType="huur"
                 city={property.city}
               />
@@ -1133,7 +1133,7 @@ const PropertyDetail = () => {
         <section className="border-t py-10">
           <div className="container">
             <TotalMonthlyCosts
-              basePrice={property.price}
+              basePrice={facts.price ?? 0}
               listingType={property.listing_type}
               energyLabel={property.energy_label}
               surfaceArea={facts.surfaceArea}

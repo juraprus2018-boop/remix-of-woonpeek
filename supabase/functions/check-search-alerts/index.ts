@@ -160,6 +160,8 @@ Deno.serve(async (req) => {
     if (subscribersError) throw subscribersError;
 
     for (const subscriber of dailySubscribers || []) {
+      // The daily digest must not send again on the same UTC calendar day.
+      if (subscriber.last_notified_at && subscriber.last_notified_at.slice(0, 10) === new Date().toISOString().slice(0, 10)) continue;
       const sinceDate = subscriber.last_notified_at || subscriber.subscribed_at || subscriber.created_at;
       const subscriberCity = subscriber.city;
 
