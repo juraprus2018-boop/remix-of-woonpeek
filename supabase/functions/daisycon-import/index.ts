@@ -1,3 +1,4 @@
+import { canonicalizeCity, mapPropertyType } from "../_shared/importNormalization.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
@@ -264,15 +265,14 @@ function mapDaisyconToProperty(product: DaisyconProduct, sourceSite: string, sou
   const price = parseFloat(String(product.price || "0")) || 0;
   const street = product.street || product.address || "";
   const houseNumber = product.house_number || product.housenumber || "";
-  const city = product.city || "";
+  const city = canonicalizeCity(product.city || "");
   const postalCode = product.zipcode || product.postal_code || product.postcode || "";
   const surface = parseInt(String(
     product.floor_area || product.surface || product.surface_area || 
     product.living_area || product.woonoppervlakte || "0"
   )) || null;
   const bedrooms = parseInt(String(
-    product.number_of_bedrooms || product.bedrooms || product.slaapkamers || 
-    product.number_of_rooms || product.rooms || "0"
+    product.number_of_bedrooms ?? product.bedrooms ?? product.slaapkamers ?? "0"
   )) || null;
   const bathrooms = parseInt(String(product.bathrooms || "0")) || null;
 
@@ -307,18 +307,9 @@ function mapDaisyconToProperty(product: DaisyconProduct, sourceSite: string, sou
   }
 
   // Determine property type - also check building_type field (standard_id=20)
-  let propertyType: "appartement" | "huis" | "studio" | "kamer" = "appartement";
-  const pType = String(
-    product.type_of_property || product.property_type || product.building_type ||
-    product.type || product.category || ""
-  ).toLowerCase();
-  if (pType.includes("huis") || pType.includes("house") || pType.includes("woning") || pType.includes("villa") || pType.includes("tussenwoning") || pType.includes("hoekwoning") || pType.includes("eengezins")) {
-    propertyType = "huis";
-  } else if (pType.includes("studio")) {
-    propertyType = "studio";
-  } else if (pType.includes("kamer") || pType.includes("room")) {
-    propertyType = "kamer";
-  }
+  const propertyType = mapPropertyType(String(
+    product.type_of_property || product.property_type || product.building_type || product.type || product.category || ""
+  ));
 
   // Collect images - check many common Daisycon field naming patterns
   const images: string[] = [];
@@ -406,6 +397,7 @@ function mapDaisyconToProperty(product: DaisyconProduct, sourceSite: string, sou
     price,
     listing_type: listingType,
     property_type: propertyType,
+    source_raw: product,
     surface_area: surface,
     bedrooms,
     bathrooms,
@@ -772,7 +764,9 @@ Deno.serve(async (req) => {
             if (propData.energy_label) updates.energy_label = propData.energy_label;
             if (propData.price) updates.price = propData.price;
             if (propData.surface_area) updates.surface_area = propData.surface_area;
-            if (propData.bedrooms) updates.bedrooms = propData.bedrooms;
+            updates.bedrooms = propData.bedrooms;
+            updates.property_type = propData.property_type;
+            updates.source_raw = propData.source_raw;
             if (propData.bathrooms) updates.bathrooms = propData.bathrooms;
             if (propData.description) updates.description = propData.description;
             if (propData.street && propData.street !== "Onbekend") updates.street = propData.street;
@@ -781,7 +775,6 @@ Deno.serve(async (req) => {
             if (propData.postal_code && propData.postal_code !== "0000AA") updates.postal_code = propData.postal_code;
             
             if (Object.keys(updates).length > 0) {
-              updates.updated_at = new Date().toISOString();
               updates.last_checked_at = new Date().toISOString();
               await supabase.from("properties").update(updates).eq("id", existing.id);
               updated++;

@@ -1,3 +1,4 @@
+import { canonicalizeCity, mapPropertyType } from "../_shared/importNormalization.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
@@ -46,14 +47,7 @@ function stripHtml(text: string | null | undefined): string | null {
     .trim();
 }
 
-function mapPropertyType(typeStr: string): "appartement" | "huis" | "studio" | "kamer" {
-  const t = (typeStr || "").toLowerCase();
-  if (t.includes("appartement") || t.includes("flat") || t.includes("etage")) return "appartement";
-  if (t.includes("studio")) return "studio";
-  if (t.includes("kamer") || t.includes("room")) return "kamer";
-  if (t.includes("woning") || t.includes("huis") || t.includes("maisonette") || t.includes("eengezins") || t.includes("villa") || t.includes("tussenwoning") || t.includes("hoekwoning")) return "huis";
-  return "appartement";
-}
+
 
 function mapListingType(typeStr: string): "huur" | "koop" {
   const t = (typeStr || "").toLowerCase();
@@ -75,6 +69,7 @@ function parseEnergyLabel(label: string | null | undefined): string | null {
 }
 
 interface XmlProperty {
+  source_raw?: unknown;
   title?: string;
   street?: string;
   house_number?: string;
@@ -121,7 +116,7 @@ function parseXmlFeed(xmlText: string): XmlProperty[] {
   }
 
   for (const itemXml of items) {
-    const prop: XmlProperty = {};
+    const prop: XmlProperty = { source_raw: { xml: itemXml } };
 
     // Helper to extract text from XML tag
     const getTag = (names: string[]): string | null => {
@@ -304,7 +299,7 @@ Deno.serve(async (req) => {
 
             const street = item.street || "Onbekend";
             const houseNumber = item.house_number || "";
-            const city = item.city || "Onbekend";
+            const city = canonicalizeCity(item.city || "Onbekend");
             const title = item.title || `${street} ${houseNumber}, ${city}`;
 
             const propertyData = {
@@ -316,6 +311,7 @@ Deno.serve(async (req) => {
               neighborhood: item.neighborhood || null,
               price: item.price || 0,
               listing_type: mapListingType(item.listing_type || ""),
+              source_raw: item.source_raw ?? item,
               property_type: mapPropertyType(item.property_type || ""),
               surface_area: item.surface_area || null,
               bedrooms: item.bedrooms || null,

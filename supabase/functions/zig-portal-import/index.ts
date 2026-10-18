@@ -1,3 +1,4 @@
+import { canonicalizeCity, mapPropertyType } from "../_shared/importNormalization.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
@@ -76,14 +77,7 @@ function parseEnergyLabel(icon: string | undefined): string | null {
   return map[icon] || null;
 }
 
-function mapPropertyType(dwellingType: string): "appartement" | "huis" | "studio" | "kamer" {
-  const t = (dwellingType || "").toLowerCase();
-  if (t.includes("studio")) return "studio";
-  if (t.includes("kamer") || t.includes("room")) return "kamer";
-  if (t.includes("appartement") || t.includes("flat") || t.includes("etage") || t.includes("portiek")) return "appartement";
-  if (t.includes("eengezins") || t.includes("woning") || t.includes("huis") || t.includes("maisonnette") || t.includes("maisonette")) return "huis";
-  return "appartement";
-}
+
 
 function sourceUrlFor(portal: Portal, item: ZigProperty): string {
   return `${portal.host}/aanbod/${item.urlKey}`;
@@ -100,7 +94,7 @@ function mapToProperty(portal: Portal, item: ZigProperty) {
     .filter((p) => p.uri)
     .map((p) => (p.uri.startsWith("http") ? p.uri : `${portal.host}${p.uri}`));
 
-  const city = item.city?.name || item.municipality?.name || "";
+  const city = canonicalizeCity(item.city?.name || item.municipality?.name || "");
   const title = `${item.street} ${houseNumber}, ${city}`.trim();
 
   return {
@@ -112,6 +106,7 @@ function mapToProperty(portal: Portal, item: ZigProperty) {
     neighborhood: item.neighborhood?.name || null,
     price,
     listing_type: isRent ? ("huur" as const) : ("koop" as const),
+    source_raw: item,
     property_type: mapPropertyType(item.dwellingType?.localizedName || ""),
     surface_area: item.areaDwelling && item.areaDwelling > 0 ? item.areaDwelling : null,
     bedrooms: item.sleepingRoom ? parseInt(item.sleepingRoom.amountOfRooms) || null : null,

@@ -1,3 +1,4 @@
+import { canonicalizeCity, mapPropertyType } from "../_shared/importNormalization.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
@@ -81,14 +82,7 @@ function parseEnergyLabel(icon: string | undefined): string | null {
   return map[icon] || null;
 }
 
-function mapPropertyType(dwellingType: string): "appartement" | "huis" | "studio" | "kamer" {
-  const t = dwellingType.toLowerCase();
-  if (t.includes("appartement") || t.includes("flat") || t.includes("etage")) return "appartement";
-  if (t.includes("studio")) return "studio";
-  if (t.includes("kamer") || t.includes("room")) return "kamer";
-  if (t.includes("eengezins") || t.includes("woning") || t.includes("huis") || t.includes("maisonette")) return "huis";
-  return "appartement";
-}
+
 
 function mapToProperty(item: WooniezieProperty) {
   const isRent = item.rentBuy === "Huur";
@@ -108,11 +102,12 @@ function mapToProperty(item: WooniezieProperty) {
     title,
     street: item.street,
     house_number: houseNumber,
-    city: item.city.name,
+    city: canonicalizeCity(item.city.name),
     postal_code: item.postalcode,
     neighborhood: item.neighborhood?.name || null,
     price,
     listing_type: isRent ? "huur" as const : "koop" as const,
+    source_raw: item,
     property_type: mapPropertyType(item.dwellingType.localizedName),
     surface_area: item.areaDwelling && item.areaDwelling > 0 ? item.areaDwelling : null,
     bedrooms: item.sleepingRoom ? parseInt(item.sleepingRoom.amountOfRooms) || null : null,

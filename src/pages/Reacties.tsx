@@ -1,3 +1,4 @@
+import { maskContactDetails } from "@/lib/propertyFacts";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
@@ -59,13 +60,13 @@ const Reacties = () => {
                       <User className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold">{c.name}</p>
+                      <p className="text-sm font-semibold">{maskContactDetails(c.name)}</p>
                       <p className="text-xs text-muted-foreground">
                         {formatDistanceToNow(new Date(c.created_at), { addSuffix: true, locale: nl })}
                       </p>
                     </div>
                   </div>
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">{c.content}</p>
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">{maskContactDetails(c.content)}</p>
                   {c.properties && (
                     <Link
                       to={propertyPath(c.properties)}

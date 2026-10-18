@@ -1,3 +1,4 @@
+import { canonicalizeCity, cityKey } from "@/lib/cityAliases";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -150,7 +151,7 @@ const ExplorePage = () => {
   });
 
   const matchesSelection = useCallback((p: { city: string; source_site: string | null }) =>
-    (!selectedCity || p.city.toLowerCase() === selectedCity.toLowerCase()) &&
+    (!selectedCity || cityKey(p.city) === cityKey(selectedCity)) &&
     (!selectedSource || p.source_site === selectedSource), [selectedCity, selectedSource]);
   const resultsLoading = isLoading || geocoding || (!!postcodeCoords && isMapLoading);
   const resultsError = isListError || (!!postcodeCoords && isMapError);
@@ -205,7 +206,7 @@ const ExplorePage = () => {
     const q = citySearch.trim().toLowerCase();
     for (const p of areaProperties) {
       if (selectedSource && p.source_site !== selectedSource) continue;
-      const name = p.city.trim();
+      const name = canonicalizeCity(p.city);
       if (!name || (q && !name.toLowerCase().includes(q))) continue;
       counts.set(name, (counts.get(name) || 0) + 1);
     }
@@ -216,7 +217,7 @@ const ExplorePage = () => {
   const activeSources = useMemo(() => {
     const counts = new Map<string, number>();
     for (const p of areaProperties) {
-      if (selectedCity && p.city.toLowerCase() !== selectedCity.toLowerCase()) continue;
+      if (selectedCity && cityKey(p.city) !== cityKey(selectedCity)) continue;
       const key = p.source_site;
       if (key) counts.set(key, (counts.get(key) || 0) + 1);
     }

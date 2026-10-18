@@ -1,3 +1,4 @@
+import { maskContactDetails } from "@/lib/propertyFacts";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
@@ -57,14 +58,14 @@ const RecentComments = () => {
                   <User className="h-4 w-4 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <p className="break-words text-sm font-semibold text-foreground">{c.name}</p>
+                  <p className="break-words text-sm font-semibold text-foreground">{maskContactDetails(c.name)}</p>
                   <p className="text-xs text-muted-foreground">
                     {formatDistanceToNow(new Date(c.created_at), { addSuffix: true, locale: nl })}
                   </p>
                 </div>
               </div>
               <p className="line-clamp-4 min-w-0 flex-1 [overflow-wrap:anywhere] whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                {c.content}
+                {maskContactDetails(c.content)}
               </p>
               {c.properties && (
                 <Link

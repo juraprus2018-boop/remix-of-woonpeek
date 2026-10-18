@@ -80,7 +80,10 @@ Deno.serve(async (req) => {
 
     // Normalise search filters
     const cleanListingType = ["huur", "koop"].includes(String(listing_type || "")) ? String(listing_type) : null;
-    const cleanPropertyType = String(property_type || "").trim().substring(0, 50) || null;
+    const cleanPropertyType = String(property_type || "").trim().toLowerCase() || null;
+    if ((cleanPropertyType && !["appartement", "huis", "studio", "kamer", "vakantiehuis"].includes(cleanPropertyType)) || (listing_type && !cleanListingType) || [min_price, max_price, min_rooms].some(v => v != null && v !== "" && (!Number.isFinite(Number(v)) || Number(v) <= 0)) || (min_rooms && !Number.isInteger(Number(min_rooms)))) {
+      return new Response(JSON.stringify({ error: "Controleer het woningtype, aanbod, de prijs en het aantal kamers." }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
     const toNumber = (v: unknown) => {
       const n = Number(v);
       return Number.isFinite(n) && n > 0 ? Math.round(n) : null;
@@ -210,7 +213,7 @@ Deno.serve(async (req) => {
       JSON.stringify({
         success: true,
         already_active: false,
-        message: `Je bent ingeschreven voor woningalerts in ${cleanCity} via ${channels.join(" en ")}.`,
+        message: `Je bent ingeschreven voor woningalerts in ${areaLabel} via ${channels.join(" en ")}. Je ontvangt maximaal één e-mail per dag bij passend nieuw aanbod.`,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
