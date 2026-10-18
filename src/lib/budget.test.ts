@@ -12,6 +12,6 @@ describe("calculateBudgetBalance", () => {
     expect(calculateBudgetBalance(2000, [2000])).toEqual({ valid: true, balance: 0, savings: 0, deficit: 0 });
   });
   it.each([["", [1]], [NaN, [1]], [1, [NaN]], [-1, [0]], [100, [-1]]] as const)("weigert ongeldige bedragen", (income, expenses) => {
-    expect(calculateBudgetBalance(income, expenses).valid).toBe(false);
+    expect(calculateBudgetBalance(income, [...expenses]).valid).toBe(false);
   });
 });
