@@ -2177,6 +2177,14 @@ export type Database = {
       }
       market_stats: { Args: never; Returns: Json }
       market_stats_extra: { Args: never; Returns: Json }
+      nearby_cities: {
+        Args: { p_city: string; p_limit?: number }
+        Returns: {
+          city: string
+          km: number
+          listing_count: number
+        }[]
+      }
       province_from_postal: { Args: { _pc: string }; Returns: string }
       rollup_traffic_daily: { Args: { days_back?: number }; Returns: undefined }
       verify_cron_secret: { Args: { _secret: string }; Returns: boolean }
