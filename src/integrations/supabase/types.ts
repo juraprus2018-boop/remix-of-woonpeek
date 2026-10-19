@@ -1356,9 +1356,10 @@ export type Database = {
           neighborhood: string | null
           postal_code: string
           price: number
-          property_type: Database["public"]["Enums"]["property_type"]
+          property_type: Database["public"]["Enums"]["property_type"] | null
           provider_priority: number | null
           slug: string | null
+          source_raw: Json | null
           source_site: string | null
           source_url: string | null
           status: Database["public"]["Enums"]["property_status"]
@@ -1392,9 +1393,10 @@ export type Database = {
           neighborhood?: string | null
           postal_code: string
           price: number
-          property_type: Database["public"]["Enums"]["property_type"]
+          property_type?: Database["public"]["Enums"]["property_type"] | null
           provider_priority?: number | null
           slug?: string | null
+          source_raw?: Json | null
           source_site?: string | null
           source_url?: string | null
           status?: Database["public"]["Enums"]["property_status"]
@@ -1428,9 +1430,10 @@ export type Database = {
           neighborhood?: string | null
           postal_code?: string
           price?: number
-          property_type?: Database["public"]["Enums"]["property_type"]
+          property_type?: Database["public"]["Enums"]["property_type"] | null
           provider_priority?: number | null
           slug?: string | null
+          source_raw?: Json | null
           source_site?: string | null
           source_url?: string | null
           status?: Database["public"]["Enums"]["property_status"]
@@ -1482,6 +1485,41 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "property_comments_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      property_reports: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          property_id: string
+          reason: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          property_id: string
+          reason: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          property_id?: string
+          reason?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_reports_property_id_fkey"
             columns: ["property_id"]
             isOneToOne: false
             referencedRelation: "properties"
