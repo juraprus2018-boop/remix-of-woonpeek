@@ -86,7 +86,7 @@ const PropertyComments = ({ propertyId }: PropertyCommentsProps) => {
 
         {/* Comment form */}
         <form onSubmit={handleSubmit} className="mb-10 rounded-xl border bg-card p-6 space-y-4">
-          <h3 className="font-semibold text-foreground">Plaats een openbare reactie</h3><p className="text-sm text-muted-foreground">Dit is een openbare reactie, geen aanvraag bij de verhuurder. Gebruik de knop <a href="#reageren" className="underline">Bekijk en reageer bij de aanbieder</a> om op de woning te reageren. Deel hier geen contactgegevens.</p>
+          <h3 className="font-semibold text-foreground">Plaats een openbare reactie</h3><p className="text-sm text-muted-foreground">Dit is een openbare reactie, geen aanvraag bij de verhuurder. Gebruik de knop <a href="#reageren" className="underline">Reageren</a> om op de woning te reageren. Deel hier geen contactgegevens.</p>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="comment-name">Naam *</Label>

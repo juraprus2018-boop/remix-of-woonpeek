@@ -1,3 +1,4 @@
+import ChanceEstimator from "@/components/properties/ChanceEstimator";
 import PropertyReport from "@/components/properties/PropertyReport";
 import { derivePropertyFacts } from "@/lib/propertyFacts";
 import AgencyBadge from "@/components/properties/AgencyBadge";
@@ -656,8 +657,7 @@ const PropertyDetail = () => {
               {facts.conflicts.length > 0 && <p className="rounded-lg border border-border bg-muted/40 p-3 text-sm text-muted-foreground">Gegevens in de omschrijving wijken af, controleer bij de aanbieder</p>}
               {sourceInfo.source_url && <div id="reageren" className="space-y-2 rounded-xl border border-border bg-card p-4">
                 <p className="text-xs text-muted-foreground">Advertentie · Partner</p>
-                <p className="text-sm text-muted-foreground">Je gaat naar een externe site. De aanbieder kan eigen accountvoorwaarden of kosten hanteren. Zoeken en alerts op Woonaanbod zijn gratis.</p>
-                <Button className="h-auto whitespace-normal py-3" asChild><a href={sourceInfo.source_url} target="_blank" rel="sponsored noopener noreferrer" onClick={() => trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null)}>Bekijk en reageer bij {sourceMeta?.label || "de aanbieder"}</a></Button>
+                                <Button variant="accent" size="lg" className="w-full rounded-full font-bold" asChild><a href={sourceInfo.source_url} target="_blank" rel="sponsored noopener noreferrer" onClick={() => trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null)}>Reageren op deze woning</a></Button>
               </div>}
               {/* Action row */}
               <div className="flex flex-wrap gap-2 border-y py-3">
@@ -941,19 +941,20 @@ const PropertyDetail = () => {
                     {sourceInfo.source_url ? (
                       <div className="space-y-4">
                         <div>
-                          <h2 className="font-display text-2xl font-bold text-primary">Bekijk de aanbieder</h2>
-                          <p className="mt-1 text-muted-foreground">Je verlaat Woonaanbod. De aanbieder kan eigen accountvoorwaarden of kosten hanteren. Zoeken en alerts op Woonaanbod zijn gratis.</p>
+                          <p className="text-xs text-muted-foreground">Advertentie · Partner</p>
+                          <h2 className="font-display text-2xl font-bold text-primary">Interesse in deze woning?</h2>
+                          <p className="mt-1 text-muted-foreground">Reageer snel, populaire woningen zijn vaak binnen een paar dagen weg.</p>
                         </div>
-                      <Button variant="accent" className="h-auto min-h-14 w-full whitespace-normal rounded-full py-3 text-sm font-bold" size="lg" onClick={() => {
+                      <Button variant="accent" className="h-auto min-h-14 w-full whitespace-normal rounded-full py-3 text-lg font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
                           title: `Je gaat naar ${sourceMeta?.label || sourceInfo.source_site || "de aanbieder"}`,
-                          description: "De aanbieder kan eigen accountvoorwaarden of kosten hanteren.",
+                          description: "Succes met je reactie!",
                         });
                         window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
                       }}>
-                        Bekijk en reageer bij {sourceMeta?.label || "de aanbieder"} <ArrowRight className="ml-2 h-5 w-5" />
+                        Reageren bij {sourceMeta?.label || "de aanbieder"} <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                         <ul className="space-y-3 rounded-2xl bg-primary/5 p-4 text-sm text-foreground">
                           {[
@@ -969,7 +970,7 @@ const PropertyDetail = () => {
                             </li>
                           ))}
                         </ul>
-                        
+                        {property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
                       </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>

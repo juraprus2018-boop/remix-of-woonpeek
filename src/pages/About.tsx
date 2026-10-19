@@ -187,10 +187,14 @@ const About = () => {
                 Onze missie
               </h2>
               <p className="text-center leading-relaxed text-muted-foreground">
-                Woonaanbod NL brengt huurwoningen van verschillende aanbieders samen op één plek.
+                De huurmarkt in Nederland is krap. Echt krap. Wie er bovenop wil zitten,
+                checkt elke ochtend tien sites en is dan nog te laat. Dat moet anders.
+                Woonaanbod NL brengt alles bij elkaar, gratis en elke dag bij.
               </p>
               <p className="text-center leading-relaxed text-muted-foreground">
-                Bekijk de informatie bij iedere woning om de aanbieder en eventuele voorwaarden te controleren.
+                Wij vinden dat iedereen eerlijk bij het aanbod moet kunnen. Geen abo om de beste
+                woningen te zien, geen kosten om een alert aan te zetten. Voor huurders, door mensen
+                die zelf weten hoe vervelend dat zoeken is.
               </p>
             </div>
           </div>
@@ -209,7 +213,7 @@ const About = () => {
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                 <Link to="/plaatsen-start">
                   <Button size="lg" className="gap-2">
-                    Bekijk plaatsingsopties
+                    Plaats gratis je woning
                     <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
