@@ -1,4 +1,4 @@
-export { canonicalizeCity } from "../../../src/lib/cityAliases.ts";
+export { canonicalizeCity } from "./cityAliases.ts";
 /** Unknown source types remain unknown; specific types precede generic labels. */
 export function mapPropertyType(value: string): "appartement" | "huis" | "studio" | "kamer" | null {
   const t = (value || "").toLowerCase();
