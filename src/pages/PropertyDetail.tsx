@@ -656,7 +656,7 @@ const PropertyDetail = () => {
 
               {facts.conflicts.length > 0 && <p className="rounded-lg border border-border bg-muted/40 p-3 text-sm text-muted-foreground">Gegevens in de omschrijving wijken af, controleer bij de aanbieder</p>}
               {sourceInfo.source_url && <div id="reageren" className="space-y-2 rounded-xl border border-border bg-card p-4">
-                                <Button variant="accent" size="lg" className="w-full rounded-full font-bold" asChild><a href={sourceInfo.source_url} target="_blank" rel="sponsored noopener noreferrer" onClick={() => trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null)}>Reageren op deze woning</a></Button>
+                                <Button variant="accent" size="lg" className="w-full rounded-full font-bold" asChild><a href={sourceInfo.source_url} target="_blank" rel="sponsored noopener noreferrer" onClick={() => trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null)}>Reageren</a></Button>
               </div>}
               {/* Action row */}
               <div className="flex flex-wrap gap-2 border-y py-3">
