@@ -32,49 +32,14 @@ const useRelatedCities = (currentCity: string) =>
     queryKey: ["related-cities-nearby", currentCity],
     staleTime: 30 * 60 * 1000,
     queryFn: async (): Promise<{ nearby: boolean; cities: RelatedCity[] }> => {
-      const { data: own } = await supabase
-        .from("properties")
-        .select("latitude, longitude")
-        .eq("status", "actief")
-        .ilike("city", currentCity)
-        .not("latitude", "is", null)
-        .not("longitude", "is", null)
-        .limit(50);
-
-      const pts = (own || []).filter((p) => p.latitude && p.longitude);
-      if (pts.length) {
-        const lat = pts.reduce((s, p) => s + Number(p.latitude), 0) / pts.length;
-        const lng = pts.reduce((s, p) => s + Number(p.longitude), 0) / pts.length;
-        const { data, error } = await supabase
-          .from("properties")
-          .select("city, latitude, longitude")
-          .eq("status", "actief")
-          .gte("latitude", lat - 0.32)
-          .lte("latitude", lat + 0.32)
-          .gte("longitude", lng - 0.5)
-          .lte("longitude", lng + 0.5)
-          .limit(3000);
-        if (!error && data?.length) {
-          const agg: Record<string, { count: number; lat: number; lng: number }> = {};
-          data.forEach((p) => {
-            const c = (p.city || "").trim();
-            if (!c || c.toLowerCase() === currentCity.toLowerCase()) return;
-            const a = (agg[c] ||= { count: 0, lat: 0, lng: 0 });
-            a.count++;
-            a.lat += Number(p.latitude);
-            a.lng += Number(p.longitude);
-          });
-          const cities = Object.entries(agg)
-            .map(([city, a]) => ({
-              city,
-              count: a.count,
-              km: Math.round(haversineKm(lat, lng, a.lat / a.count, a.lng / a.count)),
-            }))
-            .filter((c) => c.km <= 35)
-            .sort((a, b) => a.km - b.km)
-            .slice(0, 12);
-          if (cities.length >= 3) return { nearby: true, cities };
-        }
+      // Database bundelt nabije plaatsen zelf; scheelt duizenden rijen per bezoek.
+      const { data: near, error: nearErr } = await supabase.rpc("nearby_cities", { p_city: currentCity, p_limit: 40 });
+      if (!nearErr && near?.length) {
+        const cities = near
+          .filter((c) => c.km <= 35)
+          .slice(0, 12)
+          .map((c) => ({ city: c.city, count: Number(c.listing_count), km: c.km }));
+        if (cities.length >= 3) return { nearby: true, cities };
       }
 
       const { data, error } = await supabase
