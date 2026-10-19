@@ -952,7 +952,7 @@ const PropertyDetail = () => {
                         });
                         window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
                       }}>
-                        Reageren bij {sourceMeta?.label || "de aanbieder"} <ArrowRight className="ml-2 h-5 w-5" />
+                        Reageren <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                         <ul className="space-y-3 rounded-2xl bg-primary/5 p-4 text-sm text-foreground">
                           {[
