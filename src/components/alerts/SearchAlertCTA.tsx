@@ -144,10 +144,10 @@ const SearchAlertCTA = ({
           />
           <div className="px-2 pb-2 md:px-0 md:pb-0 md:pr-4">
             <h3 className="font-display text-2xl font-bold leading-tight text-primary">
-              Passend nieuw aanbod in je e-mail?
+              Als eerste nieuw aanbod in je mail?
             </h3>
             <p className="mt-2 text-base text-muted-foreground">
-              Ontvang maximaal één e-mail per dag als er nieuw aanbod is voor {searchLabel}.
+              Ontvang elke dag gratis het nieuwste aanbod voor {searchLabel}. Zo mis je niks en reageer je op tijd!
             </p>
             <form onSubmit={handleSubmit} className="mt-4 space-y-3">
               {!user && (
@@ -184,7 +184,7 @@ const SearchAlertCTA = ({
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-display text-lg font-semibold text-foreground">
-            Ontvang maximaal één gratis woonmelding per dag bij passend nieuw aanbod.
+            Nieuwe woning erbij? Ontvang dagelijks een gratis melding.
           </p>
           <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2 sm:flex-row">
             {!user && (
