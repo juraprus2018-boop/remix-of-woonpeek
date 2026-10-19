@@ -92,6 +92,13 @@
       "when": 1792397027544,
       "tag": "0012_property_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1792434059617,
+      "tag": "0013_nearby_cities_rpc_and_geo_index",
+      "breakpoints": true
     }
   ]
 }
