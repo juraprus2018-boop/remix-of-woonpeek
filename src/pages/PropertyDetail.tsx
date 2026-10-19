@@ -656,7 +656,6 @@ const PropertyDetail = () => {
 
               {facts.conflicts.length > 0 && <p className="rounded-lg border border-border bg-muted/40 p-3 text-sm text-muted-foreground">Gegevens in de omschrijving wijken af, controleer bij de aanbieder</p>}
               {sourceInfo.source_url && <div id="reageren" className="space-y-2 rounded-xl border border-border bg-card p-4">
-                <p className="text-xs text-muted-foreground">Advertentie · Partner</p>
                                 <Button variant="accent" size="lg" className="w-full rounded-full font-bold" asChild><a href={sourceInfo.source_url} target="_blank" rel="sponsored noopener noreferrer" onClick={() => trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null)}>Reageren op deze woning</a></Button>
               </div>}
               {/* Action row */}
@@ -941,7 +940,6 @@ const PropertyDetail = () => {
                     {sourceInfo.source_url ? (
                       <div className="space-y-4">
                         <div>
-                          <p className="text-xs text-muted-foreground">Advertentie · Partner</p>
                           <h2 className="font-display text-2xl font-bold text-primary">Interesse in deze woning?</h2>
                           <p className="mt-1 text-muted-foreground">Reageer snel, populaire woningen zijn vaak binnen een paar dagen weg.</p>
                         </div>

@@ -85,7 +85,6 @@ const ChanceEstimator = ({ price, city }: Props) => {
               <Button className="w-full gap-2" onClick={openHz}>
                 Vergroot je kans met een Huurzone-profiel <ExternalLink className="h-4 w-4" />
               </Button>
-              <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Advertentie · Partner</p>
             </>
           )}
           <button className="flex items-center gap-1 text-xs text-muted-foreground hover:underline" onClick={() => setDone(false)}>

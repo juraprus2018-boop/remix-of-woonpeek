@@ -74,7 +74,6 @@ const PropertyStickyBar = ({
     <>
     {/* Mobile: always visible at the bottom */}
     <div className="fixed inset-x-0 bottom-0 z-[55] border-t border-border bg-background shadow-[0_-4px_20px_-8px_hsl(var(--foreground)/0.25)] md:hidden">
-      <p className="px-4 pt-2 text-[11px] text-muted-foreground">Advertentie · Partner</p>
       <div className="flex items-center gap-3 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="shrink-0">
           <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
@@ -93,7 +92,6 @@ const PropertyStickyBar = ({
       aria-hidden={!visible}
     >
       <div className="container flex items-center justify-between gap-3 py-2.5 sm:py-3">
-        <p className="text-[11px] text-muted-foreground">Advertentie · Partner</p>
         {/* Info: price + features */}
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-2">
