@@ -35,6 +35,12 @@ async function sha256(text: string): Promise<string> {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  // Disabled: live AI translation cost too many credits. Return no translations.
+  if (Deno.env.get("AUTO_TRANSLATE_ENABLED") !== "true") {
+    return new Response(JSON.stringify({ translations: {}, disabled: true }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
 
   try {
     const body = await req.json();
