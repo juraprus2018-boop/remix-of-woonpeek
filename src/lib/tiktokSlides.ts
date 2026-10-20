@@ -354,7 +354,7 @@ function drawFrame(ctx: CanvasRenderingContext2D, p: SlideProperty, imgs: HTMLIm
   ctx.fillStyle = ACCENT; ctx.fillRect(0, H - 12, W * Math.min(1, time / total), 12);
 }
 
-export async function generateVideo(p: SlideProperty, onProgress?: (f: number) => void): Promise<{ blob: Blob; ext: string }> {
+export async function generateVideo(p: SlideProperty, onProgress?: (f: number) => void, audioFile?: File | null): Promise<{ blob: Blob; ext: string }> {
   await document.fonts?.load(`800 80px Sora`).catch(() => {});
   const urls = [...new Set((p.images || []).filter((u) => typeof u === "string" && /^https?:\/\//.test(u)))];
   const imgs = (await Promise.all(urls.slice(0, MAX_VIDEO_PHOTOS).map((u) => loadImage(u).catch(() => null))))
@@ -362,9 +362,21 @@ export async function generateVideo(p: SlideProperty, onProgress?: (f: number) =
   if (!imgs.length) throw new Error("Geen bruikbare foto's gevonden");
   const c = newCanvas(); const ctx = c.getContext("2d")!;
   const total = HERO_S + (imgs.length - 1) * PHOTO_S + OUTRO_S;
-  const types = ["video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"];
+  const types = ["video/mp4;codecs=avc1,mp4a.40.2", "video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"];
   const mime = types.find((t) => MediaRecorder.isTypeSupported(t)) || "video/webm";
   const stream = c.captureStream(FPS);
+  let actx: AudioContext | null = null;
+  if (audioFile) {
+    actx = new AudioContext();
+    const buf = await actx.decodeAudioData(await audioFile.arrayBuffer());
+    const src = actx.createBufferSource(); src.buffer = buf;
+    const gain = actx.createGain();
+    gain.gain.setValueAtTime(1, actx.currentTime + Math.max(0, total - 1.5));
+    gain.gain.linearRampToValueAtTime(0, actx.currentTime + total);
+    const dest = actx.createMediaStreamDestination();
+    src.connect(gain).connect(dest); src.start();
+    dest.stream.getAudioTracks().forEach((t) => stream.addTrack(t));
+  }
   const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8_000_000 });
   const chunks: Blob[] = [];
   rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
@@ -381,6 +393,34 @@ export async function generateVideo(p: SlideProperty, onProgress?: (f: number) =
     };
     requestAnimationFrame(tick);
   });
-  rec.stop(); await done;
+  rec.stop(); await done; actx?.close();
   return { blob: new Blob(chunks, { type: mime.split(";")[0] }), ext: mime.startsWith("video/mp4") ? "mp4" : "webm" };
+}
+
+export function videoFileName(p: SlideProperty, ext: string) {
+  const parts = ["woonaanbod", p.city, p.street, p.house_number].filter(Boolean).join("-");
+  return `${parts.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.${ext}`;
+}
+
+// Bewaar gemaakte video's in de browser zodat ze na verversen blijven.
+const DB = "tiktok-videos";
+function db(): Promise<IDBDatabase> {
+  return new Promise((res, rej) => {
+    const r = indexedDB.open(DB, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("v");
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+export async function saveVideo(id: string, blob: Blob, ext: string) {
+  const d = await db();
+  await new Promise((res, rej) => { const t = d.transaction("v", "readwrite"); t.objectStore("v").put({ blob, ext }, id); t.oncomplete = res; t.onerror = rej; });
+}
+export async function loadAllVideos(): Promise<Record<string, { blob: Blob; ext: string }>> {
+  const d = await db();
+  return new Promise((res) => {
+    const out: Record<string, { blob: Blob; ext: string }> = {};
+    const r = d.transaction("v").objectStore("v").openCursor();
+    r.onsuccess = () => { const c = r.result; if (c) { out[String(c.key)] = c.value; c.continue(); } else res(out); };
+    r.onerror = () => res(out);
+  });
 }
