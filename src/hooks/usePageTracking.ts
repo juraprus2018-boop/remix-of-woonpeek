@@ -28,15 +28,9 @@ export const usePageTracking = () => {
     ) return;
 
     lastPath.current = fullPath;
+    getSessionId();
+    // Only consent-based analytics; no database page-view registration.
     trackPageView(fullPath);
-
-    const sessionId = getSessionId();
-    supabase.from("page_views").insert({
-      session_id: sessionId,
-      page_url: fullPath,
-      referrer: document.referrer || null,
-      user_agent: navigator.userAgent,
-    } as any).then(() => {});
   }, [location.pathname, location.search]);
 };
 
