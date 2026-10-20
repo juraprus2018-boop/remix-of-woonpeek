@@ -1,6 +1,7 @@
 # Kaartpagina
 - [ ] Bestaande Facebook-video daadwerkelijk publiceren en zichtbaarheid controleren.
-- [ ] Dagelijkse video met opgeslagen verwerkingsstatus en bescherming tegen dubbele posts herstellen.
+- [x] Dagelijkse videostatus en bescherming tegen dubbele posts toevoegen; twee controles per dag ingesteld.
+- [ ] Dagelijkse videoproductie activeren. Blokker: huidige Shotstack-sleutel wordt door Production API geweigerd; productietoegang en eventuele kosten vereisen akkoord.
 - [x] Belangrijkste stadspagina’s verrijken met actuele huurdata, geverifieerde lokale informatie en aanbodlinks.
 - [x] Cijfers, aanbodlinks en weergave van stadspagina’s testen zonder te publiceren.
 - [x] Nieuw uitgebreid blogartikel en perspublicatie maken met gecontroleerde aanbodcijfers en beeld.
