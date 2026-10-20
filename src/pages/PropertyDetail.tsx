@@ -216,7 +216,8 @@ const PropertyDetail = () => {
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const citySlugVal = property.city.toLowerCase().replace(/\s+/g, "-");
-  const typeLabel = property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1);
+  const rawType = property.property_type || "woning";
+  const typeLabel = rawType.charAt(0).toUpperCase() + rawType.slice(1);
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
   const bedroomsLabel = property.bedrooms ? `${property.bedrooms} kamers` : null;
   const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
