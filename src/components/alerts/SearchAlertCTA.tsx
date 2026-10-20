@@ -39,7 +39,7 @@ const buildLabel = (f: SearchAlertFilters) => {
 
 /**
  * One single alert product across the site: enter an e-mail address and get a
- * free daily notification when new properties match this exact search.
+ * free notification as soon as a new property matches this exact search.
  */
 const SearchAlertCTA = ({
   city,
@@ -122,7 +122,7 @@ const SearchAlertCTA = ({
           <div>
             <p className="font-display font-semibold text-foreground">Je melding staat aan</p>
             <p className="mt-1 text-sm text-muted-foreground">
-              Je ontvangt maximaal één gratis e-mail per dag bij nieuw aanbod voor {searchLabel}.
+              Zodra er een nieuwe woning bijkomt voor {searchLabel}, krijg je een gratis e-mail.
             </p>
           </div>
         </div>
@@ -144,10 +144,10 @@ const SearchAlertCTA = ({
           />
           <div className="px-2 pb-2 md:px-0 md:pb-0 md:pr-4">
             <h3 className="font-display text-2xl font-bold leading-tight text-primary">
-              Als eerste nieuw aanbod in je mail?
+              Direct updates ontvangen in je e-mail?
             </h3>
             <p className="mt-2 text-base text-muted-foreground">
-              Ontvang elke dag gratis het nieuwste aanbod voor {searchLabel}. Zo mis je niks en reageer je op tijd!
+              Ontvang meteen een e-mail als er nieuw aanbod is voor {searchLabel}. Zo mis je niks en kan je als eerste reageren!
             </p>
             <form onSubmit={handleSubmit} className="mt-4 space-y-3">
               {!user && (
@@ -184,7 +184,7 @@ const SearchAlertCTA = ({
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-display text-lg font-semibold text-foreground">
-            Nieuwe woning erbij? Ontvang dagelijks een gratis melding.
+            Nieuwe woning gevonden? Ontvang direct een gratis melding.
           </p>
           <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2 sm:flex-row">
             {!user && (

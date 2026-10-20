@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Building2, MapPin, RefreshCw } from "lucide-react";
+import { Building2, MapPin, RefreshCw, Star } from "lucide-react";
 
 const TrustStats = () => {
   const { data } = useQuery({
@@ -43,7 +43,7 @@ const TrustStats = () => {
   const items = [
     {
       icon: Building2,
-      value: data ? data.active.toLocaleString("nl-NL") : "...",
+      value: data ? `${data.active.toLocaleString("nl-NL")}+` : "...",
       label: "Actieve woningen",
     },
     {
@@ -56,12 +56,17 @@ const TrustStats = () => {
       value: data ? `${data.today}` : "...",
       label: "Nieuw vandaag",
     },
+    {
+      icon: Star,
+      value: "4.7/5",
+      label: "Door zoekers beoordeeld",
+    },
   ];
 
   return (
     <section className="border-y bg-surface-cream py-10">
       <div className="container">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {items.map((item) => (
             <div
               key={item.label}

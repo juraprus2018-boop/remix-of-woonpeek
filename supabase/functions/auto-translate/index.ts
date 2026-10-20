@@ -174,16 +174,10 @@ ${numbered}`;
       }
     };
 
-    // Cost guard: never spend AI on crawlers, and only translate short UI
-    // strings (long listing descriptions stay Dutch). Max one chunk per request.
-    const ua = req.headers.get("user-agent") || "";
-    const isBot = /bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit|bingpreview/i.test(ua);
-    const aiEligible = isBot ? [] : missing.filter((m) => m.text.length <= 120).slice(0, 25);
-
-    if (aiEligible.length > 0 && !aiPaused()) {
+    if (missing.length > 0 && !aiPaused()) {
       const CHUNK = 25;
       const chunks: { h: string; text: string }[][] = [];
-      for (let i = 0; i < aiEligible.length; i += CHUNK) chunks.push(aiEligible.slice(i, i + CHUNK));
+      for (let i = 0; i < missing.length; i += CHUNK) chunks.push(missing.slice(i, i + CHUNK));
 
       // Run chunks in small waves so a terminal gateway block (402/403) trips the
       // circuit breaker and skips the remaining work instead of failing all at once.

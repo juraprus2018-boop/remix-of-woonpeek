@@ -1,4 +1,3 @@
-import { EMPTY_FILTERS, serializeSearchFilters } from "@/lib/searchFilters";
 import { Search, MapPin, Bell, ChevronDown, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useHomeStats } from "@/hooks/useHomeStats";
@@ -40,7 +39,12 @@ const HeroSection = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = serializeSearchFilters({ ...EMPTY_FILTERS, city: searchQuery, listingType: "huur", maxPrice: maxPrice ? Number(maxPrice) : undefined, minBedrooms: minBedrooms ? Number(minBedrooms) : undefined, grossIncome: grossIncome ? Number(grossIncome) : undefined });
+    const params = new URLSearchParams();
+    if (searchQuery.trim()) params.set("locatie", searchQuery.trim());
+    if (listingType) params.set("aanbod", listingType);
+    if (maxPrice) params.set("max_prijs", maxPrice);
+    if (minBedrooms) params.set("min_kamers", minBedrooms);
+    if (grossIncome && listingType !== "koop") params.set("inkomen", grossIncome);
     navigate(`/woning-zoeken?${params.toString()}`);
   };
 

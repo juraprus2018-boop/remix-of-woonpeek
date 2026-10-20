@@ -9,22 +9,27 @@ import { Button } from "@/components/ui/button";
 const ABOUT_FAQ = [
   {
     question: "Is Woonaanbod NL echt gratis?",
-    answer: "De kosten en voorwaarden kunnen per functie verschillen. Bekijk de informatie bij de betreffende functie.",
+    answer: "Yep. Zoeken, alerts, je eigen huurwoning plaatsen. Allemaal nul euro. Geen abo, geen kleine lettertjes.",
   },
   {
     question: "Hoe verdienen jullie dan geld?",
-    answer: "Informatie over inkomstenbronnen is nog niet gepubliceerd.",
+    answer: "Via samenwerkingen met makelaars en verhuurplatforms. Zij betalen, jij niet.",
+  },
+  {
+    question: "Hoeveel huurwoningen staan er online?",
+    answer: "Elke dag duizenden actieve huurwoningen uit heel Nederland, van meerdere bronnen tegelijk.",
   },
   {
     question: "Kan ik zelf een huurwoning plaatsen?",
-    answer: "Bekijk de plaatsingspagina voor de actuele mogelijkheden en voorwaarden.",
+    answer: "Zeker. Als particuliere verhuurder zet je je woning gratis online en bereik je een hoop zoekers.",
   },
 ];
 
 const stats = [
-  { label: "Aanbod bekijken", value: "Op één plek" },
-  { label: "Zoeken", value: "Via filters" },
-  { label: "Organisatie", value: "Woonaanbod NL" },
+  { label: "Huurwoningen online", value: "6.000+" },
+  { label: "Update", value: "Elke dag" },
+  { label: "Voor jou", value: "Gratis" },
+  { label: "Steden", value: "100+" },
 ];
 
 const usps = [
@@ -32,13 +37,13 @@ const usps = [
     icon: Home,
     title: "Een berg aanbod",
     description:
-      "Bekijk huurwoningen van verschillende aanbieders, waaronder appartementen, huizen, studio’s en kamers.",
+      "Wij trekken huurwoningen uit allerlei platforms naar elkaar toe. Van appartementen en huizen tot studio's en kamers. Geen vijf sites meer openhebben dus.",
   },
   {
     icon: RefreshCw,
     title: "Elke dag bij",
     description:
-      "Beschikbaarheid kan veranderen. Controleer de actuele status bij de aanbieder voordat je reageert.",
+      "Het platform ververst zichzelf elke dag. Weg is weg, nieuw staat er meteen op. Niks meer reageren op iets dat al verhuurd is.",
   },
   {
     icon: Heart,
@@ -48,9 +53,9 @@ const usps = [
   },
   {
     icon: Bell,
-    title: "E-mailmeldingen",
+    title: "Mail-alerts die werken",
     description:
-      "Meldingen kunnen je attenderen op aanbod dat bij je zoekvoorkeuren past. Bekijk de instellingen voor de beschikbare opties.",
+      "Elke ochtend een overzicht van wat er bij is gekomen in jouw stad en budget. Bevalt het niet? Eén klik en je bent eruit.",
   },
 ];
 
@@ -60,7 +65,7 @@ const About = () => {
     "@type": "AboutPage",
     name: "Over Woonaanbod NL",
     description:
-      "Woonaanbod NL presenteert huurwoningen van verschillende aanbieders op één plek.",
+      "Woonaanbod NL is een gratis platform voor huurwoningen. Elke dag vers aanbod uit heel Nederland op één plek.",
     url: "https://www.woonaanbod-nl.nl/over-woonaanbod-nl",
     mainEntity: {
       "@type": "Organization",
@@ -86,7 +91,7 @@ const About = () => {
     <div className="flex min-h-screen flex-col">
       <SEOHead
         title="Over Woonaanbod NL – Gratis platform voor huurwoningen in heel NL"
-        description="Bekijk huurwoningen van verschillende aanbieders op Woonaanbod NL."
+        description="Woonaanbod NL verzamelt elke dag het verste huuraanbod uit heel Nederland op één plek. Gratis zoeken, alerts en zelf je huurwoning plaatsen."
         canonical="/over"
       />
       <script
@@ -125,7 +130,8 @@ const About = () => {
                 Over Woonaanbod NL
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-lg text-primary-foreground/80">
-                Woonaanbod NL presenteert huurwoningen van verschillende aanbieders op één plek. Gebruik de zoekfilters om aanbod te bekijken.
+                Woonaanbod NL is het gratis platform voor huurwoningen in Nederland. Wij trekken elke dag
+                het nieuwste huuraanbod van allerlei bronnen naar één plek. Zodat jij niet hoeft te switchen.
               </p>
             </div>
           </div>
@@ -208,7 +214,8 @@ const About = () => {
                 Zelf je huurwoning plaatsen
               </h2>
               <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-                Heb je een huurwoning beschikbaar? Bekijk de plaatsingsstappen en voorwaarden voordat je begint.
+                Heb je een huurwoning beschikbaar? Zet hem hier gratis online en bereik in een paar tellen
+                duizenden zoekers. Geen plaatsingskosten, geen rare voorwaarden.
               </p>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                 <Link to="/plaatsen-start">

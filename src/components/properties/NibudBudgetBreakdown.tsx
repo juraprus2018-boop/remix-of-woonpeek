@@ -5,8 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { PiggyBank, ShoppingCart, Zap, Bus, Sparkles, Wallet, Share2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { Input } from "@/components/ui/input";
-import { calculateBudgetBalance } from "@/lib/budget";
 
 interface NibudBudgetBreakdownProps {
   monthlyHousingCost: number;
@@ -22,7 +20,16 @@ const formatEuro = (val: number) =>
     maximumFractionDigits: 0,
   }).format(Math.max(0, Math.round(val)));
 
-// Voorbeeldbedragen per huishouden, niet voorzien van externe bron.
+// Indicatieve netto-belasting (vereenvoudigd box 1, 2025)
+const grossToNet = (gross: number) => {
+  // Globale benadering: ~30% inhouding boven 1500, ~22% daaronder
+  if (gross <= 1500) return gross * 0.85;
+  if (gross <= 3500) return 1500 * 0.85 + (gross - 1500) * 0.7;
+  if (gross <= 6000) return 1500 * 0.85 + 2000 * 0.7 + (gross - 3500) * 0.6;
+  return 1500 * 0.85 + 2000 * 0.7 + 2500 * 0.6 + (gross - 6000) * 0.5;
+};
+
+// NIBUD-richtlijnen 2025 (alleenstaande, indicatief)
 const nibudCategories = (household: "single" | "couple" | "family") => {
   const base = {
     groceries: { single: 290, couple: 470, family: 720 },
@@ -47,11 +54,11 @@ const NibudBudgetBreakdown = ({
   listingType,
   city,
 }: NibudBudgetBreakdownProps) => {
-  const [netIncome, setNetIncome] = useState(2675);
+  const [grossIncome, setGrossIncome] = useState(3500);
   const [household, setHousehold] = useState<"single" | "couple" | "family">("single");
 
   const data = useMemo(() => {
-    const net = netIncome;
+    const net = grossToNet(grossIncome);
     const cats = nibudCategories(household);
     const fixed =
       cats.groceries +
@@ -61,8 +68,7 @@ const NibudBudgetBreakdown = ({
       cats.leisure +
       cats.other;
     const afterHousing = net - monthlyHousingCost;
-    const balance = calculateBudgetBalance(net, [monthlyHousingCost, fixed]);
-    const remaining = balance.balance;
+    const remaining = afterHousing - fixed;
     const housingRatio = monthlyHousingCost / net;
 
     let verdict: { label: string; tone: "good" | "warn" | "bad"; text: string };
@@ -82,17 +88,17 @@ const NibudBudgetBreakdown = ({
       verdict = {
         label: "Risicovol",
         tone: "bad",
-        text: "De woonlasten zijn hoog ten opzichte van je netto inkomen volgens deze indicatie.",
+        text: "De woonlasten zijn hoog ten opzichte van je netto inkomen volgens NIBUD-richtlijnen.",
       };
     }
 
-    return { net, cats, fixed, afterHousing, remaining, housingRatio, verdict, balance };
-  }, [netIncome, household, monthlyHousingCost]);
+    return { net, cats, fixed, afterHousing, remaining, housingRatio, verdict };
+  }, [grossIncome, household, monthlyHousingCost]);
 
   const handleShare = async () => {
-    const text = `Met €${netIncome} netto per maand houd ik na huisvesting (${formatEuro(
+    const text = `Met €${grossIncome} bruto per maand houd ik na huisvesting (${formatEuro(
       monthlyHousingCost
-    )}) en vaste lasten ${formatEuro(data.remaining)} over volgens deze indicatie.`;
+    )}) en vaste lasten ${formatEuro(data.remaining)} over volgens de NIBUD-richtlijn.`;
     try {
       if (navigator.share) {
         await navigator.share({ title: "Mijn woonbudget", text, url: window.location.href });
@@ -132,7 +138,7 @@ const NibudBudgetBreakdown = ({
             <PiggyBank className="h-5 w-5 text-primary" />
             Woon-budget calculator
           </CardTitle>
-          <Badge variant="outline" className="text-xs">Standaardbedragen, pas aan</Badge>
+          <Badge variant="outline" className="text-xs">NIBUD richtlijn</Badge>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
           Wat houd je over na deze {listingType === "huur" ? "huur" : "hypotheeklast"}
@@ -149,22 +155,21 @@ const NibudBudgetBreakdown = ({
             </p>
           </div>
           <p className="text-xs mt-1 opacity-90">{data.verdict.text}</p>
-          {data.balance.valid && data.balance.deficit > 0 && <p className="mt-2 text-sm font-semibold">Met deze bedragen kom je {formatEuro(data.balance.deficit)} per maand tekort</p>}
         </div>
 
         {/* Inputs */}
         <div className="space-y-4">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-sm font-medium">Netto maandinkomen</label>
-              <span className="text-sm font-semibold">{formatEuro(netIncome)}</span>
+              <label className="text-sm font-medium">Bruto maandinkomen</label>
+              <span className="text-sm font-semibold">{formatEuro(grossIncome)}</span>
             </div>
             <Slider
-              value={[netIncome]}
-              onValueChange={([v]) => setNetIncome(v)}
-              min={0}
+              value={[grossIncome]}
+              onValueChange={([v]) => setGrossIncome(v)}
+              min={1500}
               max={10000}
-              step={25}
+              step={100}
             />
           </div>
 
@@ -212,7 +217,7 @@ const NibudBudgetBreakdown = ({
             }`}
           >
             <span>Over voor sparen & extra's</span>
-            <span>{formatEuro(data.balance.savings)}</span>
+            <span>{formatEuro(data.remaining)}</span>
           </div>
         </div>
 
@@ -222,7 +227,8 @@ const NibudBudgetBreakdown = ({
         </Button>
 
         <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
-          Standaardbedragen zijn indicaties, pas ze aan jouw situatie aan. Geen financieel advies.
+          Indicatie op basis van NIBUD-richtlijnen 2025. Werkelijke uitgaven verschillen per
+          situatie. Geen financieel advies.
         </p>
       </CardContent>
     </Card>

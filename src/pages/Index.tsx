@@ -1,4 +1,3 @@
-import { EMPTY_FILTERS, serializeSearchFilters } from "@/lib/searchFilters";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { L as Link } from "@/components/LocalizedLink";
@@ -83,8 +82,11 @@ const Index = () => {
 
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = serializeSearchFilters({ ...EMPTY_FILTERS, city: query, listingType: "huur", minPrice: minPrice ? Number(minPrice) : undefined, maxPrice: maxPrice ? Number(maxPrice) : undefined });
-    navigate(`/woning-zoeken?${params}`);
+    const params = new URLSearchParams();
+    if (query.trim()) params.set("locatie", query.trim());
+    if (minPrice) params.set("min", minPrice);
+    if (maxPrice) params.set("max", maxPrice);
+    navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
   };
 
 

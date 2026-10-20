@@ -3,13 +3,13 @@ import { TrendingUp, Search, Bell, Shield, Zap, Heart } from "lucide-react";
 const benefits = [
   {
     icon: Zap,
-    title: "Woningaanbod op één plek",
-    description: "Bekijk huurwoningen van verschillende aanbieders op één plek.",
+    title: "Sneller dan de rest",
+    description: "Wij pikken nieuwe huurwoningen op zodra ze online komen. Vaak nog vóór de grote sites.",
   },
   {
     icon: Search,
     title: "Alles op één plek",
-    description: "Gebruik filters om het aanbod te bekijken op locatie, woningtype en prijs.",
+    description: "Geen tien tabbladen meer. Wij trekken het aanbod van overal naar elkaar toe.",
   },
   {
     icon: Bell,
@@ -18,18 +18,18 @@ const benefits = [
   },
   {
     icon: Shield,
-    title: "Bekijk de aanbieder",
-    description: "Controleer de bronvermelding en voorwaarden van de aanbieder voordat je reageert.",
+    title: "Geen rare types",
+    description: "Aanbod komt van echte makelaars en verhuurplatforms die we vertrouwen.",
   },
   {
     icon: TrendingUp,
-    title: "Bekijk recent aanbod",
-    description: "Bekijk woningen die recent aan het aanbod zijn toegevoegd.",
+    title: "Elke dag vers",
+    description: "Wat weg is, gaat weg. Wat erbij komt, zie je meteen.",
   },
   {
     icon: Heart,
-    title: "Zoeken zonder abonnement",
-    description: "Je kunt woningen op de site bekijken. Eventuele voorwaarden staan bij de betreffende functie.",
+    title: "Echt gratis",
+    description: "Zoeken, favorieten, alerts. Nul euro. Geen kleine lettertjes.",
   },
 ];
 

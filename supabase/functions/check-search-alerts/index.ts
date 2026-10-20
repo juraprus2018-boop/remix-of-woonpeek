@@ -4,7 +4,7 @@ import { sendTemplateEmail } from "../_shared/transactional-email-templates/send
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 async function sendWhatsApp(phoneNumber: string, message: string) {
@@ -45,17 +45,6 @@ async function sendWhatsApp(phoneNumber: string, message: string) {
   }
 }
 
-// Shared by delivery and the read-only preview to prevent selection drift.
-function applySubscriberFilters(q: any, filter: any) {
-  if (filter.city) q = q.ilike("city", String(filter.city).replace(/[%_]/g, ""));
-  if (filter.listing_type) q = q.eq("listing_type", filter.listing_type);
-  if (filter.property_type) q = q.eq("property_type", filter.property_type);
-  if (filter.min_price != null) q = q.gte("price", filter.min_price);
-  if (filter.max_price != null) q = q.lte("price", filter.max_price);
-  if (filter.min_rooms != null) q = q.gte("bedrooms", filter.min_rooms);
-  return q;
-}
-
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -66,30 +55,6 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
-
-    const body = await req.json().catch(() => ({}));
-    if (body.dry_run === true) {
-      const bearer = (req.headers.get("Authorization") || "").replace(/^Bearer /, "");
-      const cronSecret = Deno.env.get("CRON_SECRET");
-      let authorized = Boolean(cronSecret && req.headers.get("x-cron-secret") === cronSecret);
-      if (!authorized && bearer) {
-        const { data: { user } } = await supabase.auth.getUser(bearer);
-        if (user) {
-          const { data } = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
-          authorized = data === true;
-        }
-      }
-      if (!authorized) return new Response(JSON.stringify({ error: "Alleen beheerders kunnen een voorbeeld opvragen." }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      const filter = body.filter || {};
-      const since = body.since || new Date(0).toISOString();
-      if (!Number.isFinite(Date.parse(since))) return new Response(JSON.stringify({ error: "Ongeldige begindatum." }), { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      const base = () => supabase.from("properties");
-      const { count, error: countError } = await applySubscriberFilters(base().select("id", { count: "exact", head: true }).eq("status", "actief").gt("created_at", since), filter);
-      if (countError) throw countError;
-      const { data, error } = await applySubscriberFilters(base().select("id, title, city, price, listing_type, property_type, bedrooms, created_at").eq("status", "actief").gt("created_at", since).order("created_at", { ascending: false }).limit(6), filter);
-      if (error) throw error;
-      return new Response(JSON.stringify({ dry_run: true, sent: false, filter, since, matched_count: count, matched_listings: data }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
-    }
 
     // Partner-tip (Huurzone): éénmalig de actieve kliklink ophalen
     const { data: huurzoneBanner } = await supabase
@@ -160,12 +125,18 @@ Deno.serve(async (req) => {
     if (subscribersError) throw subscribersError;
 
     for (const subscriber of dailySubscribers || []) {
-      // The daily digest must not send again on the same UTC calendar day.
-      if (subscriber.last_notified_at && subscriber.last_notified_at.slice(0, 10) === new Date().toISOString().slice(0, 10)) continue;
       const sinceDate = subscriber.last_notified_at || subscriber.subscribed_at || subscriber.created_at;
       const subscriberCity = subscriber.city;
 
-      const applyFilters = (q: any) => applySubscriberFilters(q, subscriber);
+      const applyFilters = (q: any) => {
+        if (subscriberCity) q = q.ilike("city", subscriberCity);
+        if (subscriber.listing_type) q = q.eq("listing_type", subscriber.listing_type);
+        if (subscriber.property_type) q = q.eq("property_type", subscriber.property_type);
+        if (subscriber.min_price) q = q.gte("price", subscriber.min_price);
+        if (subscriber.max_price) q = q.lte("price", subscriber.max_price);
+        if (subscriber.min_rooms) q = q.gte("bedrooms", subscriber.min_rooms);
+        return q;
+      };
 
       // Count new properties matching this subscriber's search
       const { count: filteredCount, error: filteredCountError } = await applyFilters(

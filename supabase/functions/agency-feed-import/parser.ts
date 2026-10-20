@@ -1,4 +1,3 @@
-import { canonicalizeCity, mapPropertyType } from "../_shared/importNormalization.ts";
 // Gedeeld met makelaar-feed-import (gekopieerde parser).
 export function stripHtml(text: string | null | undefined): string | null {
   if (!text) return null;
@@ -14,7 +13,14 @@ export function stripHtml(text: string | null | undefined): string | null {
     .trim();
 }
 
-
+export function mapPropertyType(typeStr: string): "appartement" | "huis" | "studio" | "kamer" {
+  const t = (typeStr || "").toLowerCase();
+  if (t.includes("appartement") || t.includes("flat") || t.includes("etage")) return "appartement";
+  if (t.includes("studio")) return "studio";
+  if (t.includes("kamer") || t.includes("room")) return "kamer";
+  if (t.includes("woning") || t.includes("huis") || t.includes("maisonette") || t.includes("eengezins") || t.includes("villa") || t.includes("tussenwoning") || t.includes("hoekwoning")) return "huis";
+  return "appartement";
+}
 
 export function mapListingType(typeStr: string): "huur" | "koop" {
   const t = (typeStr || "").toLowerCase();
@@ -36,7 +42,6 @@ export function parseEnergyLabel(label: string | null | undefined): string | nul
 }
 
 export interface XmlProperty {
-  source_raw?: unknown;
   title?: string;
   street?: string;
   house_number?: string;
@@ -83,7 +88,7 @@ export function parseXmlFeed(xmlText: string): XmlProperty[] {
   }
 
   for (const itemXml of items) {
-    const prop: XmlProperty = { source_raw: { xml: itemXml } };
+    const prop: XmlProperty = {};
 
     // Helper to extract text from XML tag
     const getTag = (names: string[]): string | null => {
@@ -166,5 +171,3 @@ export function parseXmlFeed(xmlText: string): XmlProperty[] {
 
   return properties;
 }
-
-export { mapPropertyType };

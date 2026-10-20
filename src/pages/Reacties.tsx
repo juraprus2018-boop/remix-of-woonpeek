@@ -1,4 +1,3 @@
-import { maskContactDetails } from "@/lib/propertyFacts";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { formatDistanceToNow } from "date-fns";
@@ -40,7 +39,7 @@ const Reacties = () => {
             <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Reacties" }]} />
             <h1 className="mt-4 font-display text-3xl font-bold md:text-4xl">Reacties van woningzoekers</h1>
             <p className="mt-3 text-muted-foreground">
-              Lees wat anderen schrijven over woningen uit ons aanbod. Dit zijn openbare opmerkingen, geen klantbeoordelingen of aanvragen bij de verhuurder. Gebruik de aanbiedersknop op de woningpagina om op de woning te reageren.
+              Lees wat anderen schrijven over woningen uit ons aanbod. Klik op een woning om hem te bekijken of zelf te reageren.
             </p>
           </div>
         </section>
@@ -60,13 +59,13 @@ const Reacties = () => {
                       <User className="h-4 w-4 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold">{maskContactDetails(c.name)}</p>
+                      <p className="text-sm font-semibold">{c.name}</p>
                       <p className="text-xs text-muted-foreground">
                         {formatDistanceToNow(new Date(c.created_at), { addSuffix: true, locale: nl })}
                       </p>
                     </div>
                   </div>
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">{maskContactDetails(c.content)}</p>
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted-foreground">{c.content}</p>
                   {c.properties && (
                     <Link
                       to={propertyPath(c.properties)}

@@ -1,4 +1,3 @@
-import { canonicalizeCity } from "./cityAliases";
 /**
  * Mapping van Nederlandse gemeentes naar hun kernen (dorpen/wijken).
  *
@@ -123,8 +122,8 @@ export const municipalitySlug = (name: string) =>
  * Als de gemeente geen onderverdeling heeft, retourneert het de gemeente zelf.
  */
 export const getKernen = (municipality: string): string[] => {
-  const kernen = MUNICIPALITY_KERNEN[canonicalizeCity(municipality)];
-  if (!kernen || kernen.length === 0) return [canonicalizeCity(municipality)];
+  const kernen = MUNICIPALITY_KERNEN[municipality];
+  if (!kernen || kernen.length === 0) return [municipality];
   return [...kernen].sort((a, b) => a.localeCompare(b, "nl"));
 };
 
@@ -132,6 +131,6 @@ export const getKernen = (municipality: string): string[] => {
  * Bepaalt of een gemeente meerdere kernen heeft (UI toont dan stap 2).
  */
 export const hasMultipleKernen = (municipality: string): boolean => {
-  const kernen = MUNICIPALITY_KERNEN[canonicalizeCity(municipality)];
+  const kernen = MUNICIPALITY_KERNEN[municipality];
   return Array.isArray(kernen) && kernen.length > 1;
 };

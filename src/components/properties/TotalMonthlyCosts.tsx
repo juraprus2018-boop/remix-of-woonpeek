@@ -215,8 +215,7 @@ const TotalMonthlyCosts = ({
           </div>
         </div>
 
-        <p className="mt-4 text-xs text-muted-foreground">Standaardbedragen, pas aan</p>
-        <div className="mt-2 divide-y divide-border rounded-lg border bg-background">
+        <div className="mt-6 divide-y divide-border rounded-lg border bg-background">
           {lines.map(({ key, label, icon: Icon, value, setter, cta }) => (
             <div
               key={key}
@@ -295,7 +294,8 @@ const TotalMonthlyCosts = ({
         </div>
 
         <p className="mt-3 text-[11px] text-muted-foreground">
-          Standaardbedragen zijn indicaties, pas ze aan jouw situatie aan. Werkelijke bedragen kunnen verschillen. Vergelijken via Daisycon (affiliate).
+          Indicatie op basis van Nibud, ACM en Consumentenbond gemiddelden. Werkelijke bedragen
+          kunnen verschillen per huishouden en aanbieder. Vergelijken via Daisycon (affiliate).
         </p>
       </CardContent>
     </Card>

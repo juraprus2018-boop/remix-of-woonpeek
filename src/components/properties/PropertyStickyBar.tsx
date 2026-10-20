@@ -11,7 +11,7 @@ interface PropertyStickyBarProps {
   propertyId: string;
   title: string;
   city: string;
-  price: number | null;
+  price: number;
   listingType: string;
   bedrooms?: number | null;
   surfaceArea?: number | null;
@@ -52,12 +52,12 @@ const PropertyStickyBar = ({
     return () => observer.disconnect();
   }, [triggerRef]);
 
-  const formattedPrice = price === null ? "Onbekend" : new Intl.NumberFormat("nl-NL", {
+  const formattedPrice = new Intl.NumberFormat("nl-NL", {
     style: "currency",
     currency: "EUR",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(price ?? 0);
+  }).format(price);
 
   const normalizedSourceUrl = normalizeAffiliateUrl(sourceUrl);
 
@@ -79,7 +79,7 @@ const PropertyStickyBar = ({
           <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
           <p className="mt-1 text-xs text-muted-foreground">{listingType === "huur" ? "per maand" : "koopprijs"}</p>
         </div>
-        <Button onClick={handleReact} variant="accent" size="lg" className="h-auto min-h-12 flex-1 gap-2 whitespace-normal rounded-full py-2 text-base font-bold">
+        <Button onClick={handleReact} variant="accent" size="lg" className="h-12 flex-1 gap-2 rounded-full text-base font-bold">
           Reageren <ArrowRight className="h-5 w-5" />
         </Button>
       </div>
@@ -151,17 +151,17 @@ const PropertyStickyBar = ({
             onClick={handleReact}
             variant="accent"
             size="sm"
-            className="gap-1.5 px-6 font-bold"
+            className="gap-1.5 whitespace-nowrap"
           >
             {normalizedSourceUrl ? (
               <>
                 <ExternalLink className="h-4 w-4" />
-                Reageren
+                Reageer
               </>
             ) : (
               <>
                 <Mail className="h-4 w-4" />
-                Reageren
+                Reageer
               </>
             )}
           </Button>

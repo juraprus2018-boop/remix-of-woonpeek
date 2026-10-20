@@ -1,4 +1,4 @@
-
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,8 +19,16 @@ import { cn } from "@/lib/utils";
 type PropertyType = "appartement" | "huis" | "studio" | "kamer" | "vakantiehuis";
 type ListingType = "huur" | "koop";
 
-import { type SearchFilterValues } from "@/lib/searchFilters";
-export type { SearchFilterValues } from "@/lib/searchFilters";
+export interface SearchFilterValues {
+  city: string;
+  propertyType: PropertyType | "";
+  listingType: ListingType | "";
+  maxPrice: number | undefined;
+  minBedrooms: number | undefined;
+  minSurface: number | undefined;
+  includeInactive: boolean;
+  grossIncome: number | undefined;
+}
 
 interface SearchFiltersProps {
   filters: SearchFilterValues;
@@ -70,22 +78,33 @@ const SearchFilters = ({
   const bedroomOptions = [1, 2, 3, 4];
   const surfaceOptions = [25, 50, 75, 100];
 
-  const availablePropertyTypes = propertyTypes;
-  const availableListingTypes = listingTypes;
-  const availableBedrooms = bedroomOptions;
-  const availableSurfaces = surfaceOptions;
-  const availablePrices = Array.from(new Set([...priceOptions, ...(filters.maxPrice !== undefined ? [filters.maxPrice] : [])])).sort((a, b) => a - b);
+  const availablePropertyTypes = facets ? propertyTypes.filter(t => (facets.propertyTypes[t] || 0) > 0) : propertyTypes;
+  const availableListingTypes = facets ? listingTypes.filter(t => (facets.listingTypes[t] || 0) > 0) : listingTypes;
+  const availableBedrooms = facets ? bedroomOptions.filter(n => (facets.bedroomCounts[String(n)] || 0) > 0) : bedroomOptions;
+  const availableSurfaces = facets ? surfaceOptions.filter(n => (facets.surfaceRanges[String(n)] || 0) > 0) : surfaceOptions;
+  const availablePrices = facets ? priceOptions.filter(p => (facets.priceOptions?.[String(p)] || 0) > 0) : priceOptions;
+
+  // Auto-clear filter values that would yield 0 results
+  useEffect(() => {
+    if (!facets) return;
+    const patch: Partial<SearchFilterValues> = {};
+    if (filters.propertyType && !availablePropertyTypes.includes(filters.propertyType as PropertyType)) patch.propertyType = "";
+    if (filters.listingType && !availableListingTypes.includes(filters.listingType as ListingType)) patch.listingType = "";
+    if (filters.maxPrice && !availablePrices.includes(filters.maxPrice)) patch.maxPrice = undefined;
+    if (filters.minBedrooms && !availableBedrooms.includes(filters.minBedrooms)) patch.minBedrooms = undefined;
+    if (filters.minSurface && !availableSurfaces.includes(filters.minSurface)) patch.minSurface = undefined;
+    if (Object.keys(patch).length > 0) onChange({ ...filters, ...patch });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [facets]);
 
   const showIncomeFilter = filters.listingType !== "koop";
   const incomeBasedMaxRent = filters.grossIncome ? Math.floor(filters.grossIncome / 3) : undefined;
-
-  const minimumPriceField = <div className="space-y-2"><Label htmlFor={horizontal ? "min-price-horizontal" : "min-price"}>Minimumprijs</Label><Input id={horizontal ? "min-price-horizontal" : "min-price"} type="number" min={0} value={filters.minPrice ?? ""} onChange={(e) => update({ minPrice: e.target.value ? Number(e.target.value) : undefined })} placeholder="Geen minimum" /></div>;
 
   // ============ HORIZONTAL (1-regel) LAYOUT ============
   if (horizontal) {
     const fieldClass = "flex min-w-[140px] flex-1 flex-col gap-1 [&_label]:font-bold [&_label]:text-foreground";
     return (
-      <div className="flex flex-wrap items-end gap-3">{minimumPriceField}
+      <div className="flex flex-wrap items-end gap-3">
         {!hideLocation && (
           <div className={fieldClass}>
             <Label className="text-xs">{t("filters.location")}</Label>
@@ -212,7 +231,7 @@ const SearchFilters = ({
 
   // ============ VERTICAL (sidebar) LAYOUT ============
   return (
-    <div className="space-y-6">{minimumPriceField}
+    <div className="space-y-6">
       {!hideLocation && (
         <div className="space-y-2">
           <Label>{t("filters.location")}</Label>

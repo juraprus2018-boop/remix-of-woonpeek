@@ -14,8 +14,6 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PROPERTY_TYPE_LABELS: Record<string, string> = {
   appartement: "Appartement",
   huis: "Huis",
-  studio: "Studio",
-  kamer: "Kamer",
   vakantiehuis: "Vakantiehuis",
 };
 
@@ -23,15 +21,8 @@ const DailyAlertSection = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [email, setEmail] = useState("");
-  const [params] = useState(() => new URLSearchParams(window.location.search));
-  const [city, setCity] = useState(params.get("plaats") || params.get("locatie") || "");
-  const [propertyType, setPropertyType] = useState(PROPERTY_TYPE_LABELS[params.get("type") || ""] ? params.get("type")! : "");
-  const [listingType, setListingType] = useState(["huur", "koop"].includes(params.get("aanbod") || "") ? params.get("aanbod")! : "");
-  const positiveNumber = (value: string | null) => value && Number.isFinite(Number(value)) && Number(value) > 0 ? String(Number(value)) : "";
-  const [maxPrice, setMaxPrice] = useState(positiveNumber(params.get("max_prijs")));
-  const [minRooms, setMinRooms] = useState(positiveNumber(params.get("min_kamers")));
-  const [feedback, setFeedback] = useState<{ error: boolean; message: string } | null>(null);
-  const summary = [city || "Heel Nederland", listingType === "huur" ? "Huur" : listingType === "koop" ? "Koop" : "Huur en koop", PROPERTY_TYPE_LABELS[propertyType] || "Alle woningtypes", maxPrice ? `maximaal ${new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(Number(maxPrice))}${listingType === "huur" ? " per maand" : ""}` : "Geen maximumprijs", minRooms ? `minimaal ${minRooms} kamers` : ""].filter(Boolean).join(" · ");
+  const [city, setCity] = useState("");
+  const [propertyType, setPropertyType] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
 
@@ -40,19 +31,13 @@ const DailyAlertSection = () => {
       email?: string;
       city: string;
       property_type?: string;
-      listing_type?: string;
-      max_price?: number;
-      min_rooms?: number;
       search_label?: string;
       turnstileToken?: string | null;
     }) => {
       const { data, error } = await supabase.functions.invoke("daily-alert-subscribe", {
         body: payload,
       });
-      if (error) {
-        const details = await error.context?.json?.().catch(() => null);
-        throw new Error(details?.error || "Inschrijven lukt nu niet. Controleer je verbinding en probeer opnieuw.");
-      }
+      if (error) throw error;
       if (data?.error) throw new Error(data.error);
       return data;
     },
@@ -61,12 +46,12 @@ const DailyAlertSection = () => {
         title: "Gelukt",
         description: data?.message || "Je bent ingeschreven voor alerts.",
       });
-      setFeedback({ error: false, message: data?.message || "Je inschrijving is gelukt. Je ontvangt maximaal één e-mail per dag als er passend nieuw aanbod is." });
       setEmail("");
+      setCity("");
+      setPropertyType("");
       setTurnstileToken(null);
     },
     onError: (error: unknown) => {
-      setFeedback({ error: true, message: error instanceof Error ? error.message : "Probeer het later opnieuw." });
       toast({
         variant: "destructive",
         title: "Inschrijven mislukt",
@@ -76,11 +61,6 @@ const DailyAlertSection = () => {
   });
 
   const handleSubmit = () => {
-    setFeedback(null);
-    if ((maxPrice && (!Number.isFinite(Number(maxPrice)) || Number(maxPrice) <= 0)) || (minRooms && (!Number.isInteger(Number(minRooms)) || Number(minRooms) <= 0))) {
-      setFeedback({ error: true, message: "Vul een positieve maximumprijs en een geheel aantal kamers in, of laat deze velden leeg." });
-      return;
-    }
     if (!city) {
       toast({
         variant: "destructive",
@@ -115,10 +95,9 @@ const DailyAlertSection = () => {
       email: user ? undefined : email.trim().toLowerCase(),
       city,
       property_type: propertyType || undefined,
-      listing_type: listingType || undefined,
-      max_price: maxPrice ? Number(maxPrice) : undefined,
-      min_rooms: minRooms ? Number(minRooms) : undefined,
-      search_label: summary,
+      search_label: propertyType
+        ? `${PROPERTY_TYPE_LABELS[propertyType]} in ${city}`
+        : undefined,
       turnstileToken,
     });
   };
@@ -141,9 +120,7 @@ const DailyAlertSection = () => {
     <section id="daily-alert" className="scroll-mt-24 bg-surface-cream py-8 md:py-10">
       <div className="container">
         <div className="mx-auto max-w-5xl rounded-2xl border-2 border-primary/20 bg-background p-5 shadow-md md:p-6">
-          <h2 className="font-display text-2xl font-bold text-foreground">Ontvang jouw gratis woonmelding</h2>
-          <p className="mb-5 mt-2 text-muted-foreground">Maximaal één e-mail per dag, alleen bij nieuw aanbod dat past bij jouw criteria. Gratis en altijd opzegbaar.</p>
-          <div className="grid gap-4 md:grid-cols-2 md:items-end">
+          <div className="grid gap-4 md:grid-cols-[1.2fr_1fr_1.3fr_auto] md:items-end">
             <MunicipalityCitySelect
               id="alert-city"
               value={city}
@@ -167,26 +144,10 @@ const DailyAlertSection = () => {
                 <option value="">Alle woningtypes</option>
                 <option value="appartement">Appartement</option>
                 <option value="huis">Huis</option>
-                <option value="studio">Studio</option>
-                <option value="kamer">Kamer</option>
                 <option value="vakantiehuis">Vakantiehuis</option>
               </select>
             </div>
 
-            <div>
-              <label htmlFor="alert-listing-type" className="mb-1.5 block text-sm font-medium text-foreground">Aanbod</label>
-              <select id="alert-listing-type" value={listingType} onChange={(e) => setListingType(e.target.value)} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
-                <option value="">Huur en koop</option><option value="huur">Huur</option><option value="koop">Koop</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="alert-max-price" className="mb-1.5 block text-sm font-medium text-foreground">Maximumprijs (€){listingType === "huur" ? " per maand" : ""}</label>
-              <Input id="alert-max-price" type="number" min="1" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="Geen maximum" />
-            </div>
-            <div>
-              <label htmlFor="alert-min-rooms" className="mb-1.5 block text-sm font-medium text-foreground">Minimaal aantal kamers</label>
-              <Input id="alert-min-rooms" type="number" min="1" step="1" value={minRooms} onChange={(e) => setMinRooms(e.target.value)} placeholder="Geen minimum" />
-            </div>
             {!user ? (
               <div>
                 <label
@@ -217,10 +178,6 @@ const DailyAlertSection = () => {
               </div>
             )}
 
-            <div className="rounded-lg border border-border bg-muted/40 p-4 text-sm text-foreground md:col-span-2" aria-live="polite">
-              <p className="font-semibold">Jouw zoekopdracht</p><p className="mt-1">{summary}</p>
-            </div>
-            {feedback && <p role={feedback.error ? "alert" : "status"} className={`md:col-span-2 text-sm ${feedback.error ? "text-destructive" : "text-foreground"}`}>{feedback.message}</p>}
             <Button
               onClick={handleSubmit}
               disabled={subscribe.isPending}

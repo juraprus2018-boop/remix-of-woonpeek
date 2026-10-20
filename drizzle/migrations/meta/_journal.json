@@ -78,27 +78,6 @@
       "when": 1792098771929,
       "tag": "0010_agency_claim_requests",
       "breakpoints": true
-    },
-    {
-      "idx": 11,
-      "version": "7",
-      "when": 1792397022706,
-      "tag": "0011_import_source_fidelity",
-      "breakpoints": true
-    },
-    {
-      "idx": 12,
-      "version": "7",
-      "when": 1792397027544,
-      "tag": "0012_property_reports",
-      "breakpoints": true
-    },
-    {
-      "idx": 13,
-      "version": "7",
-      "when": 1792434059617,
-      "tag": "0013_nearby_cities_rpc_and_geo_index",
-      "breakpoints": true
     }
   ]
 }

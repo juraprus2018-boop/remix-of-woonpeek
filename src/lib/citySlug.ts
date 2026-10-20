@@ -1,4 +1,3 @@
-import { canonicalizeCity } from "./cityAliases";
 /**
  * Canonical slug-helper voor Nederlandse plaatsnamen.
  *
@@ -11,7 +10,7 @@ import { canonicalizeCity } from "./cityAliases";
  */
 export const citySlug = (raw: string): string => {
   if (!raw) return "";
-  let s = canonicalizeCity(raw);
+  let s = raw;
 
   // 1) Unicode normalisatie + alle accenten weghalen.
   s = s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");

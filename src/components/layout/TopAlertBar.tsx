@@ -1,4 +1,4 @@
-import { L as Link } from "@/components/LocalizedLink";
+import { Link } from "react-router-dom";
 import { Bell, X } from "lucide-react";
 import { useState } from "react";
 

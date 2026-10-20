@@ -42,12 +42,12 @@ const useBanners = () =>
     staleTime: 30 * 60 * 1000,
   });
 
-/** Random rotation: first pick an advertiser at random, then one of its banners. */
-const pickOne = (list: Banner[], _advertiser?: string | null) => {
+const pickOne = (list: Banner[], advertiser?: string | null) => {
   if (!list.length) return null;
-  const names = Array.from(new Set(list.map((b) => b.advertiser_name ?? "")));
-  const name = names[Math.floor(Math.random() * names.length)];
-  const pool = list.filter((b) => (b.advertiser_name ?? "") === name);
+  const preferred = DEFAULT_ADVERTISER;
+  const own = list.filter((b) => b.advertiser_name?.toLowerCase() === preferred.toLowerCase());
+  const fallback = list.filter((b) => b.advertiser_name?.toLowerCase() === advertiser?.toLowerCase());
+  const pool = own.length ? own : fallback.length ? fallback : list;
   return pool[Math.floor(Math.random() * pool.length)];
 };
 

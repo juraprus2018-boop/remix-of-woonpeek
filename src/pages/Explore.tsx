@@ -1,5 +1,3 @@
-import { parseSearchFilters, serializeSearchFilters } from "@/lib/searchFilters";
-import { canonicalizeCity, cityKey } from "@/lib/cityAliases";
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -52,13 +50,12 @@ const PROPERTY_TYPE_LABELS: Record<string, string> = {
 };
 
 const ExplorePage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const urlFilters = useMemo(() => parseSearchFilters(searchParams), [searchParams]);
-  const [selectedCity, setSelectedCity] = useState<string | null>(urlFilters.city || null);
-  const [listingType, setListingType] = useState<ListingType | null>(urlFilters.listingType || null);
+  const [searchParams] = useSearchParams();
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [listingType, setListingType] = useState<ListingType | null>(null);
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
-  const [propertyType, setPropertyType] = useState<string | null>(urlFilters.propertyType || null);
-  const [minBedrooms, setMinBedrooms] = useState<string | null>(urlFilters.minBedrooms?.toString() || null);
+  const [propertyType, setPropertyType] = useState<string | null>(null);
+  const [minBedrooms, setMinBedrooms] = useState<string | null>(null);
   const [citySearch, setCitySearch] = useState("");
   const [mapBounds, setMapBounds] = useState<{ south: number; north: number; west: number; east: number } | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>("newest");
@@ -133,11 +130,7 @@ const ExplorePage = () => {
 
   // Use paginated query for the list (fast initial load)
   const { data: listData, isPending: isLoading, isError: isListError, refetch: refetchList } = useProperties({
-    minPrice: urlFilters.minPrice,
-    maxPrice: urlFilters.grossIncome && listingType !== "koop" ? Math.min(urlFilters.maxPrice ?? Infinity, Math.floor(urlFilters.grossIncome / 3)) : urlFilters.maxPrice,
-    minSurface: urlFilters.minSurface,
-    includeInactive: urlFilters.includeInactive,
-    listingType: listingType || (urlFilters.grossIncome ? "huur" : undefined),
+    listingType: listingType || undefined,
     sourceSite: selectedSource || undefined,
     city: selectedCity || undefined,
     propertyType: (propertyType as any) || undefined,
@@ -150,18 +143,14 @@ const ExplorePage = () => {
   // When a postcode filter is active we ALWAYS need the full set (not just the
   // first paginated page), otherwise the list shows fewer results than the map.
   const { data: mapData, isPending: isMapLoading, isError: isMapError, refetch: refetchMap } = useMapProperties({
-    minPrice: urlFilters.minPrice,
-    maxPrice: urlFilters.grossIncome && listingType !== "koop" ? Math.min(urlFilters.maxPrice ?? Infinity, Math.floor(urlFilters.grossIncome / 3)) : urlFilters.maxPrice,
-    minSurface: urlFilters.minSurface,
-    includeInactive: urlFilters.includeInactive,
-    listingType: listingType || (urlFilters.grossIncome ? "huur" : undefined),
+    listingType: listingType || undefined,
     propertyType: (propertyType as any) || undefined,
     minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
     sortBy,
   });
 
   const matchesSelection = useCallback((p: { city: string; source_site: string | null }) =>
-    (!selectedCity || cityKey(p.city) === cityKey(selectedCity)) &&
+    (!selectedCity || p.city.toLowerCase() === selectedCity.toLowerCase()) &&
     (!selectedSource || p.source_site === selectedSource), [selectedCity, selectedSource]);
   const resultsLoading = isLoading || geocoding || (!!postcodeCoords && isMapLoading);
   const resultsError = isListError || (!!postcodeCoords && isMapError);
@@ -216,7 +205,7 @@ const ExplorePage = () => {
     const q = citySearch.trim().toLowerCase();
     for (const p of areaProperties) {
       if (selectedSource && p.source_site !== selectedSource) continue;
-      const name = canonicalizeCity(p.city);
+      const name = p.city.trim();
       if (!name || (q && !name.toLowerCase().includes(q))) continue;
       counts.set(name, (counts.get(name) || 0) + 1);
     }
@@ -227,7 +216,7 @@ const ExplorePage = () => {
   const activeSources = useMemo(() => {
     const counts = new Map<string, number>();
     for (const p of areaProperties) {
-      if (selectedCity && cityKey(p.city) !== cityKey(selectedCity)) continue;
+      if (selectedCity && p.city.toLowerCase() !== selectedCity.toLowerCase()) continue;
       const key = p.source_site;
       if (key) counts.set(key, (counts.get(key) || 0) + 1);
     }
@@ -648,7 +637,7 @@ const ExplorePage = () => {
                 <Button
                   variant={mobileView === "list" ? "secondary" : "ghost"}
                   size="sm"
-                  onClick={() => { setMobileView("list"); const params = new URLSearchParams(searchParams); serializeSearchFilters({ ...urlFilters, city: selectedCity || "", listingType: listingType || "", propertyType: (propertyType || "") as typeof urlFilters.propertyType, minBedrooms: minBedrooms ? Number(minBedrooms) : undefined }).forEach((value, key) => params.set(key, value)); params.set("weergave", "lijst"); setSearchParams(params); }}
+                  onClick={() => setMobileView("list")}
                   className="rounded-none h-8 px-3 gap-1.5"
                 >
                   <List className="h-3.5 w-3.5" />
@@ -657,7 +646,7 @@ const ExplorePage = () => {
                 <Button
                   variant={mobileView === "map" ? "secondary" : "ghost"}
                   size="sm"
-                  onClick={() => { setMobileView("map"); const params = new URLSearchParams(searchParams); params.set("weergave", "kaart"); setSearchParams(params); }}
+                  onClick={() => setMobileView("map")}
                   className="rounded-none h-8 px-3 gap-1.5"
                 >
                   <MapIcon className="h-3.5 w-3.5" />
