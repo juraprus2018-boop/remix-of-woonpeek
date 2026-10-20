@@ -379,6 +379,14 @@ const AdminTikTok = () => {
           />
         </div>
 
+        <Card className="p-4 space-y-2">
+          <label className="text-sm font-medium" htmlFor="tiktok-music">Muziek onder de video (eigen MP3, optioneel)</label>
+          <Input id="tiktok-music" type="file" accept="audio/*" onChange={(e) => setMusic(e.target.files?.[0] ?? null)} />
+          <p className="text-xs text-muted-foreground">
+            {music ? `Gekozen: ${music.name}` : "Geen muziek gekozen."} Bekende nummers zoals Madness - Our House kun je beter in de TikTok-app zelf toevoegen via "Geluid toevoegen": dan blijft de video zichtbaar en word je vindbaar via het nummer. Eigen bestanden met auteursrecht dempt TikTok vaak.
+          </p>
+        </Card>
+
         {/* Lijst */}
         {isLoading ? (
           <div className="flex justify-center py-12">
