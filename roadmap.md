@@ -1,7 +1,4 @@
 # Kaartpagina
-- [ ] Eigen bezoekregistratie stoppen en bezoekstatistieken uit het dashboard verwijderen.
-- [ ] Bezoekgegevens en veilig gekozen caches opruimen; bescherming tegen nieuwe bezoekgegevens controleren.
-- [ ] Dagelijkse credits zichtbaar maken: geblokkeerd totdat een ondersteunde kostenkoppeling beschikbaar is.
 - [x] Belangrijkste stadspagina’s verrijken met actuele huurdata, geverifieerde lokale informatie en aanbodlinks.
 - [x] Cijfers, aanbodlinks en weergave van stadspagina’s testen zonder te publiceren.
 - [x] Nieuw uitgebreid blogartikel en perspublicatie maken met gecontroleerde aanbodcijfers en beeld.

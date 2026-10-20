@@ -72,6 +72,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navItems = [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
     { to: "/admin/dagoverzicht", label: "Dagoverzicht", icon: CalendarDays },
+    { to: "/admin/verkeer", label: "Bezoekers & verkeer", icon: Globe },
     { to: "/admin/gebruikers", label: "Gebruikers", icon: Users },
     { to: "/admin/woningen", label: "Woningen", icon: HomeIcon },
     { to: "/admin/scrapers", label: "Daisycon", icon: Activity },

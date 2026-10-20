@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import AdminLayout from "./AdminLayout";
@@ -16,12 +16,14 @@ import {
   MousePointerClick, Eye, Target, ArrowLeft, ExternalLink, Award, Percent,
   Users, Activity, Zap, Clock, MapPin
 } from "lucide-react";
-import { format, subHours } from "date-fns";
+import { format, subHours, subMinutes } from "date-fns";
 import { nl } from "date-fns/locale";
 import { toast } from "sonner";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 type ViewMode = "overview" | "top-pages" | "all-clicks" | "impressions" | "indexed" | "detail";
-type MainTab = "ranking" | "affiliate";
+type MainTab = "ranking" | "live";
 
 const COLORS = [
   "hsl(var(--primary))", "hsl(142, 76%, 36%)", "hsl(217, 91%, 60%)",
@@ -37,25 +39,246 @@ const AdminGoogleRanking = () => {
   const [viewMode, setViewMode] = useState<ViewMode>("overview");
   const [mainTab, setMainTab] = useState<MainTab>("ranking");
 
-  const { data: stats24h, isLoading: clicksLoading, isError: clicksError } = useQuery({
-    queryKey: ["affiliate-clicks-24h"],
-    enabled: mainTab === "affiliate",
+  // Live stats: page views last 5 min
+  const { data: liveVisitors } = useQuery({
+    queryKey: ["live-visitors"],
+    queryFn: async () => {
+      const fiveMinAgo = subMinutes(new Date(), 5).toISOString();
+      const { data, error } = await supabase
+        .from("page_views")
+        .select("session_id, page_url, created_at")
+        .gte("created_at", fiveMinAgo)
+        .order("created_at", { ascending: false }) as any;
+      if (error) throw error;
+      // Filter out admin/preview pages
+      const filtered = (data || []).filter((pv: any) =>
+        !pv.page_url.startsWith("/admin") && !pv.page_url.includes("forceHideBadge")
+      );
+      const sessions: Record<string, { pages: string[]; lastSeen: string }> = {};
+      for (const pv of filtered) {
+        if (!sessions[pv.session_id]) sessions[pv.session_id] = { pages: [], lastSeen: pv.created_at };
+        sessions[pv.session_id].pages.push(pv.page_url);
+      }
+      return { count: Object.keys(sessions).length, sessions };
+    },
+    refetchInterval: 15000,
+  });
+
+  // 24h stats
+  const { data: stats24h } = useQuery({
+    queryKey: ["stats-24h"],
     queryFn: async () => {
       const dayAgo = subHours(new Date(), 24).toISOString();
-      const { data, error } = await supabase.from("daisycon_clicks")
-        .select("id, source_site, page_url, created_at")
-        .gte("created_at", dayAgo).order("created_at", { ascending: false }).limit(1000);
-      if (error) throw error;
-      const clicks = data ?? [];
-      const counts: Record<string, number> = {};
-      for (const click of clicks) {
-        const source = click.source_site || "Onbekend";
-        counts[source] = (counts[source] || 0) + 1;
+      const [pvRes, clickRes] = await Promise.all([
+        supabase.from("page_views").select("session_id, page_url, created_at").gte("created_at", dayAgo).order("created_at", { ascending: false }).limit(5000) as any,
+        supabase.from("daisycon_clicks").select("*").gte("created_at", dayAgo).order("created_at", { ascending: false }).limit(1000) as any,
+      ]);
+      if (pvRes.error) throw pvRes.error;
+      if (clickRes.error) throw clickRes.error;
+
+      const pageViews = (pvRes.data || []).filter((pv: any) =>
+        !pv.page_url.startsWith("/admin") && !pv.page_url.includes("forceHideBadge")
+      );
+      const clicks = clickRes.data || [];
+      const uniqueSessions = new Set(pageViews.map((p: any) => p.session_id)).size;
+
+      // Top pages
+      const pageCounts: Record<string, number> = {};
+      for (const pv of pageViews) {
+        pageCounts[pv.page_url] = (pageCounts[pv.page_url] || 0) + 1;
       }
-      return { clicks, sourceCounts: Object.entries(counts).map(([name, value]) => ({ name, value })) };
+      const topPages24h = Object.entries(pageCounts)
+        .map(([url, views]) => ({ url, views }))
+        .sort((a, b) => b.views - a.views)
+        .slice(0, 20);
+
+      // Hourly chart
+      const hourly: Record<string, { views: number; clicks: number }> = {};
+      for (let i = 23; i >= 0; i--) {
+        const h = format(subHours(new Date(), i), "HH:00");
+        hourly[h] = { views: 0, clicks: 0 };
+      }
+      for (const pv of pageViews) {
+        const h = format(new Date(pv.created_at), "HH:00");
+        if (hourly[h]) hourly[h].views++;
+      }
+      for (const c of clicks) {
+        const h = format(new Date(c.created_at), "HH:00");
+        if (hourly[h]) hourly[h].clicks++;
+      }
+      const hourlyChart = Object.entries(hourly).map(([hour, d]) => ({ hour, ...d }));
+
+      // Click sources
+      const sourceCounts: Record<string, number> = {};
+      for (const c of clicks) {
+        const src = c.source_site || "Onbekend";
+        sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+      }
+
+      return {
+        totalViews: pageViews.length,
+        uniqueSessions,
+        totalClicks: clicks.length,
+        topPages: topPages24h,
+        hourlyChart,
+        clicks,
+        sourceCounts: Object.entries(sourceCounts).map(([name, value]) => ({ name, value })),
+      };
     },
-    staleTime: 60_000,
+    refetchInterval: 30000,
   });
+
+  // Active pages (last 5 min)
+  const activePages = useMemo(() => {
+    if (!liveVisitors?.sessions) return [];
+    const counts: Record<string, number> = {};
+    for (const s of Object.values(liveVisitors.sessions)) {
+      const latestPage = s.pages[0];
+      counts[latestPage] = (counts[latestPage] || 0) + 1;
+    }
+    return Object.entries(counts).map(([url, count]) => ({ url, count })).sort((a, b) => b.count - a.count);
+  }, [liveVisitors]);
+
+  // City coordinates for the visitor map
+  const CITY_COORDS: Record<string, [number, number]> = {
+    amsterdam: [52.3676, 4.9041], rotterdam: [51.9225, 4.4792], utrecht: [52.0907, 5.1214],
+    "den-haag": [52.0705, 4.3007], eindhoven: [51.4416, 5.4697], groningen: [53.2194, 6.5665],
+    tilburg: [51.5555, 5.0913], almere: [52.3508, 5.2647], breda: [51.5719, 4.7683],
+    nijmegen: [51.8126, 5.8372], arnhem: [51.9851, 5.8987], haarlem: [52.3874, 4.6462],
+    enschede: [52.2215, 6.8937], apeldoorn: [52.2112, 5.9699], amersfoort: [52.1561, 5.3878],
+    zaanstad: [52.4389, 4.8267], "s-hertogenbosch": [51.6978, 5.3037], zwolle: [52.5168, 6.0830],
+    leiden: [52.1601, 4.4970], maastricht: [50.8514, 5.6910], dordrecht: [51.8133, 4.6901],
+    zoetermeer: [52.0575, 4.4931], deventer: [52.2554, 6.1603], delft: [52.0116, 4.3571],
+    leeuwarden: [53.2012, 5.7999], alkmaar: [52.6324, 4.7534], hilversum: [52.2292, 5.1669],
+    heerlen: [50.8882, 5.9795], oss: [51.7652, 5.5183], roosendaal: [51.5309, 4.4655],
+    venlo: [51.3704, 6.1724], helmond: [51.4816, 5.6614], vlaardingen: [51.9128, 4.3410],
+    gouda: [52.0115, 4.7106], leidschendam: [52.0854, 4.3987], purmerend: [52.5054, 4.9571],
+    schiedam: [51.9173, 4.3895], spijkenisse: [51.8451, 4.3291], capelle: [51.9291, 4.5781],
+    veenendaal: [52.0269, 5.5552], zeist: [52.0891, 5.2310], ede: [52.0480, 5.6641],
+    hoorn: [52.6428, 5.0596], harderwijk: [52.3416, 5.6200], alphen: [52.1287, 4.6571],
+    kampen: [52.5555, 5.9115], middelburg: [51.4988, 3.6136], vlissingen: [51.4427, 3.5727],
+    "den-bosch": [51.6978, 5.3037], "the-hague": [52.0705, 4.3007],
+  };
+
+  // Extract city markers from ALL session pages (not just current page)
+  const visitorMarkers = useMemo(() => {
+    if (!liveVisitors?.sessions) return [];
+    const cityVisitors: Record<string, number> = {};
+    const cityPatterns = [
+      /\/woningen-([a-z-]+)/,
+      /\/huurwoningen\/([a-z-]+)/,
+      /\/koopwoningen\/([a-z-]+)/,
+      /\/appartementen\/([a-z-]+)/,
+      /\/huizen\/([a-z-]+)/,
+      /\/studios\/([a-z-]+)/,
+      /\/kamers\/([a-z-]+)/,
+      /\/nieuw-aanbod\/([a-z-]+)/,
+      /\/huurprijzen\/([a-z-]+)/,
+      /\/wijk\/([a-z-]+)\//,
+    ];
+
+    for (const session of Object.values(liveVisitors.sessions)) {
+      let foundCity: string | null = null;
+      // Check all pages visited by this session
+      for (const pageUrl of session.pages) {
+        const url = pageUrl.toLowerCase();
+        // Try city patterns first
+        for (const pat of cityPatterns) {
+          const m = url.match(pat);
+          if (m?.[1] && CITY_COORDS[m[1]]) { foundCity = m[1]; break; }
+        }
+        if (foundCity) break;
+        // Try /woning/{slug} — slug format: street-housenumber-city
+        const woningMatch = url.match(/\/woning\/([a-z0-9-]+)/);
+        if (woningMatch?.[1]) {
+          const parts = woningMatch[1].split("-");
+          // Try last 1-2 parts as city
+          for (let len = 1; len <= Math.min(2, parts.length); len++) {
+            const candidate = parts.slice(-len).join("-");
+            if (CITY_COORDS[candidate]) { foundCity = candidate; break; }
+          }
+        }
+        if (foundCity) break;
+      }
+      if (foundCity) {
+        cityVisitors[foundCity] = (cityVisitors[foundCity] || 0) + 1;
+      }
+    }
+    return Object.entries(cityVisitors)
+      .filter(([city]) => CITY_COORDS[city])
+      .map(([city, count]) => ({ city, count, coords: CITY_COORDS[city] }));
+  }, [liveVisitors]);
+
+  // Leaflet map ref
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+
+  // Clean up map when leaving live tab
+  useEffect(() => {
+    if (mainTab !== "live" && mapInstanceRef.current) {
+      mapInstanceRef.current.remove();
+      mapInstanceRef.current = null;
+    }
+  }, [mainTab]);
+
+  useEffect(() => {
+    if (mainTab !== "live" || !mapContainerRef.current) return;
+
+    // Always create a fresh map when entering the live tab
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.remove();
+      mapInstanceRef.current = null;
+    }
+
+    const map = L.map(mapContainerRef.current, {
+      center: [52.1326, 5.2913],
+      zoom: 7,
+      zoomControl: true,
+      scrollWheelZoom: false,
+      maxBounds: [[50.5, 3.0], [53.7, 7.5]],
+    });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    }).addTo(map);
+
+    mapInstanceRef.current = map;
+
+    // Add visitor markers
+    for (const m of visitorMarkers) {
+      const radius = Math.min(8 + m.count * 4, 25);
+      L.circleMarker(m.coords, {
+        radius,
+        fillColor: "#22c55e",
+        color: "#16a34a",
+        weight: 2,
+        opacity: 0.9,
+        fillOpacity: 0.6,
+      })
+        .bindPopup(`<strong>${m.city.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())}</strong><br/>${m.count} ${m.count === 1 ? "bezoeker" : "bezoekers"}`)
+        .addTo(map);
+    }
+
+    // If no city markers found, show all live sessions as a pulsing dot at center
+    if (visitorMarkers.length === 0 && (liveVisitors?.count || 0) > 0) {
+      L.circleMarker([52.1326, 5.2913], {
+        radius: 12,
+        fillColor: "#22c55e",
+        color: "#16a34a",
+        weight: 2,
+        opacity: 0.9,
+        fillOpacity: 0.4,
+      })
+        .bindPopup(`<strong>${liveVisitors?.count} bezoekers</strong><br/>Stad onbekend`)
+        .addTo(map);
+    }
+
+    setTimeout(() => map.invalidateSize(), 150);
+
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+    };
+  }, [mainTab, visitorMarkers, liveVisitors?.count]);
 
   // Fetch indexing log
   const { data: indexingLog, isLoading: logLoading, refetch: refetchIndexingLog } = useQuery({
@@ -781,11 +1004,170 @@ const AdminGoogleRanking = () => {
     </div>
   );
 
-  const renderAffiliateView = () => (
+  const liveChartConfig = {
+    views: { label: "Pageviews", color: "hsl(217, 91%, 60%)" },
+    clicks: { label: "Affiliate klikken", color: "hsl(142, 76%, 36%)" },
+  };
+
+  const renderLiveView = () => (
     <div className="space-y-6">
-      {clicksLoading && <p className="text-muted-foreground">Klikken laden...</p>}
-      {clicksError && <p className="text-destructive">Affiliateklikken konden niet worden opgehaald.</p>}
-      <div>
+      {/* Live stats cards */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className="border-green-500/30 bg-green-50/50 dark:bg-green-950/20">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Nu Online</CardTitle>
+            <Activity className="h-4 w-4 text-green-500 animate-pulse" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-green-600">{liveVisitors?.count || 0}</div>
+            <p className="text-xs text-muted-foreground">bezoekers (laatste 5 min)</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Pageviews 24u</CardTitle>
+            <Eye className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats24h?.totalViews?.toLocaleString() || 0}</div>
+            <p className="text-xs text-muted-foreground">{stats24h?.uniqueSessions || 0} unieke sessies</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Affiliate Klikken 24u</CardTitle>
+            <Zap className="h-4 w-4 text-amber-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats24h?.totalClicks || 0}</div>
+            <p className="text-xs text-muted-foreground">doorkliks naar aanbieders</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Conversieratio</CardTitle>
+            <Percent className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {stats24h?.totalViews && stats24h.totalClicks
+                ? ((stats24h.totalClicks / stats24h.totalViews) * 100).toFixed(2) + "%"
+                : "0%"}
+            </div>
+            <p className="text-xs text-muted-foreground">klikken / pageviews</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Visitor Map */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <MapPin className="h-4 w-4 text-green-500" />
+            Bezoekers op de kaart
+          </CardTitle>
+          <CardDescription>
+            {visitorMarkers.length > 0
+              ? `${visitorMarkers.reduce((s, v) => s + v.count, 0)} bezoekers in ${visitorMarkers.length} steden`
+              : "Bezoekers worden getoond op basis van de stadspagina die ze bekijken"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div ref={mapContainerRef} className="h-[400px] w-full rounded-lg border" style={{ zIndex: 0 }} />
+          {visitorMarkers.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {visitorMarkers.map((m) => (
+                <Badge key={m.city} variant="secondary" className="gap-1">
+                  <span className="h-2 w-2 rounded-full bg-green-500 inline-block" />
+                  {m.city.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase())} ({m.count})
+                </Badge>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Active pages */}
+      {activePages.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Activity className="h-4 w-4 text-green-500 animate-pulse" />
+              Live Actieve Pagina's
+            </CardTitle>
+            <CardDescription>{liveVisitors?.count || 0} bezoekers op {activePages.length} pagina's</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              {activePages.slice(0, 15).map((p) => (
+                <div key={p.url} className="flex items-center justify-between rounded-md border px-3 py-2">
+                  <span className="text-sm truncate max-w-md">{p.url}</span>
+                  <Badge variant="secondary">{p.count} {p.count === 1 ? "bezoeker" : "bezoekers"}</Badge>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Hourly chart */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Traffic per uur (24u)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {stats24h?.hourlyChart?.length ? (
+            <ChartContainer config={liveChartConfig} className="h-[280px] w-full">
+              <AreaChart data={stats24h.hourlyChart}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="hour" tick={{ fontSize: 11 }} />
+                <YAxis tick={{ fontSize: 11 }} />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Area type="monotone" dataKey="views" stroke="var(--color-views)" fill="var(--color-views)" fillOpacity={0.15} strokeWidth={2} />
+                <Area type="monotone" dataKey="clicks" stroke="var(--color-clicks)" fill="var(--color-clicks)" fillOpacity={0.15} strokeWidth={2} />
+              </AreaChart>
+            </ChartContainer>
+          ) : (
+            <p className="py-8 text-center text-muted-foreground">Nog geen data beschikbaar</p>
+          )}
+        </CardContent>
+      </Card>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        {/* Top pages 24h */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Meest Bezochte Pagina's (24u)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {stats24h?.topPages?.length ? (
+              <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Pagina</TableHead>
+                      <TableHead className="text-right">Views</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {stats24h.topPages.map((p) => (
+                      <TableRow key={p.url}>
+                        <TableCell className="max-w-xs truncate text-sm">{p.url}</TableCell>
+                        <TableCell className="text-right font-medium">{p.views}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            ) : (
+              <p className="py-8 text-center text-muted-foreground">Nog geen data</p>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Daisycon clicks by source */}
         <Card>
           <CardHeader>
@@ -852,8 +1234,8 @@ const AdminGoogleRanking = () => {
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Google Ranking</h1>
-            <p className="text-muted-foreground">Google-posities en affiliateklikken</p>
+            <h1 className="text-2xl font-bold">Google Ranking & Traffic</h1>
+            <p className="text-muted-foreground">Volg je posities, bezoekers en affiliate klikken</p>
           </div>
           <div className="flex gap-2">
             {mainTab === "ranking" && (
@@ -870,8 +1252,11 @@ const AdminGoogleRanking = () => {
             <TabsTrigger value="ranking" className="gap-2">
               <BarChart3 className="h-4 w-4" /> Ranking
             </TabsTrigger>
-            <TabsTrigger value="affiliate" className="gap-2">
-              <MousePointerClick className="h-4 w-4" /> Affiliateklikken
+            <TabsTrigger value="live" className="gap-2">
+              <Activity className="h-4 w-4" /> Live & Traffic
+              {(liveVisitors?.count || 0) > 0 && (
+                <Badge className="ml-1 bg-green-500 text-white text-xs px-1.5 py-0">{liveVisitors?.count}</Badge>
+              )}
             </TabsTrigger>
           </TabsList>
 
@@ -884,8 +1269,8 @@ const AdminGoogleRanking = () => {
             {viewMode === "detail" && renderDetailView()}
           </TabsContent>
 
-          <TabsContent value="affiliate" className="mt-4">
-            {renderAffiliateView()}
+          <TabsContent value="live" className="mt-4">
+            {renderLiveView()}
           </TabsContent>
         </Tabs>
       </div>

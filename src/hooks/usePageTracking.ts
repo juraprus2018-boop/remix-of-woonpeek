@@ -30,11 +30,18 @@ export const usePageTracking = () => {
     lastPath.current = fullPath;
     trackPageView(fullPath);
 
+    const sessionId = getSessionId();
+    supabase.from("page_views").insert({
+      session_id: sessionId,
+      page_url: fullPath,
+      referrer: document.referrer || null,
+      user_agent: navigator.userAgent,
+    } as any).then(() => {});
   }, [location.pathname, location.search]);
 };
 
 export const trackDaisyconClick = async (propertyId: string, sourceUrl: string, sourceSite: string | null) => {
-  const sessionId = getSessionId();
+  const sessionId = sessionStorage.getItem("wp_session_id") || "unknown";
   await supabase.from("daisycon_clicks").insert({
     property_id: propertyId,
     session_id: sessionId,
