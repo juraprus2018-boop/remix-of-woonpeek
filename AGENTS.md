@@ -1,4 +1,5 @@
 # Project architecture rules
+- Database pageview tracking is retired: the router hook only forwards consent-gated GA events, legacy traffic inserts are ignored, and the old rollup is a no-op to prevent historical clients or schedules rebuilding visitor data; affiliate click attribution remains separate.
 
 - TikTok automation posts recent active rentals as photo carousels by default, uses up to 35 real listing photos, and includes the canonical property URL in every caption, because each social post must lead directly to its listing.- Listing landing pages use one structure, /huurwoningen|koopwoningen/{city}/{filter}; old type/budget/aanbod-in paths redirect there and filter pages are indexed only with enough listings, to avoid duplicate URLs for one search intent.
 - Agencies (makelaars) are owned via agencies.owner_user_id, not a role; their feed listings are stored as properties with user_id = owner and agency_id set, so existing property RLS covers editing.
