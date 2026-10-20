@@ -12,4 +12,4 @@
 - The alert-digest template owns its email layout and theme separately from other transactional emails, so housing-mail redesigns cannot alter authentication, contact or welcome messages.
 - Press publications store optional editorial image metadata and a related blog slug in their existing data object, so rich releases remain compatible with automated releases without schema changes.
 - City rental insights share a paginated exact-city active-rental query and pure statistical calculation across city and canonical rental routes, with attributed local context and explicit samples, so price comparisons never mix sales or silently truncated listing data.
-- Facebook video diagnostics read the existing video's upload, processing and publishing phases without creating a replacement post; an accepted video ID alone does not establish visibility.
+- Facebook daily videos render actual MP4s and persist one job per Amsterdam calendar day with atomic write claims and remote IDs; only ready videos with completed publishing count as posted, and unknown upload outcomes require reconciliation before retry.

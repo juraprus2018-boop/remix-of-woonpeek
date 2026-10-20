@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
+import { dailyVideo } from "./dailyVideo.ts";
 
 // Facebook + Instagram autoposting is re-enabled for the Woonaanbod NL page.
 
@@ -802,39 +803,17 @@ Deno.serve(async (req) => {
       });
     }
 
-    // ─── Daily video (Facebook slideshow) ───────────────────
-    if (body.video === true) {
-      const { data: candidates, error: vErr } = await supabase
-        .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year")
-        .eq("status", "actief")
-        .eq("listing_type", "huur")
-        .is("facebook_posted_at", null)
-        .order("created_at", { ascending: false })
-        .limit(30);
-      if (vErr) throw vErr;
-      const prop = (candidates || []).find((p: any) => Array.isArray(p.images) && p.images.filter((u: string) => /^https?:\/\//.test(u)).length >= 4);
-      if (!prop) {
-        return new Response(JSON.stringify({ success: false, error: "Geen geschikte woning met minimaal 4 foto's" }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      }
-      const imgs = [...new Set((prop.images as string[]).filter((u) => /^https?:\/\//.test(u)))].slice(0, 10);
-      const res = await fetch(`${GRAPH_API}/${PAGE_ID}/videos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          slideshow_spec: { images_urls: imgs, duration_ms: 2200, transition_ms: 400 },
-          description: buildCaption(prop as Property),
-          title: `${(prop.property_type || "Woning").replace(/^./, (m: string) => m.toUpperCase())} in ${prop.city}`,
-          access_token: PAGE_ACCESS_TOKEN,
-        }),
+    if (body.video_check === true) {
+      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, buildCaption, body)), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
-      const vData = await res.json();
-      console.log("Video slideshow response:", JSON.stringify(vData));
-      if (!res.ok || vData.error) {
-        return new Response(JSON.stringify({ success: false, error: vData.error?.message || "Video mislukt", details: vData }), { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } });
-      }
-      await supabase.from("properties").update({ facebook_posted_at: new Date().toISOString() }).eq("id", prop.id);
-      return new Response(JSON.stringify({ success: true, video_id: vData.id, property_id: prop.id, city: prop.city }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    // Render an actual MP4 and retain processing state, never count an ID as publication.
+    if (body.video === true) {
+      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, buildCaption, body)), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // ─── Auto Post (daily batch) ────────────────────────────

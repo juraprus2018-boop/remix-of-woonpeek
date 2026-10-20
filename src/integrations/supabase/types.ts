@@ -848,6 +848,53 @@ export type Database = {
         }
         Relationships: []
       }
+      facebook_video_jobs: {
+        Row: {
+          created_at: string
+          day: string
+          details: Json
+          permalink_url: string | null
+          property_id: string | null
+          render_id: string | null
+          status: string
+          updated_at: string
+          video_id: string | null
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          day: string
+          details?: Json
+          permalink_url?: string | null
+          property_id?: string | null
+          render_id?: string | null
+          status?: string
+          updated_at?: string
+          video_id?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          details?: Json
+          permalink_url?: string | null
+          property_id?: string | null
+          render_id?: string | null
+          status?: string
+          updated_at?: string
+          video_id?: string | null
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "facebook_video_jobs_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       favorites: {
         Row: {
           created_at: string
