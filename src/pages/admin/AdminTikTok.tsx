@@ -20,11 +20,13 @@ import {
   Link2,
   Zap,
   AlertTriangle,
+  Video,
 } from "lucide-react";
 import {
   generateSlides,
   downloadSlidesZip,
   buildTikTokCaption,
+  generateVideo,
   type SlideProperty,
 } from "@/lib/tiktokSlides";
 
@@ -177,6 +179,28 @@ const AdminTikTok = () => {
       toast.error("Download mislukt", { description: e?.message });
     } finally {
       setBusyId(null);
+    }
+  };
+
+  const [videoProgress, setVideoProgress] = useState<Record<string, number>>({});
+  const [videos, setVideos] = useState<Record<string, { url: string; ext: string }>>({});
+  const handleVideo = async (p: any) => {
+    setBusyId(p.id);
+    try {
+      toast.info("Video wordt gemaakt, houd dit tabblad open");
+      const { blob, ext } = await generateVideo(p as SlideProperty, (f) => setVideoProgress((v) => ({ ...v, [p.id]: f })));
+      const url = URL.createObjectURL(blob);
+      setVideos((v) => ({ ...v, [p.id]: { url, ext } }));
+      const a = document.createElement("a");
+      a.href = url; a.download = `woonaanbod-${p.city}-${p.id.slice(0, 6)}.${ext}`.toLowerCase().replace(/\s+/g, "-");
+      a.click();
+      await navigator.clipboard.writeText(buildTikTokCaption(p as SlideProperty)).catch(() => {});
+      toast.success("Video gedownload, caption met hashtags staat op je klembord");
+    } catch (e: any) {
+      toast.error("Video maken mislukt", { description: e?.message });
+    } finally {
+      setBusyId(null);
+      setVideoProgress((v) => { const n = { ...v }; delete n[p.id]; return n; });
     }
   };
 
@@ -401,6 +425,10 @@ const AdminTikTok = () => {
                             Post alle foto's
                           </Button>
                         )}
+                        <Button size="sm" onClick={() => handleVideo(p)} disabled={busyId === p.id} className="gap-1">
+                          {videoProgress[p.id] != null ? <Loader2 className="h-4 w-4 animate-spin" /> : <Video className="h-4 w-4" />}
+                          {videoProgress[p.id] != null ? `Video ${Math.round(videoProgress[p.id] * 100)}%` : "Maak video"}
+                        </Button>
                         <Button
                           size="sm"
                           variant="outline"
@@ -437,6 +465,9 @@ const AdminTikTok = () => {
                         </Button>
                       </div>
 
+                      {videos[p.id] && (
+                        <video src={videos[p.id].url} controls className="mt-2 w-48 rounded-lg border" />
+                      )}
                       {preview && (
                         <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-7">
                           {preview.map((url, i) => (

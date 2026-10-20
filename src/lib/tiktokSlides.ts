@@ -257,34 +257,130 @@ export async function downloadSlidesZip(p: SlideProperty): Promise<void> {
 
 export function buildTikTokCaption(p: SlideProperty): string {
   const price = fmtPrice(p.price, p.listing_type);
-  const type = p.listing_type === "huur" ? "Te huur" : "Te koop";
-  const url = `${propertyUrl(p)}?utm_source=tiktok&utm_medium=social&utm_campaign=tiktok-dashboard`;
+  const huur = p.listing_type === "huur";
+  const type = (p.property_type || "woning").toLowerCase();
   const lines = [
-    `🏡 ${type} in ${p.city}`,
-    `💰 ${price}${p.surface_area ? ` · ${p.surface_area} m²` : ""}${p.bedrooms != null ? ` · ${p.bedrooms} slpk` : ""}`,
+    `${huur ? "Te huur" : "Te koop"} in ${p.city}: ${type} voor ${price} 🏡`,
+    [p.surface_area ? `📐 ${p.surface_area} m²` : null, p.bedrooms != null ? `🛏️ ${p.bedrooms} slaapkamers` : null, p.energy_label ? `⚡ Label ${p.energy_label}` : null].filter(Boolean).join(" · "),
     "",
-    `👉 Bekijk de woning en reageer direct: ${url}`,
+    `👉 Link in bio, of zoek op woonaanbod-nl.nl naar ${p.city}`,
+    "💬 Zoek jij ook een woning in " + p.city + "? Laat het weten in de reacties!",
     "",
     buildHashtags(p),
   ];
-  return lines.join("\n");
+  return lines.filter((l, i) => l !== "" || lines[i - 1] !== "").join("\n");
 }
 
 export function buildHashtags(p: SlideProperty): string {
-  const citySlug = p.city.toLowerCase().replace(/[^a-z0-9]/g, "");
-  const tags = [
-    "#woonaanbodnl",
-    "#woningnederland",
-    p.listing_type === "huur" ? "#huurwoning" : "#koopwoning",
-    p.listing_type === "huur" ? "#tehuur" : "#tekoop",
-    `#${citySlug}`,
-    `#wonenin${citySlug}`,
-    "#nieuweaanbod",
-    "#nederland",
-    "#huurmarkt",
-    "#vastgoed",
-    "#dreamhome",
-    "#fyp",
-  ];
-  return tags.join(" ");
+  const c = p.city.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+  const huur = p.listing_type === "huur";
+  const t = (p.property_type || "").toLowerCase();
+  const typeTag = /kamer|room/.test(t) ? "#kamerhuren" : /studio/.test(t) ? "#studiohuren" : /appartement|apartment/.test(t) ? "#appartementhuren" : /huis|house|woning/.test(t) ? "#huishuren" : null;
+  const tags = huur
+    ? [`#huurwoning${c}`, `#huren${c}`, `#wonenin${c}`, `#${c}`, "#huurwoning", "#huurwoningen", typeTag, "#woningzoeken", "#woningnood", p.price <= 1000 ? "#betaalbaarwonen" : null, "#woonaanbodnl", "#fyp"]
+    : [`#koopwoning${c}`, `#${c}`, "#koopwoning", "#huiskopen", "#woningzoeken", "#woonaanbodnl", "#fyp"];
+  return [...new Set(tags.filter(Boolean))].join(" ");
+}
+
+// ============= VIDEO (MP4/WebM) =============
+const FPS = 30;
+const HERO_S = 3, PHOTO_S = 2.2, OUTRO_S = 3, FADE_S = 0.4, MAX_VIDEO_PHOTOS = 12;
+
+function kenBurns(ctx: CanvasRenderingContext2D, img: HTMLImageElement, t: number, dir: number) {
+  const z = 1.05 + 0.12 * (dir > 0 ? t : 1 - t);
+  const ratio = Math.max(W / img.width, H / img.height) * z;
+  const dw = img.width * ratio, dh = img.height * ratio;
+  const pan = (dw - W) * (dir > 0 ? 0.5 - 0.2 * t : 0.3 + 0.2 * t);
+  ctx.drawImage(img, -pan, (H - dh) / 2, dw, dh);
+}
+
+function textShadow(ctx: CanvasRenderingContext2D, on: boolean) {
+  ctx.shadowColor = on ? "rgba(0,0,0,0.55)" : "transparent"; ctx.shadowBlur = on ? 18 : 0;
+}
+
+function drawFrame(ctx: CanvasRenderingContext2D, p: SlideProperty, imgs: HTMLImageElement[], time: number) {
+  const n = imgs.length;
+  const photosEnd = HERO_S + Math.max(0, n - 1) * PHOTO_S;
+  const price = fmtPrice(p.price, p.listing_type);
+  ctx.fillStyle = NAVY_DEEP; ctx.fillRect(0, 0, W, H);
+  // which photo
+  let idx = 0, local = 0, segLen = HERO_S;
+  if (time < HERO_S) { idx = 0; local = time; }
+  else if (time < photosEnd) { idx = 1 + Math.floor((time - HERO_S) / PHOTO_S); local = (time - HERO_S) % PHOTO_S; segLen = PHOTO_S; }
+  else { idx = 0; local = time - photosEnd; segLen = OUTRO_S; }
+  const outro = time >= photosEnd;
+  const img = imgs[Math.min(idx, n - 1)];
+  if (img) {
+    if (outro) { ctx.save(); ctx.filter = "blur(24px) brightness(0.5)"; kenBurns(ctx, img, local / segLen, 1); ctx.restore(); }
+    else kenBurns(ctx, img, local / segLen, idx % 2 ? -1 : 1);
+    // crossfade from previous
+    if (!outro && idx > 0 && local < FADE_S) {
+      ctx.globalAlpha = 1 - local / FADE_S; kenBurns(ctx, imgs[idx - 1], 1, (idx - 1) % 2 ? -1 : 1); ctx.globalAlpha = 1;
+    }
+  }
+  if (!outro) shade(ctx, 0.55, 0.92);
+  drawLogo(ctx, 60, 70, 0.8);
+
+  if (time < HERO_S) {
+    const a = Math.min(1, local / 0.5);
+    ctx.globalAlpha = a; textShadow(ctx, true);
+    pill(ctx, p.listing_type === "huur" ? "NIEUW TE HUUR" : "NIEUW TE KOOP", 60, H - 760, ACCENT, NAVY_DEEP, 38);
+    ctx.fillStyle = CREAM; ctx.font = `800 82px ${FONT}`;
+    let y = H - 560;
+    for (const line of wrapLines(ctx, `${(p.property_type || "Woning").replace(/^./, (m) => m.toUpperCase())} in ${p.city}`, W - 120, 2)) { ctx.fillText(line, 60, y); y += 96; }
+    ctx.fillStyle = ACCENT; ctx.font = `800 120px ${FONT}`; ctx.fillText(price, 60, y + 60);
+    ctx.fillStyle = CREAM; ctx.font = `600 44px ${FONT}`; ctx.fillText(specs(p).join("  ·  "), 60, y + 150);
+    textShadow(ctx, false); ctx.globalAlpha = 1;
+  } else if (!outro) {
+    textShadow(ctx, true);
+    pill(ctx, `${idx + 1} / ${n}`, W - 220, 190, "rgba(13,38,64,0.75)", CREAM, 32);
+    ctx.fillStyle = CREAM; ctx.font = `800 76px ${FONT}`; ctx.fillText(price, 60, H - 260);
+    ctx.fillStyle = "rgba(255,255,255,0.9)"; ctx.font = `600 42px ${FONT}`; ctx.fillText([p.city, ...specs(p)].join("  ·  "), 60, H - 190);
+    textShadow(ctx, false);
+  } else {
+    const a = Math.min(1, local / 0.4); ctx.globalAlpha = a;
+    ctx.fillStyle = CREAM; ctx.textAlign = "center"; ctx.font = `800 80px ${FONT}`;
+    ctx.fillText(p.city, W / 2, 720);
+    ctx.fillStyle = ACCENT; ctx.font = `800 110px ${FONT}`; ctx.fillText(price, W / 2, 860);
+    ctx.fillStyle = CREAM; ctx.font = `600 46px ${FONT}`; ctx.fillText(specs(p).join("  ·  "), W / 2, 950);
+    ctx.fillStyle = ACCENT; roundRect(ctx, 90, 1160, W - 180, 220, 44);
+    ctx.fillStyle = NAVY_DEEP; ctx.font = `800 62px ${FONT}`; ctx.fillText("Bekijk & reageer", W / 2, 1258);
+    ctx.font = `600 40px ${FONT}`; ctx.fillText("Link in bio · woonaanbod-nl.nl", W / 2, 1325);
+    ctx.textAlign = "left"; ctx.globalAlpha = 1;
+  }
+  // progress bar
+  const total = photosEnd + OUTRO_S;
+  ctx.fillStyle = "rgba(255,255,255,0.25)"; ctx.fillRect(0, H - 12, W, 12);
+  ctx.fillStyle = ACCENT; ctx.fillRect(0, H - 12, W * Math.min(1, time / total), 12);
+}
+
+export async function generateVideo(p: SlideProperty, onProgress?: (f: number) => void): Promise<{ blob: Blob; ext: string }> {
+  await document.fonts?.load(`800 80px Sora`).catch(() => {});
+  const urls = [...new Set((p.images || []).filter((u) => typeof u === "string" && /^https?:\/\//.test(u)))];
+  const imgs = (await Promise.all(urls.slice(0, MAX_VIDEO_PHOTOS).map((u) => loadImage(u).catch(() => null))))
+    .filter((i): i is HTMLImageElement => !!i && i.width >= 300);
+  if (!imgs.length) throw new Error("Geen bruikbare foto's gevonden");
+  const c = newCanvas(); const ctx = c.getContext("2d")!;
+  const total = HERO_S + (imgs.length - 1) * PHOTO_S + OUTRO_S;
+  const types = ["video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"];
+  const mime = types.find((t) => MediaRecorder.isTypeSupported(t)) || "video/webm";
+  const stream = c.captureStream(FPS);
+  const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8_000_000 });
+  const chunks: Blob[] = [];
+  rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  const done = new Promise<void>((r) => (rec.onstop = () => r()));
+  drawFrame(ctx, p, imgs, 0);
+  rec.start(250);
+  const t0 = performance.now();
+  await new Promise<void>((resolve) => {
+    const tick = () => {
+      const t = (performance.now() - t0) / 1000;
+      drawFrame(ctx, p, imgs, Math.min(t, total));
+      onProgress?.(Math.min(1, t / total));
+      if (t >= total) resolve(); else requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+  rec.stop(); await done;
+  return { blob: new Blob(chunks, { type: mime.split(";")[0] }), ext: mime.startsWith("video/mp4") ? "mp4" : "webm" };
 }
