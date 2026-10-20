@@ -27,6 +27,9 @@ import {
   downloadSlidesZip,
   buildTikTokCaption,
   generateVideo,
+  videoFileName,
+  saveVideo,
+  loadAllVideos,
   type SlideProperty,
 } from "@/lib/tiktokSlides";
 
@@ -184,16 +187,31 @@ const AdminTikTok = () => {
 
   const [videoProgress, setVideoProgress] = useState<Record<string, number>>({});
   const [videos, setVideos] = useState<Record<string, { url: string; ext: string }>>({});
+  const [music, setMusic] = useState<File | null>(null);
+  useEffect(() => {
+    loadAllVideos().then((all) => {
+      const m: Record<string, { url: string; ext: string }> = {};
+      for (const [id, v] of Object.entries(all)) m[id] = { url: URL.createObjectURL(v.blob), ext: v.ext };
+      setVideos(m);
+    }).catch(() => {});
+  }, []);
+  const downloadVideo = (p: any) => {
+    const v = videos[p.id]; if (!v) return;
+    const a = document.createElement("a");
+    a.href = v.url; a.download = videoFileName(p as SlideProperty, v.ext);
+    document.body.appendChild(a); a.click(); a.remove();
+  };
   const handleVideo = async (p: any) => {
     setBusyId(p.id);
     try {
       toast.info("Video wordt gemaakt, houd dit tabblad open");
-      const { blob, ext } = await generateVideo(p as SlideProperty, (f) => setVideoProgress((v) => ({ ...v, [p.id]: f })));
+      const { blob, ext } = await generateVideo(p as SlideProperty, (f) => setVideoProgress((v) => ({ ...v, [p.id]: f })), music);
+      await saveVideo(p.id, blob, ext).catch(() => {});
       const url = URL.createObjectURL(blob);
       setVideos((v) => ({ ...v, [p.id]: { url, ext } }));
       const a = document.createElement("a");
-      a.href = url; a.download = `woonaanbod-${p.city}-${p.id.slice(0, 6)}.${ext}`.toLowerCase().replace(/\s+/g, "-");
-      a.click();
+      a.href = url; a.download = videoFileName(p as SlideProperty, ext);
+      document.body.appendChild(a); a.click(); a.remove();
       await navigator.clipboard.writeText(buildTikTokCaption(p as SlideProperty)).catch(() => {});
       toast.success("Video gedownload, caption met hashtags staat op je klembord");
     } catch (e: any) {
@@ -427,7 +445,7 @@ const AdminTikTok = () => {
                         )}
                         <Button size="sm" onClick={() => handleVideo(p)} disabled={busyId === p.id} className="gap-1">
                           {videoProgress[p.id] != null ? <Loader2 className="h-4 w-4 animate-spin" /> : <Video className="h-4 w-4" />}
-                          {videoProgress[p.id] != null ? `Video ${Math.round(videoProgress[p.id] * 100)}%` : "Maak video"}
+                          {videoProgress[p.id] != null ? `Video ${Math.round(videoProgress[p.id] * 100)}%` : videos[p.id] ? "Opnieuw maken" : "Maak video"}
                         </Button>
                         <Button
                           size="sm"
@@ -466,7 +484,12 @@ const AdminTikTok = () => {
                       </div>
 
                       {videos[p.id] && (
-                        <video src={videos[p.id].url} controls className="mt-2 w-48 rounded-lg border" />
+                        <div className="mt-2 flex items-end gap-2">
+                          <video src={videos[p.id].url} controls className="w-48 rounded-lg border" />
+                          <Button size="sm" variant="outline" onClick={() => downloadVideo(p)}>
+                            <Download className="mr-1 h-4 w-4" /> Download deze video
+                          </Button>
+                        </div>
                       )}
                       {preview && (
                         <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-7">
