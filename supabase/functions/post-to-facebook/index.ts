@@ -788,6 +788,20 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Read Facebook's processing/publication state without creating another post.
+    if (typeof body.video_status === "string" && /^\d+$/.test(body.video_status)) {
+      const statusUrl = new URL(`${GRAPH_API}/${body.video_status}`);
+      statusUrl.searchParams.set("fields", "id,status,published,permalink_url,description,created_time,from");
+      const statusRes = await fetch(statusUrl, {
+        headers: { Authorization: `Bearer ${PAGE_ACCESS_TOKEN}` },
+      });
+      const statusData = await statusRes.json();
+      return new Response(JSON.stringify(statusData), {
+        status: statusRes.ok ? 200 : 502,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // ─── Daily video (Facebook slideshow) ───────────────────
     if (body.video === true) {
       const { data: candidates, error: vErr } = await supabase
