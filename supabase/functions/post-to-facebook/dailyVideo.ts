@@ -2,6 +2,7 @@ import { amsterdamDay, isVideoPublished } from "./videoState.ts";
 
 const GRAPH = "https://graph.facebook.com/v21.0";
 const RENDER = "https://api.shotstack.io/edit/v1";
+const SOUNDTRACK = "https://shotstack-assets.s3.ap-southeast-2.amazonaws.com/music/freepd/advertising.mp3";
 const fields = "id,status,published,permalink_url,from";
 
 async function request(url: string, init: RequestInit) {
