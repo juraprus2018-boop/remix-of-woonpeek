@@ -641,10 +641,11 @@ Deno.serve(async (req) => {
     );
   }
 
-  // Het token kan een gebruikerstoken OF een paginatoken zijn.
-  // Bij een gebruikerstoken: haal via /me/accounts de echte pagina + paginatoken op
-  // (die bevat ook meteen het gekoppelde Instagram-bedrijfsaccount).
+  // Alleen posten op de officiële Woonaanbod NL-pagina, nooit op een andere pagina.
+  const ALLOWED_PAGE_ID = "1254508837756387";
+  PAGE_ID = ALLOWED_PAGE_ID;
   let igAccountIdFromPages: string | null = null;
+  let pageResolved = false;
   try {
     const accountsRes = await fetch(
       `${GRAPH_API}/me/accounts?fields=id,name,access_token,instagram_business_account&limit=100&access_token=${PAGE_ACCESS_TOKEN}`
@@ -652,31 +653,26 @@ Deno.serve(async (req) => {
     const accountsData = await accountsRes.json();
     const pages: any[] = Array.isArray(accountsData?.data) ? accountsData.data : [];
     if (pages.length > 0) {
-      const match = pages.find((p) => p.id === PAGE_ID) || pages[0];
-      if (match?.id && match?.access_token) {
-        console.log(`Using page "${match.name}" (${match.id}) from /me/accounts`);
-        PAGE_ID = match.id;
+      const match = pages.find((p) => p.id === ALLOWED_PAGE_ID);
+      if (match?.access_token) {
         PAGE_ACCESS_TOKEN = match.access_token;
         igAccountIdFromPages = match.instagram_business_account?.id || null;
+        pageResolved = true;
       }
     } else {
-      // Paginatoken: /me geeft de pagina zelf terug.
       const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
       const meData = await meRes.json();
-      if (meData?.id && meData.id !== PAGE_ID) {
-        console.log(`Page ID from token: ${meData.id} (config was ${PAGE_ID || "empty"})`);
-        PAGE_ID = meData.id;
-      }
+      pageResolved = meData?.id === ALLOWED_PAGE_ID;
+      if (!pageResolved) console.error(`Token belongs to page ${meData?.id}, not Woonaanbod NL`);
     }
   } catch (e) {
     console.error("Failed to resolve page from token:", e);
   }
 
-
-  if (!PAGE_ID) {
+  if (!pageResolved) {
     return new Response(
-      JSON.stringify({ error: "Could not determine Facebook Page ID" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Facebook token hoort niet bij de Woonaanbod NL-pagina. Posten gestopt." }),
+      { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 
