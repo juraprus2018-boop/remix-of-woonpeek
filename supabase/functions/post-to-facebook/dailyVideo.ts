@@ -64,7 +64,8 @@ export async function dailyVideo(sb: any, token: string, caption: (p: any) => st
     let render;
     try { render = await request(`${RENDER}/render`, {
       method: "POST", headers: { "x-api-key": key, "Content-Type": "application/json" },
-      body: JSON.stringify({ timeline: { tracks: [
+      // Royalty-free (FreePD, public domain) soundtrack so Facebook never mutes or blocks the video.
+      body: JSON.stringify({ timeline: { soundtrack: { src: SOUNDTRACK, effect: "fadeInFadeOut", volume: 0.8 }, tracks: [
         { clips: [{ asset: { type: "title", text: `${label}\nWoonaanbod NL`, style: "minimal" }, start: 0, length: photos.length * 3, position: "bottom" }] },
         { clips: photos.map((src, i) => ({ asset: { type: "image", src }, start: i * 3, length: 3, fit: "cover", effect: "zoomIn", transition: { in: "fade", out: "fade" } })) },
       ] }, output: { format: "mp4", resolution: "1080", aspectRatio: "9:16", fps: 30 } }),
