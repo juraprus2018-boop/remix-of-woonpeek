@@ -2162,6 +2162,7 @@ export type Database = {
       canonical_city_slug: { Args: { _name: string }; Returns: string }
       classify_traffic_source: { Args: { referrer: string }; Returns: string }
       deactivate_duplicate_properties: { Args: never; Returns: number }
+      explore_map_snapshot: { Args: never; Returns: Json }
       get_city_counts: {
         Args: never
         Returns: {

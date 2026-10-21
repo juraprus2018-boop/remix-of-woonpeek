@@ -10,6 +10,7 @@
 - Listing display orders by the generated provider_priority column before the selected sort, with matching active-listing indexes, so imports and pagination keep a consistent provider preference.
 
 - Explore derives city and source facets from loaded map listings within the viewport or postcode radius, excluding each facet's own selection so users can switch filters without extra nationwide queries.
+- Explore loads public active coordinate-bearing listings through one compact security-invoker snapshot RPC, cached independently of filters and sort, so nationwide markers are not repeatedly downloaded or silently capped by pagination.
 - Shared Logo renders the uploaded color or light CDN asset, while favicon and installed-app icons remain local public files, so every placement uses the supplied identity without duplicating artwork.
 - The alert-digest template owns its email layout and theme separately from other transactional emails, so housing-mail redesigns cannot alter authentication, contact or welcome messages.
 - Press publications store optional editorial image metadata and a related blog slug in their existing data object, so rich releases remain compatible with automated releases without schema changes.
