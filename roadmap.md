@@ -1,5 +1,5 @@
 # Kaartpagina
-- [ ] Kaartverzoeken samenvoegen, filters zonder herladen toepassen en snelheid controleren.
+- [x] Kaartverzoeken samenvoegen en snelheid controleren: één kaartverzoek in plaats van vijftien; filters en sorteren hergebruiken kaartgegevens; 20.646 markers zonder oude limiet; tests en browsercontrole geslaagd.
 - [x] Oud Renthunter-aanbod inactief maken en directe CSV dagelijks importeren met Nederlandse titels en verwijzingslinks.
 - [x] Renthunter-import en woningpagina controleren: 9.846 actieve directe woningen, geen oude actieve links, zes tests geslaagd en echte verwijzingsknop gecontroleerd.
 - [x] Bestaande Facebook-video gepubliceerd: Facebook bevestigt ready, complete en published; Reel-link beschikbaar.
