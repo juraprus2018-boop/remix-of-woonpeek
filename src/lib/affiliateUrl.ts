@@ -7,6 +7,9 @@ export function normalizeAffiliateUrl(url: string | null | undefined): string | 
   if (!url) return null;
   try {
     const u = new URL(url);
+    if (u.hostname === "renthunter.nl" || u.hostname === "www.renthunter.nl") {
+      u.searchParams.set("via", "woonaanbod");
+    }
     // Rewrite legacy brand names to the current brand.
     // Keep every other parameter (dci, wi, si, li, ws, etc.) untouched
     // so tracking and commission attribution stay intact.

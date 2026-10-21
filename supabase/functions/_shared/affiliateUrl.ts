@@ -7,6 +7,9 @@ export function normalizeAffiliateUrl(url: string | null | undefined): string | 
   if (!url) return null;
   try {
     const u = new URL(url);
+    if (u.hostname === "renthunter.nl" || u.hostname === "www.renthunter.nl") {
+      u.searchParams.set("via", "woonaanbod");
+    }
     const campaign = u.searchParams.get("utm_campaign");
     if (campaign && campaign.toLowerCase().replace(/[-_\s]/g, "") === "huurbaasje") {
       u.searchParams.set("utm_campaign", "Woonaanbod NL");
