@@ -1,4 +1,5 @@
 # Kaartpagina
+- [ ] Kaartverzoeken samenvoegen, filters zonder herladen toepassen en snelheid controleren.
 - [x] Oud Renthunter-aanbod inactief maken en directe CSV dagelijks importeren met Nederlandse titels en verwijzingslinks.
 - [x] Renthunter-import en woningpagina controleren: 9.846 actieve directe woningen, geen oude actieve links, zes tests geslaagd en echte verwijzingsknop gecontroleerd.
 - [x] Bestaande Facebook-video gepubliceerd: Facebook bevestigt ready, complete en published; Reel-link beschikbaar.
