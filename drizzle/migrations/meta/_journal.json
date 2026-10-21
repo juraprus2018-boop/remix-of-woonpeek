@@ -92,6 +92,13 @@
       "when": 1792614143736,
       "tag": "0012_renthunter_bulk_sync",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1792615248768,
+      "tag": "0013_explore_map_snapshot",
+      "breakpoints": true
     }
   ]
 }
