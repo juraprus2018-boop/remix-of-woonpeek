@@ -1,4 +1,6 @@
 # Kaartpagina
+- [ ] Oud Renthunter-aanbod inactief maken en directe CSV dagelijks importeren met Nederlandse titels en verwijzingslinks.
+- [ ] Renthunter-import en woningpagina controleren.
 - [x] Bestaande Facebook-video gepubliceerd: Facebook bevestigt ready, complete en published; Reel-link beschikbaar.
 - [x] Dagelijkse videostatus en bescherming tegen dubbele posts toevoegen; twee controles per dag ingesteld.
 - [ ] Dagelijkse videoproductie activeren. Blokker: huidige Shotstack-sleutel wordt door Production API geweigerd; productietoegang en eventuele kosten vereisen akkoord.
