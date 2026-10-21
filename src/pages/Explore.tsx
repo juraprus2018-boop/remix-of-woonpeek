@@ -11,7 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useProperties, useMapProperties, type SortOption } from "@/hooks/useProperties";
+import { useProperties, type SortOption } from "@/hooks/useProperties";
+import { useExploreSnapshot } from "@/hooks/useExploreSnapshot";
 import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
@@ -142,12 +143,13 @@ const ExplorePage = () => {
   // Separate lightweight query for map markers (only when map visible)
   // When a postcode filter is active we ALWAYS need the full set (not just the
   // first paginated page), otherwise the list shows fewer results than the map.
-  const { data: mapData, isPending: isMapLoading, isError: isMapError, refetch: refetchMap } = useMapProperties({
-    listingType: listingType || undefined,
-    propertyType: (propertyType as any) || undefined,
-    minBedrooms: minBedrooms ? Number(minBedrooms) : undefined,
-    sortBy,
-  });
+  const { data: snapshot, isPending: isMapLoading, isError: isMapError, refetch: refetchMap } = useExploreSnapshot();
+  // One reusable dataset: filters and sorting never re-download nationwide markers.
+  const mapData = useMemo(() => (snapshot || []).filter((p) =>
+    (!listingType || p.listing_type === listingType) &&
+    (!propertyType || p.property_type === propertyType) &&
+    (!minBedrooms || Number(p.bedrooms ?? 0) >= Number(minBedrooms))
+  ), [snapshot, listingType, propertyType, minBedrooms]);
 
   const matchesSelection = useCallback((p: { city: string; source_site: string | null }) =>
     (!selectedCity || p.city.toLowerCase() === selectedCity.toLowerCase()) &&
@@ -176,9 +178,13 @@ const ExplorePage = () => {
         ) <= distanceKm
       );
     });
-    if (sortBy === "price_asc") return [...nearby].sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
-    if (sortBy === "price_desc") return [...nearby].sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-    return nearby;
+    return [...nearby].sort((a, b) => {
+      const priority = (a.provider_priority ?? 999) - (b.provider_priority ?? 999);
+      if (priority) return priority;
+      if (sortBy === "price_asc") return Number(a.price) - Number(b.price);
+      if (sortBy === "price_desc") return Number(b.price) - Number(a.price);
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
   }, [paginatedList, mapData, postcodeCoords, distanceKm, sortBy, matchesSelection]);
 
   // Map properties from the lightweight query

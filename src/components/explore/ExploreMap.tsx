@@ -38,10 +38,11 @@ const formatPrice = (price: number, listingType: string) => {
   return listingType === "huur" ? `${formatted} per maand` : formatted;
 };
 
+const priceFormatter = new Intl.NumberFormat("nl-NL", { maximumFractionDigits: 0 });
 const shortPrice = (price: number) => {
   const n = Number(price) || 0;
   if (n >= 1000000) return `€ ${(n / 1000000).toFixed(1).replace(".", ",")}mln`;
-  return `€ ${new Intl.NumberFormat("nl-NL", { maximumFractionDigits: 0 }).format(n)}`;
+  return `€ ${priceFormatter.format(n)}`;
 };
 
 // Airbnb-style price pill marker
