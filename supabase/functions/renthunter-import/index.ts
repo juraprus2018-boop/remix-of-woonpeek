@@ -4,7 +4,7 @@ import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { requireAdmin } from "../_shared/auth.ts";
 import { mapRenthunter, rentalIdentity, type FeedRow } from "./mapping.ts";
 
-const FEED = "https://api.renthunter.nl/affiliate/feed.csv";
+const FEED = "https://api.renthunter.nl/affiliate/feed-nl.csv";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -21,12 +21,12 @@ Deno.serve(async (req) => {
     const parsed = Papa.parse<FeedRow>(text.replace(/^\uFEFF/, ""), {
       header: true, delimiter: ";", skipEmptyLines: true,
     });
-    if (parsed.errors.length || !["sku", "link", "city", "price", "category", "in_stock"].every(k => parsed.meta.fields?.includes(k))) {
+    if (parsed.errors.length || !["id", "link", "plaats", "huurprijs", "woningtype"].every(k => parsed.meta.fields?.includes(k))) {
       throw new Error("Incomplete or malformed CSV; existing listings left untouched");
     }
     const checkedAt = new Date().toISOString();
     const unique = new Map<string, ReturnType<typeof mapRenthunter>>();
-    for (const row of parsed.data) unique.set(row.sku, mapRenthunter(row, checkedAt));
+    for (const row of parsed.data) unique.set(row.id, mapRenthunter(row, checkedAt));
     if (unique.size < 100) throw new Error("Unexpectedly small feed; existing listings left untouched");
     const db = createClient(Deno.env.get("SUPABASE_URL") ?? "", Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "");
     const existing = new Map<string, string>();
