@@ -69,3 +69,23 @@ export async function requireAdmin(
 
   return { response: null, userId: user.id };
 }
+
+/** Requires a signed-in user (any role). Returns a 401 Response when missing. */
+export async function requireUser(
+  req: Request,
+  corsHeaders: Record<string, string> = authCorsHeaders,
+): Promise<{ response: Response | null; userId: string | null }> {
+  const token = bearer(req);
+  const deny = {
+    response: new Response(JSON.stringify({ error: "Log in om deze functie te gebruiken." }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    }),
+    userId: null,
+  };
+  if (!token) return deny;
+  const supabase = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) return deny;
+  return { response: null, userId: user.id };
+}

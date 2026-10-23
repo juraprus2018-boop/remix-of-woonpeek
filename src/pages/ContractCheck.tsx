@@ -14,6 +14,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle, CheckCircle2, FileText, Loader2, Shield, Upload, XCircle, Info } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
@@ -79,7 +81,14 @@ export default function ContractCheck() {
     }
   };
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const analyze = async () => {
+    if (!user) {
+      toast.info("Log in om je contract te laten checken");
+      navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+      return;
+    }
     if (text.trim().length < 100) {
       toast.error("Plak minimaal 100 tekens uit je contract");
       return;
