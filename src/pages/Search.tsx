@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { lazy, Suspense, useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useInfiniteProperties, useFilterFacets, useMapProperties } from "@/hooks/useProperties";
 import { Search, SlidersHorizontal, List, Map as MapIcon, Loader2, Share2, Check } from "lucide-react";
-import ExploreMap from "@/components/explore/ExploreMap";
 import {
   Sheet,
   SheetContent,
@@ -28,6 +27,8 @@ import AdSlot from "@/components/ads/AdSlot";
 import PartnerTip from "@/components/ads/PartnerTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
+
+const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
 
 const EMPTY_FILTERS: SearchFilterValues = {
   city: "",
@@ -119,7 +120,7 @@ const SearchPage = () => {
     includeInactive: filters.includeInactive,
   });
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
+  const { data, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
     city: debouncedCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
@@ -405,8 +406,8 @@ const SearchPage = () => {
                     ) : (
                       <>
                         <strong>{matchCount ?? 0}</strong> woningen binnen{" "}
-                        <strong>{commute!.maxMinutes} min</strong> {commute!.mode === "driving" ? "auto" : "fiets"} van{" "}
-                        <strong>{commute!.address}</strong>
+                        <strong>{commute?.maxMinutes} min</strong> {commute?.mode === "driving" ? "auto" : "fiets"} van{" "}
+                        <strong>{commute?.address}</strong>
                       </>
                     )}
                   </div>
@@ -416,7 +417,12 @@ const SearchPage = () => {
                 </div>
               )}
               <div className="mb-5"><WoonmatchSetup /></div>
-              {isLoading ? (
+              {isError ? (
+                <div role="alert" className="py-8 text-center">
+                  <p className="text-foreground">Het aanbod kon niet worden geladen.</p>
+                  <Button variant="outline" className="mt-3" onClick={() => void refetch()}>Opnieuw proberen</Button>
+                </div>
+              ) : isLoading ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 6 }).map((_, i) => (
                     <div key={i} className="rounded-lg border bg-card overflow-hidden">
@@ -464,10 +470,12 @@ const SearchPage = () => {
                         <Skeleton className="h-full w-full" />
                       </div>
                     ) : (
-                      <ExploreMap
-                        properties={visibleMapProperties as any}
-                        commute={commute ? { address: commute.address, lat: commute.lat, lng: commute.lng, mode: commute.mode } : null}
-                      />
+                      <Suspense fallback={<Skeleton className="h-full w-full" />}>
+                        <ExploreMap
+                          properties={visibleMapProperties as any}
+                          commute={commute ? { address: commute.address, lat: commute.lat, lng: commute.lng, mode: commute.mode } : null}
+                        />
+                      </Suspense>
                     )}
                     <p className="text-xs text-muted-foreground mt-2">
                       {visibleMapProperties.length} woningen met locatie op de kaart
