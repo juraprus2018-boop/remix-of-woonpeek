@@ -7,24 +7,35 @@ import { useEffect } from "react";
  */
 const RoutePrefetcher = () => {
   useEffect(() => {
-    const prefetch = () => {
+    let cancelled = false;
+    const prefetch = async () => {
       // Importeer (= prefetch) de chunks. Resultaat wordt niet gebruikt;
       // de browser cachet de module zodat <Suspense> direct kan renderen.
-      void import("@/pages/Search");
-      void import("@/pages/PropertyDetail");
-      void import("@/pages/CityPage");
-      void import("@/pages/ListingTypePage");
+      const routes = [
+        () => import("@/pages/Search"),
+        () => import("@/pages/PropertyDetail"),
+        () => import("@/pages/CityPage"),
+        () => import("@/pages/ListingTypePage"),
+      ];
+      for (const load of routes) {
+        if (cancelled) return;
+        try { await load(); } catch { /* navigation can retry failed preloads */ }
+      }
     };
 
     const ric =
       (window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number })
         .requestIdleCallback;
-    if (typeof ric === "function") {
-      ric(prefetch, { timeout: 4000 });
-    } else {
-      const id = window.setTimeout(prefetch, 2500);
-      return () => window.clearTimeout(id);
-    }
+    // Idle can fire before the current lazy route has downloaded. Give that
+    // route priority instead of immediately competing with four other pages.
+    const id = window.setTimeout(() => {
+      if (typeof ric === "function") ric(() => void prefetch(), { timeout: 4000 });
+      else void prefetch();
+    }, 4000);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(id);
+    };
   }, []);
 
   return null;
