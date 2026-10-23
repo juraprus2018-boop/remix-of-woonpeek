@@ -714,7 +714,9 @@ Deno.serve(async (req) => {
 
     const shouldPostGroup = target === "group" || target === "both";
     const shouldPostPage = target === "page" || target === "both";
-    const groupId = group_id || Deno.env.get("FACEBOOK_GROUP_ID");
+    // Only the configured group may be targeted; caller-supplied group IDs are ignored.
+    void group_id;
+    const groupId = Deno.env.get("FACEBOOK_GROUP_ID");
     const groupAccessToken = Deno.env.get("FACEBOOK_GROUP_ACCESS_TOKEN") || PAGE_ACCESS_TOKEN;
 
     if (shouldPostGroup && !groupId) {

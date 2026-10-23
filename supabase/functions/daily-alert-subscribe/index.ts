@@ -180,22 +180,23 @@ Deno.serve(async (req) => {
     if (upsertError) throw upsertError;
 
 
+    const esc = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
     // Send admin notification
     try {
       const actionText = isReactivation ? "opnieuw ingeschreven" : "nieuw ingeschreven";
       await sendMail({
         from: MAIL_FROM,
         to: "info@woonaanbod-nl.nl",
-        subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`,
+        subject: `Alert-inschrijving: ${targetEmail} (${cleanCity})`.replace(/[\r\n]+/g, " ").slice(0, 200),
         content: "text/html",
         html: `
           <h2>Nieuwe alert-inschrijving</h2>
-          <p><strong>E-mail:</strong> ${targetEmail}</p>
-          <p><strong>Stad:</strong> ${cleanCity}</p>
-          <p><strong>WhatsApp:</strong> ${wantWhatsapp ? `Ja (${cleanPhone})` : "Nee"}</p>
+          <p><strong>E-mail:</strong> ${esc(targetEmail)}</p>
+          <p><strong>Stad:</strong> ${esc(cleanCity)}</p>
+          <p><strong>WhatsApp:</strong> ${wantWhatsapp ? `Ja (${esc(cleanPhone)})` : "Nee"}</p>
           <p><strong>Status:</strong> ${actionText}</p>
-          <p><strong>Gebruiker ID:</strong> ${saved.user_id || "niet ingelogd"}</p>
-          <p><strong>Bron:</strong> ${saved.source}</p>
+          <p><strong>Gebruiker ID:</strong> ${esc(saved.user_id || "niet ingelogd")}</p>
+          <p><strong>Bron:</strong> ${esc(saved.source)}</p>
           <p><strong>Tijdstip:</strong> ${new Date().toLocaleString("nl-NL")}</p>
         `,
       });
