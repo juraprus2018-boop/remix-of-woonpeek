@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { isValidPublicCity } from "../_shared/publicCity.ts";
+import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -43,6 +44,14 @@ Deno.serve(async (req) => {
 
     if (existing && existing.length > 0) {
       return new Response(JSON.stringify({ realtors: existing, source: "cache" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Paid lookups only for admins / scheduled jobs; visitors get saved results only.
+    const gate = await requireAdmin(req, corsHeaders);
+    if (gate.response) {
+      return new Response(JSON.stringify({ realtors: existing ?? [], source: "cache" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
