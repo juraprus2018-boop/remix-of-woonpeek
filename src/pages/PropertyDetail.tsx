@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
 import { useParams, Link, useLocation, Navigate } from "react-router-dom";
@@ -412,8 +413,8 @@ const PropertyDetail = () => {
         geoPosition={property.latitude && property.longitude ? { lat: Number(property.latitude), lng: Number(property.longitude) } : undefined}
       />
       
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(realEstateJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
 
       <Header />
 

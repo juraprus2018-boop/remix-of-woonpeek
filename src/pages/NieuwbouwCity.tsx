@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useParams, Navigate, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -32,7 +33,7 @@ const NieuwbouwCity = () => {
         description={`Bekijk het complete nieuwbouwaanbod in ${cityName}. Label A++, garantie en lagere maandlasten. Filter op huur of koop.`}
         canonical={`/nieuwbouw/${city}`}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }} />
       <Header />
       <main className="flex-1">
         <section className="border-b bg-gradient-to-br from-primary/10 via-background to-accent/10">

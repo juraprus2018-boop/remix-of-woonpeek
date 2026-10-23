@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -116,7 +117,7 @@ const RentIndexPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead title={title} description={description} canonical={`/huurprijs-index/${citySlug}`} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(datasetJsonLd) }} />
 
       <Header />
       <main className="flex-1">

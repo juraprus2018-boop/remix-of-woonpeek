@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState, useCallback } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useQuery } from "@tanstack/react-query";
@@ -225,7 +226,7 @@ const CityPage = () => {
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
         ))}
 
         <section className="border-b bg-gradient-to-b from-primary/5 to-background py-12">

@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useEffect, useMemo, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import L from "leaflet";
@@ -173,8 +174,8 @@ const RentHeatmapPage = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <SEOHead title={title} description={description} canonical={`/heatmap/${citySlug}`} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(datasetJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbJsonLd) }} />
 
       <Header />
       <main className="flex-1">

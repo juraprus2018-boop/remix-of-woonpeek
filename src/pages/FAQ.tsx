@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PageBanner from "@/components/layout/PageBanner";
@@ -81,7 +82,7 @@ const FAQPage = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <Header />
       <main className="flex-1">

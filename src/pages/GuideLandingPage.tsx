@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -49,8 +50,8 @@ const GuideLandingPage = ({ guide }: { guide: GuidePage }) => {
       <SEOHead title={guide.title} description={guide.description} />
       <Header />
       <main>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleLd) }} />
         <section className="border-b bg-card">
           <div className="container py-10 md:py-14">
             <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: guide.h1 }]} />

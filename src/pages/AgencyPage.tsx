@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -64,7 +65,7 @@ const AgencyPage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SEOHead title={title} description={desc} canonical={`/makelaars/${agency.slug}`} ogImage={agency.logo_url || undefined} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
       <Header />
       <main className="container flex-1 py-8">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Makelaars", href: "/makelaars" }, { label: agency.name }]} />

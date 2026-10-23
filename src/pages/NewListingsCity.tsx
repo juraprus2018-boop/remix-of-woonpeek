@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Link } from "react-router-dom";
@@ -116,7 +117,7 @@ const NewListingsCity = () => {
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
         ))}
 
         {/* Hero */}
