@@ -51,7 +51,12 @@ Deno.serve(async (req) => {
     // Paid lookups only for admins / scheduled jobs; visitors get saved results only.
     const gate = await requireAdmin(req, corsHeaders);
     if (gate.response) {
-      return new Response(JSON.stringify({ realtors: existing ?? [], source: "cache" }), {
+      const { data: saved } = await supabase
+        .from("city_realtors")
+        .select("*")
+        .ilike("city", `%${city}%`)
+        .limit(10);
+      return new Response(JSON.stringify({ realtors: saved ?? [], source: "cache" }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
