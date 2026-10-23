@@ -25,7 +25,7 @@ import IncomeBanner from "@/components/search/IncomeBanner";
 import CommuteFilter, { type CommuteValue } from "@/components/search/CommuteFilter";
 import { useCommuteFilter } from "@/hooks/useCommuteFilter";
 import AdSlot from "@/components/ads/AdSlot";
-import HuurzoneTip from "@/components/ads/HuurzoneTip";
+import PartnerTip from "@/components/ads/PartnerTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 
@@ -364,10 +364,10 @@ const SearchPage = () => {
             {/* Results */}
             <div className="min-w-0 flex-1">
               <div className="mb-4">
-                <HuurzoneTip
+                <PartnerTip
                   title="Op zoek naar een huurwoning?"
-                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone."
-                  buttonText="Bekijk huurwoningen bij Huurzone"
+                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurwoningen.nl."
+                  buttonText="Bekijk huurwoningen bij Huurwoningen.nl"
                 />
               </div>
               <div className="mb-4 rounded-2xl border bg-card p-4">
@@ -444,7 +444,7 @@ const SearchPage = () => {
                             userIncome={filters.grossIncome}
                           />
                           {index === 5 && (
-                            <AdSlot slotKey="search_page" advertiser="Huurzone.nl" className="my-2" />
+                            <AdSlot slotKey="search_page" advertiser="Huurwoningen.nl.nl" className="my-2" />
                           )}
                         </div>
                       ))}

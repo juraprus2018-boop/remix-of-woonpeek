@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { usePreferredPartnerLink } from "@/components/ads/PartnerTip";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -10,32 +9,16 @@ import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import { useState } from "react";
 import { Bell, Heart, Zap, ExternalLink, Plug, Wifi, Calculator, Home, Truck, PackageCheck, CheckCircle2, Circle } from "lucide-react";
 
-const useHuurzoneLink = () =>
-  useQuery({
-    queryKey: ["huurzone-link"],
-    queryFn: async () => {
-      const { data } = await (supabase as any)
-        .from("daisycon_banners")
-        .select("click_url")
-        .ilike("advertiser_name", "huurzone%")
-        .eq("is_active", true)
-        .limit(1)
-        .maybeSingle();
-      return (data?.click_url as string | undefined) ?? null;
-    },
-    staleTime: 30 * 60 * 1000,
-  });
-
 const AccountDashboard = ({ name }: { name: string }) => {
-  const { data: huurzone } = useHuurzoneLink();
+  const { data: partnerLink } = usePreferredPartnerLink();
   const { data: recent } = useProperties({ listingType: "huur", pageSize: 6, sortBy: "newest" });
   const { data: favorites } = useFavorites();
   const items = recent?.properties ?? [];
 
-  const openHuurzone = () => {
-    if (!huurzone) return;
-    trackDaisyconClick(null as any, huurzone, "huurzone.nl");
-    window.open(huurzone, "_blank", "noopener,noreferrer");
+  const openPartner = () => {
+    if (!partnerLink) return;
+    trackDaisyconClick(null as any, partnerLink, "Huurwoningen.nl");
+    window.open(partnerLink, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -49,15 +32,15 @@ const AccountDashboard = ({ name }: { name: string }) => {
         <CardContent className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="flex items-center gap-2 font-display text-xl font-bold">
-              <Zap className="h-5 w-5" /> Direct bezichtigen zonder wachttijd
+              <Zap className="h-5 w-5" /> Bekijk meer huurwoningen
             </p>
             <p className="mt-1 text-primary-foreground/80">
-              Via Huurzone reageer je direct op woningen van particuliere verhuurders.
+              Bekijk het actuele aanbod bij onze partner Huurwoningen.nl.
             </p>
             <p className="mt-2 text-[10px] uppercase tracking-wider text-primary-foreground/60">Advertentie</p>
           </div>
-          <Button size="lg" variant="secondary" className="shrink-0 font-bold" onClick={openHuurzone} disabled={!huurzone}>
-            Bekijk woningen op Huurzone <ExternalLink className="ml-2 h-4 w-4" />
+          <Button size="lg" variant="secondary" className="shrink-0 font-bold" onClick={openPartner} disabled={!partnerLink}>
+            Bekijk woningen op Huurwoningen.nl <ExternalLink className="ml-2 h-4 w-4" />
           </Button>
         </CardContent>
       </Card>

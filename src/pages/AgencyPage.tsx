@@ -29,8 +29,9 @@ const AgencyPage = () => {
     queryKey: ["agency-listings", agency?.id],
     enabled: !!agency?.id,
     queryFn: async () => {
-      const { data } = await supabase.from("properties").select("*").eq("agency_id", agency!.id)
-        .eq("status", "actief").order("created_at", { ascending: false }).limit(60);
+      if (!agency?.id) return [];
+      const { data } = await supabase.from("properties").select("*").eq("agency_id", agency.id)
+        .eq("status", "actief").order("provider_priority", { ascending: true }).order("created_at", { ascending: false }).limit(60);
       return data ?? [];
     },
   });

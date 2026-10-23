@@ -1,0 +1,1 @@
+ALTER TABLE public.properties ALTER COLUMN provider_priority SET EXPRESSION AS (CASE WHEN lower(coalesce(source_site,'')) IN ('huurwoningen.nl','huurwoningen') THEN 0 WHEN lower(coalesce(source_site,'')) IN ('huurzone.nl','huurzone','kamernet','kamernet.nl','directwonen.nl','directwonen','huurstunt','huurstunt.nl') THEN 1 WHEN source_site IS NULL THEN 4 ELSE 5 END);

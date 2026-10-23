@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
 import SEOHead from "@/components/seo/SEOHead";
-import HuurzoneTip from "@/components/ads/HuurzoneTip";
+import PartnerTip from "@/components/ads/PartnerTip";
 import { CheckCircle2 } from "lucide-react";
 
 
@@ -124,9 +124,9 @@ const Register = () => {
                   Klik op de link in die mail om je account te activeren.
                 </p>
               </div>
-              <HuurzoneTip
-                title="Tip: reageer vaak sneller met Huurzone"
-                text="Veel verhuurders op onze site verhuren via Huurzone. Met een gratis account daar reageer je direct zodra er iets nieuws online komt."
+              <PartnerTip
+                title="Tip: bekijk ook Huurwoningen.nl"
+                text="Bekijk ook de beschikbare huurwoningen bij onze partner Huurwoningen.nl."
               />
               <Button
                 variant="outline"

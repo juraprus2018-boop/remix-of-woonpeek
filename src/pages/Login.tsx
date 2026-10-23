@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Logo from "@/components/brand/Logo";
 import loginSide from "@/assets/login-side.jpg";
 import SEOHead from "@/components/seo/SEOHead";
-import HuurzoneTip from "@/components/ads/HuurzoneTip";
+import PartnerTip from "@/components/ads/PartnerTip";
 
 
 const Login = () => {
@@ -219,9 +219,9 @@ const Login = () => {
                   Registreer hier
                 </Link>
               </p>
-              <HuurzoneTip
+              <PartnerTip
                 title="Zoek je een huurwoning?"
-                text="Veel verhuurders op onze site verhuren via Huurzone. Met een gratis account daar reageer je direct op nieuwe woningen."
+                text="Bekijk ook de beschikbare huurwoningen bij onze partner Huurwoningen.nl."
               />
             </CardFooter>
           </form>
