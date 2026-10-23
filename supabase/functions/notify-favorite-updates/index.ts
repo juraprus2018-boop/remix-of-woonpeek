@@ -1,6 +1,7 @@
 // Daily job: check favorited properties for price drops / status changes
 // and send a digest email per user.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,6 +13,8 @@ const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const fmtEUR = (n: number) =>
   new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+
+const esc = (v: unknown) => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
 type UpdateItem = {
   favoriteId: string;
@@ -25,6 +28,9 @@ type UpdateItem = {
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+
+  const gate = await requireAdmin(req, corsHeaders);
+  if (gate.response) return gate.response;
 
   const supabase = createClient(SUPABASE_URL, SERVICE_KEY);
 
@@ -138,7 +144,7 @@ Deno.serve(async (req) => {
         body: JSON.stringify({ to: email, subject, html }),
       });
       if (sendRes.ok) sent++;
-      else console.error("send-email failed for", email, await sendRes.text());
+      else console.error("send-email failed for user", userId, sendRes.status);
     }
 
     // Persist baseline updates
@@ -191,8 +197,8 @@ function renderDigest(items: UpdateItem[]): string {
             ${img ? `<td width="120" style="vertical-align:top"><img src="${img}" width="110" style="border-radius:8px;display:block"/></td>` : ""}
             <td style="vertical-align:top;padding-left:${img ? "12px" : "0"}">
               <div style="margin-bottom:6px">${badge}</div>
-              <div style="font-size:15px;font-weight:600;color:#0f172a;margin-bottom:4px">${p.title}</div>
-              <div style="font-size:13px;color:#64748b;margin-bottom:6px">${p.street} ${p.house_number}, ${p.city}</div>
+              <div style="font-size:15px;font-weight:600;color:#0f172a;margin-bottom:4px">${esc(p.title)}</div>
+              <div style="font-size:13px;color:#64748b;margin-bottom:6px">${esc(p.street)} ${esc(p.house_number)}, ${esc(p.city)}</div>
               <div style="font-size:14px;color:#0f172a;margin-bottom:8px">${detail}</div>
               <a href="${url}" style="display:inline-block;background:#16a34a;color:#fff;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600">Bekijk woning →</a>
             </td>

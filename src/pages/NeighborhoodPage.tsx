@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import NeighborhoodReviews from "@/components/properties/NeighborhoodReviews";
@@ -146,7 +147,7 @@ const NeighborhoodPage = () => {
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
         ))}
 
         {/* Hero */}

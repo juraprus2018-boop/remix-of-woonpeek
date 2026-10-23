@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Link, Navigate, useLocation } from "react-router-dom";
@@ -269,7 +270,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
         ))}
 
         {/* Hero */}

@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -116,7 +117,7 @@ const HuurprijsMonitor = () => {
       <SEOHead title={pageTitle} description={pageDescription} canonical={`/markt/${citySlug}`} />
       <Header />
       <main className="flex-1">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
 
         <section className="border-b bg-gradient-to-b from-primary/5 to-background py-12">
           <div className="container">

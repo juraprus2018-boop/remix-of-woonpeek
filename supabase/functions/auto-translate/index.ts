@@ -1,6 +1,7 @@
 // Auto-translate edge function — translates batches of Dutch text to en/de/fr.
 // Uses public.translations_cache for persistence and Lovable AI Gateway for new strings.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -41,6 +42,10 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
+
+  // Writing to the shared translation cache is restricted to admins/internal callers.
+  const gate = await requireAdmin(req, corsHeaders);
+  if (gate.response) return gate.response;
 
   try {
     const body = await req.json();

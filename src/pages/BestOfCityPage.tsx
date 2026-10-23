@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Navigate, Link } from "react-router-dom";
@@ -253,7 +254,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(itemListJsonLd) }}
       />
       <Header />
 

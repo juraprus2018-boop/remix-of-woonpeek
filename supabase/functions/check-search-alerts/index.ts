@@ -148,7 +148,7 @@ Deno.serve(async (req) => {
       );
 
       if (filteredCountError) {
-        console.error("Count error for daily subscriber:", subscriber.email, filteredCountError);
+        console.error("Count error for daily subscriber:", subscriber.id, filteredCountError);
         continue;
       }
 
@@ -166,7 +166,7 @@ Deno.serve(async (req) => {
       );
 
       if (propsError) {
-        console.error("Properties error for daily subscriber:", subscriber.email, propsError);
+        console.error("Properties error for daily subscriber:", subscriber.id, propsError);
         continue;
       }
 
@@ -181,7 +181,7 @@ Deno.serve(async (req) => {
         });
         dailySubscriberNotificationsSent++;
       } catch (emailError) {
-        console.error(`Failed to send daily alert email to ${subscriber.email}:`, emailError);
+        console.error(`Failed to send daily alert email to subscriber ${subscriber.id}:`, emailError);
       }
 
       // Send WhatsApp if enabled

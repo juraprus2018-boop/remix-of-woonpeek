@@ -1,3 +1,4 @@
+import { safeJsonLd } from "@/lib/jsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
@@ -70,7 +71,7 @@ const DailyAlert = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
       />
       <Header />
       <main className="flex-1">
