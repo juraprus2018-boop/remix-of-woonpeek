@@ -1,3 +1,4 @@
+import { safeFetch } from "../_shared/safeFetch.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { isServiceRole } from "../_shared/auth.ts";
@@ -46,7 +47,7 @@ async function fetchFeed(feedType: string, url: string): Promise<XmlProperty[]> 
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), 25000);
   try {
-    const resp = await fetch(url, { signal: ctrl.signal, headers: { Accept: "application/xml, application/json, text/xml, */*", "User-Agent": "WoonaanbodNL-FeedBot/1.0" } });
+    const resp = await safeFetch(url, { signal: ctrl.signal, headers: { Accept: "application/xml, application/json, text/xml, */*", "User-Agent": "WoonaanbodNL-FeedBot/1.0" } });
     if (!resp.ok) throw new Error(`Feed gaf HTTP ${resp.status}`);
     const text = await resp.text();
     if (text.length > 30_000_000) throw new Error("Feed is groter dan 30 MB");
