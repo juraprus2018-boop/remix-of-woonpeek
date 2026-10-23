@@ -92,6 +92,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
         .ilike("city", `%${validCityName}%`)
         .not(orderColumn, "is", null)
         .gt(orderColumn, 0)
+        .order("provider_priority", { ascending: true })
         .order(orderColumn, { ascending })
         .limit(10);
       if (error) throw error;

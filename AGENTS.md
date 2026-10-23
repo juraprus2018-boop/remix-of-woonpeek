@@ -8,6 +8,7 @@
 - Profile creation runs through an idempotent app-owned auth signup trigger so every registered account appears in profile-based user management without assigning privileges from user metadata.
 
 - Listing display orders by the generated provider_priority column before the selected sort, with matching active-listing indexes, so imports and pagination keep a consistent provider preference.
+- Partner promotions share PartnerTip's cached advertiser link, and AdSlot filters by the preferred advertiser before random selection, so account links and banner attribution stay consistent without changing listing source URLs.
 
 - Explore derives city and source facets from loaded map listings within the viewport or postcode radius, excluding each facet's own selection so users can switch filters without extra nationwide queries.
 - Explore loads public active coordinate-bearing listings through one compact security-invoker snapshot RPC, cached independently of filters and sort, so nationwide markers are not repeatedly downloaded or silently capped by pagination.
