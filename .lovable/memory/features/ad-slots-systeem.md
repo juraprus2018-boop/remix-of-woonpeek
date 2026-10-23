@@ -6,5 +6,5 @@ type: feature
 AdSense is uit. `AdSlot` toont nu automatisch Daisycon-banners uit tabel `daisycon_banners` (volledig automatisch, geen handmatige goedkeuring, op verzoek gebruiker).
 
 - Sync: edge function `daisycon-banners-sync` leest `/publishers/{id}/material/ads?media_id=...` (alleen type image/*, programma via `si=` in click_url), cron `daisycon-banners-daily` 05:00 UTC. Niet meer aangeboden banners worden inactief.
-- Plaatsing: homepage, stadspagina en zoekresultaten bovenaan en na de zesde woning (brede 970/728x90, mobiel 320x100/50). Woningdetail gebruikt de sidebar (300x250/336x280/250x250). Banners rouleren willekeurig over alle aanbieders (elke aanbieder gelijke kans), op verzoek gebruiker okt 2026.
+- Plaatsing: homepage, stadspagina en zoekresultaten bovenaan en na de zesde woning (brede 970/728x90, mobiel 320x100/50). Woningdetail gebruikt de sidebar (300x250/336x280/250x250). Banners rouleren uitsluitend tussen banners van Huurwoningen.nl, zonder terugval naar andere aanbieders, op verzoek gebruiker 23 okt 2026.
 - Klik-subid: `ws=woonaanbod-banner`.
