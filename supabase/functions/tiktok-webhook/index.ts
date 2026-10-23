@@ -42,6 +42,12 @@ Deno.serve(async (req) => {
 
   try {
     const rawBody = await req.text();
+    if (!(await verifyTikTokSignature(req.headers.get("tiktok-signature"), rawBody))) {
+      return new Response(JSON.stringify({ ok: false, error: "invalid signature" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 401,
+      });
+    }
     let payload: any = {};
     try {
       payload = JSON.parse(rawBody);
@@ -49,7 +55,7 @@ Deno.serve(async (req) => {
       payload = { raw: rawBody };
     }
 
-    console.log("[tiktok-webhook] received:", JSON.stringify(payload));
+    console.log("[tiktok-webhook] received event:", payload?.event ?? payload?.type ?? "unknown");
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -107,3 +113,20 @@ Deno.serve(async (req) => {
     });
   }
 });
+
+/** Verifies TikTok's "TikTok-Signature: t=<ts>,s=<hex hmac>" header (HMAC-SHA256 of `${t}.${body}` with client secret). */
+async function verifyTikTokSignature(header: string | null, body: string): Promise<boolean> {
+  const secret = Deno.env.get("TIKTOK_CLIENT_SECRET");
+  if (!secret || !header) return false;
+  const parts = Object.fromEntries(header.split(",").map((p) => p.trim().split("=", 2) as [string, string]));
+  const t = parts.t, sig = parts.s;
+  if (!t || !sig || !/^\d+$/.test(t)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(t)) > 300) return false;
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const mac = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(`${t}.${body}`));
+  const hex = Array.from(new Uint8Array(mac)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  if (hex.length !== sig.length) return false;
+  let diff = 0;
+  for (let i = 0; i < hex.length; i++) diff |= hex.charCodeAt(i) ^ sig.toLowerCase().charCodeAt(i);
+  return diff === 0;
+}

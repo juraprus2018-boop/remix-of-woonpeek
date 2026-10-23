@@ -3,6 +3,7 @@
  * Returns: { url }
  */
 import { requireAdmin } from "../_shared/auth.ts";
+import { signState } from "../_shared/tiktokState.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -25,7 +26,7 @@ Deno.serve(async (req) => {
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
   const redirectUri = `${supabaseUrl}/functions/v1/tiktok-oauth-callback`;
-  const state = crypto.randomUUID();
+  const state = await signState(gate.userId ?? "internal");
 
   const url = new URL("https://www.tiktok.com/v2/auth/authorize/");
   url.searchParams.set("client_key", clientKey);
