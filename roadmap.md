@@ -1,5 +1,5 @@
 # Kaartpagina
-- [ ] Alleen Huurwoningen.nl-wisselbanners tonen, hun woningen eerst zetten en inlog-/accountpartnerlinks aanpassen en controleren.
+- [x] Alleen Huurwoningen.nl-wisselbanners tonen, hun woningen eerst zetten en inlog-/accountpartnerlinks aanpassen: vijf tests geslaagd, echte accountklik gecontroleerd en databasevolgorde bevestigd; niet gepubliceerd.
 - [x] Kaartverzoeken samenvoegen en snelheid controleren: één kaartverzoek in plaats van vijftien; filters en sorteren hergebruiken kaartgegevens; 20.646 markers zonder oude limiet; tests en browsercontrole geslaagd.
 - [x] Oud Renthunter-aanbod inactief maken en directe CSV dagelijks importeren met Nederlandse titels en verwijzingslinks.
 - [x] Renthunter-import en woningpagina controleren: 9.846 actieve directe woningen, geen oude actieve links, zes tests geslaagd en echte verwijzingsknop gecontroleerd.
