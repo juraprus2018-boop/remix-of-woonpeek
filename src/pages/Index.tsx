@@ -256,7 +256,7 @@ const Index = () => {
       </section>
 
       <div className="container">
-        <AdSlot slotKey="homepage" advertiser="Huurwoningen.nl" />
+        <AdSlot slotKey="homepage" advertiser="Huurzone.nl" />
       </div>
       {/* NIEUW AANBOD */}
       <section className="pb-14 pt-8 md:pb-16 md:pt-10">
@@ -289,7 +289,7 @@ const Index = () => {
                   <div key={p.id} className="contents">
                     <PropertyCard property={p} />
                     {index === 5 && (
-                      <AdSlot slotKey="homepage" advertiser="Huurwoningen.nl" className="my-2" />
+                      <AdSlot slotKey="homepage" advertiser="Huurzone.nl" className="my-2" />
                     )}
                   </div>
                 ))}

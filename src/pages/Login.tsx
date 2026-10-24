@@ -221,7 +221,7 @@ const Login = () => {
               </p>
               <PartnerTip
                 title="Zoek je een huurwoning?"
-                text="Bekijk ook de beschikbare huurwoningen bij onze partner Huurwoningen.nl."
+                text="Bekijk ook de beschikbare huurwoningen bij onze partner Huurzone.nl."
               />
             </CardFooter>
           </form>

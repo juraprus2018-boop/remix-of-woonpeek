@@ -42,7 +42,7 @@ const ChanceEstimator = ({ price, city }: Props) => {
 
   const openHz = () => {
     if (!partnerLink) return;
-    trackDaisyconClick(null as any, partnerLink, "Huurwoningen.nl");
+    trackDaisyconClick(null as any, partnerLink, "Huurzone.nl");
     window.open(partnerLink, "_blank", "noopener,noreferrer");
   };
 
@@ -83,7 +83,7 @@ const ChanceEstimator = ({ price, city }: Props) => {
           {partnerLink && (
             <>
               <Button className="w-full gap-2" onClick={openHz}>
-                Bekijk ook woningen bij Huurwoningen.nl <ExternalLink className="h-4 w-4" />
+                Bekijk ook woningen bij Huurzone.nl <ExternalLink className="h-4 w-4" />
               </Button>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Advertentie · Partner</p>
             </>

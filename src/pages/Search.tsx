@@ -367,8 +367,8 @@ const SearchPage = () => {
               <div className="mb-4">
                 <PartnerTip
                   title="Op zoek naar een huurwoning?"
-                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurwoningen.nl."
-                  buttonText="Bekijk huurwoningen bij Huurwoningen.nl"
+                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone.nl."
+                  buttonText="Bekijk huurwoningen bij Huurzone.nl"
                 />
               </div>
               <div className="mb-4 rounded-2xl border bg-card p-4">
@@ -450,7 +450,7 @@ const SearchPage = () => {
                             userIncome={filters.grossIncome}
                           />
                           {index === 5 && (
-                            <AdSlot slotKey="search_page" advertiser="Huurwoningen.nl.nl" className="my-2" />
+                            <AdSlot slotKey="search_page" advertiser="Huurzone.nl" className="my-2" />
                           )}
                         </div>
                       ))}
