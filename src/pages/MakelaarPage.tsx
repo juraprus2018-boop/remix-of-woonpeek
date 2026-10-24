@@ -1,3 +1,4 @@
+import { fetchRotatingProperties } from "@/lib/propertyRotation";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -29,22 +30,9 @@ const MakelaarPage = () => {
     enabled: !!realtor,
     queryFn: async () => {
       if (!realtor) return [];
-      const { data } = await supabase
-        .from("properties")
-        .select("*")
-        .eq("status", "actief")
-        .ilike("source_site", `%${realtor.name.split(" ")[0]}%`)
-        .limit(24);
-      if (data && data.length > 0) return data;
-      const { data: cityData } = await supabase
-        .from("properties")
-        .select("*")
-        .eq("city", realtor.city)
-        .eq("status", "actief")
-        .order("provider_priority", { ascending: true })
-        .order("created_at", { ascending: false })
-        .limit(12);
-      return cityData ?? [];
+      const result = await fetchRotatingProperties({ sourcePattern: `%${realtor.name.split(" ")[0]}%` }, 0, 24);
+      if (result.properties.length) return result.properties;
+      return (await fetchRotatingProperties({ exactCity: realtor.city }, 0, 12)).properties;
     },
   });
 

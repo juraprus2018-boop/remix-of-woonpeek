@@ -1,3 +1,4 @@
+import { fetchRotatingProperties } from "@/lib/propertyRotation";
 import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
@@ -83,21 +84,8 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
     queryKey: ["best-of-properties", variant, validCityName],
     queryFn: async () => {
       if (!validCityName || variant === "beste-buurten") return [];
-      const orderColumn = variant === "goedkoopste-huur" ? "price" : "surface_area";
-      const ascending = variant === "goedkoopste-huur";
-      const { data, error } = await supabase
-        .from("properties")
-        .select("*")
-        .eq("status", "actief")
-        .eq("listing_type", "huur")
-        .ilike("city", `%${validCityName}%`)
-        .not(orderColumn, "is", null)
-        .gt(orderColumn, 0)
-        .order("provider_priority", { ascending: true })
-        .order(orderColumn, { ascending })
-        .limit(10);
-      if (error) throw error;
-      return (data ?? []) as Property[];
+      const result = await fetchRotatingProperties({ city: validCityName, listingType: "huur", positivePrice: variant === "goedkoopste-huur", positiveSurface: variant === "grootste-huur" }, 0, 10, variant === "goedkoopste-huur" ? "price_asc" : "surface_desc");
+      return result.properties;
     },
     enabled: !!validCityName && variant !== "beste-buurten",
     staleTime: 60_000,

@@ -1,3 +1,4 @@
+import { fetchRotatingProperties } from "@/lib/propertyRotation";
 import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
@@ -54,26 +55,7 @@ const NewListingsCity = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["new-listings-city", citySlug, startIso, endIso, currentPage],
     queryFn: async () => {
-      const from = (currentPage - 1) * pageSize;
-      const to = from + pageSize - 1;
-
-      let query = supabase
-        .from("properties")
-        .select("*", { count: "exact" })
-        .eq("status", "actief")
-        .gte("created_at", startIso)
-        .lt("created_at", endIso)
-        .order("provider_priority", { ascending: true })
-        .order("created_at", { ascending: false })
-        .range(from, to);
-
-      if (citySlug) {
-        query = query.ilike("city", `%${cityName}%`);
-      }
-
-      const { data, error, count } = await query;
-      if (error) throw error;
-      return { properties: (data ?? []) as Property[], totalCount: count ?? 0 };
+      return fetchRotatingProperties({ createdAfter: startIso, createdBefore: endIso, city: citySlug ? cityName : undefined }, (currentPage - 1) * pageSize, pageSize);
     },
     staleTime: 5 * 60 * 1000,
   });

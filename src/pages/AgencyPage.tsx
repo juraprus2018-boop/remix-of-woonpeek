@@ -1,3 +1,4 @@
+import { fetchRotatingProperties } from "@/lib/propertyRotation";
 import { safeJsonLd } from "@/lib/jsonLd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -31,9 +32,7 @@ const AgencyPage = () => {
     enabled: !!agency?.id,
     queryFn: async () => {
       if (!agency?.id) return [];
-      const { data } = await supabase.from("properties").select("*").eq("agency_id", agency.id)
-        .eq("status", "actief").order("provider_priority", { ascending: true }).order("created_at", { ascending: false }).limit(60);
-      return data ?? [];
+      return (await fetchRotatingProperties({ agencyId: agency.id }, 0, 60)).properties;
     },
   });
 

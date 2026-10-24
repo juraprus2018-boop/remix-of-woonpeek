@@ -1,3 +1,4 @@
+import { fetchRotatingProperties } from "@/lib/propertyRotation";
 import { useMemo } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -84,16 +85,8 @@ const VerhuizenVanNaar = () => {
   const { data: topListings, isLoading: l3 } = useQuery({
     queryKey: ["verhuizen-listings", slugTo],
     queryFn: async () => {
-      const { data } = await supabase
-        .from("properties")
-        .select("*")
-        .eq("status", "actief")
-        .eq("listing_type", "huur")
-        .ilike("city", `%${cityTo}%`)
-        .order("provider_priority", { ascending: true })
-        .order("created_at", { ascending: false })
-        .limit(6);
-      return data || [];
+      const result = await fetchRotatingProperties({ city: cityTo, listingType: "huur" }, 0, 6);
+      return result.properties;
     },
   });
 

@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useProperties, type SortOption } from "@/hooks/useProperties";
+import { rotateProperties } from "@/lib/propertyRotation";
 import { useExploreSnapshot } from "@/hooks/useExploreSnapshot";
 import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -178,13 +179,7 @@ const ExplorePage = () => {
         ) <= distanceKm
       );
     });
-    return [...nearby].sort((a, b) => {
-      const priority = (a.provider_priority ?? 999) - (b.provider_priority ?? 999);
-      if (priority) return priority;
-      if (sortBy === "price_asc") return Number(a.price) - Number(b.price);
-      if (sortBy === "price_desc") return Number(b.price) - Number(a.price);
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-    });
+    return rotateProperties(nearby, sortBy);
   }, [paginatedList, mapData, postcodeCoords, distanceKm, sortBy, matchesSelection]);
 
   // Map properties from the lightweight query
