@@ -17,7 +17,7 @@ const AccountDashboard = ({ name }: { name: string }) => {
 
   const openPartner = () => {
     if (!partnerLink) return;
-    trackDaisyconClick(null as any, partnerLink, "Huurwoningen.nl");
+    trackDaisyconClick(null as any, partnerLink, "Huurzone.nl");
     window.open(partnerLink, "_blank", "noopener,noreferrer");
   };
 
@@ -35,12 +35,12 @@ const AccountDashboard = ({ name }: { name: string }) => {
               <Zap className="h-5 w-5" /> Bekijk meer huurwoningen
             </p>
             <p className="mt-1 text-primary-foreground/80">
-              Bekijk het actuele aanbod bij onze partner Huurwoningen.nl.
+              Bekijk het actuele aanbod bij onze partner Huurzone.nl.
             </p>
             <p className="mt-2 text-[10px] uppercase tracking-wider text-primary-foreground/60">Advertentie</p>
           </div>
           <Button size="lg" variant="secondary" className="shrink-0 font-bold" onClick={openPartner} disabled={!partnerLink}>
-            Bekijk woningen op Huurwoningen.nl <ExternalLink className="ml-2 h-4 w-4" />
+            Bekijk woningen op Huurzone.nl <ExternalLink className="ml-2 h-4 w-4" />
           </Button>
         </CardContent>
       </Card>

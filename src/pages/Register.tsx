@@ -125,8 +125,8 @@ const Register = () => {
                 </p>
               </div>
               <PartnerTip
-                title="Tip: bekijk ook Huurwoningen.nl"
-                text="Bekijk ook de beschikbare huurwoningen bij onze partner Huurwoningen.nl."
+                title="Tip: bekijk ook Huurzone.nl"
+                text="Bekijk ook de beschikbare huurwoningen bij onze partner Huurzone.nl."
               />
               <Button
                 variant="outline"
