@@ -2235,6 +2235,15 @@ export type Database = {
       }
       province_from_postal: { Args: { _pc: string }; Returns: string }
       rollup_traffic_daily: { Args: { days_back?: number }; Returns: undefined }
+      search_properties_round_robin: {
+        Args: {
+          _filters?: Json
+          _limit?: number
+          _offset?: number
+          _sort?: string
+        }
+        Returns: Json
+      }
       sync_renthunter_batch: { Args: { _rows: Json }; Returns: number }
       verify_cron_secret: { Args: { _secret: string }; Returns: boolean }
     }
