@@ -46,7 +46,7 @@ const MAX_FULL_ROWS = 6000;
 const MAX_MAP_ROWS = 15000;
 
 
-// Woningen uit de Huurwoningen.nl-feed (provider_priority = 0) staan altijd bovenaan in elke sortering.
+// Woningen uit de Huurzone.nl-feed (provider_priority = 0) staan altijd bovenaan in elke sortering.
 
 // Batches worden op primary key opgehaald (goedkoop, geen sort van de hele tabel per batch)
 // en daarna client-side gesorteerd op provider_priority + gekozen sortering.

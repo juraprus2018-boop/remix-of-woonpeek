@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { PREFERRED_ADVERTISER } from "@/lib/preferredAdvertiser";
 import { Button } from "@/components/ui/button";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import { ExternalLink, Zap } from "lucide-react";
@@ -11,7 +12,7 @@ export const usePreferredPartnerLink = () =>
       const { data, error } = await (supabase as any)
         .from("daisycon_banners")
         .select("click_url")
-        .ilike("advertiser_name", "Huurwoningen.nl")
+        .ilike("advertiser_name", PREFERRED_ADVERTISER)
         .eq("is_active", true)
         .limit(1)
         .maybeSingle();
@@ -28,19 +29,19 @@ interface PartnerTipProps {
 }
 
 /**
- * Affiliate tipblok voor Huurwoningen.nl. Toont niets als er geen actieve
- * Huurwoningen.nl-link in de database staat.
+ * Affiliate tipblok voor Huurzone.nl. Toont niets als er geen actieve
+ * Huurzone.nl-link in de database staat.
  */
 const PartnerTip = ({
   title = "Sneller reageren op woningen?",
-  text = "Bekijk het actuele huurwoningaanbod bij Huurwoningen.nl.",
-  buttonText = "Bekijk woningen bij Huurwoningen.nl",
+  text = "Bekijk het actuele huurwoningaanbod bij Huurzone.nl.",
+  buttonText = "Bekijk woningen bij Huurzone.nl",
 }: PartnerTipProps) => {
   const { data: partnerLink } = usePreferredPartnerLink();
   if (!partnerLink) return null;
 
   const open = () => {
-    trackDaisyconClick(null as any, partnerLink, "Huurwoningen.nl");
+    trackDaisyconClick(null as any, partnerLink, PREFERRED_ADVERTISER);
     window.open(partnerLink, "_blank", "noopener,noreferrer");
   };
 

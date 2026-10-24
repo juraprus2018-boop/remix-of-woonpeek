@@ -272,7 +272,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
         </section>
 
         <div className="w-full px-4 md:px-8">
-          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
+          <AdSlot slotKey="city_page" advertiser="Huurzone.nl" />
         </div>
 
         {/* Properties */}
@@ -332,7 +332,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                     <div key={property.id} className="contents">
                       <PropertyRowCard property={property} priority={i < 2} />
                       {i === 5 && (
-                        <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
+                        <AdSlot slotKey="city_page" advertiser="Huurzone.nl" className="my-2" />
                       )}
                     </div>
                   ))}

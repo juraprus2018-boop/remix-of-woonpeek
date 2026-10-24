@@ -280,7 +280,7 @@ const CityPage = () => {
         </section>
 
         <div className="container">
-          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
+          <AdSlot slotKey="city_page" advertiser="Huurzone.nl" />
         </div>
 
         <section className="container py-8">
@@ -450,7 +450,7 @@ const CityPage = () => {
                           userIncome={filters.grossIncome}
                         />
                         {index === 5 && (
-                          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
+                          <AdSlot slotKey="city_page" advertiser="Huurzone.nl" className="my-2" />
                         )}
                       </div>
                     ))}

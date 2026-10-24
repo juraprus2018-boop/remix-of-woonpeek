@@ -1,7 +1,7 @@
-export const PREFERRED_ADVERTISER = "Huurwoningen.nl";
+export const PREFERRED_ADVERTISER = "Huurzone.nl";
 
 export const isPreferredAdvertiser = (name: string | null | undefined) =>
-  ["huurwoningen", "huurwoningen.nl"].includes((name ?? "").trim().toLowerCase());
+  ["huurzone", "huurzone.nl"].includes((name ?? "").trim().toLowerCase());
 
 export const pickPreferredBanner = <T extends { advertiser_name: string | null }>(
   banners: T[],
