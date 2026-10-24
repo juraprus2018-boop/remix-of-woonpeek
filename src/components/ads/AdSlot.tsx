@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { AdSlotKey } from "@/hooks/useAdSlot";
-import { PREFERRED_ADVERTISER, pickPreferredBanner } from "@/lib/preferredAdvertiser";
+import { pickRandomBanner } from "@/lib/bannerRotation";
 
 interface AdSlotProps {
   slotKey: AdSlotKey;
@@ -30,13 +30,12 @@ const fits = (b: Banner, sizes: number[][]) => sizes.some(([w, h]) => b.width ==
 
 const useBanners = () =>
   useQuery({
-    queryKey: ["daisycon-banners", PREFERRED_ADVERTISER],
+    queryKey: ["daisycon-banners", "all-partners"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("daisycon_banners")
         .select("id, advertiser_name, width, height, image_url, click_url")
-        .eq("is_active", true)
-        .ilike("advertiser_name", PREFERRED_ADVERTISER);
+        .eq("is_active", true);
       if (error) throw error;
       return (data || []) as Banner[];
     },
@@ -71,11 +70,11 @@ const AdSlot = ({ slotKey, className = "", advertiser }: AdSlotProps) => {
   const chosen = useMemo(() => {
     const all = data ?? [];
     if (RECT_SLOTS.includes(slotKey)) {
-      return { main: pickPreferredBanner(all.filter((b) => fits(b, RECT))), mobile: null };
+      return { main: pickRandomBanner(all.filter((b) => fits(b, RECT))), mobile: null };
     }
     return {
-      main: pickPreferredBanner(all.filter((b) => fits(b, WIDE))),
-      mobile: pickPreferredBanner(all.filter((b) => fits(b, MOBILE))),
+      main: pickRandomBanner(all.filter((b) => fits(b, WIDE))),
+      mobile: pickRandomBanner(all.filter((b) => fits(b, MOBILE))),
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, slotKey, advertiser]);

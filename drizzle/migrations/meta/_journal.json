@@ -113,6 +113,13 @@
       "when": 1792738935032,
       "tag": "0015_huurwoningen_listing_priority",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1792868036850,
+      "tag": "0016_round_robin_property_search",
+      "breakpoints": true
     }
   ]
 }
