@@ -36,5 +36,3 @@ SELECT jsonb_build_object('totalCount',(SELECT count(*) FROM filtered),'properti
 $$;
 REVOKE ALL ON FUNCTION public.search_properties_round_robin(jsonb,integer,integer,text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.search_properties_round_robin(jsonb,integer,integer,text) TO anon, authenticated, service_role;
-UPDATE public.properties SET provider_priority = 0 WHERE lower(trim(source_site)) IN ('huurzone','huurzone.nl') AND provider_priority IS DISTINCT FROM 0;
-UPDATE public.properties SET provider_priority = 1 WHERE lower(trim(source_site)) IN ('huurwoningen','huurwoningen.nl') AND provider_priority IS DISTINCT FROM 1;
