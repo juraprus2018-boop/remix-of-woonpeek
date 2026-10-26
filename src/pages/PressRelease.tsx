@@ -11,7 +11,10 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import NotFound from "./NotFound";
 import { CANONICAL_URL } from "@/lib/brand";
-import { Download } from "lucide-react";
+import { Download, Mail } from "lucide-react";
+import { PressKpis, PressCityDeepDive, PressQuote, PressStoryAngles } from "@/components/press/PressInsights";
+import { usePressContact } from "@/lib/press";
+import heroFallback from "@/assets/blog-huurprijzen-oktober-2026.jpg.asset.json";
 import { PRESS_KIND_LABEL, formatDateNL, downloadCsv, type PressChart, type PressTable } from "@/lib/press";
 
 const PressRelease = () => {
@@ -29,6 +32,9 @@ const PressRelease = () => {
   const table = (p?.data as any)?.table as PressTable | undefined;
   const findings = (p?.findings as unknown as string[]) ?? [];
   const editorial = p?.data as { cover_image?: string; cover_alt?: string; cover_caption?: string; related_blog_slug?: string } | undefined;
+  const stats = (p?.data as any)?.stats;
+  const { data: contact } = usePressContact();
+  const cover = editorial?.cover_image || heroFallback.url;
   const url = `${CANONICAL_URL}/pers/${slug}`;
   const citation = p ? `Bron: Woonaanbod NL, ${p.title}, peildatum ${formatDateNL(p.reference_date)}, ${url}` : "";
 
@@ -69,17 +75,18 @@ const PressRelease = () => {
         ) : (
           <div className="container grid gap-8 py-10 lg:grid-cols-[1fr_320px]">
             <article className="space-y-8">
-              {editorial?.cover_image && (
-                <figure>
-                  <img src={editorial.cover_image} alt={editorial.cover_alt || p.title} width={1536} height={1024} className="aspect-[3/2] w-full rounded-lg object-cover" />
-                  {editorial.cover_caption && <figcaption className="mt-2 text-xs text-muted-foreground">{editorial.cover_caption}</figcaption>}
-                </figure>
-              )}
+              <figure>
+                <img src={cover} alt={editorial?.cover_alt || `Huurwoningen ${p.city_name || "Nederland"}, ${p.title}`} width={1536} height={1024} className="aspect-[16/9] w-full rounded-lg object-cover" />
+                <figcaption className="mt-2 text-xs text-muted-foreground">{editorial?.cover_caption || `Woonaanbod NL analyse, peildatum ${formatDateNL(p.reference_date)}.`}</figcaption>
+              </figure>
+              <PressKpis stats={stats} />
               {p.body && <div className="space-y-4 text-muted-foreground">{p.body.split(/\n\n+/).map((paragraph, i) => <p key={i}>{paragraph}</p>)}</div>}
               <section>
                 <h2 className="mb-3 font-display text-xl font-bold">Belangrijkste bevindingen</h2>
                 <ul className="list-disc space-y-2 pl-5">{findings.map((f) => <li key={f}>{f}</li>)}</ul>
               </section>
+
+              <PressQuote city={p.city_name} median={stats?.median_rent} />
 
               {chart && chart.rows?.length > 0 && (
                 <section className="rounded-xl border bg-card p-5">
@@ -116,6 +123,8 @@ const PressRelease = () => {
                 </section>
               )}
 
+              {p.city_name && <PressCityDeepDive city={p.city_name} stats={stats} />}
+
               <section className="rounded-xl border bg-muted/40 p-5 text-sm">
                 <h2 className="mb-2 font-display text-lg font-semibold">Methode en bron</h2>
                 <dl className="grid gap-1 sm:grid-cols-[180px_1fr]">
@@ -127,7 +136,15 @@ const PressRelease = () => {
               </section>
             </article>
 
-            <aside className="space-y-6">
+            <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+              <div className="rounded-xl border bg-primary p-5 text-sm text-primary-foreground">
+                <h2 className="mb-2 font-display text-lg font-semibold">Perscontact</h2>
+                <p>{contact?.name}</p>
+                {contact?.email && <a href={`mailto:${contact.email}?subject=${encodeURIComponent(p.title)}`} className="mt-2 inline-flex items-center gap-2 font-semibold underline"><Mail className="h-4 w-4" />{contact.email}</a>}
+                {contact?.phone && <p className="mt-1">{contact.phone}</p>}
+                <p className="mt-3 text-primary-foreground/80">Interview, extra uitsplitsing of eigen grafiek nodig? Mail ons.</p>
+              </div>
+              <PressStoryAngles city={p.city_name} />
               <div className="rounded-xl border bg-card p-5 text-sm">
                 <h2 className="mb-2 font-display text-lg font-semibold">Bronvermelding</h2>
                 <p className="rounded bg-muted p-3 text-muted-foreground">{citation}</p>
