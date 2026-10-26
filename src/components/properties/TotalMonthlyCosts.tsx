@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { telecomPartnerUrl } from "@/lib/telecomPartner";
 
 /** Average yearly energy cost (EUR) per m² of living area, by energy label. */
 const ENERGY_PER_M2_PER_YEAR: Record<string, number> = {
@@ -159,7 +160,7 @@ const TotalMonthlyCosts = ({
       value: internet,
       setter: setInternet,
       cta: {
-        href: "https://www.daisycon.com/nl/affiliate-marketing/internet-tv/",
+        href: telecomPartnerUrl("maandlasten"),
         label: `Bespaar tot € ${internetSaving}/jr`,
         source: "monthly-costs-internet",
         saving: internetSaving,

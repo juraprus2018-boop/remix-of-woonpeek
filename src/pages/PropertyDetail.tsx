@@ -57,6 +57,7 @@ import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
+import TelecomPartnerTip from "@/components/properties/TelecomPartnerTip";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
@@ -1151,6 +1152,7 @@ const PropertyDetail = () => {
               city={property.city}
             />
             <EnergyCompareTeaser variant="property" context={property.city} />
+            <TelecomPartnerTip city={property.city} />
           </div>
         </section>
 
