@@ -120,6 +120,13 @@
       "when": 1792868036850,
       "tag": "0016_round_robin_property_search",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1792868036851,
+      "tag": "0017_huurzone_first_rotation",
+      "breakpoints": true
     }
   ]
 }

@@ -5,8 +5,8 @@ type Property = Database["public"]["Tables"]["properties"]["Row"];
 
 export const providerGroup = (source?: string | null) => {
   const name = (source ?? "").trim().toLowerCase();
-  if (["huurwoningen", "huurwoningen.nl"].includes(name)) return "0";
-  if (["huurzone", "huurzone.nl"].includes(name)) return "1";
+  if (["huurzone", "huurzone.nl"].includes(name)) return "0";
+  if (["huurwoningen", "huurwoningen.nl"].includes(name)) return "1";
   if (name.includes("renthunter")) return "2";
   return `3:${name}`;
 };

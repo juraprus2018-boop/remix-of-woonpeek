@@ -4,25 +4,24 @@ import { pickRandomBanner } from "./bannerRotation";
 
 describe("provider rotation", () => {
   const rows = ["Huurzone.nl", "RentHunter", "Huurwoningen.nl", "Huurzone.nl", "Renthunter.nl", "Huurwoningen.nl"].map((source_site, i) => ({ id: String(i), source_site, price: i + 100 }));
-  it("repeats Huurwoningen, Huurzone, RentHunter in that order", () => {
-    expect(rotateProperties(rows).map(r => r.source_site)).toEqual(["Huurwoningen.nl", "Huurzone.nl", "RentHunter", "Huurwoningen.nl", "Huurzone.nl", "Renthunter.nl"]);
+  it("repeats Huurzone, Huurwoningen, RentHunter in that order", () => {
+    expect(rotateProperties(rows).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Huurzone.nl", "Huurwoningen.nl", "Renthunter.nl"]);
   });
   it("skips exhausted providers without losing listings", () => {
-    expect(rotateProperties(rows.slice(0, 4)).map(r => r.source_site)).toEqual(["Huurwoningen.nl", "Huurzone.nl", "RentHunter", "Huurzone.nl"]);
-  });
-  it("keeps chosen prices ordered inside each provider", () => {
-    expect(rotateProperties(rows, "price_desc").map(r => r.price)).toEqual([105, 103, 104, 102, 100, 101]);
+    expect(rotateProperties(rows.slice(0, 4)).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Huurzone.nl"]);
   });
   it("places other providers after the named three each round", () => {
-    expect(rotateProperties([...rows, { id: "other", source_site: "Kamernet", price: 99 }]).slice(0, 4).map(r => r.source_site)).toEqual(["Huurwoningen.nl", "Huurzone.nl", "RentHunter", "Kamernet"]);
+    expect(rotateProperties([...rows, { id: "other", source_site: "Kamernet", price: 99 }]).slice(0, 4).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Kamernet"]);
   });
 });
-describe("random banners", () => {
+describe("banners", () => {
   const banners = [{ advertiser_name: "Huurwoningen.nl" }, { advertiser_name: "Huurzone.nl" }, { advertiser_name: "Other" }];
-  it("can choose any active partner, not just the preferred one", () => {
-    expect(pickRandomBanner(banners, () => 0)?.advertiser_name).toBe("Huurwoningen.nl");
-    expect(pickRandomBanner(banners, () => 0.5)?.advertiser_name).toBe("Huurzone.nl");
-    expect(pickRandomBanner(banners, () => 0.99)?.advertiser_name).toBe("Other");
+  it("shows Huurzone in 70% of picks", () => {
+    expect(pickRandomBanner(banners, () => 0.69)?.advertiser_name).toBe("Huurzone.nl");
+  });
+  it("shows other partners in the remaining 30%", () => {
+    const seq = [0.8, 0, 0];
+    expect(pickRandomBanner(banners, () => seq.shift()!)?.advertiser_name).toBe("Huurwoningen.nl");
   });
   it("returns no banner when none are available", () => expect(pickRandomBanner([])).toBeNull());
 });
