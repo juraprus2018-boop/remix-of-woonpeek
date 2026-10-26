@@ -78,8 +78,8 @@ const STEPS: Step[] = [
       "Installatie van glasvezel of kabel duurt soms weken. Vraag aan welke aanbieders op je nieuwe postcode leveren en bestel ruim op tijd, anders zit je de eerste week zonder wifi.",
     cta: {
       label: "Vergelijk internet aanbieders",
-      href: "/energie",
-      note: "Pak meteen een welkomstkorting mee",
+      href: telecomPartnerUrl("verhuischecklist"),
+      note: "Vergelijk op Telecomkeuzegids.nl",
     },
   },
   {
@@ -254,10 +254,17 @@ const Verhuischecklist = () => {
                                 size="sm"
                                 className="shrink-0 gap-1.5 bg-accent text-accent-foreground hover:bg-accent/90"
                               >
-                                <Link to={step.cta.href}>
-                                  {step.cta.label}
-                                  <ArrowRight className="h-4 w-4" />
-                                </Link>
+                                {step.cta.href.startsWith("http") ? (
+                                  <a href={step.cta.href} target="_blank" rel="noopener">
+                                    {step.cta.label}
+                                    <ArrowRight className="h-4 w-4" />
+                                  </a>
+                                ) : (
+                                  <Link to={step.cta.href}>
+                                    {step.cta.label}
+                                    <ArrowRight className="h-4 w-4" />
+                                  </Link>
+                                )}
                               </Button>
                             </div>
                             {step.embedEnergy && (
