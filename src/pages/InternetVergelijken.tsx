@@ -4,6 +4,7 @@ import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import DaisyconInternetWidget from "@/components/energy/DaisyconInternetWidget";
+import TelecomPartnerTip from "@/components/properties/TelecomPartnerTip";
 import { Card, CardContent } from "@/components/ui/card";
 import { Wifi, PiggyBank, ShieldCheck, Tv } from "lucide-react";
 
@@ -101,6 +102,9 @@ const InternetVergelijken = () => {
               Vergelijking aangeboden via Daisycon. Woonaanbod NL ontvangt mogelijk een
               vergoeding bij een succesvolle overstap.
             </p>
+            <div className="mt-6">
+              <TelecomPartnerTip campaign="internet-pagina" />
+            </div>
           </div>
         </section>
 
