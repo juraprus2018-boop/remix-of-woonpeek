@@ -10,7 +10,7 @@
 - Profile creation runs through an idempotent app-owned auth signup trigger so every registered account appears in profile-based user management without assigning privileges from user metadata.
 
 - Public listing displays use the security-invoker round-robin RPC, ranking each provider after filters and before pagination; loaded map data uses the equivalent client rotation so pages never starve other providers.
-- Partner promotions share PartnerTip's cached advertiser link; AdSlot randomly selects from all active partners with equal advertiser probability, without changing listing source URLs.
+- Partner promotions share PartnerTip's cached advertiser link; AdSlot gives the preferred advertiser a fixed majority share and rotates the rest randomly, without changing listing source URLs.
 
 - Explore derives city and source facets from loaded map listings within the viewport or postcode radius, excluding each facet's own selection so users can switch filters without extra nationwide queries.
 - Explore loads public active coordinate-bearing listings through one compact security-invoker snapshot RPC, cached independently of filters and sort, so nationwide markers are not repeatedly downloaded or silently capped by pagination.
