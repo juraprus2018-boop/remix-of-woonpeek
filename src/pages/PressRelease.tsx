@@ -14,7 +14,6 @@ import { CANONICAL_URL } from "@/lib/brand";
 import { Download, Mail } from "lucide-react";
 import { PressKpis, PressCityDeepDive, PressQuote, PressStoryAngles } from "@/components/press/PressInsights";
 import { usePressContact } from "@/lib/press";
-import heroFallback from "@/assets/blog-huurprijzen-oktober-2026.jpg.asset.json";
 import { PRESS_KIND_LABEL, formatDateNL, downloadCsv, type PressChart, type PressTable } from "@/lib/press";
 
 const PressRelease = () => {
@@ -34,7 +33,7 @@ const PressRelease = () => {
   const editorial = p?.data as { cover_image?: string; cover_alt?: string; cover_caption?: string; related_blog_slug?: string } | undefined;
   const stats = (p?.data as any)?.stats;
   const { data: contact } = usePressContact();
-  const cover = editorial?.cover_image || heroFallback.url;
+  const cover = editorial?.cover_image || "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=1600&q=70&auto=format&fit=crop";
   const url = `${CANONICAL_URL}/pers/${slug}`;
   const citation = p ? `Bron: Woonaanbod NL, ${p.title}, peildatum ${formatDateNL(p.reference_date)}, ${url}` : "";
 

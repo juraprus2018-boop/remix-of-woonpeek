@@ -55,8 +55,8 @@ export function PressCityDeepDive({ city, stats }: { city: string; stats?: Stats
           <h2 className="mb-3 font-display text-xl font-bold">Zo ziet het aanbod in {city} eruit</h2>
           <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
             {photos.map((p, i) => (
-              <Link key={p.id} to={`/huurwoningen/${city.toLowerCase().replace(/\s+/g, "-")}`} className={`group relative overflow-hidden rounded-lg ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
-                <img src={p.images?.[0] || getStockPropertyImage(p.id)} alt={`Huurwoning in ${city}, ${p.property_type || "woning"}`} loading="lazy" className="h-full min-h-32 w-full object-cover transition-transform group-hover:scale-105" />
+              <Link key={p.id} to={`/huurwoningen/${city.toLowerCase().replace(/\s+/g, "-")}`} className={`group relative aspect-[4/3] overflow-hidden rounded-lg ${i === 0 ? "col-span-2 md:row-span-2 md:aspect-auto" : ""}`}>
+                <img src={p.images?.[0] || getStockPropertyImage(p.id)} alt={`Huurwoning in ${city}, ${p.property_type || "woning"}`} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform group-hover:scale-105" />
                 <span className="absolute bottom-2 left-2 rounded bg-background/90 px-2 py-0.5 text-xs font-semibold">{eur(p.price)} per maand</span>
               </Link>
             ))}
