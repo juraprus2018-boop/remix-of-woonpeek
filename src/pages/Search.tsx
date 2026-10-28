@@ -415,7 +415,6 @@ const SearchPage = () => {
                   </Button>
                 </div>
               )}
-              <div className="mb-5"><WoonmatchSetup /></div>
               {isError ? (
                 <div role="alert" className="py-8 text-center">
                   <p className="text-foreground">Het aanbod kon niet worden geladen.</p>
