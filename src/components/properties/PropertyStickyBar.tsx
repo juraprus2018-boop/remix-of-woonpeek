@@ -149,9 +149,8 @@ const PropertyStickyBar = ({
           </Button>
           <Button
             onClick={handleReact}
-            variant="accent"
             size="sm"
-            className="gap-1.5 whitespace-nowrap"
+            className="animate-pulse-grow-success gap-1.5 whitespace-nowrap bg-success font-bold text-success-foreground hover:bg-success/90"
           >
             {normalizedSourceUrl ? (
               <>

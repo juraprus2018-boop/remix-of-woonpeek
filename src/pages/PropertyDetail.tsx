@@ -953,7 +953,7 @@ const PropertyDetail = () => {
                           </div>
                           <p className="mt-2 text-xs text-muted-foreground">Reageren gaat via de officiële aanbieder. Daar maak je gratis een profiel aan om een bezichtiging te plannen.</p>
                         </div>
-                      <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
+                      <Button className="animate-pulse-grow-success h-14 w-full rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
