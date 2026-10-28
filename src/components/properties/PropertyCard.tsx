@@ -153,12 +153,6 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                 {property.status}
               </Badge>
             )}
-            {isToday && property.status === "actief" && (
-              <Badge className="bg-accent text-accent-foreground text-xs font-semibold">Nieuw vandaag</Badge>
-            )}
-            {!isToday && isNew && property.status === "actief" && (
-              <Badge className="bg-accent/80 text-accent-foreground text-xs">Nieuw</Badge>
-            )}
             {dealLabel === "goede-deal" && (
               <Badge className="bg-success text-success-foreground text-xs font-semibold">Goede deal</Badge>
             )}
