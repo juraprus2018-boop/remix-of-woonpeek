@@ -1,3 +1,4 @@
+import { freshnessLabel } from "@/lib/freshness";
 import { safeJsonLd } from "@/lib/jsonLd";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
