@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
+import { buildNeighbourhoodStory } from "@/lib/neighbourhoodStory";
 
 type Item = { key: string; label: string; icon: typeof ShoppingCart };
 
@@ -57,9 +58,12 @@ function travelHint(km: number) {
 
 const memory: Record<string, Result> = {};
 
-interface Props { latitude: number; longitude: number; city: string; }
+interface Props {
+  latitude: number; longitude: number; city: string; street?: string;
+  onData?: (d: Record<string, number | null>) => void;
+}
 
-const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
+const NearbyAmenities = ({ latitude, longitude, city, street, onData }: Props) => {
   const key = `nearby_v3_${latitude.toFixed(4)}_${longitude.toFixed(4)}`;
   const initial = (() => {
     if (memory[key]) return memory[key];
@@ -84,17 +88,36 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
+  useEffect(() => {
+    if (data && onData) onData(data.distances);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   if (failed) return null;
+
+  const story = data ? buildNeighbourhoodStory(data.distances, street || "", city) : [];
 
   return (
     <section className="mt-8 min-w-0">
       <h2 className="font-display text-lg font-semibold text-foreground mb-1 break-words">
-        Hoe ver is het naar winkels, station, school en kinderopvang?
+        Zo woon je hier: winkels, station, school en kinderopvang
       </h2>
       <p className="text-[0.9375rem] text-muted-foreground mb-4">
-        Gemiddelde afstand over de weg vanuit de buurt{data?.buurt ? ` ${data.buurt}` : ""} in {city}.
+        Wat heb je allemaal in de buurt{data?.buurt ? ` ${data.buurt}` : ""} in {city}?
       </p>
 
+      {story.length > 0 && (
+        <div className="mb-5 space-y-4">
+          {story.map((b) => (
+            <div key={b.key}>
+              <h3 className="font-semibold text-foreground mb-1">{b.title}</h3>
+              <p className="text-[0.9375rem] leading-relaxed text-muted-foreground">{b.text}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <h3 className="font-semibold text-foreground mb-3">Alle afstanden op een rij</h3>
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
         {GROUPS.map((g) => {
           const rows = g.items.filter((it) => !data || data.distances[it.key] != null);

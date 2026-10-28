@@ -22,6 +22,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
+import { buildNeighbourhoodFaq } from "@/lib/neighbourhoodStory";
 import PropertyComments from "@/components/properties/PropertyComments";
 import {
   Heart,
@@ -115,6 +116,7 @@ const PropertyDetail = () => {
   const location = useLocation();
   const galleryRef = useRef<HTMLElement>(null);
   const [sending, setSending] = useState(false);
+  const [nearby, setNearby] = useState<Record<string, number | null> | null>(null);
 
   // Track recently viewed
   useEffect(() => {
@@ -372,6 +374,7 @@ const PropertyDetail = () => {
         ? `Ja, deze woning is momenteel actief beschikbaar op Woonaanbod NL. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
         : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Woonaanbod NL.`,
     },
+    ...(nearby ? buildNeighbourhoodFaq(nearby, `${property.street} ${property.house_number}`.trim(), property.city) : []),
   ];
 
   const faqJsonLd = {
@@ -829,6 +832,8 @@ const PropertyDetail = () => {
                   latitude={Number(property.latitude)}
                   longitude={Number(property.longitude)}
                   city={property.city}
+                  street={property.street || ""}
+                  onData={setNearby}
                 />
               )}
 
