@@ -258,11 +258,32 @@ const SearchPage = () => {
 
 
         {/* Search Header */}
-        <div className="border-b bg-card">
-          <div className="container py-4">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="sticky top-16 z-30 border-b bg-card/95 shadow-sm backdrop-blur">
+          <div className="container py-2">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="sr-only">
                 <h2>Filters</h2>
+              </div>
+              <div className="flex flex-1 items-center gap-2">
+                <input
+                  value={filters.city}
+                  onChange={(e) => handleFilterChange({ ...filters, city: e.target.value })}
+                  placeholder="Plaatsnaam of postcode"
+                  aria-label="Plaatsnaam"
+                  className="h-9 min-w-0 flex-1 rounded-md border bg-background px-3 text-sm md:max-w-xs"
+                />
+                <select
+                  value={filters.propertyType}
+                  onChange={(e) => handleFilterChange({ ...filters, propertyType: e.target.value as SearchFilterValues["propertyType"] })}
+                  aria-label="Woningtype"
+                  className="h-9 rounded-md border bg-background px-2 text-sm"
+                >
+                  <option value="">Alle types</option>
+                  <option value="appartement">Appartement</option>
+                  <option value="huis">Huis</option>
+                  <option value="studio">Studio</option>
+                  <option value="kamer">Kamer</option>
+                </select>
               </div>
               <div className="flex items-center gap-2">
                 {/* Mobile filter button */}
