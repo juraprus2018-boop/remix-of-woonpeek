@@ -2,6 +2,7 @@ import { safeJsonLd } from "@/lib/jsonLd";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
 import { useParams, Link, useLocation, Navigate } from "react-router-dom";
+import { citySlug } from "@/lib/citySlug";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
 import { optimizeImage } from "@/lib/imageOptimization";
@@ -396,6 +397,12 @@ const PropertyDetail = () => {
     property.energy_label ? { icon: Zap, label: "Energielabel", value: property.energy_label } : null,
     property.neighborhood ? { icon: MapPin, label: "Buurt", value: property.neighborhood } : null,
   ].filter(Boolean) as { icon: typeof Home; label: string; value: string }[];
+
+  // Gestopte aanbieder RentHunter: oude woningpagina's doorsturen naar het stadsaanbod
+  if ((property.source_site || "").toLowerCase().includes("renthunter")) {
+    const base = property.listing_type === "koop" ? "/koopwoningen" : "/huurwoningen";
+    return <Navigate to={property.city ? `${base}/${citySlug(property.city)}` : base} replace />;
+  }
 
   // Oude URL's (/aanbod/[slug]) doorsturen naar de canonieke adres-URL
   if (location.pathname !== canonicalPath) {
