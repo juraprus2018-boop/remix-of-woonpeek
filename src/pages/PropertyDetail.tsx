@@ -951,12 +951,15 @@ const PropertyDetail = () => {
                         <div>
                           <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
                           <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
-                          <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
+                          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
                             {(() => { const f = freshnessLabel(property.created_at); return (
-                              <span className={f.urgent ? "rounded-full bg-accent px-3 py-1 text-accent-foreground" : "rounded-full bg-muted px-3 py-1 text-foreground"}>{f.label}</span>
+                              <span className={f.urgent ? "inline-flex items-center gap-1.5 font-semibold text-accent" : "inline-flex items-center gap-1.5 text-muted-foreground"}>
+                                <Clock className="h-3.5 w-3.5" />
+                                {f.label}
+                              </span>
                             ); })()}
                             {(property.views_count ?? 0) > 1 && (
-                              <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">{property.views_count}x bekeken</span>
+                              <span className="text-muted-foreground">{property.views_count}x bekeken</span>
                             )}
                           </div>
                           <p className="mt-2 text-xs text-muted-foreground">Reageren gaat via de officiële aanbieder. Daar maak je gratis een profiel aan om een bezichtiging te plannen.</p>
