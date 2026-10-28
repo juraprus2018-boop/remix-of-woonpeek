@@ -385,34 +385,12 @@ const SearchPage = () => {
 
             {/* Results */}
             <div className="min-w-0 flex-1">
-              <div className="mb-4">
-                <PartnerTip
-                  title="Op zoek naar een huurwoning?"
-                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone.nl."
-                  buttonText="Bekijk huurwoningen bij Huurzone.nl"
-                />
-              </div>
-              <div className="mb-4 rounded-2xl border bg-card p-4">
-                <p className="font-display text-lg font-semibold text-foreground">
-                  {isLoading
-                    ? "Aanbod laden..."
-                    : `Gevonden: ${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
-                </p>
-                {!isLoading && newest && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Recent toegevoegde woning: {newest.date} ({newest.relative})
-                  </p>
-                )}
-              </div>
-              <SearchAlertCTA
-                className="mb-4"
-                city={debouncedCity || undefined}
-                listingType={filters.listingType || undefined}
-                propertyType={filters.propertyType || undefined}
-                maxPrice={effectiveMaxPrice}
-                minRooms={filters.minBedrooms}
-                source="search"
-              />
+              <p className="mb-3 text-sm font-semibold text-foreground">
+                {isLoading
+                  ? "Aanbod laden..."
+                  : `${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
+              </p>
+
 
               <IncomeBanner
                 grossIncome={filters.grossIncome}
