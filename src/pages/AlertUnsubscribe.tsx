@@ -103,7 +103,8 @@ const AlertUnsubscribe = () => {
                 </div>
               </CardContent>
             </Card>
-        </div>
+          </div>
+        )}
       </main>
 
       <Footer />
