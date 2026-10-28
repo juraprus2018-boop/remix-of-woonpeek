@@ -40,6 +40,8 @@ const EMPTY_FILTERS: SearchFilterValues = {
   grossIncome: undefined,
 };
 
+export const STALE_ALERT_DAYS = 4;
+
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState<"list" | "map">("list");
@@ -144,8 +146,21 @@ const SearchPage = () => {
     return {
       date: latest.toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }),
       relative,
+      days,
     };
   }, [properties]);
+
+  const alertCity = (debouncedCity || "").trim();
+  const alertCityLabel = alertCity ? alertCity.charAt(0).toUpperCase() + alertCity.slice(1) : "";
+  const alertFilters = {
+    city: alertCityLabel || null,
+    listingType: filters.listingType || null,
+    propertyType: filters.propertyType || null,
+    maxPrice: filters.maxPrice ?? null,
+    minRooms: filters.minBedrooms ?? null,
+  };
+  // Only nudge towards alerts when a specific place has no fresh supply.
+  const showStaleAlert = !!alertCity && !!newest && newest.days >= STALE_ALERT_DAYS;
 
   // Infinite scroll observer
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -439,6 +454,16 @@ const SearchPage = () => {
               ) : visibleListProperties && visibleListProperties.length > 0 ? (
               viewMode === "list" ? (
                   <>
+                    {showStaleAlert && newest && (
+                      <SearchAlertCTA
+                        {...alertFilters}
+                        source="search_stale"
+                        className="mb-5"
+                        title={`Laatste woning in ${alertCityLabel} is ${newest.days} dagen geleden geplaatst`}
+                        description={`In kleinere gemeenten gaat het aanbod snel. Wees er als eerste bij: vul je e-mailadres in en ontvang direct een melding zodra er een nieuwe woning in ${alertCityLabel} online komt.`}
+                        buttonLabel="Houd mij op de hoogte"
+                      />
+                    )}
                     <div className="flex flex-col gap-5">
                       {visibleListProperties.map((property, index) => (
                         <div key={property.id} className="contents">
@@ -488,6 +513,16 @@ const SearchPage = () => {
                     <Button variant="outline" className="mt-4" onClick={clearFilters}>
                       Filters wissen
                     </Button>
+                  )}
+                  {alertCity && (
+                    <SearchAlertCTA
+                      {...alertFilters}
+                      source="search_empty"
+                      className="mt-8 w-full text-left"
+                      title={`Nog geen woningen in ${alertCityLabel}`}
+                      description={`Ontvang direct een seintje zodra er een woning in ${alertCityLabel} online komt. Zo ben jij de eerste die kan reageren.`}
+                      buttonLabel="Houd mij op de hoogte"
+                    />
                   )}
                 </div>
               )}
