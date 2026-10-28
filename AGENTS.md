@@ -19,3 +19,4 @@
 - Press publications store optional editorial image metadata and a related blog slug in their existing data object, so rich releases remain compatible with automated releases without schema changes.
 - City rental insights share a paginated exact-city active-rental query and pure statistical calculation across city and canonical rental routes, with attributed local context and explicit samples, so price comparisons never mix sales or silently truncated listing data.
 - Facebook daily videos render actual MP4s and persist one job per Amsterdam calendar day with atomic write claims and remote IDs; only ready videos with completed publishing count as posted, and unknown upload outcomes require reconciliation before retry.
+- Property nearby-amenity distances come from CBS neighbourhood statistics via a cached backend lookup (PDOK buurt → CBS), because public Overpass servers proved too slow and unreliable.
