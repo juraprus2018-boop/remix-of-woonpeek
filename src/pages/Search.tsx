@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
-import WoonmatchSetup from "@/components/search/WoonmatchSetup";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -258,11 +257,32 @@ const SearchPage = () => {
 
 
         {/* Search Header */}
-        <div className="border-b bg-card">
-          <div className="container py-4">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="sticky top-[82px] md:top-[98px] z-30 border-b bg-card/95 shadow-sm backdrop-blur">
+          <div className="container py-2">
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="sr-only">
                 <h2>Filters</h2>
+              </div>
+              <div className="flex flex-1 items-center gap-2">
+                <input
+                  value={filters.city}
+                  onChange={(e) => handleFilterChange({ ...filters, city: e.target.value })}
+                  placeholder="Plaatsnaam of postcode"
+                  aria-label="Plaatsnaam"
+                  className="h-9 min-w-0 flex-1 rounded-md border bg-background px-3 text-sm md:max-w-xs"
+                />
+                <select
+                  value={filters.propertyType}
+                  onChange={(e) => handleFilterChange({ ...filters, propertyType: e.target.value as SearchFilterValues["propertyType"] })}
+                  aria-label="Woningtype"
+                  className="h-9 rounded-md border bg-background px-2 text-sm"
+                >
+                  <option value="">Alle types</option>
+                  <option value="appartement">Appartement</option>
+                  <option value="huis">Huis</option>
+                  <option value="studio">Studio</option>
+                  <option value="kamer">Kamer</option>
+                </select>
               </div>
               <div className="flex items-center gap-2">
                 {/* Mobile filter button */}
@@ -364,34 +384,12 @@ const SearchPage = () => {
 
             {/* Results */}
             <div className="min-w-0 flex-1">
-              <div className="mb-4">
-                <PartnerTip
-                  title="Op zoek naar een huurwoning?"
-                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone.nl."
-                  buttonText="Bekijk huurwoningen bij Huurzone.nl"
-                />
-              </div>
-              <div className="mb-4 rounded-2xl border bg-card p-4">
-                <p className="font-display text-lg font-semibold text-foreground">
-                  {isLoading
-                    ? "Aanbod laden..."
-                    : `Gevonden: ${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
-                </p>
-                {!isLoading && newest && (
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Recent toegevoegde woning: {newest.date} ({newest.relative})
-                  </p>
-                )}
-              </div>
-              <SearchAlertCTA
-                className="mb-4"
-                city={debouncedCity || undefined}
-                listingType={filters.listingType || undefined}
-                propertyType={filters.propertyType || undefined}
-                maxPrice={effectiveMaxPrice}
-                minRooms={filters.minBedrooms}
-                source="search"
-              />
+              <p className="mb-3 text-sm font-semibold text-foreground">
+                {isLoading
+                  ? "Aanbod laden..."
+                  : `${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
+              </p>
+
 
               <IncomeBanner
                 grossIncome={filters.grossIncome}
@@ -416,7 +414,6 @@ const SearchPage = () => {
                   </Button>
                 </div>
               )}
-              <div className="mb-5"><WoonmatchSetup /></div>
               {isError ? (
                 <div role="alert" className="py-8 text-center">
                   <p className="text-foreground">Het aanbod kon niet worden geladen.</p>
