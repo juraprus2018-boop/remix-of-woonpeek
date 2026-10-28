@@ -288,8 +288,8 @@ const SearchPage = () => {
                 {/* Mobile filter button */}
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="outline" className="animate-nudge md:hidden">
-                      <SlidersHorizontal className="mr-2 h-4 w-4" />
+                    <Button variant="accent" className="animate-pulse-grow h-11 px-5 text-base font-bold md:hidden">
+                      <SlidersHorizontal className="mr-2 h-5 w-5" />
                       Filters
                       {hasActiveFilters && (
                         <span className="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
