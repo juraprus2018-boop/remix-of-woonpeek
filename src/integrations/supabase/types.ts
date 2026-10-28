@@ -1178,6 +1178,24 @@ export type Database = {
         }
         Relationships: []
       }
+      nearby_amenities_cache: {
+        Row: {
+          cache_key: string
+          data: Json
+          updated_at: string
+        }
+        Insert: {
+          cache_key: string
+          data: Json
+          updated_at?: string
+        }
+        Update: {
+          cache_key?: string
+          data?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       neighborhood_reviews: {
         Row: {
           city: string
