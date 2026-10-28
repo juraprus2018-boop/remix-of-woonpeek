@@ -190,7 +190,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
           </div>
 
           {sourceLogo && (
-            <div className="absolute right-3 bottom-3 h-7 w-7 rounded-md bg-background/90 p-0.5 shadow-sm">
+            <div className="absolute right-3 bottom-11 h-7 w-7 rounded-md bg-background/90 p-0.5 shadow-sm">
               <img
                 src={sourceLogo}
                 alt={property.source_site || "Aanbieder"}
@@ -198,6 +198,22 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
               />
             </div>
           )}
+
+          {/* Freshness strip over the full photo width */}
+          {(() => {
+            const f = freshnessLabel(property.created_at);
+            return (
+              <div
+                className={cn(
+                  "absolute inset-x-0 bottom-0 px-3 py-1.5 text-xs font-semibold text-primary-foreground",
+                  f.urgent ? "bg-accent" : "bg-primary/90"
+                )}
+                title={format(new Date(property.created_at), "d MMMM yyyy", { locale: nl })}
+              >
+                {f.label}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Body */}
