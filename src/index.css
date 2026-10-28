@@ -181,3 +181,9 @@
   50% { transform: scale(1.07); box-shadow: 0 0 0 10px hsl(var(--accent) / 0); }
 }
 .animate-pulse-grow { animation: pulse-grow 1.6s ease-in-out infinite; }
+
+@keyframes pulse-grow-success {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 hsl(var(--success) / 0.55); }
+  50% { transform: scale(1.07); box-shadow: 0 0 0 10px hsl(var(--success) / 0); }
+}
+.animate-pulse-grow-success { animation: pulse-grow-success 1.6s ease-in-out infinite; }
