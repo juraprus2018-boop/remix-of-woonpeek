@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { ShoppingCart, GraduationCap, Bus, TrainFront } from "lucide-react";
+import { ShoppingCart, GraduationCap, Bus, TrainFront, Baby, Stethoscope } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface AmenityCategory {
@@ -8,6 +8,9 @@ interface AmenityCategory {
   label: string;
   icon: typeof ShoppingCart;
   query: string;
+  radius: number;
+  match: (t: Record<string, string>) => boolean;
+  fallback: string;
 }
 
 interface AmenityResult {
@@ -16,31 +19,23 @@ interface AmenityResult {
 }
 
 const CATEGORIES: AmenityCategory[] = [
-  {
-    key: "supermarket",
-    label: "Supermarkten",
-    icon: ShoppingCart,
-    query: `node["shop"="supermarket"]`,
-  },
-  {
-    key: "school",
-    label: "Scholen",
-    icon: GraduationCap,
-    query: `node["amenity"~"school|university|college"]`,
-  },
-  {
-    key: "bus",
-    label: "Bushaltes",
-    icon: Bus,
-    query: `node["highway"="bus_stop"]`,
-  },
-  {
-    key: "train",
-    label: "Treinstations",
-    icon: TrainFront,
-    query: `node["railway"="station"]["station"!="subway"]`,
-  },
+  { key: "supermarket", label: "Supermarkten", icon: ShoppingCart, radius: 3000, fallback: "Supermarkt",
+    query: `nwr["shop"="supermarket"]`, match: (t) => t.shop === "supermarket" },
+  { key: "train", label: "Treinstations", icon: TrainFront, radius: 8000, fallback: "Station",
+    query: `node["railway"="station"]["station"!="subway"]`, match: (t) => t.railway === "station" },
+  { key: "bus", label: "Bushaltes", icon: Bus, radius: 1000, fallback: "Bushalte",
+    query: `node["highway"="bus_stop"]`, match: (t) => t.highway === "bus_stop" },
+  { key: "school", label: "Scholen", icon: GraduationCap, radius: 3000, fallback: "School",
+    query: `nwr["amenity"="school"]`, match: (t) => t.amenity === "school" },
+  { key: "childcare", label: "Kinderopvang", icon: Baby, radius: 3000, fallback: "Kinderopvang",
+    query: `nwr["amenity"~"^(kindergarten|childcare)$"]`, match: (t) => t.amenity === "kindergarten" || t.amenity === "childcare" },
+  { key: "doctor", label: "Huisarts", icon: Stethoscope, radius: 3000, fallback: "Huisarts",
+    query: `nwr["amenity"~"^(doctors|clinic)$"]`, match: (t) => t.amenity === "doctors" || t.amenity === "clinic" },
 ];
+
+const ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
+
+function walkMinutes(m: number) { return Math.max(1, Math.round(m / 80)); }
 
 /** Haversine distance in meters */
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -65,13 +60,13 @@ interface Props {
   city: string;
 }
 
-const RADIUS = 5000; // 5km search radius
+
 
 /** Simple in-memory + sessionStorage cache for Overpass results */
 const memoryCache: Record<string, Record<string, AmenityResult[]>> = {};
 
 function getCacheKey(lat: number, lon: number) {
-  return `amenities_${lat.toFixed(4)}_${lon.toFixed(4)}`;
+  return `amenities_v2_${lat.toFixed(4)}_${lon.toFixed(4)}`;
 }
 
 function getCached(key: string): Record<string, AmenityResult[]> | null {
@@ -116,26 +111,30 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
       setError(false);
 
       const unionParts = CATEGORIES.map(
-        (c) => `${c.query}(around:${RADIUS},${latitude},${longitude});`
+        (c) => `${c.query}(around:${c.radius},${latitude},${longitude});`
       ).join("\n");
 
       const query = `
-        [out:json][timeout:10];
+        [out:json][timeout:20];
         (
           ${unionParts}
         );
-        out body;
+        out center tags;
       `;
 
       try {
-        const res = await fetch("https://overpass-api.de/api/interpreter", {
-          method: "POST",
-          body: `data=${encodeURIComponent(query)}`,
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        });
-
-        if (!res.ok) throw new Error("Overpass API error");
-        const data = await res.json();
+        let data: any = null;
+        for (const url of ENDPOINTS) {
+          try {
+            const res = await fetch(url, {
+              method: "POST",
+              body: `data=${encodeURIComponent(query)}`,
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            });
+            if (res.ok) { data = await res.json(); break; }
+          } catch { /* try next */ }
+        }
+        if (!data) throw new Error("Overpass API error");
         if (cancelled) return;
 
         const grouped: Record<string, AmenityResult[]> = {};
@@ -146,22 +145,14 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
 
         for (const el of data.elements || []) {
           const tags = el.tags || {};
-          const name = tags.name || "";
-          const dist = haversine(latitude, longitude, el.lat, el.lon);
-
-          if (tags.shop === "supermarket") {
-            grouped.supermarket.push({ name: name || "Supermarkt", distance: dist });
-          } else if (
-            tags.amenity === "school" ||
-            tags.amenity === "university" ||
-            tags.amenity === "college"
-          ) {
-            grouped.school.push({ name: name || "School", distance: dist });
-          } else if (tags.highway === "bus_stop") {
-            grouped.bus.push({ name: name || "Bushalte", distance: dist });
-          } else if (tags.railway === "station") {
-            grouped.train.push({ name: name || "Station", distance: dist });
-          }
+          const lat = el.lat ?? el.center?.lat;
+          const lon = el.lon ?? el.center?.lon;
+          if (lat == null || lon == null) continue;
+          const cat = CATEGORIES.find((c) => c.match(tags));
+          if (!cat) continue;
+          const name = tags.name || cat.fallback;
+          if (grouped[cat.key].some((x) => x.name === name)) continue;
+          grouped[cat.key].push({ name, distance: haversine(latitude, longitude, lat, lon) });
         }
 
         for (const key of Object.keys(grouped)) {
@@ -191,11 +182,11 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
         In de buurt van deze woning in {city}
       </h3>
       <p className="text-[0.9375rem] text-muted-foreground mb-4">
-        Voorzieningen binnen {RADIUS / 1000} km
+        Afstand hemelsbreed, met geschatte looptijd. Bron: OpenStreetMap
       </p>
 
       {loading ? (
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((cat) => (
             <Card key={cat.key} className="overflow-hidden">
               <CardContent className="p-4">
@@ -213,7 +204,7 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
           ))}
         </div>
       ) : (
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((cat) => {
             const items = results[cat.key] || [];
             const Icon = cat.icon;
@@ -239,13 +230,14 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
                           </span>
                           <span className="shrink-0 font-medium text-foreground">
                             {formatDistance(item.distance)}
+                            <span className="ml-1 font-normal text-muted-foreground">· {walkMinutes(item.distance)} min lopen</span>
                           </span>
                         </li>
                       ))}
                     </ul>
                   ) : (
                     <p className="text-[0.9375rem] text-muted-foreground">
-                      Geen gevonden binnen {RADIUS / 1000} km
+                      Geen gevonden binnen {cat.radius / 1000} km
                     </p>
                   )}
                 </CardContent>
