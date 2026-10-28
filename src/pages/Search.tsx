@@ -257,7 +257,7 @@ const SearchPage = () => {
 
 
         {/* Search Header */}
-        <div className="sticky top-[var(--hdr,82px)] z-30 border-b bg-card/95 shadow-sm backdrop-blur">
+        <div className="sticky top-[82px] md:top-[98px] z-30 border-b bg-card/95 shadow-sm backdrop-blur">
           <div className="container py-2">
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
               <div className="sr-only">
