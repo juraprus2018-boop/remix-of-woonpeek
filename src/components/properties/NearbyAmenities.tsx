@@ -33,7 +33,7 @@ const CATEGORIES: AmenityCategory[] = [
     query: `nwr["amenity"~"^(doctors|clinic)$"]`, match: (t) => t.amenity === "doctors" || t.amenity === "clinic" },
 ];
 
-const ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
+const ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter", "https://overpass.private.coffee/api/interpreter"];
 
 function walkMinutes(m: number) { return Math.max(1, Math.round(m / 80)); }
 
@@ -123,17 +123,25 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
       `;
 
       try {
+        const ctrls = ENDPOINTS.map(() => new AbortController());
+        const timer = setTimeout(() => ctrls.forEach((c) => c.abort()), 30000);
         let data: any = null;
-        for (const url of ENDPOINTS) {
-          try {
+        try {
+          data = await Promise.any(ENDPOINTS.map(async (url, i) => {
             const res = await fetch(url, {
               method: "POST",
               body: `data=${encodeURIComponent(query)}`,
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              signal: ctrls[i].signal,
             });
-            if (res.ok) { data = await res.json(); break; }
-          } catch { /* try next */ }
-        }
+            if (!res.ok) throw new Error(String(res.status));
+            const json = await res.json();
+            if (!Array.isArray(json?.elements)) throw new Error("bad");
+            return json;
+          }));
+        } catch { data = null; }
+        clearTimeout(timer);
+        ctrls.forEach((c) => c.abort());
         if (!data) throw new Error("Overpass API error");
         if (cancelled) return;
 
