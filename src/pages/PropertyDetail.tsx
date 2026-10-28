@@ -672,7 +672,7 @@ const PropertyDetail = () => {
                 )}
                 <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
                   <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
-                    <WhatsAppIcon className="mr-1.5 h-4 w-4" /> WhatsApp
+                    <WhatsAppIcon className="mr-1.5 h-4 w-4" /> Deel met vrienden & familie
                   </a>
                 </Button>
                 {typeof navigator.share === "function" ? (

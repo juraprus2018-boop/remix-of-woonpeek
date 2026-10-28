@@ -288,7 +288,7 @@ const SearchPage = () => {
                 {/* Mobile filter button */}
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="outline" className="md:hidden">
+                    <Button variant="outline" className="animate-nudge md:hidden">
                       <SlidersHorizontal className="mr-2 h-4 w-4" />
                       Filters
                       {hasActiveFilters && (

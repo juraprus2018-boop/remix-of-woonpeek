@@ -167,3 +167,11 @@
   50% { transform: translateY(-10px); }
 }
 .animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+@keyframes nudge {
+  0%, 88%, 100% { transform: translateX(0); }
+  91% { transform: translateX(-3px); }
+  94% { transform: translateX(3px); }
+  97% { transform: translateX(-2px); }
+}
+.animate-nudge { animation: nudge 3.5s ease-in-out infinite; }

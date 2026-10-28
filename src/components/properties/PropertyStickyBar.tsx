@@ -144,7 +144,7 @@ const PropertyStickyBar = ({
           >
             <a href={whatsappShareHref(title)} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon className="h-4 w-4" />
-              <span className="hidden sm:inline">Deel</span>
+              <span className="hidden sm:inline">Deel met vrienden</span>
             </a>
           </Button>
           <Button
