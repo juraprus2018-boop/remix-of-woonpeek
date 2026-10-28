@@ -261,18 +261,6 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                 </Badge>
               )}
               {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
-              {(() => {
-                const f = freshnessLabel(property.created_at);
-                return (
-                  <Badge
-                    variant={f.urgent ? "default" : "outline"}
-                    className={f.urgent ? "bg-accent text-accent-foreground font-semibold" : "font-normal"}
-                    title={format(new Date(property.created_at), "d MMMM yyyy", { locale: nl })}
-                  >
-                    {f.label}
-                  </Badge>
-                );
-              })()}
               {(property.views_count ?? 0) > 0 && (
                 <Badge variant="outline">{property.views_count}x bekeken</Badge>
               )}
