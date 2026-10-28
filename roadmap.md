@@ -23,4 +23,7 @@
 
 # Woningmails
 - [x] Eigen huisstijl, originele onderwerpregels en compacte woningselectie toepassen.
-- [x] Afmeldlinks behouden, voorbeeld controleren en mailfunctie bijwerken.
+- [x] Afmeldlinks behouden, voorbeeld controleren en mailfunctie bijwerken.- [x] Relatieve publicatielabels (Vandaag online, reageer snel)
+- [x] Reageer-urgentie op woningpagina
+- [ ] Internet & TV vergelijker (wacht op Daisycon-code)
+- [x] SEO huurtoeslag/vrije sector pagina's

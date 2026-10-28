@@ -1,3 +1,4 @@
+import { freshnessLabel } from "@/lib/freshness";
 import { safeJsonLd } from "@/lib/jsonLd";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
@@ -949,6 +950,15 @@ const PropertyDetail = () => {
                         <div>
                           <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
                           <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
+                          <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
+                            {(() => { const f = freshnessLabel(property.created_at); return (
+                              <span className={f.urgent ? "rounded-full bg-accent px-3 py-1 text-accent-foreground" : "rounded-full bg-muted px-3 py-1 text-foreground"}>{f.label}</span>
+                            ); })()}
+                            {(property.views_count ?? 0) > 1 && (
+                              <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">{property.views_count}x bekeken</span>
+                            )}
+                          </div>
+                          <p className="mt-2 text-xs text-muted-foreground">Reageren gaat via de officiële aanbieder. Daar maak je gratis een profiel aan om een bezichtiging te plannen.</p>
                         </div>
                       <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
@@ -1210,7 +1220,7 @@ const PropertyDetail = () => {
         {/* ── Publicatiedatum ── */}
         <div className="container pb-8">
           <p className="text-center text-[11px] text-muted-foreground/70">
-            Gepubliceerd: <time dateTime={new Date(property.created_at).toISOString()}>{publishedAt}</time>
+            <time dateTime={new Date(property.created_at).toISOString()} title={publishedAt}>{freshnessLabel(property.created_at).label}</time>
           </p>
         </div>
       </main>
