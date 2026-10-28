@@ -134,6 +134,13 @@
       "when": 1793215056029,
       "tag": "0018_affiliates_before_crawlers",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1793225294003,
+      "tag": "0019_nearby_amenities_cache",
+      "breakpoints": true
     }
   ]
 }
