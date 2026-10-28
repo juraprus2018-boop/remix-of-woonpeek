@@ -25,14 +25,17 @@ export const rotateProperties = <T extends { source_site?: string | null; id?: s
     if (sort === "price_desc" && priceDiff) return -priceDiff;
     return new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime() || (a.id ?? "").localeCompare(b.id ?? "");
   }));
-  const result: T[] = [];
-  for (let round = 0; result.length < rows.length; round++) {
-    for (const pool of pools) {
-      const row = pool[round];
-      if (row) result.push(row);
-    }
-  }
-  return result;
+  // Affiliates (Huurzone, Huurwoningen.nl) alternate first; all other sources follow afterwards.
+  const keys = [...groups.keys()].sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+  const interleave = (list: T[][]) => {
+    const out: T[] = [];
+    const total = list.reduce((n, p) => n + p.length, 0);
+    for (let round = 0; out.length < total; round++) for (const pool of list) if (pool[round]) out.push(pool[round]);
+    return out;
+  };
+  const affiliate = pools.filter((_, i) => keys[i] === "0" || keys[i] === "1");
+  const rest = pools.filter((_, i) => keys[i] !== "0" && keys[i] !== "1");
+  return [...interleave(affiliate), ...interleave(rest)];
 };
 
 export const fetchRotatingProperties = async (filters: object = {}, offset = 0, limit = 12, sort = "newest") => {

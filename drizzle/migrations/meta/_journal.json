@@ -127,6 +127,13 @@
       "when": 1792868036851,
       "tag": "0017_huurzone_first_rotation",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1793215056029,
+      "tag": "0018_affiliates_before_crawlers",
+      "breakpoints": true
     }
   ]
 }
