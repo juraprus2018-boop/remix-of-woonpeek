@@ -35,6 +35,13 @@ const CATEGORIES: AmenityCategory[] = [
 
 const ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter", "https://overpass.private.coffee/api/interpreter"];
 
+function firstSuccess<T>(ps: Promise<T>[]): Promise<T> {
+  return new Promise((resolve, reject) => {
+    let left = ps.length;
+    ps.forEach((p) => p.then(resolve, () => { if (--left === 0) reject(new Error("all failed")); }));
+  });
+}
+
 function walkMinutes(m: number) { return Math.max(1, Math.round(m / 80)); }
 
 /** Haversine distance in meters */
@@ -127,7 +134,7 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
         const timer = setTimeout(() => ctrls.forEach((c) => c.abort()), 30000);
         let data: any = null;
         try {
-          data = await Promise.any(ENDPOINTS.map(async (url, i) => {
+          data = await firstSuccess(ENDPOINTS.map(async (url, i) => {
             const res = await fetch(url, {
               method: "POST",
               body: `data=${encodeURIComponent(query)}`,
