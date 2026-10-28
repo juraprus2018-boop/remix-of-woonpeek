@@ -8,7 +8,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import { Loader2, PartyPopper, Check, Zap } from "lucide-react";
 
 const AlertUnsubscribe = () => {
   const { token } = useParams<{ token: string }>();
@@ -70,10 +70,39 @@ const AlertUnsubscribe = () => {
               {loading ? <Loader2 className="mx-auto h-6 w-6 animate-spin text-primary" /> : null}
               <p className="text-muted-foreground">{message}</p>
               <Link to="/">
-                <Button>Naar home</Button>
+                <Button variant="outline">Naar home</Button>
               </Link>
             </CardContent>
           </Card>
+        </div>
+        {isSuccess && (
+          <div className="container pb-12">
+            <Card className="border-accent/40 bg-accent/5">
+              <CardContent className="space-y-4 p-6 md:p-8">
+                <div className="flex items-center gap-2 text-accent">
+                  <PartyPopper className="h-5 w-5" />
+                  <span className="text-sm font-semibold uppercase tracking-wide">Woning gevonden?</span>
+                </div>
+                <h2 className="text-2xl font-bold">Gefeliciteerd met je nieuwe woning!</h2>
+                <p className="text-muted-foreground">
+                  Regel je energie vóór de sleuteloverdracht. Zo zit je niet zonder stroom en betaal je geen duur standaardtarief.
+                  Overstappen is gratis en de nieuwe leverancier regelt alles.
+                </p>
+                <ul className="grid gap-2 text-sm sm:grid-cols-3">
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 text-accent" />Stroom en gas regelen</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 text-accent" />Meterstanden noteren bij oplevering</li>
+                  <li className="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 text-accent" />Internet op tijd aanvragen</li>
+                </ul>
+                <div className="flex flex-wrap gap-3">
+                  <Button asChild className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90">
+                    <Link to="/energie"><Zap className="h-4 w-4" />Vergelijk energie voor je nieuwe adres</Link>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <Link to="/verhuischecklist">Bekijk de verhuischecklist</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
         </div>
       </main>
 
