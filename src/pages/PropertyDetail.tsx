@@ -832,6 +832,8 @@ const PropertyDetail = () => {
                   latitude={Number(property.latitude)}
                   longitude={Number(property.longitude)}
                   city={property.city}
+                  street={property.street || ""}
+                  onData={setNearby}
                 />
               )}
 
