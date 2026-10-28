@@ -6,8 +6,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/integrations/supabase/client";
-import { buildNeighbourhoodStory, buildNeighbourhoodFaq } from "@/lib/neighbourhoodStory";
-export { buildNeighbourhoodFaq };
+import { buildNeighbourhoodStory } from "@/lib/neighbourhoodStory";
 
 type Item = { key: string; label: string; icon: typeof ShoppingCart };
 
