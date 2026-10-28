@@ -950,6 +950,15 @@ const PropertyDetail = () => {
                         <div>
                           <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
                           <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
+                          <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
+                            {(() => { const f = freshnessLabel(property.created_at); return (
+                              <span className={f.urgent ? "rounded-full bg-accent px-3 py-1 text-accent-foreground" : "rounded-full bg-muted px-3 py-1 text-foreground"}>{f.label}</span>
+                            ); })()}
+                            {(property.views_count ?? 0) > 1 && (
+                              <span className="rounded-full bg-primary/10 px-3 py-1 text-primary">{property.views_count}x bekeken</span>
+                            )}
+                          </div>
+                          <p className="mt-2 text-xs text-muted-foreground">Reageren gaat via de officiële aanbieder. Daar maak je gratis een profiel aan om een bezichtiging te plannen.</p>
                         </div>
                       <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
