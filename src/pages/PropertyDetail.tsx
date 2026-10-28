@@ -23,7 +23,6 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
 import PropertyComments from "@/components/properties/PropertyComments";
-import CompetitionMeter from "@/components/properties/CompetitionMeter";
 import {
   Heart,
   Share2,
@@ -55,7 +54,6 @@ import { useState, useEffect, useRef } from "react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import MortgageCalculator from "@/components/properties/MortgageCalculator";
-import ChanceEstimator from "@/components/properties/ChanceEstimator";
 import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
@@ -696,15 +694,6 @@ const PropertyDetail = () => {
                 )}
               </div>
 
-              {/* ── Competition meter (urgency / social proof) ── */}
-              <CompetitionMeter
-                propertyId={property.id}
-                viewsCount={property.views_count || 0}
-                createdAt={property.created_at}
-                listingType={property.listing_type as "huur" | "koop"}
-                city={property.city}
-              />
-
               {/* ── Description ── */}
               <section>
                 <h2 className="font-display text-xl font-semibold mb-3">
@@ -989,7 +978,6 @@ const PropertyDetail = () => {
                             </li>
                           ))}
                         </ul>
-                        {property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
                       </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
@@ -1047,40 +1035,6 @@ const PropertyDetail = () => {
                 </Card>
 
                 {/* Source card */}
-                {(sourceMeta || sourceLogo) && (
-                  <Card>
-                    <CardContent className="p-5">
-                      <div className="flex items-center gap-3">
-                        {sourceLogo ? (
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg border bg-white p-1">
-                            <img
-                              src={sourceLogo}
-                              alt={sourceMeta?.label || sourceInfo.source_site || "Aanbieder"}
-                              className="h-full w-full object-contain"
-                            />
-                          </div>
-                        ) : sourceMeta ? (
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold text-white" style={{ backgroundColor: sourceMeta.color }}>
-                            {sourceMeta.label.charAt(0).toUpperCase()}
-                          </div>
-                        ) : null}
-                        <div>
-                          <p className="font-semibold">{sourceMeta?.label || sourceInfo.source_site}</p>
-                          <p className="text-xs text-muted-foreground">Externe aanbieder</p>
-                        </div>
-                      </div>
-                      {sourceInfo.source_url && (
-                        <Button variant="outline" className="mt-3 w-full" size="sm" onClick={() => {
-                          trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
-                          window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
-                        }}>
-                          <ExternalLink className="mr-2 h-3.5 w-3.5" />
-                          Bekijk bij {sourceMeta?.label || sourceInfo.source_site}
-                        </Button>
-                      )}
-                    </CardContent>
-                  </Card>
-                )}
               </div>
             </div>
           </div>
