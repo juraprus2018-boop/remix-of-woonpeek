@@ -78,6 +78,13 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       return { ...base, maxPrice: price, label: `onder ${formatEuro(price)}` };
     }
 
+    if (filter === "met-huurtoeslag") {
+      return { ...base, maxPrice: HUURTOESLAG_GRENS, label: "met huurtoeslag (kale huur tot €879)" };
+    }
+    if (filter === "vrije-sector") {
+      return { ...base, minPrice: HUURTOESLAG_GRENS + 1, label: "in de vrije sector" } as typeof base & { minPrice: number };
+    }
+
     if (filter in TYPE_LABELS) {
       return { ...base, typeFromFilter: filter as PropertyType, label: "" };
     }

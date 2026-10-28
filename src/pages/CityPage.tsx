@@ -555,6 +555,16 @@ const CityPage = () => {
               ))}
             </div>
 
+            <h3 className="font-display text-lg font-semibold text-foreground mb-3">Huurtoeslag en vrije sector</h3>
+            <div className="grid gap-2 sm:grid-cols-2 mb-6">
+              <Link to={`/huurwoningen/${citySlug}/met-huurtoeslag`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                Huurwoningen met huurtoeslag in {cityName}
+              </Link>
+              <Link to={`/huurwoningen/${citySlug}/vrije-sector`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
+                Vrije sector huurwoningen in {cityName}
+              </Link>
+            </div>
+
             {/* By bedrooms */}
             <h3 className="font-display text-lg font-semibold text-foreground mb-3">Op aantal kamers</h3>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-4 mb-6">
