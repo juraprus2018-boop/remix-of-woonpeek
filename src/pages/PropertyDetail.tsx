@@ -54,7 +54,6 @@ import { useState, useEffect, useRef } from "react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import MortgageCalculator from "@/components/properties/MortgageCalculator";
-import ChanceEstimator from "@/components/properties/ChanceEstimator";
 import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
@@ -979,7 +978,6 @@ const PropertyDetail = () => {
                             </li>
                           ))}
                         </ul>
-                        {property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
                       </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
