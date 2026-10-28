@@ -32,7 +32,7 @@ function hav(a: number, b: number, c: number, d: number) {
 
 async function overpass(query: string): Promise<any | null> {
   const ctrls = ENDPOINTS.map(() => new AbortController());
-  const timer = setTimeout(() => ctrls.forEach((c) => c.abort()), 40000);
+  const timer = setTimeout(() => ctrls.forEach((c) => c.abort()), 18000);
   try {
     return await new Promise((resolve) => {
       let left = ENDPOINTS.length;
@@ -78,12 +78,15 @@ Deno.serve(async (req) => {
       return json({ results: cached.data, cached: true });
     }
 
-    const parts = CATS.map((c) => `${c.q}(around:${c.r},${rlat},${rlon});`).join("");
-    const data = await overpass(`[out:json][timeout:30];(${parts});out center tags;`);
-    if (!data) {
+    const answers = await Promise.all(
+      CATS.map((c) => overpass(`[out:json][timeout:15];${c.q}(around:${c.r},${rlat},${rlon});out center tags 40;`)),
+    );
+    const okCount = answers.filter(Boolean).length;
+    if (okCount === 0) {
       if (cached) return json({ results: cached.data, cached: true });
       return json({ error: "Kaartdienst niet bereikbaar" }, 503);
     }
+    const data = { elements: answers.flatMap((a) => a?.elements ?? []) };
 
     const grouped: Record<string, { name: string; distance: number }[]> = {};
     for (const c of CATS) grouped[c.key] = [];
@@ -99,7 +102,8 @@ Deno.serve(async (req) => {
     }
     for (const k of Object.keys(grouped)) grouped[k] = grouped[k].sort((a, b) => a.distance - b.distance).slice(0, 3);
 
-    await sb.from("nearby_amenities_cache").upsert({ cache_key: key, data: grouped, updated_at: new Date().toISOString() });
+    // Alleen cachen als alle categorieën gelukt zijn
+    if (okCount === CATS.length) await sb.from("nearby_amenities_cache").upsert({ cache_key: key, data: grouped, updated_at: new Date().toISOString() });
     return json({ results: grouped, cached: false });
   } catch (e) {
     console.error("nearby-amenities", e);
