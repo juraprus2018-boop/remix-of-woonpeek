@@ -95,7 +95,7 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
         Gemiddelde afstand over de weg vanuit de buurt{data?.buurt ? ` ${data.buurt}` : ""} in {city}.
       </p>
 
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
         {GROUPS.map((g) => {
           const rows = g.items.filter((it) => !data || data.distances[it.key] != null);
           if (data && rows.length === 0) return null;
@@ -112,7 +112,7 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
                         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary/10">
                           <Icon className="h-3.5 w-3.5 text-primary" />
                         </span>
-                        <span className="min-w-0 flex-1 truncate text-muted-foreground">{it.label}</span>
+                        <span className="min-w-0 flex-1 text-muted-foreground leading-snug">{it.label}</span>
                         {km == null ? (
                           <Skeleton className="h-4 w-16" />
                         ) : (
