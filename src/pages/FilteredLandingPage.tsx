@@ -38,6 +38,7 @@ const TYPE_LABELS: Record<string, { singular: string; plural: string; slug: stri
 };
 
 const HUURTOESLAG_GRENS = 879;
+const HUURTOESLAG_GRENS = 879;
 const PRICE_THRESHOLDS = [750, 1000, 1250, 1500, 2000];
 const BEDROOM_OPTIONS = [1, 2, 3, 4];
 
