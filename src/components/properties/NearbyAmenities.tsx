@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ShoppingCart, GraduationCap, Bus, TrainFront, Baby, Stethoscope } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { supabase } from "@/integrations/supabase/client";
 
 interface AmenityCategory {
   key: string;
@@ -32,15 +33,6 @@ const CATEGORIES: AmenityCategory[] = [
   { key: "doctor", label: "Huisarts", icon: Stethoscope, radius: 3000, fallback: "Huisarts",
     query: `nwr["amenity"~"^(doctors|clinic)$"]`, match: (t) => t.amenity === "doctors" || t.amenity === "clinic" },
 ];
-
-const ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter", "https://overpass.private.coffee/api/interpreter"];
-
-function firstSuccess<T>(ps: Promise<T>[]): Promise<T> {
-  return new Promise((resolve, reject) => {
-    let left = ps.length;
-    ps.forEach((p) => p.then(resolve, () => { if (--left === 0) reject(new Error("all failed")); }));
-  });
-}
 
 function walkMinutes(m: number) { return Math.max(1, Math.round(m / 80)); }
 
@@ -117,65 +109,14 @@ const NearbyAmenities = ({ latitude, longitude, city }: Props) => {
       setLoading(true);
       setError(false);
 
-      const unionParts = CATEGORIES.map(
-        (c) => `${c.query}(around:${c.radius},${latitude},${longitude});`
-      ).join("\n");
-
-      const query = `
-        [out:json][timeout:20];
-        (
-          ${unionParts}
-        );
-        out center tags;
-      `;
-
       try {
-        const ctrls = ENDPOINTS.map(() => new AbortController());
-        const timer = setTimeout(() => ctrls.forEach((c) => c.abort()), 30000);
-        let data: any = null;
-        try {
-          data = await firstSuccess(ENDPOINTS.map(async (url, i) => {
-            const res = await fetch(url, {
-              method: "POST",
-              body: `data=${encodeURIComponent(query)}`,
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              signal: ctrls[i].signal,
-            });
-            if (!res.ok) throw new Error(String(res.status));
-            const json = await res.json();
-            if (!Array.isArray(json?.elements)) throw new Error("bad");
-            return json;
-          }));
-        } catch { data = null; }
-        clearTimeout(timer);
-        ctrls.forEach((c) => c.abort());
-        if (!data) throw new Error("Overpass API error");
+        const { data, error: fnError } = await supabase.functions.invoke("nearby-amenities", {
+          body: { lat: latitude, lon: longitude },
+        });
+        if (fnError || !data?.results) throw new Error("failed");
         if (cancelled) return;
 
-        const grouped: Record<string, AmenityResult[]> = {};
-
-        for (const cat of CATEGORIES) {
-          grouped[cat.key] = [];
-        }
-
-        for (const el of data.elements || []) {
-          const tags = el.tags || {};
-          const lat = el.lat ?? el.center?.lat;
-          const lon = el.lon ?? el.center?.lon;
-          if (lat == null || lon == null) continue;
-          const cat = CATEGORIES.find((c) => c.match(tags));
-          if (!cat) continue;
-          const name = tags.name || cat.fallback;
-          if (grouped[cat.key].some((x) => x.name === name)) continue;
-          grouped[cat.key].push({ name, distance: haversine(latitude, longitude, lat, lon) });
-        }
-
-        for (const key of Object.keys(grouped)) {
-          grouped[key] = grouped[key]
-            .sort((a, b) => a.distance - b.distance)
-            .slice(0, 3);
-        }
-
+        const grouped: Record<string, AmenityResult[]> = data.results;
         setCache(cacheKey, grouped);
         setResults(grouped);
       } catch {
