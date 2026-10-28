@@ -73,8 +73,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   };
 
   const hoursAgo = (Date.now() - new Date(property.created_at).getTime()) / (1000 * 60 * 60);
-  const isToday = hoursAgo < 24;
-  const isNew = hoursAgo < 7 * 24;
+  void hoursAgo;
 
 
   const dealLabel = (() => {
