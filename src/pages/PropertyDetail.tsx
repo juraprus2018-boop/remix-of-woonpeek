@@ -1210,7 +1210,7 @@ const PropertyDetail = () => {
         {/* ── Publicatiedatum ── */}
         <div className="container pb-8">
           <p className="text-center text-[11px] text-muted-foreground/70">
-            Gepubliceerd: <time dateTime={new Date(property.created_at).toISOString()}>{publishedAt}</time>
+            <time dateTime={new Date(property.created_at).toISOString()} title={publishedAt}>{freshnessLabel(property.created_at).label}</time>
           </p>
         </div>
       </main>

@@ -23,6 +23,7 @@ import { getStockPropertyImage } from "@/lib/stockImages";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { useWoonmatch, woonmatchScore } from "@/lib/woonmatch";
+import { freshnessLabel } from "@/lib/freshness";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
@@ -250,9 +251,18 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                 </Badge>
               )}
               {property.build_year && <Badge variant="outline">Bouwjaar {property.build_year}</Badge>}
-              <Badge variant="outline" className="font-normal">
-                Gepubliceerd: {format(new Date(property.created_at), "d MMMM yyyy", { locale: nl })}
-              </Badge>
+              {(() => {
+                const f = freshnessLabel(property.created_at);
+                return (
+                  <Badge
+                    variant={f.urgent ? "default" : "outline"}
+                    className={f.urgent ? "bg-accent text-accent-foreground font-semibold" : "font-normal"}
+                    title={format(new Date(property.created_at), "d MMMM yyyy", { locale: nl })}
+                  >
+                    {f.label}
+                  </Badge>
+                );
+              })()}
               {(property.views_count ?? 0) > 0 && (
                 <Badge variant="outline">{property.views_count}x bekeken</Badge>
               )}
