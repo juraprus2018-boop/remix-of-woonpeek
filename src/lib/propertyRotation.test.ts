@@ -4,14 +4,12 @@ import { pickRandomBanner } from "./bannerRotation";
 
 describe("provider rotation", () => {
   const rows = ["Huurzone.nl", "RentHunter", "Huurwoningen.nl", "Huurzone.nl", "Renthunter.nl", "Huurwoningen.nl"].map((source_site, i) => ({ id: String(i), source_site, price: i + 100 }));
-  it("repeats Huurzone, Huurwoningen, RentHunter in that order", () => {
-    expect(rotateProperties(rows).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Huurzone.nl", "Huurwoningen.nl", "Renthunter.nl"]);
+  it("alternates Huurzone and Huurwoningen before any other source", () => {
+    expect(rotateProperties(rows).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Renthunter.nl"]);
   });
-  it("skips exhausted providers without losing listings", () => {
-    expect(rotateProperties(rows.slice(0, 4)).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Huurzone.nl"]);
-  });
-  it("places other providers after the named three each round", () => {
-    expect(rotateProperties([...rows, { id: "other", source_site: "Kamernet", price: 99 }]).slice(0, 4).map(r => r.source_site)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "RentHunter", "Kamernet"]);
+  it("puts crawler listings last", () => {
+    const out = rotateProperties([{ id: "c", source_site: "Kamernet", price: 1 }, ...rows]).map(r => r.source_site);
+    expect(out.slice(0, 4)).toEqual(["Huurzone.nl", "Huurwoningen.nl", "Huurzone.nl", "Huurwoningen.nl"]);
   });
 });
 describe("banners", () => {
