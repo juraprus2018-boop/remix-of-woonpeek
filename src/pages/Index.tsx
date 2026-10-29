@@ -32,6 +32,7 @@ import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import RecentComments from "@/components/home/RecentComments";
 import AdSlot from "@/components/ads/AdSlot";
 import { cityToSlug } from "@/lib/cities";
+import HomeSeoContent from "@/components/home/HomeSeoContent";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -70,7 +71,7 @@ const TYPES_DEF = [
 ];
 
 const Index = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: properties, isLoading } = useFeaturedProperties();
   const { data: homeStats } = useHomeStats();
   const { data: newToday } = useNewTodayCount();
@@ -478,6 +479,7 @@ const Index = () => {
         </div>
       </section>
 
+      {i18n.language?.startsWith("nl") !== false && <HomeSeoContent />}
       <Footer />
     </div>
   );
