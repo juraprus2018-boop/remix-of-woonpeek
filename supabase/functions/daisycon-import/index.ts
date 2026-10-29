@@ -732,78 +732,41 @@ Deno.serve(async (req) => {
           }
         }
 
-        let processedCount = 0;
-        let budgetStopped = false;
+        // Bulk update existing listings in batches (one DB call per 250 rows),
+        // so even feeds with 10k+ listings finish well within the time limit.
+        const updateRows: any[] = [];
         for (const propData of allPropertyData) {
-          // Sequential per-row updates can outlast the platform limit; stop in
-          // time so the run finishes instead of being cut off with a 504.
-          processedCount++;
-          if (processedCount % 25 === 0 && Date.now() - startTime > TIME_BUDGET_MS) {
-            console.log(`Feed ${feed.name}: time budget exceeded during updates at ${processedCount}/${allPropertyData.length}`);
-            budgetStopped = true;
-            break;
-          }
           const existing = existingMap.get(propData.source_url);
-          if (existing) {
-            // Always sync ALL fields from feed to keep data fresh
-            const updates: Record<string, any> = {};
-            
-            // Reactivate if inactive
-            if (existing.status === "inactief") {
-              updates.status = "actief";
-            }
-            
-            // Always update images if feed has them
-            if (propData.images.length > 0) {
-              updates.images = propData.images;
-            }
-            
-            // Update title if current is generic
-            if (existing.title && genericTitles.includes(existing.title.trim().toLowerCase())) {
-              updates.title = propData.title;
-            }
-            
-            // Always update these fields from the feed if available
-            if (propData.latitude) {
-              updates.latitude = propData.latitude;
-              updates.longitude = propData.longitude;
-            }
-            if (propData.build_year) updates.build_year = propData.build_year;
-            if (propData.energy_label) updates.energy_label = propData.energy_label;
-            if (propData.price) updates.price = propData.price;
-            if (propData.surface_area) updates.surface_area = propData.surface_area;
-            if (propData.bedrooms) updates.bedrooms = propData.bedrooms;
-            if (propData.bathrooms) updates.bathrooms = propData.bathrooms;
-            if (propData.description) updates.description = propData.description;
-            if (propData.street && propData.street !== "Onbekend") updates.street = propData.street;
-            if (propData.house_number && propData.house_number !== "-") updates.house_number = propData.house_number;
-            if (propData.city && propData.city !== "Onbekend") updates.city = propData.city;
-            if (propData.postal_code && propData.postal_code !== "0000AA") updates.postal_code = propData.postal_code;
-            
-            if (Object.keys(updates).length > 0) {
-              updates.updated_at = new Date().toISOString();
-              updates.last_checked_at = new Date().toISOString();
-              await supabase.from("properties").update(updates).eq("id", existing.id);
-              updated++;
-            } else {
-              skipped++;
-              unchangedIds.push(existing.id);
-            }
+          if (!existing) continue;
+          const isGeneric = existing.title && genericTitles.includes(existing.title.trim().toLowerCase());
+          updateRows.push({
+            id: existing.id,
+            images: propData.images?.length > 0 ? propData.images : null,
+            title: isGeneric ? propData.title : null,
+            latitude: propData.latitude && propData.longitude ? propData.latitude : null,
+            longitude: propData.latitude && propData.longitude ? propData.longitude : null,
+            build_year: propData.build_year || null,
+            energy_label: propData.energy_label || null,
+            price: propData.price || null,
+            surface_area: propData.surface_area || null,
+            bedrooms: propData.bedrooms || null,
+            bathrooms: propData.bathrooms || null,
+            description: propData.description || null,
+            street: propData.street && propData.street !== "Onbekend" ? propData.street : null,
+            house_number: propData.house_number && propData.house_number !== "-" ? propData.house_number : null,
+            city: propData.city && propData.city !== "Onbekend" ? propData.city : null,
+            postal_code: propData.postal_code && propData.postal_code !== "0000AA" ? propData.postal_code : null,
+          });
+        }
+        for (let i = 0; i < updateRows.length; i += 250) {
+          const batch = updateRows.slice(i, i + 250);
+          const { data: n, error: updErr } = await supabase.rpc("bulk_update_feed_properties", { _rows: batch });
+          if (updErr) {
+            console.error(`Feed ${feed.name}: bulk update failed at ${i}: ${updErr.message}`);
+            skipped += batch.length;
+          } else {
+            updated += typeof n === "number" ? n : batch.length;
           }
-        }
-        if (budgetStopped) {
-          skipped += allPropertyData.length - processedCount;
-        }
-
-        // Mark unchanged-but-still-listed properties as freshly seen so the
-        // cleanup job does not consider them stale.
-        for (let i = 0; i < unchangedIds.length; i += 200) {
-          const batch = unchangedIds.slice(i, i + 200);
-          const { error: touchErr } = await supabase
-            .from("properties")
-            .update({ last_checked_at: new Date().toISOString() })
-            .in("id", batch);
-          if (touchErr) console.warn(`Feed ${feed.name}: touch last_checked_at failed: ${touchErr.message}`);
         }
 
 
