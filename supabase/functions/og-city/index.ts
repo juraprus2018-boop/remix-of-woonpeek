@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { socialImageUrl } from "../_shared/socialImage.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -69,7 +70,7 @@ Deno.serve(async (req) => {
   const allImages = (imageResult.data || [])
     .flatMap((p: any) => p.images || [])
     .filter((img: string) => img?.trim() && !img.includes("placeholder"));
-  const ogImage = allImages[0] || `${SITE_URL}/facebook-cover.png`;
+  const ogImage = socialImageUrl(allImages[0], SITE_URL, "/facebook-cover.png");
 
   // Build price context for richer description
   const priceContext = huurCount > 0 && koopCount > 0
