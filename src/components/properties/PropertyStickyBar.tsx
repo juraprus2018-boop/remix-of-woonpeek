@@ -79,7 +79,7 @@ const PropertyStickyBar = ({
           <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
           <p className="mt-1 text-xs text-muted-foreground">{listingType === "huur" ? "per maand" : "koopprijs"}</p>
         </div>
-        <Button onClick={handleReact} size="lg" className="animate-pulse-grow-success h-12 flex-1 gap-2 rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90">
+        <Button onClick={handleReact} size="lg" className="h-12 flex-1 gap-2 rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90">
           Reageren <ArrowRight className="h-5 w-5" />
         </Button>
       </div>
@@ -150,7 +150,7 @@ const PropertyStickyBar = ({
           <Button
             onClick={handleReact}
             size="sm"
-            className="animate-pulse-grow-success gap-1.5 whitespace-nowrap bg-success font-bold text-success-foreground hover:bg-success/90"
+            className="gap-1.5 whitespace-nowrap bg-success font-bold text-success-foreground hover:bg-success/90"
           >
             {normalizedSourceUrl ? (
               <>
