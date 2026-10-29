@@ -758,14 +758,23 @@ Deno.serve(async (req) => {
             postal_code: propData.postal_code && propData.postal_code !== "0000AA" ? propData.postal_code : null,
           });
         }
-        for (let i = 0; i < updateRows.length; i += 250) {
-          const batch = updateRows.slice(i, i + 250);
+        // Batches of 100; a failed batch (e.g. lock/timeout) is retried in
+        // smaller chunks so one slow batch never leaves listings inactive.
+        const runBatch = async (batch: any[]) => {
           const { data: n, error: updErr } = await supabase.rpc("bulk_update_feed_properties", { _rows: batch });
-          if (updErr) {
-            console.error(`Feed ${feed.name}: bulk update failed at ${i}: ${updErr.message}`);
-            skipped += batch.length;
-          } else {
-            updated += typeof n === "number" ? n : batch.length;
+          if (updErr) return { ok: false as const, msg: updErr.message };
+          return { ok: true as const, n: typeof n === "number" ? n : batch.length };
+        };
+        for (let i = 0; i < updateRows.length; i += 100) {
+          const batch = updateRows.slice(i, i + 100);
+          const res = await runBatch(batch);
+          if (res.ok) { updated += res.n; continue; }
+          console.warn(`Feed ${feed.name}: bulk update retry at ${i}: ${res.msg}`);
+          for (let j = 0; j < batch.length; j += 20) {
+            const small = batch.slice(j, j + 20);
+            const r2 = await runBatch(small);
+            if (r2.ok) updated += r2.n;
+            else { skipped += small.length; console.error(`Feed ${feed.name}: bulk update failed: ${r2.msg}`); }
           }
         }
 
