@@ -15,6 +15,7 @@ import { useToggleFavorite } from "@/hooks/useFavorites";
 import { useFeedLogos } from "@/hooks/useFeedLogos";
 import { useAuth } from "@/contexts/AuthContext";
 import { propertyPath } from "@/lib/propertyUrl";
+import { pluralize } from "@/lib/pluralize";
 import { cn } from "@/lib/utils";
 import { Database } from "@/integrations/supabase/types";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
