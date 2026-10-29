@@ -100,7 +100,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
 
   const subtitle = [
     property.property_type,
-    property.bedrooms ? `${property.bedrooms} kamers` : null,
+    property.bedrooms ? pluralize(property.bedrooms, "kamer", "kamers") : null,
   ]
     .filter(Boolean)
     .join(" - ");
@@ -279,13 +279,13 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
               {property.bedrooms && (
                 <li className="flex items-center gap-2">
                   <Bed className="h-4 w-4 shrink-0 text-muted-foreground" />
-                  <span>{property.bedrooms} slaapkamers</span>
+                  <span>{pluralize(property.bedrooms, "slaapkamer", "slaapkamers")}</span>
                 </li>
               )}
               {property.bathrooms && (
                 <li className="flex items-center gap-2">
                   <Users className="h-4 w-4 shrink-0 text-muted-foreground" />
-                  <span>{property.bathrooms} badkamers</span>
+                  <span>{pluralize(property.bathrooms, "badkamer", "badkamers")}</span>
                 </li>
               )}
               {property.energy_label && (
