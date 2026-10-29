@@ -36,7 +36,7 @@ const AgenciesList = () => {
             {agencies.map((a) => (
               <Link key={a.id} to={`/makelaars/${a.slug}`} className="flex items-center gap-4 rounded-lg border bg-card p-4 transition-shadow hover:shadow-md">
                 <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded border bg-background">
-                  {a.logo_url ? <img src={a.logo_url} alt="" className="h-full w-full object-contain" loading="lazy" /> : <Building2 className="h-7 w-7 text-muted-foreground" />}
+                  {a.logo_url ? <img src={a.logo_url} alt={`Logo ${a.name}`} className="h-full w-full object-contain" loading="lazy" /> : <Building2 className="h-7 w-7 text-muted-foreground" />}
                 </div>
                 <div>
                   <div className="font-semibold text-foreground">{a.name}</div>

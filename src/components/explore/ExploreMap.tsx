@@ -195,7 +195,7 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: 
         { icon: createPriceIcon(Number(property.price), false), zIndexOffset: 0 }
       ).bindPopup(() => `
         <div style="min-width:220px;padding:4px 6px 6px;font-family:system-ui,sans-serif">
-          ${property.images?.[0] ? `<img src="${property.images[0]}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block" />` : ""}
+          ${property.images?.[0] ? `<img src="${property.images[0]}" alt="${String(`${property.listing_type === "koop" ? "Woning te koop" : "Woning te huur"}${property.street ? ` aan ${property.street} ${property.house_number || ""}`.trimEnd() : ""}${property.city ? ` in ${property.city}` : ""}`).replace(/"/g, "&quot;")}" loading="lazy" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block" />` : ""}
           <div style="font-weight:600;font-size:14px;line-height:1.3;margin-bottom:4px">${property.title}</div>
           <div style="color:#666;font-size:12px;margin-bottom:8px">${property.street || ""} ${property.house_number || ""}, ${property.city}</div>
           <div style="font-weight:700;font-size:15px;color:hsl(var(--primary));margin-bottom:12px">${formatPrice(Number(property.price), property.listing_type)}</div>

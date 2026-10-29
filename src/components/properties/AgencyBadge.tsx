@@ -16,7 +16,7 @@ const AgencyBadge = ({ agencyId, propertyId }: { agencyId: string; propertyId: s
   return (
     <Link to={`/makelaars/${agency.slug}`} className="flex items-center gap-3 rounded-lg border bg-background p-3 hover:border-primary">
       <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded border bg-card">
-        {agency.logo_url ? <img src={agency.logo_url} alt="" className="h-full w-full object-contain" /> : <Building2 className="h-5 w-5 text-muted-foreground" />}
+        {agency.logo_url ? <img src={agency.logo_url} alt={`Logo ${agency.name}`} loading="lazy" className="h-full w-full object-contain" /> : <Building2 className="h-5 w-5 text-muted-foreground" />}
       </div>
       <div className="text-sm">
         <div className="text-muted-foreground">Aangeboden door</div>

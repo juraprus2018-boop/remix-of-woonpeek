@@ -126,7 +126,12 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
               )}
               <img
                 src={hasOwn ? optimizeImage(heroSrc, { width: 640, height: 400, quality: 74 }) : heroSrc}
-                alt={`${property.property_type ? property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1) : "Woning"} ${property.listing_type === "koop" ? "te koop" : "te huur"} aan ${[property.street, property.house_number].filter(Boolean).join(" ")}${property.city ? ` in ${property.city}` : ""} - Woonaanbod NL`}
+                alt={(() => {
+                  const type = property.property_type ? property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1) : "Woning";
+                  const deal = property.listing_type === "koop" ? "te koop" : "te huur";
+                  const addr = [property.street, property.house_number].filter(Boolean).join(" ").trim();
+                  return `${type} ${deal}${addr ? ` aan ${addr}` : ""}${property.city ? ` in ${property.city}` : ""} - Woonaanbod NL`;
+                })()}
                 loading={priority ? "eager" : "lazy"}
                 fetchPriority={priority ? "high" : "auto"}
                 decoding="async"
