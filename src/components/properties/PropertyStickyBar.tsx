@@ -75,11 +75,11 @@ const PropertyStickyBar = ({
     {/* Mobile: always visible at the bottom */}
     <div className="fixed inset-x-0 bottom-0 z-[55] border-t border-border bg-background shadow-[0_-4px_20px_-8px_hsl(var(--foreground)/0.25)] md:hidden">
       <div className="flex items-center gap-3 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="shrink-0">
-          <p className="font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
+        <div className="min-w-0 flex-1 basis-0">
+          <p className="truncate font-display text-xl font-bold leading-none text-primary">{formattedPrice}</p>
           <p className="mt-1 text-xs text-muted-foreground">{listingType === "huur" ? "per maand" : "koopprijs"}</p>
         </div>
-        <Button onClick={handleReact} size="lg" className="h-12 flex-1 gap-2 rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90">
+        <Button onClick={handleReact} size="lg" className="h-12 flex-1 basis-0 gap-2 rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90">
           Reageren <ArrowRight className="h-5 w-5" />
         </Button>
       </div>
