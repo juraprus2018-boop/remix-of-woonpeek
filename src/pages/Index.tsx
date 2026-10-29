@@ -479,7 +479,7 @@ const Index = () => {
         </div>
       </section>
 
-      {i18n.language?.startsWith("nl") !== false && <HomeSeoContent />}
+      {(i18n.language || "nl").startsWith("nl") && <HomeSeoContent />}
       <Footer />
     </div>
   );
