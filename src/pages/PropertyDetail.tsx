@@ -20,6 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import PropertyMap from "@/components/properties/PropertyMap";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
+import DetailTopBar from "@/components/properties/DetailTopBar";
 import PropertyCard from "@/components/properties/PropertyCard";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
 import { buildNeighbourhoodFaq } from "@/lib/neighbourhoodStory";
@@ -428,6 +429,7 @@ const PropertyDetail = () => {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
 
       <Header />
+      <DetailTopBar fallbackHref={property.city ? cityPath(property.city) : "/woning-zoeken"} defaultCity={property.city || undefined} />
 
       <PropertyStickyBar
         propertyId={property.id}
