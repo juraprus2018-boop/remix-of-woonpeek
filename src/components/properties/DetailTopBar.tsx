@@ -24,7 +24,7 @@ export default function DetailTopBar({ fallbackHref, defaultCity }: Props) {
     e.preventDefault();
     const params = new URLSearchParams();
     const value = q.trim();
-    if (value) params.set("city", value);
+    if (value) params.set("locatie", value);
     navigate(`/woning-zoeken${params.toString() ? `?${params}` : ""}`);
   };
 
