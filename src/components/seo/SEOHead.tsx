@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, CANONICAL_URL, type Locale } from "@/lib/brand";
 import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
 import socialAsset from "@/assets/brand/social.png.asset.json";
+import { socialImageUrl } from "../../../supabase/functions/_shared/socialImage";
 
 interface SEOHeadProps {
   title: string;
@@ -119,14 +120,25 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setMeta("og:type", ogType);
     setMeta("og:locale", locale === "nl" ? "nl_NL" : locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : "fr_FR");
     if (resolvedCanonical) setMeta("og:url", resolvedCanonical);
-    const resolvedImage = ogImage || `${CANONICAL_URL}${socialAsset.url}`;
+    const resolvedImage = socialImageUrl(ogImage, CANONICAL_URL, socialAsset.url);
     setMeta("og:image", resolvedImage);
     setMeta("og:site_name", "Woonaanbod NL");
 
-    setMeta("twitter:card", "summary_large_image");
-    setMeta("twitter:title", title);
-    setMeta("twitter:description", description);
-    setMeta("twitter:image", resolvedImage);
+    const setTwitterMeta = (name: string, content: string) => {
+      // Twitter tags use name, not property; update the static fallback in place.
+      document.querySelectorAll(`meta[property="${name}"]`).forEach((el) => el.remove());
+      let el = document.querySelector(`meta[name="${name}"]`);
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute("name", name);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    setTwitterMeta("twitter:card", "summary_large_image");
+    setTwitterMeta("twitter:title", title);
+    setTwitterMeta("twitter:description", description);
+    setTwitterMeta("twitter:image", resolvedImage);
 
     // Geo meta tags (local relevance signals for Bing and regional engines)
     const setNamedMeta = (name: string, content: string | null) => {
@@ -159,7 +171,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         isPartOf: { "@id": siteId },
         about: { "@id": orgId },
         publisher: { "@id": orgId },
-        ...(ogImage ? { primaryImageOfPage: { "@type": "ImageObject", url: ogImage } } : {}),
+        ...(ogImage ? { primaryImageOfPage: { "@type": "ImageObject", url: resolvedImage } } : {}),
         potentialAction: { "@type": "ReadAction", target: [resolvedCanonical] },
       });
 

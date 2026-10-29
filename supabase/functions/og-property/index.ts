@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
+import { socialImageUrl } from "../_shared/socialImage.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -49,14 +50,14 @@ Deno.serve(async (req) => {
   }
 
   const pageUrl = propertyUrl(property as any);
-  const ogImage = property.images?.find((img) => typeof img === "string" && img.trim() !== "") || `${SITE_URL}/facebook-cover.png`;
+  const ogImage = socialImageUrl(property.images?.find((img) => typeof img === "string" && img.trim() !== ""), SITE_URL, "/facebook-cover.png");
 
   const priceFormatted = new Intl.NumberFormat("nl-NL", {
     style: "currency",
     currency: "EUR",
     minimumFractionDigits: 0,
   }).format(property.price);
-  const priceLabel = property.listing_type === "huur" ? `${priceFormatted} p/m` : priceFormatted;
+  const priceLabel = property.listing_type === "huur" ? `${priceFormatted} per maand` : priceFormatted;
 
   const title = `${property.title} - ${priceLabel} | Woonaanbod NL`;
   const descParts = [`${property.street} ${property.house_number}, ${property.city}`];
@@ -78,7 +79,7 @@ Deno.serve(async (req) => {
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="${escapeHtml(pageUrl)}">
-  <meta property="og:type" content="article">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="Woonaanbod NL">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(title)}">
