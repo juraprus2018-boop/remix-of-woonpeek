@@ -749,6 +749,37 @@ const PropertyDetail = () => {
                 )}
               </section>
 
+              {/* ── Delen ── */}
+              <section className="rounded-2xl border border-border bg-muted/30 p-4">
+                <h2 className="mb-3 font-display text-base font-bold">Deel deze woning</h2>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
+                    <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
+                      <WhatsAppIcon className="mr-1.5 h-4 w-4" /> Deel met vrienden & familie
+                    </a>
+                  </Button>
+                  {typeof navigator.share === "function" ? (
+                    <Button variant="ghost" size="sm" onClick={handleShare}>
+                      <Share2 className="mr-1.5 h-4 w-4" /> Delen
+                    </Button>
+                  ) : (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="ghost" size="sm"><Share2 className="mr-1.5 h-4 w-4" /> Delen</Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-48 p-2">
+                        <div className="flex flex-col gap-1">
+                          <Button variant="ghost" size="sm" className="justify-start" onClick={copyLink}><Copy className="mr-2 h-4 w-4" /> Link kopiëren</Button>
+                          <Button variant="ghost" size="sm" className="justify-start" asChild>
+                            <a href={`mailto:?subject=${encodeURIComponent(property.title)}&body=${encodeURIComponent(window.location.href)}`}><Mail className="mr-2 h-4 w-4" /> E-mail</a>
+                          </Button>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  )}
+                </div>
+              </section>
+
               {/* ── Map + Address ── */}
               {property.latitude && property.longitude && (
                 <section>
