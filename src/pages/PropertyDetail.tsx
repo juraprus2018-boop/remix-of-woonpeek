@@ -666,38 +666,14 @@ const PropertyDetail = () => {
               </div>
 
               {/* Action row */}
-              <div className="flex flex-wrap gap-2 border-y py-3">
-                {user && (
+              {user && (
+                <div className="flex flex-wrap gap-2 border-y py-3">
                   <Button variant="ghost" size="sm" className={cn(isPropertyFavorite && "text-red-500")} onClick={() => toggle(property.id)} disabled={favoriteLoading}>
                     <Heart className={cn("mr-1.5 h-4 w-4", isPropertyFavorite && "fill-current")} />
                     {isPropertyFavorite ? "Opgeslagen" : "Opslaan"}
                   </Button>
-                )}
-                <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
-                  <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
-                    <WhatsAppIcon className="mr-1.5 h-4 w-4" /> Deel met vrienden & familie
-                  </a>
-                </Button>
-                {typeof navigator.share === "function" ? (
-                  <Button variant="ghost" size="sm" onClick={handleShare}>
-                    <Share2 className="mr-1.5 h-4 w-4" /> Delen
-                  </Button>
-                ) : (
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button variant="ghost" size="sm"><Share2 className="mr-1.5 h-4 w-4" /> Delen</Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-48 p-2">
-                      <div className="flex flex-col gap-1">
-                        <Button variant="ghost" size="sm" className="justify-start" onClick={copyLink}><Copy className="mr-2 h-4 w-4" /> Link kopiëren</Button>
-                        <Button variant="ghost" size="sm" className="justify-start" asChild>
-                          <a href={`mailto:?subject=${encodeURIComponent(property.title)}&body=${encodeURIComponent(window.location.href)}`}><Mail className="mr-2 h-4 w-4" /> E-mail</a>
-                        </Button>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                )}
-              </div>
+                </div>
+              )}
 
               {/* ── Description ── */}
               <section>
