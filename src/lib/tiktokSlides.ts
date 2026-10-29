@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import { propertyUrl } from "@/lib/propertyUrl";
+import { pluralize } from "@/lib/pluralize";
 
 export interface SlideProperty {
   id: string;
@@ -261,7 +262,7 @@ export function buildTikTokCaption(p: SlideProperty): string {
   const type = (p.property_type || "woning").toLowerCase();
   const lines = [
     `${huur ? "Te huur" : "Te koop"} in ${p.city}: ${type} voor ${price} 🏡`,
-    [p.surface_area ? `📐 ${p.surface_area} m²` : null, p.bedrooms != null ? `🛏️ ${p.bedrooms} slaapkamers` : null, p.energy_label ? `⚡ Label ${p.energy_label}` : null].filter(Boolean).join(" · "),
+    [p.surface_area ? `📐 ${p.surface_area} m²` : null, p.bedrooms != null ? `🛏️ ${pluralize(p.bedrooms, "slaapkamer", "slaapkamers")}` : null, p.energy_label ? `⚡ Label ${p.energy_label}` : null].filter(Boolean).join(" · "),
     "",
     `👉 Link in bio, of zoek op woonaanbod-nl.nl naar ${p.city}`,
     "💬 Zoek jij ook een woning in " + p.city + "? Laat het weten in de reacties!",
