@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { cityToSlug } from "@/lib/cityUtils";
+import { cityToSlug } from "@/lib/cities";
 
 const regions: { title: string; cities: string[] }[] = [
   { title: "Randstad", cities: ["Amsterdam", "Rotterdam", "Den Haag", "Utrecht", "Haarlem", "Leiden", "Delft", "Amersfoort"] },
