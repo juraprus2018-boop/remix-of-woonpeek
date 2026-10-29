@@ -226,7 +226,7 @@ const PropertyDetail = () => {
   const rawType = property.property_type || "woning";
   const typeLabel = rawType.charAt(0).toUpperCase() + rawType.slice(1);
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
-  const bedroomsLabel = property.bedrooms ? pluralize(property.bedrooms, "kamer", "kamers") : null;
+  const bedroomsLabel = property.bedrooms ? pluralize(property.bedrooms, "slaapkamer", "slaapkamers") : null;
   const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
@@ -874,7 +874,7 @@ const PropertyDetail = () => {
                   </Link>
                   {property.bedrooms && (
                     <Link to={`/huurwoningen/${citySlugVal}/${property.bedrooms}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
-                      {pluralize(property.bedrooms, "kamer", "kamers")} in {property.city}
+                      {pluralize(property.bedrooms, "slaapkamer", "slaapkamers")} in {property.city}
                     </Link>
                   )}
                 </div>

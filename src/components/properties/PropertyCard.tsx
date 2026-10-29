@@ -101,7 +101,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
 
   const subtitle = [
     property.property_type,
-    property.bedrooms ? pluralize(property.bedrooms, "kamer", "kamers") : null,
+    property.bedrooms ? pluralize(property.bedrooms, "slaapkamer", "slaapkamers") : null,
   ]
     .filter(Boolean)
     .join(" - ");
