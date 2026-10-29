@@ -1,5 +1,6 @@
 import JSZip from "jszip";
 import { propertyUrl } from "@/lib/propertyUrl";
+import { pluralize } from "@/lib/pluralize";
 
 export interface SlideProperty {
   id: string;
