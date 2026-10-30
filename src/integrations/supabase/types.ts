@@ -2177,6 +2177,7 @@ export type Database = {
         Args: { _house_number: string; _postal_code: string; _street: string }
         Returns: string
       }
+      bulk_update_feed_properties: { Args: { _rows: Json }; Returns: number }
       canonical_city_slug: { Args: { _name: string }; Returns: string }
       classify_traffic_source: { Args: { referrer: string }; Returns: string }
       deactivate_duplicate_properties: { Args: never; Returns: number }
