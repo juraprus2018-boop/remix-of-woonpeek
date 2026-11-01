@@ -684,6 +684,7 @@ const PropertyDetail = () => {
                     </div>
                   )}
                 </div>
+                <div className="mt-5">{reactCta(`Bekijk en reageer bij ${sourceMeta?.label || "aanbieder"}`)}</div>
               </div>
 
               {/* Action row */}
