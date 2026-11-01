@@ -459,8 +459,8 @@ const PropertyDetail = () => {
                 {property.status === "verkocht" && "⚠️ Deze woning is verkocht en niet meer beschikbaar."}
                 {property.status === "inactief" && "⚠️ Deze woning is niet meer beschikbaar. Mogelijk is deze al verhuurd of van de markt gehaald."}
               </p>
-              <Link to="/woning-zoeken" className="mt-1 inline-block text-sm font-semibold text-primary underline underline-offset-2 hover:text-primary/80">
-                Bekijk vergelijkbare woningen →
+              <Link to={property.city ? cityPath(property.city) : "/woning-zoeken"} className="mt-1 inline-block text-sm font-semibold text-primary underline underline-offset-2 hover:text-primary/80">
+                Bekijk beschikbare woningen in {property.city || "jouw regio"} →
               </Link>
             </div>
           </div>
