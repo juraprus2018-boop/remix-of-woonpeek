@@ -26,3 +26,4 @@
 - Property nearby-amenity distances come from CBS neighbourhood statistics via a cached backend lookup (PDOK buurt → CBS), because public Overpass servers proved too slow and unreliable.
 - Daisycon feed imports update existing listings through a service-role-only bulk RPC in small retried batches, because per-row updates exceeded the function time limit and left feed listings inactive.
 - Duplicate-listing cleanup only matches listings with a numeric house number and valid postcode, because feeds hide house numbers and placeholder values made distinct homes look identical.
+- Inactive listings get noindex,follow after a fixed inactivity window (src/lib/inactiveIndexing.ts) so crawl budget goes to active listings while links still pass.

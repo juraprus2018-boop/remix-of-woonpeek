@@ -80,7 +80,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
       robotsEl.setAttribute("name", "robots");
       document.head.appendChild(robotsEl);
     }
-    robotsEl.setAttribute("content", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
+    robotsEl.setAttribute("content", noindex ? "noindex, follow" : "index, follow, max-image-preview:large");
 
     // Canonical: prefix with current locale so each language has its own canonical.
     const locale = getLocaleFromPath(location.pathname);
