@@ -4,7 +4,7 @@ import { facebookPropertyUrl } from "../../supabase/functions/_shared/facebookPr
 describe("Facebook property destinations", () => {
   const home = { id: "home-1", city: "Utrecht", listing_type: "huur", address_slug: "voorbeeldstraat-1" };
   it("uses the Huurzone tracking link with media 418821 and the exact property destination", () => {
-    const url = "https://fr135.net/?si=123&mi=418821&dl=https%3A%2F%2Fwww.huurzone.nl%2Fhuurwoningen%2Futrecht%2F1519812";
+    const url = "https://fr135.net/c/?si=15142&li=1657538&wi=418821&pid=d876e40dc80792ffaf8b91fb64e25b1f&dl=huurwoningen%2Fzuid-holland%2Fzoetermeer%2F1525236&ws=";
     expect(facebookPropertyUrl({ ...home, source_url: url })).toBe(url);
   });
   it("preserves Huurwoningen attribution rather than replacing it with a site link", () => {
