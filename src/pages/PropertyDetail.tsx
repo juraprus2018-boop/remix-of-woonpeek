@@ -1,3 +1,4 @@
+import { isLongInactive } from "@/lib/inactiveIndexing";
 import { freshnessLabel } from "@/lib/freshness";
 import { pluralize } from "@/lib/pluralize";
 import { safeJsonLd } from "@/lib/jsonLd";
