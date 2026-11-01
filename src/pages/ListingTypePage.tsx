@@ -1,3 +1,4 @@
+import { cityToSlug } from "@/lib/cities";
 import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
