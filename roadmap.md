@@ -1,4 +1,5 @@
 # Kaartpagina
+- [ ] Budgetoverdracht van homepage naar zoekresultaten herstellen en minimum/maximum testen, ook na verversen.
 - [x] Facebook-woninglinks vervangen door bestaande affiliate-links in berichten, video's en groepskopieën; 14 tests geslaagd, inclusief echte Huurzone-feedlink met media-ID 418821, postfunctie uitgerold. Geen nieuw Facebook-bericht geplaatst; groepskopie niet via account getest omdat eigen accountcontrole geen passende gebruiker vond. Bestaande Facebook-berichten blijven ongewijzigd.
 - [x] Open SEO-melding gecontroleerd: woningtype gelijkgetrokken, absolute HTTPS-afbeeldingen gedeeld gevalideerd, dubbele Twitter-tags verwijderd; acht tests en echte woningpagina geslaagd, previewfuncties gedeployed.
 - [ ] Unieke deelvoorbeelden voor alle niet-JavaScript-crawlers. Blokker: huidige hosting serveert dezelfde SPA-HTML op alle routes; bestaande .htaccess-regels worden niet uitgevoerd. Volledige serverweergave vereist een afzonderlijke template-upgrade; samengestelde SEO-melding blijft open.

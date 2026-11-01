@@ -35,6 +35,7 @@ import { cityToSlug } from "@/lib/cities";
 import HomeSeoContent from "@/components/home/HomeSeoContent";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
+import { writeSearchBudget } from "@/lib/searchBudget";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -85,8 +86,10 @@ const Index = () => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (query.trim()) params.set("locatie", query.trim());
-    if (minPrice) params.set("min", minPrice);
-    if (maxPrice) params.set("max", maxPrice);
+    writeSearchBudget(params, {
+      minPrice: minPrice ? Number(minPrice) : undefined,
+      maxPrice: maxPrice ? Number(maxPrice) : undefined,
+    });
     navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
   };
 

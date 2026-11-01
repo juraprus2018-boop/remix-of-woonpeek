@@ -400,6 +400,7 @@ export interface FilterFacets {
 
 interface FacetFilters {
   city?: string;
+  minPrice?: number;
   propertyType?: string;
   listingType?: string;
   maxPrice?: number;
@@ -409,7 +410,7 @@ interface FacetFilters {
 
 export const useFilterFacets = (filters: FacetFilters) => {
   return useQuery({
-    queryKey: ["filter-facets", filters.city, filters.propertyType, filters.listingType, filters.maxPrice, filters.minBedrooms, filters.includeInactive],
+    queryKey: ["filter-facets", filters.city, filters.propertyType, filters.listingType, filters.minPrice, filters.maxPrice, filters.minBedrooms, filters.includeInactive],
     queryFn: async () => {
       // We need to fetch minimal data to compute facets
       // Only select the fields we need for counting
@@ -446,7 +447,7 @@ export const useFilterFacets = (filters: FacetFilters) => {
       for (const row of data || []) {
         const matchesType = !filters.propertyType || row.property_type === filters.propertyType;
         const matchesListing = !filters.listingType || row.listing_type === filters.listingType;
-        const matchesPrice = !filters.maxPrice || row.price <= filters.maxPrice;
+        const matchesPrice = (filters.minPrice === undefined || row.price >= filters.minPrice) && (!filters.maxPrice || row.price <= filters.maxPrice);
         const matchesBedrooms = !filters.minBedrooms || (row.bedrooms != null && row.bedrooms >= filters.minBedrooms);
 
         // Count property types (cross-filter: apply all OTHER filters)
