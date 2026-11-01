@@ -26,6 +26,7 @@ import AdSlot from "@/components/ads/AdSlot";
 import PartnerTip from "@/components/ads/PartnerTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
+import { readSearchBudget, writeSearchBudget } from "@/lib/searchBudget";
 
 const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
 
@@ -54,7 +55,7 @@ const SearchPage = () => {
     city: searchParams.get("locatie") || "",
     propertyType: (searchParams.get("type") as SearchFilterValues["propertyType"]) || "",
     listingType: (searchParams.get("aanbod") as SearchFilterValues["listingType"]) || "",
-    maxPrice: searchParams.get("max_prijs") ? Number(searchParams.get("max_prijs")) : searchParams.get("maxPrijs") ? Number(searchParams.get("maxPrijs")) : undefined,
+    ...readSearchBudget(searchParams),
     minBedrooms: searchParams.get("min_kamers") ? Number(searchParams.get("min_kamers")) : undefined,
     grossIncome: searchParams.get("inkomen") ? Number(searchParams.get("inkomen")) : undefined,
   });
@@ -76,11 +77,11 @@ const SearchPage = () => {
     if (debouncedCity) params.set("locatie", debouncedCity);
     if (filters.propertyType) params.set("type", filters.propertyType);
     if (filters.listingType) params.set("aanbod", filters.listingType);
-    if (filters.maxPrice) params.set("max_prijs", String(filters.maxPrice));
+    writeSearchBudget(params, filters);
     if (filters.minBedrooms) params.set("min_kamers", String(filters.minBedrooms));
     if (filters.grossIncome) params.set("inkomen", String(filters.grossIncome));
     setSearchParams(params, { replace: true });
-  }, [debouncedCity, filters.propertyType, filters.listingType, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
+  }, [debouncedCity, filters.propertyType, filters.listingType, filters.minPrice, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
 
   // Log search queries for analytics
   const lastLoggedRef = useRef("");
@@ -114,6 +115,7 @@ const SearchPage = () => {
 
   const { data: facets } = useFilterFacets({
     city: debouncedCity || undefined,
+    minPrice: filters.minPrice,
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
     maxPrice: effectiveMaxPrice,
@@ -123,6 +125,7 @@ const SearchPage = () => {
 
   const { data, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
     city: debouncedCity || undefined,
+    minPrice: filters.minPrice,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
@@ -177,6 +180,7 @@ const SearchPage = () => {
   // Separate query for map view: all properties with coordinates
   const { data: mapProperties, isLoading: isMapLoading } = useMapProperties({
     city: debouncedCity || undefined,
+    minPrice: filters.minPrice,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
@@ -222,7 +226,7 @@ const SearchPage = () => {
     setSearchParams(new URLSearchParams());
   }, [setSearchParams]);
 
-  const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.maxPrice;
+  const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.minPrice || filters.maxPrice;
 
   const { t } = useTranslation();
 

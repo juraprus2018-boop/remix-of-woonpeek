@@ -3,6 +3,7 @@
 - Browser SEO and social-preview functions share a pure HTTPS image resolver so local and external listing images produce valid absolute social metadata consistently.
 
 - Search loads its map only when selected, and route prefetching waits before sequential imports, so optional navigation downloads do not compete with the initial search form and results.
+- Homepage and search share canonical budget parameter helpers with legacy aliases; both price bounds reach listing and map queries, and facets never silently remove the chosen budget, so navigation cannot broaden a visitor's search.
 
 - Direct Renthunter CSV sync owns its source lifecycle and uses validated, service-role-only bulk batches matched by listing ID, preserving existing property URLs and deactivating missing rows only after a complete successful feed import.
 
