@@ -719,6 +719,12 @@ const PropertyDetail = () => {
                     )}
                   </div>
                 )}
+                {sourceInfo.source_url && (
+                  <div className="mt-5 rounded-2xl border bg-primary/5 p-4">
+                    <p className="mb-3 font-display font-semibold">Spreekt deze woning je aan? Wees er snel bij.</p>
+                    {reactCta("Reageer op deze woning")}
+                  </div>
+                )}
               </section>
 
               {/* ── Kenmerken ── */}
