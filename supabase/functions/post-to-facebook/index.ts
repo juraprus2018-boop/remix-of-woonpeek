@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
+import { facebookPropertyUrl } from "../_shared/facebookPropertyUrl.ts";
 import { dailyVideo } from "./dailyVideo.ts";
 
 // Facebook + Instagram autoposting is re-enabled for the Woonaanbod NL page.
@@ -197,6 +198,7 @@ async function postPropertyToInstagram(
 }
 
 interface Property {
+  source_url?: string | null;
   id: string;
   title: string;
   price: number;
@@ -286,10 +288,10 @@ function stripSymbols(s: string): string {
     .trim();
 }
 
-function buildCaption(property: Property): string {
+function buildCaption(property: Property, facebook = false): string {
   const city = property.city || "Nederland";
   const seed = hashStr(property.id);
-  const listingUrl = propertyUrl(property as any);
+  const listingUrl = facebook ? facebookPropertyUrl(property) : propertyUrl(property);
   const priceFormatted = property.price ? formatPrice(property.price, property.listing_type) : "";
 
   const lines: string[] = [];
@@ -297,7 +299,7 @@ function buildCaption(property: Property): string {
   lines.push("");
   lines.push(buildDescription(property, priceFormatted));
   lines.push("");
-  lines.push(pick(CLICK_CTAS, seed, 7));
+  lines.push(pick(facebook ? CLICK_CTAS.filter(cta => !cta.includes("Woonaanbod NL")) : CLICK_CTAS, seed, 7));
   lines.push(listingUrl);
   lines.push("");
   lines.push(pick(FOLLOW_CTAS, seed, 13));
@@ -521,7 +523,7 @@ async function postPropertyToFacebook(
   pageId: string,
   accessToken: string
 ): Promise<{ success: boolean; postId?: string; error?: string }> {
-  const message = buildCaption(property);
+  const message = buildCaption(property, true);
   const images = getUniqueImages(property.images, 10);
 
   try {
@@ -559,7 +561,7 @@ async function postPropertyToFacebook(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
-        link: propertyUrl(property as any),
+        link: facebookPropertyUrl(property),
         access_token: accessToken,
       }),
     });
@@ -579,7 +581,7 @@ async function postPropertyToFacebookGroup(
   groupId: string,
   accessToken: string
 ): Promise<{ success: boolean; postId?: string; error?: string }> {
-  const message = buildCaption(property);
+  const message = buildCaption(property, true);
   const images = getUniqueImages(property.images, 10);
 
   try {
@@ -605,7 +607,7 @@ async function postPropertyToFacebookGroup(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
-        link: propertyUrl(property as any),
+        link: facebookPropertyUrl(property),
         access_token: accessToken,
       }),
     });
@@ -806,14 +808,14 @@ Deno.serve(async (req) => {
     }
 
     if (body.video_check === true) {
-      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, buildCaption, body)), {
+      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, p => buildCaption(p, true), body)), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
     // Render an actual MP4 and retain processing state, never count an ID as publication.
     if (body.video === true) {
-      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, buildCaption, body)), {
+      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, p => buildCaption(p, true), body)), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
@@ -826,7 +828,7 @@ Deno.serve(async (req) => {
       // Fetch unposted properties - for group posts, filter by city
       let query = supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year")
+        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, source_url")
         .eq("status", "actief")
         .is("facebook_posted_at", null)
         .order("created_at", { ascending: false })
@@ -941,7 +943,7 @@ Deno.serve(async (req) => {
     if (property_id) {
       const { data: property, error } = await supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, facebook_posted_at")
+        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, facebook_posted_at, source_url")
         .eq("id", property_id)
         .single();
 

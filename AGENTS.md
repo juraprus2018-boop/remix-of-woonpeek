@@ -21,6 +21,7 @@
 - Press publications store optional editorial image metadata and a related blog slug in their existing data object, so rich releases remain compatible with automated releases without schema changes.
 - City rental insights share a paginated exact-city active-rental query and pure statistical calculation across city and canonical rental routes, with attributed local context and explicit samples, so price comparisons never mix sales or silently truncated listing data.
 - Facebook daily videos render actual MP4s and persist one job per Amsterdam calendar day with atomic write claims and remote IDs; only ready videos with completed publishing count as posted, and unknown upload outcomes require reconciliation before retry.
+- Facebook property captions, attachment links and group copies share an outgoing-link resolver that preserves feed tracking parameters and falls back to the canonical listing only when no usable source URL exists; Instagram and TikTok destinations remain independent.
 - Property nearby-amenity distances come from CBS neighbourhood statistics via a cached backend lookup (PDOK buurt → CBS), because public Overpass servers proved too slow and unreliable.
 - Daisycon feed imports update existing listings through a service-role-only bulk RPC in small retried batches, because per-row updates exceeded the function time limit and left feed listings inactive.
 - Duplicate-listing cleanup only matches listings with a numeric house number and valid postcode, because feeds hide house numbers and placeholder values made distinct homes look identical.
