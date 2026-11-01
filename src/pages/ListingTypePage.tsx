@@ -267,6 +267,22 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </Link>
                 )}
               </div>
+              {cityName && listingType === "huur" && (
+                <nav aria-label={`Populaire zoekopdrachten ${cityName}`} className="mt-4 flex flex-wrap gap-2">
+                  {[
+                    { to: "onder-1000", label: "Onder € 1.000" },
+                    { to: "onder-1250", label: "Onder € 1.250" },
+                    { to: "onder-1500", label: "Onder € 1.500" },
+                    { to: "appartement", label: "Appartementen" },
+                    { to: "studio", label: "Studio's" },
+                    { to: "2-slaapkamers", label: "2+ slaapkamers" },
+                  ].map((c) => (
+                    <Link key={c.to} to={`/huurwoningen/${cityToSlug(cityName)}/${c.to}`} className="rounded-full border bg-card px-3 py-1.5 text-sm text-foreground hover:border-primary hover:text-primary">
+                      {c.label}
+                    </Link>
+                  ))}
+                </nav>
+              )}
             </div>
           </div>
         </section>
