@@ -21,7 +21,8 @@ import {
   Trash2,
   Settings,
 } from "lucide-react";
-import { propertyPath, propertyUrl } from "@/lib/propertyUrl";
+import { propertyPath } from "@/lib/propertyUrl";
+import { facebookPropertyUrl } from "../../../supabase/functions/_shared/facebookPropertyUrl";
 import {
   Dialog,
   DialogContent,
@@ -47,6 +48,7 @@ function capitalize(str: string): string {
 }
 
 interface Property {
+  source_url?: string | null;
   id: string;
   title: string;
   price: number;
@@ -78,7 +80,7 @@ interface FacebookGroup {
 function buildPostText(property: Property): string {
   const typeLabel = capitalize(property.property_type);
   const priceFormatted = formatPrice(property.price, property.listing_type);
-  const shareUrl = propertyUrl(property as any);
+  const shareUrl = facebookPropertyUrl(property);
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
 
   const lines: string[] = [];
@@ -105,7 +107,7 @@ function buildPostText(property: Property): string {
     }
   }
 
-  lines.push(`👉 Bekijk deze woning op Woonaanbod NL:`);
+  lines.push(`👉 Bekijk deze woning en reageer:`);
   lines.push(shareUrl);
   lines.push("");
 
@@ -170,7 +172,7 @@ const AdminFacebookQueue = () => {
       if (!selectedGroup || !postedPropertyIds) return [];
       let query = supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, postal_code, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, created_at")
+        .select("id, title, price, listing_type, city, street, house_number, postal_code, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, created_at, source_url")
         .eq("status", "actief")
         .order("created_at", { ascending: false })
         .limit(100);
