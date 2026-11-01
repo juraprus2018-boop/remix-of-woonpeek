@@ -208,6 +208,24 @@ const PropertyDetail = () => {
   const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
   const sourceInfo = { source_url: normalizeAffiliateUrl(property.source_url), source_site: property.source_site };
+  const handleReact = () => {
+    if (!sourceInfo.source_url) return;
+    trackDaisyconClick(property.id, sourceInfo.source_url, sourceInfo.source_site || null);
+    if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
+    toast({
+      title: `Je gaat naar ${sourceMeta?.label || sourceInfo.source_site || "de aanbieder"}`,
+      description: "Maak daar gratis een account aan om direct te reageren en een bezichtiging aan te vragen.",
+    });
+    window.open(sourceInfo.source_url, "_blank", "noopener,noreferrer");
+  };
+  const reactCta = (label: string) => sourceInfo.source_url ? (
+    <div className="space-y-1.5">
+      <Button className="h-12 w-full rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90 sm:w-auto sm:px-8" onClick={handleReact}>
+        {label} <ArrowRight className="ml-2 h-5 w-5" />
+      </Button>
+      <p className="text-xs text-muted-foreground">Gratis bekijken. Je reageert direct bij {sourceMeta?.label || "de officiële aanbieder"}.</p>
+    </div>
+  ) : null;
   const sourceMeta = sourceInfo.source_site
     ? SOURCE_SITE_META[sourceInfo.source_site] || { label: sourceInfo.source_site, color: "hsl(var(--primary))" }
     : null;
