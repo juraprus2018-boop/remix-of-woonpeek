@@ -420,6 +420,7 @@ const PropertyDetail = () => {
         title={seoTitle}
         description={seoDescription}
         canonical={canonicalPath}
+        noindex={isLongInactive(property.status, (property as any).last_checked_at || property.updated_at)}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="website"
         geoPlacename={property.city || undefined}
