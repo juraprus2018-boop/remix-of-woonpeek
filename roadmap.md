@@ -1,5 +1,5 @@
 # Kaartpagina
-- [ ] Crawlbare HTML voor huur-stadshubs genereren na de productiebuild en Eindhoven lokaal controleren; geen sitemapwijziging.
+- [x] Postbuild voor crawlbare huur-stadshubs toegevoegd; 219 bestanden uit 15.751 actieve huuradvertenties lokaal gegenereerd met huidige live-productieshell (geen handmatige Vite-build). Eindhoven-title, eigen canonical, één H1, 10 echte links en behouden SPA-script gecontroleerd; 12 tests en React/no-JavaScript-controle geslaagd. Sitemap ongewijzigd; niet gepubliceerd en hosting na publicatie nog niet geverifieerd.
 - [x] Budgetoverdracht hersteld; tien tests geslaagd en echte Amsterdam-resultaten tussen €750 en €1.000 bevestigd, ook na verversen. Niet gepubliceerd.
 - [x] Facebook-woninglinks vervangen door bestaande affiliate-links in berichten, video's en groepskopieën; 14 tests geslaagd, inclusief echte Huurzone-feedlink met media-ID 418821, postfunctie uitgerold. Geen nieuw Facebook-bericht geplaatst; groepskopie niet via account getest omdat eigen accountcontrole geen passende gebruiker vond. Bestaande Facebook-berichten blijven ongewijzigd.
 - [x] Open SEO-melding gecontroleerd: woningtype gelijkgetrokken, absolute HTTPS-afbeeldingen gedeeld gevalideerd, dubbele Twitter-tags verwijderd; acht tests en echte woningpagina geslaagd, previewfuncties gedeployed.
