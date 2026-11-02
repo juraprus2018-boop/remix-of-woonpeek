@@ -4,6 +4,7 @@ import { getValidCityName } from "./dutchCities";
 import { cityLocalContext } from "./cityLocalContext";
 import { formatAddress, propertyPath } from "./propertyUrl";
 import { isRentalCityIndexable } from "./rentalCityIndexing";
+import { rentalCityName, rentalCitySlug } from "../../supabase/functions/_shared/rentalCityIdentity";
 
 export interface StaticRental extends Omit<RentalObservation, "property_type"> {
   property_type: string | null;
@@ -23,23 +24,23 @@ const escapeHtml = (value: unknown) => String(value ?? "").replace(/[&<>"']/g, c
 const money = (value: number) => value.toLocaleString("nl-NL", { maximumFractionDigits: 0 });
 const json = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
 
-export function groupRentalCities(rows: StaticRental[]) {
+export function groupRentalCities(rows: StaticRental[], includeSmall = false) {
   const groups = new Map<string, { city: string; rows: StaticRental[] }>();
   for (const row of rows) {
     if (row.status !== "actief" || row.listing_type !== "huur") continue;
     const slug = cityToSlug(row.city);
-    const city = getValidCityName(slug);
+    const city = getValidCityName(slug) || (["den-haag", "den-bosch"].includes(slug) ? rentalCityName(row.city) : undefined);
     // Only emit routes the existing React city validator accepts.
     if (!city || /[/\\\u0000]/.test(slug)) continue;
     const group = groups.get(slug) || { city, rows: [] };
     group.rows.push(row);
     groups.set(slug, group);
   }
-  return [...groups].filter(([, group]) => isRentalCityIndexable(new Set(group.rows.map(row => row.id)).size));
+  return [...groups].filter(([, group]) => includeSmall || isRentalCityIndexable(new Set(group.rows.map(row => row.id)).size));
 }
 
 export function renderRentalCity(shell: string, city: string, rows: StaticRental[], now = new Date()) {
-  const rentals = [...new Map(rows.filter(row => row.status === "actief" && row.listing_type === "huur" && row.city.trim().toLowerCase() === city.trim().toLowerCase()).map(row => [row.id, row])).values()];
+  const rentals = [...new Map(rows.filter(row => row.status === "actief" && row.listing_type === "huur" && rentalCitySlug(row.city) === rentalCitySlug(city)).map(row => [row.id, row])).values()];
   const stats = calculateCityRentalStats(rentals.map(row => ({ ...row, property_type: row.property_type || "" })), city, now.getTime());
   if (!isRentalCityIndexable(stats.total)) throw new Error(`Insufficient active rentals for ${city}`);
   const slug = cityToSlug(city);
@@ -80,6 +81,11 @@ export function renderRentalCity(shell: string, city: string, rows: StaticRental
     { "@context": "https://schema.org", "@type": "ItemList", numberOfItems: listings.length, itemListElement: listings.map((row, i) => ({ "@type": "ListItem", position: i + 1, name: formatAddress(row) || row.title, url: `${BASE}${propertyPath(row)}` })) },
   ];
   const content = `<main class="ssr-home-content"><h1>Huurwoningen in ${escapeHtml(city)}</h1><p>${escapeHtml(facts.join(" "))}</p>${local ? `<p>${escapeHtml(local)}</p>` : ""}${table}<h2>Beschikbare huurwoningen in ${escapeHtml(city)}</h2><ul>${list}</ul><h2>Veelgestelde vragen</h2>${faqs.map(faq => `<h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p>`).join("")}</main>`;
+  return renderStaticShell(shell, { title, description, canonical, content, schemas });
+}
+
+export function renderStaticShell(shell: string, options: { title: string; description: string; canonical: string; content: string; noindex?: boolean; schemas?: unknown[] }) {
+  const { title, description, canonical, content, noindex = false, schemas = [] } = options;
   // Parse the root's nested divs rather than assuming the module script follows it.
   const root = /<div\b[^>]*\bid=["']root["'][^>]*>/i.exec(shell);
   if (!root || root.index === undefined) throw new Error("Build shell has no #root");
@@ -95,8 +101,9 @@ export function renderRentalCity(shell: string, city: string, rows: StaticRental
   if (end < 0) throw new Error("Build shell has unclosed #root");
   let html = shell.slice(0, start) + content + shell.slice(end);
   html = html.replace(/<title\b[^>]*>[\s\S]*?<\/title>/gi, "")
+    .replace(/<script\b(?=[^>]*type=["']application\/ld\+json["'])[^>]*>[\s\S]*?<\/script>/gi, "")
     .replace(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, "")
     .replace(/<meta\b(?=[^>]*(?:name|property)=["'](?:description|robots|og:title|og:description|og:url|twitter:title|twitter:description)["'])[^>]*>/gi, "");
-  const head = `<title>${escapeHtml(title)}</title><meta name="description" content="${escapeHtml(description)}"><meta name="robots" content="index,follow"><link rel="canonical" href="${canonical}"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta name="twitter:title" content="${escapeHtml(title)}"><meta name="twitter:description" content="${escapeHtml(description)}">${schemas.map(schema => `<script type="application/ld+json" data-rental-city-static>${json(schema)}</script>`).join("")}`;
+  const head = `<title>${escapeHtml(title)}</title><meta name="description" content="${escapeHtml(description)}"><meta name="robots" content="${noindex ? "noindex" : "index"},follow"><link rel="canonical" href="${escapeHtml(canonical)}"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${escapeHtml(canonical)}"><meta name="twitter:title" content="${escapeHtml(title)}"><meta name="twitter:description" content="${escapeHtml(description)}">${schemas.map(schema => `<script type="application/ld+json" data-rental-city-static>${json(schema)}</script>`).join("")}`;
   return html.replace(/<\/head>/i, `${head}</head>`);
 }
