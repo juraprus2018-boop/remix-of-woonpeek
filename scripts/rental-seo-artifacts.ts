@@ -9,6 +9,12 @@ import { rentalCitySlug } from "../supabase/functions/_shared/rentalCityIdentity
 
 export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now: Date, sitemapXml: string[], historicalXml: string) {
   const cities = new Set([...DUTCH_CITIES.map(rentalCitySlug), ...groupRentalCities(rows, true).map(([slug]) => slug)]);
+  // Index counts once, rather than rescanning the nationwide feed for each noindex file.
+  const cityRows = new Map<string, StaticRental[]>();
+  for (const row of rows) {
+    const slug = rentalCitySlug(row.city);
+    cityRows.set(slug, [...(cityRows.get(slug) || []), row]);
+  }
   const paths = new Set(snapshotCityPaths(rows, [...cities]));
   const indexed = new Set(sitemapXml.flatMap(xml => [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1].replace(SITE_URL, "").replace(/&amp;/g, "&"))));
   for (const match of historicalXml.matchAll(/<loc>(.*?)<\/loc>/g)) paths.add(match[1].replace(SITE_URL, "").replace(/&amp;/g, "&"));
@@ -26,6 +32,7 @@ export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now
   for (const path of previous) paths.add(path);
   const retired = [...paths].filter(path => !indexed.has(path) && path !== "/" && !/^\/(?:en|de|fr)(?:\/|$)/.test(path));
   await writeFile("dist/seo-retired-paths.json", JSON.stringify(retired));
+  await writeFile("public/seo-retired-paths.json", JSON.stringify(retired));
   const nlPaths = [...paths].filter(path => !/^\/(?:en|de|fr)(?:\/|$)/.test(path));
   for (const path of nlPaths) for (const language of ["en", "de", "fr"]) paths.add(`/${language}${path === "/" ? "" : path}`);
   const smallShell = `<html lang="nl"><head>${(shell.match(/<script\b[^>]*\bsrc=[^>]*>[\s\S]*?<\/script>|<link\b[^>]*\brel=["']stylesheet["'][^>]*>/gi) || []).join("")}</head><body><div id="root"></div></body></html>`;
@@ -36,7 +43,9 @@ export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now
     if (route === "/" || (/^\/huurwoningen\/[^/]+$/.test(route) && indexed.has(route) && snapshotPathIndexable(rows, route))) continue;
     const directory = path.join("dist", route.slice(1));
     await mkdir(directory, { recursive: true });
-    await writeFile(path.join(directory, "index.html"), renderSnapshotPage(indexed.has(route) ? shell : smallShell, route, rows, now, !indexed.has(route)));
+    const nl = route.replace(/^\/(?:en|de|fr)(?=\/|$)/, "");
+    const data = indexed.has(route) ? rows : cityRows.get(rentalCitySlug(nl.split("/")[2] || "")) || [];
+    await writeFile(path.join(directory, "index.html"), renderSnapshotPage(indexed.has(route) ? shell : smallShell, route, data, now, !indexed.has(route)));
     count++;
   }
   // Fail the build instead of publishing sitemap URLs backed only by the SPA shell.

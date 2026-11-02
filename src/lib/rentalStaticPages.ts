@@ -19,11 +19,15 @@ export function staticNoindexCanonical(path: string, rows: StaticRental[]): stri
 export function renderSnapshotPage(shell: string, path: string, rows: StaticRental[], now: Date, noindex = false): string {
   const nl = path.replace(/^\/(en|de|fr)(?=\/|$)/, "") || "/";
   const parts = nl.split("/").filter(Boolean);
+  if (noindex) {
+    const heading = parts.length ? parts.map(part => part.replace(/-/g, " ")).join(" | ") : "Woonaanbod NL";
+    return renderStaticShell(shell, { title: `${path === nl ? "" : `${path.split("/")[1]} | `}${heading} | Woonaanbod NL`, description: "Deze pagina is niet opgenomen in de zoekindex.", canonical: staticNoindexCanonical(path, rows), noindex: true, content: `<main><h1>${esc(heading)}</h1><p>Deze pagina is niet opgenomen in de zoekindex.</p></main>` });
+  }
   const property = rows.find(row => propertyPath(row) === nl);
   const selected = property ? [property] : /^(huurwoningen|huurprijs-index|heatmap|postcode|buurt)$/.test(parts[0] || "") && parts[1] ? staticPathSelection(rows, nl) : parts[1] && isTemplateCityPath(nl) ? staticPathSelection(rows, nl) : rows;
   const city = parts[1] ? rentalCityName(parts[1].replace(/-/g, " ")) : "Nederland";
   const label = property ? formatAddress(property) || property.title : parts.length ? parts.map(part => part.replace(/-/g, " ")).join(" | ") : "Woonaanbod NL";
-  const heading = property ? `${property.property_type || "Woning"} te huur: ${label}` : label.charAt(0).toUpperCase() + label.slice(1);
+  const heading = property ? `${property.property_type || "Woning"} te huur: ${label} (${property.id})` : label.charAt(0).toUpperCase() + label.slice(1);
   // The selected rows may span several cities, so normalize only this calculation's city field.
   const stats = calculateCityRentalStats(selected.map(row => ({ ...row, city, property_type: row.property_type || "" })), city);
   const date = now.toLocaleDateString("nl-NL", { timeZone: "Europe/Amsterdam", day: "numeric", month: "long", year: "numeric" });
