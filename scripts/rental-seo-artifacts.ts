@@ -1,19 +1,25 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
-import { repairSitemap, snapshotCityPaths, snapshotPathIndexable, SITE_URL } from "../supabase/functions/_shared/sitemapPolicy";
+import { repairSitemap, snapshotCityPaths, snapshotPathIndexable, SITE_URL, rentalPc4 } from "../supabase/functions/_shared/sitemapPolicy";
 import { groupRentalCities, type StaticRental } from "../src/lib/rentalCityPrerender";
 import { calculateCityRentalStats } from "../src/lib/cityRentalStats";
 import { renderSnapshotPage } from "../src/lib/rentalStaticPages";
 import { DUTCH_CITIES } from "../src/lib/dutchCities";
 import { rentalCitySlug } from "../supabase/functions/_shared/rentalCityIdentity";
+import { propertyPath } from "../src/lib/propertyUrl";
 
 export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now: Date, sitemapXml: string[], historicalXml: string) {
   const cities = new Set([...DUTCH_CITIES.map(rentalCitySlug), ...groupRentalCities(rows, true).map(([slug]) => slug)]);
   // Index counts once, rather than rescanning the nationwide feed for each noindex file.
   const cityRows = new Map<string, StaticRental[]>();
+  const propertyRows = new Map<string, StaticRental[]>();
+  const postcodeRows = new Map<string, StaticRental[]>();
   for (const row of rows) {
     const slug = rentalCitySlug(row.city);
     cityRows.set(slug, [...(cityRows.get(slug) || []), row]);
+    propertyRows.set(propertyPath(row), [row]);
+    const code = rentalPc4(row.postal_code);
+    if (code) postcodeRows.set(code, [...(postcodeRows.get(code) || []), row]);
   }
   const paths = new Set(snapshotCityPaths(rows, [...cities]));
   const indexed = new Set(sitemapXml.flatMap(xml => [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1].replace(SITE_URL, "").replace(/&amp;/g, "&"))));
@@ -37,17 +43,20 @@ export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now
   for (const path of nlPaths) for (const language of ["en", "de", "fr"]) paths.add(`/${language}${path === "/" ? "" : path}`);
   const smallShell = `<html lang="nl"><head>${(shell.match(/<script\b[^>]*\bsrc=[^>]*>[\s\S]*?<\/script>|<link\b[^>]*\brel=["']stylesheet["'][^>]*>/gi) || []).join("")}</head><body><div id="root"></div></body></html>`;
   let count = 0;
-  for (const route of paths) {
+  const routes = [...paths];
+  for (let offset = 0; offset < routes.length; offset += 100) await Promise.all(routes.slice(offset, offset + 100).map(async route => {
     if (!route.startsWith("/") || route.includes("..") || /[\\\u0000?#]/.test(route)) throw new Error(`Unsafe static route: ${route}`);
     // Preserve the rich homepage and city hubs written by the existing renderer.
-    if (route === "/" || (/^\/huurwoningen\/[^/]+$/.test(route) && indexed.has(route) && snapshotPathIndexable(rows, route))) continue;
+    if (route === "/" || (/^\/huurwoningen\/[^/]+$/.test(route) && indexed.has(route) && snapshotPathIndexable(rows, route))) return;
     const directory = path.join("dist", route.slice(1));
     await mkdir(directory, { recursive: true });
     const nl = route.replace(/^\/(?:en|de|fr)(?=\/|$)/, "");
-    const data = indexed.has(route) ? rows : cityRows.get(rentalCitySlug(nl.split("/")[2] || "")) || [];
+    const [, family, slug] = nl.split("/");
+    const localRows = cityRows.get(rentalCitySlug(slug || "")) || [];
+    const data = indexed.has(route) ? propertyRows.get(route) || (family === "postcode" ? postcodeRows.get(slug) || [] : /^(huurwoningen|huurprijs-index|heatmap|buurt)$/.test(family) ? localRows : rows) : localRows;
     await writeFile(path.join(directory, "index.html"), renderSnapshotPage(indexed.has(route) ? shell : smallShell, route, data, now, !indexed.has(route)));
     count++;
-  }
+  }));
   // Fail the build instead of publishing sitemap URLs backed only by the SPA shell.
   for (const route of indexed) await readFile(path.join("dist", route.slice(1), "index.html"), "utf8");
   console.log(`Snapshot HTML: ${count} supplementary index/noindex files; ${indexed.size} sitemap routes verified.`);
