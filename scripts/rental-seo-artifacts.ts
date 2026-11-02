@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
-import { repairSitemap, snapshotCityPaths, snapshotPathIndexable, SITE_URL, rentalPc4 } from "../supabase/functions/_shared/sitemapPolicy";
+import { repairSitemap, snapshotCityPaths, snapshotPathIndexable, SITE_URL, rentalPc4, shouldWriteLocaleCopy } from "../supabase/functions/_shared/sitemapPolicy";
 import { groupRentalCities, type StaticRental } from "../src/lib/rentalCityPrerender";
 import { calculateCityRentalStats } from "../src/lib/cityRentalStats";
 import { renderSnapshotPage } from "../src/lib/rentalStaticPages";
@@ -37,10 +37,11 @@ export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now
   catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
   for (const path of previous) paths.add(path);
   const retired = [...paths].filter(path => !indexed.has(path) && path !== "/" && !/^\/(?:en|de|fr)(?:\/|$)/.test(path));
+  // Build output is writable; the checked-in public inventory is read-only input.
   await writeFile("dist/seo-retired-paths.json", JSON.stringify(retired));
-  await writeFile("public/seo-retired-paths.json", JSON.stringify(retired));
   const nlPaths = [...paths].filter(path => !/^\/(?:en|de|fr)(?:\/|$)/.test(path));
-  for (const path of nlPaths) for (const language of ["en", "de", "fr"]) paths.add(`/${language}${path === "/" ? "" : path}`);
+  for (const path of paths) if (/^\/(?:en|de|fr)(?:\/|$)/.test(path) && !shouldWriteLocaleCopy(path)) paths.delete(path);
+  for (const path of nlPaths) if (shouldWriteLocaleCopy(path)) for (const language of ["en", "de", "fr"]) paths.add(`/${language}${path === "/" ? "" : path}`);
   const smallShell = `<html lang="nl"><head>${(shell.match(/<script\b[^>]*\bsrc=[^>]*>[\s\S]*?<\/script>|<link\b[^>]*\brel=["']stylesheet["'][^>]*>/gi) || []).join("")}</head><body><div id="root"></div></body></html>`;
   let count = 0;
   const routes = [...paths];

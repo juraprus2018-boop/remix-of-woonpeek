@@ -2,6 +2,10 @@ import { rentalCitySlug } from "./rentalCityIdentity.ts";
 export const SITE_URL = "https://www.woonaanbod-nl.nl";
 export const URLSET_OPEN = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 export const xmlEscape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+/** Keep Dutch property HTML, but avoid tens of thousands of untranslated detail copies. */
+export function shouldWriteLocaleCopy(path: string): boolean {
+  return !/^\/(?:huurwoning|koopwoning|woning)(?:\/|$)/.test(path.replace(/^\/(?:en|de|fr)(?=\/|$)/, ""));
+}
 /** City templates and guides are not independent search destinations. National routes stay intact. */
 export function isTemplateCityPath(path: string): boolean {
   const pathname = path.split(/[?#]/)[0].replace(/^\/(?:en|de|fr)(?=\/)/, "");
