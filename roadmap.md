@@ -1,5 +1,5 @@
 # Kaartpagina
-- [ ] Alleen resterende plaatskopieën uitsluiten in generator, postbuild-XML en React-metadata; huurprerender en echte datapagina's behouden, testen, niet publiceren.
+- [x] Plaatskopieën en alle /stad-gidsen uitgesloten in generatorbron en gedeelde postbuild-repair; public/dist XML gecontroleerd zonder deze paden. Noindex en canonical bij 6 actieve huurwoningen gecontroleerd op Eindhoven en Swalmen; 25 tests geslaagd. 219 huurprerenderbestanden behouden, Eindhoven toont echte woningen. Niet gepubliceerd of gedeployed; live wijzigingen wachten op publicatie.
 - [x] Huurstad-noindex tijdens laden gecorrigeerd; Eindhoven met vertraagde query gecontroleerd. Huurprijs-index gebruikt complete exact-stadsbron; 0-sample met €1.743 gereproduceerd en afgeschermd (geen prijzen, geen grafiekpunt, noindex).
 - [x] Sitemapgeneratorbron en public/dist XML gecorrigeerd: geen inkomen, alleen nl/x-default, 219 huurhubs en filters vanaf 6 actieve woningen; hubs krijgen datum van dezelfde HTML-snapshot. Geen extra index.html-paden; geen publicatie of function-deploy, live XML dus nog ongewijzigd.
 - [x] llms.txt top 15 huursteden uit dezelfde snapshot toegevoegd; aantallen, gemiddelden, steekproeven, datum en canonicals gecontroleerd. 17 tests geslaagd; React gecontroleerd zonder runtimefouten. Bestaande postbuild behouden.
