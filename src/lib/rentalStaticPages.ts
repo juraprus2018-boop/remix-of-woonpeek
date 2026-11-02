@@ -1,11 +1,38 @@
-import { SITE_URL, isTemplateCityPath, staticPathSelection, rentalSelectionCount } from "../../supabase/functions/_shared/sitemapPolicy";
+import { SITE_URL, isTemplateCityPath, staticPathSelection, rentalSelectionCount, snapshotPathIndexable } from "../../supabase/functions/_shared/sitemapPolicy";
 import { rentalCityName, rentalCitySlug } from "../../supabase/functions/_shared/rentalCityIdentity";
 import { calculateCityRentalStats } from "./cityRentalStats";
-import { renderStaticShell, type StaticRental } from "./rentalCityPrerender";
+import { groupRentalCities, renderStaticShell, type StaticRental } from "./rentalCityPrerender";
 import { formatAddress, propertyPath } from "./propertyUrl";
 
 const esc = (value: string) => value.replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char] || char);
 const money = (value: number) => Math.round(value).toLocaleString("nl-NL");
+
+/** Extra index.html files allowed beside Vite's own dist/index.html; publishing fails above this. */
+export const MAX_STATIC_RENTAL_FILES = 800;
+
+export interface StaticRentalPlan { hubs: string[]; rich: string[]; noindex: string[]; total: number }
+
+/**
+ * Bounded static HTML inventory, in priority order: rich city hubs, then
+ * threshold-passing rent index/heatmap pages, then noindex alias/template files.
+ * Properties, postcodes, neighbourhoods, filters and locale copies stay on the SPA shell.
+ */
+export function planStaticRentalFiles(rows: StaticRental[], limit = MAX_STATIC_RENTAL_FILES): StaticRentalPlan {
+  const hubs = groupRentalCities(rows)
+    .map(([slug, group]) => ({ slug, size: new Set(group.rows.map(row => row.id)).size }))
+    .sort((a, b) => b.size - a.size || a.slug.localeCompare(b.slug));
+  const rich = hubs.flatMap(({ slug }) => [`/huurprijs-index/${slug}`, `/heatmap/${slug}`]).filter(path => snapshotPathIndexable(rows, path));
+  const required = hubs.length + rich.length;
+  if (required > limit) throw new Error(`Static rental HTML budget exceeded: ${hubs.length} hubs + ${rich.length} index/heatmap pages > ${limit}`);
+  const hubSet = new Set(hubs.map(hub => hub.slug));
+  const candidates = [
+    ...(hubSet.has("den-haag") ? ["/huurwoningen/'s-gravenhage"] : []),
+    ...(hubSet.has("den-bosch") ? ["/huurwoningen/'s-hertogenbosch"] : []),
+    ...hubs.flatMap(({ slug }) => [`/stad/${slug}`, `/energie/${slug}`]),
+  ];
+  const noindex = candidates.slice(0, limit - required);
+  return { hubs: hubs.map(hub => hub.slug), rich, noindex, total: required + noindex.length };
+}
 
 export function staticNoindexCanonical(path: string, rows: StaticRental[]): string {
   const nl = path.replace(/^\/(en|de|fr)(?=\/|$)/, "") || "/";
@@ -27,7 +54,9 @@ export function renderSnapshotPage(shell: string, path: string, rows: StaticRent
   const selected = property ? [property] : /^(huurwoningen|huurprijs-index|heatmap|postcode|buurt)$/.test(parts[0] || "") && parts[1] ? staticPathSelection(rows, nl) : parts[1] && isTemplateCityPath(nl) ? staticPathSelection(rows, nl) : rows;
   const city = parts[1] ? rentalCityName(parts[1].replace(/-/g, " ")) : "Nederland";
   const label = property ? formatAddress(property) || property.title : parts.length ? parts.map(part => part.replace(/-/g, " ")).join(" | ") : "Woonaanbod NL";
-  const heading = property ? `${property.property_type || "Woning"} te huur: ${label} (${property.id})` : label.charAt(0).toUpperCase() + label.slice(1);
+  const cityLabel = rentalCityName(selected[0]?.city || city);
+  const familyHeading = parts.length === 2 && parts[0] === "huurprijs-index" ? `Huurprijs-index ${cityLabel}` : parts.length === 2 && parts[0] === "heatmap" ? `Huurprijzen per postcode in ${cityLabel}` : undefined;
+  const heading = property ? `${property.property_type || "Woning"} te huur: ${label} (${property.id})` : familyHeading || label.charAt(0).toUpperCase() + label.slice(1);
   // The selected rows may span several cities, so normalize only this calculation's city field.
   const stats = calculateCityRentalStats(selected.map(row => ({ ...row, city, property_type: row.property_type || "" })), city);
   const date = now.toLocaleDateString("nl-NL", { timeZone: "Europe/Amsterdam", day: "numeric", month: "long", year: "numeric" });
@@ -40,6 +69,8 @@ export function renderSnapshotPage(shell: string, path: string, rows: StaticRent
   }
   const tableRows = [...pcs].filter(([, prices]) => prices.length >= 3);
   const table = tableRows.length ? `<table><thead><tr><th>PC4</th><th>Gemiddelde huur</th><th>Aantal</th></tr></thead><tbody>${tableRows.map(([pc, prices]) => `<tr><th>${pc}</th><td>€ ${money(prices.reduce((a, b) => a + b, 0) / prices.length)}</td><td>${prices.length}</td></tr>`).join("")}</tbody></table>` : "";
-  return renderStaticShell(shell, { title: `${heading} | Woonaanbod NL`, description: facts, canonical: noindex ? staticNoindexCanonical(path, rows) : SITE_URL + path, noindex,
+  const month = now.toLocaleDateString("nl-NL", { timeZone: "Europe/Amsterdam", month: "long", year: "numeric" });
+  const title = familyHeading ? `${familyHeading}: ${stats.total} huurwoningen${stats.priceSample && stats.averagePrice !== null ? `, gem. € ${money(stats.averagePrice)}` : ""} (${month}) | Woonaanbod NL` : `${heading} | Woonaanbod NL`;
+  return renderStaticShell(shell, { title, description: facts, canonical: noindex ? staticNoindexCanonical(path, rows) : SITE_URL + path, noindex,
     content: `<main><h1>${esc(heading)}</h1>${noindex ? `<p>Deze pagina is niet opgenomen in de zoekindex.</p>` : `<p>${esc(facts)}</p>${table}<ul>${links}</ul>`}</main>` });
 }
