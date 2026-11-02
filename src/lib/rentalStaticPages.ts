@@ -23,7 +23,7 @@ export function renderSnapshotPage(shell: string, path: string, rows: StaticRent
     const heading = parts.length ? parts.map(part => part.replace(/-/g, " ")).join(" | ") : "Woonaanbod NL";
     return renderStaticShell(shell, { title: `${path === nl ? "" : `${path.split("/")[1]} | `}${heading} | Woonaanbod NL`, description: "Deze pagina is niet opgenomen in de zoekindex.", canonical: staticNoindexCanonical(path, rows), noindex: true, content: `<main><h1>${esc(heading)}</h1><p>Deze pagina is niet opgenomen in de zoekindex.</p></main>` });
   }
-  const property = rows.find(row => propertyPath(row) === nl);
+  const property = parts[0] === "huurwoning" ? rows.find(row => propertyPath(row) === nl) : undefined;
   const selected = property ? [property] : /^(huurwoningen|huurprijs-index|heatmap|postcode|buurt)$/.test(parts[0] || "") && parts[1] ? staticPathSelection(rows, nl) : parts[1] && isTemplateCityPath(nl) ? staticPathSelection(rows, nl) : rows;
   const city = parts[1] ? rentalCityName(parts[1].replace(/-/g, " ")) : "Nederland";
   const label = property ? formatAddress(property) || property.title : parts.length ? parts.map(part => part.replace(/-/g, " ")).join(" | ") : "Woonaanbod NL";
