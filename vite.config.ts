@@ -49,11 +49,12 @@ const CITY_LINKS: Array<[string, string]> = [
 ];
 
 // Haalt onze eigen woningmarktcijfers op (RPC market_stats) en schrijft ze als
-// machine-leesbaar bestand naar public/marktdata.json, zodat AI-crawlers en
-// journalisten de data zonder JavaScript kunnen lezen.
+// machine-leesbaar bestand naar dist/marktdata.json (public/ is alleen-lezen
+// invoer), zodat AI-crawlers en journalisten de data zonder JavaScript lezen.
 function marketDataPlugin() {
   const url = process.env.VITE_SUPABASE_URL;
   const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  let data: string | undefined;
   return {
     name: "static-market-data",
     apply: "build" as const,
@@ -68,24 +69,25 @@ function marketDataPlugin() {
         if (!res.ok) return;
         const json = (await res.json()) as Record<string, unknown> | null;
         if (!json?.national) return;
-        fs.writeFileSync(
-          path.resolve(__dirname, "public", "marktdata.json"),
-          JSON.stringify(
-            {
-              source: "Woonaanbod NL",
-              url: "https://www.woonaanbod-nl.nl/woningmarkt",
-              license: "CC BY 4.0 – overname met bronvermelding en link",
-              method:
-                "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
-              ...json,
-            },
-            null,
-            2,
-          ),
+        data = JSON.stringify(
+          {
+            source: "Woonaanbod NL",
+            url: "https://www.woonaanbod-nl.nl/woningmarkt",
+            license: "CC BY 4.0 – overname met bronvermelding en link",
+            method:
+              "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
+            ...json,
+          },
+          null,
+          2,
         );
       } catch {
         // laat het eerder gegenereerde bestand staan
       }
+    },
+    writeBundle(options: { dir?: string }) {
+      if (!data) return;
+      fs.writeFileSync(path.resolve(options.dir || path.resolve(__dirname, "dist"), "marktdata.json"), data);
     },
   };
 }
