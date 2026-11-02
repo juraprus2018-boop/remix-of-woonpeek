@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-import { SITE_URL, URLSET_OPEN, urlEntry, isTemplateCityPath } from "../_shared/sitemapPolicy.ts";
+import { SITE_URL, URLSET_OPEN, urlEntry, isTemplateCityPath, repairSitemap, type SitemapRental } from "../_shared/sitemapPolicy.ts";
 
 const FN_URL = "https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap";
 function buildSitemapIndex(lastmod: string, live = false): string {
@@ -148,88 +148,13 @@ function buildCitiesSitemap(
   postcodes: string[] = [],
   hubSnapshotDates: Record<string, string> = {},
 ): string {
-  const cityMap = new Map<string, string>();
-  for (const p of properties) {
-    const citySlug = p.city.trim().toLowerCase().replace(/\s+/g, "-");
-    const existing = cityMap.get(citySlug);
-    if (!existing || p.updated_at > existing) {
-      cityMap.set(citySlug, p.updated_at);
-    }
-  }
-
-  const propertyTypeSlugs = [
-    { slug: "appartement-huren", type: "appartement" },
-    { slug: "huis-huren", type: "huis" },
-    { slug: "studio-huren", type: "studio" },
-    { slug: "kamer-huren", type: "kamer" },
-  ];
-
-  const cityTypeSet = new Set<string>();
-  // Indexeerbaarheidsregel: filterpagina alleen in sitemap bij >= MIN_LISTINGS aanbod.
-  const MIN_LISTINGS = 6;
-  const counts = new Map<string, number>();
-  const inc = (k: string) => counts.set(k, (counts.get(k) || 0) + 1);
-  for (const p of properties) {
-    const cs = p.city.trim().toLowerCase().replace(/\s+/g, "-");
-    const lt = p.listing_type === "koop" ? "koopwoningen" : "huurwoningen";
-    inc(`${lt}:${cs}`);
-    if (lt === "huurwoningen") inc(`${lt}:${cs}:${p.property_type}`);
-    const price = Number(p.price || 0);
-    const priceSteps = lt === "huurwoningen" ? [1000, 1250, 1500, 2000] : [300000, 400000, 500000];
-    for (const step of priceSteps) if (price > 0 && price <= step) inc(`${lt}:${cs}:onder-${step}`);
-    const beds = Number(p.bedrooms || 0);
-    for (const b of [1, 2, 3]) if (beds >= b) inc(`${lt}:${cs}:${b}-slaapkamers`);
-  }
-  const has = (k: string) => (counts.get(k) || 0) >= MIN_LISTINGS;
-  const cityNeighborhoods = new Map<string, Set<string>>();
-  for (const p of properties) {
-    const citySlug = p.city.trim().toLowerCase().replace(/\s+/g, "-");
-    cityTypeSet.add(`${citySlug}:${p.property_type}`);
-    if (p.neighborhood) {
-      if (!cityNeighborhoods.has(citySlug)) cityNeighborhoods.set(citySlug, new Set());
-      cityNeighborhoods.get(citySlug)?.add(p.neighborhood.trim().toLowerCase().replace(/\s+/g, "-"));
-    }
-  }
-
-  // Pre-defined price/bedroom filters already in sitemap
-  const defaultPrices = new Set([750, 1000, 1250, 1500, 2000]);
-  const defaultBedrooms = new Set([1, 2, 3, 4]);
-
-  let xml = URLSET_OPEN;
-  for (const [citySlug, lastMod] of cityMap) {
-    const date = lastMod.split("T")[0];
-    // City templates and /stad guides remain accessible, but never enter the sitemap.
-    // Canonieke aanbodstructuur: /huurwoningen/{stad}/{filter}, alleen bij genoeg aanbod.
-    for (const lt of ["huurwoningen", "koopwoningen"]) {
-      if (!has(`${lt}:${citySlug}`)) continue;
-      xml += urlEntry(`/${lt}/${citySlug}`, lt === "huurwoningen" ? hubSnapshotDates[citySlug] : date, "daily", "0.8");
-      const filters = lt === "huurwoningen"
-        ? ["appartement", "huis", "studio", "kamer", "onder-1000", "onder-1250", "onder-1500", "onder-2000", "1-slaapkamers", "2-slaapkamers", "3-slaapkamers"]
-        : ["onder-300000", "onder-400000", "onder-500000", "1-slaapkamers", "2-slaapkamers", "3-slaapkamers"];
-      for (const f of filters) {
-        if (has(`${lt}:${citySlug}:${f}`)) xml += urlEntry(`/${lt}/${citySlug}/${f}`, date, "daily", "0.6");
-      }
-    }
-    xml += urlEntry(`/huurprijs-index/${citySlug}`, date, "monthly", "0.7");
-    xml += urlEntry(`/heatmap/${citySlug}`, date, "weekly", "0.6");
-    const neighborhoods = cityNeighborhoods.get(citySlug);
-    if (neighborhoods) {
-      let count = 0;
-      for (const nhSlug of neighborhoods) {
-        if (count >= 20) break;
-        xml += urlEntry(`/buurt/${citySlug}/${nhSlug}`, date, "weekly", "0.5");
-        count++;
-      }
-    }
-  }
-
-  // Postcode landingspagina's (uniek 4-cijferig)
-  for (const pc of postcodes) {
-    xml += urlEntry(`/postcode/${pc}`, undefined, "weekly", "0.5");
-  }
-
-  xml += `</urlset>`;
-  return xml;
+  const rentals: SitemapRental[] = properties.filter(p => p.listing_type === "huur").map(p => ({ ...p, status: "actief", price: Number(p.price || 0), bedrooms: p.bedrooms ?? null }));
+  const cities = [...new Set(rentals.map(row => row.city))];
+  // All data destinations share the postbuild selection and threshold policy.
+  const dates = Object.values(hubSnapshotDates).sort();
+  const snapshotDate = dates.at(-1);
+  if (!snapshotDate) throw new Error("Published rental snapshot date unavailable");
+  return repairSitemap("", rentals, cities, snapshotDate, "steden");
 }
 
 function buildPropertiesSitemap(
