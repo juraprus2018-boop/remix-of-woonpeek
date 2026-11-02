@@ -4,6 +4,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, CANONICAL_URL, type Locale } from "@
 import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
 import socialAsset from "@/assets/brand/social.png.asset.json";
 import { socialImageUrl } from "../../../supabase/functions/_shared/socialImage";
+import { useTemplateCitySeo } from "@/hooks/useTemplateCitySeo";
 
 interface SEOHeadProps {
   title: string;
@@ -66,6 +67,9 @@ const setJsonLd = (id: string, data: unknown) => {
 
 const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex, geoPlacename, geoPosition }: SEOHeadProps) => {
   const location = useLocation();
+  const templatePolicy = useTemplateCitySeo(location.pathname);
+  const effectiveNoindex = templatePolicy?.noindex || noindex;
+  const effectiveCanonical = templatePolicy?.canonical || canonical;
 
   useEffect(() => {
     document.title = title;
@@ -80,7 +84,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
       robotsEl.setAttribute("name", "robots");
       document.head.appendChild(robotsEl);
     }
-    robotsEl.setAttribute("content", noindex ? "noindex, follow" : "index, follow, max-image-preview:large");
+    robotsEl.setAttribute("content", effectiveNoindex ? "noindex, follow" : "index, follow, max-image-preview:large");
 
     // Canonical: prefix with current locale so each language has its own canonical.
     const locale = getLocaleFromPath(location.pathname);
@@ -101,8 +105,8 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
       if (!v.startsWith("/")) v = `/${v}`;
       return v;
     };
-    const bareSource = stripLocale(toPath(canonical || location.pathname));
-    const resolvedCanonical = baseUrl + withLocale(bareSource, locale);
+    const bareSource = stripLocale(toPath(effectiveCanonical || location.pathname));
+    const resolvedCanonical = baseUrl + (templatePolicy ? bareSource : withLocale(bareSource, locale));
 
 
     let canonicalEl = document.querySelector('link[rel="canonical"]');
@@ -157,7 +161,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setNamedMeta("ICBM", geoPosition ? `${geoPosition.lat}, ${geoPosition.lng}` : null);
 
     // Auto WebPage JSON-LD tied to Organization + WebSite on every route.
-    if (!noindex) {
+    if (!effectiveNoindex) {
       const orgId = `${baseUrl || "https://www.woonaanbod-nl.nl"}/#organization`;
       const siteId = `${baseUrl || "https://www.woonaanbod-nl.nl"}/#website`;
       setJsonLd("seo-jsonld-webpage", {
@@ -212,7 +216,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         document.getElementById("seo-jsonld-breadcrumbs")?.remove();
       }
     }
-  }, [title, description, canonical, ogImage, ogType, noindex, geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname]);
+  }, [title, description, effectiveCanonical, ogImage, ogType, effectiveNoindex, Boolean(templatePolicy), geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname]);
 
 
 
