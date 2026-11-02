@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-import { SITE_URL, URLSET_OPEN, urlEntry } from "../_shared/sitemapPolicy.ts";
+import { SITE_URL, URLSET_OPEN, urlEntry, isTemplateCityPath } from "../_shared/sitemapPolicy.ts";
 
 const FN_URL = "https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap";
 function buildSitemapIndex(lastmod: string, live = false): string {
@@ -134,6 +134,7 @@ function buildPagesSitemap(now: string, blogSlugs: string[] = [], agencySlugs: s
 
   let xml = URLSET_OPEN;
   for (const page of staticPages) {
+    if (isTemplateCityPath(page.loc)) continue;
     xml += urlEntry(page.loc, undefined, page.changefreq, page.priority);
   }
   xml += `</urlset>`;
@@ -197,18 +198,7 @@ function buildCitiesSitemap(
   let xml = URLSET_OPEN;
   for (const [citySlug, lastMod] of cityMap) {
     const date = lastMod.split("T")[0];
-    xml += urlEntry(`/stad/${citySlug}`, date, "daily", "0.8");
-    xml += urlEntry(`/energie/${citySlug}`, date, "monthly", "0.6");
-    xml += urlEntry(`/nieuwbouw/${citySlug}`, date, "weekly", "0.6");
-    xml += urlEntry(`/studenten/${citySlug}`, date, "weekly", "0.6");
-    xml += urlEntry(`/woz-waarde/${citySlug}`, date, "monthly", "0.6");
-    xml += urlEntry(`/verhuisservice/${citySlug}`, date, "monthly", "0.6");
-    // Verhuizen-naar gids per stad
-    xml += urlEntry(`/stadsgids/${citySlug}`, date, "monthly", "0.6");
-    // Best-of listicle pages per city
-    for (const slug of ["goedkoop-huur", "grootste-huur", "buurten"]) {
-      xml += urlEntry(`/toplijst/${citySlug}/${slug}`, date, "weekly", "0.6");
-    }
+    // City templates and /stad guides remain accessible, but never enter the sitemap.
     // Canonieke aanbodstructuur: /huurwoningen/{stad}/{filter}, alleen bij genoeg aanbod.
     for (const lt of ["huurwoningen", "koopwoningen"]) {
       if (!has(`${lt}:${citySlug}`)) continue;
@@ -220,11 +210,8 @@ function buildCitiesSitemap(
         if (has(`${lt}:${citySlug}:${f}`)) xml += urlEntry(`/${lt}/${citySlug}/${f}`, date, "daily", "0.6");
       }
     }
-    xml += urlEntry(`/vandaag/${citySlug}`, date, "daily", "0.6");
-    xml += urlEntry(`/markt/${citySlug}`, date, "daily", "0.7");
     xml += urlEntry(`/huurprijs-index/${citySlug}`, date, "monthly", "0.7");
     xml += urlEntry(`/heatmap/${citySlug}`, date, "weekly", "0.6");
-    xml += urlEntry(`/cijfers/${citySlug}`, date, "weekly", "0.6");
     const neighborhoods = cityNeighborhoods.get(citySlug);
     if (neighborhoods) {
       let count = 0;
