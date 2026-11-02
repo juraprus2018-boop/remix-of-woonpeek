@@ -3,7 +3,8 @@ import path from "node:path";
 import { loadEnv } from "vite";
 import { writeRentalSeoArtifacts, writeSnapshotHtml } from "./rental-seo-artifacts";
 import { groupRentalCities, renderRentalCity, type StaticRental } from "../src/lib/rentalCityPrerender";
-import { verifyRentalSeoOutput, verifyRequestedRentalFiles } from "./verify-rental-seo";
+import { assertStaticFileBudget, verifyRentalSeoOutput, verifyRequestedRentalFiles } from "./verify-rental-seo";
+import { planStaticRentalFiles } from "../src/lib/rentalStaticPages";
 
 const env = { ...loadEnv("production", process.cwd(), "VITE_"), ...process.env };
 const url = env.VITE_SUPABASE_URL;
@@ -33,6 +34,8 @@ for (let offset = 0; offset === 0 || offset < expected; offset += 1000) {
   rows.push(...batch);
 }
 if (new Set(rows.map(row => row.id)).size !== expected) throw new Error("Rental city snapshot contains missing or duplicate listings");
+// Plan the bounded static inventory before writing anything, so an oversized set fails the build early.
+const plan = planStaticRentalFiles(rows);
 const dist = path.resolve("dist");
 const shell = await readFile(path.join(dist, "index.html"), "utf8");
 // Preserve homepage content, but make its existing index status explicit in raw HTML.
@@ -57,7 +60,8 @@ for (const page of pages) {
 await writeFile(manifestPath, JSON.stringify({ generatedAt: now.toISOString(), activeRentals: expected, cities: pages.map(page => page.slug) }, null, 2));
 console.log(`Rental city HTML: ${pages.length} cities generated from ${expected} active rental listings.`);
 const artifacts = await writeRentalSeoArtifacts(rows, now, ["dist"]);
-await writeSnapshotHtml(shell, rows, now, artifacts.sitemapXml, artifacts.historicalXml);
+await writeSnapshotHtml(shell, rows, now, plan);
 const verified = await verifyRentalSeoOutput(dist, artifacts.sitemapXml);
 await verifyRequestedRentalFiles(dist, artifacts.sitemapXml);
-console.log(`Production SEO validation passed: ${verified} unique sitemap HTML files.`);
+const extra = await assertStaticFileBudget(dist);
+console.log(`Production SEO validation passed: ${verified} static sitemap HTML files; ${extra} extra index.html files in dist.`);

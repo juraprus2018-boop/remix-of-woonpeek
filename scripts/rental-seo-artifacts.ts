@@ -4,7 +4,7 @@ import { repairSitemap } from "../supabase/functions/_shared/sitemapPolicy";
 import { groupRentalCities, type StaticRental } from "../src/lib/rentalCityPrerender";
 import { calculateCityRentalStats } from "../src/lib/cityRentalStats";
 import { MAX_STATIC_RENTAL_FILES, renderSnapshotPage, type StaticRentalPlan } from "../src/lib/rentalStaticPages";
-import { rentalCitySlug } from "../supabase/functions/_shared/rentalCityIdentity";
+import { rentalCityName, rentalCitySlug } from "../supabase/functions/_shared/rentalCityIdentity";
 
 export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now: Date, plan: StaticRentalPlan) {
   if (plan.total > MAX_STATIC_RENTAL_FILES) throw new Error(`Static rental HTML budget exceeded: ${plan.total} > ${MAX_STATIC_RENTAL_FILES}`);
@@ -38,7 +38,7 @@ export async function writeRentalSeoArtifacts(rows: StaticRental[], now: Date, r
   const entries = cities.match(/<url>[\s\S]*?<\/url>/g) || [];
   const header = cities.slice(0, cities.indexOf("<url>"));
   const llms = await readFile(path.join(publicDir, "llms.txt"), "utf8");
-  const ranked = groups.map(([slug, group]) => ({ slug, city: group.city, stats: calculateCityRentalStats(group.rows.map(row => ({ ...row, property_type: row.property_type || "" })), group.city, now.getTime()) })).sort((a, b) => b.stats.total - a.stats.total || a.city.localeCompare(b.city));
+  const ranked = groups.map(([slug, group]) => ({ slug, city: rentalCityName(group.city), stats: calculateCityRentalStats(group.rows.map(row => ({ ...row, property_type: row.property_type || "" })), group.city, now.getTime()) })).sort((a, b) => b.stats.total - a.stats.total || a.city.localeCompare(b.city));
   // Top 15 by supply, plus the merged Den Haag and Den Bosch hubs so each is named exactly once.
   const top = ranked.filter((entry, index) => index < 15 || entry.slug === "den-haag" || entry.slug === "den-bosch");
   const section = `## Steden met het meeste actieve huuraanbod\n\nPeildatum: ${now.toLocaleDateString("nl-NL", { timeZone: "Europe/Amsterdam", day: "numeric", month: "long", year: "numeric" })}. Bron: dezelfde volledige actieve-huurwoningsnapshot als de statische stadspagina's. Aantallen zijn advertenties, niet noodzakelijk unieke woningen.\n\n${top.map(({ slug, city, stats }) => `- [Huurwoningen in ${city}](https://www.woonaanbod-nl.nl/huurwoningen/${slug}): ${stats.total} actieve huurwoningen${stats.priceSample > 0 && stats.averagePrice !== null ? `, gemiddelde huur € ${Math.round(stats.averagePrice).toLocaleString("nl-NL")} per maand (steekproef: ${stats.priceSample})` : ""}.`).join("\n")}\n\n`;
