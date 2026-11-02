@@ -9,7 +9,8 @@ import { rentalCitySlug } from "../supabase/functions/_shared/rentalCityIdentity
 import { propertyPath } from "../src/lib/propertyUrl";
 
 export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now: Date, sitemapXml: string[], historicalXml: string) {
-  const cities = new Set([...DUTCH_CITIES.map(rentalCitySlug), ...groupRentalCities(rows, true).map(([slug]) => slug)]);
+  // Retain known removed places even when neither the allowlist nor current feed includes them.
+  const cities = new Set(["swalmen", ...DUTCH_CITIES.map(rentalCitySlug), ...groupRentalCities(rows, true).map(([slug]) => slug)]);
   // Index counts once, rather than rescanning the nationwide feed for each noindex file.
   const cityRows = new Map<string, StaticRental[]>();
   const propertyRows = new Map<string, StaticRental[]>();
