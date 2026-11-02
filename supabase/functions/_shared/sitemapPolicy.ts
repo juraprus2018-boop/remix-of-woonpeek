@@ -1,6 +1,11 @@
 export const SITE_URL = "https://www.woonaanbod-nl.nl";
 export const URLSET_OPEN = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n`;
 export const xmlEscape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+/** City templates and guides are not independent search destinations. National routes stay intact. */
+export function isTemplateCityPath(path: string): boolean {
+  const pathname = path.split(/[?#]/)[0].replace(/^\/(?:en|de|fr)(?=\/)/, "");
+  return /^\/(?:energie|nieuwbouw|studenten|woz-waarde|verhuisservice|stadsgids|vandaag|markt|cijfers|toplijst|stad)\/[^/]+(?:\/.*)?$/.test(pathname);
+}
 export function urlEntry(path: string, lastmod: string | undefined, changefreq = "daily", priority = "0.6") {
   const url = xmlEscape(`${SITE_URL}${path}`);
   return `  <url>\n    <loc>${url}</loc>\n${lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : ""}    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n    <xhtml:link rel="alternate" hreflang="nl" href="${url}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${url}" />\n  </url>\n`;
@@ -25,7 +30,7 @@ export function repairSitemap(xml: string, rows: SitemapRental[], hubs: string[]
     const loc = entry.match(/<loc>([\s\S]*?)<\/loc>/)?.[1];
     if (!loc) return [];
     const path = loc.replace(SITE_URL, "");
-    if (/^\/(?:inkomen\/|(?:en|de|fr)(?:\/|$))/.test(path)) return [];
+    if (/^\/(?:inkomen\/|(?:en|de|fr)(?:\/|$))/.test(path) || isTemplateCityPath(path)) return [];
     if (kind === "steden" && /^\/huurwoningen\//.test(path)) return [];
     let clean = entry.replace(/\s*<xhtml:link\b[^>]*\/?\s*>/g, "");
     // Static page dates were generated from request/build time, not page changes.

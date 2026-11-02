@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
@@ -87,14 +87,11 @@ export default function CityStats() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Helmet>
-        <title>{`Cijfers ${cityName} — bevolking, inkomen & woningen | Woonaanbod NL`}</title>
-        <meta
-          name="description"
-          content={`Officiële CBS-cijfers over ${cityName}: aantal inwoners, gemiddeld inkomen, leeftijdsopbouw, woningvoorraad en woningwaarde. Updates per jaar.`}
-        />
-        <link rel="canonical" href={`https://www.woonaanbod-nl.nl/cijfers/${city}`} />
-      </Helmet>
+      <SEOHead
+        title={`Cijfers ${cityName} - bevolking, inkomen & woningen | Woonaanbod NL`}
+        description={`Officiële CBS-cijfers over ${cityName}: aantal inwoners, gemiddeld inkomen, leeftijdsopbouw, woningvoorraad en woningwaarde. Updates per jaar.`}
+        canonical={`/cijfers/${city}`}
+      />
       <Header />
       <main className="flex-1">
         <div className="container py-8 md:py-12">
