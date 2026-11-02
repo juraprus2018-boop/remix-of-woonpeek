@@ -1,7 +1,7 @@
 # Project architecture rules
 
 - Vite's production closeBundle runs the existing rental postbuild from a complete public active-rental snapshot; every sitemap route has static HTML, retired and untranslated routes have compact static noindex HTML, and SPA scripts remain so people retain the app without host rewrites. Fail on incomplete data or missing route files.
-- Rental postbuild treats public SEO inventories as read-only input and writes its retirement manifest only to dist; untranslated property-detail copies are omitted to bound output without dropping Dutch property HTML or retired city/template locale files.
+- Rental postbuild treats public SEO inventories as read-only input and writes its retirement manifest only to dist; buildStart must never fetch live sitemap XML because the deployed generator may be older than the build's policy. Untranslated property-detail copies are omitted to bound output without dropping Dutch property HTML or retired city/template locale files.
 - Rental sitemap selections and llms.txt share that snapshot, identity aliases and threshold policy with the function generator; snapshot-backed page dates qualify as lastmod, and only Dutch alternates are advertised. Regenerate all city-data families rather than retaining stale XML; the shared policy governs static and browser template canonicals.
 
 - Browser SEO and social-preview functions share a pure HTTPS image resolver so local and external listing images produce valid absolute social metadata consistently.

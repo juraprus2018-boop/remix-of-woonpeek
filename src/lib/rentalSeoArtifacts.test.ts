@@ -19,7 +19,7 @@ vi.mock("node:fs/promises", () => {
   return { ...mock, default: mock };
 });
 vi.mock("./dutchCities", async (importOriginal) => ({ ...await importOriginal<typeof import("./dutchCities")>(), DUTCH_CITIES: ["Eindhoven", "Swalmen", "Den Haag", "Den Bosch"] }));
-import { writeSnapshotHtml } from "../../scripts/rental-seo-artifacts";
+import { writeRentalSeoArtifacts, writeSnapshotHtml } from "../../scripts/rental-seo-artifacts";
 import { verifyRentalSeoOutput } from "../../scripts/verify-rental-seo";
 
 const shell = '<html><head><title>Homepage title</title><script type="module" src="/assets/app.js"></script></head><body><div id="root"><h1>Homepage H1</h1></div></body></html>';
@@ -27,6 +27,10 @@ const rows: StaticRental[] = Array.from({ length: 6 }, (_, i) => ({ id: String(i
 
 describe("SEO output with read-only public input", () => {
   beforeEach(() => files.clear());
+  it("rejects public as an artifact destination before reading or writing", async () => {
+    await expect(writeRentalSeoArtifacts(rows, new Date("2026-11-02"), ["public"])).rejects.toThrow("only be written to dist");
+    expect(files.size).toBe(0);
+  });
   it("completes dist output and retirement manifest without writing public", async () => {
     files.set("public/seo-retired-paths.json", JSON.stringify(["/stad/swalmen", "/en/huurwoning/eindhoven/test-0"]));
     const xml = urlEntry("/huurwoning/eindhoven/test-0", "2026-11-02");
