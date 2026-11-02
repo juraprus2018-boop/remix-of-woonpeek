@@ -1,6 +1,6 @@
 import { cityToSlug } from "@/lib/cities";
 import { useCityRentalStats } from "@/hooks/useCityRentalStats";
-import { isRentalCityIndexable } from "@/lib/rentalCityIndexing";
+import { shouldNoindexRentalCity } from "@/lib/rentalCityIndexing";
 import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
@@ -66,7 +66,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
   const locationLabel = cityName || "Nederland";
   const rentalCityStats = useCityRentalStats(listingType === "huur" && !isInvalidCity ? cityName || "" : "");
   const noindexRentalCity = listingType === "huur" && Boolean(cityName) &&
-    !isRentalCityIndexable(rentalCityStats.data?.total ?? 0);
+    shouldNoindexRentalCity(rentalCityStats.isSuccess && !rentalCityStats.isFetching, rentalCityStats.data?.total);
 
   const ITEMS_PER_PAGE = 12;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
