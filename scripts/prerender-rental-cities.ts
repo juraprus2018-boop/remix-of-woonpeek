@@ -1,7 +1,7 @@
 import { readFile, mkdir, writeFile, rm } from "node:fs/promises";
 import path from "node:path";
 import { loadEnv } from "vite";
-import { writeRentalSeoArtifacts } from "./rental-seo-artifacts";
+import { writeRentalSeoArtifacts, writeSnapshotHtml } from "./rental-seo-artifacts";
 import { groupRentalCities, renderRentalCity, type StaticRental } from "../src/lib/rentalCityPrerender";
 
 const env = { ...loadEnv("production", process.cwd(), "VITE_"), ...process.env };
@@ -53,4 +53,5 @@ for (const page of pages) {
 }
 await writeFile(manifestPath, JSON.stringify({ generatedAt: now.toISOString(), activeRentals: expected, cities: pages.map(page => page.slug) }, null, 2));
 console.log(`Rental city HTML: ${pages.length} cities generated from ${expected} active rental listings.`);
-await writeRentalSeoArtifacts(rows, now, process.env.UPDATE_PUBLIC_SEO === "1" ? ["public", "dist"] : ["dist"]);
+const artifacts = await writeRentalSeoArtifacts(rows, now, ["dist"]);
+await writeSnapshotHtml(shell, rows, now, artifacts.sitemapXml, artifacts.historicalXml);
