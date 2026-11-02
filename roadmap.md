@@ -1,7 +1,7 @@
 # Kaartpagina
-- [ ] Huurstad-noindex tijdens laden corrigeren en huurprijs-index zonder steekproef afschermen.
-- [ ] Sitemapgenerator en statische XML corrigeren (inkomen, talen, minimumaanbod, lastmod) zonder publicatie.
-- [ ] llms.txt top 15 huursteden uit dezelfde prerendersnapshot toevoegen en controles uitvoeren.
+- [x] Huurstad-noindex tijdens laden gecorrigeerd; Eindhoven met vertraagde query gecontroleerd. Huurprijs-index gebruikt complete exact-stadsbron; 0-sample met €1.743 gereproduceerd en afgeschermd (geen prijzen, geen grafiekpunt, noindex).
+- [x] Sitemapgeneratorbron en public/dist XML gecorrigeerd: geen inkomen, alleen nl/x-default, 219 huurhubs en filters vanaf 6 actieve woningen; hubs krijgen datum van dezelfde HTML-snapshot. Geen extra index.html-paden; geen publicatie of function-deploy, live XML dus nog ongewijzigd.
+- [x] llms.txt top 15 huursteden uit dezelfde snapshot toegevoegd; aantallen, gemiddelden, steekproeven, datum en canonicals gecontroleerd. 17 tests geslaagd; React gecontroleerd zonder runtimefouten. Bestaande postbuild behouden.
 - [x] Postbuild voor crawlbare huur-stadshubs toegevoegd; 219 bestanden uit 15.751 actieve huuradvertenties lokaal gegenereerd met huidige live-productieshell (geen handmatige Vite-build). Eindhoven-title, eigen canonical, één H1, 10 echte links en behouden SPA-script gecontroleerd; 12 tests en React/no-JavaScript-controle geslaagd. Sitemap ongewijzigd; niet gepubliceerd en hosting na publicatie nog niet geverifieerd.
 - [x] Budgetoverdracht hersteld; tien tests geslaagd en echte Amsterdam-resultaten tussen €750 en €1.000 bevestigd, ook na verversen. Niet gepubliceerd.
 - [x] Facebook-woninglinks vervangen door bestaande affiliate-links in berichten, video's en groepskopieën; 14 tests geslaagd, inclusief echte Huurzone-feedlink met media-ID 418821, postfunctie uitgerold. Geen nieuw Facebook-bericht geplaatst; groepskopie niet via account getest omdat eigen accountcontrole geen passende gebruiker vond. Bestaande Facebook-berichten blijven ongewijzigd.
