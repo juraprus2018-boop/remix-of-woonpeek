@@ -6,54 +6,9 @@ import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { componentTagger } from "lovable-tagger";
 
-// Fetches the generated sitemaps at build time and writes them as static
-// files in public/, so all sitemaps resolve on our own domain.
-// public/sitemap.xml (the index) is static and never overwritten here.
-// The steden sitemap is split into 3 urlset files to stay under 9 MB each.
-function sitemapPlugin() {
-  const base = `${process.env.VITE_SUPABASE_URL || ""}/functions/v1/generate-sitemap`;
-  const targets: Array<[string, string]> = [
-    ["pages", "sitemap-pages.xml"],
-    ["steden", "sitemap-steden"],
-    ["woningen", "sitemap-woningen.xml"],
-  ];
-  const write = (file: string, xml: string) =>
-    fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
-  return {
-    name: "static-sitemaps",
-    apply: "build" as const,
-    async buildStart() {
-      if (!process.env.VITE_SUPABASE_URL) return;
-      await Promise.all(
-        targets.map(async ([type, file]) => {
-          try {
-            const res = await fetch(`${base}?type=${type}`);
-            if (!res.ok) return;
-            const xml = await res.text();
-            if (!xml.trim().startsWith("<?xml")) return;
-            if (type !== "steden") {
-              write(file, xml);
-              return;
-            }
-            const openMatch = xml.match(/<urlset[^>]*>/);
-            if (!openMatch) return;
-            const header = xml.slice(0, (openMatch.index ?? 0) + openMatch[0].length);
-            const urls = xml.match(/<url>[\s\S]*?<\/url>/g) || [];
-            if (!urls.length) return;
-            const parts = 3;
-            const size = Math.ceil(urls.length / parts);
-            for (let i = 0; i < parts; i++) {
-              const chunk = urls.slice(i * size, (i + 1) * size);
-              write(`sitemap-steden-${i + 1}.xml`, `${header}\n${chunk.join("\n")}\n</urlset>\n`);
-            }
-          } catch {
-            // keep the previously committed file on failure
-          }
-        }),
-      );
-    },
-  };
-}
+// Sitemaps are copied from the read-only public inventory, then repaired in
+// dist by rentalSnapshotPostbuildPlugin using the same snapshot as the HTML.
+// Never fetch the live generator here: it can still run an older deployment.
 
 
 const esc = (s: string) =>
@@ -242,7 +197,7 @@ export default defineConfig(({ mode }) => {
       overlay: false,
     },
   },
-  plugins: [react(), sitemapPlugin(), marketDataPlugin(), prerenderHomeContentPlugin(), mode !== "development" && rentalSnapshotPostbuildPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), marketDataPlugin(), prerenderHomeContentPlugin(), mode !== "development" && rentalSnapshotPostbuildPlugin(), mode === "development" && componentTagger()].filter(Boolean),
 
   resolve: {
     alias: {
