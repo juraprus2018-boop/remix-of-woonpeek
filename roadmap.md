@@ -1,4 +1,5 @@
 # Kaartpagina
+- [ ] Crawlbare HTML voor huur-stadshubs genereren na de productiebuild en Eindhoven lokaal controleren; geen sitemapwijziging.
 - [x] Budgetoverdracht hersteld; tien tests geslaagd en echte Amsterdam-resultaten tussen €750 en €1.000 bevestigd, ook na verversen. Niet gepubliceerd.
 - [x] Facebook-woninglinks vervangen door bestaande affiliate-links in berichten, video's en groepskopieën; 14 tests geslaagd, inclusief echte Huurzone-feedlink met media-ID 418821, postfunctie uitgerold. Geen nieuw Facebook-bericht geplaatst; groepskopie niet via account getest omdat eigen accountcontrole geen passende gebruiker vond. Bestaande Facebook-berichten blijven ongewijzigd.
 - [x] Open SEO-melding gecontroleerd: woningtype gelijkgetrokken, absolute HTTPS-afbeeldingen gedeeld gevalideerd, dubbele Twitter-tags verwijderd; acht tests en echte woningpagina geslaagd, previewfuncties gedeployed.
