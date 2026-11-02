@@ -1,4 +1,5 @@
 # Kaartpagina
+- [x] SEO-buildherstel: manifest alleen naar dist, taal-woningkopieën beperkt, 34 tests geslaagd en automatische build OK. Lokale postbuild-uitvoer: 16.482 sitemapbestanden en zeven gevraagde routes gecontroleerd; homepage lokaal aangevuld voor controle, geen handmatige volledige Vite-productiebuild uitgevoerd. Niet gepubliceerd.
 - [ ] Statische index/noindex-bestanden en sitemapdrempels afronden vanuit één snapshot, stadsaliassen samenvoegen, llms.txt en tests controleren; niet publiceren of deployen.
 - [x] Plaatskopieën en alle /stad-gidsen uitgesloten in generatorbron en gedeelde postbuild-repair; public/dist XML gecontroleerd zonder deze paden. Noindex en canonical bij 6 actieve huurwoningen gecontroleerd op Eindhoven en Swalmen; 25 tests geslaagd. 219 huurprerenderbestanden behouden, Eindhoven toont echte woningen. Niet gepubliceerd of gedeployed; live wijzigingen wachten op publicatie.
 - [x] Huurstad-noindex tijdens laden gecorrigeerd; Eindhoven met vertraagde query gecontroleerd. Huurprijs-index gebruikt complete exact-stadsbron; 0-sample met €1.743 gereproduceerd en afgeschermd (geen prijzen, geen grafiekpunt, noindex).

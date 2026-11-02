@@ -1,12 +1,16 @@
 import { describe, expect, it } from "vitest";
 import { shouldNoindexRentalCity } from "./rentalCityIndexing";
 import { hasRentSample, usableRentPoints } from "./rentIndexData";
-import { repairSitemap, rentalSelectionCount, urlEntry, snapshotPathIndexable, type SitemapRental } from "../../supabase/functions/_shared/sitemapPolicy";
+import { repairSitemap, rentalSelectionCount, urlEntry, snapshotPathIndexable, shouldWriteLocaleCopy, type SitemapRental } from "../../supabase/functions/_shared/sitemapPolicy";
 import { rentalCitySlug } from "../../supabase/functions/_shared/rentalCityIdentity";
 
 const rows: SitemapRental[] = Array.from({ length: 6 }, (_, i) => ({ city: "Eindhoven", status: "actief", listing_type: "huur", property_type: "appartement", price: i === 5 ? 1700 : 900, bedrooms: 1, updated_at: "2026-11-01T04:00:00Z" }));
 
 describe("rental SEO correction rules", () => {
+  it("keeps locale hub and retired template files but skips translated property detail files", () => {
+    for (const path of ["/huurwoningen/eindhoven", "/stad/swalmen", "/energie/eindhoven", "/en/huurwoningen/eindhoven"]) expect(shouldWriteLocaleCopy(path)).toBe(true);
+    for (const path of ["/huurwoning/eindhoven/test", "/en/huurwoning/eindhoven/test", "/de/koopwoning/breda/test", "/fr/woning/test"]) expect(shouldWriteLocaleCopy(path)).toBe(false);
+  });
   it("merges 564 Den Haag and 437 Gravenhage rentals into one 1001-rental hub", () => {
     const merged = [...Array.from({ length: 564 }, () => ({ ...rows[0], city: "Den Haag" })), ...Array.from({ length: 437 }, () => ({ ...rows[0], city: "'s-Gravenhage" }))];
     expect(rentalSelectionCount(merged, "den-haag")).toBe(1001);
