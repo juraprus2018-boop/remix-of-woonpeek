@@ -7,48 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SITE_URL = "https://www.woonaanbod-nl.nl";
-
-/** Locales served by the app. NL is default (no path prefix). */
-const LOCALES = ["nl", "en", "de", "fr"] as const;
-const DEFAULT_LOCALE = "nl";
-
-/** URLSET opening tag including xhtml namespace required for hreflang alternates. */
-const URLSET_OPEN = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-`;
-
-/** Build a path for a given locale (NL stays unprefixed). */
-function localizedPath(path: string, locale: string): string {
-  if (locale === DEFAULT_LOCALE) return path;
-  if (path === "/") return `/${locale}`;
-  return `/${locale}${path}`;
-}
-
-/**
- * Render a single <url> entry with hreflang alternates pointing to every
- * supported locale + x-default. `path` must be the NL (canonical) path.
- */
-function urlEntry(
-  path: string,
-  lastmod: string,
-  changefreq: string,
-  priority: string,
-): string {
-  const alternates = LOCALES.map(
-    (lng) =>
-      `    <xhtml:link rel="alternate" hreflang="${lng}" href="${SITE_URL}${localizedPath(path, lng)}" />`,
-  ).join("\n");
-  return `  <url>
-    <loc>${SITE_URL}${path}</loc>
-    <lastmod>${lastmod}</lastmod>
-    <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
-${alternates}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${localizedPath(path, DEFAULT_LOCALE)}" />
-  </url>
-`;
-}
+import { SITE_URL, URLSET_OPEN, urlEntry } from "../_shared/sitemapPolicy.ts";
 
 const FN_URL = "https://kppotnzwhxkflceiscto.supabase.co/functions/v1/generate-sitemap";
 function buildSitemapIndex(lastmod: string, live = false): string {
@@ -57,7 +16,6 @@ function buildSitemapIndex(lastmod: string, live = false): string {
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${["pages", "steden", "woningen"].map((t) => `  <sitemap>
     <loc>${FN_URL}?type=${t}</loc>
-    <lastmod>${lastmod}</lastmod>
   </sitemap>`).join("\n")}
 </sitemapindex>`;
   }
@@ -65,15 +23,12 @@ ${["pages", "steden", "woningen"].map((t) => `  <sitemap>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${SITE_URL}/sitemap-pages.xml</loc>
-    <lastmod>${lastmod}</lastmod>
   </sitemap>
   <sitemap>
     <loc>${SITE_URL}/sitemap-steden.xml</loc>
-    <lastmod>${lastmod}</lastmod>
   </sitemap>
   <sitemap>
     <loc>${SITE_URL}/sitemap-woningen.xml</loc>
-    <lastmod>${lastmod}</lastmod>
   </sitemap>
 </sitemapindex>`;
 }
@@ -179,7 +134,7 @@ function buildPagesSitemap(now: string, blogSlugs: string[] = [], agencySlugs: s
 
   let xml = URLSET_OPEN;
   for (const page of staticPages) {
-    xml += urlEntry(page.loc, now, page.changefreq, page.priority);
+    xml += urlEntry(page.loc, undefined, page.changefreq, page.priority);
   }
   xml += `</urlset>`;
   return xml;
@@ -190,6 +145,7 @@ function buildCitiesSitemap(
   searchQueries: Array<{ city: string; listing_type: string | null; property_type: string | null; max_price: number | null; min_bedrooms: number | null; count: number }> = [],
   cityGuides: Array<{ city_slug: string; updated_at: string }> = [],
   postcodes: string[] = [],
+  hubSnapshotDates: Record<string, string> = {},
 ): string {
   const cityMap = new Map<string, string>();
   for (const p of properties) {
@@ -230,7 +186,7 @@ function buildCitiesSitemap(
     cityTypeSet.add(`${citySlug}:${p.property_type}`);
     if (p.neighborhood) {
       if (!cityNeighborhoods.has(citySlug)) cityNeighborhoods.set(citySlug, new Set());
-      cityNeighborhoods.get(citySlug)!.add(p.neighborhood.trim().toLowerCase().replace(/\s+/g, "-"));
+      cityNeighborhoods.get(citySlug)?.add(p.neighborhood.trim().toLowerCase().replace(/\s+/g, "-"));
     }
   }
 
@@ -253,14 +209,10 @@ function buildCitiesSitemap(
     for (const slug of ["goedkoop-huur", "grootste-huur", "buurten"]) {
       xml += urlEntry(`/toplijst/${citySlug}/${slug}`, date, "weekly", "0.6");
     }
-    // Inkomen-landingspagina's per stad (3x huur regel)
-    for (const income of [2000, 2500, 3000, 3500, 4000, 4500, 5000, 6000]) {
-      xml += urlEntry(`/inkomen/${income}/${citySlug}`, date, "weekly", "0.6");
-    }
     // Canonieke aanbodstructuur: /huurwoningen/{stad}/{filter}, alleen bij genoeg aanbod.
     for (const lt of ["huurwoningen", "koopwoningen"]) {
       if (!has(`${lt}:${citySlug}`)) continue;
-      xml += urlEntry(`/${lt}/${citySlug}`, date, "daily", "0.8");
+      xml += urlEntry(`/${lt}/${citySlug}`, lt === "huurwoningen" ? hubSnapshotDates[citySlug] : date, "daily", "0.8");
       const filters = lt === "huurwoningen"
         ? ["appartement", "huis", "studio", "kamer", "onder-1000", "onder-1250", "onder-1500", "onder-2000", "1-slaapkamers", "2-slaapkamers", "3-slaapkamers"]
         : ["onder-300000", "onder-400000", "onder-500000", "1-slaapkamers", "2-slaapkamers", "3-slaapkamers"];
@@ -284,10 +236,9 @@ function buildCitiesSitemap(
     }
   }
 
-  const today = new Date().toISOString().split("T")[0];
   // Postcode landingspagina's (uniek 4-cijferig)
   for (const pc of postcodes) {
-    xml += urlEntry(`/postcode/${pc}`, today, "weekly", "0.5");
+    xml += urlEntry(`/postcode/${pc}`, undefined, "weekly", "0.5");
   }
 
   xml += `</urlset>`;
@@ -312,13 +263,25 @@ function buildPropertiesSitemap(
   return xml;
 }
 
+// Only dates belonging to actual HTML snapshots qualify as rental-hub lastmod.
+async function readPublishedHubSnapshotDates(): Promise<Record<string, string>> {
+  try {
+    const response = await fetch(`${SITE_URL}/rental-city-prerender-manifest.json`, { signal: AbortSignal.timeout(5000) });
+    if (!response.ok) return {};
+    const manifest = await response.json();
+    if (!Array.isArray(manifest.cities) || !/^\d{4}-\d{2}-\d{2}T/.test(manifest.generatedAt)) return {};
+    return Object.fromEntries(manifest.cities.map((slug: string) => [slug, manifest.generatedAt.slice(0, 10)]));
+  } catch { return {}; }
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
-  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-  const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !supabaseKey) return new Response("Data connection unavailable", { status: 500 });
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   const url = new URL(req.url);
@@ -406,6 +369,7 @@ Deno.serve(async (req) => {
             searchQueries || [],
             cityGuides || [],
             Array.from(postcodeSet).sort(),
+            await readPublishedHubSnapshotDates(),
           ),
           {
           headers: { ...corsHeaders, "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },

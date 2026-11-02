@@ -15,6 +15,7 @@ export interface StaticRental extends Omit<RentalObservation, "property_type"> {
   title: string;
   bedrooms: number | null;
   number_of_rooms?: string | number | null;
+  updated_at?: string;
 }
 
 const BASE = "https://www.woonaanbod-nl.nl";

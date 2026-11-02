@@ -12,6 +12,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { TrendingUp, TrendingDown, Minus, ArrowRight } from "lucide-react";
 import { cityPath, citySlugToName } from "@/lib/cities";
 import { CANONICAL_URL } from "@/lib/brand";
+import { useCityRentalStats } from "@/hooks/useCityRentalStats";
+import { hasRentSample, usableRentPoints } from "@/lib/rentIndexData";
 
 const formatEuro = (n: number | null) =>
   n == null ? "—" : new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
@@ -26,57 +28,38 @@ const RentIndexPage = () => {
   const { data: snapshots, isLoading } = useQuery({
     queryKey: ["rent-index", citySlug],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("rent_index_snapshots")
         .select("*")
         .eq("city_slug", citySlug)
         .order("snapshot_month", { ascending: true })
         .limit(36);
+      if (error) throw error;
       return data || [];
     },
   });
 
-  // Live current month from properties (fallback as latest data point)
-  const { data: liveStats } = useQuery({
-    queryKey: ["rent-index-live", citySlug],
-    queryFn: async () => {
-      const { data } = await supabase
-        .from("properties")
-        .select("price, surface_area")
-        .eq("status", "actief")
-        .eq("listing_type", "huur")
-        .ilike("city", `%${cityName}%`);
-      if (!data?.length) return null;
-      const prices = data.map((p) => Number(p.price)).filter((n) => n > 0).sort((a, b) => a - b);
-      const m2 = data.filter((p) => p.surface_area && p.price).map((p) => Number(p.price) / (p.surface_area as number));
-      return {
-        avg: Math.round(prices.reduce((s, n) => s + n, 0) / prices.length),
-        median: prices[Math.floor(prices.length / 2)],
-        min: prices[0],
-        max: prices[prices.length - 1],
-        sample: prices.length,
-        ppm2: m2.length ? Math.round(m2.reduce((s, n) => s + n, 0) / m2.length) : null,
-      };
-    },
-    enabled: !!cityName,
-  });
+  const liveQuery = useCityRentalStats(cityName);
+  const liveStats = liveQuery.data;
+  const hasCurrentSample = hasRentSample(liveStats?.priceSample);
+  const emptySample = liveQuery.isSuccess && !hasCurrentSample;
 
   const chartData = useMemo(() => {
-    const arr = (snapshots || []).map((s) => ({
+    const arr = usableRentPoints((snapshots || []).map((s) => ({
       month: monthLabel(s.snapshot_month),
       avg: s.avg_rent ? Number(s.avg_rent) : null,
       median: s.median_rent ? Number(s.median_rent) : null,
       sample: s.sample_size,
-    }));
+    })));
     // append live point if today's month not present
-    if (liveStats) {
+    if (liveStats && hasCurrentSample) {
       const thisMonth = monthLabel(new Date().toISOString().slice(0, 10));
       if (!arr.some((d) => d.month === thisMonth)) {
-        arr.push({ month: thisMonth, avg: liveStats.avg, median: liveStats.median, sample: liveStats.sample });
+        arr.push({ month: thisMonth, avg: liveStats.averagePrice, median: liveStats.medianPrice, sample: liveStats.priceSample });
       }
     }
-    return arr;
-  }, [snapshots, liveStats]);
+    return usableRentPoints(arr);
+  }, [snapshots, liveStats, hasCurrentSample]);
 
   const trend = useMemo(() => {
     if (chartData.length < 2) return null;
@@ -90,10 +73,12 @@ const RentIndexPage = () => {
   const month = new Date().toLocaleString("nl-NL", { month: "long" });
   const year = new Date().getFullYear();
 
-  const currentAvg = liveStats?.avg ?? (chartData.at(-1)?.avg ?? 0);
+  const currentAvg = hasCurrentSample ? liveStats?.averagePrice ?? null : null;
 
-  const title = `Huurprijs-index ${cityName} ${month} ${year} — maandelijkse update | Stekly`;
-  const description = `Maandelijks bijgewerkte huurprijs-index voor ${cityName}. Gemiddelde huur ${month} ${year}: ${formatEuro(currentAvg)}. Bekijk de trend, mediaan en prijs per m².`;
+  const title = `Huurprijs-index ${cityName} ${month} ${year} | Woonaanbod NL`;
+  const description = currentAvg !== null
+    ? `Huurprijs-index voor ${cityName}. Gemiddelde huur ${month} ${year}: ${formatEuro(currentAvg)}, gebaseerd op ${liveStats?.priceSample} woningen.`
+    : `Huurprijs-index voor ${cityName}. ${emptySample ? "Deze maand is er geen bruikbare steekproef." : "Bekijk de beschikbare maandelijkse huurdata."}`;
 
   const datasetJsonLd = {
     "@context": "https://schema.org",
@@ -103,7 +88,7 @@ const RentIndexPage = () => {
     url: `${CANONICAL_URL}/huurprijs-index/${citySlug}`,
     keywords: ["huurprijs-index", "huurprijzen", cityName, "Nederland", "maandelijks"],
     license: "https://creativecommons.org/licenses/by/4.0/",
-    creator: { "@type": "Organization", name: "Stekly", url: CANONICAL_URL },
+    creator: { "@type": "Organization", name: "Woonaanbod NL", url: CANONICAL_URL },
     temporalCoverage: snapshots?.length
       ? `${snapshots[0].snapshot_month}/${snapshots[snapshots.length - 1].snapshot_month}`
       : new Date().toISOString().slice(0, 7),
@@ -116,8 +101,8 @@ const RentIndexPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={title} description={description} canonical={`/huurprijs-index/${citySlug}`} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(datasetJsonLd) }} />
+      <SEOHead title={title} description={description} canonical={`/huurprijs-index/${citySlug}`} noindex={emptySample} />
+      {hasCurrentSample && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(datasetJsonLd) }} />}
 
       <Header />
       <main className="flex-1">
@@ -140,6 +125,9 @@ const RentIndexPage = () => {
 
         {/* Big number */}
         <section className="container py-8">
+          {liveQuery.isLoading ? <Skeleton className="h-32 w-full" /> : !hasCurrentSample ? (
+            <p className="text-muted-foreground">{emptySample ? "Deze maand is er geen bruikbare steekproef." : "De huurdata is momenteel niet beschikbaar."}</p>
+          ) : (
           <div className="grid gap-4 md:grid-cols-4">
             <div className="rounded-2xl border bg-card p-6">
               <p className="text-xs uppercase text-muted-foreground">Gemiddelde huur</p>
@@ -153,18 +141,19 @@ const RentIndexPage = () => {
             </div>
             <div className="rounded-2xl border bg-card p-6">
               <p className="text-xs uppercase text-muted-foreground">Mediaan</p>
-              <p className="mt-2 font-display text-3xl font-bold text-foreground">{formatEuro(liveStats?.median ?? null)}</p>
+              <p className="mt-2 font-display text-3xl font-bold text-foreground">{formatEuro(liveStats?.medianPrice ?? null)}</p>
             </div>
             <div className="rounded-2xl border bg-card p-6">
-              <p className="text-xs uppercase text-muted-foreground">Prijs per m²</p>
-              <p className="mt-2 font-display text-3xl font-bold text-foreground">{liveStats?.ppm2 ? `€${liveStats.ppm2}` : "—"}</p>
+              <p className="text-xs uppercase text-muted-foreground">Mediane prijs per m²</p>
+              <p className="mt-2 font-display text-3xl font-bold text-foreground">{liveStats?.areaSample && liveStats.medianPerM2 !== null ? formatEuro(liveStats.medianPerM2) : "Niet beschikbaar"}</p>
             </div>
             <div className="rounded-2xl border bg-card p-6">
               <p className="text-xs uppercase text-muted-foreground">Sample</p>
-              <p className="mt-2 font-display text-3xl font-bold text-foreground">{liveStats?.sample ?? 0}</p>
+              <p className="mt-2 font-display text-3xl font-bold text-foreground">{liveStats?.priceSample}</p>
               <p className="text-xs text-muted-foreground">woningen meegerekend</p>
             </div>
           </div>
+          )}
         </section>
 
         {/* Chart */}

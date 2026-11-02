@@ -1,6 +1,7 @@
 # Project architecture rules
 
 - Production builds prerender rental city HTML from a complete public active-rental snapshot after Vite writes its shell; reuse city validation, statistics and property URLs, fail on incomplete data, and retain SPA scripts so crawlers and people share canonical routes without host rewrites.
+- Rental sitemap hubs/filters and llms.txt top cities are finalized from that same prerender snapshot; only snapshot-backed hub dates qualify as lastmod, and sitemap alternates advertise only crawlable Dutch HTML to prevent unsupported language and stale-filter URLs from returning.
 
 - Browser SEO and social-preview functions share a pure HTTPS image resolver so local and external listing images produce valid absolute social metadata consistently.
 
