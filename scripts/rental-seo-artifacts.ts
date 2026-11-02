@@ -38,7 +38,9 @@ export async function writeRentalSeoArtifacts(rows: StaticRental[], now: Date, r
   const entries = cities.match(/<url>[\s\S]*?<\/url>/g) || [];
   const header = cities.slice(0, cities.indexOf("<url>"));
   const llms = await readFile(path.join(publicDir, "llms.txt"), "utf8");
-  const top = groups.map(([slug, group]) => ({ slug, city: group.city, stats: calculateCityRentalStats(group.rows.map(row => ({ ...row, property_type: row.property_type || "" })), group.city, now.getTime()) })).sort((a, b) => b.stats.total - a.stats.total || a.city.localeCompare(b.city)).slice(0, 15);
+  const ranked = groups.map(([slug, group]) => ({ slug, city: group.city, stats: calculateCityRentalStats(group.rows.map(row => ({ ...row, property_type: row.property_type || "" })), group.city, now.getTime()) })).sort((a, b) => b.stats.total - a.stats.total || a.city.localeCompare(b.city));
+  // Top 15 by supply, plus the merged Den Haag and Den Bosch hubs so each is named exactly once.
+  const top = ranked.filter((entry, index) => index < 15 || entry.slug === "den-haag" || entry.slug === "den-bosch");
   const section = `## Steden met het meeste actieve huuraanbod\n\nPeildatum: ${now.toLocaleDateString("nl-NL", { timeZone: "Europe/Amsterdam", day: "numeric", month: "long", year: "numeric" })}. Bron: dezelfde volledige actieve-huurwoningsnapshot als de statische stadspagina's. Aantallen zijn advertenties, niet noodzakelijk unieke woningen.\n\n${top.map(({ slug, city, stats }) => `- [Huurwoningen in ${city}](https://www.woonaanbod-nl.nl/huurwoningen/${slug}): ${stats.total} actieve huurwoningen${stats.priceSample > 0 && stats.averagePrice !== null ? `, gemiddelde huur € ${Math.round(stats.averagePrice).toLocaleString("nl-NL")} per maand (steekproef: ${stats.priceSample})` : ""}.`).join("\n")}\n\n`;
   const updatedLlms = llms.replace(/## (?:Populaire steden|Steden met het meeste actieve huuraanbod)\n[\s\S]*?(?=\n## |$)/, section.trimEnd()).replace(/- Talen?:[^\n]*/g, "- Taal: Nederlands.");
   const outputs = [cities];
