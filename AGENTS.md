@@ -1,7 +1,7 @@
 # Project architecture rules
 
-- Production builds prerender rental city HTML from a complete public active-rental snapshot after Vite writes its shell; reuse city validation, statistics and property URLs, fail on incomplete data, and retain SPA scripts so crawlers and people share canonical routes without host rewrites.
-- Rental sitemap hubs/filters and llms.txt top cities are finalized from that same prerender snapshot; only snapshot-backed hub dates qualify as lastmod, and sitemap alternates advertise only crawlable Dutch HTML to prevent unsupported language and stale-filter URLs from returning. The shared sitemap policy excludes city templates and /stad guides in every XML repair; SEOHead applies their shared noindex policy with an exact active-rental count to choose the rental-hub canonical without changing page content.
+- Vite's production closeBundle runs the existing rental postbuild from a complete public active-rental snapshot; every sitemap route has static HTML, retired and untranslated routes have compact static noindex HTML, and SPA scripts remain so people retain the app without host rewrites. Fail on incomplete data or missing route files.
+- Rental sitemap selections and llms.txt share that snapshot, identity aliases and threshold policy with the function generator; snapshot-backed page dates qualify as lastmod, and only Dutch alternates are advertised. Regenerate all city-data families rather than retaining stale XML; the shared policy governs static and browser template canonicals.
 
 - Browser SEO and social-preview functions share a pure HTTPS image resolver so local and external listing images produce valid absolute social metadata consistently.
 
