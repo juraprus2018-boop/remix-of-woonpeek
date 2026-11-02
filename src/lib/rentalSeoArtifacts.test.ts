@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { SITE_URL, urlEntry } from "../supabase/functions/_shared/sitemapPolicy";
-import type { StaticRental } from "../src/lib/rentalCityPrerender";
+import { SITE_URL, urlEntry } from "../../supabase/functions/_shared/sitemapPolicy";
+import type { StaticRental } from "./rentalCityPrerender";
 
 const files = vi.hoisted(() => new Map<string, string>());
 vi.mock("node:fs/promises", () => ({
@@ -15,9 +15,9 @@ vi.mock("node:fs/promises", () => ({
     files.set(file, value);
   }),
 }));
-vi.mock("../src/lib/dutchCities", () => ({ DUTCH_CITIES: ["Eindhoven", "Swalmen", "Den Haag", "Den Bosch"] }));
-import { writeSnapshotHtml } from "./rental-seo-artifacts";
-import { verifyRentalSeoOutput } from "./verify-rental-seo";
+vi.mock("./dutchCities", () => ({ DUTCH_CITIES: ["Eindhoven", "Swalmen", "Den Haag", "Den Bosch"] }));
+import { writeSnapshotHtml } from "../../scripts/rental-seo-artifacts";
+import { verifyRentalSeoOutput } from "../../scripts/verify-rental-seo";
 
 const shell = '<html><head><title>Homepage title</title><script type="module" src="/assets/app.js"></script></head><body><div id="root"><h1>Homepage H1</h1></div></body></html>';
 const rows: StaticRental[] = Array.from({ length: 6 }, (_, i) => ({ id: String(i), city: "Eindhoven", status: "actief", listing_type: "huur", property_type: "appartement", price: 1200, surface_area: 50, postal_code: "5611AB", neighborhood: null, street: "Teststraat", house_number: String(i + 1), address_slug: `test-${i}`, slug: null, title: "Woning", bedrooms: 1, created_at: "2026-11-02" }));
