@@ -1,5 +1,7 @@
 # Project architecture rules
 
+- Production builds prerender rental city HTML from a complete public active-rental snapshot after Vite writes its shell; reuse city validation, statistics and property URLs, fail on incomplete data, and retain SPA scripts so crawlers and people share canonical routes without host rewrites.
+
 - Browser SEO and social-preview functions share a pure HTTPS image resolver so local and external listing images produce valid absolute social metadata consistently.
 
 - Search loads its map only when selected, and route prefetching waits before sequential imports, so optional navigation downloads do not compete with the initial search form and results.

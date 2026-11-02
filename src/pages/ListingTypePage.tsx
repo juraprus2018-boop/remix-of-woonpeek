@@ -1,4 +1,6 @@
 import { cityToSlug } from "@/lib/cities";
+import { useCityRentalStats } from "@/hooks/useCityRentalStats";
+import { isRentalCityIndexable } from "@/lib/rentalCityIndexing";
 import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
@@ -62,6 +64,9 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
   const isInvalidCity = !!citySlug && !validCityName;
   const cityName = citySlug ? (validCityName || citySlugToName(citySlug)) : undefined;
   const locationLabel = cityName || "Nederland";
+  const rentalCityStats = useCityRentalStats(listingType === "huur" && !isInvalidCity ? cityName || "" : "");
+  const noindexRentalCity = listingType === "huur" && Boolean(cityName) &&
+    !isRentalCityIndexable(rentalCityStats.data?.total ?? 0);
 
   const ITEMS_PER_PAGE = 12;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
@@ -229,7 +234,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} geoPlacename={cityName} />
+      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} noindex={noindexRentalCity} geoPlacename={cityName} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
