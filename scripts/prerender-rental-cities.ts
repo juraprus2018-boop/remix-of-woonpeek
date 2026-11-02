@@ -3,6 +3,7 @@ import path from "node:path";
 import { loadEnv } from "vite";
 import { writeRentalSeoArtifacts, writeSnapshotHtml } from "./rental-seo-artifacts";
 import { groupRentalCities, renderRentalCity, type StaticRental } from "../src/lib/rentalCityPrerender";
+import { verifyRentalSeoOutput, verifyRequestedRentalFiles } from "./verify-rental-seo";
 
 const env = { ...loadEnv("production", process.cwd(), "VITE_"), ...process.env };
 const url = env.VITE_SUPABASE_URL;
@@ -57,3 +58,6 @@ await writeFile(manifestPath, JSON.stringify({ generatedAt: now.toISOString(), a
 console.log(`Rental city HTML: ${pages.length} cities generated from ${expected} active rental listings.`);
 const artifacts = await writeRentalSeoArtifacts(rows, now, ["dist"]);
 await writeSnapshotHtml(shell, rows, now, artifacts.sitemapXml, artifacts.historicalXml);
+const verified = await verifyRentalSeoOutput(dist, artifacts.sitemapXml);
+await verifyRequestedRentalFiles(dist, artifacts.sitemapXml);
+console.log(`Production SEO validation passed: ${verified} unique sitemap HTML files.`);
