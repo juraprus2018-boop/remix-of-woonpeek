@@ -1,13 +1,14 @@
 import { readFile, mkdir, writeFile, rm } from "node:fs/promises";
 import path from "node:path";
 import { loadEnv } from "vite";
+import { writeRentalSeoArtifacts } from "./rental-seo-artifacts";
 import { groupRentalCities, renderRentalCity, type StaticRental } from "../src/lib/rentalCityPrerender";
 
 const env = { ...loadEnv("production", process.cwd(), "VITE_"), ...process.env };
 const url = env.VITE_SUPABASE_URL;
 const key = env.VITE_SUPABASE_PUBLISHABLE_KEY;
 if (!url || !key) throw new Error("Rental city prerender requires the configured public data connection");
-const columns = "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,street,house_number,postal_code,slug,address_slug,title,bedrooms,number_of_rooms:source_raw->>number_of_rooms";
+const columns = "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,street,house_number,postal_code,slug,address_slug,title,bedrooms,updated_at,number_of_rooms:source_raw->>number_of_rooms";
 const rows: StaticRental[] = [];
 let expected = 0;
 for (let offset = 0; offset === 0 || offset < expected; offset += 1000) {
@@ -52,3 +53,4 @@ for (const page of pages) {
 }
 await writeFile(manifestPath, JSON.stringify({ generatedAt: now.toISOString(), activeRentals: expected, cities: pages.map(page => page.slug) }, null, 2));
 console.log(`Rental city HTML: ${pages.length} cities generated from ${expected} active rental listings.`);
+await writeRentalSeoArtifacts(rows, now, process.env.UPDATE_PUBLIC_SEO === "1" ? ["public", "dist"] : ["dist"]);
