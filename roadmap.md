@@ -40,3 +40,4 @@
 - [x] Reageer-urgentie op woningpagina
 - [ ] Internet & TV vergelijker (wacht op Daisycon-code)
 - [x] SEO huurtoeslag/vrije sector pagina's
+- [x] Publicatie-build begrensd op 800 extra HTML-bestanden (hubs, huurprijs-index/heatmap, noindex-aliassen en /stad, /energie); build faalt daarboven; productiebuild geslaagd met 800/800; niet gepubliceerd.
