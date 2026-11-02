@@ -65,6 +65,7 @@ export async function writeSnapshotHtml(shell: string, rows: StaticRental[], now
 }
 
 export async function writeRentalSeoArtifacts(rows: StaticRental[], now: Date, roots: string[]) {
+  if (roots.some(root => path.resolve(root) !== path.resolve("dist"))) throw new Error("Rental SEO artifacts may only be written to dist");
   const groups = groupRentalCities(rows);
   const snapshotDate = now.toISOString().slice(0, 10);
   const publicDir = path.resolve("public");
