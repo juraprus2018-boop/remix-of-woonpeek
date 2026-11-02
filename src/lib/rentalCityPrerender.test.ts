@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { groupRentalCities, renderRentalCity, type StaticRental } from "./rentalCityPrerender";
 import { isRentalCityIndexable } from "./rentalCityIndexing";
+import { renderSnapshotPage, staticNoindexCanonical } from "./rentalStaticPages";
 
 const shell = `<html><head><title>Homepage title</title><meta name="description" content="Home"><script type="module" src="/assets/app.js"></script></head><body><div id="root"><div class="fallback"></div><div><h1>Homepage H1</h1><div>Nested</div></div></div></body></html>`;
 const date = new Date("2026-11-02T09:02:00Z");
@@ -8,6 +9,20 @@ const rows = (count = 10): StaticRental[] => Array.from({ length: count }, (_, i
 const doc = (data = rows()) => new DOMParser().parseFromString(renderRentalCity(shell, "Eindhoven", data, date), "text/html");
 
 describe("rental city HTML rules", () => {
+  it("writes noindex templates with hub canonical and language pages with Dutch canonical", () => {
+    expect(staticNoindexCanonical("/energie/eindhoven", rows(6))).toBe("https://www.woonaanbod-nl.nl/huurwoningen/eindhoven");
+    expect(staticNoindexCanonical("/energie/eindhoven", rows(5))).toBe("https://www.woonaanbod-nl.nl/energie/eindhoven");
+    expect(staticNoindexCanonical("/en/energie/eindhoven", rows())).toBe("https://www.woonaanbod-nl.nl/energie/eindhoven");
+    const page = new DOMParser().parseFromString(renderSnapshotPage(shell, "/energie/eindhoven", rows(), date, true), "text/html");
+    expect(page.querySelector("meta[name='robots']")?.getAttribute("content")).toBe("noindex,follow");
+    expect(page.querySelector("link[rel='canonical']")?.getAttribute("href")).toBe("https://www.woonaanbod-nl.nl/huurwoningen/eindhoven");
+  });
+  it("preserves merged city statistics in the HTML and groups", () => {
+    const data = rows(6).map((row, i) => ({ ...row, city: i < 3 ? "Den Haag" : "'s-Gravenhage" }));
+    expect(groupRentalCities(data)).toHaveLength(1);
+    const page = new DOMParser().parseFromString(renderRentalCity(shell, "Den Haag", data, date), "text/html");
+    expect(page.title).toContain("Den Haag: 6 te huur, gem. € 1.250");
+  });
   it("requires at least six active rentals, excluding sales and inactive rows", () => {
     expect(isRentalCityIndexable(5)).toBe(false);
     expect(isRentalCityIndexable(6)).toBe(true);

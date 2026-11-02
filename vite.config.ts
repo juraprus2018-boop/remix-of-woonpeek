@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 import { componentTagger } from "lovable-tagger";
 
 // Fetches the generated sitemaps at build time and writes them as static
@@ -60,6 +62,17 @@ const esc = (s: string) =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+
+function rentalSnapshotPostbuildPlugin() {
+  return {
+    name: "rental-snapshot-postbuild",
+    apply: "build" as const,
+    async closeBundle() {
+      const { stdout } = await promisify(execFile)(process.execPath, ["node_modules/tsx/dist/cli.mjs", "scripts/prerender-rental-cities.ts"], { cwd: __dirname, maxBuffer: 1024 * 1024 });
+      console.log(stdout);
+    },
+  };
+}
 
 const CITY_LINKS: Array<[string, string]> = [
   ["Amsterdam", "amsterdam"],
@@ -226,7 +239,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), sitemapPlugin(), marketDataPlugin(), prerenderHomeContentPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), sitemapPlugin(), marketDataPlugin(), prerenderHomeContentPlugin(), mode !== "development" && rentalSnapshotPostbuildPlugin(), mode === "development" && componentTagger()].filter(Boolean),
 
   resolve: {
     alias: {

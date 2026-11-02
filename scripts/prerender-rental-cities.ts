@@ -1,7 +1,7 @@
 import { readFile, mkdir, writeFile, rm } from "node:fs/promises";
 import path from "node:path";
 import { loadEnv } from "vite";
-import { writeRentalSeoArtifacts } from "./rental-seo-artifacts";
+import { writeRentalSeoArtifacts, writeSnapshotHtml } from "./rental-seo-artifacts";
 import { groupRentalCities, renderRentalCity, type StaticRental } from "../src/lib/rentalCityPrerender";
 
 const env = { ...loadEnv("production", process.cwd(), "VITE_"), ...process.env };
@@ -34,6 +34,8 @@ for (let offset = 0; offset === 0 || offset < expected; offset += 1000) {
 if (new Set(rows.map(row => row.id)).size !== expected) throw new Error("Rental city snapshot contains missing or duplicate listings");
 const dist = path.resolve("dist");
 const shell = await readFile(path.join(dist, "index.html"), "utf8");
+// Preserve homepage content, but make its existing index status explicit in raw HTML.
+await writeFile(path.join(dist, "index.html"), shell.replace(/<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>/gi, "").replace(/<meta\b(?=[^>]*name=["']robots["'])[^>]*>/gi, "").replace(/<\/head>/i, '<link rel="canonical" href="https://www.woonaanbod-nl.nl/"><meta name="robots" content="index,follow"></head>'));
 const now = new Date();
 const pages = groupRentalCities(rows).map(([slug, group]) => ({ slug, html: renderRentalCity(shell, group.city, group.rows, now) }));
 // Remove only our own city indexes, never other route artifacts or the sitemap.
@@ -53,4 +55,5 @@ for (const page of pages) {
 }
 await writeFile(manifestPath, JSON.stringify({ generatedAt: now.toISOString(), activeRentals: expected, cities: pages.map(page => page.slug) }, null, 2));
 console.log(`Rental city HTML: ${pages.length} cities generated from ${expected} active rental listings.`);
-await writeRentalSeoArtifacts(rows, now, process.env.UPDATE_PUBLIC_SEO === "1" ? ["public", "dist"] : ["dist"]);
+const artifacts = await writeRentalSeoArtifacts(rows, now, ["dist"]);
+await writeSnapshotHtml(shell, rows, now, artifacts.sitemapXml, artifacts.historicalXml);

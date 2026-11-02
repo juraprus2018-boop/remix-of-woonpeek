@@ -1,11 +1,43 @@
 import { describe, expect, it } from "vitest";
 import { shouldNoindexRentalCity } from "./rentalCityIndexing";
 import { hasRentSample, usableRentPoints } from "./rentIndexData";
-import { repairSitemap, rentalSelectionCount, urlEntry, type SitemapRental } from "../../supabase/functions/_shared/sitemapPolicy";
+import { repairSitemap, rentalSelectionCount, urlEntry, snapshotPathIndexable, type SitemapRental } from "../../supabase/functions/_shared/sitemapPolicy";
+import { rentalCitySlug } from "../../supabase/functions/_shared/rentalCityIdentity";
 
 const rows: SitemapRental[] = Array.from({ length: 6 }, (_, i) => ({ city: "Eindhoven", status: "actief", listing_type: "huur", property_type: "appartement", price: i === 5 ? 1700 : 900, bedrooms: 1, updated_at: "2026-11-01T04:00:00Z" }));
 
 describe("rental SEO correction rules", () => {
+  it("merges 564 Den Haag and 437 Gravenhage rentals into one 1001-rental hub", () => {
+    const merged = [...Array.from({ length: 564 }, () => ({ ...rows[0], city: "Den Haag" })), ...Array.from({ length: 437 }, () => ({ ...rows[0], city: "'s-Gravenhage" }))];
+    expect(rentalSelectionCount(merged, "den-haag")).toBe(1001);
+    const xml = repairSitemap("", merged, ["den-haag", "'s-gravenhage"], "2026-11-02", "steden");
+    expect(xml.match(/<loc>[^<]*\/huurwoningen\/den-haag<\/loc>/g)).toHaveLength(1);
+    expect(xml).not.toContain("'s-gravenhage");
+    for (const alias of ["Den haag", "The hague", "'s-Gravenhage"]) expect(rentalCitySlug(alias)).toBe("den-haag");
+  });
+  it("merges 67 Den Bosch and 26 Hertogenbosch without merging other municipalities", () => {
+    const merged = [...Array.from({ length: 67 }, () => ({ ...rows[0], city: "Den Bosch" })), ...Array.from({ length: 26 }, () => ({ ...rows[0], city: "'s-Hertogenbosch" }))];
+    expect(rentalSelectionCount(merged, "den-bosch")).toBe(93);
+    for (const alias of ["'s hertogenbosch", "'s-hertogenbosch", "Den bosch"]) expect(rentalCitySlug(alias)).toBe("den-bosch");
+    for (const name of ["Oudenbosch", "Herkenbosch", "Hoef en Haag", "Bosch en Duin"]) expect(rentalCitySlug(name)).not.toMatch(/^(den-haag|den-bosch)$/);
+  });
+  it("excludes postcodes and neighborhoods below six active rentals in XML repair", () => {
+    const data = rows.map((row, i) => ({ ...row, postal_code: i < 5 ? "5611AB" : "5612AB", neighborhood: i < 5 ? "Centrum" : "Woensel" }));
+    const old = ["/postcode/5611", "/buurt/eindhoven/centrum", "/en/huurwoningen/eindhoven", "/energie/eindhoven"].map(path => urlEntry(path, "2026-10-06")).join("");
+    const xml = repairSitemap(old, data, ["eindhoven"], "2026-11-02", "steden");
+    for (const path of ["/postcode/", "/buurt/", "/en/", "/energie/", "2026-10-06"]) expect(xml).not.toContain(path);
+    const six = [...data, { ...data[0] }];
+    expect(snapshotPathIndexable(six, "/postcode/5611")).toBe(true);
+    expect(snapshotPathIndexable(six, "/buurt/eindhoven/centrum")).toBe(true);
+  });
+  it("requires six priced rentals for index and heatmap, and a heatmap PC4 sample of three", () => {
+    const zero = rows.map(row => ({ ...row, price: 0 }));
+    expect(snapshotPathIndexable(zero, "/huurprijs-index/eindhoven")).toBe(false);
+    expect(snapshotPathIndexable(rows.slice(0, 5), "/huurprijs-index/eindhoven")).toBe(false);
+    expect(snapshotPathIndexable(rows, "/huurprijs-index/eindhoven")).toBe(true);
+    expect(snapshotPathIndexable(rows, "/heatmap/eindhoven")).toBe(false);
+    expect(snapshotPathIndexable(rows.map((row, i) => ({ ...row, postal_code: i < 3 ? "5611AB" : `${5612 + i}AB` })), "/heatmap/eindhoven")).toBe(true);
+  });
   it("does not noindex while city query loads", () => {
     expect(shouldNoindexRentalCity(false, undefined)).toBe(false);
     expect(shouldNoindexRentalCity(false, 0)).toBe(false);

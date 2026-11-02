@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { calculateCityRentalStats, type RentalObservation } from "@/lib/cityRentalStats";
+import { rentalCityAliases } from "../../supabase/functions/_shared/rentalCityIdentity";
 
 export function useCityRentalStats(city: string) {
   return useQuery({
@@ -12,7 +13,8 @@ export function useCityRentalStats(city: string) {
       const fetchPage = async (offset: number) => {
         const { data, error, count } = await supabase.from("properties")
           .select("id, city, status, listing_type, property_type, price, surface_area, neighborhood, created_at", { count: "exact" })
-          .eq("status", "actief").eq("listing_type", "huur").ilike("city", city)
+          .eq("status", "actief").eq("listing_type", "huur")
+          .or(rentalCityAliases(city).map(name => `city.ilike.${name}`).join(","))
           .order("id", { ascending: true }).range(offset, offset + 999).abortSignal(signal);
         if (error) throw error;
         return { rows: data as RentalObservation[], count: count ?? 0 };

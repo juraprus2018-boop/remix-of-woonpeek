@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getValidCityName } from "@/lib/dutchCities";
 import { citySlugToName } from "@/lib/cities";
 import { templateCitySeo, templateCitySlug } from "@/lib/templateCitySeo";
+import { rentalCityAliases } from "../../supabase/functions/_shared/rentalCityIdentity";
 
 /** Only template routes need this compact, exact active-rental count. */
 export function useTemplateCitySeo(pathname: string) {
@@ -17,7 +18,7 @@ export function useTemplateCitySeo(pathname: string) {
       const { count, error } = await supabase.from("properties")
         .select("id", { count: "exact", head: true })
         .eq("status", "actief").eq("listing_type", "huur")
-        .ilike("city", city).abortSignal(signal);
+        .or(rentalCityAliases(city).map(name => `city.ilike.${name}`).join(",")).abortSignal(signal);
       if (error) throw error;
       return count ?? 0;
     },
