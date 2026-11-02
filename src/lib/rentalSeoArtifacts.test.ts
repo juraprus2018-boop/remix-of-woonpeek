@@ -3,8 +3,8 @@ import { SITE_URL, urlEntry } from "../../supabase/functions/_shared/sitemapPoli
 import type { StaticRental } from "./rentalCityPrerender";
 
 const files = vi.hoisted(() => new Map<string, string>());
-vi.mock("node:fs/promises", async (importOriginal) => ({
-  ...await importOriginal<typeof import("node:fs/promises")>(),
+vi.mock("node:fs/promises", () => {
+  const mock = {
   mkdir: vi.fn(async () => undefined),
   readFile: vi.fn(async (file: string) => {
     const value = files.get(file);
@@ -15,8 +15,10 @@ vi.mock("node:fs/promises", async (importOriginal) => ({
     if (file.startsWith("public/")) throw Object.assign(new Error("Read-only public directory"), { code: "EROFS" });
     files.set(file, value);
   }),
-}));
-vi.mock("./dutchCities", () => ({ DUTCH_CITIES: ["Eindhoven", "Swalmen", "Den Haag", "Den Bosch"] }));
+  };
+  return { ...mock, default: mock };
+});
+vi.mock("./dutchCities", async (importOriginal) => ({ ...await importOriginal<typeof import("./dutchCities")>(), DUTCH_CITIES: ["Eindhoven", "Swalmen", "Den Haag", "Den Bosch"] }));
 import { writeSnapshotHtml } from "../../scripts/rental-seo-artifacts";
 import { verifyRentalSeoOutput } from "../../scripts/verify-rental-seo";
 
