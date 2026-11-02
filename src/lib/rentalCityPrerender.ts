@@ -14,6 +14,7 @@ export interface StaticRental extends Omit<RentalObservation, "property_type"> {
   address_slug: string | null;
   title: string;
   bedrooms: number | null;
+  number_of_rooms?: string | number | null;
 }
 
 const BASE = "https://www.woonaanbod-nl.nl";
@@ -63,7 +64,9 @@ export function renderRentalCity(shell: string, city: string, rows: StaticRental
   // Bedrooms are not rooms. Only use an explicit provider room count; never infer one.
   const listings = rentals.slice(0, 10);
   const list = listings.map(row => {
-    const details = [formatAddress(row) || row.title, Number.isFinite(row.price) && row.price > 0 ? `€ ${money(row.price)} per maand` : "Huurprijs niet opgegeven", row.surface_area !== null && row.surface_area > 0 ? `${row.surface_area} m²` : "Oppervlakte niet opgegeven", row.bedrooms === null ? "Slaapkamers niet opgegeven" : `${row.bedrooms} ${row.bedrooms === 1 ? "slaapkamer" : "slaapkamers"}`];
+    const rooms = Number(row.number_of_rooms);
+    const roomLabel = Number.isInteger(rooms) && rooms > 0 ? `${rooms} ${rooms === 1 ? "kamer" : "kamers"}` : "Kamertal niet opgegeven";
+    const details = [formatAddress(row) || row.title, Number.isFinite(row.price) && row.price > 0 ? `€ ${money(row.price)} per maand` : "Huurprijs niet opgegeven", row.surface_area !== null && row.surface_area > 0 ? `${row.surface_area} m²` : "Oppervlakte niet opgegeven", roomLabel];
     return `<li><a href="${escapeHtml(propertyPath(row))}">${escapeHtml(details.join(" · "))}</a></li>`;
   }).join("");
   const localSlugs = ["eindhoven", "rotterdam", "amsterdam", "utrecht", "den-haag", "groningen", "tilburg", "breda"];

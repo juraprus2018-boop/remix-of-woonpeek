@@ -7,7 +7,7 @@ const env = { ...loadEnv("production", process.cwd(), "VITE_"), ...process.env }
 const url = env.VITE_SUPABASE_URL;
 const key = env.VITE_SUPABASE_PUBLISHABLE_KEY;
 if (!url || !key) throw new Error("Rental city prerender requires the configured public data connection");
-const columns = "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,street,house_number,postal_code,slug,address_slug,title,bedrooms";
+const columns = "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,street,house_number,postal_code,slug,address_slug,title,bedrooms,number_of_rooms:source_raw->>number_of_rooms";
 const rows: StaticRental[] = [];
 let expected = 0;
 for (let offset = 0; offset === 0 || offset < expected; offset += 1000) {
