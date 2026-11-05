@@ -69,6 +69,6 @@ export async function verifyRequestedRentalFiles(root: string, sitemapXml: strin
   const steden = (await Promise.all([1, 2, 3].map(i => readFile(path.join(root, `sitemap-steden-${i}.xml`), "utf8")))).join("\n");
   for (const loc of steden.matchAll(/<loc>(.*?)<\/loc>/g)) {
     const route = decode(loc[1]).slice(SITE_URL.length);
-    if (isTemplateCityPath(route) || /^\/(?:en|de|fr)(?:\/|$)/.test(route) || /'s-|s-gravenhage|s-hertogenbosch/.test(route)) throw new Error(`Forbidden sitemap-steden route: ${route}`);
+    if (isTemplateCityPath(route) || /^\/(?:en|de|fr)(?:\/|$)/.test(route) || /'s-(?:gravenhage|hertogenbosch)|s-gravenhage|s-hertogenbosch/.test(route)) throw new Error(`Forbidden sitemap-steden route: ${route}`);
   }
 }
