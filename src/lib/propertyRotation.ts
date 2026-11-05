@@ -25,7 +25,7 @@ export const rotateProperties = <T extends { source_site?: string | null; id?: s
     if (sort === "price_desc" && priceDiff) return -priceDiff;
     return new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime() || (a.id ?? "").localeCompare(b.id ?? "");
   }));
-  // Affiliates (Huurzone, Huurwoningen.nl) alternate first; all other sources follow afterwards.
+  // Huurzone, Huurwoningen.nl and RentHunter alternate first; all other sources follow afterwards.
   const keys = [...groups.keys()].sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
   const interleave = (list: T[][]) => {
     const out: T[] = [];
@@ -33,8 +33,8 @@ export const rotateProperties = <T extends { source_site?: string | null; id?: s
     for (let round = 0; out.length < total; round++) for (const pool of list) if (pool[round]) out.push(pool[round]);
     return out;
   };
-  const affiliate = pools.filter((_, i) => keys[i] === "0" || keys[i] === "1");
-  const rest = pools.filter((_, i) => keys[i] !== "0" && keys[i] !== "1");
+  const affiliate = pools.filter((_, i) => ["0","1","2"].includes(keys[i]));
+  const rest = pools.filter((_, i) => !["0","1","2"].includes(keys[i]));
   return [...interleave(affiliate), ...interleave(rest)];
 };
 
