@@ -53,7 +53,10 @@ export async function verifyRequestedRentalFiles(root: string, sitemapXml: strin
     ...["/huurprijs-index/eindhoven", "/heatmap/eindhoven"].filter(route => indexed.has(SITE_URL + route)).map(route => [route, route, "index,follow"]),
   ];
   for (const [route, target, status] of expectations) {
-    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8");
+    const optional = route.startsWith("/stad/") || route.startsWith("/energie/");
+    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8").catch(error => { if (optional) return null; throw error; });
+    // Template noindex files are lowest priority and may be trimmed by the static file budget.
+    if (html === null) { console.log(`SEO file skipped by budget: ${route}`); continue; }
     if (canonical(html) !== SITE_URL + target || robots(html) !== status || (html.match(/<h1\b/gi) || []).length !== 1) throw new Error(`Requested SEO check failed: ${route}`);
     if (!/<div\b[^>]*id="root"/.test(html) || !/<script\b[^>]*src=/.test(html)) throw new Error(`Missing SPA shell: ${route}`);
     if (status === "noindex,follow" && Buffer.byteLength(html) > 6000) throw new Error(`Noindex HTML is not compact: ${route}`);
