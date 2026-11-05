@@ -27,7 +27,12 @@ export async function verifyRentalSeoOutput(root: string, sitemapXml: string[]) 
     const route = url.slice(SITE_URL.length);
     if (isTemplateCityPath(route) || /^\/(?:en|de|fr)(?:\/|$)/.test(route) || route.includes("'s-gravenhage") || route.includes("'s-hertogenbosch")) throw new Error(`Retired sitemap route: ${route}`);
     if (!isStaticSitemapRoute(route)) continue;
-    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8");
+    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8").catch(error => {
+      // Hubs must be static; index/heatmap pages beyond the file budget stay on the SPA shell.
+      if (route.startsWith("/huurwoningen/")) throw error;
+      return null;
+    });
+    if (html === null) continue;
     const title = decode(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || "");
     if (!title || titles.has(title)) throw new Error(`Missing or duplicate static title: ${route} (${titles.get(title) || ""})`);
     titles.set(title, route);
