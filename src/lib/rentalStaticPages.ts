@@ -21,16 +21,18 @@ export function planStaticRentalFiles(rows: StaticRental[], limit = MAX_STATIC_R
   const hubs = groupRentalCities(rows)
     .map(([slug, group]) => ({ slug, size: new Set(group.rows.map(row => row.id)).size }))
     .sort((a, b) => b.size - a.size || a.slug.localeCompare(b.slug));
-  const rich = hubs.flatMap(({ slug }) => [`/huurprijs-index/${slug}`, `/heatmap/${slug}`]).filter(path => snapshotPathIndexable(rows, path));
-  const required = hubs.length + rich.length;
-  if (required > limit) throw new Error(`Static rental HTML budget exceeded: ${hubs.length} hubs + ${rich.length} index/heatmap pages > ${limit}`);
+  if (hubs.length > limit) throw new Error(`Static rental HTML budget exceeded: ${hubs.length} hubs > ${limit}`);
   const hubSet = new Set(hubs.map(hub => hub.slug));
-  const candidates = [
+  const aliases = [
     ...(hubSet.has("den-haag") ? ["/huurwoningen/'s-gravenhage"] : []),
     ...(hubSet.has("den-bosch") ? ["/huurwoningen/'s-hertogenbosch"] : []),
-    ...hubs.flatMap(({ slug }) => [`/stad/${slug}`, `/energie/${slug}`]),
   ];
-  const noindex = candidates.slice(0, limit - required);
+  // Index/heatmap pages from the largest cities first; smaller cities fall back to the SPA shell.
+  const richBudget = Math.max(0, limit - hubs.length - aliases.length);
+  const rich = hubs.flatMap(({ slug }) => [`/huurprijs-index/${slug}`, `/heatmap/${slug}`]).filter(path => snapshotPathIndexable(rows, path)).slice(0, richBudget);
+  const required = hubs.length + rich.length;
+  const candidates = [...aliases, ...hubs.flatMap(({ slug }) => [`/stad/${slug}`, `/energie/${slug}`])];
+  const noindex = candidates.slice(0, Math.max(0, limit - required));
   return { hubs: hubs.map(hub => hub.slug), rich, noindex, total: required + noindex.length };
 }
 

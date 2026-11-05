@@ -53,9 +53,9 @@ describe("SEO output with read-only public input", () => {
     files.set("dist/huurwoningen/stad-800/index.html", shell);
     await expect(assertStaticFileBudget("dist")).rejects.toThrow("limit is 800");
   });
-  it("fails planning when hubs and rent index pages alone exceed the budget", () => {
+  it("fails planning when city hubs alone exceed the budget", () => {
     expect(MAX_STATIC_RENTAL_FILES).toBe(800);
-    expect(() => planStaticRentalFiles(rows, 1)).toThrow("budget exceeded");
+    expect(() => planStaticRentalFiles(rows, 0)).toThrow("budget exceeded");
   });
   it("trims noindex files in priority order to stay within the budget", () => {
     const plan = planStaticRentalFiles(rows, 3);

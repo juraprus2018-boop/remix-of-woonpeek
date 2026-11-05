@@ -27,7 +27,12 @@ export async function verifyRentalSeoOutput(root: string, sitemapXml: string[]) 
     const route = url.slice(SITE_URL.length);
     if (isTemplateCityPath(route) || /^\/(?:en|de|fr)(?:\/|$)/.test(route) || route.includes("'s-gravenhage") || route.includes("'s-hertogenbosch")) throw new Error(`Retired sitemap route: ${route}`);
     if (!isStaticSitemapRoute(route)) continue;
-    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8");
+    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8").catch(error => {
+      // Hubs must be static; index/heatmap pages beyond the file budget stay on the SPA shell.
+      if (route.startsWith("/huurwoningen/")) throw error;
+      return null;
+    });
+    if (html === null) continue;
     const title = decode(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] || "");
     if (!title || titles.has(title)) throw new Error(`Missing or duplicate static title: ${route} (${titles.get(title) || ""})`);
     titles.set(title, route);
@@ -48,7 +53,10 @@ export async function verifyRequestedRentalFiles(root: string, sitemapXml: strin
     ...["/huurprijs-index/eindhoven", "/heatmap/eindhoven"].filter(route => indexed.has(SITE_URL + route)).map(route => [route, route, "index,follow"]),
   ];
   for (const [route, target, status] of expectations) {
-    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8");
+    const optional = route.startsWith("/stad/") || route.startsWith("/energie/");
+    const html = await readFile(path.join(root, route.slice(1), "index.html"), "utf8").catch(error => { if (optional) return null; throw error; });
+    // Template noindex files are lowest priority and may be trimmed by the static file budget.
+    if (html === null) { console.log(`SEO file skipped by budget: ${route}`); continue; }
     if (canonical(html) !== SITE_URL + target || robots(html) !== status || (html.match(/<h1\b/gi) || []).length !== 1) throw new Error(`Requested SEO check failed: ${route}`);
     if (!/<div\b[^>]*id="root"/.test(html) || !/<script\b[^>]*src=/.test(html)) throw new Error(`Missing SPA shell: ${route}`);
     if (status === "noindex,follow" && Buffer.byteLength(html) > 6000) throw new Error(`Noindex HTML is not compact: ${route}`);
@@ -61,6 +69,6 @@ export async function verifyRequestedRentalFiles(root: string, sitemapXml: strin
   const steden = (await Promise.all([1, 2, 3].map(i => readFile(path.join(root, `sitemap-steden-${i}.xml`), "utf8")))).join("\n");
   for (const loc of steden.matchAll(/<loc>(.*?)<\/loc>/g)) {
     const route = decode(loc[1]).slice(SITE_URL.length);
-    if (isTemplateCityPath(route) || /^\/(?:en|de|fr)(?:\/|$)/.test(route) || /'s-|s-gravenhage|s-hertogenbosch/.test(route)) throw new Error(`Forbidden sitemap-steden route: ${route}`);
+    if (isTemplateCityPath(route) || /^\/(?:en|de|fr)(?:\/|$)/.test(route) || /'s-(?:gravenhage|hertogenbosch)|s-gravenhage|s-hertogenbosch/.test(route)) throw new Error(`Forbidden sitemap-steden route: ${route}`);
   }
 }

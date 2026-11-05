@@ -1,6 +1,6 @@
 # Project architecture rules
 
-- Vite's production closeBundle runs the rental postbuild from a complete public active-rental snapshot and writes at most MAX_STATIC_RENTAL_FILES extra index.html files (rich hubs, then threshold-passing rent index/heatmap, then noindex alias/template files), failing the build above it; properties, postcodes, buurten, filters and locale copies stay on the SPA shell, because large static outputs never went live.
+- Vite's production closeBundle runs the rental postbuild from a complete public active-rental snapshot and writes at most MAX_STATIC_RENTAL_FILES extra index.html files (rich hubs, then the largest cities' threshold-passing rent index/heatmap, then noindex alias/template files, trimming lower tiers), failing the build only when hubs alone exceed it; properties, postcodes, buurten, filters and locale copies stay on the SPA shell, because large static outputs never went live.
 - Build plugins treat public/ as read-only input and write generated files (manifests, marktdata.json) only to dist; buildStart must never fetch live sitemap XML because the deployed generator may be older than the build's policy.
 - Rental sitemap selections and llms.txt share that snapshot, identity aliases and threshold policy with the function generator; snapshot-backed page dates qualify as lastmod, and only Dutch alternates are advertised. Regenerate all city-data families rather than retaining stale XML; the shared policy governs static and browser template canonicals.
 
