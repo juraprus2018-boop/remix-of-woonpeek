@@ -1,4 +1,5 @@
 # Kaartpagina
+- [x] Directe Nederlandse Renthunter-feed heractiveerd: 10.000 woningen geïmporteerd (3.591 nieuw, 6.409 bijgewerkt), allemaal actief met via=woonaanbod; maandag/donderdag 05:00 UTC ingepland. Actieve detailpagina’s weer bereikbaar, reageerlink in browser gecontroleerd; zes tests geslaagd. Website niet gepubliceerd.
 - [x] Oude live-sitemapfetch uit Vite verwijderd; SEO-uitvoer weigert public als bestemming; 22 tests geslaagd en automatische build meldt tweemaal build OK. Niet gepubliceerd.
 - [ ] Volledige productie-uitvoer in dist controleren. Blokker: automatische build stelt zijn dist-map en gedetailleerde productielog niet beschikbaar in deze sandbox; geen handmatige npx vite build uitgevoerd.
 - [x] SEO-buildherstel: manifest alleen naar dist, taal-woningkopieën beperkt, 34 tests geslaagd en automatische build OK. Lokale postbuild-uitvoer: 16.482 sitemapbestanden en zeven gevraagde routes gecontroleerd; homepage lokaal aangevuld voor controle, geen handmatige volledige Vite-productiebuild uitgevoerd. Niet gepubliceerd.
