@@ -159,7 +159,11 @@
     "listingNLDesc": "Parcourez {{pluralLc}} dans tous les Pays-Bas. Comparez {{priceWord}}, consultez les photos et trouvez votre logement sur Woonaanbod NL.",
     "searchTitleHuur": "Locations{{loc}} | Woonaanbod NL",
     "searchTitleKoop": "Biens à vendre{{loc}} | Woonaanbod NL",
-    "searchTitleAll": "Logements{{loc}} | Woonaanbod NL",
+    "searchTitleAll": "Chercher un logement à louer ou acheter{{loc}} | Woonaanbod NL",
+    "searchHeadingAll": "Logements à louer ou acheter",
+    "searchHeadingHuur": "Chercher une location",
+    "searchHeadingKoop": "Chercher un logement à acheter",
+    "searchLocation": " à {{city}}",
     "searchDesc": "Découvrez {{total}} {{typeWord}}{{loc}} sur Woonaanbod NL. Filtrez par prix, type et plus.",
     "newTodayTitle": "Nouvelles annonces aujourd'hui : {{count}} biens fraîchement en ligne | Woonaanbod NL",
     "newTodayDesc": "Consultez {{count}} nouvelles annonces actives du {{date}} sur Woonaanbod NL. Fraîchement en ligne, mis à jour quotidiennement."
