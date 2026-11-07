@@ -1,14 +1,57 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
 import { componentTagger } from "lovable-tagger";
 
-// Sitemaps are copied from the read-only public inventory, then repaired in
-// dist by rentalSnapshotPostbuildPlugin using the same snapshot as the HTML.
-// Never fetch the live generator here: it can still run an older deployment.
+// Fetches the generated sitemaps at build time and writes them as static
+// files in public/, so all sitemaps resolve on our own domain.
+// public/sitemap.xml (the index) is static and never overwritten here.
+// The steden sitemap is split into 3 urlset files to stay under 9 MB each.
+function sitemapPlugin() {
+  const base = `${process.env.VITE_SUPABASE_URL || ""}/functions/v1/generate-sitemap`;
+  const targets: Array<[string, string]> = [
+    ["pages", "sitemap-pages.xml"],
+    ["steden", "sitemap-steden"],
+    ["woningen", "sitemap-woningen.xml"],
+  ];
+  const write = (file: string, xml: string) =>
+    fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
+  return {
+    name: "static-sitemaps",
+    apply: "build" as const,
+    async buildStart() {
+      if (!process.env.VITE_SUPABASE_URL) return;
+      await Promise.all(
+        targets.map(async ([type, file]) => {
+          try {
+            const res = await fetch(`${base}?type=${type}`);
+            if (!res.ok) return;
+            const xml = await res.text();
+            if (!xml.trim().startsWith("<?xml")) return;
+            if (type !== "steden") {
+              write(file, xml);
+              return;
+            }
+            const openMatch = xml.match(/<urlset[^>]*>/);
+            if (!openMatch) return;
+            const header = xml.slice(0, (openMatch.index ?? 0) + openMatch[0].length);
+            const urls = xml.match(/<url>[\s\S]*?<\/url>/g) || [];
+            if (!urls.length) return;
+            const parts = 3;
+            const size = Math.ceil(urls.length / parts);
+            for (let i = 0; i < parts; i++) {
+              const chunk = urls.slice(i * size, (i + 1) * size);
+              write(`sitemap-steden-${i + 1}.xml`, `${header}\n${chunk.join("\n")}\n</urlset>\n`);
+            }
+          } catch {
+            // keep the previously committed file on failure
+          }
+        }),
+      );
+    },
+  };
+}
 
 
 const esc = (s: string) =>
@@ -17,17 +60,6 @@ const esc = (s: string) =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
-
-function rentalSnapshotPostbuildPlugin() {
-  return {
-    name: "rental-snapshot-postbuild",
-    apply: "build" as const,
-    async closeBundle() {
-      const { stdout } = await promisify(execFile)(process.execPath, ["node_modules/tsx/dist/cli.mjs", "scripts/prerender-rental-cities.ts"], { cwd: __dirname, maxBuffer: 1024 * 1024 });
-      console.log(stdout);
-    },
-  };
-}
 
 const CITY_LINKS: Array<[string, string]> = [
   ["Amsterdam", "amsterdam"],
@@ -49,12 +81,11 @@ const CITY_LINKS: Array<[string, string]> = [
 ];
 
 // Haalt onze eigen woningmarktcijfers op (RPC market_stats) en schrijft ze als
-// machine-leesbaar bestand naar dist/marktdata.json (public/ is alleen-lezen
-// invoer), zodat AI-crawlers en journalisten de data zonder JavaScript lezen.
+// machine-leesbaar bestand naar public/marktdata.json, zodat AI-crawlers en
+// journalisten de data zonder JavaScript kunnen lezen.
 function marketDataPlugin() {
   const url = process.env.VITE_SUPABASE_URL;
   const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-  let data: string | undefined;
   return {
     name: "static-market-data",
     apply: "build" as const,
@@ -69,25 +100,24 @@ function marketDataPlugin() {
         if (!res.ok) return;
         const json = (await res.json()) as Record<string, unknown> | null;
         if (!json?.national) return;
-        data = JSON.stringify(
-          {
-            source: "Woonaanbod NL",
-            url: "https://www.woonaanbod-nl.nl/woningmarkt",
-            license: "CC BY 4.0 – overname met bronvermelding en link",
-            method:
-              "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
-            ...json,
-          },
-          null,
-          2,
+        fs.writeFileSync(
+          path.resolve(__dirname, "public", "marktdata.json"),
+          JSON.stringify(
+            {
+              source: "Woonaanbod NL",
+              url: "https://www.woonaanbod-nl.nl/woningmarkt",
+              license: "CC BY 4.0 – overname met bronvermelding en link",
+              method:
+                "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
+              ...json,
+            },
+            null,
+            2,
+          ),
         );
       } catch {
         // laat het eerder gegenereerde bestand staan
       }
-    },
-    writeBundle(options: { dir?: string }) {
-      if (!data) return;
-      fs.writeFileSync(path.resolve(options.dir || path.resolve(__dirname, "dist"), "marktdata.json"), data);
     },
   };
 }
@@ -188,10 +218,7 @@ async function prerenderHomeContentPlugin() {
 
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  // Build plugins run before Vite exposes .env values on process.env.
-  Object.assign(process.env, loadEnv(mode, process.cwd(), "VITE_"));
-  return ({
+export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
@@ -199,7 +226,7 @@ export default defineConfig(({ mode }) => {
       overlay: false,
     },
   },
-  plugins: [react(), marketDataPlugin(), prerenderHomeContentPlugin(), mode !== "development" && rentalSnapshotPostbuildPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), sitemapPlugin(), marketDataPlugin(), prerenderHomeContentPlugin(), mode === "development" && componentTagger()].filter(Boolean),
 
   resolve: {
     alias: {
@@ -230,5 +257,4 @@ export default defineConfig(({ mode }) => {
       },
     },
   },
-  });
-});
+}));

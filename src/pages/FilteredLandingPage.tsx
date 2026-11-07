@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Link, Navigate, useLocation } from "react-router-dom";
@@ -37,7 +36,6 @@ const TYPE_LABELS: Record<string, { singular: string; plural: string; slug: stri
 
 };
 
-const HUURTOESLAG_GRENS = 879;
 const PRICE_THRESHOLDS = [750, 1000, 1250, 1500, 2000];
 const BEDROOM_OPTIONS = [1, 2, 3, 4];
 
@@ -70,20 +68,13 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
 
   // Parse filter from URL
   const parsed = useMemo(() => {
-    const base = { maxPrice: undefined as number | undefined, minPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined, typeFromFilter: undefined as PropertyType | undefined };
+    const base = { maxPrice: undefined as number | undefined, minBedrooms: undefined as number | undefined, textMatch: undefined as string | undefined, label: "", featureKey: undefined as string | undefined, typeFromFilter: undefined as PropertyType | undefined };
     if (!filter) return base;
 
     const priceMatch = filter.match(/^onder-(\d+)$/);
     if (priceMatch) {
       const price = parseInt(priceMatch[1], 10);
       return { ...base, maxPrice: price, label: `onder ${formatEuro(price)}` };
-    }
-
-    if (filter === "met-huurtoeslag") {
-      return { ...base, maxPrice: HUURTOESLAG_GRENS, label: "met huurtoeslag (kale huur tot €879)" };
-    }
-    if (filter === "vrije-sector") {
-      return { ...base, minPrice: HUURTOESLAG_GRENS + 1, label: "in de vrije sector" };
     }
 
     if (filter in TYPE_LABELS) {
@@ -115,7 +106,6 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
   const { data, isLoading } = useProperties({
     city: citySlug ? citySlugToName(citySlug) : undefined,
     maxPrice: parsed.maxPrice,
-    minPrice: parsed.minPrice,
     minBedrooms: parsed.minBedrooms,
     textMatch: parsed.textMatch,
     propertyType: propertyType || parsed.typeFromFilter || undefined,
@@ -279,7 +269,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         ))}
 
         {/* Hero */}

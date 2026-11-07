@@ -159,11 +159,7 @@
     "listingNLDesc": "Entdecke {{pluralLc}} in den gesamten Niederlanden. Vergleiche {{priceWord}}, sieh dir Fotos an und finde dein Zuhause auf Woonaanbod NL.",
     "searchTitleHuur": "Mietwohnungen{{loc}} | Woonaanbod NL",
     "searchTitleKoop": "Kaufobjekte{{loc}} | Woonaanbod NL",
-    "searchTitleAll": "Miet- und Kaufwohnungen suchen{{loc}} | Woonaanbod NL",
-    "searchHeadingAll": "Miet- und Kaufwohnungen suchen",
-    "searchHeadingHuur": "Mietwohnungen suchen",
-    "searchHeadingKoop": "Kaufwohnungen suchen",
-    "searchLocation": " in {{city}}",
+    "searchTitleAll": "Wohnungen{{loc}} | Woonaanbod NL",
     "searchDesc": "Entdecke {{total}} {{typeWord}}{{loc}} auf Woonaanbod NL. Filter nach Preis, Typ und mehr.",
     "newTodayTitle": "Neue Angebote heute: {{count}} frische Objekte | Woonaanbod NL",
     "newTodayDesc": "Sieh dir {{count}} neue aktive Objekte vom {{date}} auf Woonaanbod NL an. Frisch online, täglich aktualisiert."

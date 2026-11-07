@@ -23,7 +23,6 @@ export interface SearchFilterValues {
   city: string;
   propertyType: PropertyType | "";
   listingType: ListingType | "";
-  minPrice?: number;
   maxPrice: number | undefined;
   minBedrooms: number | undefined;
   minSurface: number | undefined;
@@ -91,6 +90,7 @@ const SearchFilters = ({
     const patch: Partial<SearchFilterValues> = {};
     if (filters.propertyType && !availablePropertyTypes.includes(filters.propertyType as PropertyType)) patch.propertyType = "";
     if (filters.listingType && !availableListingTypes.includes(filters.listingType as ListingType)) patch.listingType = "";
+    if (filters.maxPrice && !availablePrices.includes(filters.maxPrice)) patch.maxPrice = undefined;
     if (filters.minBedrooms && !availableBedrooms.includes(filters.minBedrooms)) patch.minBedrooms = undefined;
     if (filters.minSurface && !availableSurfaces.includes(filters.minSurface)) patch.minSurface = undefined;
     if (Object.keys(patch).length > 0) onChange({ ...filters, ...patch });
@@ -300,19 +300,6 @@ const SearchFilters = ({
           </Select>
         </div>
       )}
-
-      <div className="space-y-2">
-        <Label htmlFor="search-min-price">{t("home.minPrice")}</Label>
-        <Input
-          id="search-min-price"
-          type="number"
-          inputMode="numeric"
-          min={0}
-          value={filters.minPrice ?? ""}
-          placeholder={t("filters.noMinimum")}
-          onChange={(e) => update({ minPrice: e.target.value ? Math.max(0, Number(e.target.value)) : undefined })}
-        />
-      </div>
 
       <div className="space-y-2">
         <Label>{t("filters.maxPrice")}: {filters.maxPrice ? `€${filters.maxPrice.toLocaleString("nl-NL")}` : t("filters.noLimit")}</Label>

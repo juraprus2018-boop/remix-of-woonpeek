@@ -1,14 +1,16 @@
-import { lazy, Suspense, useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";
+import WoonmatchSetup from "@/components/search/WoonmatchSetup";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import SEOHead from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useInfiniteProperties, useFilterFacets, useMapProperties } from "@/hooks/useProperties";
 import { Search, SlidersHorizontal, List, Map as MapIcon, Loader2, Share2, Check } from "lucide-react";
+import ExploreMap from "@/components/explore/ExploreMap";
 import {
   Sheet,
   SheetContent,
@@ -23,12 +25,9 @@ import IncomeBanner from "@/components/search/IncomeBanner";
 import CommuteFilter, { type CommuteValue } from "@/components/search/CommuteFilter";
 import { useCommuteFilter } from "@/hooks/useCommuteFilter";
 import AdSlot from "@/components/ads/AdSlot";
-import PartnerTip from "@/components/ads/PartnerTip";
+import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
-import { readSearchBudget, writeSearchBudget } from "@/lib/searchBudget";
-
-const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
 
 const EMPTY_FILTERS: SearchFilterValues = {
   city: "",
@@ -40,8 +39,6 @@ const EMPTY_FILTERS: SearchFilterValues = {
   includeInactive: false,
   grossIncome: undefined,
 };
-
-export const STALE_ALERT_DAYS = 4;
 
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,7 +52,7 @@ const SearchPage = () => {
     city: searchParams.get("locatie") || "",
     propertyType: (searchParams.get("type") as SearchFilterValues["propertyType"]) || "",
     listingType: (searchParams.get("aanbod") as SearchFilterValues["listingType"]) || "",
-    ...readSearchBudget(searchParams),
+    maxPrice: searchParams.get("max_prijs") ? Number(searchParams.get("max_prijs")) : searchParams.get("maxPrijs") ? Number(searchParams.get("maxPrijs")) : undefined,
     minBedrooms: searchParams.get("min_kamers") ? Number(searchParams.get("min_kamers")) : undefined,
     grossIncome: searchParams.get("inkomen") ? Number(searchParams.get("inkomen")) : undefined,
   });
@@ -77,11 +74,11 @@ const SearchPage = () => {
     if (debouncedCity) params.set("locatie", debouncedCity);
     if (filters.propertyType) params.set("type", filters.propertyType);
     if (filters.listingType) params.set("aanbod", filters.listingType);
-    writeSearchBudget(params, filters);
+    if (filters.maxPrice) params.set("max_prijs", String(filters.maxPrice));
     if (filters.minBedrooms) params.set("min_kamers", String(filters.minBedrooms));
     if (filters.grossIncome) params.set("inkomen", String(filters.grossIncome));
     setSearchParams(params, { replace: true });
-  }, [debouncedCity, filters.propertyType, filters.listingType, filters.minPrice, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
+  }, [debouncedCity, filters.propertyType, filters.listingType, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
 
   // Log search queries for analytics
   const lastLoggedRef = useRef("");
@@ -115,7 +112,6 @@ const SearchPage = () => {
 
   const { data: facets } = useFilterFacets({
     city: debouncedCity || undefined,
-    minPrice: filters.minPrice,
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
     maxPrice: effectiveMaxPrice,
@@ -123,9 +119,8 @@ const SearchPage = () => {
     includeInactive: filters.includeInactive,
   });
 
-  const { data, isLoading, isError, refetch, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
     city: debouncedCity || undefined,
-    minPrice: filters.minPrice,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
@@ -149,21 +144,8 @@ const SearchPage = () => {
     return {
       date: latest.toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }),
       relative,
-      days,
     };
   }, [properties]);
-
-  const alertCity = (debouncedCity || "").trim();
-  const alertCityLabel = alertCity ? alertCity.charAt(0).toUpperCase() + alertCity.slice(1) : "";
-  const alertFilters = {
-    city: alertCityLabel || null,
-    listingType: filters.listingType || null,
-    propertyType: filters.propertyType || null,
-    maxPrice: filters.maxPrice ?? null,
-    minRooms: filters.minBedrooms ?? null,
-  };
-  // Only nudge towards alerts when a specific place has no fresh supply.
-  const showStaleAlert = !!alertCity && !!newest && newest.days >= STALE_ALERT_DAYS;
 
   // Infinite scroll observer
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -180,7 +162,6 @@ const SearchPage = () => {
   // Separate query for map view: all properties with coordinates
   const { data: mapProperties, isLoading: isMapLoading } = useMapProperties({
     city: debouncedCity || undefined,
-    minPrice: filters.minPrice,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
@@ -226,12 +207,13 @@ const SearchPage = () => {
     setSearchParams(new URLSearchParams());
   }, [setSearchParams]);
 
-  const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.minPrice || filters.maxPrice;
+  const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.maxPrice;
 
   const { t } = useTranslation();
 
   const seoTitle = useMemo(() => {
-    const locPart = debouncedCity ? t("meta.searchLocation", { city: debouncedCity }) : "";
+    const loc = debouncedCity ? ` ${t("hero.popular") ? "" : ""}${debouncedCity ? ` — ${debouncedCity}` : ""}` : "";
+    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
     const key =
       filters.listingType === "huur" ? "meta.searchTitleHuur"
       : filters.listingType === "koop" ? "meta.searchTitleKoop"
@@ -246,7 +228,7 @@ const SearchPage = () => {
       : "meta.searchTitleAll";
     // Extract bare noun (strip " | Woonaanbod NL" and any "{{loc}}")
     const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Woonaanbod NL\s*$/i, "").trim().toLowerCase();
-    const locPart = debouncedCity ? t("meta.searchLocation", { city: debouncedCity }) : "";
+    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
     return t("meta.searchDesc", { total: totalCount, typeWord, loc: locPart });
   }, [debouncedCity, filters.listingType, totalCount, t]);
 
@@ -275,39 +257,18 @@ const SearchPage = () => {
 
 
         {/* Search Header */}
-        <div className="sticky top-[82px] md:top-[98px] z-30 border-b bg-card/95 shadow-sm backdrop-blur">
-          <div className="container py-2">
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div className="border-b bg-card">
+          <div className="container py-4">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="sr-only">
                 <h2>Filters</h2>
-              </div>
-              <div className="flex flex-1 items-center gap-2">
-                <input
-                  value={filters.city}
-                  onChange={(e) => handleFilterChange({ ...filters, city: e.target.value })}
-                  placeholder="Plaatsnaam of postcode"
-                  aria-label="Plaatsnaam"
-                  className="h-9 min-w-0 flex-1 rounded-md border bg-background px-3 text-sm md:max-w-xs"
-                />
-                <select
-                  value={filters.propertyType}
-                  onChange={(e) => handleFilterChange({ ...filters, propertyType: e.target.value as SearchFilterValues["propertyType"] })}
-                  aria-label="Woningtype"
-                  className="h-9 rounded-md border bg-background px-2 text-sm"
-                >
-                  <option value="">Alle types</option>
-                  <option value="appartement">Appartement</option>
-                  <option value="huis">Huis</option>
-                  <option value="studio">Studio</option>
-                  <option value="kamer">Kamer</option>
-                </select>
               </div>
               <div className="flex items-center gap-2">
                 {/* Mobile filter button */}
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="accent" className="animate-pulse-grow h-11 px-5 text-base font-bold md:hidden">
-                      <SlidersHorizontal className="mr-2 h-5 w-5" />
+                    <Button variant="outline" className="md:hidden">
+                      <SlidersHorizontal className="mr-2 h-4 w-4" />
                       Filters
                       {hasActiveFilters && (
                         <span className="ml-2 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
@@ -402,17 +363,34 @@ const SearchPage = () => {
 
             {/* Results */}
             <div className="min-w-0 flex-1">
-              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <h1 className="font-display text-lg font-semibold text-foreground">
-                  {t(filters.listingType === "huur" ? "meta.searchHeadingHuur" : filters.listingType === "koop" ? "meta.searchHeadingKoop" : "meta.searchHeadingAll")}
-                </h1>
-              <p className="text-sm font-semibold text-foreground">
-                {isLoading
-                  ? "Aanbod laden..."
-                  : `${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
-              </p>
+              <div className="mb-4">
+                <HuurzoneTip
+                  title="Op zoek naar een huurwoning?"
+                  text="Bekijk ook het huurwoningaanbod bij onze partner Huurzone."
+                  buttonText="Bekijk huurwoningen bij Huurzone"
+                />
               </div>
-
+              <div className="mb-4 rounded-2xl border bg-card p-4">
+                <p className="font-display text-lg font-semibold text-foreground">
+                  {isLoading
+                    ? "Aanbod laden..."
+                    : `Gevonden: ${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
+                </p>
+                {!isLoading && newest && (
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Recent toegevoegde woning: {newest.date} ({newest.relative})
+                  </p>
+                )}
+              </div>
+              <SearchAlertCTA
+                className="mb-4"
+                city={debouncedCity || undefined}
+                listingType={filters.listingType || undefined}
+                propertyType={filters.propertyType || undefined}
+                maxPrice={effectiveMaxPrice}
+                minRooms={filters.minBedrooms}
+                source="search"
+              />
 
               <IncomeBanner
                 grossIncome={filters.grossIncome}
@@ -427,8 +405,8 @@ const SearchPage = () => {
                     ) : (
                       <>
                         <strong>{matchCount ?? 0}</strong> woningen binnen{" "}
-                        <strong>{commute?.maxMinutes} min</strong> {commute?.mode === "driving" ? "auto" : "fiets"} van{" "}
-                        <strong>{commute?.address}</strong>
+                        <strong>{commute!.maxMinutes} min</strong> {commute!.mode === "driving" ? "auto" : "fiets"} van{" "}
+                        <strong>{commute!.address}</strong>
                       </>
                     )}
                   </div>
@@ -437,12 +415,8 @@ const SearchPage = () => {
                   </Button>
                 </div>
               )}
-              {isError ? (
-                <div role="alert" className="py-8 text-center">
-                  <p className="text-foreground">Het aanbod kon niet worden geladen.</p>
-                  <Button variant="outline" className="mt-3" onClick={() => void refetch()}>Opnieuw proberen</Button>
-                </div>
-              ) : isLoading ? (
+              <div className="mb-5"><WoonmatchSetup /></div>
+              {isLoading ? (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 6 }).map((_, i) => (
                     <div key={i} className="rounded-lg border bg-card overflow-hidden">
@@ -462,16 +436,6 @@ const SearchPage = () => {
               ) : visibleListProperties && visibleListProperties.length > 0 ? (
               viewMode === "list" ? (
                   <>
-                    {showStaleAlert && newest && (
-                      <SearchAlertCTA
-                        {...alertFilters}
-                        source="search_stale"
-                        className="mb-5"
-                        title={`Laatste woning in ${alertCityLabel} is ${newest.days} dagen geleden geplaatst`}
-                        description={`In kleinere gemeenten gaat het aanbod snel. Wees er als eerste bij: vul je e-mailadres in en ontvang direct een melding zodra er een nieuwe woning in ${alertCityLabel} online komt.`}
-                        buttonLabel="Houd mij op de hoogte"
-                      />
-                    )}
                     <div className="flex flex-col gap-5">
                       {visibleListProperties.map((property, index) => (
                         <div key={property.id} className="contents">
@@ -500,12 +464,10 @@ const SearchPage = () => {
                         <Skeleton className="h-full w-full" />
                       </div>
                     ) : (
-                      <Suspense fallback={<Skeleton className="h-full w-full" />}>
-                        <ExploreMap
-                          properties={visibleMapProperties as any}
-                          commute={commute ? { address: commute.address, lat: commute.lat, lng: commute.lng, mode: commute.mode } : null}
-                        />
-                      </Suspense>
+                      <ExploreMap
+                        properties={visibleMapProperties as any}
+                        commute={commute ? { address: commute.address, lat: commute.lat, lng: commute.lng, mode: commute.mode } : null}
+                      />
                     )}
                     <p className="text-xs text-muted-foreground mt-2">
                       {visibleMapProperties.length} woningen met locatie op de kaart
@@ -521,16 +483,6 @@ const SearchPage = () => {
                     <Button variant="outline" className="mt-4" onClick={clearFilters}>
                       Filters wissen
                     </Button>
-                  )}
-                  {alertCity && (
-                    <SearchAlertCTA
-                      {...alertFilters}
-                      source="search_empty"
-                      className="mt-8 w-full text-left"
-                      title={`Nog geen woningen in ${alertCityLabel}`}
-                      description={`Ontvang direct een seintje zodra er een woning in ${alertCityLabel} online komt. Zo ben jij de eerste die kan reageren.`}
-                      buttonLabel="Houd mij op de hoogte"
-                    />
                   )}
                 </div>
               )}

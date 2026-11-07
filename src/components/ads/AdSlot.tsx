@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { AdSlotKey } from "@/hooks/useAdSlot";
-import { pickRandomBanner } from "@/lib/bannerRotation";
 
 interface AdSlotProps {
   slotKey: AdSlotKey;
@@ -25,12 +24,13 @@ const RECT_SLOTS: AdSlotKey[] = ["property_detail"];
 const WIDE = [[970, 90], [728, 90]];
 const MOBILE = [[320, 100], [320, 50]];
 const RECT = [[300, 250], [336, 280], [250, 250]];
+const DEFAULT_ADVERTISER = "Huurzone.nl";
 
 const fits = (b: Banner, sizes: number[][]) => sizes.some(([w, h]) => b.width === w && b.height === h);
 
 const useBanners = () =>
   useQuery({
-    queryKey: ["daisycon-banners", "all-partners"],
+    queryKey: ["daisycon-banners"],
     queryFn: async () => {
       const { data, error } = await (supabase as any)
         .from("daisycon_banners")
@@ -42,6 +42,14 @@ const useBanners = () =>
     staleTime: 30 * 60 * 1000,
   });
 
+const pickOne = (list: Banner[], advertiser?: string | null) => {
+  if (!list.length) return null;
+  const preferred = DEFAULT_ADVERTISER;
+  const own = list.filter((b) => b.advertiser_name?.toLowerCase() === preferred.toLowerCase());
+  const fallback = list.filter((b) => b.advertiser_name?.toLowerCase() === advertiser?.toLowerCase());
+  const pool = own.length ? own : fallback.length ? fallback : list;
+  return pool[Math.floor(Math.random() * pool.length)];
+};
 
 const BannerLink = ({ b, className }: { b: Banner; className?: string }) => (
   <a
@@ -70,11 +78,11 @@ const AdSlot = ({ slotKey, className = "", advertiser }: AdSlotProps) => {
   const chosen = useMemo(() => {
     const all = data ?? [];
     if (RECT_SLOTS.includes(slotKey)) {
-      return { main: pickRandomBanner(all.filter((b) => fits(b, RECT))), mobile: null };
+      return { main: pickOne(all.filter((b) => fits(b, RECT)), advertiser), mobile: null };
     }
     return {
-      main: pickRandomBanner(all.filter((b) => fits(b, WIDE))),
-      mobile: pickRandomBanner(all.filter((b) => fits(b, MOBILE))),
+      main: pickOne(all.filter((b) => fits(b, WIDE)), advertiser),
+      mobile: pickOne(all.filter((b) => fits(b, MOBILE)), advertiser),
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, slotKey, advertiser]);

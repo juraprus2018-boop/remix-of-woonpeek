@@ -40,25 +40,29 @@ Onderliggende databronpagina's (elk met bron, steekproefgrootte, periode en meth
 - https://www.woonaanbod-nl.nl/woningmarkt/nieuwbouw-per-provincie
 
 
-## Steden met het meeste actieve huuraanbod
+## Populaire steden
 
-Peildatum: 2 november 2026. Bron: dezelfde volledige actieve-huurwoningsnapshot als de statische stadspagina's. Aantallen zijn advertenties, niet noodzakelijk unieke woningen.
+- Huurwoningen Amsterdam: https://www.woonaanbod-nl.nl/huurwoningen/amsterdam
+- Huurwoningen Rotterdam: https://www.woonaanbod-nl.nl/huurwoningen/rotterdam
+- Huurwoningen Utrecht: https://www.woonaanbod-nl.nl/huurwoningen/utrecht
+- Huurwoningen Den Haag: https://www.woonaanbod-nl.nl/huurwoningen/den-haag
+- Huurwoningen Eindhoven: https://www.woonaanbod-nl.nl/huurwoningen/eindhoven
+- Huurwoningen Groningen: https://www.woonaanbod-nl.nl/huurwoningen/groningen
+- Huurwoningen Tilburg: https://www.woonaanbod-nl.nl/huurwoningen/tilburg
+- Huurwoningen Breda: https://www.woonaanbod-nl.nl/huurwoningen/breda
+- Huurwoningen Nijmegen: https://www.woonaanbod-nl.nl/huurwoningen/nijmegen
+- Huurwoningen Almere: https://www.woonaanbod-nl.nl/huurwoningen/almere
+- Huurwoningen Helmond: https://www.woonaanbod-nl.nl/huurwoningen/helmond
+- Huurwoningen Arnhem: https://www.woonaanbod-nl.nl/huurwoningen/arnhem
+- Huurwoningen Haarlem: https://www.woonaanbod-nl.nl/huurwoningen/haarlem
+- Huurwoningen Enschede: https://www.woonaanbod-nl.nl/huurwoningen/enschede
+- Huurwoningen Apeldoorn: https://www.woonaanbod-nl.nl/huurwoningen/apeldoorn
+- Huurwoningen Amersfoort: https://www.woonaanbod-nl.nl/huurwoningen/amersfoort
+- Huurwoningen Den Bosch: https://www.woonaanbod-nl.nl/huurwoningen/s-hertogenbosch
+- Huurwoningen Zwolle: https://www.woonaanbod-nl.nl/huurwoningen/zwolle
+- Huurwoningen Leiden: https://www.woonaanbod-nl.nl/huurwoningen/leiden
+- Huurwoningen Maastricht: https://www.woonaanbod-nl.nl/huurwoningen/maastricht
 
-- [Huurwoningen in Amsterdam](https://www.woonaanbod-nl.nl/huurwoningen/amsterdam): 2752 actieve huurwoningen, gemiddelde huur € 2.653 per maand (steekproef: 2752).
-- [Huurwoningen in Rotterdam](https://www.woonaanbod-nl.nl/huurwoningen/rotterdam): 1618 actieve huurwoningen, gemiddelde huur € 1.868 per maand (steekproef: 1618).
-- [Huurwoningen in Utrecht](https://www.woonaanbod-nl.nl/huurwoningen/utrecht): 578 actieve huurwoningen, gemiddelde huur € 1.693 per maand (steekproef: 578).
-- [Huurwoningen in Den Haag](https://www.woonaanbod-nl.nl/huurwoningen/den-haag): 564 actieve huurwoningen, gemiddelde huur € 2.027 per maand (steekproef: 564).
-- [Huurwoningen in Eindhoven](https://www.woonaanbod-nl.nl/huurwoningen/eindhoven): 532 actieve huurwoningen, gemiddelde huur € 1.629 per maand (steekproef: 532).
-- [Huurwoningen in 's-Gravenhage](https://www.woonaanbod-nl.nl/huurwoningen/'s-gravenhage): 437 actieve huurwoningen, gemiddelde huur € 2.402 per maand (steekproef: 437).
-- [Huurwoningen in Tilburg](https://www.woonaanbod-nl.nl/huurwoningen/tilburg): 350 actieve huurwoningen, gemiddelde huur € 1.118 per maand (steekproef: 350).
-- [Huurwoningen in Groningen](https://www.woonaanbod-nl.nl/huurwoningen/groningen): 345 actieve huurwoningen, gemiddelde huur € 994 per maand (steekproef: 345).
-- [Huurwoningen in Breda](https://www.woonaanbod-nl.nl/huurwoningen/breda): 335 actieve huurwoningen, gemiddelde huur € 1.077 per maand (steekproef: 335).
-- [Huurwoningen in Maastricht](https://www.woonaanbod-nl.nl/huurwoningen/maastricht): 324 actieve huurwoningen, gemiddelde huur € 1.381 per maand (steekproef: 324).
-- [Huurwoningen in Amstelveen](https://www.woonaanbod-nl.nl/huurwoningen/amstelveen): 253 actieve huurwoningen, gemiddelde huur € 2.465 per maand (steekproef: 253).
-- [Huurwoningen in Haarlem](https://www.woonaanbod-nl.nl/huurwoningen/haarlem): 248 actieve huurwoningen, gemiddelde huur € 2.024 per maand (steekproef: 248).
-- [Huurwoningen in Arnhem](https://www.woonaanbod-nl.nl/huurwoningen/arnhem): 211 actieve huurwoningen, gemiddelde huur € 1.204 per maand (steekproef: 211).
-- [Huurwoningen in Enschede](https://www.woonaanbod-nl.nl/huurwoningen/enschede): 197 actieve huurwoningen, gemiddelde huur € 820 per maand (steekproef: 197).
-- [Huurwoningen in Leiden](https://www.woonaanbod-nl.nl/huurwoningen/leiden): 190 actieve huurwoningen, gemiddelde huur € 1.552 per maand (steekproef: 190).
 ## Hoofdpagina's
 
 - Home: https://www.woonaanbod-nl.nl

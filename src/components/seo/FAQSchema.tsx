@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -48,7 +47,7 @@ const FAQSchema = ({ items, title = "Veelgestelde vragen", description, hidden =
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {!hidden && (
         <section className={cn("py-12 md:py-16", className)} aria-labelledby="faq-heading">

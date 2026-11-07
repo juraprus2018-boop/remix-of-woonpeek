@@ -1,5 +1,3 @@
-import { fetchRotatingProperties } from "@/lib/propertyRotation";
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -31,8 +29,9 @@ const AgencyPage = () => {
     queryKey: ["agency-listings", agency?.id],
     enabled: !!agency?.id,
     queryFn: async () => {
-      if (!agency?.id) return [];
-      return (await fetchRotatingProperties({ agencyId: agency.id }, 0, 60)).properties;
+      const { data } = await supabase.from("properties").select("*").eq("agency_id", agency!.id)
+        .eq("status", "actief").order("created_at", { ascending: false }).limit(60);
+      return data ?? [];
     },
   });
 
@@ -64,7 +63,7 @@ const AgencyPage = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <SEOHead title={title} description={desc} canonical={`/makelaars/${agency.slug}`} ogImage={agency.logo_url || undefined} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Header />
       <main className="container flex-1 py-8">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Makelaars", href: "/makelaars" }, { label: agency.name }]} />

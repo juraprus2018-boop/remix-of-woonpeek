@@ -1,48 +1,46 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { PREFERRED_ADVERTISER } from "@/lib/preferredAdvertiser";
 import { Button } from "@/components/ui/button";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import { ExternalLink, Zap } from "lucide-react";
 
-export const usePreferredPartnerLink = () =>
+export const useHuurzoneLink = () =>
   useQuery({
-    queryKey: ["preferred-partner-link"],
+    queryKey: ["huurzone-link"],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
+      const { data } = await (supabase as any)
         .from("daisycon_banners")
         .select("click_url")
-        .ilike("advertiser_name", PREFERRED_ADVERTISER)
+        .ilike("advertiser_name", "huurzone%")
         .eq("is_active", true)
         .limit(1)
         .maybeSingle();
-      if (error) throw error;
       return (data?.click_url as string | undefined) ?? null;
     },
     staleTime: 30 * 60 * 1000,
   });
 
-interface PartnerTipProps {
+interface HuurzoneTipProps {
   title?: string;
   text?: string;
   buttonText?: string;
 }
 
 /**
- * Affiliate tipblok voor Huurzone.nl. Toont niets als er geen actieve
- * Huurzone.nl-link in de database staat.
+ * Affiliate tipblok voor Huurzone. Toont niets als er geen actieve
+ * Huurzone-link in de database staat.
  */
-const PartnerTip = ({
+const HuurzoneTip = ({
   title = "Sneller reageren op woningen?",
-  text = "Bekijk het actuele huurwoningaanbod bij Huurzone.nl.",
-  buttonText = "Bekijk woningen bij Huurzone.nl",
-}: PartnerTipProps) => {
-  const { data: partnerLink } = usePreferredPartnerLink();
-  if (!partnerLink) return null;
+  text = "Met een gratis account bij Huurzone reageer je direct op woningen van particuliere verhuurders.",
+  buttonText = "Maak een gratis account bij Huurzone",
+}: HuurzoneTipProps) => {
+  const { data: huurzone } = useHuurzoneLink();
+  if (!huurzone) return null;
 
   const open = () => {
-    trackDaisyconClick(null as any, partnerLink, PREFERRED_ADVERTISER);
-    window.open(partnerLink, "_blank", "noopener,noreferrer");
+    trackDaisyconClick(null as any, huurzone, "huurzone.nl");
+    window.open(huurzone, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -52,7 +50,7 @@ const PartnerTip = ({
         {title}
       </p>
       <p className="mt-1 text-sm text-muted-foreground">{text}</p>
-      <Button type="button" className="mt-3 w-full gap-2" onClick={open}>
+      <Button className="mt-3 w-full gap-2" onClick={open}>
         {buttonText}
         <ExternalLink className="h-4 w-4" />
       </Button>
@@ -61,4 +59,4 @@ const PartnerTip = ({
   );
 };
 
-export default PartnerTip;
+export default HuurzoneTip;

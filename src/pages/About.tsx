@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { Home, RefreshCw, Heart, Bell, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -97,11 +96,11 @@ const About = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(aboutLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
       <Header />
       <main className="flex-1">

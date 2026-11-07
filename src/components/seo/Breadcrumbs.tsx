@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 
@@ -36,7 +35,7 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <nav className="min-w-0 overflow-hidden text-sm text-muted-foreground" aria-label="Breadcrumb">
         <ol className="flex min-w-0 items-center gap-1 overflow-hidden">

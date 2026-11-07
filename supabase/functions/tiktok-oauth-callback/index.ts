@@ -4,7 +4,6 @@
  * Sluit af met een redirect terug naar /admin/tiktok?connected=1.
  */
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { verifyState } from "../_shared/tiktokState.ts";
 
 const APP_URL = "https://www.woonaanbod-nl.nl";
 
@@ -18,9 +17,6 @@ Deno.serve(async (req) => {
   }
   if (!code) {
     return Response.redirect(`${APP_URL}/admin/tiktok?error=missing_code`, 302);
-  }
-  if (!(await verifyState(url.searchParams.get("state")))) {
-    return Response.redirect(`${APP_URL}/admin/tiktok?error=invalid_state`, 302);
   }
 
   try {
@@ -46,8 +42,7 @@ Deno.serve(async (req) => {
     });
     const tokenJson = await tokenRes.json();
     if (!tokenRes.ok || tokenJson.error) {
-      console.error("TikTok token exchange failed", tokenRes.status);
-      throw new Error("TikTok token exchange failed");
+      throw new Error(`TikTok token exchange failed: ${JSON.stringify(tokenJson)}`);
     }
 
     const accessToken: string = tokenJson.access_token;

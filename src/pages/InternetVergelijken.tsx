@@ -1,10 +1,8 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import DaisyconInternetWidget from "@/components/energy/DaisyconInternetWidget";
-import TelecomPartnerTip from "@/components/properties/TelecomPartnerTip";
 import { Card, CardContent } from "@/components/ui/card";
 import { Wifi, PiggyBank, ShieldCheck, Tv } from "lucide-react";
 
@@ -67,7 +65,7 @@ const InternetVergelijken = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
       <Header />
       <main className="flex-1">
@@ -102,9 +100,6 @@ const InternetVergelijken = () => {
               Vergelijking aangeboden via Daisycon. Woonaanbod NL ontvangt mogelijk een
               vergoeding bij een succesvolle overstap.
             </p>
-            <div className="mt-6">
-              <TelecomPartnerTip campaign="internet-pagina" />
-            </div>
           </div>
         </section>
 

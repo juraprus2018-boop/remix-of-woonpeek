@@ -1,11 +1,6 @@
-import { isLongInactive } from "@/lib/inactiveIndexing";
-import { freshnessLabel } from "@/lib/freshness";
-import { pluralize } from "@/lib/pluralize";
-import { safeJsonLd } from "@/lib/jsonLd";
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
 import { useParams, Link, useLocation, Navigate } from "react-router-dom";
-import { citySlug } from "@/lib/citySlug";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
 import { optimizeImage } from "@/lib/imageOptimization";
@@ -22,11 +17,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import PropertyMap from "@/components/properties/PropertyMap";
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
-import DetailTopBar from "@/components/properties/DetailTopBar";
 import PropertyCard from "@/components/properties/PropertyCard";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
-import { buildNeighbourhoodFaq } from "@/lib/neighbourhoodStory";
 import PropertyComments from "@/components/properties/PropertyComments";
+import CompetitionMeter from "@/components/properties/CompetitionMeter";
 import {
   Heart,
   Share2,
@@ -51,18 +45,17 @@ import {
   Building2,
   Ruler,
   Tag,
-  Clock,
   X,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 import MortgageCalculator from "@/components/properties/MortgageCalculator";
+import ChanceEstimator from "@/components/properties/ChanceEstimator";
 import AffordabilityWidget from "@/components/properties/AffordabilityWidget";
 import NibudBudgetBreakdown from "@/components/properties/NibudBudgetBreakdown";
 import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
-import TelecomPartnerTip from "@/components/properties/TelecomPartnerTip";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import { cityPath } from "@/lib/cities";
@@ -119,7 +112,6 @@ const PropertyDetail = () => {
   const location = useLocation();
   const galleryRef = useRef<HTMLElement>(null);
   const [sending, setSending] = useState(false);
-  const [nearby, setNearby] = useState<Record<string, number | null> | null>(null);
 
   // Track recently viewed
   useEffect(() => {
@@ -208,24 +200,6 @@ const PropertyDetail = () => {
   const images = property.images?.length ? property.images : [getStockPropertyImage(property.id)];
   const isPropertyFavorite = isFavorite(property.id);
   const sourceInfo = { source_url: normalizeAffiliateUrl(property.source_url), source_site: property.source_site };
-  const handleReact = () => {
-    if (!sourceInfo.source_url) return;
-    trackDaisyconClick(property.id, sourceInfo.source_url, sourceInfo.source_site || null);
-    if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
-    toast({
-      title: `Je gaat naar ${sourceMeta?.label || sourceInfo.source_site || "de aanbieder"}`,
-      description: "Maak daar gratis een account aan om direct te reageren en een bezichtiging aan te vragen.",
-    });
-    window.open(sourceInfo.source_url, "_blank", "noopener,noreferrer");
-  };
-  const reactCta = (label: string) => sourceInfo.source_url ? (
-    <div className="space-y-1.5">
-      <Button className="h-12 w-full rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90 sm:w-auto sm:px-8" onClick={handleReact}>
-        {label} <ArrowRight className="ml-2 h-5 w-5" />
-      </Button>
-      <p className="text-xs text-muted-foreground">Gratis bekijken. Je reageert direct bij {sourceMeta?.label || "de officiële aanbieder"}.</p>
-    </div>
-  ) : null;
   const sourceMeta = sourceInfo.source_site
     ? SOURCE_SITE_META[sourceInfo.source_site] || { label: sourceInfo.source_site, color: "hsl(var(--primary))" }
     : null;
@@ -242,10 +216,9 @@ const PropertyDetail = () => {
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const citySlugVal = property.city.toLowerCase().replace(/\s+/g, "-");
-  const rawType = property.property_type || "woning";
-  const typeLabel = rawType.charAt(0).toUpperCase() + rawType.slice(1);
+  const typeLabel = property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1);
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
-  const bedroomsLabel = property.bedrooms ? pluralize(property.bedrooms, "slaapkamer", "slaapkamers") : null;
+  const bedroomsLabel = property.bedrooms ? `${property.bedrooms} kamers` : null;
   const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
@@ -383,7 +356,7 @@ const PropertyDetail = () => {
     },
     {
       question: `Hoeveel kamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `Deze ${property.property_type} heeft ${property.bedrooms ? pluralize(property.bedrooms, "slaapkamer", "slaapkamers") : "een onbekend aantal slaapkamers"}${property.bathrooms ? " en " + pluralize(property.bathrooms, "badkamer", "badkamers") : ""}.${property.surface_area ? ` De woonoppervlakte is ${property.surface_area} m².` : ""}`,
+      answer: `Deze ${property.property_type} heeft ${property.bedrooms ? property.bedrooms + " slaapkamer(s)" : "een onbekend aantal slaapkamers"}${property.bathrooms ? " en " + property.bathrooms + " badkamer(s)" : ""}.${property.surface_area ? ` De woonoppervlakte is ${property.surface_area} m².` : ""}`,
     },
     {
       question: `Wat voor type woning is ${property.street} ${property.house_number}?`,
@@ -395,7 +368,6 @@ const PropertyDetail = () => {
         ? `Ja, deze woning is momenteel actief beschikbaar op Woonaanbod NL. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
         : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Woonaanbod NL.`,
     },
-    ...(nearby ? buildNeighbourhoodFaq(nearby, `${property.street} ${property.house_number}`.trim(), property.city) : []),
   ];
 
   const faqJsonLd = {
@@ -422,12 +394,6 @@ const PropertyDetail = () => {
     property.neighborhood ? { icon: MapPin, label: "Buurt", value: property.neighborhood } : null,
   ].filter(Boolean) as { icon: typeof Home; label: string; value: string }[];
 
-  // Alleen oude, niet meer beschikbare Renthunter-woningen doorsturen.
-  if (property.status !== "actief" && (property.source_site || "").toLowerCase().includes("renthunter")) {
-    const base = property.listing_type === "koop" ? "/koopwoningen" : "/huurwoningen";
-    return <Navigate to={property.city ? `${base}/${citySlug(property.city)}` : base} replace />;
-  }
-
   // Oude URL's (/aanbod/[slug]) doorsturen naar de canonieke adres-URL
   if (location.pathname !== canonicalPath) {
     return <Navigate to={`${canonicalPath}${location.search}`} replace />;
@@ -439,18 +405,16 @@ const PropertyDetail = () => {
         title={seoTitle}
         description={seoDescription}
         canonical={canonicalPath}
-        noindex={isLongInactive(property.status, (property as any).last_checked_at || property.updated_at)}
         ogImage={property.images?.length ? property.images[0] : undefined}
         ogType="website"
         geoPlacename={property.city || undefined}
         geoPosition={property.latitude && property.longitude ? { lat: Number(property.latitude), lng: Number(property.longitude) } : undefined}
       />
       
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(realEstateJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       <Header />
-      <DetailTopBar fallbackHref={property.city ? cityPath(property.city) : "/woning-zoeken"} defaultCity={property.city || undefined} />
 
       <PropertyStickyBar
         propertyId={property.id}
@@ -477,8 +441,8 @@ const PropertyDetail = () => {
                 {property.status === "verkocht" && "⚠️ Deze woning is verkocht en niet meer beschikbaar."}
                 {property.status === "inactief" && "⚠️ Deze woning is niet meer beschikbaar. Mogelijk is deze al verhuurd of van de markt gehaald."}
               </p>
-              <Link to={property.city ? cityPath(property.city) : "/woning-zoeken"} className="mt-1 inline-block text-sm font-semibold text-primary underline underline-offset-2 hover:text-primary/80">
-                Bekijk beschikbare woningen in {property.city || "jouw regio"} →
+              <Link to="/woning-zoeken" className="mt-1 inline-block text-sm font-semibold text-primary underline underline-offset-2 hover:text-primary/80">
+                Bekijk vergelijkbare woningen →
               </Link>
             </div>
           </div>
@@ -668,13 +632,13 @@ const PropertyDetail = () => {
                   {property.bedrooms && (
                     <div className="flex items-center gap-1.5 text-muted-foreground">
                       <Bed className="h-4 w-4" />
-                      <span className="font-medium text-foreground">{pluralize(property.bedrooms, "slaapkamer", "slaapkamers")}</span>
+                      <span className="font-medium text-foreground">{property.bedrooms} slaapkamers</span>
                     </div>
                   )}
                   {property.bathrooms && (
                     <div className="flex items-center gap-1.5 text-muted-foreground">
                       <Bath className="h-4 w-4" />
-                      <span className="font-medium text-foreground">{pluralize(property.bathrooms, "badkamer", "badkamers")}</span>
+                      <span className="font-medium text-foreground">{property.bathrooms} badkamers</span>
                     </div>
                   )}
                   {property.energy_label && (
@@ -684,18 +648,50 @@ const PropertyDetail = () => {
                     </div>
                   )}
                 </div>
-                <div className="mt-5">{reactCta(`Bekijk en reageer bij ${sourceMeta?.label || "aanbieder"}`)}</div>
               </div>
 
               {/* Action row */}
-              {user && (
-                <div className="flex flex-wrap gap-2 border-y py-3">
+              <div className="flex flex-wrap gap-2 border-y py-3">
+                {user && (
                   <Button variant="ghost" size="sm" className={cn(isPropertyFavorite && "text-red-500")} onClick={() => toggle(property.id)} disabled={favoriteLoading}>
                     <Heart className={cn("mr-1.5 h-4 w-4", isPropertyFavorite && "fill-current")} />
                     {isPropertyFavorite ? "Opgeslagen" : "Opslaan"}
                   </Button>
-                </div>
-              )}
+                )}
+                <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
+                  <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon className="mr-1.5 h-4 w-4" /> WhatsApp
+                  </a>
+                </Button>
+                {typeof navigator.share === "function" ? (
+                  <Button variant="ghost" size="sm" onClick={handleShare}>
+                    <Share2 className="mr-1.5 h-4 w-4" /> Delen
+                  </Button>
+                ) : (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="ghost" size="sm"><Share2 className="mr-1.5 h-4 w-4" /> Delen</Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-48 p-2">
+                      <div className="flex flex-col gap-1">
+                        <Button variant="ghost" size="sm" className="justify-start" onClick={copyLink}><Copy className="mr-2 h-4 w-4" /> Link kopiëren</Button>
+                        <Button variant="ghost" size="sm" className="justify-start" asChild>
+                          <a href={`mailto:?subject=${encodeURIComponent(property.title)}&body=${encodeURIComponent(window.location.href)}`}><Mail className="mr-2 h-4 w-4" /> E-mail</a>
+                        </Button>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </div>
+
+              {/* ── Competition meter (urgency / social proof) ── */}
+              <CompetitionMeter
+                propertyId={property.id}
+                viewsCount={property.views_count || 0}
+                createdAt={property.created_at}
+                listingType={property.listing_type as "huur" | "koop"}
+                city={property.city}
+              />
 
               {/* ── Description ── */}
               <section>
@@ -717,12 +713,6 @@ const PropertyDetail = () => {
                         Bekijk de originele advertentie voor meer informatie.
                       </p>
                     )}
-                  </div>
-                )}
-                {sourceInfo.source_url && (
-                  <div className="mt-5 rounded-2xl border bg-primary/5 p-4">
-                    <p className="mb-3 font-display font-semibold">Spreekt deze woning je aan? Wees er snel bij.</p>
-                    {reactCta("Reageer op deze woning")}
                   </div>
                 )}
               </section>
@@ -775,37 +765,6 @@ const PropertyDetail = () => {
                     </ul>
                   </div>
                 )}
-              </section>
-
-              {/* ── Delen ── */}
-              <section className="rounded-2xl border border-border bg-muted/30 p-4">
-                <h2 className="mb-3 font-display text-base font-bold">Deel deze woning</h2>
-                <div className="flex flex-wrap gap-2">
-                  <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
-                    <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
-                      <WhatsAppIcon className="mr-1.5 h-4 w-4" /> Deel met vrienden & familie
-                    </a>
-                  </Button>
-                  {typeof navigator.share === "function" ? (
-                    <Button variant="ghost" size="sm" onClick={handleShare}>
-                      <Share2 className="mr-1.5 h-4 w-4" /> Delen
-                    </Button>
-                  ) : (
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="ghost" size="sm"><Share2 className="mr-1.5 h-4 w-4" /> Delen</Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-48 p-2">
-                        <div className="flex flex-col gap-1">
-                          <Button variant="ghost" size="sm" className="justify-start" onClick={copyLink}><Copy className="mr-2 h-4 w-4" /> Link kopiëren</Button>
-                          <Button variant="ghost" size="sm" className="justify-start" asChild>
-                            <a href={`mailto:?subject=${encodeURIComponent(property.title)}&body=${encodeURIComponent(window.location.href)}`}><Mail className="mr-2 h-4 w-4" /> E-mail</a>
-                          </Button>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  )}
-                </div>
               </section>
 
               {/* ── Map + Address ── */}
@@ -869,8 +828,6 @@ const PropertyDetail = () => {
                   latitude={Number(property.latitude)}
                   longitude={Number(property.longitude)}
                   city={property.city}
-                  street={property.street || ""}
-                  onData={setNearby}
                 />
               )}
 
@@ -901,7 +858,7 @@ const PropertyDetail = () => {
                   </Link>
                   {property.bedrooms && (
                     <Link to={`/huurwoningen/${citySlugVal}/${property.bedrooms}-slaapkamers`} className="rounded-lg border bg-card px-4 py-3 text-sm font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
-                      {pluralize(property.bedrooms, "slaapkamer", "slaapkamers")} in {property.city}
+                      {property.bedrooms} kamers in {property.city}
                     </Link>
                   )}
                 </div>
@@ -982,20 +939,8 @@ const PropertyDetail = () => {
                         <div>
                           <h2 className="font-display text-2xl font-bold text-primary">Reageer meteen!</h2>
                           <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
-                          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-                            {(() => { const f = freshnessLabel(property.created_at); return (
-                              <span className={f.urgent ? "inline-flex items-center gap-1.5 font-semibold text-accent" : "inline-flex items-center gap-1.5 text-muted-foreground"}>
-                                <Clock className="h-3.5 w-3.5" />
-                                {f.label}
-                              </span>
-                            ); })()}
-                            {(property.views_count ?? 0) > 1 && (
-                              <span className="text-muted-foreground">{property.views_count}x bekeken</span>
-                            )}
-                          </div>
-                          <p className="mt-2 text-xs text-muted-foreground">Reageren gaat via de officiële aanbieder. Daar maak je gratis een profiel aan om een bezichtiging te plannen.</p>
                         </div>
-                      <Button className="h-14 w-full rounded-full bg-success text-base font-bold text-success-foreground hover:bg-success/90" size="lg" onClick={() => {
+                      <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
                         trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
@@ -1020,6 +965,7 @@ const PropertyDetail = () => {
                             </li>
                           ))}
                         </ul>
+                        {property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
                       </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
@@ -1077,6 +1023,40 @@ const PropertyDetail = () => {
                 </Card>
 
                 {/* Source card */}
+                {(sourceMeta || sourceLogo) && (
+                  <Card>
+                    <CardContent className="p-5">
+                      <div className="flex items-center gap-3">
+                        {sourceLogo ? (
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg border bg-white p-1">
+                            <img
+                              src={sourceLogo}
+                              alt={sourceMeta?.label || sourceInfo.source_site || "Aanbieder"}
+                              className="h-full w-full object-contain"
+                            />
+                          </div>
+                        ) : sourceMeta ? (
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold text-white" style={{ backgroundColor: sourceMeta.color }}>
+                            {sourceMeta.label.charAt(0).toUpperCase()}
+                          </div>
+                        ) : null}
+                        <div>
+                          <p className="font-semibold">{sourceMeta?.label || sourceInfo.source_site}</p>
+                          <p className="text-xs text-muted-foreground">Externe aanbieder</p>
+                        </div>
+                      </div>
+                      {sourceInfo.source_url && (
+                        <Button variant="outline" className="mt-3 w-full" size="sm" onClick={() => {
+                          trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
+                          window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
+                        }}>
+                          <ExternalLink className="mr-2 h-3.5 w-3.5" />
+                          Bekijk bij {sourceMeta?.label || sourceInfo.source_site}
+                        </Button>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
               </div>
             </div>
           </div>
@@ -1169,7 +1149,6 @@ const PropertyDetail = () => {
               city={property.city}
             />
             <EnergyCompareTeaser variant="property" context={property.city} />
-            <TelecomPartnerTip city={property.city} />
           </div>
         </section>
 
@@ -1220,7 +1199,7 @@ const PropertyDetail = () => {
         {/* ── Publicatiedatum ── */}
         <div className="container pb-8">
           <p className="text-center text-[11px] text-muted-foreground/70">
-            <time dateTime={new Date(property.created_at).toISOString()} title={publishedAt}>{freshnessLabel(property.created_at).label}</time>
+            Gepubliceerd: <time dateTime={new Date(property.created_at).toISOString()}>{publishedAt}</time>
           </p>
         </div>
       </main>

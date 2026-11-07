@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -98,7 +97,7 @@ const StudentenCity = () => {
       <Header />
       <main className="flex-1">
         {jsonLd.map((s, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(s) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(s) }} />
         ))}
 
         {/* Hero */}

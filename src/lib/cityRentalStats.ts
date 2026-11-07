@@ -1,4 +1,3 @@
-import { rentalCitySlug } from "../../supabase/functions/_shared/rentalCityIdentity";
 export interface RentalObservation {
   id: string;
   city: string;
@@ -21,7 +20,7 @@ export const median = (values: number[]): number | null => {
 export function calculateCityRentalStats(rows: RentalObservation[], city: string, now = Date.now()) {
   const rentals = [...new Map(rows.filter(row =>
     row.status === "actief" && row.listing_type === "huur" &&
-    rentalCitySlug(row.city) === rentalCitySlug(city)
+    row.city.trim().toLocaleLowerCase("nl") === city.trim().toLocaleLowerCase("nl")
   ).map(row => [row.id, row])).values()];
   const priced = rentals.filter(row => Number.isFinite(row.price) && row.price > 0);
   const withArea = priced.filter(row => row.surface_area !== null && row.surface_area > 0);

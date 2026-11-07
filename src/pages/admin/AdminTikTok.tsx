@@ -20,16 +20,11 @@ import {
   Link2,
   Zap,
   AlertTriangle,
-  Video,
 } from "lucide-react";
 import {
   generateSlides,
   downloadSlidesZip,
   buildTikTokCaption,
-  generateVideo,
-  videoFileName,
-  saveVideo,
-  loadAllVideos,
   type SlideProperty,
 } from "@/lib/tiktokSlides";
 
@@ -182,43 +177,6 @@ const AdminTikTok = () => {
       toast.error("Download mislukt", { description: e?.message });
     } finally {
       setBusyId(null);
-    }
-  };
-
-  const [videoProgress, setVideoProgress] = useState<Record<string, number>>({});
-  const [videos, setVideos] = useState<Record<string, { url: string; ext: string }>>({});
-  const [music, setMusic] = useState<File | null>(null);
-  useEffect(() => {
-    loadAllVideos().then((all) => {
-      const m: Record<string, { url: string; ext: string }> = {};
-      for (const [id, v] of Object.entries(all)) m[id] = { url: URL.createObjectURL(v.blob), ext: v.ext };
-      setVideos(m);
-    }).catch(() => {});
-  }, []);
-  const downloadVideo = (p: any) => {
-    const v = videos[p.id]; if (!v) return;
-    const a = document.createElement("a");
-    a.href = v.url; a.download = videoFileName(p as SlideProperty, v.ext);
-    document.body.appendChild(a); a.click(); a.remove();
-  };
-  const handleVideo = async (p: any) => {
-    setBusyId(p.id);
-    try {
-      toast.info("Video wordt gemaakt, houd dit tabblad open");
-      const { blob, ext } = await generateVideo(p as SlideProperty, (f) => setVideoProgress((v) => ({ ...v, [p.id]: f })), music);
-      await saveVideo(p.id, blob, ext).catch(() => {});
-      const url = URL.createObjectURL(blob);
-      setVideos((v) => ({ ...v, [p.id]: { url, ext } }));
-      const a = document.createElement("a");
-      a.href = url; a.download = videoFileName(p as SlideProperty, ext);
-      document.body.appendChild(a); a.click(); a.remove();
-      await navigator.clipboard.writeText(buildTikTokCaption(p as SlideProperty)).catch(() => {});
-      toast.success("Video gedownload, caption met hashtags staat op je klembord");
-    } catch (e: any) {
-      toast.error("Video maken mislukt", { description: e?.message });
-    } finally {
-      setBusyId(null);
-      setVideoProgress((v) => { const n = { ...v }; delete n[p.id]; return n; });
     }
   };
 
@@ -379,14 +337,6 @@ const AdminTikTok = () => {
           />
         </div>
 
-        <Card className="p-4 space-y-2">
-          <label className="text-sm font-medium" htmlFor="tiktok-music">Muziek onder de video (eigen MP3, optioneel)</label>
-          <Input id="tiktok-music" type="file" accept="audio/*" onChange={(e) => setMusic(e.target.files?.[0] ?? null)} />
-          <p className="text-xs text-muted-foreground">
-            {music ? `Gekozen: ${music.name}` : "Geen muziek gekozen."} Bekende nummers zoals Madness - Our House kun je beter in de TikTok-app zelf toevoegen via "Geluid toevoegen": dan blijft de video zichtbaar en word je vindbaar via het nummer. Eigen bestanden met auteursrecht dempt TikTok vaak.
-          </p>
-        </Card>
-
         {/* Lijst */}
         {isLoading ? (
           <div className="flex justify-center py-12">
@@ -451,10 +401,6 @@ const AdminTikTok = () => {
                             Post alle foto's
                           </Button>
                         )}
-                        <Button size="sm" onClick={() => handleVideo(p)} disabled={busyId === p.id} className="gap-1">
-                          {videoProgress[p.id] != null ? <Loader2 className="h-4 w-4 animate-spin" /> : <Video className="h-4 w-4" />}
-                          {videoProgress[p.id] != null ? `Video ${Math.round(videoProgress[p.id] * 100)}%` : videos[p.id] ? "Opnieuw maken" : "Maak video"}
-                        </Button>
                         <Button
                           size="sm"
                           variant="outline"
@@ -491,14 +437,6 @@ const AdminTikTok = () => {
                         </Button>
                       </div>
 
-                      {videos[p.id] && (
-                        <div className="mt-2 flex items-end gap-2">
-                          <video src={videos[p.id].url} controls className="w-48 rounded-lg border" />
-                          <Button size="sm" variant="outline" onClick={() => downloadVideo(p)}>
-                            <Download className="mr-1 h-4 w-4" /> Download deze video
-                          </Button>
-                        </div>
-                      )}
                       {preview && (
                         <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-7">
                           {preview.map((url, i) => (

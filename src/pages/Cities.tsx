@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -66,7 +65,7 @@ const Cities = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: safeJsonLd({
+          __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: t("meta.citiesTitle"),

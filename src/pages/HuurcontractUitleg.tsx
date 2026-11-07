@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -141,7 +140,7 @@ const HuurcontractUitleg = () => {
       />
       <Header />
       <main>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
         <section className="border-b-2 border-foreground bg-card">
           <div className="container py-10 md:py-14">
             <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Huurcontract uitleg" }]} />

@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState, useCallback } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useQuery } from "@tanstack/react-query";
@@ -226,7 +225,7 @@ const CityPage = () => {
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         ))}
 
         <section className="border-b bg-gradient-to-b from-primary/5 to-background py-12">
@@ -280,10 +279,91 @@ const CityPage = () => {
         </section>
 
         <div className="container">
-          <AdSlot slotKey="city_page" advertiser="Huurzone.nl" />
+          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
         </div>
 
         <section className="container py-8">
+          <div className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]">
+            <div className="rounded-2xl border bg-card p-6">
+              <h2 className="font-display text-2xl font-semibold text-foreground">
+                Huurwoningen in {cityName} vinden
+              </h2>
+              <div className="mt-4 space-y-3 text-base leading-relaxed text-muted-foreground">
+                <p>
+                  De woningmarkt in {cityName} is dynamisch en het aanbod wisselt snel. Of je nu zoekt naar een{" "}
+                  <strong>huurwoning in {cityName}</strong>, een <strong>appartement te huur in {cityName}</strong>,
+                  een ruim <strong>huis huren in {cityName}</strong> of een <strong>koopwoning in {cityName}</strong>:
+                  Woonaanbod NL bundelt dagelijks het nieuwste aanbod van tientallen bronnen op een plek.
+                </p>
+                <p>
+                  Op dit moment zijn er <strong>{totalCount} woningen in {cityName}</strong> beschikbaar,
+                  waarvan <strong>{huurCount} huurwoningen</strong> en <strong>{koopCount} koopwoningen</strong>.
+                  Het aanbod omvat appartementen, huizen, studio's en kamers. Het wordt dagelijks ververst
+                  zodat je altijd het meest actuele overzicht hebt.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border bg-muted/30 p-6">
+              <h2 className="font-display text-xl font-semibold text-foreground">
+                Snel naar alle resultaten
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Wil je dezelfde stad bekijken in de algemene zoekomgeving of op kaart? Open dan de zoekpagina met {cityName} al voorgeselecteerd.
+              </p>
+              <Link to={`/woning-zoeken?locatie=${encodeURIComponent(cityName)}`} className="mt-5 inline-flex">
+                <Button className="gap-2">
+                  Open zoeken voor {cityName}
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* SEO: interne links naar budget- en gidspagina's */}
+          <div className="mb-8 rounded-2xl border bg-card p-6">
+            <h2 className="font-display text-xl font-semibold text-foreground">
+              Verken {cityName} verder
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Snel zoeken op budget of meer leren over huurwoningen in {cityName}.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link to={`/stadsgids/${citySlug}`}>
+                <Button variant="outline" size="sm">Verhuizen naar {cityName}</Button>
+              </Link>
+              {huurCount > 0 && (
+                <>
+                  <Link to={`/huurwoningen/${citySlug}/onder-1000`}>
+                    <Button variant="outline" size="sm">Huur onder €1.000</Button>
+                  </Link>
+                  <Link to={`/huurwoningen/${citySlug}/onder-1500`}>
+                    <Button variant="outline" size="sm">Huur onder €1.500</Button>
+                  </Link>
+                  <Link to={`/huurwoningen/${citySlug}/onder-2000`}>
+                    <Button variant="outline" size="sm">Huur onder €2.000</Button>
+                  </Link>
+                </>
+              )}
+              {koopCount > 0 && (
+                <>
+                  <Link to={`/koopwoningen/${citySlug}/onder-300000`}>
+                    <Button variant="outline" size="sm">Koop onder €300.000</Button>
+                  </Link>
+                  <Link to={`/koopwoningen/${citySlug}/onder-500000`}>
+                    <Button variant="outline" size="sm">Koop onder €500.000</Button>
+                  </Link>
+                </>
+              )}
+              <Link to={`/markt/${citySlug}`}>
+                <Button variant="outline" size="sm">Huurprijs monitor</Button>
+              </Link>
+              <Link to={`/cijfers/${citySlug}`}>
+                <Button variant="outline" size="sm">Cijfers & demografie</Button>
+              </Link>
+            </div>
+          </div>
+
           <div className="flex gap-6">
             <aside className="hidden w-72 shrink-0 lg:block">
               <div className="sticky top-24 rounded-2xl border bg-card p-6">
@@ -369,7 +449,7 @@ const CityPage = () => {
                           userIncome={filters.grossIncome}
                         />
                         {index === 5 && (
-                          <AdSlot slotKey="city_page" advertiser="Huurzone.nl" className="my-2" />
+                          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
                         )}
                       </div>
                     ))}
@@ -399,90 +479,6 @@ const CityPage = () => {
                   )}
                 </div>
               )}
-            </div>
-          </div>
-        </section>
-
-        {/* SEO-teksten en verken-links onder het aanbod */}
-        <section className="container pb-8">
-          <div className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]">
-            <div className="rounded-2xl border bg-card p-6">
-              <h2 className="font-display text-2xl font-semibold text-foreground">
-                Huurwoningen in {cityName} vinden
-              </h2>
-              <div className="mt-4 space-y-3 text-base leading-relaxed text-muted-foreground">
-                <p>
-                  De woningmarkt in {cityName} is dynamisch en het aanbod wisselt snel. Of je nu zoekt naar een{" "}
-                  <strong>huurwoning in {cityName}</strong>, een <strong>appartement te huur in {cityName}</strong>,
-                  een ruim <strong>huis huren in {cityName}</strong> of een <strong>koopwoning in {cityName}</strong>:
-                  Woonaanbod NL bundelt dagelijks het nieuwste aanbod van tientallen bronnen op een plek.
-                </p>
-                <p>
-                  Op dit moment zijn er <strong>{totalCount} woningen in {cityName}</strong> beschikbaar,
-                  waarvan <strong>{huurCount} huurwoningen</strong> en <strong>{koopCount} koopwoningen</strong>.
-                  Het aanbod omvat appartementen, huizen, studio's en kamers. Het wordt dagelijks ververst
-                  zodat je altijd het meest actuele overzicht hebt.
-                </p>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border bg-muted/30 p-6">
-              <h2 className="font-display text-xl font-semibold text-foreground">
-                Snel naar alle resultaten
-              </h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Wil je dezelfde stad bekijken in de algemene zoekomgeving of op kaart? Open dan de zoekpagina met {cityName} al voorgeselecteerd.
-              </p>
-              <Link to={`/woning-zoeken?locatie=${encodeURIComponent(cityName)}`} className="mt-5 inline-flex">
-                <Button className="gap-2">
-                  Open zoeken voor {cityName}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* SEO: interne links naar budget- en gidspagina's */}
-          <div className="rounded-2xl border bg-card p-6">
-            <h2 className="font-display text-xl font-semibold text-foreground">
-              Verken {cityName} verder
-            </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Snel zoeken op budget of meer leren over huurwoningen in {cityName}.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Link to={`/stadsgids/${citySlug}`}>
-                <Button variant="outline" size="sm">Verhuizen naar {cityName}</Button>
-              </Link>
-              {huurCount > 0 && (
-                <>
-                  <Link to={`/huurwoningen/${citySlug}/onder-1000`}>
-                    <Button variant="outline" size="sm">Huur onder €1.000</Button>
-                  </Link>
-                  <Link to={`/huurwoningen/${citySlug}/onder-1500`}>
-                    <Button variant="outline" size="sm">Huur onder €1.500</Button>
-                  </Link>
-                  <Link to={`/huurwoningen/${citySlug}/onder-2000`}>
-                    <Button variant="outline" size="sm">Huur onder €2.000</Button>
-                  </Link>
-                </>
-              )}
-              {koopCount > 0 && (
-                <>
-                  <Link to={`/koopwoningen/${citySlug}/onder-300000`}>
-                    <Button variant="outline" size="sm">Koop onder €300.000</Button>
-                  </Link>
-                  <Link to={`/koopwoningen/${citySlug}/onder-500000`}>
-                    <Button variant="outline" size="sm">Koop onder €500.000</Button>
-                  </Link>
-                </>
-              )}
-              <Link to={`/markt/${citySlug}`}>
-                <Button variant="outline" size="sm">Huurprijs monitor</Button>
-              </Link>
-              <Link to={`/cijfers/${citySlug}`}>
-                <Button variant="outline" size="sm">Cijfers & demografie</Button>
-              </Link>
             </div>
           </div>
         </section>
@@ -556,16 +552,6 @@ const CityPage = () => {
                   Woningen onder €{price.toLocaleString("nl-NL")}
                 </Link>
               ))}
-            </div>
-
-            <h3 className="font-display text-lg font-semibold text-foreground mb-3">Huurtoeslag en vrije sector</h3>
-            <div className="grid gap-2 sm:grid-cols-2 mb-6">
-              <Link to={`/huurwoningen/${citySlug}/met-huurtoeslag`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
-                Huurwoningen met huurtoeslag in {cityName}
-              </Link>
-              <Link to={`/huurwoningen/${citySlug}/vrije-sector`} className="rounded-lg border bg-card px-4 py-3 text-base font-medium text-foreground transition-shadow hover:shadow-md hover:text-primary">
-                Vrije sector huurwoningen in {cityName}
-              </Link>
             </div>
 
             {/* By bedrooms */}

@@ -24,9 +24,6 @@ interface SearchAlertCTAProps extends SearchAlertFilters {
   source?: string;
   className?: string;
   variant?: "card" | "inline";
-  title?: string;
-  description?: string;
-  buttonLabel?: string;
 }
 
 const buildLabel = (f: SearchAlertFilters) => {
@@ -55,9 +52,6 @@ const SearchAlertCTA = ({
   source = "search",
   className = "",
   variant = "card",
-  title,
-  description,
-  buttonLabel,
 }: SearchAlertCTAProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -150,10 +144,10 @@ const SearchAlertCTA = ({
           />
           <div className="px-2 pb-2 md:px-0 md:pb-0 md:pr-4">
             <h3 className="font-display text-2xl font-bold leading-tight text-primary">
-              {title || "Direct updates ontvangen in je e-mail?"}
+              Direct updates ontvangen in je e-mail?
             </h3>
             <p className="mt-2 text-base text-muted-foreground">
-              {description || `Ontvang meteen een e-mail als er nieuw aanbod is voor ${searchLabel}. Zo mis je niks en kan je als eerste reageren!`}
+              Ontvang meteen een e-mail als er nieuw aanbod is voor {searchLabel}. Zo mis je niks en kan je als eerste reageren!
             </p>
             <form onSubmit={handleSubmit} className="mt-4 space-y-3">
               {!user && (
@@ -170,7 +164,7 @@ const SearchAlertCTA = ({
               )}
               <Button type="submit" disabled={loading} size="lg" className="h-14 w-full gap-2 rounded-full text-base font-bold">
                 {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-                {buttonLabel || "Ja, ik wil niks missen!"}
+                Ja, ik wil niks missen!
               </Button>
             </form>
             <p className="mt-2 text-center text-xs text-muted-foreground">

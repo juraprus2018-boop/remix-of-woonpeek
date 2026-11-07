@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { telecomPartnerUrl } from "@/lib/telecomPartner";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
@@ -79,8 +78,8 @@ const STEPS: Step[] = [
       "Installatie van glasvezel of kabel duurt soms weken. Vraag aan welke aanbieders op je nieuwe postcode leveren en bestel ruim op tijd, anders zit je de eerste week zonder wifi.",
     cta: {
       label: "Vergelijk internet aanbieders",
-      href: telecomPartnerUrl("verhuischecklist"),
-      note: "Vergelijk op Telecomkeuzegids.nl",
+      href: "/energie",
+      note: "Pak meteen een welkomstkorting mee",
     },
   },
   {
@@ -255,17 +254,10 @@ const Verhuischecklist = () => {
                                 size="sm"
                                 className="shrink-0 gap-1.5 bg-accent text-accent-foreground hover:bg-accent/90"
                               >
-                                {step.cta.href.startsWith("http") ? (
-                                  <a href={step.cta.href} target="_blank" rel="noopener">
-                                    {step.cta.label}
-                                    <ArrowRight className="h-4 w-4" />
-                                  </a>
-                                ) : (
-                                  <Link to={step.cta.href}>
-                                    {step.cta.label}
-                                    <ArrowRight className="h-4 w-4" />
-                                  </Link>
-                                )}
+                                <Link to={step.cta.href}>
+                                  {step.cta.label}
+                                  <ArrowRight className="h-4 w-4" />
+                                </Link>
                               </Button>
                             </div>
                             {step.embedEnergy && (

@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
@@ -66,7 +65,7 @@ const EnergieVergelijken = () => {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
       <Header />
       <main className="flex-1">

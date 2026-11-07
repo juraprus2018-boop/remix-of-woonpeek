@@ -1,5 +1,3 @@
-import { fetchRotatingProperties } from "@/lib/propertyRotation";
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import NeighborhoodReviews from "@/components/properties/NeighborhoodReviews";
@@ -43,7 +41,17 @@ const NeighborhoodPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["neighborhood-properties", citySlug, neighborhoodSlug],
     queryFn: async () => {
-      return fetchRotatingProperties({ city: cityName, neighborhood: neighborhoodName }, 0, 100);
+      const { data, error, count } = await supabase
+        .from("properties")
+        .select("*", { count: "exact" })
+        .eq("status", "actief")
+        .ilike("city", `%${cityName}%`)
+        .ilike("neighborhood", `%${neighborhoodName}%`)
+        .order("provider_priority", { ascending: true })
+        .order("created_at", { ascending: false })
+        .limit(100);
+      if (error) throw error;
+      return { properties: (data ?? []) as Property[], totalCount: count ?? 0 };
     },
     enabled: !!citySlug && !!neighborhoodSlug,
   });
@@ -138,7 +146,7 @@ const NeighborhoodPage = () => {
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         ))}
 
         {/* Hero */}

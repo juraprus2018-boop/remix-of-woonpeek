@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Loader2, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 
 interface PropertyQAProps {
@@ -47,15 +45,8 @@ const PropertyQA = ({ property }: PropertyQAProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const { user } = useAuth();
-  const navigate = useNavigate();
   const ask = async (q: string) => {
     if (!q.trim() || loading) return;
-    if (!user) {
-      setError("Log in om vragen over deze woning te stellen.");
-      navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
-      return;
-    }
     setLoading(true);
     setError(null);
     setAnswer(null);

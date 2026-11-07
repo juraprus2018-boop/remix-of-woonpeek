@@ -159,11 +159,7 @@
     "listingNLDesc": "Browse {{pluralLc}} across the Netherlands. Compare {{priceWord}}, view photos and find your home on Woonaanbod NL.",
     "searchTitleHuur": "Rental homes{{loc}} | Woonaanbod NL",
     "searchTitleKoop": "Homes for sale{{loc}} | Woonaanbod NL",
-    "searchTitleAll": "Find homes to rent or buy{{loc}} | Woonaanbod NL",
-    "searchHeadingAll": "Find homes to rent or buy",
-    "searchHeadingHuur": "Find rental homes",
-    "searchHeadingKoop": "Find homes for sale",
-    "searchLocation": " in {{city}}",
+    "searchTitleAll": "Homes{{loc}} | Woonaanbod NL",
     "searchDesc": "Browse {{total}} {{typeWord}}{{loc}} on Woonaanbod NL. Filter by price, type and more.",
     "newTodayTitle": "New listings today: {{count}} fresh homes | Woonaanbod NL",
     "newTodayDesc": "Browse {{count}} new active listings from {{date}} on Woonaanbod NL. Fresh in, updated daily."

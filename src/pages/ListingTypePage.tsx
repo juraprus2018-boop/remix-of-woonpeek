@@ -1,7 +1,3 @@
-import { cityToSlug } from "@/lib/cities";
-import { useCityRentalStats } from "@/hooks/useCityRentalStats";
-import { shouldNoindexRentalCity } from "@/lib/rentalCityIndexing";
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useParams, Link, Navigate } from "react-router-dom";
@@ -64,9 +60,6 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
   const isInvalidCity = !!citySlug && !validCityName;
   const cityName = citySlug ? (validCityName || citySlugToName(citySlug)) : undefined;
   const locationLabel = cityName || "Nederland";
-  const rentalCityStats = useCityRentalStats(listingType === "huur" && !isInvalidCity ? cityName || "" : "");
-  const noindexRentalCity = listingType === "huur" && Boolean(cityName) &&
-    shouldNoindexRentalCity(rentalCityStats.isSuccess && !rentalCityStats.isFetching, rentalCityStats.data?.total);
 
   const ITEMS_PER_PAGE = 12;
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
@@ -234,11 +227,11 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} noindex={noindexRentalCity} geoPlacename={cityName} />
+      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} geoPlacename={cityName} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
-          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+          <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         ))}
 
         {/* Hero */}
@@ -273,28 +266,12 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   </Link>
                 )}
               </div>
-              {cityName && listingType === "huur" && (
-                <nav aria-label={`Populaire zoekopdrachten ${cityName}`} className="mt-4 flex flex-wrap gap-2">
-                  {[
-                    { to: "onder-1000", label: "Onder € 1.000" },
-                    { to: "onder-1250", label: "Onder € 1.250" },
-                    { to: "onder-1500", label: "Onder € 1.500" },
-                    { to: "appartement", label: "Appartementen" },
-                    { to: "studio", label: "Studio's" },
-                    { to: "2-slaapkamers", label: "2+ slaapkamers" },
-                  ].map((c) => (
-                    <Link key={c.to} to={`/huurwoningen/${cityToSlug(cityName)}/${c.to}`} className="rounded-full border bg-card px-3 py-1.5 text-sm text-foreground hover:border-primary hover:text-primary">
-                      {c.label}
-                    </Link>
-                  ))}
-                </nav>
-              )}
             </div>
           </div>
         </section>
 
         <div className="w-full px-4 md:px-8">
-          <AdSlot slotKey="city_page" advertiser="Huurzone.nl" />
+          <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
         </div>
 
         {/* Properties */}
@@ -354,7 +331,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                     <div key={property.id} className="contents">
                       <PropertyRowCard property={property} priority={i < 2} />
                       {i === 5 && (
-                        <AdSlot slotKey="city_page" advertiser="Huurzone.nl" className="my-2" />
+                        <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" className="my-2" />
                       )}
                     </div>
                   ))}

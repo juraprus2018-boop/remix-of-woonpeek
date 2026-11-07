@@ -1,4 +1,3 @@
-import { safeFetch } from "../_shared/safeFetch.ts";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -112,7 +111,7 @@ async function fetchImage(targetUrl: URL): Promise<Response | null> {
   let last: Response | null = null;
   for (const headers of attempts) {
     try {
-      const res = await safeFetch(targetUrl, { headers });
+      const res = await fetch(targetUrl.toString(), { redirect: "follow", headers });
       if (res.ok) return res;
       await res.body?.cancel();
       last = res;

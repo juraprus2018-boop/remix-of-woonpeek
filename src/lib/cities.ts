@@ -1,5 +1,8 @@
-import { rentalCitySlug } from "../../supabase/functions/_shared/rentalCityIdentity";
-export const cityToSlug = rentalCitySlug;
+export const cityToSlug = (city: string) =>
+  city
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-");
 
 export const citySlugToName = (slug: string) =>
   slug

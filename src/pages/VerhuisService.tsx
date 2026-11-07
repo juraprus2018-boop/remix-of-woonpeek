@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
@@ -39,7 +38,7 @@ const VerhuisService = () => {
         description="Vergelijk gratis erkende verhuisbedrijven en bespaar tot 40% op je verhuizing. Ontvang binnen 24 uur tot vijf offertes van AMV-erkende verhuizers."
         canonical="/verhuisservice"
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />
       <main className="flex-1">
         <section className="border-b bg-gradient-to-br from-primary/10 via-background to-accent/10">

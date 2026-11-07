@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { propertyPath } from "@/lib/propertyUrl";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useMemo } from "react";
@@ -66,7 +65,7 @@ const LongtailLanding = () => {
       {itemListJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: safeJsonLd(itemListJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
         />
       )}
       {/* FAQSchema is rendered visibly in the FAQ section below; hide here to avoid duplicate JSON-LD only */}

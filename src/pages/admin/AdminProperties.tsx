@@ -35,7 +35,6 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { propertyPath } from "@/lib/propertyUrl";
-import { facebookPropertyUrl } from "../../../supabase/functions/_shared/facebookPropertyUrl";
 
 const PAGE_SIZE = 50;
 
@@ -107,7 +106,7 @@ const AdminProperties = () => {
   };
 
   const buildFacebookGroupPostText = (property: NonNullable<typeof properties>[number]) => {
-    const propertyUrl = facebookPropertyUrl(property);
+    const propertyUrl = `${window.location.origin}${propertyPath(property as any)}`;
     const cityTag = property.city ? `#${property.city.replace(/\s+/g, "")}` : "";
     const listingTag = property.listing_type === "huur" ? "#huurwoning" : "#koopwoning";
     const description = (property.description || "").trim();

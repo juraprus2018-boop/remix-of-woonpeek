@@ -1,4 +1,3 @@
-import { safeJsonLd } from "@/lib/jsonLd";
 import { useState } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -46,7 +45,7 @@ const WozWaarde = () => {
         description="Vraag gratis de WOZ-waarde van elke Nederlandse woning op. Inclusief uitleg over OZB, huurprijs, bezwaar maken en eigenwoningforfait."
         canonical="/woz-waarde"
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <Header />
       <main className="flex-1">
         <section className="border-b bg-gradient-to-br from-primary/10 via-background to-accent/10">

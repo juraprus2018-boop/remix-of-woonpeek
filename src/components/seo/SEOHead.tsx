@@ -3,8 +3,6 @@ import { useLocation } from "react-router-dom";
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, CANONICAL_URL, type Locale } from "@/lib/brand";
 import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
 import socialAsset from "@/assets/brand/social.png.asset.json";
-import { socialImageUrl } from "../../../supabase/functions/_shared/socialImage";
-import { useTemplateCitySeo } from "@/hooks/useTemplateCitySeo";
 
 interface SEOHeadProps {
   title: string;
@@ -67,9 +65,6 @@ const setJsonLd = (id: string, data: unknown) => {
 
 const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex, geoPlacename, geoPosition }: SEOHeadProps) => {
   const location = useLocation();
-  const templatePolicy = useTemplateCitySeo(location.pathname);
-  const effectiveNoindex = templatePolicy?.noindex || noindex;
-  const effectiveCanonical = templatePolicy?.canonical || canonical;
 
   useEffect(() => {
     document.title = title;
@@ -84,7 +79,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
       robotsEl.setAttribute("name", "robots");
       document.head.appendChild(robotsEl);
     }
-    robotsEl.setAttribute("content", effectiveNoindex ? "noindex, follow" : "index, follow, max-image-preview:large");
+    robotsEl.setAttribute("content", noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
 
     // Canonical: prefix with current locale so each language has its own canonical.
     const locale = getLocaleFromPath(location.pathname);
@@ -105,8 +100,8 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
       if (!v.startsWith("/")) v = `/${v}`;
       return v;
     };
-    const bareSource = stripLocale(toPath(effectiveCanonical || location.pathname));
-    const resolvedCanonical = baseUrl + (templatePolicy ? bareSource : withLocale(bareSource, locale));
+    const bareSource = stripLocale(toPath(canonical || location.pathname));
+    const resolvedCanonical = baseUrl + withLocale(bareSource, locale);
 
 
     let canonicalEl = document.querySelector('link[rel="canonical"]');
@@ -124,25 +119,14 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setMeta("og:type", ogType);
     setMeta("og:locale", locale === "nl" ? "nl_NL" : locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : "fr_FR");
     if (resolvedCanonical) setMeta("og:url", resolvedCanonical);
-    const resolvedImage = socialImageUrl(ogImage, CANONICAL_URL, socialAsset.url);
+    const resolvedImage = ogImage || `${CANONICAL_URL}${socialAsset.url}`;
     setMeta("og:image", resolvedImage);
     setMeta("og:site_name", "Woonaanbod NL");
 
-    const setTwitterMeta = (name: string, content: string) => {
-      // Twitter tags use name, not property; update the static fallback in place.
-      document.querySelectorAll(`meta[property="${name}"]`).forEach((el) => el.remove());
-      let el = document.querySelector(`meta[name="${name}"]`);
-      if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute("name", name);
-        document.head.appendChild(el);
-      }
-      el.setAttribute("content", content);
-    };
-    setTwitterMeta("twitter:card", "summary_large_image");
-    setTwitterMeta("twitter:title", title);
-    setTwitterMeta("twitter:description", description);
-    setTwitterMeta("twitter:image", resolvedImage);
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", resolvedImage);
 
     // Geo meta tags (local relevance signals for Bing and regional engines)
     const setNamedMeta = (name: string, content: string | null) => {
@@ -161,7 +145,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
     setNamedMeta("ICBM", geoPosition ? `${geoPosition.lat}, ${geoPosition.lng}` : null);
 
     // Auto WebPage JSON-LD tied to Organization + WebSite on every route.
-    if (!effectiveNoindex) {
+    if (!noindex) {
       const orgId = `${baseUrl || "https://www.woonaanbod-nl.nl"}/#organization`;
       const siteId = `${baseUrl || "https://www.woonaanbod-nl.nl"}/#website`;
       setJsonLd("seo-jsonld-webpage", {
@@ -175,7 +159,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         isPartOf: { "@id": siteId },
         about: { "@id": orgId },
         publisher: { "@id": orgId },
-        ...(ogImage ? { primaryImageOfPage: { "@type": "ImageObject", url: resolvedImage } } : {}),
+        ...(ogImage ? { primaryImageOfPage: { "@type": "ImageObject", url: ogImage } } : {}),
         potentialAction: { "@type": "ReadAction", target: [resolvedCanonical] },
       });
 
@@ -216,7 +200,7 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         document.getElementById("seo-jsonld-breadcrumbs")?.remove();
       }
     }
-  }, [title, description, effectiveCanonical, ogImage, ogType, effectiveNoindex, Boolean(templatePolicy), geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname]);
+  }, [title, description, canonical, ogImage, ogType, noindex, geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname]);
 
 
 

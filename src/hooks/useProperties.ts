@@ -1,7 +1,6 @@
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { fetchRotatingProperties, rotateProperties } from "@/lib/propertyRotation";
 import { Database } from "@/integrations/supabase/types";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
@@ -47,7 +46,23 @@ const MAX_FULL_ROWS = 6000;
 const MAX_MAP_ROWS = 15000;
 
 
-const sortPropertiesClientSide = rotateProperties;
+// Woningen uit de Huurzone.nl-feed (provider_priority = 0) staan altijd bovenaan in elke sortering.
+
+// Batches worden op primary key opgehaald (goedkoop, geen sort van de hele tabel per batch)
+// en daarna client-side gesorteerd op provider_priority + gekozen sortering.
+const sortPropertiesClientSide = <T extends { provider_priority?: number | null; created_at?: string | null; price?: number | null }>(
+  rows: T[],
+  sortBy?: SortOption
+): T[] => {
+  const { column, ascending } = sortConfig(sortBy);
+  return [...rows].sort((a, b) => {
+    const fp = (a.provider_priority ?? 999) - (b.provider_priority ?? 999);
+    if (fp !== 0) return fp;
+    const av = column === "price" ? Number(a.price ?? 0) : new Date(a.created_at ?? 0).getTime();
+    const bv = column === "price" ? Number(b.price ?? 0) : new Date(b.created_at ?? 0).getTime();
+    return ascending ? av - bv : bv - av;
+  });
+};
 
 
 const applyPropertyFilters = <T,>(query: T, filters?: PropertyFilters) => {
@@ -94,7 +109,21 @@ export const useProperties = (filters?: PropertyFilters) => {
         const page = filters?.page || 1;
         const pageSize = filters?.pageSize || 12;
         const from = (page - 1) * pageSize;
-        return fetchRotatingProperties(filters, from, pageSize, filters?.sortBy);
+        const to = from + pageSize - 1;
+
+        let query = supabase
+          .from("properties")
+          .select("*", { count: "exact" })
+          .order("provider_priority", { ascending: true })
+          .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
+          .range(from, to);
+
+        query = applyPropertyFilters(query, filters);
+
+        const { data, error, count } = await query;
+        if (error) throw error;
+
+        return { properties: (data as Property[]) || [], totalCount: count || 0 };
       }
 
       // Full mode (all rows) - fetch in batches to avoid 1000-row API limit.
@@ -136,8 +165,21 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
     queryKey: ["infinite-properties", filters],
     queryFn: async ({ pageParam = 1 }) => {
       const from = (pageParam - 1) * pageSize;
-      const result = await fetchRotatingProperties(filters, from, pageSize, filters?.sortBy);
-      return { ...result, page: pageParam };
+      const to = from + pageSize - 1;
+
+      let query = supabase
+        .from("properties")
+        .select("*", { count: "exact" })
+        .order("provider_priority", { ascending: true })
+        .order("created_at", { ascending: false })
+        .range(from, to);
+
+      query = applyPropertyFilters(query, { ...filters, page: pageParam, pageSize });
+
+      const { data, error, count } = await query;
+      if (error) throw error;
+
+      return { properties: (data as Property[]) || [], totalCount: count || 0, page: pageParam };
     },
     getNextPageParam: (lastPage) => {
       const totalPages = Math.ceil(lastPage.totalCount / pageSize);
@@ -372,8 +414,22 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
   return useQuery({
     queryKey: ["featured-properties", listingType],
     queryFn: async () => {
-      const result = await fetchRotatingProperties(listingType === "all" ? {} : { listingType }, 0, 12);
-      return result.properties;
+      let query = supabase
+        .from("properties")
+        .select("*")
+        .eq("status", "actief");
+
+      if (listingType !== "all") {
+        query = query.eq("listing_type", listingType);
+      }
+
+      const { data, error } = await query
+        .order("provider_priority", { ascending: true })
+        .order("created_at", { ascending: false })
+        .limit(12);
+
+      if (error) throw error;
+      return data as Property[];
     },
   });
 };
@@ -382,8 +438,23 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
   return useQuery({
     queryKey: ["similar-properties", currentId, city, listingType],
     queryFn: async () => {
-      const result = await fetchRotatingProperties({ exactCity: city, listingType, excludeId: currentId }, 0, 4);
-      return result.properties;
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      let query = supabase
+        .from("properties")
+        .select("*")
+        .eq("status", "actief")
+        .eq("city", city)
+        .eq("listing_type", listingType as ListingType)
+        .order("provider_priority", { ascending: true })
+        .order("created_at", { ascending: false })
+        .limit(4);
+      if (currentId && uuidRegex.test(currentId)) {
+        query = query.neq("id", currentId);
+      }
+      const { data, error } = await query;
+
+      if (error) throw error;
+      return data as Property[];
     },
     enabled: !!currentId && !!city && !!listingType,
   });
@@ -400,7 +471,6 @@ export interface FilterFacets {
 
 interface FacetFilters {
   city?: string;
-  minPrice?: number;
   propertyType?: string;
   listingType?: string;
   maxPrice?: number;
@@ -410,7 +480,7 @@ interface FacetFilters {
 
 export const useFilterFacets = (filters: FacetFilters) => {
   return useQuery({
-    queryKey: ["filter-facets", filters.city, filters.propertyType, filters.listingType, filters.minPrice, filters.maxPrice, filters.minBedrooms, filters.includeInactive],
+    queryKey: ["filter-facets", filters.city, filters.propertyType, filters.listingType, filters.maxPrice, filters.minBedrooms, filters.includeInactive],
     queryFn: async () => {
       // We need to fetch minimal data to compute facets
       // Only select the fields we need for counting
@@ -447,7 +517,7 @@ export const useFilterFacets = (filters: FacetFilters) => {
       for (const row of data || []) {
         const matchesType = !filters.propertyType || row.property_type === filters.propertyType;
         const matchesListing = !filters.listingType || row.listing_type === filters.listingType;
-        const matchesPrice = (filters.minPrice === undefined || row.price >= filters.minPrice) && (!filters.maxPrice || row.price <= filters.maxPrice);
+        const matchesPrice = !filters.maxPrice || row.price <= filters.maxPrice;
         const matchesBedrooms = !filters.minBedrooms || (row.bedrooms != null && row.bedrooms >= filters.minBedrooms);
 
         // Count property types (cross-filter: apply all OTHER filters)
@@ -512,8 +582,21 @@ export const useNearbyProperties = (
   return useQuery({
     queryKey: ["nearby-properties", cityName, listingType, limit],
     queryFn: async () => {
-      const result = await fetchRotatingProperties({ listingType }, 0, limit);
-      return result.properties;
+      let query = supabase
+        .from("properties")
+        .select("*")
+        .eq("status", "actief")
+        .order("provider_priority", { ascending: true })
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+      if (listingType) {
+        query = query.eq("listing_type", listingType as ListingType);
+      }
+
+      const { data, error } = await query;
+      if (error) throw error;
+      return (data as Property[]) || [];
     },
     enabled: enabled && !!cityName,
     staleTime: 60 * 1000,

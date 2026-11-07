@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation, useParams } from "
 import { lazy, Suspense, type ReactElement } from "react";
 import ScrollToTop from "@/components/ScrollToTop";
 import LocaleSync from "@/components/LocaleSync";
+import AutoTranslator from "@/components/AutoTranslator";
 import RoutePrefetcher from "@/components/RoutePrefetcher";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
@@ -225,7 +226,7 @@ const RouterSideEffects = () => {
     <>
       <ScrollToTop />
       <LocaleSync />
-
+      <AutoTranslator />
       <RoutePrefetcher />
     </>
   );

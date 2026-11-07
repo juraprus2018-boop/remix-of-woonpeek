@@ -1,33 +1,14 @@
 # Project architecture rules
 
-- Vite's production closeBundle runs the rental postbuild from a complete public active-rental snapshot and writes at most MAX_STATIC_RENTAL_FILES extra index.html files (rich hubs, then the largest cities' threshold-passing rent index/heatmap, then noindex alias/template files, trimming lower tiers), failing the build only when hubs alone exceed it; properties, postcodes, buurten, filters and locale copies stay on the SPA shell, because large static outputs never went live.
-- Build plugins treat public/ as read-only input and write generated files (manifests, marktdata.json) only to dist; buildStart must never fetch live sitemap XML because the deployed generator may be older than the build's policy.
-- Rental sitemap selections and llms.txt share that snapshot, identity aliases and threshold policy with the function generator; snapshot-backed page dates qualify as lastmod, and only Dutch alternates are advertised. Regenerate all city-data families rather than retaining stale XML; the shared policy governs static and browser template canonicals.
-
-- Browser SEO and social-preview functions share a pure HTTPS image resolver so local and external listing images produce valid absolute social metadata consistently.
-
-- Search loads its map only when selected, and route prefetching waits before sequential imports, so optional navigation downloads do not compete with the initial search form and results.
-- Homepage and search share canonical budget parameter helpers with legacy aliases; both price bounds reach listing and map queries, and facets never silently remove the chosen budget, so navigation cannot broaden a visitor's search.
-
-- Direct Renthunter CSV sync owns its source lifecycle and uses validated, service-role-only bulk batches matched by listing ID, preserving existing property URLs and deactivating missing rows only after a complete successful feed import.
-
 - TikTok automation posts recent active rentals as photo carousels by default, uses up to 35 real listing photos, and includes the canonical property URL in every caption, because each social post must lead directly to its listing.- Listing landing pages use one structure, /huurwoningen|koopwoningen/{city}/{filter}; old type/budget/aanbod-in paths redirect there and filter pages are indexed only with enough listings, to avoid duplicate URLs for one search intent.
 - Agencies (makelaars) are owned via agencies.owner_user_id, not a role; their feed listings are stored as properties with user_id = owner and agency_id set, so existing property RLS covers editing.
 - Agency removal uses an admin-authorized transactional RPC that deactivates associated listings before deleting the agency, preserving property history and the owner's user account.
 - Profile creation runs through an idempotent app-owned auth signup trigger so every registered account appears in profile-based user management without assigning privileges from user metadata.
 
-- Public listing displays use the security-invoker round-robin RPC, ranking each provider after filters and before pagination; loaded map data uses the equivalent client rotation so pages never starve other providers.
-- Partner promotions share PartnerTip's cached advertiser link; AdSlot gives the preferred advertiser a fixed majority share and rotates the rest randomly, without changing listing source URLs.
+- Listing display orders by the generated provider_priority column before the selected sort, with matching active-listing indexes, so imports and pagination keep a consistent provider preference.
 
 - Explore derives city and source facets from loaded map listings within the viewport or postcode radius, excluding each facet's own selection so users can switch filters without extra nationwide queries.
-- Explore loads public active coordinate-bearing listings through one compact security-invoker snapshot RPC, cached independently of filters and sort, so nationwide markers are not repeatedly downloaded or silently capped by pagination.
 - Shared Logo renders the uploaded color or light CDN asset, while favicon and installed-app icons remain local public files, so every placement uses the supplied identity without duplicating artwork.
 - The alert-digest template owns its email layout and theme separately from other transactional emails, so housing-mail redesigns cannot alter authentication, contact or welcome messages.
 - Press publications store optional editorial image metadata and a related blog slug in their existing data object, so rich releases remain compatible with automated releases without schema changes.
 - City rental insights share a paginated exact-city active-rental query and pure statistical calculation across city and canonical rental routes, with attributed local context and explicit samples, so price comparisons never mix sales or silently truncated listing data.
-- Facebook daily videos render actual MP4s and persist one job per Amsterdam calendar day with atomic write claims and remote IDs; only ready videos with completed publishing count as posted, and unknown upload outcomes require reconciliation before retry.
-- Facebook property captions, attachment links and group copies share an outgoing-link resolver that preserves feed tracking parameters and falls back to the canonical listing only when no usable source URL exists; Instagram and TikTok destinations remain independent.
-- Property nearby-amenity distances come from CBS neighbourhood statistics via a cached backend lookup (PDOK buurt → CBS), because public Overpass servers proved too slow and unreliable.
-- Daisycon feed imports update existing listings through a service-role-only bulk RPC in small retried batches, because per-row updates exceeded the function time limit and left feed listings inactive.
-- Duplicate-listing cleanup only matches listings with a numeric house number and valid postcode, because feeds hide house numbers and placeholder values made distinct homes look identical.
-- Inactive listings get noindex,follow after a fixed inactivity window (src/lib/inactiveIndexing.ts) so crawl budget goes to active listings while links still pass.

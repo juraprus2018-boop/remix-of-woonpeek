@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Gauge, ExternalLink, RotateCcw } from "lucide-react";
-import { usePreferredPartnerLink } from "@/components/ads/PartnerTip";
+import { useHuurzoneLink } from "@/components/ads/HuurzoneTip";
 import { trackDaisyconClick } from "@/hooks/usePageTracking";
 
 interface Props {
@@ -17,7 +17,7 @@ type Speed = "direct" | "maand" | "later";
  * en verhuisbereidheid. Geen verzonnen reactie-aantallen.
  */
 const ChanceEstimator = ({ price, city }: Props) => {
-  const { data: partnerLink } = usePreferredPartnerLink();
+  const { data: huurzone } = useHuurzoneLink();
   const [income, setIncome] = useState("");
   const [speed, setSpeed] = useState<Speed | null>(null);
   const [done, setDone] = useState(false);
@@ -41,9 +41,9 @@ const ChanceEstimator = ({ price, city }: Props) => {
         : "Je inkomen past bij deze woning. Snelheid is nu het belangrijkste: wie als eerste reageert, maakt de meeste kans.";
 
   const openHz = () => {
-    if (!partnerLink) return;
-    trackDaisyconClick(null as any, partnerLink, "Huurzone.nl");
-    window.open(partnerLink, "_blank", "noopener,noreferrer");
+    if (!huurzone) return;
+    trackDaisyconClick(null as any, huurzone, "huurzone.nl");
+    window.open(huurzone, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -80,10 +80,10 @@ const ChanceEstimator = ({ price, city }: Props) => {
             </div>
           </div>
           <p className="text-sm text-muted-foreground">{advice}</p>
-          {partnerLink && (
+          {huurzone && (
             <>
               <Button className="w-full gap-2" onClick={openHz}>
-                Bekijk ook woningen bij Huurzone.nl <ExternalLink className="h-4 w-4" />
+                Vergroot je kans met een Huurzone-profiel <ExternalLink className="h-4 w-4" />
               </Button>
               <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Advertentie · Partner</p>
             </>

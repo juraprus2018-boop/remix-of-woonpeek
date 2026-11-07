@@ -32,10 +32,8 @@ import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import RecentComments from "@/components/home/RecentComments";
 import AdSlot from "@/components/ads/AdSlot";
 import { cityToSlug } from "@/lib/cities";
-import HomeSeoContent from "@/components/home/HomeSeoContent";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
-import { writeSearchBudget } from "@/lib/searchBudget";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -72,7 +70,7 @@ const TYPES_DEF = [
 ];
 
 const Index = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { data: properties, isLoading } = useFeaturedProperties();
   const { data: homeStats } = useHomeStats();
   const { data: newToday } = useNewTodayCount();
@@ -86,10 +84,8 @@ const Index = () => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (query.trim()) params.set("locatie", query.trim());
-    writeSearchBudget(params, {
-      minPrice: minPrice ? Number(minPrice) : undefined,
-      maxPrice: maxPrice ? Number(maxPrice) : undefined,
-    });
+    if (minPrice) params.set("min", minPrice);
+    if (maxPrice) params.set("max", maxPrice);
     navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
   };
 
@@ -260,7 +256,7 @@ const Index = () => {
       </section>
 
       <div className="container">
-        <AdSlot slotKey="homepage" advertiser="Huurzone.nl" />
+        <AdSlot slotKey="homepage" advertiser="Huurwoningen.nl" />
       </div>
       {/* NIEUW AANBOD */}
       <section className="pb-14 pt-8 md:pb-16 md:pt-10">
@@ -293,7 +289,7 @@ const Index = () => {
                   <div key={p.id} className="contents">
                     <PropertyCard property={p} />
                     {index === 5 && (
-                      <AdSlot slotKey="homepage" advertiser="Huurzone.nl" className="my-2" />
+                      <AdSlot slotKey="homepage" advertiser="Huurwoningen.nl" className="my-2" />
                     )}
                   </div>
                 ))}
@@ -482,7 +478,6 @@ const Index = () => {
         </div>
       </section>
 
-      {(i18n.language || "nl").startsWith("nl") && <HomeSeoContent />}
       <Footer />
     </div>
   );
