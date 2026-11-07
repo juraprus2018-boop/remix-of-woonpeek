@@ -1,5 +1,5 @@
 # Groei, 7 november 2026
-- [ ] Zoekpagina: compacte hoofdkop en specifiekere titel, zonder extra sectie boven woningen; controleren op mobiel en desktop.
+- [x] Zoekpagina: compacte hoofdkop en specifiekere titel in vier talen; echte resultaten op beide zoekadressen, mobiel/desktop, vijf budgettests en automatische build geslaagd; niet gepubliceerd.
 - [ ] Eén Amsterdamse Facebook-groep onderzoeken en een stadsaanbodbericht met getagde website-link voorbereiden; niets plaatsen zonder apart akkoord.
 
 # Kaartpagina
