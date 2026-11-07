@@ -190,7 +190,7 @@ async function prerenderHomeContentPlugin() {
           <li><a href="/woning-zoeken">Woning zoeken</a></li>
           <li><a href="/op-kaart">Woningen op de kaart</a></li>
           <li><a href="/vandaag">Nieuw aanbod van vandaag</a></li>
-          <li><a href="/woonradar">Gratis dagelijkse alert</a></li>
+          <li><a href="/woonmelding">Gratis dagelijkse alert</a></li>
           <li><a href="/woningmarkt">Woningmarktcijfers: huurprijs per m2 en actueel aanbod</a></li>
           <li><a href="/woningmarkt/huurprijzen-nederland">Huurprijzen Nederland</a></li>
           <li><a href="/woningmarkt/huurprijzen-per-gemeente">Huurprijzen per gemeente</a></li>
