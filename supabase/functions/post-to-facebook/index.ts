@@ -1,13 +1,12 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
+import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
+import { facebookPropertyUrl } from "../_shared/facebookPropertyUrl.ts";
+import { dailyVideo } from "./dailyVideo.ts";
 
 // Facebook + Instagram autoposting is re-enabled for the Woonaanbod NL page.
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
-};
+
 
 async function requirePoster(
   req: Request,
@@ -196,6 +195,7 @@ async function postPropertyToInstagram(
 }
 
 interface Property {
+  source_url?: string | null;
   id: string;
   title: string;
   price: number;
@@ -285,10 +285,10 @@ function stripSymbols(s: string): string {
     .trim();
 }
 
-function buildCaption(property: Property): string {
+function buildCaption(property: Property, facebook = false): string {
   const city = property.city || "Nederland";
   const seed = hashStr(property.id);
-  const listingUrl = propertyUrl(property as any);
+  const listingUrl = facebook ? facebookPropertyUrl(property) : propertyUrl(property);
   const priceFormatted = property.price ? formatPrice(property.price, property.listing_type) : "";
 
   const lines: string[] = [];
@@ -520,7 +520,7 @@ async function postPropertyToFacebook(
   pageId: string,
   accessToken: string
 ): Promise<{ success: boolean; postId?: string; error?: string }> {
-  const message = buildCaption(property);
+  const message = buildCaption(property, true);
   const images = getUniqueImages(property.images, 10);
 
   try {
@@ -558,7 +558,7 @@ async function postPropertyToFacebook(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
-        link: propertyUrl(property as any),
+        link: facebookPropertyUrl(property),
         access_token: accessToken,
       }),
     });
@@ -578,7 +578,7 @@ async function postPropertyToFacebookGroup(
   groupId: string,
   accessToken: string
 ): Promise<{ success: boolean; postId?: string; error?: string }> {
-  const message = buildCaption(property);
+  const message = buildCaption(property, true);
   const images = getUniqueImages(property.images, 10);
 
   try {
@@ -604,7 +604,7 @@ async function postPropertyToFacebookGroup(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message,
-        link: propertyUrl(property as any),
+        link: facebookPropertyUrl(property),
         access_token: accessToken,
       }),
     });
@@ -641,10 +641,11 @@ Deno.serve(async (req) => {
     );
   }
 
-  // Het token kan een gebruikerstoken OF een paginatoken zijn.
-  // Bij een gebruikerstoken: haal via /me/accounts de echte pagina + paginatoken op
-  // (die bevat ook meteen het gekoppelde Instagram-bedrijfsaccount).
+  // Alleen posten op de officiële Woonaanbod NL-pagina, nooit op een andere pagina.
+  const ALLOWED_PAGE_ID = "1254508837756387";
+  PAGE_ID = ALLOWED_PAGE_ID;
   let igAccountIdFromPages: string | null = null;
+  let pageResolved = false;
   try {
     const accountsRes = await fetch(
       `${GRAPH_API}/me/accounts?fields=id,name,access_token,instagram_business_account&limit=100&access_token=${PAGE_ACCESS_TOKEN}`
@@ -652,36 +653,34 @@ Deno.serve(async (req) => {
     const accountsData = await accountsRes.json();
     const pages: any[] = Array.isArray(accountsData?.data) ? accountsData.data : [];
     if (pages.length > 0) {
-      const match = pages.find((p) => p.id === PAGE_ID) || pages[0];
-      if (match?.id && match?.access_token) {
-        console.log(`Using page "${match.name}" (${match.id}) from /me/accounts`);
-        PAGE_ID = match.id;
+      const match = pages.find((p) => p.id === ALLOWED_PAGE_ID);
+      if (match?.access_token) {
         PAGE_ACCESS_TOKEN = match.access_token;
         igAccountIdFromPages = match.instagram_business_account?.id || null;
+        pageResolved = true;
       }
     } else {
-      // Paginatoken: /me geeft de pagina zelf terug.
       const meRes = await fetch(`${GRAPH_API}/me?access_token=${PAGE_ACCESS_TOKEN}`);
       const meData = await meRes.json();
-      if (meData?.id && meData.id !== PAGE_ID) {
-        console.log(`Page ID from token: ${meData.id} (config was ${PAGE_ID || "empty"})`);
-        PAGE_ID = meData.id;
-      }
+      pageResolved = meData?.id === ALLOWED_PAGE_ID;
+      if (!pageResolved) console.error(`Token belongs to page ${meData?.id}, not Woonaanbod NL`);
     }
   } catch (e) {
     console.error("Failed to resolve page from token:", e);
   }
 
-
-  if (!PAGE_ID) {
+  if (!pageResolved) {
     return new Response(
-      JSON.stringify({ error: "Could not determine Facebook Page ID" }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Facebook token hoort niet bij de Woonaanbod NL-pagina. Posten gestopt." }),
+      { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 
-  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-  const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !supabaseKey) {
+    return new Response(JSON.stringify({ error: "Backend configuration missing" }), { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  }
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   let body: Record<string, unknown>;
@@ -717,7 +716,9 @@ Deno.serve(async (req) => {
 
     const shouldPostGroup = target === "group" || target === "both";
     const shouldPostPage = target === "page" || target === "both";
-    const groupId = group_id || Deno.env.get("FACEBOOK_GROUP_ID");
+    // Only the configured group may be targeted; caller-supplied group IDs are ignored.
+    void group_id;
+    const groupId = Deno.env.get("FACEBOOK_GROUP_ID");
     const groupAccessToken = Deno.env.get("FACEBOOK_GROUP_ACCESS_TOKEN") || PAGE_ACCESS_TOKEN;
 
     if (shouldPostGroup && !groupId) {
@@ -792,6 +793,33 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Read Facebook's processing/publication state without creating another post.
+    if (typeof body.video_status === "string" && /^\d+$/.test(body.video_status)) {
+      const statusUrl = new URL(`${GRAPH_API}/${body.video_status}`);
+      statusUrl.searchParams.set("fields", "id,status,published,permalink_url,description,created_time,from");
+      const statusRes = await fetch(statusUrl, {
+        headers: { Authorization: `Bearer ${PAGE_ACCESS_TOKEN}` },
+      });
+      const statusData = await statusRes.json();
+      return new Response(JSON.stringify(statusData), {
+        status: statusRes.ok ? 200 : 502,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (body.video_check === true) {
+      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, p => buildCaption(p, true), body)), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Render an actual MP4 and retain processing state, never count an ID as publication.
+    if (body.video === true) {
+      return new Response(JSON.stringify(await dailyVideo(supabase, PAGE_ACCESS_TOKEN, p => buildCaption(p, true), body)), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // ─── Auto Post (daily batch) ────────────────────────────
     if (auto_post) {
       // Get the city filter for group posts (default: Eindhoven)
@@ -800,7 +828,7 @@ Deno.serve(async (req) => {
       // Fetch unposted properties - for group posts, filter by city
       let query = supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year")
+        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, source_url")
         .eq("status", "actief")
         .is("facebook_posted_at", null)
         .order("created_at", { ascending: false })
@@ -915,7 +943,7 @@ Deno.serve(async (req) => {
     if (property_id) {
       const { data: property, error } = await supabase
         .from("properties")
-        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, facebook_posted_at")
+        .select("id, title, price, listing_type, city, street, house_number, surface_area, bedrooms, bathrooms, images, slug, address_slug, property_type, description, energy_label, build_year, facebook_posted_at, source_url")
         .eq("id", property_id)
         .single();
 
