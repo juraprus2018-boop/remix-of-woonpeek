@@ -11,7 +11,7 @@ We doorzoeken dagelijks meerdere betrouwbare bronnen en combineren het aanbod zo
 ## Kernfeatures
 
 ### 1. Groot en actueel woningaanbod
-- 10.000+ actieve woningen uit heel Nederland
+- 25.000+ actieve woningen uit heel Nederland
 - Dagelijks bijgewerkt met nieuwe woningen
 - Automatische verwijdering van verlopen aanbod
 - Meerdere betrouwbare bronnen worden gecombineerd

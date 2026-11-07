@@ -4,11 +4,11 @@
 
 ## Wat is Woonaanbod NL?
 
-Woonaanbod NL is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Woonaanbod NL volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 10.000+ actieve woningen in meer dan 50 steden.
+Woonaanbod NL is een 100% gratis woningplatform dat dagelijks duizenden huurwoningen en koopwoningen uit heel Nederland verzamelt. In tegenstelling tot Funda en Pararius is Woonaanbod NL volledig gratis voor zowel zoekers als verhuurders. Het platform bevat 25.000+ actieve woningen in honderden gemeenten.
 
 ## Kernfeatures
 
-- **10.000+ actieve woningen** uit heel Nederland, dagelijks bijgewerkt
+- **25.000+ actieve woningen** uit heel Nederland, dagelijks bijgewerkt
 - **100% gratis** – zoeken, plaatsen en dagelijkse alerts kosten niets
 - **Gratis dagelijkse woningalert** – ontvang nieuwe woningen per e-mail
 - **Uitgebreide zoekfilters** – stad, prijs, type, slaapkamers, huur/koop
