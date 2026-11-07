@@ -231,8 +231,7 @@ const SearchPage = () => {
   const { t } = useTranslation();
 
   const seoTitle = useMemo(() => {
-    const loc = debouncedCity ? ` ${t("hero.popular") ? "" : ""}${debouncedCity ? ` — ${debouncedCity}` : ""}` : "";
-    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const locPart = debouncedCity ? t("meta.searchLocation", { city: debouncedCity }) : "";
     const key =
       filters.listingType === "huur" ? "meta.searchTitleHuur"
       : filters.listingType === "koop" ? "meta.searchTitleKoop"
@@ -247,7 +246,7 @@ const SearchPage = () => {
       : "meta.searchTitleAll";
     // Extract bare noun (strip " | Woonaanbod NL" and any "{{loc}}")
     const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Woonaanbod NL\s*$/i, "").trim().toLowerCase();
-    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const locPart = debouncedCity ? t("meta.searchLocation", { city: debouncedCity }) : "";
     return t("meta.searchDesc", { total: totalCount, typeWord, loc: locPart });
   }, [debouncedCity, filters.listingType, totalCount, t]);
 
@@ -403,11 +402,16 @@ const SearchPage = () => {
 
             {/* Results */}
             <div className="min-w-0 flex-1">
-              <p className="mb-3 text-sm font-semibold text-foreground">
+              <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                <h1 className="font-display text-lg font-semibold text-foreground">
+                  {t(filters.listingType === "huur" ? "meta.searchHeadingHuur" : filters.listingType === "koop" ? "meta.searchHeadingKoop" : "meta.searchHeadingAll")}
+                </h1>
+              <p className="text-sm font-semibold text-foreground">
                 {isLoading
                   ? "Aanbod laden..."
                   : `${totalCount} ${totalCount === 1 ? "woning" : "woningen"}${debouncedCity ? ` in ${debouncedCity}` : " in Nederland"}`}
               </p>
+              </div>
 
 
               <IncomeBanner

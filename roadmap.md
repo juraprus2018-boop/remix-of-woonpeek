@@ -1,3 +1,7 @@
+# Groei, 7 november 2026
+- [ ] Zoekpagina: compacte hoofdkop en specifiekere titel, zonder extra sectie boven woningen; controleren op mobiel en desktop.
+- [ ] Eén Amsterdamse Facebook-groep onderzoeken en een stadsaanbodbericht met getagde website-link voorbereiden; niets plaatsen zonder apart akkoord.
+
 # Kaartpagina
 - [x] Directe Nederlandse Renthunter-feed heractiveerd: 10.000 woningen geïmporteerd (3.591 nieuw, 6.409 bijgewerkt), allemaal actief met via=woonaanbod; maandag/donderdag 05:00 UTC ingepland. Actieve detailpagina’s weer bereikbaar, reageerlink in browser gecontroleerd; zes tests geslaagd. Website niet gepubliceerd.
 - [x] Oude live-sitemapfetch uit Vite verwijderd; SEO-uitvoer weigert public als bestemming; 22 tests geslaagd en automatische build meldt tweemaal build OK. Niet gepubliceerd.

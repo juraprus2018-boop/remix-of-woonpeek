@@ -159,7 +159,11 @@
     "listingNLDesc": "Bekijk {{pluralLc}} in heel Nederland. Vergelijk {{priceWord}}, bekijk foto's en vind jouw woning op Woonaanbod NL.",
     "searchTitleHuur": "Huurwoningen{{loc}} | Woonaanbod NL",
     "searchTitleKoop": "Koopwoningen{{loc}} | Woonaanbod NL",
-    "searchTitleAll": "Woningen{{loc}} | Woonaanbod NL",
+    "searchTitleAll": "Huur- en koopwoningen zoeken{{loc}} | Woonaanbod NL",
+    "searchHeadingAll": "Huur- en koopwoningen zoeken",
+    "searchHeadingHuur": "Huurwoningen zoeken",
+    "searchHeadingKoop": "Koopwoningen zoeken",
+    "searchLocation": " in {{city}}",
     "searchDesc": "Bekijk {{total}} {{typeWord}}{{loc}} op Woonaanbod NL. Filter op prijs, type en meer.",
     "newTodayTitle": "Nieuw woningaanbod vandaag: {{count}} woningen",
     "newTodayDesc": "Bekijk {{count}} nieuwe actieve woningen van {{date}} op Woonaanbod NL. Vers binnen, dagelijks bijgewerkt."
