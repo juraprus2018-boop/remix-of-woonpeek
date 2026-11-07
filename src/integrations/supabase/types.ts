@@ -848,6 +848,53 @@ export type Database = {
         }
         Relationships: []
       }
+      facebook_video_jobs: {
+        Row: {
+          created_at: string
+          day: string
+          details: Json
+          permalink_url: string | null
+          property_id: string | null
+          render_id: string | null
+          status: string
+          updated_at: string
+          video_id: string | null
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          day: string
+          details?: Json
+          permalink_url?: string | null
+          property_id?: string | null
+          render_id?: string | null
+          status?: string
+          updated_at?: string
+          video_id?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          details?: Json
+          permalink_url?: string | null
+          property_id?: string | null
+          render_id?: string | null
+          status?: string
+          updated_at?: string
+          video_id?: string | null
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "facebook_video_jobs_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       favorites: {
         Row: {
           created_at: string
@@ -1131,6 +1178,24 @@ export type Database = {
         }
         Relationships: []
       }
+      nearby_amenities_cache: {
+        Row: {
+          cache_key: string
+          data: Json
+          updated_at: string
+        }
+        Insert: {
+          cache_key: string
+          data: Json
+          updated_at?: string
+        }
+        Update: {
+          cache_key?: string
+          data?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
       neighborhood_reviews: {
         Row: {
           city: string
@@ -1356,9 +1421,10 @@ export type Database = {
           neighborhood: string | null
           postal_code: string
           price: number
-          property_type: Database["public"]["Enums"]["property_type"]
+          property_type: Database["public"]["Enums"]["property_type"] | null
           provider_priority: number | null
           slug: string | null
+          source_raw: Json | null
           source_site: string | null
           source_url: string | null
           status: Database["public"]["Enums"]["property_status"]
@@ -1392,9 +1458,10 @@ export type Database = {
           neighborhood?: string | null
           postal_code: string
           price: number
-          property_type: Database["public"]["Enums"]["property_type"]
+          property_type?: Database["public"]["Enums"]["property_type"] | null
           provider_priority?: number | null
           slug?: string | null
+          source_raw?: Json | null
           source_site?: string | null
           source_url?: string | null
           status?: Database["public"]["Enums"]["property_status"]
@@ -1428,9 +1495,10 @@ export type Database = {
           neighborhood?: string | null
           postal_code?: string
           price?: number
-          property_type?: Database["public"]["Enums"]["property_type"]
+          property_type?: Database["public"]["Enums"]["property_type"] | null
           provider_priority?: number | null
           slug?: string | null
+          source_raw?: Json | null
           source_site?: string | null
           source_url?: string | null
           status?: Database["public"]["Enums"]["property_status"]
@@ -1482,6 +1550,41 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "property_comments_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      property_reports: {
+        Row: {
+          created_at: string
+          id: string
+          message: string | null
+          property_id: string
+          reason: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          property_id: string
+          reason: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string | null
+          property_id?: string
+          reason?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_reports_property_id_fkey"
             columns: ["property_id"]
             isOneToOne: false
             referencedRelation: "properties"
@@ -2074,9 +2177,11 @@ export type Database = {
         Args: { _house_number: string; _postal_code: string; _street: string }
         Returns: string
       }
+      bulk_update_feed_properties: { Args: { _rows: Json }; Returns: number }
       canonical_city_slug: { Args: { _name: string }; Returns: string }
       classify_traffic_source: { Args: { referrer: string }; Returns: string }
       deactivate_duplicate_properties: { Args: never; Returns: number }
+      explore_map_snapshot: { Args: never; Returns: Json }
       get_city_counts: {
         Args: never
         Returns: {
@@ -2139,8 +2244,26 @@ export type Database = {
       }
       market_stats: { Args: never; Returns: Json }
       market_stats_extra: { Args: never; Returns: Json }
+      nearby_cities: {
+        Args: { p_city: string; p_limit?: number }
+        Returns: {
+          city: string
+          km: number
+          listing_count: number
+        }[]
+      }
       province_from_postal: { Args: { _pc: string }; Returns: string }
       rollup_traffic_daily: { Args: { days_back?: number }; Returns: undefined }
+      search_properties_round_robin: {
+        Args: {
+          _filters?: Json
+          _limit?: number
+          _offset?: number
+          _sort?: string
+        }
+        Returns: Json
+      }
+      sync_renthunter_batch: { Args: { _rows: Json }; Returns: number }
       verify_cron_secret: { Args: { _secret: string }; Returns: boolean }
     }
     Enums: {
