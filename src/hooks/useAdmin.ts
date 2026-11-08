@@ -33,13 +33,13 @@ export const useAllProperties = () => {
     queryFn: async () => {
       const pageSize = 1000;
       let from = 0;
-      type Summary = Pick<Database["public"]["Tables"]["properties"]["Row"], "id" | "status" | "city" | "source_site" | "property_type" | "title" | "price"> & { first_image: string | null };
+      type Summary = Pick<Database["public"]["Tables"]["properties"]["Row"], "id" | "status" | "city" | "source_site" | "property_type" | "title" | "price" | "facebook_posted_at"> & { first_image: string | null };
       const allProperties: (Omit<Summary, "first_image"> & { images: string[] })[] = [];
 
       while (true) {
         const { data, error } = await supabase
           .from("properties")
-          .select("id,status,city,source_site,property_type,title,price,first_image:images->>0")
+          .select("id,status,city,source_site,property_type,title,price,facebook_posted_at,first_image:images->>0" as string).overrideTypes<Summary[], { merge: false }>()
           .order("created_at", { ascending: false })
           .range(from, from + pageSize - 1);
 
