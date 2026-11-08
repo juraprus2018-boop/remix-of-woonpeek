@@ -2,6 +2,7 @@ import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from "@tansta
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Database } from "@/integrations/supabase/types";
+import { PROPERTY_LIST_COLUMNS, restoreListingImages, type PropertyListRow } from "@/lib/propertyProjection";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 type PropertyInsert = Database["public"]["Tables"]["properties"]["Insert"];
@@ -113,17 +114,17 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         let query = supabase
           .from("properties")
-          .select("*", { count: "exact" })
+          .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" })
           .order("provider_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
 
         query = applyPropertyFilters(query, filters);
 
-        const { data, error, count } = await query;
+        const { data, error, count } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
         if (error) throw error;
 
-        return { properties: (data as Property[]) || [], totalCount: count || 0 };
+        return { properties: ((data || []) as PropertyListRow[]).map(restoreListingImages), totalCount: count || 0 };
       }
 
       // Full mode (all rows) - fetch in batches to avoid 1000-row API limit.
@@ -136,17 +137,17 @@ export const useProperties = (filters?: PropertyFilters) => {
         const batchSize = Math.min(DEFAULT_BATCH_SIZE, MAX_FULL_ROWS - from);
         let batchQuery = supabase
           .from("properties")
-          .select("*")
+          .select(PROPERTY_LIST_COLUMNS as string)
           .order("id", { ascending: true })
           .range(from, from + batchSize - 1);
 
         batchQuery = applyPropertyFilters(batchQuery, filters);
 
-        const { data, error } = await batchQuery;
+        const { data, error } = await batchQuery.overrideTypes<PropertyListRow[], { merge: false }>();
         if (error) throw error;
         if (!data || data.length === 0) break;
 
-        allProperties.push(...(data as Property[]));
+        allProperties.push(...((data || []) as PropertyListRow[]).map(restoreListingImages));
 
         if (data.length < batchSize) break;
         from += batchSize;
@@ -169,17 +170,17 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
 
       let query = supabase
         .from("properties")
-        .select("*", { count: "exact" })
+        .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" })
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
 
       query = applyPropertyFilters(query, { ...filters, page: pageParam, pageSize });
 
-      const { data, error, count } = await query;
+      const { data, error, count } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
       if (error) throw error;
 
-      return { properties: (data as Property[]) || [], totalCount: count || 0, page: pageParam };
+      return { properties: ((data || []) as PropertyListRow[]).map(restoreListingImages), totalCount: count || 0, page: pageParam };
     },
     getNextPageParam: (lastPage) => {
       const totalPages = Math.ceil(lastPage.totalCount / pageSize);
@@ -251,7 +252,8 @@ export const useProperty = (slugOrId: string) => {
       const embeddedUuid = !isUuid ? slugOrId.match(uuidRegex)?.[0] : null;
 
       if (isUuid || embeddedUuid) {
-        const id = isUuid ? slugOrId : embeddedUuid!;
+        const id = isUuid ? slugOrId : embeddedUuid;
+        if (!id) return null;
         const { data, error } = await supabase
           .from("properties")
           .select("*")
@@ -416,7 +418,7 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
     queryFn: async () => {
       let query = supabase
         .from("properties")
-        .select("*")
+        .select(PROPERTY_LIST_COLUMNS as string)
         .eq("status", "actief");
 
       if (listingType !== "all") {
@@ -426,10 +428,10 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
       const { data, error } = await query
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
-        .limit(12);
+        .limit(12).overrideTypes<PropertyListRow[], { merge: false }>();
 
       if (error) throw error;
-      return data as Property[];
+      return ((data || []) as PropertyListRow[]).map(restoreListingImages);
     },
   });
 };
@@ -441,7 +443,7 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
       const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       let query = supabase
         .from("properties")
-        .select("*")
+        .select(PROPERTY_LIST_COLUMNS as string)
         .eq("status", "actief")
         .eq("city", city)
         .eq("listing_type", listingType as ListingType)
@@ -451,10 +453,10 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
       if (currentId && uuidRegex.test(currentId)) {
         query = query.neq("id", currentId);
       }
-      const { data, error } = await query;
+      const { data, error } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
 
       if (error) throw error;
-      return data as Property[];
+      return ((data || []) as PropertyListRow[]).map(restoreListingImages);
     },
     enabled: !!currentId && !!city && !!listingType,
   });
@@ -584,7 +586,7 @@ export const useNearbyProperties = (
     queryFn: async () => {
       let query = supabase
         .from("properties")
-        .select("*")
+        .select(PROPERTY_LIST_COLUMNS as string)
         .eq("status", "actief")
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
@@ -594,9 +596,9 @@ export const useNearbyProperties = (
         query = query.eq("listing_type", listingType as ListingType);
       }
 
-      const { data, error } = await query;
+      const { data, error } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
       if (error) throw error;
-      return (data as Property[]) || [];
+      return ((data || []) as PropertyListRow[]).map(restoreListingImages);
     },
     enabled: enabled && !!cityName,
     staleTime: 60 * 1000,
