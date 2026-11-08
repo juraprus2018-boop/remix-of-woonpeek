@@ -114,7 +114,7 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         let query = supabase
           .from("properties")
-          .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" }).overrideTypes<PropertyListRow[], { merge: false }>()
+          .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" })
           .order("provider_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
           .range(from, to);
@@ -137,7 +137,7 @@ export const useProperties = (filters?: PropertyFilters) => {
         const batchSize = Math.min(DEFAULT_BATCH_SIZE, MAX_FULL_ROWS - from);
         let batchQuery = supabase
           .from("properties")
-          .select(PROPERTY_LIST_COLUMNS as string).overrideTypes<PropertyListRow[], { merge: false }>()
+          .select(PROPERTY_LIST_COLUMNS as string)
           .order("id", { ascending: true })
           .range(from, from + batchSize - 1);
 
@@ -170,7 +170,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
 
       let query = supabase
         .from("properties")
-        .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" }).overrideTypes<PropertyListRow[], { merge: false }>()
+        .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" })
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
         .range(from, to);
@@ -418,7 +418,7 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
     queryFn: async () => {
       let query = supabase
         .from("properties")
-        .select(PROPERTY_LIST_COLUMNS as string).overrideTypes<PropertyListRow[], { merge: false }>()
+        .select(PROPERTY_LIST_COLUMNS as string)
         .eq("status", "actief");
 
       if (listingType !== "all") {
@@ -443,7 +443,7 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
       const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       let query = supabase
         .from("properties")
-        .select(PROPERTY_LIST_COLUMNS as string).overrideTypes<PropertyListRow[], { merge: false }>()
+        .select(PROPERTY_LIST_COLUMNS as string)
         .eq("status", "actief")
         .eq("city", city)
         .eq("listing_type", listingType as ListingType)
@@ -586,7 +586,7 @@ export const useNearbyProperties = (
     queryFn: async () => {
       let query = supabase
         .from("properties")
-        .select(PROPERTY_LIST_COLUMNS as string).overrideTypes<PropertyListRow[], { merge: false }>()
+        .select(PROPERTY_LIST_COLUMNS as string)
         .eq("status", "actief")
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })

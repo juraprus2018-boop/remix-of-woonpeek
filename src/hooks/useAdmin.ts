@@ -39,9 +39,10 @@ export const useAllProperties = () => {
       while (true) {
         const { data, error } = await supabase
           .from("properties")
-          .select("id,status,city,source_site,property_type,title,price,facebook_posted_at,first_image:images->>0" as string).overrideTypes<Summary[], { merge: false }>()
+          .select("id,status,city,source_site,property_type,title,price,facebook_posted_at,first_image:images->>0" as string)
           .order("created_at", { ascending: false })
-          .range(from, from + pageSize - 1);
+          .range(from, from + pageSize - 1)
+          .overrideTypes<Summary[], { merge: false }>();
 
         if (error) throw error;
         if (!data || data.length === 0) break;
