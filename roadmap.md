@@ -1,8 +1,9 @@
 # Kaartpagina
-- [ ] Automatische AI-vertalingen uitschakelen zonder vaste taalbestanden te veranderen.
-- [ ] Woningoverzichten en beheeroverzicht minder gegevens laten ophalen.
-- [ ] Achtergrondtaken minder vaak uitvoeren en ongebruikte bezoekverwerking stoppen.
-- [ ] Zoekflow, woningdetails en kostenbesparende wijzigingen testen zonder te publiceren.
+- [x] Automatische AI-vertalingen uitschakelen zonder vaste taalbestanden te veranderen.
+- [x] Woningoverzichten en beheeroverzicht minder gegevens laten ophalen.
+- [x] Achtergrondtaken minder vaak uitvoeren en ongebruikte bezoekverwerking stoppen.
+- [x] Zoekflow, woningdetails en kostenbesparende wijzigingen testen zonder te publiceren.
+- [ ] Beheeroverzicht ingelogd controleren: geen account gevonden voor de aanvrager; wacht op aanmelden in preview.
 - [x] Belangrijkste stadspagina’s verrijken met actuele huurdata, geverifieerde lokale informatie en aanbodlinks.
 - [x] Cijfers, aanbodlinks en weergave van stadspagina’s testen zonder te publiceren.
 - [x] Nieuw uitgebreid blogartikel en perspublicatie maken met gecontroleerde aanbodcijfers en beeld.
