@@ -1,5 +1,9 @@
 # Project architecture rules
 
+- Public property overview queries share a projection with only the first photo and no raw importer payload; full detail and editor reads remain separate so galleries and editing stay complete.
+- Runtime DOM AI translation is disabled on both client and edge endpoint; fixed locale files own UI translations to prevent per-visitor generation costs.
+- Admin dashboard property reads use only summary fields and the first photo; paginated editing reads remain complete to avoid loading all listing descriptions for statistics.
+
 - TikTok automation posts recent active rentals as photo carousels by default, uses up to 35 real listing photos, and includes the canonical property URL in every caption, because each social post must lead directly to its listing.- Listing landing pages use one structure, /huurwoningen|koopwoningen/{city}/{filter}; old type/budget/aanbod-in paths redirect there and filter pages are indexed only with enough listings, to avoid duplicate URLs for one search intent.
 - Agencies (makelaars) are owned via agencies.owner_user_id, not a role; their feed listings are stored as properties with user_id = owner and agency_id set, so existing property RLS covers editing.
 - Agency removal uses an admin-authorized transactional RPC that deactivates associated listings before deleting the agency, preserving property history and the owner's user account.

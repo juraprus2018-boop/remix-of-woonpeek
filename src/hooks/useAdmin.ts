@@ -33,24 +33,26 @@ export const useAllProperties = () => {
     queryFn: async () => {
       const pageSize = 1000;
       let from = 0;
-      const allProperties: Database["public"]["Tables"]["properties"]["Row"][] = [];
+      type Summary = Pick<Database["public"]["Tables"]["properties"]["Row"], "id" | "status" | "city" | "source_site" | "property_type" | "title" | "price"> & { first_image: string | null };
+      const allProperties: (Omit<Summary, "first_image"> & { images: string[] })[] = [];
 
       while (true) {
         const { data, error } = await supabase
           .from("properties")
-          .select("*")
+          .select("id,status,city,source_site,property_type,title,price,first_image:images->>0")
           .order("created_at", { ascending: false })
           .range(from, from + pageSize - 1);
 
         if (error) throw error;
         if (!data || data.length === 0) break;
-        allProperties.push(...data);
+        allProperties.push(...data.map(({ first_image, ...row }) => ({ ...row, images: first_image ? [first_image] : [] })));
         if (data.length < pageSize) break;
         from += pageSize;
       }
 
       return allProperties;
     },
+    staleTime: 5 * 60 * 1000,
   });
 };
 
