@@ -121,7 +121,7 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         query = applyPropertyFilters(query, filters);
 
-        const { data, error, count } = await query;
+        const { data, error, count } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
         if (error) throw error;
 
         return { properties: ((data || []) as PropertyListRow[]).map(restoreListingImages), totalCount: count || 0 };
@@ -143,7 +143,7 @@ export const useProperties = (filters?: PropertyFilters) => {
 
         batchQuery = applyPropertyFilters(batchQuery, filters);
 
-        const { data, error } = await batchQuery;
+        const { data, error } = await batchQuery.overrideTypes<PropertyListRow[], { merge: false }>();
         if (error) throw error;
         if (!data || data.length === 0) break;
 
@@ -177,7 +177,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
 
       query = applyPropertyFilters(query, { ...filters, page: pageParam, pageSize });
 
-      const { data, error, count } = await query;
+      const { data, error, count } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
       if (error) throw error;
 
       return { properties: ((data || []) as PropertyListRow[]).map(restoreListingImages), totalCount: count || 0, page: pageParam };
@@ -428,7 +428,7 @@ export const useFeaturedProperties = (listingType: "huur" | "koop" | "all" = "hu
       const { data, error } = await query
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
-        .limit(12);
+        .limit(12).overrideTypes<PropertyListRow[], { merge: false }>();
 
       if (error) throw error;
       return ((data || []) as PropertyListRow[]).map(restoreListingImages);
@@ -453,7 +453,7 @@ export const useSimilarProperties = (currentId: string, city: string, listingTyp
       if (currentId && uuidRegex.test(currentId)) {
         query = query.neq("id", currentId);
       }
-      const { data, error } = await query;
+      const { data, error } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
 
       if (error) throw error;
       return ((data || []) as PropertyListRow[]).map(restoreListingImages);
@@ -596,7 +596,7 @@ export const useNearbyProperties = (
         query = query.eq("listing_type", listingType as ListingType);
       }
 
-      const { data, error } = await query;
+      const { data, error } = await query.overrideTypes<PropertyListRow[], { merge: false }>();
       if (error) throw error;
       return ((data || []) as PropertyListRow[]).map(restoreListingImages);
     },
