@@ -1,8 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { utrechtSeoContent, withStaticSeo, type CrawlableRental } from "./searchSeoHtml";
+import { CRAWLABLE_CITIES, citySeoContent, utrechtSeoContent, withStaticSeo, type CrawlableRental } from "./searchSeoHtml";
 
 const listing = (i: number): CrawlableRental => ({ id: String(i), city: "Utrecht", status: "actief", listing_type: "huur", property_type: "appartement", price: 1000, surface_area: 50, neighborhood: null, created_at: "2026-11-09T08:00:00Z", title: `Woning ${i}`, address_slug: `straat-${i}`, slug: null });
 describe("crawlbare Utrecht HTML", () => {
+  it("requires six matching rentals for every priority hub", () => {
+    for (const city of CRAWLABLE_CITIES) {
+      const rows = Array.from({ length: 6 }, (_, i) => ({ ...listing(i), city: city.name }));
+      expect(citySeoContent(rows, "2026-11-09T08:00:00Z", city).indexable).toBe(true);
+      expect(citySeoContent(rows.slice(1), "2026-11-09T08:00:00Z", city).indexable).toBe(false);
+    }
+  });
+  it("merges only The Hague municipality aliases, not Hoef en Haag", () => {
+    const city = CRAWLABLE_CITIES.find(c => c.slug === "den-haag");
+    if (!city) throw new Error("missing Hague configuration");
+    const rows = ["Den Haag", "'s-Gravenhage", "The Hague", "Hoef en Haag"].map((name, i) => ({ ...listing(i), city: name }));
+    expect(citySeoContent(rows, "2026-11-09T08:00:00Z", city).title).toContain("3 te huur");
+  });
   it("indexes only from six active rentals and includes their real links", () => {
     expect(utrechtSeoContent(Array.from({ length: 5 }, (_, i) => listing(i)), "2026-11-09T08:00:00Z").indexable).toBe(false);
     const page = utrechtSeoContent(Array.from({ length: 6 }, (_, i) => listing(i)), "2026-11-09T08:00:00Z");
