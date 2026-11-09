@@ -222,14 +222,22 @@ const PropertyDetail = () => {
   const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
-  // Meta Title: [Woningtype] in [stad] – [kamers] – €[prijs]
-  const seoTitle = `${typeLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""} – ${priceFormatted} | Woonaanbod NL`;
+  // Adres (straat + huisnummer) staat voorop: veel mensen zoeken op het exacte adres.
+  const streetLine = [String((property as any).street || "").split(",")[0].trim(), String((property as any).house_number || "").trim()]
+    .filter(Boolean).join(" ").replace(/[\s\-–,]+$/, "").trim();
+  const placeLabel = streetLine ? `${streetLine}, ${property.city}` : property.city;
+  const priceShort = `${priceFormatted}${property.listing_type === "huur" ? " p/m" : ""}`;
+
+  // Meta Title: [Straat nr], [stad]: [type] te huur/koop, [kamers], [prijs]
+  const seoTitle = `${placeLabel}: ${property.property_type} ${listingLabel}${bedroomsLabel ? `, ${bedroomsLabel}` : ""}, ${priceShort} | Woonaanbod NL`;
 
   // Meta Description
-  const seoDescription = `Bekijk deze ${property.property_type} in ${property.city}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? " per maand" : ""}. Bekijk foto's, informatie en vraag direct meer info aan.`;
+  const seoDescription = `${typeLabel} ${listingLabel} aan ${placeLabel}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? " per maand" : ""}. Bekijk foto's, kenmerken, de buurt en reageer direct.`;
 
-  // H1: [Woningtype] te huur/koop in [stad] – [kamers]
-  const h1Title = `${typeLabel} ${listingLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
+  // H1: [Type] te huur/koop: [Straat nr] in [stad]
+  const h1Title = streetLine
+    ? `${typeLabel} ${listingLabel}: ${streetLine} in ${property.city}`
+    : `${typeLabel} ${listingLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
 
   const canonicalPath = propertyPath(property);
   const canonicalUrl = `https://www.woonaanbod-nl.nl${canonicalPath}`;
