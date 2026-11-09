@@ -2,6 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { requireAdmin } from "../_shared/auth.ts";
 import { normalizeAffiliateUrl } from "../_shared/affiliateUrl.ts";
+import { refreshSeenListings, updateExistingListings } from "./syncExisting.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -622,7 +623,6 @@ Deno.serve(async (req) => {
         let imported = 0;
         let skipped = 0;
         let updated = 0;
-        const unchangedIds: string[] = [];
 
         // Map all products to property data
         const allPropertyData: any[] = [];
@@ -644,30 +644,39 @@ Deno.serve(async (req) => {
         // ~100KB which the API rejected, so nothing was found and every item
         // was treated as new.
         const wantedUrls = new Set(allPropertyData.map((p) => p.source_url));
-        const existingMap = new Map<string, { id: string; status: string; images: string[]; title: string; latitude: number | null; longitude: number | null; build_year: number | null; energy_label: string | null }>();
+        const existingMap = new Map<string, { id: string; status: string; images: string[]; title: string; latitude: number | null; longitude: number | null; build_year: number | null; energy_label: string | null; updated_at: string | null }>();
 
         const PAGE = 1000;
         for (let offset = 0; ; offset += PAGE) {
           const { data: existingRows, error: existingErr } = await supabase
             .from("properties")
-            .select("id, source_url, status, images, title, latitude, longitude, build_year, energy_label")
+            .select("id, source_url, status, images, title, latitude, longitude, build_year, energy_label, updated_at")
             .eq("source_site", feed.name)
             .order("id", { ascending: true })
             .range(offset, offset + PAGE - 1);
           if (existingErr) {
             console.error(`Feed ${feed.name}: existing lookup failed: ${existingErr.message}`);
-            break;
+            throw existingErr;
           }
           if (!existingRows || existingRows.length === 0) break;
           for (const row of existingRows) {
             if (row.source_url && wantedUrls.has(row.source_url)) {
-              existingMap.set(row.source_url, { id: row.id, status: row.status, images: row.images || [], title: row.title, latitude: row.latitude, longitude: row.longitude, build_year: row.build_year, energy_label: row.energy_label });
+              existingMap.set(row.source_url, { id: row.id, status: row.status, images: row.images || [], title: row.title, latitude: row.latitude, longitude: row.longitude, build_year: row.build_year, energy_label: row.energy_label, updated_at: row.updated_at });
             }
           }
           if (existingRows.length < PAGE) break;
         }
 
         console.log(`Feed ${feed.name}: ${existingMap.size} existing properties found`);
+
+        // Confirm ALL observed listings before inserts/enrichment spend the budget.
+        // Never touch absent URLs or listings belonging to another source.
+        const seenAt = new Date().toISOString();
+        await refreshSeenListings([...existingMap.values()].map(row => row.id), async (ids) => {
+          const { error } = await supabase.from("properties")
+            .update({ last_checked_at: seenAt, status: "actief" }).in("id", ids);
+          if (error) throw error;
+        });
 
 
         // Separate new inserts from updates
@@ -732,17 +741,13 @@ Deno.serve(async (req) => {
           }
         }
 
-        let processedCount = 0;
-        let budgetStopped = false;
-        for (const propData of allPropertyData) {
-          // Sequential per-row updates can outlast the platform limit; stop in
-          // time so the run finishes instead of being cut off with a 504.
-          processedCount++;
-          if (processedCount % 25 === 0 && Date.now() - startTime > TIME_BUDGET_MS) {
-            console.log(`Feed ${feed.name}: time budget exceeded during updates at ${processedCount}/${allPropertyData.length}`);
-            budgetStopped = true;
-            break;
-          }
+        // Oldest enrichment first so a stable feed order cannot starve the tail.
+        const existingData = allPropertyData.filter(pd => existingMap.has(pd.source_url))
+          .sort((a, b) => (existingMap.get(a.source_url)?.updated_at ?? "")
+            .localeCompare(existingMap.get(b.source_url)?.updated_at ?? ""));
+        const updateResult = await updateExistingListings(existingData,
+          () => Date.now() - startTime <= TIME_BUDGET_MS,
+          async (propData) => {
           const existing = existingMap.get(propData.source_url);
           if (existing) {
             // Always sync ALL fields from feed to keep data fresh
@@ -783,28 +788,18 @@ Deno.serve(async (req) => {
             if (Object.keys(updates).length > 0) {
               updates.updated_at = new Date().toISOString();
               updates.last_checked_at = new Date().toISOString();
-              await supabase.from("properties").update(updates).eq("id", existing.id);
-              updated++;
-            } else {
-              skipped++;
-              unchangedIds.push(existing.id);
+              const { error } = await supabase.from("properties").update(updates).eq("id", existing.id);
+              if (error) {
+                console.warn(`Feed ${feed.name}: update failed for ${existing.id}: ${error.message}`);
+                return false;
+              }
+              return true;
             }
           }
-        }
-        if (budgetStopped) {
-          skipped += allPropertyData.length - processedCount;
-        }
-
-        // Mark unchanged-but-still-listed properties as freshly seen so the
-        // cleanup job does not consider them stale.
-        for (let i = 0; i < unchangedIds.length; i += 200) {
-          const batch = unchangedIds.slice(i, i + 200);
-          const { error: touchErr } = await supabase
-            .from("properties")
-            .update({ last_checked_at: new Date().toISOString() })
-            .in("id", batch);
-          if (touchErr) console.warn(`Feed ${feed.name}: touch last_checked_at failed: ${touchErr.message}`);
-        }
+          return false;
+        });
+        updated += updateResult.updated;
+        skipped += updateResult.skipped;
 
 
 
