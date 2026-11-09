@@ -1,4 +1,6 @@
 # Bezoekers en zoeken, 9 november 2026
+- [x] Monitoring: volledige Daisycon-feedaanwezigheid bevestigen vóór tijdgebonden updates; drie regressietests geslaagd en functie gedeployed. Volledige live-import niet uitgevoerd: aanroep zonder beheerderssessie geweigerd.
+- [x] Monitoring: bestaande budgetreparatie via homepage en gedeelde link (800–1200) inclusief herladen en querygrenzen gecontroleerd; verouderde melding gesloten.
 - [x] Woonpeek vergelijken en acht belangrijke huurstadspagina’s leesbaar maken voor crawlers.
 - [x] Woningpagina’s verrijken met feitelijke samenvatting, betrouwbare beschikbaarheid en directe stadsaanbodlinks.
 - [x] Wijzigingen en aanbodlinks testen zonder te publiceren.
