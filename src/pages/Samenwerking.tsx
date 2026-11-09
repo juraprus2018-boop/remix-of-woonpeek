@@ -10,7 +10,6 @@ const PARTNERS = [
   { name: "Kamernet", tagline: "Specialist in kamers, studio's en gedeelde woonruimte" },
   { name: "DirectWonen", tagline: "Direct beschikbare huurwoningen in heel Nederland" },
   { name: "Huurstunt", tagline: "Dagelijks actueel aanbod van makelaars en verhuurders" },
-  { name: "Renthunter", tagline: "Huurwoningen verzameld uit heel Nederland" },
 ];
 
 const Samenwerking = () => {

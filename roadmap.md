@@ -27,3 +27,5 @@
 # Woningmails
 - [x] Eigen huisstijl, originele onderwerpregels en compacte woningselectie toepassen.
 - [x] Afmeldlinks behouden, voorbeeld controleren en mailfunctie bijwerken.
+- [x] Renthunter overal verwijderen (aanbod inactief, import gestopt, partnerpagina)
+- [ ] Dagelijkse mail aan alle abonnees + meer affiliateklikken (beperkt door regels voor app-mails)
