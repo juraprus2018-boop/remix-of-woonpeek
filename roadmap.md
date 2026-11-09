@@ -1,7 +1,7 @@
 # Bezoekers en zoeken, 9 november 2026
-- [ ] Woonpeek vergelijken en acht belangrijke huurstadspagina’s leesbaar maken voor crawlers.
-- [ ] Woningpagina’s verrijken met feitelijke samenvatting, betrouwbare beschikbaarheid en directe stadsaanbodlinks.
-- [ ] Wijzigingen en aanbodlinks testen zonder te publiceren.
+- [x] Woonpeek vergelijken en acht belangrijke huurstadspagina’s leesbaar maken voor crawlers.
+- [x] Woningpagina’s verrijken met feitelijke samenvatting, betrouwbare beschikbaarheid en directe stadsaanbodlinks.
+- [x] Wijzigingen en aanbodlinks testen zonder te publiceren.
 - [x] Budgetoverdracht herstellen voor homepage, gedeelde links en kaartresultaten.
 - [x] Zoekpagina een duidelijke kop en passende zoekmachinetitel geven.
 - [x] Utrecht-pagina gericht verbeteren zonder extra doorlopende kosten.
