@@ -5643,4 +5643,28 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.woonaanbod-nl.nl/fr/duel/maastricht-vs-leiden" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/duel/maastricht-vs-leiden" />
   </url>
+  <url>
+    <loc>https://www.woonaanbod-nl.nl/wooniezie</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/wooniezie" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/wooniezie" />
+  </url>
+  <url>
+    <loc>https://www.woonaanbod-nl.nl/thuiskompas</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/thuiskompas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/thuiskompas" />
+  </url>
+  <url>
+    <loc>https://www.woonaanbod-nl.nl/woningnet</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://www.woonaanbod-nl.nl/woningnet" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.woonaanbod-nl.nl/woningnet" />
+  </url>
 </urlset>

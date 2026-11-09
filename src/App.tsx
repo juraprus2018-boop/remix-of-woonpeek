@@ -116,6 +116,7 @@ const MarketData = lazy(() => import("./pages/MarketData"));
 const MarketTopicPage = lazy(() => import("./pages/MarketTopic"));
 const Verhuiskosten = lazy(() => import("./pages/Verhuiskosten"));
 const SocialeHuurWachttijd = lazy(() => import("./pages/SocialeHuurWachttijd"));
+const PortalGuide = lazy(() => import("./pages/PortalGuide"));
 const HuurcontractUitleg = lazy(() => import("./pages/HuurcontractUitleg"));
 const ExpatHousing = lazy(() => import("./pages/ExpatHousing"));
 const GuideLandingPage = lazy(() => import("./pages/GuideLandingPage"));
@@ -333,6 +334,9 @@ const PAGES: RouteDef[] = [
   { path: "/contract-check", element: <ContractCheck /> },
   { path: "/verhuiskosten", element: <Verhuiskosten /> },
   { path: "/sociale-huur-wachttijd", element: <SocialeHuurWachttijd /> },
+  { path: "/wooniezie", element: <PortalGuide /> },
+  { path: "/thuiskompas", element: <PortalGuide /> },
+  { path: "/woningnet", element: <PortalGuide /> },
   ...GUIDE_PAGES.map((g) => ({ path: g.path, element: <GuideLandingPage guide={g} /> })),
   { path: "/huurcontract-uitleg", element: <HuurcontractUitleg /> },
   { path: "/expat-housing", element: <ExpatHousing /> },
