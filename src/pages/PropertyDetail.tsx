@@ -60,6 +60,7 @@ import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
 import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { cityPath } from "@/lib/cities";
+import { propertyFacts } from "@/lib/propertyFacts";
 import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
 import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 import {
@@ -224,8 +225,8 @@ const PropertyDetail = () => {
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
   // Adres (straat + huisnummer) staat voorop: veel mensen zoeken op het exacte adres.
-  const streetLine = [String((property as any).street || "").split(",")[0].trim(), String((property as any).house_number || "").trim()]
-    .filter(Boolean).join(" ").replace(/[\s\-–,]+$/, "").trim();
+  const facts = propertyFacts({ ...property, price: Number(property.price) });
+  const streetLine = facts.address;
   const placeLabel = streetLine ? `${streetLine}, ${property.city}` : property.city;
   const priceShort = `${priceFormatted}${property.listing_type === "huur" ? " p/m" : ""}`;
 
@@ -246,9 +247,7 @@ const PropertyDetail = () => {
   const amenities = extractAmenities(property.description);
   const publishedAt = new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
   const lastCheckedAt = new Date((property as any).last_checked_at || (property as any).updated_at || property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
-  const availableFrom = (property as any).available_from
-    ? new Date((property as any).available_from).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })
-    : property.status === "actief" ? "Per direct beschikbaar" : "Niet meer beschikbaar";
+  const availableFrom = facts.availability;
   const statusLabel = property.status === "actief" ? "Beschikbaar" : property.status === "inactief" ? "Verlopen" : property.status;
   const dataRows: Array<{ label: string; value: string }> = [
     { label: "Adres", value: [(property.street || "").split(",")[0].trim(), (property.house_number || "").trim() === "-" ? "" : (property.house_number || "").trim()].filter(Boolean).join(" ") || property.title },
@@ -259,7 +258,6 @@ const PropertyDetail = () => {
     { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(Number(property.price), property.listing_type) },
     ...(property.surface_area ? [{ label: "Woonoppervlak", value: `${property.surface_area} m²` }] : []),
     ...(property.surface_area ? [{ label: "Prijs per m²", value: `€${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}` }] : []),
-    ...(property.bedrooms ? [{ label: "Aantal kamers", value: String(property.bedrooms + 1) }] : []),
     ...(property.bedrooms ? [{ label: "Slaapkamers", value: String(property.bedrooms) }] : []),
     ...(property.bathrooms ? [{ label: "Badkamers", value: String(property.bathrooms) }] : []),
     { label: "Woningtype", value: typeLabel },
@@ -284,8 +282,8 @@ const PropertyDetail = () => {
     "@type": "RealEstateListing",
     "identifier": property.id,
     "inLanguage": "nl-NL",
-    "name": `${typeLabel} ${listingLabel} in ${property.city}`,
-    "headline": property.title,
+    "name": h1Title,
+    "headline": h1Title,
     "description": property.description || seoDescription,
     "url": canonicalUrl,
     "datePosted": property.created_at,
@@ -293,7 +291,7 @@ const PropertyDetail = () => {
     "image": property.images?.length ? property.images.slice(0, 10) : undefined,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": `${property.street} ${property.house_number}`.trim(),
+      "streetAddress": streetLine,
       "postalCode": property.postal_code,
       "addressLocality": property.city,
       "addressRegion": property.neighborhood || property.city,
@@ -346,7 +344,6 @@ const PropertyDetail = () => {
         : "https://schema.org/SoldOut",
       "url": canonicalUrl,
       "validFrom": property.created_at,
-      "priceValidUntil": new Date(new Date((property as any).updated_at || property.created_at).getTime() + 90 * 864e5).toISOString().slice(0, 10),
       "businessFunction": property.listing_type === "huur"
         ? "http://purl.org/goodrelations/v1#LeaseOut"
         : "http://purl.org/goodrelations/v1#Sell",
@@ -591,8 +588,8 @@ const PropertyDetail = () => {
           {/* Breadcrumbs */}
           <Breadcrumbs items={[
             { label: "Home", href: "/" },
-            { label: property.city, href: cityPath(property.city) },
-            { label: `${property.street} ${property.house_number}` },
+            { label: property.city, href: `/${property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"}/${citySlugVal}` },
+            { label: streetLine || property.title },
           ]} />
 
           {/* Status banners */}
@@ -624,7 +621,7 @@ const PropertyDetail = () => {
                 </h1>
                 <div className="mt-2 flex items-center gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4 shrink-0" />
-                  <span>{property.street} {property.house_number}, {property.postal_code} {property.city}</span>
+                  <span>{fullAddress}</span>
                 </div>
                 <p className="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">
                   {formatPrice(Number(property.price), property.listing_type)}
@@ -703,6 +700,15 @@ const PropertyDetail = () => {
               />
 
               {/* ── Description ── */}
+              <section className="space-y-3 border-b pb-6" aria-label="Woning in het kort">
+                <h2 className="font-display text-xl font-semibold">Deze woning in het kort</h2>
+                <p className="leading-relaxed text-muted-foreground">{facts.summary}</p>
+                <Button asChild variant="outline" className="h-auto min-h-10 whitespace-normal text-left">
+                  <Link to={`/${property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"}/${citySlugVal}`}>
+                    Bekijk alle {property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"} in {property.city}<ArrowRight className="ml-2 h-4 w-4 shrink-0" />
+                  </Link>
+                </Button>
+              </section>
               <section>
                 <h2 className="font-display text-xl font-semibold mb-3">
                   Beschrijving
