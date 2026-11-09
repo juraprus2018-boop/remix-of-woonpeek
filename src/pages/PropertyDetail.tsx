@@ -224,7 +224,7 @@ const PropertyDetail = () => {
 
   // Adres (straat + huisnummer) staat voorop: veel mensen zoeken op het exacte adres.
   const streetLine = [String((property as any).street || "").split(",")[0].trim(), String((property as any).house_number || "").trim()]
-    .filter(Boolean).join(" ").trim();
+    .filter(Boolean).join(" ").replace(/[\s\-–,]+$/, "").trim();
   const placeLabel = streetLine ? `${streetLine}, ${property.city}` : property.city;
   const priceShort = `${priceFormatted}${property.listing_type === "huur" ? " p/m" : ""}`;
 
