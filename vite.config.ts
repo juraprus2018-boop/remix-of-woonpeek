@@ -3,52 +3,54 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
 import { componentTagger } from "lovable-tagger";
+import { utrechtSeoContent, withStaticSeo, type CrawlableRental } from "./src/lib/searchSeoHtml";
 
-// Fetches the generated sitemaps at build time and writes them as static
-// files in public/, so all sitemaps resolve on our own domain.
-// public/sitemap.xml (the index) is static and never overwritten here.
-// The steden sitemap is split into 3 urlset files to stay under 9 MB each.
+// Preserve committed sitemaps instead of fetching a possibly older live generator.
+// Generate only the approved search page and Utrecht hub, safely below 800 files.
 function sitemapPlugin() {
-  const base = `${process.env.VITE_SUPABASE_URL || ""}/functions/v1/generate-sitemap`;
-  const targets: Array<[string, string]> = [
-    ["pages", "sitemap-pages.xml"],
-    ["steden", "sitemap-steden"],
-    ["woningen", "sitemap-woningen.xml"],
-  ];
-  const write = (file: string, xml: string) =>
-    fs.writeFileSync(path.resolve(__dirname, "public", file), xml);
   return {
-    name: "static-sitemaps",
+    name: "static-search-and-utrecht",
     apply: "build" as const,
-    async buildStart() {
-      if (!process.env.VITE_SUPABASE_URL) return;
-      await Promise.all(
-        targets.map(async ([type, file]) => {
-          try {
-            const res = await fetch(`${base}?type=${type}`);
-            if (!res.ok) return;
-            const xml = await res.text();
-            if (!xml.trim().startsWith("<?xml")) return;
-            if (type !== "steden") {
-              write(file, xml);
-              return;
-            }
-            const openMatch = xml.match(/<urlset[^>]*>/);
-            if (!openMatch) return;
-            const header = xml.slice(0, (openMatch.index ?? 0) + openMatch[0].length);
-            const urls = xml.match(/<url>[\s\S]*?<\/url>/g) || [];
-            if (!urls.length) return;
-            const parts = 3;
-            const size = Math.ceil(urls.length / parts);
-            for (let i = 0; i < parts; i++) {
-              const chunk = urls.slice(i * size, (i + 1) * size);
-              write(`sitemap-steden-${i + 1}.xml`, `${header}\n${chunk.join("\n")}\n</urlset>\n`);
-            }
-          } catch {
-            // keep the previously committed file on failure
-          }
-        }),
-      );
+    async closeBundle() {
+      const dir = path.resolve(__dirname, "dist");
+      const template = fs.readFileSync(path.join(dir, "index.html"), "utf8");
+      const writePage = (route: string, html: string) => {
+        const target = path.join(dir, route, "index.html");
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.writeFileSync(target, html);
+      };
+      writePage("woning-zoeken", withStaticSeo(template, {
+        path: "/woning-zoeken", title: "Huur- en koopwoningen zoeken | Woonaanbod NL",
+        description: "Zoek huurwoningen en koopwoningen in Nederland. Vergelijk beschikbaar aanbod op plaats, minimum- en maximumprijs, woningtype en aantal kamers.",
+        indexable: true,
+        content: '<div class="ssr-home-content"><h1>Huur- en koopwoningen zoeken</h1><p>Vergelijk beschikbaar woningaanbod in Nederland op plaats, postcode, minimum- en maximumprijs, woningtype en aantal kamers.</p><h2>Beschikbaar aanbod per stad</h2><ul>' + CITY_LINKS.map(([name, slug]) => `<li><a href="/huurwoningen/${slug}">Huurwoningen in ${name}</a></li>`).join("") + '</ul><p><a href="/huurwoningen">Alle huurwoningen</a> · <a href="/koopwoningen">Alle koopwoningen</a> · <a href="/woonmelding">Gratis woningmelding</a></p></div>',
+      }));
+      const url = process.env.VITE_SUPABASE_URL;
+      const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      if (!url || !key) throw new Error("Utrecht snapshot credentials unavailable; refusing incomplete SEO output");
+      const snapshot = new Date().toISOString();
+      const rows: CrawlableRental[] = [];
+      for (let offset = 0; ; offset += 1000) {
+        const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", city: "ilike.Utrecht", status: "eq.actief", listing_type: "eq.huur", order: "id.asc", offset: String(offset), limit: "1000" });
+        const res = await fetch(`${url}/rest/v1/properties?${query}`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(20000) });
+        if (!res.ok) throw new Error(`Utrecht snapshot failed (${res.status}); refusing stale city HTML`);
+        const batch = await res.json() as CrawlableRental[];
+        rows.push(...batch);
+        if (batch.length < 1000) break;
+      }
+      const page = utrechtSeoContent(rows, snapshot);
+      writePage("huurwoningen/utrecht", withStaticSeo(template, { ...page, path: "/huurwoningen/utrecht" }));
+      // Only this hub was rebuilt. Its sitemap lastmod must match its own snapshot.
+      for (const file of ["sitemap-steden-1.xml", "sitemap-steden-2.xml", "sitemap-steden-3.xml"]) {
+        const target = path.join(dir, file);
+        if (!fs.existsSync(target)) continue;
+        const xml = fs.readFileSync(target, "utf8").replace(/<url>[\s\S]*?<\/url>/g, entry => {
+          if (!/<loc>https:\/\/www\.woonaanbod-nl\.nl\/huurwoningen\/utrecht<\/loc>/.test(entry)) return entry;
+          if (!page.indexable) return "";
+          return /<lastmod>/.test(entry) ? entry.replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${snapshot.slice(0, 10)}</lastmod>`) : entry.replace("</url>", `<lastmod>${snapshot.slice(0, 10)}</lastmod></url>`);
+        });
+        fs.writeFileSync(target, xml);
+      }
     },
   };
 }
@@ -89,7 +91,7 @@ function marketDataPlugin() {
   return {
     name: "static-market-data",
     apply: "build" as const,
-    async buildStart() {
+    async closeBundle() {
       if (!url || !key) return;
       try {
         const res = await fetch(`${url}/rest/v1/rpc/market_stats`, {
@@ -101,7 +103,7 @@ function marketDataPlugin() {
         const json = (await res.json()) as Record<string, unknown> | null;
         if (!json?.national) return;
         fs.writeFileSync(
-          path.resolve(__dirname, "public", "marktdata.json"),
+          path.resolve(__dirname, "dist", "marktdata.json"),
           JSON.stringify(
             {
               source: "Woonaanbod NL",

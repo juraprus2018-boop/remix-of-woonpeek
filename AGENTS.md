@@ -1,6 +1,7 @@
 # Project architecture rules
 
 - Homepage and shared search links use the shared budget parser/serializer; minimum and maximum prices remain explicit across list and map queries and are never cleared by price facets, so searches cannot silently exceed the chosen budget.
+- Search and Utrecht crawlable HTML is written only into dist after bundling, with Utrecht data and its hub sitemap lastmod from one exact-city snapshot; preserve other committed sitemaps and never fetch the live sitemap generator at buildStart, to avoid stale output and exceeding the hosting file budget.
 
 - Public property overview queries share a projection with only the first photo and no raw importer payload; full detail and editor reads remain separate so galleries and editing stay complete.
 - Runtime DOM AI translation is disabled on both client and edge endpoint; fixed locale files own UI translations to prevent per-visitor generation costs.
