@@ -23,6 +23,7 @@ export interface SearchFilterValues {
   city: string;
   propertyType: PropertyType | "";
   listingType: ListingType | "";
+  minPrice?: number;
   maxPrice: number | undefined;
   minBedrooms: number | undefined;
   minSurface: number | undefined;
@@ -82,7 +83,7 @@ const SearchFilters = ({
   const availableListingTypes = facets ? listingTypes.filter(t => (facets.listingTypes[t] || 0) > 0) : listingTypes;
   const availableBedrooms = facets ? bedroomOptions.filter(n => (facets.bedroomCounts[String(n)] || 0) > 0) : bedroomOptions;
   const availableSurfaces = facets ? surfaceOptions.filter(n => (facets.surfaceRanges[String(n)] || 0) > 0) : surfaceOptions;
-  const availablePrices = facets ? priceOptions.filter(p => (facets.priceOptions?.[String(p)] || 0) > 0) : priceOptions;
+  const availablePrices = Array.from(new Set([...priceOptions, ...(filters.maxPrice !== undefined ? [filters.maxPrice] : [])])).sort((a, b) => a - b);
 
   // Auto-clear filter values that would yield 0 results
   useEffect(() => {
@@ -90,7 +91,6 @@ const SearchFilters = ({
     const patch: Partial<SearchFilterValues> = {};
     if (filters.propertyType && !availablePropertyTypes.includes(filters.propertyType as PropertyType)) patch.propertyType = "";
     if (filters.listingType && !availableListingTypes.includes(filters.listingType as ListingType)) patch.listingType = "";
-    if (filters.maxPrice && !availablePrices.includes(filters.maxPrice)) patch.maxPrice = undefined;
     if (filters.minBedrooms && !availableBedrooms.includes(filters.minBedrooms)) patch.minBedrooms = undefined;
     if (filters.minSurface && !availableSurfaces.includes(filters.minSurface)) patch.minSurface = undefined;
     if (Object.keys(patch).length > 0) onChange({ ...filters, ...patch });
@@ -154,6 +154,10 @@ const SearchFilters = ({
           </div>
         )}
 
+        <div className={fieldClass}>
+          <Label htmlFor="horizontal-min-price" className="text-xs">{t("home.minPrice")}</Label>
+          <Input id="horizontal-min-price" type="number" min={0} inputMode="numeric" value={filters.minPrice ?? ""} placeholder={t("filters.noMinimum")} onChange={(e) => update({ minPrice: e.target.value ? Number(e.target.value) : undefined })} />
+        </div>
         <div className={fieldClass}>
           <Label className="text-xs">{t("filters.maxPrice")}</Label>
           <Select
@@ -301,6 +305,10 @@ const SearchFilters = ({
         </div>
       )}
 
+      <div className="space-y-2">
+        <Label htmlFor="search-min-price">{t("home.minPrice")}</Label>
+        <Input id="search-min-price" type="number" min={0} inputMode="numeric" value={filters.minPrice ?? ""} placeholder={t("filters.noMinimum")} onChange={(e) => update({ minPrice: e.target.value ? Number(e.target.value) : undefined })} />
+      </div>
       <div className="space-y-2">
         <Label>{t("filters.maxPrice")}: {filters.maxPrice ? `€${filters.maxPrice.toLocaleString("nl-NL")}` : t("filters.noLimit")}</Label>
         <Slider

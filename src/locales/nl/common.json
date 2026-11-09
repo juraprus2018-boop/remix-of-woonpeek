@@ -157,9 +157,9 @@
     "listingCityDesc": "{{total}} {{pluralLc}} in {{city}}. Bekijk {{priceWord}}, foto's en details van beschikbaar aanbod. Dagelijks bijgewerkt, gratis alerts. {{month}} {{year}}.",
     "listingNLTitle": "{{plural}} Nederland te {{type}} ({{month}} {{year}})",
     "listingNLDesc": "Bekijk {{pluralLc}} in heel Nederland. Vergelijk {{priceWord}}, bekijk foto's en vind jouw woning op Woonaanbod NL.",
-    "searchTitleHuur": "Huurwoningen{{loc}} | Woonaanbod NL",
-    "searchTitleKoop": "Koopwoningen{{loc}} | Woonaanbod NL",
-    "searchTitleAll": "Woningen{{loc}} | Woonaanbod NL",
+    "searchTitleHuur": "Huurwoningen zoeken{{loc}} | Woonaanbod NL",
+    "searchTitleKoop": "Koopwoningen zoeken{{loc}} | Woonaanbod NL",
+    "searchTitleAll": "Huur- en koopwoningen zoeken{{loc}} | Woonaanbod NL",
     "searchDesc": "Bekijk {{total}} {{typeWord}}{{loc}} op Woonaanbod NL. Filter op prijs, type en meer.",
     "newTodayTitle": "Nieuw woningaanbod vandaag: {{count}} woningen",
     "newTodayDesc": "Bekijk {{count}} nieuwe actieve woningen van {{date}} op Woonaanbod NL. Vers binnen, dagelijks bijgewerkt."

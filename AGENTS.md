@@ -1,5 +1,7 @@
 # Project architecture rules
 
+- Homepage and shared search links use the shared budget parser/serializer; minimum and maximum prices remain explicit across list and map queries and are never cleared by price facets, so searches cannot silently exceed the chosen budget.
+
 - Public property overview queries share a projection with only the first photo and no raw importer payload; full detail and editor reads remain separate so galleries and editing stay complete.
 - Runtime DOM AI translation is disabled on both client and edge endpoint; fixed locale files own UI translations to prevent per-visitor generation costs.
 - Admin dashboard property reads use only summary fields and the first photo; paginated editing reads remain complete to avoid loading all listing descriptions for statistics.
