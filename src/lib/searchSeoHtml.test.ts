@@ -23,3 +23,11 @@ describe("crawlbare Utrecht HTML", () => {
     expect(html).not.toContain('<h1>Home</h1>');
   });
 });
+describe("static SEO with module script in head", () => {
+  it("replaces nested homepage content when root is the last body element", async () => {
+    const { withStaticSeo } = await import("./searchSeoHtml");
+    const html = withStaticSeo('<html><head><title>x</title><script type="module" src="/a.js"></script></head><body><div id="root"><div class="ssr"><h1>Home</h1></div></div>\n</body></html>', { title: "Gids", description: "d", path: "/wooniezie", indexable: true, content: "<h1>Gids</h1>" });
+    expect(html).not.toContain("<h1>Home</h1>");
+    expect(html.match(/<h1>/g)).toHaveLength(1);
+  });
+});

@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
 import { componentTagger } from "lovable-tagger";
+import { PORTAL_GUIDES, portalGuideHtml } from "./src/lib/portalGuides";
 import { utrechtSeoContent, withStaticSeo, type CrawlableRental } from "./src/lib/searchSeoHtml";
 
 // Preserve committed sitemaps instead of fetching a possibly older live generator.
@@ -29,6 +30,7 @@ function sitemapPlugin() {
         indexable: true,
         content: '<div class="ssr-home-content"><h1>Huur- en koopwoningen zoeken</h1><p>Vergelijk beschikbaar woningaanbod in Nederland op plaats, postcode, minimum- en maximumprijs, woningtype en aantal kamers.</p><h2>Beschikbaar aanbod per stad</h2><ul>' + CITY_LINKS.map(([name, slug]) => `<li><a href="/huurwoningen/${slug}">Huurwoningen in ${name}</a></li>`).join("") + '</ul><p><a href="/huurwoningen">Alle huurwoningen</a> · <a href="/koopwoningen">Alle koopwoningen</a> · <a href="/woonmelding">Gratis woningmelding</a></p></div>',
       }));
+      for (const g of PORTAL_GUIDES) writePage(g.slug, withStaticSeo(template, { path: `/${g.slug}`, title: g.title, description: g.description, indexable: true, content: portalGuideHtml(g) }));
       const url = process.env.VITE_SUPABASE_URL || env.VITE_SUPABASE_URL;
       const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY;
       if (!url || !key) { console.warn("Utrecht snapshot skipped: no backend credentials"); return; }

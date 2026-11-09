@@ -36,6 +36,8 @@ const WAIT_DATA: WaitRow[] = [
   { city: "Maastricht", slug: "maastricht", jaren: 4, systeem: "Thuis in Limburg", systeemUrl: "https://www.thuisinlimburg.nl" },
 ];
 
+const GUIDE_LINKS: Record<string, string> = { amsterdam: "/woningnet", eindhoven: "/wooniezie" };
+
 const SocialeHuurWachttijd = () => {
   const faqLd = {
     "@context": "https://schema.org",
@@ -129,7 +131,7 @@ const SocialeHuurWachttijd = () => {
                         <span className="font-display text-base">{row.jaren}</span>{" "}
                         <span className="text-muted-foreground">jaar</span>
                       </td>
-                      <td className="px-4 py-3 text-muted-foreground">{row.systeem}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{GUIDE_LINKS[row.slug] ? <Link to={GUIDE_LINKS[row.slug]} className="hover:underline">{row.systeem}</Link> : row.systeem}</td>
                       <td className="px-4 py-3 text-right">
                         <a
                           href={row.systeemUrl}
