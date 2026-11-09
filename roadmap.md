@@ -29,3 +29,5 @@
 - [x] Afmeldlinks behouden, voorbeeld controleren en mailfunctie bijwerken.
 - [x] Renthunter overal verwijderen (aanbod inactief, import gestopt, partnerpagina)
 - [ ] Dagelijkse mail aan alle abonnees + meer affiliateklikken (beperkt door regels voor app-mails)
+- [ ] Brevo koppelen + dagelijkse nieuwsbrief met Huurzone-tips
+- [ ] Huurzone-knop beter zichtbaar op woningpagina en zoekpagina
