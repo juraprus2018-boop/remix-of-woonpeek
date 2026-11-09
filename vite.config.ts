@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import fs from "fs";
@@ -8,9 +8,13 @@ import { utrechtSeoContent, withStaticSeo, type CrawlableRental } from "./src/li
 // Preserve committed sitemaps instead of fetching a possibly older live generator.
 // Generate only the approved search page and Utrecht hub, safely below 800 files.
 function sitemapPlugin() {
+  let env: Record<string, string> = {};
   return {
     name: "static-search-and-utrecht",
     apply: "build" as const,
+    configResolved(config: { mode: string; root: string }) {
+      env = loadEnv(config.mode, config.root, "VITE_");
+    },
     async closeBundle() {
       const dir = path.resolve(__dirname, "dist");
       const template = fs.readFileSync(path.join(dir, "index.html"), "utf8");
@@ -25,9 +29,10 @@ function sitemapPlugin() {
         indexable: true,
         content: '<div class="ssr-home-content"><h1>Huur- en koopwoningen zoeken</h1><p>Vergelijk beschikbaar woningaanbod in Nederland op plaats, postcode, minimum- en maximumprijs, woningtype en aantal kamers.</p><h2>Beschikbaar aanbod per stad</h2><ul>' + CITY_LINKS.map(([name, slug]) => `<li><a href="/huurwoningen/${slug}">Huurwoningen in ${name}</a></li>`).join("") + '</ul><p><a href="/huurwoningen">Alle huurwoningen</a> · <a href="/koopwoningen">Alle koopwoningen</a> · <a href="/woonmelding">Gratis woningmelding</a></p></div>',
       }));
-      const url = process.env.VITE_SUPABASE_URL;
-      const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-      if (!url || !key) throw new Error("Utrecht snapshot credentials unavailable; refusing incomplete SEO output");
+      const url = process.env.VITE_SUPABASE_URL || env.VITE_SUPABASE_URL;
+      const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      if (!url || !key) { console.warn("Utrecht snapshot skipped: no backend credentials"); return; }
+      try {
       const snapshot = new Date().toISOString();
       const rows: CrawlableRental[] = [];
       for (let offset = 0; ; offset += 1000) {
@@ -50,6 +55,10 @@ function sitemapPlugin() {
           return /<lastmod>/.test(entry) ? entry.replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${snapshot.slice(0, 10)}</lastmod>`) : entry.replace("</url>", `<lastmod>${snapshot.slice(0, 10)}</lastmod></url>`);
         });
         fs.writeFileSync(target, xml);
+      }
+      } catch (err) {
+        // Never write stale Utrecht HTML; skip it rather than failing the whole build.
+        console.warn("Utrecht snapshot skipped:", (err as Error).message);
       }
     },
   };
