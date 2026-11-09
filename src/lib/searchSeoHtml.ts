@@ -25,5 +25,5 @@ export function withStaticSeo(html: string, page: { title: string; description: 
     .replace(/<link\b[^>]*rel=["']canonical["'][^>]*>/gi, "")
     .replace(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>[\s\S]*?<\/script>/gi, "")
     .replace("</head>", `${tags}</head>`)
-    .replace(/<div id="root">[\s\S]*<\/div>(?=\s*<\/body>)/, `<div id="root">${page.content}</div>`);
+    .replace(/<div id="root">[\s\S]*?<\/div>(?=\s*(?:<script\b[^>]*type="module"|<\/body>))/, `<div id="root">${page.content}</div>`);
 }
