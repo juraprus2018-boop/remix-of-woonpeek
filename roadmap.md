@@ -1,3 +1,10 @@
+# Bezoekers en zoeken, 9 november 2026
+- [x] Budgetoverdracht herstellen voor homepage, gedeelde links en kaartresultaten.
+- [x] Zoekpagina een duidelijke kop en passende zoekmachinetitel geven.
+- [x] Utrecht-pagina gericht verbeteren zonder extra doorlopende kosten.
+- [x] Prijsgrenzen en echte zoekresultaten op desktop en mobiel controleren.
+- [ ] Verbeteringen publiceren en gegenereerde zoek/Utrecht-HTML op eigen domein controleren: wacht op publicatieakkoord; overige sitemapfilters blijven buiten deze beperkte reparatie.
+
 # Kaartpagina
 - [x] Automatische AI-vertalingen uitschakelen zonder vaste taalbestanden te veranderen.
 - [x] Woningoverzichten en beheeroverzicht minder gegevens laten ophalen.

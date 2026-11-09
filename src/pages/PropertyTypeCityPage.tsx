@@ -85,6 +85,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
     propertyType,
     listingType: (filters.listingType as Database["public"]["Enums"]["listing_type"]) || undefined,
     maxPrice: filters.maxPrice,
+    minPrice: filters.minPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
     disablePagination: true,
@@ -112,7 +113,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
   }, [properties]);
 
   const hasActiveFilters = Boolean(
-    filters.listingType || filters.maxPrice || filters.minBedrooms || filters.minSurface
+    filters.listingType || filters.maxPrice || filters.minPrice !== undefined || filters.minBedrooms || filters.minSurface
   );
 
   const currentMonth = new Date().toLocaleString("nl-NL", { month: "long" });

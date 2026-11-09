@@ -28,6 +28,7 @@ import AdSlot from "@/components/ads/AdSlot";
 import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
+import { readSearchBudget, writeSearchBudget } from "@/lib/searchBudget";
 
 const EMPTY_FILTERS: SearchFilterValues = {
   city: "",
@@ -52,7 +53,7 @@ const SearchPage = () => {
     city: searchParams.get("locatie") || "",
     propertyType: (searchParams.get("type") as SearchFilterValues["propertyType"]) || "",
     listingType: (searchParams.get("aanbod") as SearchFilterValues["listingType"]) || "",
-    maxPrice: searchParams.get("max_prijs") ? Number(searchParams.get("max_prijs")) : searchParams.get("maxPrijs") ? Number(searchParams.get("maxPrijs")) : undefined,
+    ...readSearchBudget(searchParams),
     minBedrooms: searchParams.get("min_kamers") ? Number(searchParams.get("min_kamers")) : undefined,
     grossIncome: searchParams.get("inkomen") ? Number(searchParams.get("inkomen")) : undefined,
   });
@@ -74,11 +75,11 @@ const SearchPage = () => {
     if (debouncedCity) params.set("locatie", debouncedCity);
     if (filters.propertyType) params.set("type", filters.propertyType);
     if (filters.listingType) params.set("aanbod", filters.listingType);
-    if (filters.maxPrice) params.set("max_prijs", String(filters.maxPrice));
+    writeSearchBudget(params, filters);
     if (filters.minBedrooms) params.set("min_kamers", String(filters.minBedrooms));
     if (filters.grossIncome) params.set("inkomen", String(filters.grossIncome));
     setSearchParams(params, { replace: true });
-  }, [debouncedCity, filters.propertyType, filters.listingType, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
+  }, [debouncedCity, filters.propertyType, filters.listingType, filters.minPrice, filters.maxPrice, filters.minBedrooms, filters.grossIncome, setSearchParams]);
 
   // Log search queries for analytics
   const lastLoggedRef = useRef("");
@@ -115,6 +116,7 @@ const SearchPage = () => {
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
     maxPrice: effectiveMaxPrice,
+    minPrice: filters.minPrice,
     minBedrooms: filters.minBedrooms,
     includeInactive: filters.includeInactive,
   });
@@ -124,6 +126,7 @@ const SearchPage = () => {
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
+    minPrice: filters.minPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
     includeInactive: filters.includeInactive,
@@ -165,6 +168,7 @@ const SearchPage = () => {
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
+    minPrice: filters.minPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
   }, viewMode === "map" || !!commute);
@@ -207,13 +211,12 @@ const SearchPage = () => {
     setSearchParams(new URLSearchParams());
   }, [setSearchParams]);
 
-  const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.maxPrice;
+  const hasActiveFilters = filters.city || filters.propertyType || filters.listingType || filters.minPrice !== undefined || filters.maxPrice !== undefined;
 
   const { t } = useTranslation();
 
   const seoTitle = useMemo(() => {
-    const loc = debouncedCity ? ` ${t("hero.popular") ? "" : ""}${debouncedCity ? ` — ${debouncedCity}` : ""}` : "";
-    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const locPart = debouncedCity ? ` in ${debouncedCity}` : "";
     const key =
       filters.listingType === "huur" ? "meta.searchTitleHuur"
       : filters.listingType === "koop" ? "meta.searchTitleKoop"
@@ -228,7 +231,7 @@ const SearchPage = () => {
       : "meta.searchTitleAll";
     // Extract bare noun (strip " | Woonaanbod NL" and any "{{loc}}")
     const typeWord = t(typeKey, { loc: "" }).replace(/\s*\|\s*Woonaanbod NL\s*$/i, "").trim().toLowerCase();
-    const locPart = debouncedCity ? ` — ${debouncedCity}` : "";
+    const locPart = debouncedCity ? ` in ${debouncedCity}` : "";
     return t("meta.searchDesc", { total: totalCount, typeWord, loc: locPart });
   }, [debouncedCity, filters.listingType, totalCount, t]);
 
@@ -260,8 +263,10 @@ const SearchPage = () => {
         <div className="border-b bg-card">
           <div className="container py-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="sr-only">
-                <h2>Filters</h2>
+              <div className="min-w-0">
+                <h1 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+                  {seoTitle.replace(/\s*\|\s*Woonaanbod NL\s*$/i, "")}
+                </h1>
               </div>
               <div className="flex items-center gap-2">
                 {/* Mobile filter button */}
@@ -405,8 +410,8 @@ const SearchPage = () => {
                     ) : (
                       <>
                         <strong>{matchCount ?? 0}</strong> woningen binnen{" "}
-                        <strong>{commute!.maxMinutes} min</strong> {commute!.mode === "driving" ? "auto" : "fiets"} van{" "}
-                        <strong>{commute!.address}</strong>
+                        <strong>{commute?.maxMinutes} min</strong> {commute?.mode === "driving" ? "auto" : "fiets"} van{" "}
+                        <strong>{commute?.address}</strong>
                       </>
                     )}
                   </div>

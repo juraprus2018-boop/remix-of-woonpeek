@@ -89,6 +89,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
     city: isInvalidCity ? undefined : cityName,
     propertyType: (filters.propertyType as Database["public"]["Enums"]["property_type"]) || undefined,
     maxPrice: filters.maxPrice,
+    minPrice: filters.minPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
     pageSize: 50,

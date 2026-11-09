@@ -90,6 +90,7 @@ const CityPage = () => {
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
     maxPrice: filters.maxPrice,
+    minPrice: filters.minPrice,
     minBedrooms: filters.minBedrooms,
     minSurface: filters.minSurface,
     includeInactive: filters.includeInactive,
@@ -131,6 +132,7 @@ const CityPage = () => {
     filters.propertyType ||
       filters.listingType ||
       filters.maxPrice ||
+      filters.minPrice !== undefined ||
       filters.minBedrooms ||
       filters.minSurface ||
       filters.includeInactive
