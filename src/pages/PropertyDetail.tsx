@@ -58,6 +58,7 @@ import EnergyLabelCost from "@/components/properties/EnergyLabelCost";
 import TotalMonthlyCosts from "@/components/properties/TotalMonthlyCosts";
 import EnergyCompareTeaser from "@/components/energy/EnergyCompareTeaser";
 import { cn } from "@/lib/utils";
+import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { cityPath } from "@/lib/cities";
 import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
 import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
@@ -895,6 +896,13 @@ const PropertyDetail = () => {
             <div className="lg:col-span-1">
               <div className="sticky top-24 space-y-4">
                 <AdSlot slotKey="property_detail" className="my-0" advertiser={property.source_site} />
+                {property.listing_type === "huur" && (
+                  <HuurzoneTip
+                    title={`Meer huurwoningen in ${property.city}?`}
+                    text={`Bij partner Huurzone vind je nog meer particuliere huurwoningen in ${property.city}. Met een gratis account reageer je direct.`}
+                    buttonText={`Bekijk huurwoningen in ${property.city}`}
+                  />
+                )}
                 {/* Price + CTA Card */}
                 <Card className="overflow-hidden shadow-lg">
                   <CardContent className="p-6 space-y-4">
