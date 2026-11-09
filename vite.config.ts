@@ -4,14 +4,14 @@ import path from "path";
 import fs from "fs";
 import { componentTagger } from "lovable-tagger";
 import { PORTAL_GUIDES, portalGuideHtml } from "./src/lib/portalGuides";
-import { utrechtSeoContent, withStaticSeo, type CrawlableRental } from "./src/lib/searchSeoHtml";
+import { CRAWLABLE_CITIES, citySeoContent, withStaticSeo, type CrawlableRental } from "./src/lib/searchSeoHtml";
 
 // Preserve committed sitemaps instead of fetching a possibly older live generator.
-// Generate only the approved search page and Utrecht hub, safely below 800 files.
+// Eight priority city hubs plus search and guides stay safely below 800 files.
 function sitemapPlugin() {
   let env: Record<string, string> = {};
   return {
-    name: "static-search-and-utrecht",
+    name: "static-search-and-city-hubs",
     apply: "build" as const,
     configResolved(config: { mode: string; root: string }) {
       env = loadEnv(config.mode, config.root, "VITE_");
@@ -33,26 +33,27 @@ function sitemapPlugin() {
       for (const g of PORTAL_GUIDES) writePage(g.slug, withStaticSeo(template, { path: `/${g.slug}`, title: g.title, description: g.description, indexable: true, content: portalGuideHtml(g) }));
       const url = process.env.VITE_SUPABASE_URL || env.VITE_SUPABASE_URL;
       const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY;
-      if (!url || !key) { console.warn("Utrecht snapshot skipped: no backend credentials"); return; }
+      if (!url || !key) { console.warn("City snapshots skipped: no backend credentials"); return; }
+      for (const city of CRAWLABLE_CITIES) {
       try {
       const snapshot = new Date().toISOString();
       const rows: CrawlableRental[] = [];
       for (let offset = 0; ; offset += 1000) {
-        const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", city: "ilike.Utrecht", status: "eq.actief", listing_type: "eq.huur", order: "id.asc", offset: String(offset), limit: "1000" });
+        const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", or: `(${city.aliases.map(name => `city.ilike.${name}`).join(",")})`, status: "eq.actief", listing_type: "eq.huur", order: "id.asc", offset: String(offset), limit: "1000" });
         const res = await fetch(`${url}/rest/v1/properties?${query}`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(20000) });
-        if (!res.ok) throw new Error(`Utrecht snapshot failed (${res.status}); refusing stale city HTML`);
+        if (!res.ok) throw new Error(`${city.name} snapshot failed (${res.status}); refusing stale city HTML`);
         const batch = await res.json() as CrawlableRental[];
         rows.push(...batch);
         if (batch.length < 1000) break;
       }
-      const page = utrechtSeoContent(rows, snapshot);
-      writePage("huurwoningen/utrecht", withStaticSeo(template, { ...page, path: "/huurwoningen/utrecht" }));
+      const page = citySeoContent(rows, snapshot, city);
+      writePage(`huurwoningen/${city.slug}`, withStaticSeo(template, { ...page, path: `/huurwoningen/${city.slug}` }));
       // Only this hub was rebuilt. Its sitemap lastmod must match its own snapshot.
       for (const file of ["sitemap-steden-1.xml", "sitemap-steden-2.xml", "sitemap-steden-3.xml"]) {
         const target = path.join(dir, file);
         if (!fs.existsSync(target)) continue;
         const xml = fs.readFileSync(target, "utf8").replace(/<url>[\s\S]*?<\/url>/g, entry => {
-          if (!/<loc>https:\/\/www\.woonaanbod-nl\.nl\/huurwoningen\/utrecht<\/loc>/.test(entry)) return entry;
+          if (!entry.includes(`<loc>https://www.woonaanbod-nl.nl/huurwoningen/${city.slug}</loc>`)) return entry;
           if (!page.indexable) return "";
           return /<lastmod>/.test(entry) ? entry.replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${snapshot.slice(0, 10)}</lastmod>`) : entry.replace("</url>", `<lastmod>${snapshot.slice(0, 10)}</lastmod></url>`);
         });
@@ -60,7 +61,8 @@ function sitemapPlugin() {
       }
       } catch (err) {
         // Never write stale Utrecht HTML; skip it rather than failing the whole build.
-        console.warn("Utrecht snapshot skipped:", (err as Error).message);
+        console.warn(`${city.name} snapshot skipped:`, (err as Error).message);
+      }
       }
     },
   };

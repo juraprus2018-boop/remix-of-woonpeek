@@ -228,7 +228,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} geoPlacename={cityName} />
+      <SEOHead title={pageTitle} description={pageDesc} canonical={canonical} geoPlacename={cityName} noindex={!!cityName && !isLoading && totalCount < 6} />
       <Header />
       <main className="flex-1">
         {jsonLd.map((schema, i) => (
@@ -243,11 +243,11 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
             </div>
             <div>
               <h1 className="font-display text-3xl font-bold text-foreground md:text-4xl">
-                {label.plural} in {locationLabel}{listingType === "huur" ? ": huis en appartement te huur" : ": huizen en appartementen te koop"}
+                {label.plural} in {locationLabel}
               </h1>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                 Zoek je een <strong>{label.singular} in {locationLabel}</strong>?{" "}
-                {hasListings
+                {isLoading ? "Het actuele aanbod wordt geladen." : hasListings
                   ? `Bekijk ${totalCount} beschikbare ${label.plural.toLowerCase()} met ${listingType === "huur" ? "huurprijzen" : "koopprijzen"}, foto's en details.`
                   : `Er zijn momenteel geen ${label.plural.toLowerCase()} beschikbaar, maar het aanbod wordt dagelijks bijgewerkt.`}{" "}
                 Woonaanbod NL verzamelt dagelijks het nieuwste aanbod uit tientallen bronnen, zodat je sneller vindt wat je zoekt.
