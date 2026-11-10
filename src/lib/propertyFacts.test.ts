@@ -3,6 +3,11 @@ import { propertyFacts } from "./propertyFacts";
 
 const base = { street: "Teststraat, 1234AB, Utrecht", house_number: "-", city: "Utrecht", property_type: "appartement", listing_type: "huur", price: 1000, status: "actief" };
 describe("verified property facts", () => {
+  it("normalizes missing feed property types without inventing a specific type", () => {
+    expect(propertyFacts({ ...base, property_type: null }).propertyType).toBe("woning");
+    expect(propertyFacts({ ...base, property_type: "" }).propertyType).toBe("woning");
+    expect(propertyFacts(base).propertyType).toBe("appartement");
+  });
   it("never invents an immediate start date for active listings", () => {
     expect(propertyFacts(base).availability).toBe("Startdatum niet opgegeven");
   });
