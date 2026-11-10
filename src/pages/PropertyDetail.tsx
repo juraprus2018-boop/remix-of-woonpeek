@@ -218,20 +218,20 @@ const PropertyDetail = () => {
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const citySlugVal = property.city.toLowerCase().replace(/\s+/g, "-");
-  const typeLabel = property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1);
+  const facts = propertyFacts({ ...property, price: Number(property.price) });
+  const { propertyType, typeLabel } = facts;
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
   const bedroomsLabel = property.bedrooms ? `${property.bedrooms} kamers` : null;
   const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
   const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
 
   // Adres (straat + huisnummer) staat voorop: veel mensen zoeken op het exacte adres.
-  const facts = propertyFacts({ ...property, price: Number(property.price) });
   const streetLine = facts.address;
   const placeLabel = streetLine ? `${streetLine}, ${property.city}` : property.city;
   const priceShort = `${priceFormatted}${property.listing_type === "huur" ? " p/m" : ""}`;
 
   // Meta Title: [Straat nr], [stad]: [type] te huur/koop, [kamers], [prijs]
-  const seoTitle = `${placeLabel}: ${property.property_type} ${listingLabel}${bedroomsLabel ? `, ${bedroomsLabel}` : ""}, ${priceShort} | Woonaanbod NL`;
+  const seoTitle = `${placeLabel}: ${propertyType} ${listingLabel}${bedroomsLabel ? `, ${bedroomsLabel}` : ""}, ${priceShort} | Woonaanbod NL`;
 
   // Meta Description
   const seoDescription = `${typeLabel} ${listingLabel} aan ${placeLabel}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? " per maand" : ""}. Bekijk foto's, kenmerken, de buurt en reageer direct.`;
@@ -358,15 +358,15 @@ const PropertyDetail = () => {
   const faqItems = [
     {
       question: `Wat is de ${priceLabel}prijs van ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `De ${priceLabel}prijs van deze ${property.property_type} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(Number(property.price), property.listing_type)}.${property.surface_area ? ` De prijs per m² komt neer op €${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}.` : ""}`,
+      answer: `De ${priceLabel}prijs van deze ${propertyType} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(Number(property.price), property.listing_type)}.${property.surface_area ? ` De prijs per m² komt neer op €${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}.` : ""}`,
     },
     {
       question: `Hoeveel kamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `Deze ${property.property_type} heeft ${property.bedrooms ? property.bedrooms + " slaapkamer(s)" : "een onbekend aantal slaapkamers"}${property.bathrooms ? " en " + property.bathrooms + " badkamer(s)" : ""}.${property.surface_area ? ` De woonoppervlakte is ${property.surface_area} m².` : ""}`,
+      answer: `Deze ${propertyType} heeft ${property.bedrooms ? property.bedrooms + " slaapkamer(s)" : "een onbekend aantal slaapkamers"}${property.bathrooms ? " en " + property.bathrooms + " badkamer(s)" : ""}.${property.surface_area ? ` De woonoppervlakte is ${property.surface_area} m².` : ""}`,
     },
     {
       question: `Wat voor type woning is ${property.street} ${property.house_number}?`,
-      answer: `Dit is een ${property.property_type} die te ${property.listing_type} wordt aangeboden in ${property.city}.${property.energy_label ? ` Het energielabel is ${property.energy_label}.` : ""}${property.build_year ? ` Het bouwjaar is ${property.build_year}.` : ""}`,
+      answer: `Dit is een ${propertyType} die te ${property.listing_type} wordt aangeboden in ${property.city}.${property.energy_label ? ` Het energielabel is ${property.energy_label}.` : ""}${property.build_year ? ` Het bouwjaar is ${property.build_year}.` : ""}`,
     },
     {
       question: `Is ${property.street} ${property.house_number} in ${property.city} nog beschikbaar?`,
@@ -614,7 +614,7 @@ const PropertyDetail = () => {
               <div>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <Badge variant="secondary" className="capitalize">{property.listing_type === "huur" ? "Te huur" : "Te koop"}</Badge>
-                  <Badge variant="outline" className="capitalize">{property.property_type}</Badge>
+                  <Badge variant="outline" className="capitalize">{typeLabel}</Badge>
                 </div>
                 <h1 className="font-display text-2xl font-bold leading-tight md:text-3xl lg:text-4xl">
                   {h1Title}
