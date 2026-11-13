@@ -5,7 +5,7 @@
 - Homepage and shared search links use the shared budget parser/serializer; minimum and maximum prices remain explicit across list and map queries and are never cleared by price facets, so searches cannot silently exceed the chosen budget.
 - Search and priority rental-city crawlable HTML is written only into dist after bundling; each hub uses one exact-city snapshot (including municipal aliases) for facts and sitemap lastmod, preserves other committed sitemaps, and never fetches the live sitemap generator at buildStart, to avoid stale output and stay below 800 additional HTML files.
 - Property summaries derive only from supplied listing fields; missing availability dates and room totals remain unknown, so editorial content and structured data cannot invent rental conditions.
-- Property detail labels and summaries share the propertyFacts normalization for nullable feed property types, so incomplete listings render without inventing a specific type.
+- Property detail display data passes through propertyDetailData and shares propertyFacts labels; missing text, photos, prices, dates and coordinates stay safe and unknown, so incomplete feeds cannot crash rendering or fabricate facts.
 
 - Public property overview queries share a projection with only the first photo and no raw importer payload; full detail and editor reads remain separate so galleries and editing stay complete.
 - Runtime DOM AI translation is disabled on both client and edge endpoint; fixed locale files own UI translations to prevent per-visitor generation costs.
