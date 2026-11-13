@@ -30,6 +30,12 @@ function sitemapPlugin() {
         indexable: true,
         content: '<div class="ssr-home-content"><h1>Huur- en koopwoningen zoeken</h1><p>Vergelijk beschikbaar woningaanbod in Nederland op plaats, postcode, minimum- en maximumprijs, woningtype en aantal kamers.</p><h2>Beschikbaar aanbod per stad</h2><ul>' + CITY_LINKS.map(([name, slug]) => `<li><a href="/huurwoningen/${slug}">Huurwoningen in ${name}</a></li>`).join("") + '</ul><p><a href="/huurwoningen">Alle huurwoningen</a> · <a href="/koopwoningen">Alle koopwoningen</a> · <a href="/woonmelding">Gratis woningmelding</a></p></div>',
       }));
+      const INFO_PAGES: [string, string, string, string][] = [
+        ["over", "Over Woonaanbod NL: gratis huur- en koopwoningen zoeken | Woonaanbod NL", "Woonaanbod NL verzamelt dagelijks huur- en koopwoningen uit heel Nederland op één plek. Gratis voor woningzoekers, met woningmeldingen en eigen marktcijfers.", '<h1>Over Woonaanbod NL</h1><p>Woonaanbod NL verzamelt dagelijks huur- en koopwoningen van makelaars, verhuurders en partnerplatforms uit heel Nederland. Zoeken en woningmeldingen zijn gratis.</p><p><a href="/transparantie">Hoe wij werken</a> · <a href="/woningmarkt">Actuele marktcijfers</a> · <a href="/contact">Contact</a></p>'],
+        ["transparantie", "Transparantie - Hoe Woonaanbod NL werkt | Woonaanbod NL", "Lees hoe Woonaanbod NL aan zijn aanbod komt, welke databronnen we gebruiken, hoe we kwaliteit borgen en hoe je een woning kunt laten verwijderen.", '<h1>Transparantie: hoe Woonaanbod NL werkt</h1><p>Ons aanbod komt uit feeds van partnerplatforms, makelaars en verhuurders. Eén woning kan bij meerdere aanbieders staan; tellingen gaan over actieve advertenties. Verlopen advertenties zetten we op inactief.</p><p><a href="/over">Over ons</a> · <a href="/partners">Partners en aanbieders</a> · <a href="/contact">Woning laten verwijderen</a></p>'],
+        ["woonaanbod-per-stad", "Woonaanbod per stad: huurwoningen in heel Nederland | Woonaanbod NL", "Bekijk het actuele huur- en koopaanbod per stad in Nederland, met links naar alle beschikbare woningen per gemeente.", '<h1>Woonaanbod per stad</h1><p>Kies een stad om het actuele woningaanbod te bekijken.</p><ul>' + CITY_LINKS.map(([name, slug]) => `<li><a href="/huurwoningen/${slug}">Huurwoningen in ${name}</a></li>`).join("") + '</ul>'],
+      ];
+      for (const [route, title, description, body] of INFO_PAGES) writePage(route, withStaticSeo(template, { path: `/${route}`, title, description, indexable: true, content: `<div class="ssr-home-content">${body}</div>` }));
       for (const g of PORTAL_GUIDES) writePage(g.slug, withStaticSeo(template, { path: `/${g.slug}`, title: g.title, description: g.description, indexable: true, content: portalGuideHtml(g) }));
       const url = process.env.VITE_SUPABASE_URL || env.VITE_SUPABASE_URL;
       const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -99,12 +105,16 @@ const CITY_LINKS: Array<[string, string]> = [
 // machine-leesbaar bestand naar public/marktdata.json, zodat AI-crawlers en
 // journalisten de data zonder JavaScript kunnen lezen.
 function marketDataPlugin() {
-  const url = process.env.VITE_SUPABASE_URL;
-  const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  let env: Record<string, string> = {};
   return {
     name: "static-market-data",
     apply: "build" as const,
+    configResolved(config: { mode: string; root: string }) {
+      env = loadEnv(config.mode, config.root, "VITE_");
+    },
     async closeBundle() {
+      const url = process.env.VITE_SUPABASE_URL || env.VITE_SUPABASE_URL;
+      const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY;
       if (!url || !key) return;
       try {
         const res = await fetch(`${url}/rest/v1/rpc/market_stats`, {
@@ -124,6 +134,8 @@ function marketDataPlugin() {
               license: "CC BY 4.0 – overname met bronvermelding en link",
               method:
                 "Live berekend uit het actieve woningaanbod op Woonaanbod NL. Huur EUR 200-10.000 p/m, koop EUR 50.000-5.000.000, prijs per m2 alleen bij 10-500 m2.",
+              generated_at: new Date().toISOString(),
+              note: "Tellingen zijn actieve advertenties; één woning kan bij meerdere aanbieders staan.",
               ...json,
             },
             null,

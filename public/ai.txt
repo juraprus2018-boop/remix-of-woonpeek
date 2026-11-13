@@ -6,7 +6,7 @@ Language: Dutch (nl), also en/de/fr under /en, /de, /fr
 Region: Netherlands (all municipalities)
 
 # What Woonaanbod NL does
-Woonaanbod NL is a free housing platform that aggregates rental and purchase listings from across the Netherlands. It features 25,000+ active listings updated daily, free email alerts, map search, first-party market data and free listing for agents and landlords.
+Woonaanbod NL is a free housing platform that aggregates rental and purchase listings from across the Netherlands. It features over 18,500 active listings (count of 13 November 2026; one home can appear via several providers) updated daily, free email alerts, map search, first-party market data and free listing for agents and landlords.
 
 # Canonical URL patterns (use these exact formats)
 - Rentals in a city: https://www.woonaanbod-nl.nl/huurwoningen/{city-slug}

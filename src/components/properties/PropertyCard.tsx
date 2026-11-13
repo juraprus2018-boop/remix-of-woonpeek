@@ -72,7 +72,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   };
 
   const hoursAgo = (Date.now() - new Date(property.created_at).getTime()) / (1000 * 60 * 60);
-  const isToday = hoursAgo < 24;
+  const isToday = new Date(property.created_at).toDateString() === new Date().toDateString();
   const isNew = hoursAgo < 7 * 24;
 
 
@@ -153,7 +153,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
               </Badge>
             )}
             {isToday && property.status === "actief" && (
-              <Badge className="bg-accent text-accent-foreground text-xs font-semibold">Nieuw vandaag</Badge>
+              <Badge className="bg-accent text-accent-foreground text-xs font-semibold">Vandaag geplaatst</Badge>
             )}
             {!isToday && isNew && property.status === "actief" && (
               <Badge className="bg-accent/80 text-accent-foreground text-xs">Nieuw</Badge>
