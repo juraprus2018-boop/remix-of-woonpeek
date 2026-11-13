@@ -61,6 +61,7 @@ import { cn } from "@/lib/utils";
 import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { cityPath } from "@/lib/cities";
 import { propertyFacts } from "@/lib/propertyFacts";
+import { normalizePropertyDetail } from "@/lib/propertyDetailData";
 import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
 import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 import {
@@ -97,7 +98,8 @@ const SOURCE_SITE_META: Record<string, { label: string; color: string }> = {
 
 const PropertyDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { data: property, isLoading } = useProperty(slug || "");
+  const { data: rawProperty, isLoading } = useProperty(slug || "");
+  const property = rawProperty ? normalizePropertyDetail(rawProperty) : undefined;
   const { data: similarProperties } = useSimilarProperties(
     property?.id || "",
     property?.city || "",
@@ -117,7 +119,7 @@ const PropertyDetail = () => {
 
   // Track recently viewed
   useEffect(() => {
-    if (property) {
+    if (property && property.price !== null) {
       addProperty({
         id: property.id,
         slug: property.slug,
@@ -209,7 +211,8 @@ const PropertyDetail = () => {
     ? feedLogos[sourceInfo.source_site.toLowerCase()]
     : undefined;
 
-  const formatPrice = (price: number, listingType: string) => {
+  const formatPrice = (price: number | null, listingType: string) => {
+    if (price === null) return "Prijs niet opgegeven";
     const formatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(price);
     return listingType === "huur" ? `${formatted} per maand` : formatted;
   };
@@ -218,17 +221,19 @@ const PropertyDetail = () => {
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const citySlugVal = property.city.toLowerCase().replace(/\s+/g, "-");
-  const facts = propertyFacts({ ...property, price: Number(property.price) });
+  const cityLabel = property.city || "Onbekende plaats";
+  const cityListingPath = property.city ? `/${property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"}/${citySlugVal}` : "/woning-zoeken";
+  const facts = propertyFacts(property);
   const { propertyType, typeLabel } = facts;
   const listingLabel = property.listing_type === "huur" ? "te huur" : "te koop";
   const bedroomsLabel = property.bedrooms ? `${property.bedrooms} kamers` : null;
   const surfaceLabel = property.surface_area ? `${property.surface_area} m²` : null;
-  const priceFormatted = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(Number(property.price));
+  const priceFormatted = property.price === null ? "Prijs niet opgegeven" : new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(property.price);
 
   // Adres (straat + huisnummer) staat voorop: veel mensen zoeken op het exacte adres.
   const streetLine = facts.address;
-  const placeLabel = streetLine ? `${streetLine}, ${property.city}` : property.city;
-  const priceShort = `${priceFormatted}${property.listing_type === "huur" ? " p/m" : ""}`;
+  const placeLabel = streetLine ? `${streetLine}${property.city ? `, ${property.city}` : ""}` : cityLabel;
+  const priceShort = `${priceFormatted}${property.price !== null && property.listing_type === "huur" ? " per maand" : ""}`;
 
   // Meta Title: [Straat nr], [stad]: [type] te huur/koop, [kamers], [prijs]
   const seoTitle = `${placeLabel}: ${propertyType} ${listingLabel}${bedroomsLabel ? `, ${bedroomsLabel}` : ""}, ${priceShort} | Woonaanbod NL`;
@@ -238,26 +243,27 @@ const PropertyDetail = () => {
 
   // H1: [Type] te huur/koop: [Straat nr] in [stad]
   const h1Title = streetLine
-    ? `${typeLabel} ${listingLabel}: ${streetLine} in ${property.city}`
-    : `${typeLabel} ${listingLabel} in ${property.city}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
+    ? `${typeLabel} ${listingLabel}: ${streetLine} in ${cityLabel}`
+    : `${typeLabel} ${listingLabel} in ${cityLabel}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
 
   const canonicalPath = propertyPath(property);
   const canonicalUrl = `https://www.woonaanbod-nl.nl${canonicalPath}`;
   const fullAddress = formatAddress(property);
   const amenities = extractAmenities(property.description);
-  const publishedAt = new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
-  const lastCheckedAt = new Date((property as any).last_checked_at || (property as any).updated_at || property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
+  const formatDate = (date?: string) => date ? new Date(date).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" }) : "Niet opgegeven";
+  const publishedAt = formatDate(property.created_at);
+  const lastCheckedAt = formatDate(property.last_checked_at || property.updated_at || property.created_at);
   const availableFrom = facts.availability;
   const statusLabel = property.status === "actief" ? "Beschikbaar" : property.status === "inactief" ? "Verlopen" : property.status;
   const dataRows: Array<{ label: string; value: string }> = [
     { label: "Adres", value: [(property.street || "").split(",")[0].trim(), (property.house_number || "").trim() === "-" ? "" : (property.house_number || "").trim()].filter(Boolean).join(" ") || property.title },
-    { label: "Stad", value: property.city },
+    { label: "Stad", value: cityLabel },
     { label: "Postcode", value: property.postal_code || "Onbekend" },
     ...(property.neighborhood ? [{ label: "Buurt", value: property.neighborhood }] : []),
     { label: "Huur of koop", value: property.listing_type === "huur" ? "Te huur" : "Te koop" },
-    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(Number(property.price), property.listing_type) },
+    { label: property.listing_type === "huur" ? "Huurprijs" : "Vraagprijs", value: formatPrice(property.price, property.listing_type) },
     ...(property.surface_area ? [{ label: "Woonoppervlak", value: `${property.surface_area} m²` }] : []),
-    ...(property.surface_area ? [{ label: "Prijs per m²", value: `€${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}` }] : []),
+    ...(property.surface_area && property.price !== null ? [{ label: "Prijs per m²", value: `€${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}` }] : []),
     ...(property.bedrooms ? [{ label: "Slaapkamers", value: String(property.bedrooms) }] : []),
     ...(property.bathrooms ? [{ label: "Badkamers", value: String(property.bathrooms) }] : []),
     { label: "Woningtype", value: typeLabel },
@@ -335,9 +341,9 @@ const PropertyDetail = () => {
     },
     ...(property.bathrooms ? { "numberOfBathroomsTotal": property.bathrooms } : {}),
     ...(property.build_year ? { "yearBuilt": property.build_year } : {}),
-    "offers": {
+    ...(property.price !== null ? { "offers": {
       "@type": "Offer",
-      "price": Number(property.price),
+      "price": property.price,
       "priceCurrency": "EUR",
       "availability": property.status === "actief"
         ? "https://schema.org/InStock"
@@ -349,7 +355,7 @@ const PropertyDetail = () => {
         : "http://purl.org/goodrelations/v1#Sell",
       "seller": { "@type": "Organization", "name": sourceMeta?.label || "Woonaanbod NL" },
       ...((property as any).available_from ? { "availabilityStarts": (property as any).available_from } : {}),
-    },
+    } } : {}),
   };
 
 
@@ -358,7 +364,7 @@ const PropertyDetail = () => {
   const faqItems = [
     {
       question: `Wat is de ${priceLabel}prijs van ${property.street} ${property.house_number} in ${property.city}?`,
-      answer: `De ${priceLabel}prijs van deze ${propertyType} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(Number(property.price), property.listing_type)}.${property.surface_area ? ` De prijs per m² komt neer op €${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}.` : ""}`,
+      answer: `De ${priceLabel}prijs van deze ${propertyType} aan ${property.street} ${property.house_number}, ${property.postal_code} ${property.city} is ${formatPrice(property.price, property.listing_type)}.${property.surface_area ? ` De prijs per m² komt neer op €${Math.round(Number(property.price) / property.surface_area).toLocaleString("nl-NL")}.` : ""}`,
     },
     {
       question: `Hoeveel kamers heeft ${property.street} ${property.house_number} in ${property.city}?`,
@@ -371,7 +377,7 @@ const PropertyDetail = () => {
     {
       question: `Is ${property.street} ${property.house_number} in ${property.city} nog beschikbaar?`,
       answer: property.status === "actief"
-        ? `Ja, deze woning is momenteel actief beschikbaar op Woonaanbod NL. De woning is geplaatst op ${new Date(property.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}.`
+        ? `Ja, deze woning is momenteel actief beschikbaar op Woonaanbod NL. ${property.created_at ? `De woning is geplaatst op ${publishedAt}.` : "De publicatiedatum is niet opgegeven."}`
         : `Nee, deze woning is momenteel ${property.status}. Bekijk vergelijkbare woningen in ${property.city} op Woonaanbod NL.`,
     },
   ];
@@ -422,7 +428,7 @@ const PropertyDetail = () => {
 
       <Header />
 
-      <PropertyStickyBar
+      {property.price !== null && <PropertyStickyBar
         propertyId={property.id}
         title={property.title}
         city={property.city}
@@ -435,7 +441,7 @@ const PropertyDetail = () => {
         energyLabel={property.energy_label}
         triggerRef={galleryRef}
         onContact={() => setContactOpen(true)}
-      />
+      />}
 
       <main className="flex-1">
         {/* ── Inactive Banner ── */}
@@ -588,7 +594,7 @@ const PropertyDetail = () => {
           {/* Breadcrumbs */}
           <Breadcrumbs items={[
             { label: "Home", href: "/" },
-            { label: property.city, href: `/${property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"}/${citySlugVal}` },
+            { label: cityLabel, href: cityListingPath },
             { label: streetLine || property.title },
           ]} />
 
@@ -597,7 +603,7 @@ const PropertyDetail = () => {
             <div className="mt-4 rounded-lg border border-amber-300 bg-amber-50 p-4 dark:border-amber-700 dark:bg-amber-950/30">
               <p className="text-sm font-medium text-amber-800 dark:text-amber-200">⚠️ Deze woning is verlopen. Het aanbod is niet meer beschikbaar.</p>
               <p className="mt-1 text-xs text-amber-600 dark:text-amber-400">
-                Verlopen sinds {new Date(property.updated_at).toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" })}
+                Verlopen sinds {formatDate(property.updated_at)}
               </p>
             </div>
           )}
@@ -624,7 +630,7 @@ const PropertyDetail = () => {
                   <span>{fullAddress}</span>
                 </div>
                 <p className="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">
-                  {formatPrice(Number(property.price), property.listing_type)}
+                  {formatPrice(property.price, property.listing_type)}
                 </p>
 
                 {/* Quick stats row */}
@@ -691,21 +697,21 @@ const PropertyDetail = () => {
               </div>
 
               {/* ── Competition meter (urgency / social proof) ── */}
-              <CompetitionMeter
+              {property.created_at && <CompetitionMeter
                 propertyId={property.id}
                 viewsCount={property.views_count || 0}
                 createdAt={property.created_at}
                 listingType={property.listing_type as "huur" | "koop"}
                 city={property.city}
-              />
+              />}
 
               {/* ── Description ── */}
               <section className="space-y-3 border-b pb-6" aria-label="Woning in het kort">
                 <h2 className="font-display text-xl font-semibold">Deze woning in het kort</h2>
                 <p className="leading-relaxed text-muted-foreground">{facts.summary}</p>
                 <Button asChild variant="outline" className="h-auto min-h-10 whitespace-normal text-left">
-                  <Link to={`/${property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"}/${citySlugVal}`}>
-                    Bekijk alle {property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"} in {property.city}<ArrowRight className="ml-2 h-4 w-4 shrink-0" />
+                  <Link to={cityListingPath}>
+                    Bekijk alle {property.listing_type === "koop" ? "koopwoningen" : "huurwoningen"} {property.city ? `in ${property.city}` : ""}<ArrowRight className="ml-2 h-4 w-4 shrink-0" />
                   </Link>
                 </Button>
               </section>
@@ -848,7 +854,7 @@ const PropertyDetail = () => {
 
 
               {/* ── Meer woningen in [stad] ── */}
-              <section className="rounded-xl border bg-muted/30 p-6">
+              {property.city && <section className="rounded-xl border bg-muted/30 p-6">
                 <h2 className="font-display text-xl font-semibold mb-3">
                   Meer woningen in {property.city}
                 </h2>
@@ -877,10 +883,10 @@ const PropertyDetail = () => {
                     </Link>
                   )}
                 </div>
-              </section>
+              </section>}
 
               {/* ── Over wonen in [stad] ── */}
-              <section className="rounded-xl border bg-muted/30 p-6">
+              {property.city && <section className="rounded-xl border bg-muted/30 p-6">
                 <h2 className="font-display text-xl font-semibold mb-3">
                   Over wonen in {property.city}
                 </h2>
@@ -895,7 +901,7 @@ const PropertyDetail = () => {
                     Stel een dagelijkse alert in om als eerste op de hoogte te zijn van nieuwe woningen.
                   </p>
                 </div>
-              </section>
+              </section>}
             </div>
 
             {/* ── Sidebar ── */}
@@ -917,7 +923,7 @@ const PropertyDetail = () => {
                         {property.listing_type === "huur" ? "Maandhuur" : "Koopprijs"}
                       </p>
                       <p className="mt-1 font-display text-3xl font-bold text-primary">
-                        {formatPrice(Number(property.price), property.listing_type)}
+                        {formatPrice(property.price, property.listing_type)}
                       </p>
                     </div>
 
@@ -963,13 +969,14 @@ const PropertyDetail = () => {
                           <p className="mt-1 text-muted-foreground">En maak meteen kans op deze {typeLabel.toLowerCase()} in {property.city}.</p>
                         </div>
                       <Button variant="accent" className="h-14 w-full rounded-full text-base font-bold" size="lg" onClick={() => {
-                        trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
+                        if (!sourceInfo.source_url) return;
+                        trackDaisyconClick(property.id, sourceInfo.source_url, sourceInfo.source_site || null);
                         if (property.agency_id) logAgencyEvent(property.agency_id, "click", property.id);
                         toast({
                           title: `Je gaat naar ${sourceMeta?.label || sourceInfo.source_site || "de aanbieder"}`,
                           description: "Maak daar gratis een account aan om direct te reageren en een bezichtiging aan te vragen.",
                         });
-                        window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
+                        window.open(sourceInfo.source_url, "_blank", "noopener,noreferrer");
                       }}>
                         Reageer nu <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
@@ -987,7 +994,7 @@ const PropertyDetail = () => {
                             </li>
                           ))}
                         </ul>
-                        {property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
+                        {property.price !== null && property.listing_type === "huur" && <ChanceEstimator price={Number(property.price)} city={property.city} />}
                       </div>
                     ) : (
                       <Dialog open={contactOpen} onOpenChange={setContactOpen}>
@@ -1069,8 +1076,9 @@ const PropertyDetail = () => {
                       </div>
                       {sourceInfo.source_url && (
                         <Button variant="outline" className="mt-3 w-full" size="sm" onClick={() => {
-                          trackDaisyconClick(property.id, sourceInfo.source_url!, sourceInfo.source_site || null);
-                          window.open(sourceInfo.source_url!, "_blank", "noopener,noreferrer");
+                          if (!sourceInfo.source_url) return;
+                        trackDaisyconClick(property.id, sourceInfo.source_url, sourceInfo.source_site || null);
+                          window.open(sourceInfo.source_url, "_blank", "noopener,noreferrer");
                         }}>
                           <ExternalLink className="mr-2 h-3.5 w-3.5" />
                           Bekijk bij {sourceMeta?.label || sourceInfo.source_site}
@@ -1117,7 +1125,7 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Mortgage Calculator for koop ── */}
-        {property.listing_type === "koop" && (
+        {property.price !== null && property.listing_type === "koop" && (
           <section className="border-t py-12">
             <div className="container grid gap-6 lg:grid-cols-2">
               <AffordabilityWidget price={property.price} listingType="koop" />
@@ -1134,7 +1142,7 @@ const PropertyDetail = () => {
         )}
 
         {/* ── Budget-indicatie voor huur ── */}
-        {property.listing_type === "huur" && (
+        {property.price !== null && property.listing_type === "huur" && (
           <section className="border-t py-12">
             <div className="container">
               <NibudBudgetBreakdown
@@ -1148,7 +1156,7 @@ const PropertyDetail = () => {
 
 
         {/* ── Totale maandlasten calculator ── */}
-        <section className="border-t py-10">
+        {property.price !== null && <section className="border-t py-10">
           <div className="container">
             <TotalMonthlyCosts
               basePrice={property.price}
@@ -1160,7 +1168,7 @@ const PropertyDetail = () => {
               propertyId={property.id}
             />
           </div>
-        </section>
+        </section>}
 
         {/* ── Energie vergelijken ── */}
         <section className="border-t py-10">
@@ -1221,7 +1229,7 @@ const PropertyDetail = () => {
         {/* ── Publicatiedatum ── */}
         <div className="container pb-8">
           <p className="text-center text-[11px] text-muted-foreground/70">
-            Gepubliceerd: <time dateTime={new Date(property.created_at).toISOString()}>{publishedAt}</time>
+            Gepubliceerd: <time dateTime={property.created_at}>{publishedAt}</time>
           </p>
         </div>
       </main>
