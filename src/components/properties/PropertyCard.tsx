@@ -304,7 +304,23 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
                   <p className="mt-1 text-[11px] text-muted-foreground">per maand</p>
                 )}
               </div>
-              <span className="text-sm font-semibold text-primary underline underline-offset-4 transition-colors group-hover:text-accent">Meer info</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm font-semibold text-primary underline underline-offset-4 transition-colors group-hover:text-accent">Meer info</span>
+                {property.status === "actief" && property.source_url && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    className="rounded-full bg-success text-success-foreground hover:bg-success/90"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.open(property.source_url as string, "_blank", "noopener,noreferrer");
+                    }}
+                  >
+                    Direct reageren
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
