@@ -124,6 +124,10 @@ const SearchAlertCTA = ({
             <p className="mt-1 text-sm text-muted-foreground">
               Zodra er een nieuwe woning bijkomt voor {searchLabel}, krijg je een gratis e-mail.
             </p>
+            <p className="mt-2 text-sm text-foreground">
+              Tip voor als je een woning vindt: regel je energie op tijd en pak direct je welkomstcadeau mee.{" "}
+              <a href="/energie" className="font-semibold text-accent underline">Bekijk acties</a>
+            </p>
           </div>
         </div>
       </div>

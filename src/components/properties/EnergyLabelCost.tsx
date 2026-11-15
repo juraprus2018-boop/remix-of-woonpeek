@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Zap, TrendingDown, ChevronDown, ArrowRight, Info } from "lucide-react";
+import { Zap, TrendingDown, ChevronDown, ArrowRight, Info, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import DaisyconEnergyWidget from "@/components/energy/DaisyconEnergyWidget";
@@ -67,6 +67,9 @@ const EnergyLabelCost = ({ energyLabel, surfaceArea, city }: Props) => {
                     ? `Indicatie: € ${monthly} per maand`
                     : "Bespaar op je energierekening"}
                 </h3>
+                <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
+                  <Gift className="h-3 w-3" /> Cadeau of cashback bij overstappen
+                </span>
               </div>
             </div>
 
