@@ -72,6 +72,11 @@ const AlertDigest = ({ city = 'Nederland', count = 0, heading, intro, overviewUr
           <Link href={`${SITE}/woonmelding`} style={{ color: THEME.ink, fontWeight: 700, fontSize: '13px', textDecoration: 'underline' }}>Nog een Woonmelding instellen</Link>
         </Section>
         <Section style={{ padding: '24px', borderBottom: `1px solid ${THEME.line}` }}>
+          <Text style={{ color: THEME.ink, fontSize: '15px', fontWeight: 700, margin: '0 0 8px' }}>Binnenkort de sleutel?</Text>
+          <Text style={{ ...paragraph, margin: '0 0 10px' }}>Vergelijk energie voor je nieuwe adres. Veel leveranciers geven een overstapkorting of welkomstcadeau.</Text>
+          <Link href={`${SITE}/energie`} style={{ color: THEME.ink, fontWeight: 700, fontSize: '13px', textDecoration: 'underline' }}>Vergelijk energie en ontvang je cadeau</Link>
+        </Section>
+        <Section style={{ padding: '24px', borderBottom: `1px solid ${THEME.line}` }}>
           <Text style={{ ...paragraph, fontSize: '13px', margin: '0 0 10px' }}>Fijn dat je Woonaanbod NL gebruikt. Zou je ons willen helpen met een korte review op Google? Het kost maar een minuutje en helpt andere woningzoekenden ons te vinden.</Text>
           <Link href="https://g.page/r/CYZL1fpfWpFOEBM/review" style={{ color: THEME.ink, fontSize: '13px', fontWeight: 700, textDecoration: 'underline' }}>Laat een Google-review achter</Link>
         </Section>

@@ -25,12 +25,12 @@ const EnergyCompareTeaser = ({ context, variant = "city" }: EnergyCompareTeaserP
       ? "Bespaar op energie in deze woning"
       : context
       ? `Energie vergelijken in ${context}`
-      : "Bespaar op je energierekening";
+      : "Verhuizen? Pak je welkomstcadeau bij energie";
 
   const sub =
     variant === "property"
-      ? "Verhuis je naar deze woning? Regel meteen het scherpste energietarief en bespaar tot € 600 per jaar."
-      : "Vergelijk gas en stroom van alle leveranciers en stap gratis over.";
+      ? "Verhuis je naar deze woning? Vergelijk energie en ontvang vaak een overstapkorting of welkomstcadeau op je nieuwe adres."
+      : "Vergelijk gas en stroom voor je nieuwe adres. Veel leveranciers geven een overstapkorting of welkomstcadeau.";
 
   return (
     <Card className="overflow-hidden border-accent/30 bg-gradient-to-br from-accent/5 via-background to-primary/5">
