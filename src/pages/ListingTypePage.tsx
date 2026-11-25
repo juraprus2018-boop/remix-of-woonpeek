@@ -295,7 +295,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
           {/* View toggle */}
           <div className="mb-6 flex items-center justify-between gap-3 rounded-2xl border bg-card p-3">
             <div className="text-sm text-muted-foreground">
-              {isLoading ? "Aanbod laden..." : `${properties.length} ${label.plural.toLowerCase()} gevonden${cityName ? ` in ${cityName}` : ""}`}
+              {isLoading ? "Aanbod laden..." : `${totalCount} ${label.plural.toLowerCase()} gevonden${cityName ? ` in ${cityName}` : ""}`}
             </div>
             <div className="inline-flex rounded-lg border bg-background p-1">
               <Button
