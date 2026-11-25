@@ -3,7 +3,7 @@
 - Daisycon confirms all matched feed listings in batches before optional enrichment; enrichment uses bounded parallel writes in oldest-update order, so time limits cannot hide present listings or starve a fixed feed tail.
 
 - Homepage and shared search links use the shared budget parser/serializer; minimum and maximum prices remain explicit across list and map queries and are never cleared by price facets, so searches cannot silently exceed the chosen budget.
-- Search and priority rental-city crawlable HTML is written only into dist after bundling; each hub uses one exact-city snapshot (including municipal aliases) for facts and sitemap lastmod, preserves other committed sitemaps, and never fetches the live sitemap generator at buildStart, to avoid stale output and stay below 800 additional HTML files.
+- Search and all rental-city hubs (>= 6 listings, then largest filter pages) get crawlable HTML written only into dist after bundling from one nationwide snapshot with municipal aliases merged, capped below 800 extra files; committed sitemaps are preserved and only their lastmod is refreshed, never fetched from the live generator.
 - Property summaries derive only from supplied listing fields; missing availability dates and room totals remain unknown, so editorial content and structured data cannot invent rental conditions.
 - Property detail display data passes through propertyDetailData and shares propertyFacts labels; missing text, photos, prices, dates and coordinates stay safe and unknown, so incomplete feeds cannot crash rendering or fabricate facts.
 

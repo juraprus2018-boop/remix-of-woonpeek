@@ -4,10 +4,10 @@ import path from "path";
 import fs from "fs";
 import { componentTagger } from "lovable-tagger";
 import { PORTAL_GUIDES, portalGuideHtml } from "./src/lib/portalGuides";
-import { CRAWLABLE_CITIES, citySeoContent, withStaticSeo, type CrawlableRental } from "./src/lib/searchSeoHtml";
+import { planCrawlablePages, citySeoContent, withStaticSeo, type CrawlableRental } from "./src/lib/searchSeoHtml";
 
 // Preserve committed sitemaps instead of fetching a possibly older live generator.
-// Eight priority city hubs plus search and guides stay safely below 800 files.
+// Every city hub with >= 6 rentals, then the largest filter pages, stay below 800 files.
 function sitemapPlugin() {
   let env: Record<string, string> = {};
   return {
@@ -40,35 +40,41 @@ function sitemapPlugin() {
       const url = process.env.VITE_SUPABASE_URL || env.VITE_SUPABASE_URL;
       const key = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY;
       if (!url || !key) { console.warn("City snapshots skipped: no backend credentials"); return; }
-      for (const city of CRAWLABLE_CITIES) {
       try {
-      const snapshot = new Date().toISOString();
-      const rows: CrawlableRental[] = [];
-      for (let offset = 0; ; offset += 1000) {
-        const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", or: `(${city.aliases.map(name => `city.ilike.${name}`).join(",")})`, status: "eq.actief", listing_type: "eq.huur", order: "id.asc", offset: String(offset), limit: "1000" });
-        const res = await fetch(`${url}/rest/v1/properties?${query}`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(20000) });
-        if (!res.ok) throw new Error(`${city.name} snapshot failed (${res.status}); refusing stale city HTML`);
-        const batch = await res.json() as CrawlableRental[];
-        rows.push(...batch);
-        if (batch.length < 1000) break;
-      }
-      const page = citySeoContent(rows, snapshot, city);
-      writePage(`huurwoningen/${city.slug}`, withStaticSeo(template, { ...page, path: `/huurwoningen/${city.slug}` }));
-      // Only this hub was rebuilt. Its sitemap lastmod must match its own snapshot.
-      for (const file of ["sitemap-steden-1.xml", "sitemap-steden-2.xml", "sitemap-steden-3.xml"]) {
-        const target = path.join(dir, file);
-        if (!fs.existsSync(target)) continue;
-        const xml = fs.readFileSync(target, "utf8").replace(/<url>[\s\S]*?<\/url>/g, entry => {
-          if (!entry.includes(`<loc>https://www.woonaanbod-nl.nl/huurwoningen/${city.slug}</loc>`)) return entry;
-          if (!page.indexable) return "";
-          return /<lastmod>/.test(entry) ? entry.replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${snapshot.slice(0, 10)}</lastmod>`) : entry.replace("</url>", `<lastmod>${snapshot.slice(0, 10)}</lastmod></url>`);
-        });
-        fs.writeFileSync(target, xml);
-      }
+        const snapshot = new Date().toISOString();
+        const rows: CrawlableRental[] = [];
+        for (let offset = 0; ; offset += 1000) {
+          const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", status: "eq.actief", listing_type: "eq.huur", order: "id.asc", offset: String(offset), limit: "1000" });
+          const res = await fetch(`${url}/rest/v1/properties?${query}`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(30000) });
+          if (!res.ok) throw new Error(`snapshot failed (${res.status}); refusing stale city HTML`);
+          const batch = await res.json() as CrawlableRental[];
+          rows.push(...batch);
+          if (batch.length < 1000) break;
+        }
+        // Stay below the 800 extra HTML files hosting allows (fixed pages included).
+        const pages = planCrawlablePages(rows, 760);
+        const written = new Set<string>();
+        for (const p of pages) {
+          const page = citySeoContent(p.rows, snapshot, p.city, p.filter);
+          const route = `huurwoningen/${p.city.slug}${p.filter ? `/${p.filter.slug}` : ""}`;
+          writePage(route, withStaticSeo(template, { ...page, path: `/${route}` }));
+          if (page.indexable) written.add(`https://www.woonaanbod-nl.nl/${route}`);
+        }
+        console.log(`Static rental HTML: ${pages.length} pages`);
+        const day = snapshot.slice(0, 10);
+        for (const file of ["sitemap-steden-1.xml", "sitemap-steden-2.xml", "sitemap-steden-3.xml"]) {
+          const target = path.join(dir, file);
+          if (!fs.existsSync(target)) continue;
+          const xml = fs.readFileSync(target, "utf8").replace(/<url>[\s\S]*?<\/url>/g, entry => {
+            const loc = entry.match(/<loc>(.*?)<\/loc>/)?.[1];
+            if (!loc || !written.has(loc)) return entry;
+            return /<lastmod>/.test(entry) ? entry.replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${day}</lastmod>`) : entry.replace("</url>", `<lastmod>${day}</lastmod></url>`);
+          });
+          fs.writeFileSync(target, xml);
+        }
       } catch (err) {
-        // Never write stale Utrecht HTML; skip it rather than failing the whole build.
-        console.warn(`${city.name} snapshot skipped:`, (err as Error).message);
-      }
+        // Never write stale city HTML; skip rather than failing the whole build.
+        console.warn("City snapshots skipped:", (err as Error).message);
       }
     },
   };

@@ -44,3 +44,18 @@ describe("static SEO with module script in head", () => {
     expect(html.match(/<h1>/g)).toHaveLength(1);
   });
 });
+
+import { planCrawlablePages } from "./searchSeoHtml";
+describe("planCrawlablePages", () => {
+  const mk = (city: string, i: number, type = "appartement"): CrawlableRental => ({ id: `${city}${i}`, city, status: "actief", listing_type: "huur", property_type: type, price: 900, surface_area: 50, neighborhood: null, created_at: "2026-11-01", title: "x", address_slug: null, slug: null } as unknown as CrawlableRental);
+  it("merges 's-Gravenhage into den-haag and skips cities under 6", () => {
+    const rows = [...[0,1,2].map(i => mk("'s-Gravenhage", i)), ...[3,4,5].map(i => mk("Den Haag", i)), ...[0,1,2,3,4].map(i => mk("Oudenbosch", i))];
+    const hubs = planCrawlablePages(rows, 100).filter(p => !p.filter);
+    expect(hubs.map(h => h.city.slug)).toEqual(["den-haag"]);
+    expect(hubs[0].city.name).toBe("Den Haag");
+  });
+  it("never exceeds the file budget", () => {
+    const rows = ["A","B","C"].flatMap(c => [0,1,2,3,4,5,6].map(i => mk(c, i)));
+    expect(planCrawlablePages(rows, 4)).toHaveLength(4);
+  });
+});
