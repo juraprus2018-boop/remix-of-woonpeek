@@ -29,6 +29,9 @@ import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { toast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 import { readSearchBudget, writeSearchBudget } from "@/lib/searchBudget";
+import { matchCity } from "@/lib/fuzzyCity";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const EMPTY_FILTERS: SearchFilterValues = {
   city: "",
@@ -60,6 +63,17 @@ const SearchPage = () => {
 
   // Debounced city value for the actual query
   const [debouncedCity, setDebouncedCity] = useState(filters.city);
+  const { data: allCities = [] } = useQuery({
+    queryKey: ["all-city-names"],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("get_city_counts");
+      if (error) throw error;
+      return ((data ?? []) as { city: string }[]).map((r) => r.city).filter(Boolean);
+    },
+    staleTime: 30 * 60 * 1000,
+  });
+  // Typfout in plaatsnaam (bv. "zouterwoude") wordt de juiste plaats; onbekende tekst blijft vrij zoeken.
+  const searchCity = (debouncedCity && matchCity(debouncedCity, allCities)) || debouncedCity;
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
@@ -112,7 +126,7 @@ const SearchPage = () => {
     : filters.maxPrice;
 
   const { data: facets } = useFilterFacets({
-    city: debouncedCity || undefined,
+    city: searchCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: filters.listingType || undefined,
     maxPrice: effectiveMaxPrice,
@@ -122,7 +136,7 @@ const SearchPage = () => {
   });
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
-    city: debouncedCity || undefined,
+    city: searchCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
@@ -164,7 +178,7 @@ const SearchPage = () => {
 
   // Separate query for map view: all properties with coordinates
   const { data: mapProperties, isLoading: isMapLoading } = useMapProperties({
-    city: debouncedCity || undefined,
+    city: searchCity || undefined,
     propertyType: filters.propertyType || undefined,
     listingType: applyIncomeCap && !filters.listingType ? "huur" : (filters.listingType || undefined),
     maxPrice: effectiveMaxPrice,
@@ -389,7 +403,7 @@ const SearchPage = () => {
               </div>
               <SearchAlertCTA
                 className="mb-4"
-                city={debouncedCity || undefined}
+                city={searchCity || undefined}
                 listingType={filters.listingType || undefined}
                 propertyType={filters.propertyType || undefined}
                 maxPrice={effectiveMaxPrice}
