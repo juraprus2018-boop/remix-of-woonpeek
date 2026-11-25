@@ -33,6 +33,7 @@ import RecentComments from "@/components/home/RecentComments";
 import AdSlot from "@/components/ads/AdSlot";
 import { cityToSlug } from "@/lib/cities";
 import { writeSearchBudget } from "@/lib/searchBudget";
+import { matchCity, suggestCities } from "@/lib/fuzzyCity";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -80,13 +81,36 @@ const Index = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const navigate = useNavigate();
+  const [showSuggest, setShowSuggest] = useState(false);
+  const { data: allCities = [] } = useQuery({
+    queryKey: ["all-city-names"],
+    queryFn: async () => {
+      const { data, error } = await supabase.rpc("get_city_counts");
+      if (error) throw error;
+      return ((data ?? []) as { city: string }[]).map((r) => r.city).filter(Boolean);
+    },
+    staleTime: 30 * 60 * 1000,
+  });
+  const suggestions = showSuggest ? suggestCities(query, allCities) : [];
+
+  const goSearch = (raw: string) => {
+    const params = new URLSearchParams();
+    const text = raw.trim();
+    const city = text ? matchCity(text, allCities) : null;
+    const hasBudget = !!(minPrice || maxPrice);
+    if (city && !hasBudget) {
+      navigate(`/huurwoningen/${cityToSlug(city)}`);
+      return;
+    }
+    if (text) params.set("locatie", city ?? text);
+    writeSearchBudget(params, { minPrice: minPrice ? Number(minPrice) : undefined, maxPrice: maxPrice ? Number(maxPrice) : undefined });
+    navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
+  };
 
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const params = new URLSearchParams();
-    if (query.trim()) params.set("locatie", query.trim());
-    writeSearchBudget(params, { minPrice: minPrice ? Number(minPrice) : undefined, maxPrice: maxPrice ? Number(maxPrice) : undefined });
-    navigate(`/zoeken${params.toString() ? `?${params.toString()}` : ""}`);
+    setShowSuggest(false);
+    goSearch(query);
   };
 
 
@@ -163,7 +187,10 @@ const Index = () => {
                   <Input
                     id="home-locatie"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => { setQuery(e.target.value); setShowSuggest(true); }}
+                    onFocus={() => setShowSuggest(true)}
+                    onBlur={() => setTimeout(() => setShowSuggest(false), 150)}
+                    autoComplete="off"
                     placeholder={t("home.locationPlaceholder")}
                     className="h-10 rounded-xl border-border bg-secondary/50 pr-10 text-sm"
                   />
@@ -176,6 +203,24 @@ const Index = () => {
                     >
                       <X className="h-4 w-4" />
                     </button>
+                  )}
+                  {suggestions.length > 0 && (
+                    <ul className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-xl border border-border bg-card text-left shadow-lg">
+                      {suggestions.map((c) => (
+                        <li key={c}>
+                          <button
+                            type="button"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => { setQuery(c); setShowSuggest(false); goSearch(c); }}
+                            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-secondary"
+                          >
+                            <MapPin className="h-4 w-4 text-muted-foreground" />
+                            <span>{c}</span>
+                            <span className="ml-auto text-xs text-muted-foreground">plaats</span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </div>
               </div>

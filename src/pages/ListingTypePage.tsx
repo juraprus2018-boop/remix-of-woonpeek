@@ -11,7 +11,7 @@ import SimilarProperties from "@/components/city/SimilarProperties";
 import RelatedCities from "@/components/city/RelatedCities";
 import CityDataHub from "@/components/city/CityDataHub";
 import CityRentalInsights from "@/components/city/CityRentalInsights";
-import { useProperties, useNearbyProperties, useFilterFacets } from "@/hooks/useProperties";
+import { useInfiniteProperties, useNearbyProperties, useFilterFacets } from "@/hooks/useProperties";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, MapPin, Search, List, Map as MapIcon } from "lucide-react";
@@ -84,7 +84,7 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
     includeInactive: false,
   });
 
-  const { data, isLoading } = useProperties({
+  const { data: infData, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteProperties({
     listingType: listingType as ListingType,
     city: isInvalidCity ? undefined : cityName,
     propertyType: (filters.propertyType as Database["public"]["Enums"]["property_type"]) || undefined,
@@ -95,13 +95,16 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
     pageSize: 50,
   });
 
-  const properties = data?.properties || [];
-  const totalCount = data?.totalCount || 0;
+  const properties = useMemo(() => infData?.pages.flatMap((p) => p.properties) ?? [], [infData]);
+  const totalCount = infData?.pages[0]?.totalCount || 0;
   const hasListings = totalCount > 0;
   const countLabel = hasListings ? `${totalCount} woningen` : "actueel aanbod";
 
   const visibleProperties = properties.slice(0, visibleCount);
-  const handleLoadMore = () => setVisibleCount((c) => c + ITEMS_PER_PAGE);
+  const handleLoadMore = () => {
+    setVisibleCount((c) => c + ITEMS_PER_PAGE);
+    if (visibleCount + ITEMS_PER_PAGE >= properties.length && hasNextPage && !isFetchingNextPage) fetchNextPage();
+  };
 
   // Fetch nearby/recent properties when city has no listings
   const { data: nearbyProperties, isLoading: nearbyLoading } = useNearbyProperties(
@@ -338,10 +341,10 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
                   ))}
                 </div>
               )}
-              {view === "list" && visibleCount < properties.length && (
+              {view === "list" && (visibleCount < properties.length || hasNextPage) && (
                 <div className="mt-8 text-center">
                   <Button className="gap-2 bg-accent text-accent-foreground font-semibold shadow-md hover:bg-accent/90" onClick={handleLoadMore}>
-                    Meer woningen laden ({properties.length - visibleCount} resterend)
+                    Meer woningen laden ({Math.max(totalCount - visibleCount, 0)} resterend)
                   </Button>
                 </div>
               )}
