@@ -36,7 +36,7 @@ export function planCrawlablePages(rows: CrawlableRental[], budget: number) {
   for (const p of rows) {
     if (!p.city || p.status !== "actief" || p.listing_type !== "huur") continue;
     const slug = pageSlug(p.city); if (!slug) continue;
-    const g = groups.get(slug) ?? { rows: [], names: new Map() }; groups.set(slug, g);
+    const g = groups.get(slug) ?? { rows: [] as CrawlableRental[], names: new Map<string, number>() }; groups.set(slug, g);
     g.rows.push(p); const n = p.city.trim(); g.names.set(n, (g.names.get(n) ?? 0) + 1);
   }
   const hubs = [...groups.entries()].filter(([, g]) => g.rows.length >= 6).sort((a, b) => b[1].rows.length - a[1].rows.length).map(([slug, g]) => {
