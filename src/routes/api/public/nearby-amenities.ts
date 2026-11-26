@@ -4,6 +4,7 @@ import { z } from "zod";
 const RADIUS = 5000;
 const ENDPOINTS = [
   "https://overpass-api.de/api/interpreter",
+  "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
   "https://overpass.kumi.systems/api/interpreter",
 ] as const;
 
@@ -24,10 +25,10 @@ interface OverpassElement {
 }
 
 const categories = [
-  { key: "supermarket", query: 'node["shop"="supermarket"]' },
-  { key: "school", query: 'node["amenity"~"school|university|college"]' },
-  { key: "bus", query: 'node["highway"="bus_stop"]' },
-  { key: "train", query: 'node["railway"="station"]["station"!="subway"]' },
+  { key: "supermarket", radius: 2000, query: 'node["shop"="supermarket"]' },
+  { key: "school", radius: 2000, query: 'node["amenity"~"^(school|university|college)$"]' },
+  { key: "bus", radius: 1000, query: 'node["highway"="bus_stop"]' },
+  { key: "train", radius: RADIUS, query: 'node["railway"="station"]["station"!="subway"]' },
 ] as const;
 
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number) {
@@ -86,17 +87,21 @@ export const Route = createFileRoute("/api/public/nearby-amenities")({
 
         const { lat, lng } = parsed.data;
         const union = categories
-          .map((category) => `${category.query}(around:${RADIUS},${lat},${lng});`)
+          .map((category) => `${category.query}(around:${category.radius},${lat},${lng});`)
           .join("\n");
-        const query = `[out:json][timeout:10];(\n${union}\n);out body 400;`;
+        const query = `[out:json][timeout:15];(\n${union}\n);out body 400;`;
 
         for (const endpoint of ENDPOINTS) {
           try {
             const response = await fetch(endpoint, {
               method: "POST",
               body: `data=${encodeURIComponent(query)}`,
-              headers: { "Content-Type": "application/x-www-form-urlencoded" },
-              signal: AbortSignal.timeout(12_000),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                Accept: "application/json",
+                "User-Agent": "WoonaanbodNL/1.0 (+https://www.woonaanbod-nl.nl)",
+              },
+              signal: AbortSignal.timeout(15_000),
             });
             if (!response.ok) continue;
             const data = await response.json() as { elements?: OverpassElement[] };
