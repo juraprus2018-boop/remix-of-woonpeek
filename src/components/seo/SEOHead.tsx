@@ -66,8 +66,13 @@ const setJsonLd = (id: string, data: unknown) => {
 
 const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", noindex, geoPlacename, geoPosition }: SEOHeadProps) => {
   const location = useLocation();
+  // Routes met een eigen head() bezitten hun metadata; die mag na hydration niet worden overschreven.
+  const routeHasTitle = useRouterState({
+    select: (s) => s.matches.some((m) => m.routeId !== "__root__" && (m.meta ?? []).some((t) => t && "title" in t)),
+  });
 
   useEffect(() => {
+    if (routeHasTitle) return;
     document.title = title;
 
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -201,16 +206,13 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
         document.getElementById("seo-jsonld-breadcrumbs")?.remove();
       }
     }
-  }, [title, description, canonical, ogImage, ogType, noindex, geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname]);
+  }, [title, description, canonical, ogImage, ogType, noindex, geoPlacename, geoPosition?.lat, geoPosition?.lng, location.pathname, routeHasTitle]);
 
 
 
   // Server-rendered tags (React 19 hoists these into <head>), so crawlers see the page's
   // own title, description and canonical without JavaScript. Routes that already set
   // their own head() (woningpagina's, stadshubs) keep that and skip these.
-  const routeHasTitle = useRouterState({
-    select: (s) => s.matches.some((m) => m.routeId !== "__root__" && (m.meta ?? []).some((t) => t && "title" in t)),
-  });
   if (routeHasTitle) return null;
   const ssrLocale = getLocaleFromPath(location.pathname);
   const ssrCanonical = (CANONICAL_URL || "") + withLocale(stripLocale(canonicalPathOf(canonical || location.pathname)), ssrLocale);
