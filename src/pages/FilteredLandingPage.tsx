@@ -259,7 +259,9 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
     return <NotFound />;
   }
 
-  if (legacyBeds) {
+  // Alleen doorsturen zolang het adres nog het oude "-kamers" adres is; anders
+  // blijft deze pagina tijdens het wegnavigeren steeds opnieuw doorsturen.
+  if (legacyBeds && /\/\d+-kamers$/.test(location.pathname)) {
     return <Navigate to={location.pathname.replace(/\/\d+-kamers$/, `/${legacyBeds[1]}-slaapkamers`) + location.search} replace />;
   }
 
