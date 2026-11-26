@@ -28,7 +28,7 @@ import {
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import {
   useUserConversations,
   useChatMessages,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@/lib/router-compat";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import quizIllustration from "@/assets/woonkompas-illustratie.jpg";

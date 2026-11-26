@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "@/lib/router-compat";
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, CANONICAL_URL, type Locale } from "@/lib/brand";
 import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
 import socialAsset from "@/assets/brand/social.png.asset.json";

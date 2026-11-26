@@ -1,7 +1,7 @@
 import { useMemo, useState, useCallback } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "@/lib/router-compat";
 import NotFound from "./NotFound";
 import { supabase } from "@/integrations/supabase/client";
 import { isValidDutchCity, getValidCityName } from "@/lib/dutchCities";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "@/lib/router-compat";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/layout/Header";

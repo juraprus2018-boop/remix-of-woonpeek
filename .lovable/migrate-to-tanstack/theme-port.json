@@ -1,0 +1,16 @@
+{
+  "customizations": [
+    { "token": "brand HSL color tokens (:root and .dark, incl. success/warning/sun/ink/sidebar)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "color utilities mapping (primary, secondary, accent, muted, card, popover, destructive, success, warning, brand, sidebar)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "--font-sans/display/serif Sora", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "--text-xs/sm/base/lg custom sizes", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "--radius sm/md/lg", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "--shadow-sm/md/lg/xl", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "container (centered, padded, 1400px)", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "base typography (body, headings, font-display, font-serif-display, p)", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "utilities text-balance, bg-cream, bg-cream-deep, bg-forest, text-forest, bg-sage, bg-leaf, bg-sun, text-sun, bg-sun-tint, bg-sun-soft, editorial-rule", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "animations accordion, fade-in, slide-in, marquee, float-slow", "source": "src/index.css", "reappliedIn": "src/styles.css" },
+    { "token": "dark mode class variant", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" },
+    { "token": "@tailwindcss/typography plugin", "source": "tailwind.config.ts", "reappliedIn": "src/styles.css" }
+  ]
+}

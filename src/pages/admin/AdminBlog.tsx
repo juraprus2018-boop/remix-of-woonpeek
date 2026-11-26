@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Plus, Pencil, Trash2, Loader2, ExternalLink, Sparkles, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 

@@ -4,7 +4,7 @@ import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Truck, ShieldCheck, Clock, Star, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const QUOTE_URL = "https://www.verhuisofferte.nl/?utm_source=woonaanbod-nl&utm_medium=affiliate";

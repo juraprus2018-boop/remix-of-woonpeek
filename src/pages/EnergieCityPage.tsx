@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "@/lib/router-compat";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
@@ -6,7 +6,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import DaisyconEnergyWidget from "@/components/energy/DaisyconEnergyWidget";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Zap, PiggyBank, ShieldCheck, Leaf, ArrowRight } from "lucide-react";
 import { getValidCityName } from "@/lib/dutchCities";
 

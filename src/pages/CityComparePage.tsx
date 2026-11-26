@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "@/lib/router-compat";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
@@ -15,7 +15,8 @@ const formatEuro = (price: number) =>
   new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(price);
 
 const CityComparePage = () => {
-  const { city1: slug1, city2: slug2 } = useParams<{ city1: string; city2: string }>();
+  const { pair = "" } = useParams<{ pair: string }>();
+  const [slug1, slug2] = pair.split("-vs-");
   const cityName1 = slug1 ? citySlugToName(slug1) : "";
   const cityName2 = slug2 ? citySlugToName(slug2) : "";
 

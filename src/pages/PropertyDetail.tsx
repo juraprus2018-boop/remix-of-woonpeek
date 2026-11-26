@@ -1,6 +1,6 @@
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
-import { useParams, Link, useLocation, Navigate } from "react-router-dom";
+import { useParams, Link, useLocation, Navigate } from "@/lib/router-compat";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
 import { optimizeImage } from "@/lib/imageOptimization";

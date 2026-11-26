@@ -1,0 +1,298 @@
+{
+ "functions": [
+  {
+   "name": "admin-nuke-reset",
+   "classification": "internal-only",
+   "signal": "called from AdminDashboard",
+   "outcome": "left"
+  },
+  {
+   "name": "admin-reset",
+   "classification": "internal-only",
+   "signal": "called from AdminDashboard",
+   "outcome": "left"
+  },
+  {
+   "name": "agency-feed-import",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "analyze-contract",
+   "classification": "internal-only",
+   "signal": "called from ContractCheck",
+   "outcome": "left"
+  },
+  {
+   "name": "auth-email-hook",
+   "classification": "webhook receiver",
+   "signal": "auth email hook with signature headers",
+   "outcome": "left"
+  },
+  {
+   "name": "auto-translate",
+   "classification": "unknown",
+   "signal": "no call sites",
+   "outcome": "left"
+  },
+  {
+   "name": "check-search-alerts",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "daily-alert-subscribe",
+   "classification": "Deno-only dependency",
+   "signal": "shared denomailer SMTP",
+   "outcome": "left"
+  },
+  {
+   "name": "daily-alert-unsubscribe",
+   "classification": "internal-only",
+   "signal": "called from AlertUnsubscribe page",
+   "outcome": "left"
+  },
+  {
+   "name": "daisycon-auth",
+   "classification": "internal-only",
+   "signal": "called from useAdmin",
+   "outcome": "left"
+  },
+  {
+   "name": "daisycon-banners-sync",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "daisycon-import",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "deactivate-properties",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "fetch-cbs-stats",
+   "classification": "internal-only",
+   "signal": "called from CityStats",
+   "outcome": "left"
+  },
+  {
+   "name": "fetch-livability",
+   "classification": "internal-only",
+   "signal": "called from LivabilityScore",
+   "outcome": "left"
+  },
+  {
+   "name": "fetch-realtors",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "fetch-search-console",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "ga-config",
+   "classification": "unknown",
+   "signal": "no call sites",
+   "outcome": "left"
+  },
+  {
+   "name": "generate-blog-post",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "generate-city-guide",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "generate-sitemap",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "geocode-properties",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "google-indexing",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "image-proxy",
+   "classification": "custom response",
+   "signal": "absolute image URLs served to browsers",
+   "outcome": "left"
+  },
+  {
+   "name": "makelaar-feed-import",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "notify-favorite-updates",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "og-city",
+   "classification": "webhook receiver",
+   "signal": "public social-preview endpoint",
+   "outcome": "left"
+  },
+  {
+   "name": "og-property",
+   "classification": "webhook receiver",
+   "signal": "public social-preview endpoint",
+   "outcome": "left"
+  },
+  {
+   "name": "post-to-facebook",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "press-generate",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "preview-transactional-email",
+   "classification": "unknown",
+   "signal": "no call sites",
+   "outcome": "left"
+  },
+  {
+   "name": "property-qa",
+   "classification": "internal-only",
+   "signal": "called from PropertyQA",
+   "outcome": "left"
+  },
+  {
+   "name": "rss-feed",
+   "classification": "webhook receiver",
+   "signal": "public RSS URL linked from footer",
+   "outcome": "left"
+  },
+  {
+   "name": "send-agency-welcome",
+   "classification": "internal-only",
+   "signal": "called from MakelaarPortal",
+   "outcome": "left"
+  },
+  {
+   "name": "send-contact-email",
+   "classification": "internal-only",
+   "signal": "called from PropertyDetail",
+   "outcome": "left"
+  },
+  {
+   "name": "send-email",
+   "classification": "Deno-only dependency",
+   "signal": "shared denomailer SMTP; called by cron job notify-favorite-updates",
+   "outcome": "left"
+  },
+  {
+   "name": "send-makelaar-email",
+   "classification": "Deno-only dependency",
+   "signal": "shared denomailer SMTP",
+   "outcome": "left"
+  },
+  {
+   "name": "send-welcome-email",
+   "classification": "internal-only",
+   "signal": "called from Login/Register",
+   "outcome": "left"
+  },
+  {
+   "name": "snapshot-rent-index",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "ssr-meta",
+   "classification": "webhook receiver",
+   "signal": "crawler metadata endpoint",
+   "outcome": "left"
+  },
+  {
+   "name": "sync-missing-cities",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "tiktok-oauth-callback",
+   "classification": "webhook receiver",
+   "signal": "TikTok OAuth redirect URI",
+   "outcome": "left"
+  },
+  {
+   "name": "tiktok-oauth-start",
+   "classification": "internal-only",
+   "signal": "called from AdminTikTok",
+   "outcome": "left"
+  },
+  {
+   "name": "tiktok-post-photo",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "tiktok-post-property",
+   "classification": "internal-only",
+   "signal": "called from AdminTikTok",
+   "outcome": "left"
+  },
+  {
+   "name": "tiktok-webhook",
+   "classification": "webhook receiver",
+   "signal": "TikTok webhook",
+   "outcome": "left"
+  },
+  {
+   "name": "track-email-open",
+   "classification": "webhook receiver",
+   "signal": "tracking pixel URL in emails",
+   "outcome": "left"
+  },
+  {
+   "name": "wooniezie-import",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  },
+  {
+   "name": "zig-portal-import",
+   "classification": "cron target",
+   "signal": "active pg_cron job in cron.job calls it",
+   "outcome": "left"
+  }
+ ]
+}

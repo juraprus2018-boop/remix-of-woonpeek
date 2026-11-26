@@ -153,7 +153,7 @@ const MunicipalityCitySelect = ({
               aria-expanded={open}
               className={cn(
                 "flex h-10 flex-1 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-left text-sm ring-offset-background transition-colors",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                 value ? "text-foreground" : "text-muted-foreground",
               )}
             >

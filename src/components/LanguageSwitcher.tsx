@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "@/lib/router-compat";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -1,7 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SEOHead from "@/components/seo/SEOHead";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Database, Users, ShieldCheck, RefreshCw, Trash2, Mail } from "lucide-react";
 
 const Transparantie = () => (

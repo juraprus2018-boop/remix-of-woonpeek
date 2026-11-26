@@ -9,7 +9,7 @@ import {
   Home, Loader2, Clock, CheckCircle, XCircle,
   Building2, Eye, RefreshCw, ExternalLink, BarChart3, Trash2, Facebook, Rss, Link2
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { format, formatDistanceToNow } from "date-fns";

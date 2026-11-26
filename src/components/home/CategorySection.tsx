@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Home, Building2, DoorOpen, BedDouble, Key } from "lucide-react";
 
 const categories = [

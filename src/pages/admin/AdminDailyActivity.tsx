@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { format, subDays, startOfDay, endOfDay } from "date-fns";
 import { nl } from "date-fns/locale";
 import { Loader2, ChevronLeft, ChevronRight, Plus, Minus, ExternalLink, Calendar } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { cn } from "@/lib/utils";
 
 const DAYS_TO_SHOW = 7;

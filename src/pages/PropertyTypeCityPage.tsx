@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "@/lib/router-compat";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import PropertyCard from "@/components/properties/PropertyCard";

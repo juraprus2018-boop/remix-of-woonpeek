@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { propertyUrl } from "@/lib/propertyUrl";
-import { useParams, Navigate, Link } from "react-router-dom";
+import { useParams, Navigate, Link } from "@/lib/router-compat";
 import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";

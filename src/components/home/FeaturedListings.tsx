@@ -1,7 +1,7 @@
 import { ArrowRight, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { useFeaturedProperties } from "@/hooks/useProperties";
 import PropertyCard from "@/components/properties/PropertyCard";
 

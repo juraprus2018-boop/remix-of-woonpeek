@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Cookie, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { initAnalytics } from "@/lib/analytics";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bed, Maximize, ExternalLink, Mail, Zap } from "lucide-react";
 import { WhatsAppIcon, whatsappShareHref } from "@/components/properties/WhatsAppShare";

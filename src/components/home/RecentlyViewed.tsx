@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { propertyPath } from "@/lib/propertyUrl";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { Clock, ArrowRight } from "lucide-react";

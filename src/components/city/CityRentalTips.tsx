@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Lightbulb, FileCheck, Clock, Euro, CheckCircle2, AlertTriangle } from "lucide-react";
 
 interface CityRentalTipsProps {

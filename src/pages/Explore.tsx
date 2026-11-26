@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useRef, useCallback, lazy, Suspense } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "@/lib/router-compat";
 import Header from "@/components/layout/Header";
 import SEOHead from "@/components/seo/SEOHead";
 

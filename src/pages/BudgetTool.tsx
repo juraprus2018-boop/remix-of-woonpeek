@@ -12,7 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Home, Maximize, Bed, MapPin, ArrowRight, TrendingUp, Euro } from "lucide-react";
 import { cityPath } from "@/lib/cities";
 
