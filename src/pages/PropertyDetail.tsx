@@ -544,7 +544,7 @@ const PropertyDetail = () => {
 
         {/* Lightbox */}
         <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
-          <DialogContent className="max-w-5xl border-0 bg-black/95 p-0 [&>button]:hidden">
+          <DialogContent className="max-w-5xl border-0 bg-black/95 p-0 [&>button:last-child]:hidden">
             {/* Explicit close button – always visible on dark bg */}
             <button
               onClick={() => setLightboxOpen(false)}
