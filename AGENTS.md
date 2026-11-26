@@ -3,7 +3,7 @@
 - Daisycon confirms all matched feed listings in batches before optional enrichment; enrichment uses bounded parallel writes in oldest-update order, so time limits cannot hide present listings or starve a fixed feed tail.
 
 - Homepage and shared search links use the shared budget parser/serializer; minimum and maximum prices remain explicit across list and map queries and are never cleared by price facets, so searches cannot silently exceed the chosen budget.
-- Pages are server-rendered by TanStack Start; city hub and filter metadata comes from one active-rental snapshot loader with municipal aliases merged, and sitemaps in dist keep only a refreshed lastmod, never fetched from the live generator, so crawlers get real HTML without a static-file cap.
+- Pages are server-rendered by TanStack Start; city hub and filter metadata comes from one active-rental snapshot loader with municipal aliases merged, and build-time sitemaps in dist use active canonical property URLs split per city plus only indexable city pages, without generated lastmod fallbacks, so crawlers get current HTML and focused URL lists without a static-file cap.
 - Browser-only libraries (Leaflet, pdfjs) load only on the client via clientOnlyLazy or dynamic import at point of use, because module-scope window access silently drops server-rendered content.
 - Property summaries derive only from supplied listing fields; missing availability dates and room totals remain unknown, so editorial content and structured data cannot invent rental conditions.
 - Property detail display data passes through propertyDetailData and shares propertyFacts labels; missing text, photos, prices, dates and coordinates stay safe and unknown, so incomplete feeds cannot crash rendering or fabricate facts.

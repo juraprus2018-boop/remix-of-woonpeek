@@ -6,7 +6,7 @@
  * met een redirect naar de canonieke URL.
  */
 
-import { cityToSlug } from "@/lib/cities";
+import { cityToSlug } from "./cities";
 
 export interface PropertyUrlInput {
   id: string;

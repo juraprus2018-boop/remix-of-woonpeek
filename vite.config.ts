@@ -10,7 +10,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { loadEnv, type Plugin } from "vite";
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
-import { planCrawlablePages, citySeoContent, type CrawlableRental } from "./src/lib/searchSeoHtml";
+import { type CrawlableRental } from "./src/lib/searchSeoHtml";
+import { createCitySitemaps, createPropertySitemaps, sitemapIndex, type SitemapFile } from "./src/lib/sitemapGeneration";
 
 const CLIENT_DIR = path.resolve(__dirname, "dist", "client");
 
@@ -22,12 +23,15 @@ const backendEnv = (mode: string, root: string) => {
   };
 };
 
-// Pages render on the server now, so no static HTML is written. This only refreshes the
-// lastmod of committed city sitemaps for hubs that are indexable in today's rental snapshot.
-function sitemapLastmodPlugin(): Plugin {
+// Generate focused sitemaps from the same active public snapshot. Query failures fail the
+// build instead of silently publishing stale or partial XML. No build-date lastmod is added.
+function sitemapGeneratorPlugin(): Plugin {
   let creds: { url?: string; key?: string } = {};
+  const writeFiles = (files: SitemapFile[]) => {
+    for (const file of files) fs.writeFileSync(path.join(CLIENT_DIR, file.filename), file.xml);
+  };
   return {
-    name: "sitemap-lastmod-refresh",
+    name: "sitemap-generator",
     apply: "build",
     configResolved(config) {
       creds = backendEnv(config.mode, config.root);
@@ -35,38 +39,33 @@ function sitemapLastmodPlugin(): Plugin {
     async closeBundle() {
       if (this.environment?.name !== "client") return;
       const { url, key } = creds;
-      if (!url || !key) return console.warn("Sitemap lastmod skipped: no backend credentials");
-      try {
-        const snapshot = new Date().toISOString();
-        const rows: CrawlableRental[] = [];
-        for (let offset = 0; ; offset += 1000) {
-          const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", status: "eq.actief", listing_type: "eq.huur", order: "id.asc", offset: String(offset), limit: "1000" });
-          const res = await fetch(`${url}/rest/v1/properties?${query}`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(30000) });
-          if (!res.ok) throw new Error(`snapshot failed (${res.status})`);
-          const batch = (await res.json()) as CrawlableRental[];
-          rows.push(...batch);
-          if (batch.length < 1000) break;
-        }
-        const indexable = new Set<string>();
-        for (const p of planCrawlablePages(rows, 760)) {
-          const page = citySeoContent(p.rows, snapshot, p.city, p.filter);
-          if (page.indexable) indexable.add(`https://www.woonaanbod-nl.nl/huurwoningen/${p.city.slug}${p.filter ? `/${p.filter.slug}` : ""}`);
-        }
-        const day = snapshot.slice(0, 10);
-        for (const file of ["sitemap-steden-1.xml", "sitemap-steden-2.xml", "sitemap-steden-3.xml"]) {
-          const target = path.join(CLIENT_DIR, file);
-          if (!fs.existsSync(target)) continue;
-          const xml = fs.readFileSync(target, "utf8").replace(/<url>[\s\S]*?<\/url>/g, (entry) => {
-            const loc = entry.match(/<loc>(.*?)<\/loc>/)?.[1];
-            if (!loc || !indexable.has(loc)) return entry;
-            return /<lastmod>/.test(entry) ? entry.replace(/<lastmod>.*?<\/lastmod>/, `<lastmod>${day}</lastmod>`) : entry.replace("</url>", `<lastmod>${day}</lastmod></url>`);
-          });
-          fs.writeFileSync(target, xml);
-        }
-        console.log(`Sitemap lastmod refreshed for ${indexable.size} city pages`);
-      } catch (err) {
-        console.warn("Sitemap lastmod skipped:", (err as Error).message);
+      if (!url || !key) throw new Error("Sitemap generation requires public backend credentials");
+      const rows: CrawlableRental[] = [];
+      for (let offset = 0; ; offset += 1000) {
+        const query = new URLSearchParams({ select: "id,city,status,listing_type,property_type,price,surface_area,neighborhood,created_at,title,address_slug,slug", status: "eq.actief", order: "id.asc", offset: String(offset), limit: "1000" });
+        const res = await fetch(`${url}/rest/v1/properties?${query}`, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(30000) });
+        if (!res.ok) throw new Error(`Sitemap property snapshot failed (${res.status}) at offset ${offset}`);
+        const batch = (await res.json()) as unknown;
+        if (!Array.isArray(batch)) throw new Error(`Sitemap property snapshot returned invalid data at offset ${offset}`);
+        rows.push(...batch as CrawlableRental[]);
+        if (batch.length < 1000) break;
       }
+
+      for (const stale of fs.readdirSync(CLIENT_DIR).filter((file) => /^sitemap-woningen-.+\.xml$/.test(file))) {
+        fs.rmSync(path.join(CLIENT_DIR, stale));
+      }
+      const propertyFiles = createPropertySitemaps(rows);
+      const cityFiles = createCitySitemaps(rows);
+      writeFiles(propertyFiles);
+      writeFiles(cityFiles);
+      fs.writeFileSync(path.join(CLIENT_DIR, "sitemap-woningen.xml"), sitemapIndex(propertyFiles.map((file) => file.filename)));
+      fs.writeFileSync(path.join(CLIENT_DIR, "sitemap-steden.xml"), sitemapIndex(cityFiles.map((file) => file.filename)));
+      fs.writeFileSync(path.join(CLIENT_DIR, "sitemap.xml"), sitemapIndex([
+        "sitemap-pages.xml",
+        ...cityFiles.map((file) => file.filename),
+        ...propertyFiles.map((file) => file.filename),
+      ]));
+      console.log(`Sitemaps generated: ${propertyFiles.length} city property files, ${propertyFiles.reduce((sum, file) => sum + file.urlCount, 0)} active properties, ${cityFiles.reduce((sum, file) => sum + file.urlCount, 0)} city pages`);
     },
   };
 }
@@ -125,6 +124,6 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    plugins: [sitemapLastmodPlugin(), marketDataPlugin()],
+    plugins: [sitemapGeneratorPlugin(), marketDataPlugin()],
   },
 });
