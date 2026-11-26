@@ -23,7 +23,7 @@ export function propertySeo(raw: Property) {
   const streetLine = facts.address;
   const placeLabel = streetLine ? `${streetLine}${property.city ? `, ${property.city}` : ""}` : cityLabel;
 
-  const title = `${placeLabel}: ${facts.propertyType} ${listingLabel}${bedroomsLabel ? `, ${bedroomsLabel}` : ""}, ${priceFormatted}${perMonth} | Woonaanbod NL`;
+  const title = `${placeLabel}: ${facts.propertyType} ${listingLabel}${property.price === null ? "" : ` (${priceFormatted})`} | Woonaanbod NL`;
   const description = `${facts.typeLabel} ${listingLabel} aan ${placeLabel}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${perMonth}. Bekijk foto's, kenmerken, de buurt en reageer direct.`;
   const canonicalPath = propertyPath(property);
   const image = property.images?.[0];
