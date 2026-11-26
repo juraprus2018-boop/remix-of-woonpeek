@@ -56,5 +56,5 @@
 - [x] P3 huurdersprofiel (/mijn-huurdersprofiel)
 - [x] Prijsgeschiedenis (automatisch vanaf 26 nov 2026)
 - [x] Zoeken in gewone taal (regelgebaseerd, geen AI-kosten)
-- [ ] experimentenraamwerk (P4) nog niet gebouwd
+- [x] Experimentenraamwerk (P4): vaste toekenning, controle in server-HTML, meting via GA na toestemming
 - [ ] Nieuwe accountpagina's staan nog niet live: /mijn-reacties, /mijn-verhuizing en /mijn-huurdersprofiel geven op het live domein een 404; publicatie nodig
