@@ -162,7 +162,11 @@
     "searchTitleAll": "Rechercher un logement à louer ou à acheter{{loc}} | Woonaanbod NL",
     "searchDesc": "Découvrez {{total}} {{typeWord}}{{loc}} sur Woonaanbod NL. Filtrez par prix, type et plus.",
     "newTodayTitle": "Nouvelles annonces aujourd'hui : {{count}} biens fraîchement en ligne | Woonaanbod NL",
-    "newTodayDesc": "Consultez {{count}} nouvelles annonces actives du {{date}} sur Woonaanbod NL. Fraîchement en ligne, mis à jour quotidiennement."
+    "newTodayDesc": "Consultez {{count}} nouvelles annonces actives du {{date}} sur Woonaanbod NL. Fraîchement en ligne, mis à jour quotidiennement.",
+    "listingCityTitleNoCount": "{{plural}} à {{city}} : offre actuelle ({{month}} {{year}}) | Woonaanbod NL",
+    "listingCityDescNoCount": "{{plural}} à {{city}}. Consultez {{priceWord}}, photos et détails des biens disponibles. Mises à jour quotidiennes, alertes gratuites. {{month}} {{year}}.",
+    "cityTitleNoCount": "Vivre à {{city}} : offre actuelle à louer et à vendre ({{month}} {{year}}) | Woonaanbod NL",
+    "cityDescNoCount": "Locations et biens à vendre à {{city}} sur une seule page. Nouvelles annonces chaque jour, données du marché et alertes gratuites. {{month}} {{year}}."
   },
   "redirect": {
     "title": "Voir cette page en français",

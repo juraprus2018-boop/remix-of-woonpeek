@@ -143,8 +143,8 @@ const CityPage = () => {
   const currentMonth = new Date().toLocaleString(localeTag, { month: "long" });
   const currentYear = new Date().getFullYear();
 
-  const pageTitle = t("meta.cityTitle", { city: cityName, total: totalCount, month: currentMonth, year: currentYear });
-  const pageDescription = t("meta.cityDesc", { city: cityName, huur: huurCount, koop: koopCount, month: currentMonth, year: currentYear });
+  const pageTitle = t(totalCount > 0 ? "meta.cityTitle" : "meta.cityTitleNoCount", { city: cityName, total: totalCount, month: currentMonth, year: currentYear });
+  const pageDescription = t(totalCount > 0 ? "meta.cityDesc" : "meta.cityDescNoCount", { city: cityName, huur: huurCount, koop: koopCount, month: currentMonth, year: currentYear });
   const canonical = cityPath(cityName);
 
   // ── City FAQ items ──

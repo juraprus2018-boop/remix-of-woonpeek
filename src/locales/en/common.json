@@ -162,7 +162,11 @@
     "searchTitleAll": "Find rentals and homes for sale{{loc}} | Woonaanbod NL",
     "searchDesc": "Browse {{total}} {{typeWord}}{{loc}} on Woonaanbod NL. Filter by price, type and more.",
     "newTodayTitle": "New listings today: {{count}} fresh homes | Woonaanbod NL",
-    "newTodayDesc": "Browse {{count}} new active listings from {{date}} on Woonaanbod NL. Fresh in, updated daily."
+    "newTodayDesc": "Browse {{count}} new active listings from {{date}} on Woonaanbod NL. Fresh in, updated daily.",
+    "listingCityTitleNoCount": "{{plural}} in {{city}}: current listings ({{month}} {{year}}) | Woonaanbod NL",
+    "listingCityDescNoCount": "{{plural}} in {{city}}. View {{priceWord}}, photos and details of every available listing. Updated daily, free alerts. {{month}} {{year}}.",
+    "cityTitleNoCount": "Living in {{city}}: current homes to rent & buy ({{month}} {{year}}) | Woonaanbod NL",
+    "cityDescNoCount": "Rental homes and homes for sale in {{city}} on one page. New listings daily, market data and free alerts. {{month}} {{year}}."
   },
   "redirect": {
     "title": "View this page in English",

@@ -139,35 +139,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
+      // Paginatitel, omschrijving, robots, canonical en deelafbeelding komen per pagina
+      // (route head() of SEOHead), zodat er nooit twee titels in de HTML staan.
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
-      { title: "Woonaanbod NL – Huurwoningen & Koophuizen in Nederland" },
-      {
-        name: "description",
-        content:
-          "Vind huurwoningen en koophuizen in Eindhoven, Rotterdam, Amsterdam en meer. Woonaanbod NL – het woningplatform voor heel Nederland.",
-      },
       { name: "author", content: "Woonaanbod NL" },
-      { name: "robots", content: "index, follow" },
       { name: "theme-color", content: "#14213D" },
-      { property: "og:title", content: "Woonaanbod NL – Huurwoningen & Koophuizen in Nederland" },
-      {
-        property: "og:description",
-        content:
-          "Zoek tussen duizenden huurwoningen en koophuizen in heel Nederland. Woonaanbod NL – snel, eenvoudig en betrouwbaar.",
-      },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: SOCIAL_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:locale", content: "nl_NL" },
       { property: "og:site_name", content: "Woonaanbod NL" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Woonaanbod NL – Huurwoningen & Koophuizen" },
-      {
-        name: "twitter:description",
-        content: "Vind jouw droomwoning op Woonaanbod NL. Huurwoningen en koophuizen in heel Nederland.",
-      },
-      { name: "twitter:image", content: SOCIAL_IMAGE },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

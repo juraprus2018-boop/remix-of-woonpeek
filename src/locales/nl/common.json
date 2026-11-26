@@ -162,7 +162,11 @@
     "searchTitleAll": "Huur- en koopwoningen zoeken{{loc}} | Woonaanbod NL",
     "searchDesc": "Bekijk {{total}} {{typeWord}}{{loc}} op Woonaanbod NL. Filter op prijs, type en meer.",
     "newTodayTitle": "Nieuw woningaanbod vandaag: {{count}} woningen",
-    "newTodayDesc": "Bekijk {{count}} nieuwe actieve woningen van {{date}} op Woonaanbod NL. Vers binnen, dagelijks bijgewerkt."
+    "newTodayDesc": "Bekijk {{count}} nieuwe actieve woningen van {{date}} op Woonaanbod NL. Vers binnen, dagelijks bijgewerkt.",
+    "listingCityTitleNoCount": "{{plural}} {{city}}: actueel aanbod te {{type}} ({{month}} {{year}})",
+    "listingCityDescNoCount": "{{plural}} in {{city}}. Bekijk {{priceWord}}, foto's en details van beschikbaar aanbod. Dagelijks bijgewerkt, gratis alerts. {{month}} {{year}}.",
+    "cityTitleNoCount": "Wonen in {{city}}: actueel huur- en koopaanbod ({{month}} {{year}}) | Woonaanbod NL",
+    "cityDescNoCount": "Huurwoningen en koopwoningen in {{city}} op één pagina. Dagelijks nieuw aanbod, markt, buurten en gratis alerts. {{month}} {{year}}."
   },
   "redirect": {
     "title": "Bekijk deze pagina in het Nederlands",

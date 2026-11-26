@@ -162,7 +162,11 @@
     "searchTitleAll": "Mietwohnungen und Kaufobjekte suchen{{loc}} | Woonaanbod NL",
     "searchDesc": "Entdecke {{total}} {{typeWord}}{{loc}} auf Woonaanbod NL. Filter nach Preis, Typ und mehr.",
     "newTodayTitle": "Neue Angebote heute: {{count}} frische Objekte | Woonaanbod NL",
-    "newTodayDesc": "Sieh dir {{count}} neue aktive Objekte vom {{date}} auf Woonaanbod NL an. Frisch online, täglich aktualisiert."
+    "newTodayDesc": "Sieh dir {{count}} neue aktive Objekte vom {{date}} auf Woonaanbod NL an. Frisch online, täglich aktualisiert.",
+    "listingCityTitleNoCount": "{{plural}} {{city}}: aktuelles Angebot ({{month}} {{year}}) | Woonaanbod NL",
+    "listingCityDescNoCount": "{{plural}} in {{city}}. Sieh dir {{priceWord}}, Fotos und Details der verfügbaren Objekte an. Täglich aktualisiert, kostenlose Alerts. {{month}} {{year}}.",
+    "cityTitleNoCount": "Wohnen in {{city}}: aktuelles Miet- und Kaufangebot ({{month}} {{year}}) | Woonaanbod NL",
+    "cityDescNoCount": "Miet- und Kaufobjekte in {{city}} auf einer Seite. Täglich neue Angebote, Marktdaten und kostenlose Alerts. {{month}} {{year}}."
   },
   "redirect": {
     "title": "Diese Seite auf Deutsch anzeigen",

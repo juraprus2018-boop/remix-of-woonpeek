@@ -133,11 +133,11 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
   const ll = LOCAL_LABELS[lng][listingType];
 
   const pageTitle = cityName
-    ? t("meta.listingCityTitle", { plural: ll.plural, city: cityName, total: hasListings ? totalCount : "—", type: ll.type, month: currentMonth, year: currentYear })
+    ? t(hasListings ? "meta.listingCityTitle" : "meta.listingCityTitleNoCount", { plural: ll.plural, city: cityName, total: totalCount, type: ll.type, month: currentMonth, year: currentYear })
     : t("meta.listingNLTitle", { plural: ll.plural, type: ll.type, month: currentMonth, year: currentYear });
 
   const pageDesc = cityName
-    ? t("meta.listingCityDesc", { plural: ll.plural, pluralLc: ll.plural.toLowerCase(), city: cityName, total: hasListings ? totalCount : "—", priceWord: ll.priceWord, month: currentMonth, year: currentYear })
+    ? t(hasListings ? "meta.listingCityDesc" : "meta.listingCityDescNoCount", { plural: ll.plural, pluralLc: ll.plural.toLowerCase(), city: cityName, total: totalCount, priceWord: ll.priceWord, month: currentMonth, year: currentYear })
     : t("meta.listingNLDesc", { plural: ll.plural, pluralLc: ll.plural.toLowerCase(), priceWord: ll.priceWord });
 
   const canonical = cityName

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRouterState } from "@tanstack/react-router";
 import { useLocation } from "@/lib/router-compat";
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, CANONICAL_URL, type Locale } from "@/lib/brand";
 import { stripLocale, withLocale, getLocaleFromPath } from "@/lib/locale";
@@ -204,7 +205,42 @@ const SEOHead = ({ title, description, canonical, ogImage, ogType = "website", n
 
 
 
-  return null;
+  // Server-rendered tags (React 19 hoists these into <head>), so crawlers see the page's
+  // own title, description and canonical without JavaScript. Routes that already set
+  // their own head() (woningpagina's, stadshubs) keep that and skip these.
+  const routeHasTitle = useRouterState({
+    select: (s) => s.matches.some((m) => m.routeId !== "__root__" && (m.meta ?? []).some((t) => t && "title" in t)),
+  });
+  if (routeHasTitle) return null;
+  const ssrLocale = getLocaleFromPath(location.pathname);
+  const ssrCanonical = (CANONICAL_URL || "") + withLocale(stripLocale(canonicalPathOf(canonical || location.pathname)), ssrLocale);
+  const ssrImage = ogImage || `${CANONICAL_URL}${socialAsset.url}`;
+  return (
+    <>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"} />
+      <link rel="canonical" href={ssrCanonical} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={ssrCanonical} />
+      <meta property="og:type" content={ogType} />
+      <meta property="og:image" content={ssrImage} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ssrImage} />
+    </>
+  );
 };
+
+function canonicalPathOf(value: string) {
+  let v = value.trim();
+  if (!v) return "/";
+  if (/^\/\//.test(v)) v = `https:${v}`;
+  if (/^https?:\/\//i.test(v)) {
+    try { const u = new URL(v); v = u.pathname; } catch { v = v.replace(/^https?:\/\/[^/]*/i, "") || "/"; }
+  }
+  return v.startsWith("/") ? v : `/${v}`;
+}
 
 export default SEOHead;
