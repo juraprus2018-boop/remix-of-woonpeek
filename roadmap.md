@@ -42,8 +42,9 @@
 - [x] P0: server-HTML, metadata, canonieke URLs, foutstatussen en sitemaps op representatieve openbare pagina's verifiëren.
 - [x] P0: affiliate-attributie, commerciële labels en gebruikersmetingen controleren zonder bestaande bestemmingen te wijzigen.
 - [x] P0: eerste aantoonbare soft-404, misleidende interesse, canonieke alias-, tracking- en backendbeveiligingsproblemen herstellen.
-- [ ] P0: woninglookup op stad/type scoped maken en ontbrekende woningen route-level 404 geven; backendfouten niet als 404 behandelen.
-- [ ] P0: SEOHead mag route-eigen metadata na hydration niet overschrijven; voor/na hydration dezelfde canonical en robots testen.
+- [x] P0: ontbrekende woningen geven route-level 404; backendfouten geven geen lege pagina meer.
+- [x] P0: SEOHead overschrijft route-eigen metadata na hydration niet meer.
+- [ ] P0: woninglookup ook op stad/type scoped maken; nu nog wereldwijde adres-slug-zoekopdracht.
 - [ ] P0: externe widgettoestemming, calculatorattributie en commerciële beloften per aanbieder rechttrekken zonder bestemmingen stil te wijzigen.
 - [ ] P0: afbeeldingvarianten, truncatiegrenzen en volledige sessie-/beheercontroles afzonderlijk verifiëren.
 - [ ] Fase 0/P0 afronden met acceptatiecriteria, open blokkades en volgende hoogste waardestap.
@@ -55,4 +56,5 @@
 - [x] P3 huurdersprofiel (/mijn-huurdersprofiel)
 - [x] Prijsgeschiedenis (automatisch vanaf 26 nov 2026)
 - [x] Zoeken in gewone taal (regelgebaseerd, geen AI-kosten)
-- [ ] experimenten
+- [ ] experimentenraamwerk (P4) nog niet gebouwd
+- [ ] Nieuwe accountpagina's staan nog niet live: /mijn-reacties, /mijn-verhuizing en /mijn-huurdersprofiel geven op het live domein een 404; publicatie nodig
