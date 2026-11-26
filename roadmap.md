@@ -48,3 +48,7 @@
 - [ ] P0: afbeeldingvarianten, truncatiegrenzen en volledige sessie-/beheercontroles afzonderlijk verifiëren.
 - [ ] Fase 0/P0 afronden met acceptatiecriteria, open blokkades en volgende hoogste waardestap.
 - [ ] P1 t/m P4: pas na P0 en volgens de prioriteiten uit het masterplan uitvoeren.
+
+- [x] P3: Mijn reacties (status, bezichtiging, agenda-export) + 'Ik heb een woning gevonden' pauzeert alerts
+- [ ] Energiewidget/lastenberekeners: wacht op akkoord gebruiker (partnerlinks)
+- [ ] P1 verhuisdashboard, P3 huurdersprofiel, P4 zoeken in gewone taal, prijsgeschiedenis, experimenten
