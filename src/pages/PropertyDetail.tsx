@@ -243,10 +243,8 @@ const PropertyDetail = () => {
   // Titel en omschrijving komen uit dezelfde regel als de server-head.
   const { title: seoTitle, description: seoDescription } = propertySeo(property as never);
 
-  // H1: [Type] te huur/koop: [Straat nr] in [stad]
-  const h1Title = streetLine
-    ? `${typeLabel} ${listingLabel}: ${streetLine} in ${cityLabel}`
-    : `${typeLabel} ${listingLabel} in ${cityLabel}${bedroomsLabel ? ` – ${bedroomsLabel}` : ""}`;
+  // H1 en kaarttitel gebruiken dezelfde gegevens, nooit een afwijkende feedtitel.
+  const h1Title = facts.listingTitle;
 
   const canonicalPath = propertyPath(property);
   const canonicalUrl = `https://www.woonaanbod-nl.nl${canonicalPath}`;

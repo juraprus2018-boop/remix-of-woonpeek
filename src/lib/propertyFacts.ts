@@ -22,11 +22,15 @@ export function propertyFacts(p: PropertyFactsInput) {
     : Number.isFinite(availableDate) ? `Beschikbaar vanaf ${new Date(availableDate).toLocaleDateString("nl-NL", { timeZone: "Europe/Amsterdam" })}`
     : "Startdatum niet opgegeven";
   const price = p.price === null ? "" : new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(p.price);
+  const listingLabel = p.listing_type === "huur" ? "te huur" : "te koop";
+  const listingTitle = address
+    ? `${typeLabel} ${listingLabel}: ${address}${p.city ? ` in ${p.city}` : ""}`
+    : `${typeLabel} ${listingLabel}${p.city ? ` in ${p.city}` : ""}`;
   const summary = [
-    `${address || "Deze woning"}${p.city ? ` in ${p.city}` : ""} wordt aangeboden als ${propertyType} ${p.listing_type === "huur" ? "te huur" : "te koop"}${p.price !== null && p.price > 0 ? ` voor ${price}${p.listing_type === "huur" ? " per maand" : ""}` : ""}.`,
+    `${address || "Deze woning"}${p.city ? ` in ${p.city}` : ""} wordt aangeboden als ${propertyType} ${listingLabel}${p.price !== null && p.price > 0 ? ` voor ${price}${p.listing_type === "huur" ? " per maand" : ""}` : ""}.`,
     p.surface_area && p.surface_area > 0 ? `Het opgegeven woonoppervlak is ${p.surface_area} m².` : "",
     p.bedrooms && p.bedrooms > 0 ? `De advertentie vermeldt ${p.bedrooms} slaapkamers.` : "",
     `${availability}. Controleer beschikbaarheid, servicekosten en voorwaarden bij de aanbieder.`,
   ].filter(Boolean).join(" ");
-  return { address, availability, summary, propertyType, typeLabel };
+  return { address, availability, summary, propertyType, typeLabel, listingTitle };
 }

@@ -18,4 +18,8 @@ describe("verified property facts", () => {
     expect(propertyFacts(base).address).toBe("Teststraat");
     expect(propertyFacts({ ...base, house_number: "22A" }).address).toBe("Teststraat 22A");
   });
+  it("builds the visible title from the property type and address", () => {
+    expect(propertyFacts({ ...base, street: "Leeghwater", city: "Amersfoort" }).listingTitle).toBe("Appartement te huur: Leeghwater in Amersfoort");
+    expect(propertyFacts({ ...base, property_type: "huis", listing_type: "koop" }).listingTitle).toBe("Huis te koop: Teststraat in Utrecht");
+  });
 });

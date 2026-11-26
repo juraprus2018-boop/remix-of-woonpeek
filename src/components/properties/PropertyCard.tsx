@@ -23,6 +23,7 @@ import { getStockPropertyImage } from "@/lib/stockImages";
 import { format } from "date-fns";
 import { nl } from "date-fns/locale";
 import { useWoonmatch, woonmatchScore } from "@/lib/woonmatch";
+import { propertyFacts } from "@/lib/propertyFacts";
 
 type Property = Database["public"]["Tables"]["properties"]["Row"];
 
@@ -50,6 +51,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const { data: feedLogos } = useFeedLogos();
   const woonmatch = useWoonmatch();
   const isPropertyFavorite = isFavorite(property.id);
+  const displayTitle = propertyFacts(property).listingTitle;
 
   const sourceLogo =
     feedLogos && property.source_site ? feedLogos[property.source_site.toLowerCase()] : undefined;
@@ -65,7 +67,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
     e.stopPropagation();
     const url = `${window.location.origin}${propertyPath(property)}`;
     if (navigator.share) {
-      navigator.share({ title: property.title, url });
+      navigator.share({ title: displayTitle, url });
     } else {
       navigator.clipboard.writeText(url);
     }
@@ -102,15 +104,10 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
   const heroSrc = property.images?.[0] ?? getStockPropertyImage(property.id);
   const hasOwn = !!property.images?.[0];
 
-  const subtitle = [
-    property.property_type,
-    property.bedrooms ? `${property.bedrooms} kamers` : null,
-  ]
-    .filter(Boolean)
-    .join(" - ");
+  const subtitle = property.bedrooms ? `${property.bedrooms} kamers` : null;
 
   return (
-    <Link to={propertyPath(property)} className="group block" aria-label={property.title}>
+    <Link to={propertyPath(property)} className="group block" aria-label={displayTitle}>
       <article
         className={cn(
           "relative flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-all duration-200 hover:shadow-lg sm:flex-row",
@@ -226,7 +223,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
 
 
             <h3 className="font-display text-xl font-bold leading-snug text-foreground line-clamp-2">
-              {property.title}
+              {displayTitle}
             </h3>
             {subtitle && <p className="mt-1 text-sm font-semibold capitalize text-muted-foreground">{subtitle}</p>}
             {property.description && (
