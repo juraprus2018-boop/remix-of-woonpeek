@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useParams, Link } from "@/lib/router-compat";
-import L from "leaflet";
+import type * as Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -30,7 +30,7 @@ const RentHeatmapPage = () => {
   const { city: citySlug = "" } = useParams<{ city: string }>();
   const cityName = citySlugToName(citySlug);
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<L.Map | null>(null);
+  const mapInstanceRef = useRef<Leaflet.Map | null>(null);
 
   const { data: properties, isLoading } = useQuery({
     queryKey: ["heatmap-properties", citySlug],
@@ -84,6 +84,10 @@ const RentHeatmapPage = () => {
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current || !aggregates.length) return;
 
+    let cancelled = false;
+    let created: Leaflet.Map | null = null;
+    void import("leaflet").then(({ default: L }) => {
+    if (cancelled || !mapRef.current || mapInstanceRef.current) return;
     const center: [number, number] = [
       aggregates.reduce((s, a) => s + a.lat, 0) / aggregates.length,
       aggregates.reduce((s, a) => s + a.lng, 0) / aggregates.length,
@@ -123,8 +127,11 @@ const RentHeatmapPage = () => {
     });
 
     mapInstanceRef.current = map;
+    created = map;
+    });
     return () => {
-      map.remove();
+      cancelled = true;
+      created?.remove();
       mapInstanceRef.current = null;
     };
   }, [aggregates]);

@@ -17,7 +17,7 @@ describe("incomplete property detail data", () => {
   });
   it("excludes empty or missing photos while retaining the gallery", () => {
     expect(normalizePropertyDetail({ images: ["", " ", "https://example.org/house.jpg"] }).images).toEqual(["https://example.org/house.jpg"]);
-    expect(normalizePropertyDetail({ images: null }).images).toEqual([]);
+    expect(normalizePropertyDetail({ images: null } as { images: string[] | null }).images).toEqual([]);
   });
   it("does not invent dates and prevents invalid ISO serialization", () => {
     expect(propertyDate(null)).toBeUndefined();

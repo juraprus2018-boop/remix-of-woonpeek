@@ -52,7 +52,7 @@ export async function fetchMyAgency(): Promise<Agency | null> {
 
 export function logAgencyEvent(agencyId: string, eventType: "view" | "click", propertyId?: string | null) {
   supabase
-    .rpc("log_agency_event", { _agency_id: agencyId, _property_id: propertyId ?? null, _event_type: eventType })
+    .rpc("log_agency_event", { _agency_id: agencyId, _property_id: (propertyId ?? null) as string, _event_type: eventType })
     .then(() => {});
 }
 

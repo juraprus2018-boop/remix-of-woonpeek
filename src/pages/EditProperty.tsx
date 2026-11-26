@@ -76,7 +76,7 @@ const EditProperty = () => {
       setStreet(property.street);
       setHouseNumber(property.house_number);
       setPostalCode(property.postal_code);
-      setPropertyType(property.property_type);
+      if (property.property_type) setPropertyType(property.property_type);
       setListingType(property.listing_type);
       setSurfaceArea(property.surface_area ? String(property.surface_area) : "");
       setBedrooms(property.bedrooms ? String(property.bedrooms) : "");

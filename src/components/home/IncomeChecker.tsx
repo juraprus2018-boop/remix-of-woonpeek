@@ -89,7 +89,7 @@ const IncomeChecker = () => {
             </div>
             <div className="flex items-end">
               <Button
-                asChild={isValid && nearestBracket !== null}
+                asChild={Boolean(isValid) && nearestBracket !== null}
                 disabled={!isValid}
                 className="w-full md:w-auto"
               >

@@ -14,7 +14,8 @@ import { useProperty, useSimilarProperties } from "@/hooks/useProperties";
 import { useToggleFavorite } from "@/hooks/useFavorites";
 import { useFeedLogos } from "@/hooks/useFeedLogos";
 import { useAuth } from "@/contexts/AuthContext";
-import PropertyMap from "@/components/properties/PropertyMap";
+import { clientOnlyLazy } from "@/lib/clientOnly";
+const PropertyMap = clientOnlyLazy(() => import("@/components/properties/PropertyMap"));
 import SEOHead from "@/components/seo/SEOHead";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
@@ -128,7 +129,7 @@ const PropertyDetail = () => {
         city: property.city,
         price: property.price,
         listing_type: property.listing_type,
-        property_type: property.property_type,
+        property_type: property.property_type ?? "",
         image: property.images?.[0] || undefined,
       });
     }

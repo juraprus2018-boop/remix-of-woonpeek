@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "@/lib/router-compat";
-import { Link, type LinkProps } from "@/lib/router-compat";
+import { Link } from "@/lib/router-compat";
+type LinkProps = React.ComponentProps<typeof Link>;
 import { forwardRef, useCallback } from "react";
 import { withLocale, stripLocale } from "@/lib/locale";
 import type { Locale } from "@/lib/brand";

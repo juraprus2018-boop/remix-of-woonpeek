@@ -128,7 +128,7 @@ const BestOfCityPage = ({ variant }: BestOfCityPageProps) => {
         if (!nb || nb.length < 2) continue;
         if (!groups[nb]) groups[nb] = { prices: [], huur: 0, koop: 0, types: new Set() };
         groups[nb].prices.push(Number(row.price));
-        groups[nb].types.add(row.property_type);
+        if (row.property_type) groups[nb].types.add(row.property_type);
         if (row.listing_type === "huur") groups[nb].huur++;
         else groups[nb].koop++;
       }

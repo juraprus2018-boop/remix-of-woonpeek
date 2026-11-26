@@ -1,7 +1,11 @@
 // Replaces the old Workbox SW so returning users stop receiving cached SPA assets.
 // Cache Storage is origin-scoped; only delete Workbox caches for this scope.
 
+// The pre-migration worker was hand-written and cached under this name.
+const LEGACY_APP_CACHES = ["woonaanbod-nl-v1"];
+
 function isWorkboxCacheForThisRegistration(name) {
+  if (LEGACY_APP_CACHES.includes(name)) return true;
   const hasWorkboxBucket = /(^|-)precache-v\d+-|(^|-)runtime-|(^|-)googleAnalytics-/.test(name);
   return hasWorkboxBucket && name.endsWith(self.registration.scope);
 }

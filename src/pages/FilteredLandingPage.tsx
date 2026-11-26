@@ -135,7 +135,7 @@ const FilteredLandingPage = ({ propertyType, listingType }: FilteredLandingPageP
   const huurCount = properties.filter(p => p.listing_type === "huur").length;
   const koopCount = properties.filter(p => p.listing_type === "koop").length;
   const typeBreakdown = Object.entries(
-    properties.reduce((acc, p) => { acc[p.property_type] = (acc[p.property_type] || 0) + 1; return acc; }, {} as Record<string, number>)
+    properties.reduce((acc, p) => { if (p.property_type) acc[p.property_type] = (acc[p.property_type] || 0) + 1; return acc; }, {} as Record<string, number>)
   ).sort((a, b) => b[1] - a[1]);
 
   // Unique SEO content based on filter type

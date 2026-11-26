@@ -85,7 +85,7 @@ const AdminDashboard = () => {
   // Properties by type
   const typeMap = new Map<string, number>();
   properties?.filter(p => p.status === "actief").forEach((p) => {
-    typeMap.set(p.property_type, (typeMap.get(p.property_type) || 0) + 1);
+    if (p.property_type) typeMap.set(p.property_type, (typeMap.get(p.property_type) || 0) + 1);
   });
 
   // Unique sources for reset dropdown

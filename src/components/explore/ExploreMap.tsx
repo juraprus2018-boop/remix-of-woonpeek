@@ -4,6 +4,27 @@ import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+
+// Chunked marker loading keeps running on a timer; when the map unmounts mid-chunk the
+// plugin would dereference a removed map. Skip those late additions instead of crashing.
+const ClusterGroupProto = (L as unknown as { MarkerClusterGroup?: { prototype: Record<string, unknown> } }).MarkerClusterGroup?.prototype;
+if (ClusterGroupProto && !ClusterGroupProto["__safeAddLayer"]) {
+  const original = ClusterGroupProto["_addLayer"] as (...args: unknown[]) => unknown;
+  ClusterGroupProto["_addLayer"] = function (this: { _map?: unknown }, ...args: unknown[]) {
+    if (!this._map) return undefined;
+    return original.apply(this, args);
+  };
+  ClusterGroupProto["__safeAddLayer"] = true;
+}
+const ClusterProto = (L as unknown as { MarkerCluster?: { prototype: Record<string, unknown> } }).MarkerCluster?.prototype;
+if (ClusterProto && !ClusterProto["__safeAddChildren"]) {
+  const original = ClusterProto["_recursivelyAddChildrenToMap"] as (...args: unknown[]) => unknown;
+  ClusterProto["_recursivelyAddChildrenToMap"] = function (this: { _group?: { _map?: unknown } }, ...args: unknown[]) {
+    if (!this._group?._map) return undefined;
+    return original.apply(this, args);
+  };
+  ClusterProto["__safeAddChildren"] = true;
+}
 import { Database } from "@/integrations/supabase/types";
 import { propertyPath } from "@/lib/propertyUrl";
 
@@ -126,6 +147,12 @@ const ExploreMap = ({ properties, hoveredPropertyId, commute, onBoundsChange }: 
     }
 
     return () => {
+      // Detach the cluster layer first: chunked marker loading must not run on a removed map.
+      if (clusterGroupRef.current) {
+        clusterGroupRef.current.clearLayers();
+        mapRef.current?.removeLayer(clusterGroupRef.current);
+        clusterGroupRef.current = null;
+      }
       mapRef.current?.remove();
       mapRef.current = null;
     };

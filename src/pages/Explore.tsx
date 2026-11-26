@@ -14,7 +14,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useProperties, useMapProperties, type SortOption } from "@/hooks/useProperties";
 import { Loader2, MapPin, ChevronRight, SlidersHorizontal, X, Navigation, Map as MapIcon, List, ChevronUp, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-const ExploreMap = lazy(() => import("@/components/explore/ExploreMap"));
+const ExploreMap = clientOnlyLazy(() => import("@/components/explore/ExploreMap"));
+import { clientOnlyLazy } from "@/lib/clientOnly";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 type ListingType = "huur" | "koop";
@@ -70,7 +71,7 @@ const ExplorePage = () => {
   const [distanceKm, setDistanceKm] = useState(10);
   const [postcodeCoords, setPostcodeCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [geocoding, setGeocoding] = useState(false);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // Debounce postcode input
   useEffect(() => {

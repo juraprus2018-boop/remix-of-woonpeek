@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useInfiniteProperties, useFilterFacets, useMapProperties } from "@/hooks/useProperties";
 import { Search, SlidersHorizontal, List, Map as MapIcon, Loader2, Share2, Check } from "lucide-react";
-import ExploreMap from "@/components/explore/ExploreMap";
+import { clientOnlyLazy } from "@/lib/clientOnly";
+const ExploreMap = clientOnlyLazy(() => import("@/components/explore/ExploreMap"));
 import {
   Sheet,
   SheetContent,
@@ -74,7 +75,7 @@ const SearchPage = () => {
   });
   // Typfout in plaatsnaam (bv. "zouterwoude") wordt de juiste plaats; onbekende tekst blijft vrij zoeken.
   const searchCity = (debouncedCity && matchCity(debouncedCity, allCities)) || debouncedCity;
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     debounceRef.current = setTimeout(() => {
@@ -106,12 +107,12 @@ const SearchPage = () => {
     const timeout = setTimeout(() => {
       import("@/integrations/supabase/client").then(({ supabase }) => {
         supabase.rpc("log_search_query", {
-          _query: debouncedCity || null,
-          _city: debouncedCity || null,
-          _listing_type: filters.listingType || null,
-          _property_type: filters.propertyType || null,
-          _max_price: filters.maxPrice || null,
-          _min_bedrooms: filters.minBedrooms || null,
+          _query: debouncedCity || null as never,
+          _city: debouncedCity || null as never,
+          _listing_type: filters.listingType || null as never,
+          _property_type: filters.propertyType || null as never,
+          _max_price: filters.maxPrice || null as never,
+          _min_bedrooms: filters.minBedrooms || null as never,
         }).then(() => {});
       });
     }, 2000);

@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import * as pdfjsLib from "pdfjs-dist";
 import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import { Helmet } from "react-helmet-async";
 import Header from "@/components/layout/Header";
@@ -16,7 +15,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import Breadcrumbs from "@/components/seo/Breadcrumbs";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
+// pdfjs needs browser APIs (DOMMatrix) at import time, so load it only when a PDF is read.
+async function loadPdfJs() {
+  const pdfjsLib = await import("pdfjs-dist");
+  pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
+  return pdfjsLib;
+}
 
 type Severity = "high" | "medium" | "low" | "info";
 interface Finding {
@@ -59,6 +63,7 @@ export default function ContractCheck() {
     try {
       if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
         const buf = await file.arrayBuffer();
+        const pdfjsLib = await loadPdfJs();
         const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
         let full = "";
         for (let i = 1; i <= Math.min(pdf.numPages, 30); i++) {

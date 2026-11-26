@@ -21,7 +21,8 @@ import type { Database } from "@/integrations/supabase/types";
 import FAQSchema from "@/components/seo/FAQSchema";
 import NotFound from "./NotFound";
 import SearchFilters, { type SearchFilterValues } from "@/components/search/SearchFilters";
-import ExploreMap from "@/components/explore/ExploreMap";
+import { clientOnlyLazy } from "@/lib/clientOnly";
+const ExploreMap = clientOnlyLazy(() => import("@/components/explore/ExploreMap"));
 import { useTranslation } from "react-i18next";
 import AdSlot from "@/components/ads/AdSlot";
 

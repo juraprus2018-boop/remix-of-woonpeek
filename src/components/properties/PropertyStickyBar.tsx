@@ -19,7 +19,7 @@ interface PropertyStickyBarProps {
   sourceSite?: string | null;
   energyLabel?: string | null;
   /** Element to observe; bar appears once it scrolls out of view */
-  triggerRef: React.RefObject<HTMLElement>;
+  triggerRef: React.RefObject<HTMLElement | null>;
   /** Fallback contact handler when no external/affiliate URL is available */
   onContact?: () => void;
 }

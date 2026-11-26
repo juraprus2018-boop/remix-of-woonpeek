@@ -65,9 +65,9 @@ const Profile = () => {
   const handleSave = async () => {
     try {
       await updateProfile.mutateAsync({
-        display_name: form.display_name.trim() || null,
-        phone: form.phone.trim() || null,
-        bio: form.bio.trim() || null,
+        display_name: form.display_name.trim() || (null as unknown as undefined),
+        phone: form.phone.trim() || (null as unknown as undefined),
+        bio: form.bio.trim() || (null as unknown as undefined),
       });
       toast({ title: "Profiel bijgewerkt!" });
     } catch {

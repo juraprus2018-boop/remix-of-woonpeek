@@ -525,7 +525,7 @@ export const useFilterFacets = (filters: FacetFilters) => {
 
         // Count property types (cross-filter: apply all OTHER filters)
         if (matchesListing && matchesPrice && matchesBedrooms) {
-          propertyTypes[row.property_type] = (propertyTypes[row.property_type] || 0) + 1;
+          if (row.property_type) propertyTypes[row.property_type] = (propertyTypes[row.property_type] || 0) + 1;
         }
 
         // Count listing types (cross-filter: apply all OTHER filters)

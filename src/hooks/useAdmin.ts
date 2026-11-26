@@ -134,7 +134,7 @@ export const useUpdatePropertyAdmin = () => {
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: unknown }) => {
       const { data, error } = await supabase
         .from("properties")
-        .update(updates)
+        .update(updates as never)
         .eq("id", id)
         .select()
         .single();

@@ -10,6 +10,7 @@ import {
   useRouter,
   useRouterState,
   Link,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { HelmetProvider } from "react-helmet-async";
 import { I18nextProvider } from "react-i18next";
@@ -128,10 +129,12 @@ const SERVICE_LD = {
 const WWW_REDIRECT = `(function(){var h=window.location.hostname;if(h==="woonaanbod-nl.nl"){window.location.replace("https://www.woonaanbod-nl.nl"+window.location.pathname+window.location.search+window.location.hash);}})();`;
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: ({ location }) => {
-    const search = location.searchStr ? `?${location.searchStr}` : "";
+  beforeLoad: ({ location }): void => {
+    const search = location.searchStr ?? "";
     const target = resolveLegacyRedirect(location.pathname, search);
-    if (target) throw redirect({ href: target, replace: true, statusCode: 301 });
+    if (target) {
+      throw redirect({ href: target, replace: true, statusCode: 301 });
+    }
   },
   head: () => ({
     meta: [
@@ -264,7 +267,7 @@ function RootComponent() {
   );
 }
 
-function RootError({ error, reset }: { error: Error; reset: () => void }) {
+function RootError({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
   useEffect(() => {
     console.error(error);

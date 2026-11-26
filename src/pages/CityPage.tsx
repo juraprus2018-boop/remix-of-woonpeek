@@ -447,7 +447,7 @@ const CityPage = () => {
                       <div key={property.id} className="contents">
                         <PropertyCard
                           property={property}
-                          cityAvgPrice={marketData?.avgPriceByType?.[property.property_type]}
+                          cityAvgPrice={property.property_type ? marketData?.avgPriceByType?.[property.property_type] : undefined}
                           userIncome={filters.grossIncome}
                         />
                         {index === 5 && (

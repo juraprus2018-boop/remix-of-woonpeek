@@ -55,6 +55,7 @@ const HuurprijsMonitor = () => {
     // Price per type
     const typeStats = Object.entries(
       huur.reduce((acc, p) => {
+        if (!p.property_type) return acc;
         if (!acc[p.property_type]) acc[p.property_type] = { total: 0, count: 0 };
         acc[p.property_type].total += p.price;
         acc[p.property_type].count += 1;
