@@ -408,7 +408,11 @@ const PropertyDetail = () => {
   ].filter(Boolean) as { icon: typeof Home; label: string; value: string }[];
 
   // Oude URL's (/aanbod/[slug]) doorsturen naar de canonieke adres-URL
-  if (location.pathname !== canonicalPath) {
+  // Alleen doorsturen als we nog op een woningadres staan. Tijdens het wegnavigeren
+  // (bijv. klik op logo) verandert de locatie al voordat deze pagina sluit; zonder
+  // deze check stuurt de pagina de bezoeker direct terug.
+  const onPropertyPath = /^\/(?:(?:en|de|fr)\/)?(?:aanbod|huurwoning|koopwoning)\//.test(location.pathname);
+  if (onPropertyPath && location.pathname !== canonicalPath) {
     return <Navigate to={`${canonicalPath}${location.search}`} replace />;
   }
 
