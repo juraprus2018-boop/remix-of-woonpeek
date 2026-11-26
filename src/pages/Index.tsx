@@ -34,6 +34,7 @@ import AdSlot from "@/components/ads/AdSlot";
 import { cityToSlug } from "@/lib/cities";
 import { writeSearchBudget } from "@/lib/searchBudget";
 import { matchCity, suggestCities } from "@/lib/fuzzyCity";
+import { parseNaturalSearch } from "@/lib/naturalSearch";
 import { BRAND_NAME, CANONICAL_URL, SUPPORT_EMAIL } from "@/lib/brand";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -96,6 +97,20 @@ const Index = () => {
   const goSearch = (raw: string) => {
     const params = new URLSearchParams();
     const text = raw.trim();
+    // Gewone taal ("appartement in Utrecht onder 1200") wordt naar bestaande filters vertaald.
+    const parsed = text ? parseNaturalSearch(text, allCities) : null;
+    if (parsed?.structured) {
+      if (parsed.city) params.set("locatie", parsed.city);
+      if (parsed.propertyType) params.set("type", parsed.propertyType);
+      if (parsed.listingType) params.set("aanbod", parsed.listingType);
+      if (parsed.minBedrooms) params.set("min_kamers", String(parsed.minBedrooms));
+      writeSearchBudget(params, {
+        minPrice: parsed.minPrice ?? (minPrice ? Number(minPrice) : undefined),
+        maxPrice: parsed.maxPrice ?? (maxPrice ? Number(maxPrice) : undefined),
+      });
+      navigate(`/woning-zoeken?${params.toString()}`);
+      return;
+    }
     const city = text ? matchCity(text, allCities) : null;
     const hasBudget = !!(minPrice || maxPrice);
     if (city && !hasBudget) {

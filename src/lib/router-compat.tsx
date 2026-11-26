@@ -47,6 +47,11 @@ export function useNavigate(): NavigateFn {
       return;
     }
     const { pathname, search, hash } = parseTo(to);
+    // Querystrings gaan letterlijk mee; anders worden cijfers als "%222%22" opgeslagen.
+    if (Object.keys(search ?? {}).length > 0 && to.startsWith("/")) {
+      tsNav({ href: to, state: options?.state as never, replace: options?.replace });
+      return;
+    }
     tsNav({
       to: pathname,
       search: search as never,
@@ -103,9 +108,9 @@ export function useSearchParams(): [URLSearchParams, (init: URLSearchParams | Re
           : init instanceof URLSearchParams
             ? init
             : new URLSearchParams(init);
-      const searchObj: Record<string, string> = {};
-      next.forEach((v, k) => { searchObj[k] = v; });
-      nav({ to: live.pathname, search: searchObj as never, replace: opts?.replace });
+      // Via href, zodat cijfers niet als JSON-tekst ("%221200%22") in de URL belanden.
+      const qs = next.toString();
+      nav({ href: `${live.pathname}${qs ? `?${qs}` : ""}`, replace: opts?.replace });
     },
     [nav, router],
   );

@@ -54,4 +54,5 @@
 - [x] P1 verhuisplanner (/mijn-verhuizing)
 - [x] P3 huurdersprofiel (/mijn-huurdersprofiel)
 - [x] Prijsgeschiedenis (automatisch vanaf 26 nov 2026)
-- [ ] P4 zoeken in gewone taal, experimenten
+- [x] Zoeken in gewone taal (regelgebaseerd, geen AI-kosten)
+- [ ] experimenten

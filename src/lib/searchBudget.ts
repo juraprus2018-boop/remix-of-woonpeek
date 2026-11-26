@@ -4,7 +4,7 @@ export function readSearchBudget(params: URLSearchParams) {
     for (const key of keys) {
       const raw = params.get(key);
       if (raw === null || raw.trim() === "") continue;
-      const value = Number(raw);
+      const value = Number(raw.replace(/^"|"$/g, ""));
       if (Number.isFinite(value) && value >= 0) return value;
     }
     return undefined;
