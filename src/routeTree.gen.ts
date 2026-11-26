@@ -101,6 +101,7 @@ import { Route as AdminTiktokIndexRouteImport } from './routes/admin/tiktok/inde
 import { Route as AdminVerkeerIndexRouteImport } from './routes/admin/verkeer/index'
 import { Route as AdminWoningenIndexRouteImport } from './routes/admin/woningen/index'
 import { Route as AdminZoekopdrachtenIndexRouteImport } from './routes/admin/zoekopdrachten/index'
+import { Route as ApiPublicGeocodeRouteImport } from './routes/api/public/geocode'
 import { Route as ApiPublicNearbyAmenitiesRouteImport } from './routes/api/public/nearby-amenities'
 import { Route as BlogSlugIndexRouteImport } from './routes/blog/$slug/index'
 import { Route as CijfersCityIndexRouteImport } from './routes/cijfers/$city/index'
@@ -904,6 +905,11 @@ const AdminZoekopdrachtenIndexRoute =
     path: '/admin/zoekopdrachten/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicGeocodeRoute = ApiPublicGeocodeRouteImport.update({
+  id: '/api/public/geocode',
+  path: '/api/public/geocode',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicNearbyAmenitiesRoute =
   ApiPublicNearbyAmenitiesRouteImport.update({
     id: '/api/public/nearby-amenities',
@@ -2738,6 +2744,7 @@ export interface FileRoutesByFullPath {
   '/woonmelding/': typeof WoonmeldingIndexRoute
   '/woordenboek/': typeof WoordenboekIndexRoute
   '/woz-waarde/': typeof WozWaardeIndexRoute
+  '/api/public/geocode': typeof ApiPublicGeocodeRoute
   '/api/public/nearby-amenities': typeof ApiPublicNearbyAmenitiesRoute
   '/aanbod/$slug/': typeof AanbodSlugIndexRoute
   '/admin/advertenties/': typeof AdminAdvertentiesIndexRoute
@@ -3169,6 +3176,7 @@ export interface FileRoutesByTo {
   '/woonmelding': typeof WoonmeldingIndexRoute
   '/woordenboek': typeof WoordenboekIndexRoute
   '/woz-waarde': typeof WozWaardeIndexRoute
+  '/api/public/geocode': typeof ApiPublicGeocodeRoute
   '/api/public/nearby-amenities': typeof ApiPublicNearbyAmenitiesRoute
   '/aanbod/$slug': typeof AanbodSlugIndexRoute
   '/admin/advertenties': typeof AdminAdvertentiesIndexRoute
@@ -3601,6 +3609,7 @@ export interface FileRoutesById {
   '/woonmelding/': typeof WoonmeldingIndexRoute
   '/woordenboek/': typeof WoordenboekIndexRoute
   '/woz-waarde/': typeof WozWaardeIndexRoute
+  '/api/public/geocode': typeof ApiPublicGeocodeRoute
   '/api/public/nearby-amenities': typeof ApiPublicNearbyAmenitiesRoute
   '/aanbod/$slug/': typeof AanbodSlugIndexRoute
   '/admin/advertenties/': typeof AdminAdvertentiesIndexRoute
@@ -4034,6 +4043,7 @@ export interface FileRouteTypes {
     | '/woonmelding/'
     | '/woordenboek/'
     | '/woz-waarde/'
+    | '/api/public/geocode'
     | '/api/public/nearby-amenities'
     | '/aanbod/$slug/'
     | '/admin/advertenties/'
@@ -4465,6 +4475,7 @@ export interface FileRouteTypes {
     | '/woonmelding'
     | '/woordenboek'
     | '/woz-waarde'
+    | '/api/public/geocode'
     | '/api/public/nearby-amenities'
     | '/aanbod/$slug'
     | '/admin/advertenties'
@@ -4896,6 +4907,7 @@ export interface FileRouteTypes {
     | '/woonmelding/'
     | '/woordenboek/'
     | '/woz-waarde/'
+    | '/api/public/geocode'
     | '/api/public/nearby-amenities'
     | '/aanbod/$slug/'
     | '/admin/advertenties/'
@@ -5328,6 +5340,7 @@ export interface RootRouteChildren {
   WoonmeldingIndexRoute: typeof WoonmeldingIndexRoute
   WoordenboekIndexRoute: typeof WoordenboekIndexRoute
   WozWaardeIndexRoute: typeof WozWaardeIndexRoute
+  ApiPublicGeocodeRoute: typeof ApiPublicGeocodeRoute
   ApiPublicNearbyAmenitiesRoute: typeof ApiPublicNearbyAmenitiesRoute
   AanbodSlugIndexRoute: typeof AanbodSlugIndexRoute
   AdminAdvertentiesIndexRoute: typeof AdminAdvertentiesIndexRoute
@@ -6334,6 +6347,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/zoekopdrachten'
       fullPath: '/admin/zoekopdrachten/'
       preLoaderRoute: typeof AdminZoekopdrachtenIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/geocode': {
+      id: '/api/public/geocode'
+      path: '/api/public/geocode'
+      fullPath: '/api/public/geocode'
+      preLoaderRoute: typeof ApiPublicGeocodeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/nearby-amenities': {
@@ -8769,6 +8789,7 @@ const rootRouteChildren: RootRouteChildren = {
   WoonmeldingIndexRoute: WoonmeldingIndexRoute,
   WoordenboekIndexRoute: WoordenboekIndexRoute,
   WozWaardeIndexRoute: WozWaardeIndexRoute,
+  ApiPublicGeocodeRoute: ApiPublicGeocodeRoute,
   ApiPublicNearbyAmenitiesRoute: ApiPublicNearbyAmenitiesRoute,
   AanbodSlugIndexRoute: AanbodSlugIndexRoute,
   AdminAdvertentiesIndexRoute: AdminAdvertentiesIndexRoute,

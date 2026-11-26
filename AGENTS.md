@@ -25,3 +25,4 @@
 - Press publications store optional editorial image metadata and a related blog slug in their existing data object, so rich releases remain compatible with automated releases without schema changes.
 - City rental insights share a paginated exact-city active-rental query and pure statistical calculation across city and canonical rental routes, with attributed local context and explicit samples, so price comparisons never mix sales or silently truncated listing data.
 - Facebook captions and link attachments share the edge-function listing URL helper, including daily video captions, so every posting path follows the same destination rule.
+- Visitor browsers never call third-party geodata services (Overpass, PDOK, Nominatim) directly; they go through /api/public proxy routes with fallback sources, so outages cannot cause console errors or broken pages.

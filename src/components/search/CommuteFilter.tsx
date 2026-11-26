@@ -32,18 +32,15 @@ const CommuteFilter = ({ value, onChange }: CommuteFilterProps) => {
     }
     setLoading(true);
     try {
-      const url = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=nl&limit=1&q=${encodeURIComponent(address)}`;
-      const resp = await fetch(url, {
-        headers: { "Accept-Language": "nl" },
-      });
-      const data = await resp.json();
-      if (!Array.isArray(data) || data.length === 0) {
+      const resp = await fetch(`/api/public/geocode?q=${encodeURIComponent(address.trim())}`);
+      const data = (await resp.json()) as { found?: boolean; lat?: number; lng?: number };
+      if (!data.found || typeof data.lat !== "number" || typeof data.lng !== "number") {
         toast({ title: "Adres niet gevonden", description: "Probeer straat + huisnummer + plaats.", variant: "destructive" });
         setLoading(false);
         return;
       }
-      const lat = parseFloat(data[0].lat);
-      const lng = parseFloat(data[0].lon);
+      const lat = data.lat;
+      const lng = data.lng;
       onChange({ address, lat, lng, maxMinutes, mode });
       toast({
         title: "Werkadres ingesteld",

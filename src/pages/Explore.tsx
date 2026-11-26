@@ -81,7 +81,7 @@ const ExplorePage = () => {
     return () => clearTimeout(debounceRef.current);
   }, [postcode]);
 
-  // Geocode postcode via Nominatim
+  // Geocode postcode via eigen adreszoeker (PDOK, met reservebron)
   useEffect(() => {
     if (!debouncedPostcode || debouncedPostcode.length < 4) {
       setPostcodeCoords(null);
@@ -89,15 +89,12 @@ const ExplorePage = () => {
     }
     let cancelled = false;
     setGeocoding(true);
-    fetch(
-      `https://nominatim.openstreetmap.org/search?postalcode=${encodeURIComponent(debouncedPostcode)}&country=Netherlands&format=json&limit=1`,
-      { headers: { "Accept-Language": "nl" } }
-    )
+    fetch(`/api/public/geocode?q=${encodeURIComponent(debouncedPostcode)}`)
       .then((r) => r.json())
-      .then((results) => {
+      .then((result: { found?: boolean; lat?: number; lng?: number }) => {
         if (cancelled) return;
-        if (results?.[0]) {
-          setPostcodeCoords({ lat: parseFloat(results[0].lat), lng: parseFloat(results[0].lon) });
+        if (result?.found && typeof result.lat === "number" && typeof result.lng === "number") {
+          setPostcodeCoords({ lat: result.lat, lng: result.lng });
           // Clear city filter when using postcode
           setSelectedCity(null);
         } else {
