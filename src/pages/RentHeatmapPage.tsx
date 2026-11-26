@@ -139,7 +139,7 @@ const RentHeatmapPage = () => {
   const month = new Date().toLocaleString("nl-NL", { month: "long" });
   const year = new Date().getFullYear();
 
-  const title = `Huurprijs heatmap ${cityName} per postcode | Stekly`;
+  const title = `Huurprijs heatmap ${cityName} per postcode | Woonaanbod NL`;
   const description = `Interactieve kaart met gemiddelde huurprijs per PC4-postcode in ${cityName}. Zie meteen welke wijken het duurst of het goedkoopst zijn. Bron: ${properties?.length || 0} actieve huurwoningen, ${month} ${year}.`;
 
   // Dataset JSON-LD
@@ -151,7 +151,7 @@ const RentHeatmapPage = () => {
     url: `${CANONICAL_URL}/heatmap/${citySlug}`,
     keywords: ["huurprijs", "postcode", "PC4", cityName, "huurmarkt", "Nederland"],
     license: "https://creativecommons.org/licenses/by/4.0/",
-    creator: { "@type": "Organization", name: "Stekly", url: CANONICAL_URL },
+    creator: { "@type": "Organization", name: "Woonaanbod NL", url: CANONICAL_URL },
     spatialCoverage: { "@type": "Place", name: cityName, address: { "@type": "PostalAddress", addressLocality: cityName, addressCountry: "NL" } },
     temporalCoverage: new Date().toISOString().slice(0, 7),
     variableMeasured: [
@@ -240,7 +240,7 @@ const RentHeatmapPage = () => {
               ))}
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
-              Data: actieve huurwoningen op Stekly · {month} {year} · vrij te gebruiken onder CC-BY 4.0 met bronvermelding.
+              Data: actieve huurwoningen op Woonaanbod NL · {month} {year} · vrij te gebruiken onder CC-BY 4.0 met bronvermelding.
             </p>
           </section>
         )}

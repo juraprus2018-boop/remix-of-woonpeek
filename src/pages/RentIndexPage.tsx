@@ -91,7 +91,7 @@ const RentIndexPage = () => {
 
   const currentAvg = liveStats?.avg ?? (chartData.at(-1)?.avg ?? 0);
 
-  const title = `Huurprijs-index ${cityName} ${month} ${year} — maandelijkse update | Stekly`;
+  const title = `Huurprijs-index ${cityName} ${month} ${year}: maandelijkse update | Woonaanbod NL`;
   const description = `Maandelijks bijgewerkte huurprijs-index voor ${cityName}. Gemiddelde huur ${month} ${year}: ${formatEuro(currentAvg)}. Bekijk de trend, mediaan en prijs per m².`;
 
   const datasetJsonLd = {
@@ -102,7 +102,7 @@ const RentIndexPage = () => {
     url: `${CANONICAL_URL}/huurprijs-index/${citySlug}`,
     keywords: ["huurprijs-index", "huurprijzen", cityName, "Nederland", "maandelijks"],
     license: "https://creativecommons.org/licenses/by/4.0/",
-    creator: { "@type": "Organization", name: "Stekly", url: CANONICAL_URL },
+    creator: { "@type": "Organization", name: "Woonaanbod NL", url: CANONICAL_URL },
     temporalCoverage: snapshots?.length
       ? `${snapshots[0].snapshot_month}/${snapshots[snapshots.length - 1].snapshot_month}`
       : new Date().toISOString().slice(0, 7),
