@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery, useMutation, useQueryClient, queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { Database } from "@/integrations/supabase/types";
@@ -241,8 +241,8 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
   });
 };
 
-export const useProperty = (slugOrId: string) => {
-  return useQuery({
+/** Shared by the property route loader (SSR) and the detail page, so both use one cache entry. */
+export const propertyQueryOptions = (slugOrId: string) => queryOptions({
     queryKey: ["property", slugOrId],
     queryFn: async () => {
       const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
@@ -286,7 +286,8 @@ export const useProperty = (slugOrId: string) => {
     },
     enabled: !!slugOrId,
   });
-};
+
+export const useProperty = (slugOrId: string) => useQuery(propertyQueryOptions(slugOrId));
 
 export const useCityList = () => {
   return useQuery({

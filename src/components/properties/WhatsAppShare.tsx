@@ -4,5 +4,7 @@ export const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const whatsappShareHref = (title: string) =>
-  `https://wa.me/?text=${encodeURIComponent(`${title} ${window.location.href}`)}`;
+export const whatsappShareHref = (title: string, url?: string) => {
+  const link = url ?? (typeof window !== "undefined" ? window.location.href : "");
+  return `https://wa.me/?text=${encodeURIComponent(`${title} ${link}`.trim())}`;
+};

@@ -9,6 +9,7 @@ import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 
 interface PropertyStickyBarProps {
   propertyId: string;
+  shareUrl?: string;
   title: string;
   city: string;
   price: number;
@@ -26,6 +27,7 @@ interface PropertyStickyBarProps {
 
 const PropertyStickyBar = ({
   propertyId,
+  shareUrl,
   title,
   city,
   price,
@@ -142,7 +144,7 @@ const PropertyStickyBar = ({
             className="gap-1.5 border-[#25D366]/60 text-[#25D366] hover:bg-[#25D366]/10 hover:text-[#25D366]"
             title="Deel deze woning via WhatsApp"
           >
-            <a href={whatsappShareHref(title)} target="_blank" rel="noopener noreferrer">
+            <a href={whatsappShareHref(title, shareUrl)} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon className="h-4 w-4" />
               <span className="hidden sm:inline">Deel</span>
             </a>

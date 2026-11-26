@@ -26,3 +26,4 @@
 - City rental insights share a paginated exact-city active-rental query and pure statistical calculation across city and canonical rental routes, with attributed local context and explicit samples, so price comparisons never mix sales or silently truncated listing data.
 - Facebook captions and link attachments share the edge-function listing URL helper, including daily video captions, so every posting path follows the same destination rule.
 - Visitor browsers never call third-party geodata services (Overpass, PDOK, Nominatim) directly; they go through /api/public proxy routes with fallback sources, so outages cannot cause console errors or broken pages.
+- Property detail routes prefetch the listing in their loader via propertyQueryOptions and build head() from the shared propertySeo helper, with SSR query dehydration in the router, so the first HTML carries the full page, title and canonical.

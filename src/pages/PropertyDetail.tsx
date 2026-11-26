@@ -63,6 +63,7 @@ import HuurzoneTip from "@/components/ads/HuurzoneTip";
 import { cityPath } from "@/lib/cities";
 import { propertyFacts } from "@/lib/propertyFacts";
 import { normalizePropertyDetail } from "@/lib/propertyDetailData";
+import { propertySeo } from "@/lib/propertySeo";
 import { propertyPath, formatAddress, accommodationType, extractAmenities } from "@/lib/propertyUrl";
 import { normalizeAffiliateUrl } from "@/lib/affiliateUrl";
 import {
@@ -117,6 +118,9 @@ const PropertyDetail = () => {
   const location = useLocation();
   const galleryRef = useRef<HTMLElement>(null);
   const [sending, setSending] = useState(false);
+  // Pas na laden in de browser bepalen, zodat server- en browserweergave gelijk zijn.
+  const [canNativeShare, setCanNativeShare] = useState(false);
+  useEffect(() => setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function"), []);
 
   // Track recently viewed
   useEffect(() => {
@@ -236,11 +240,8 @@ const PropertyDetail = () => {
   const placeLabel = streetLine ? `${streetLine}${property.city ? `, ${property.city}` : ""}` : cityLabel;
   const priceShort = `${priceFormatted}${property.price !== null && property.listing_type === "huur" ? " per maand" : ""}`;
 
-  // Meta Title: [Straat nr], [stad]: [type] te huur/koop, [kamers], [prijs]
-  const seoTitle = `${placeLabel}: ${propertyType} ${listingLabel}${bedroomsLabel ? `, ${bedroomsLabel}` : ""}, ${priceShort} | Woonaanbod NL`;
-
-  // Meta Description
-  const seoDescription = `${typeLabel} ${listingLabel} aan ${placeLabel}.${bedroomsLabel ? ` ${bedroomsLabel}` : ""}${surfaceLabel ? ` • ${surfaceLabel}` : ""} • ${priceFormatted}${property.listing_type === "huur" ? " per maand" : ""}. Bekijk foto's, kenmerken, de buurt en reageer direct.`;
+  // Titel en omschrijving komen uit dezelfde regel als de server-head.
+  const { title: seoTitle, description: seoDescription } = propertySeo(property as never);
 
   // H1: [Type] te huur/koop: [Straat nr] in [stad]
   const h1Title = streetLine
@@ -435,6 +436,7 @@ const PropertyDetail = () => {
 
       {property.price !== null && <PropertyStickyBar
         propertyId={property.id}
+        shareUrl={`https://www.woonaanbod-nl.nl${canonicalPath}`}
         title={property.title}
         city={property.city}
         price={Number(property.price)}
@@ -676,11 +678,11 @@ const PropertyDetail = () => {
                   </Button>
                 )}
                 <Button variant="ghost" size="sm" className="text-[#25D366] hover:bg-[#25D366]/10" asChild>
-                  <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
+                  <a href={whatsappShareHref(property.title, `https://www.woonaanbod-nl.nl${canonicalPath}`)} target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon className="mr-1.5 h-4 w-4" /> WhatsApp
                   </a>
                 </Button>
-                {typeof navigator.share === "function" ? (
+                {canNativeShare ? (
                   <Button variant="ghost" size="sm" onClick={handleShare}>
                     <Share2 className="mr-1.5 h-4 w-4" /> Delen
                   </Button>
@@ -693,7 +695,7 @@ const PropertyDetail = () => {
                       <div className="flex flex-col gap-1">
                         <Button variant="ghost" size="sm" className="justify-start" onClick={copyLink}><Copy className="mr-2 h-4 w-4" /> Link kopiëren</Button>
                         <Button variant="ghost" size="sm" className="justify-start" asChild>
-                          <a href={`mailto:?subject=${encodeURIComponent(property.title)}&body=${encodeURIComponent(window.location.href)}`}><Mail className="mr-2 h-4 w-4" /> E-mail</a>
+                          <a href={`mailto:?subject=${encodeURIComponent(property.title)}&body=${encodeURIComponent(`https://www.woonaanbod-nl.nl${canonicalPath}`)}`}><Mail className="mr-2 h-4 w-4" /> E-mail</a>
                         </Button>
                       </div>
                     </PopoverContent>
@@ -1047,7 +1049,7 @@ const PropertyDetail = () => {
                       size="lg"
                       className="w-full gap-2 border-[#25D366]/60 text-[#25D366] hover:bg-[#25D366]/10 hover:text-[#25D366]"
                     >
-                      <a href={whatsappShareHref(property.title)} target="_blank" rel="noopener noreferrer">
+                      <a href={whatsappShareHref(property.title, `https://www.woonaanbod-nl.nl${canonicalPath}`)} target="_blank" rel="noopener noreferrer">
                         <WhatsAppIcon className="h-5 w-5" />
                         Deel met vrienden
                       </a>
