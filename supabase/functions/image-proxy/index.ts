@@ -111,9 +111,12 @@ async function fetchImage(targetUrl: URL): Promise<Response | null> {
   let last: Response | null = null;
   for (const headers of attempts) {
     try {
-      const res = await fetch(targetUrl.toString(), { redirect: "follow", headers });
+      const res = await fetch(targetUrl.toString(), { redirect: "manual", headers });
       if (res.ok) return res;
       await res.body?.cancel();
+      // Redirects kunnen naar een intern of anderszins geblokkeerd netwerkadres
+      // wijzen. Volg ze daarom nooit automatisch; de neutrale placeholder blijft.
+      if (res.status >= 300 && res.status < 400) return null;
       last = res;
     } catch (err) {
       console.warn("Image fetch attempt failed:", err instanceof Error ? err.message : err);

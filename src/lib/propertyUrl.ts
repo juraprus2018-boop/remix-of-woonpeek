@@ -6,7 +6,7 @@
  * met een redirect naar de canonieke URL.
  */
 
-import { cityToSlug } from "./cities";
+import { pageSlug } from "./citySlug";
 
 export interface PropertyUrlInput {
   id: string;
@@ -18,7 +18,7 @@ export interface PropertyUrlInput {
 
 export const propertyPath = (p: PropertyUrlInput): string => {
   const segment = p.listing_type === "koop" ? "koopwoning" : "huurwoning";
-  const city = p.city ? cityToSlug(p.city) : "nederland";
+  const city = p.city ? pageSlug(p.city) || "nederland" : "nederland";
   const address = p.address_slug || p.slug || p.id;
   return `/${segment}/${city}/${address}`;
 };

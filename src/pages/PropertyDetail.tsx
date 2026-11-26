@@ -701,14 +701,8 @@ const PropertyDetail = () => {
                 )}
               </div>
 
-              {/* ── Competition meter (urgency / social proof) ── */}
-              {property.created_at && <CompetitionMeter
-                propertyId={property.id}
-                viewsCount={property.views_count || 0}
-                createdAt={property.created_at}
-                listingType={property.listing_type as "huur" | "koop"}
-                city={property.city}
-              />}
+              {/* Alleen de werkelijk geregistreerde totale weergaven. */}
+              <CompetitionMeter viewsCount={property.views_count || 0} />
 
               {/* ── Description ── */}
               <section className="space-y-3 border-b pb-6" aria-label="Woning in het kort">

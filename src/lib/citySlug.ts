@@ -46,3 +46,17 @@ export const citySlug = (raw: string): string => {
  */
 export const isSameCity = (a: string, b: string): boolean =>
   citySlug(a) === citySlug(b);
+
+const MERGED_MUNICIPALITIES: Record<string, string> = {
+  "s-gravenhage": "den-haag",
+  "den-haag": "den-haag",
+  "the-hague": "den-haag",
+  "s-hertogenbosch": "den-bosch",
+  "den-bosch": "den-bosch",
+};
+
+/** Canonieke plaats voor routes en sitemaps; alleen bewezen gemeentealiassen worden samengevoegd. */
+export const pageSlug = (raw: string): string => {
+  const slug = citySlug(raw).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  return MERGED_MUNICIPALITIES[slug] ?? slug;
+};

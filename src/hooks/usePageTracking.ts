@@ -28,20 +28,14 @@ export const usePageTracking = () => {
     ) return;
 
     lastPath.current = fullPath;
+    // Google Analytics respecteert de bestaande cookietoestemming. Er is bewust
+    // geen eigen database-pageviewregistratie of bezoekersprofilering.
     trackPageView(fullPath);
-
-    const sessionId = getSessionId();
-    supabase.from("page_views").insert({
-      session_id: sessionId,
-      page_url: fullPath,
-      referrer: document.referrer || null,
-      user_agent: navigator.userAgent,
-    } as any).then(() => {});
   }, [location.pathname, location.search]);
 };
 
 export const trackDaisyconClick = async (propertyId: string, sourceUrl: string, sourceSite: string | null) => {
-  const sessionId = sessionStorage.getItem("wp_session_id") || "unknown";
+  const sessionId = getSessionId();
   await supabase.from("daisycon_clicks").insert({
     property_id: propertyId,
     session_id: sessionId,

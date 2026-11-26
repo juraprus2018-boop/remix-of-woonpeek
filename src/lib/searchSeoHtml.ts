@@ -1,6 +1,8 @@
 import { calculateCityRentalStats, type RentalObservation } from "./cityRentalStats";
 import { cityLocalContext } from "./cityLocalContext";
-import { citySlug } from "./citySlug";
+import { pageSlug } from "./citySlug";
+
+export { pageSlug } from "./citySlug";
 
 export const escapeHtml = (value: unknown) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 export interface CrawlableRental extends RentalObservation { title: string; address_slug: string | null; slug: string | null }
@@ -19,11 +21,10 @@ export const CRAWLABLE_CITIES = [
 export interface CityTarget { name: string; slug: string; aliases: string[] }
 export interface PageFilter { slug: string; label: string; match: (p: CrawlableRental) => boolean }
 
-const MERGED: Record<string, { slug: string; name: string }> = {
-  "s-gravenhage": { slug: "den-haag", name: "Den Haag" }, "den-haag": { slug: "den-haag", name: "Den Haag" }, "the-hague": { slug: "den-haag", name: "Den Haag" },
-  "s-hertogenbosch": { slug: "den-bosch", name: "Den Bosch" }, "den-bosch": { slug: "den-bosch", name: "Den Bosch" },
+const MUNICIPALITY_NAMES: Record<string, string> = {
+  "den-haag": "Den Haag",
+  "den-bosch": "Den Bosch",
 };
-export const pageSlug = (raw: string) => { const s = citySlug(raw).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""); return MERGED[s]?.slug ?? s; };
 
 export const PAGE_FILTERS: PageFilter[] = [
   ...([["appartement", "Appartementen"], ["huis", "Huizen"], ["studio", "Studio's"], ["kamer", "Kamers"]] as const).map(([t, label]) => ({ slug: t, label, match: (p: CrawlableRental) => p.property_type === t })),
@@ -40,7 +41,7 @@ export function planCrawlablePages(rows: CrawlableRental[], budget: number) {
     g.rows.push(p); const n = p.city.trim(); g.names.set(n, (g.names.get(n) ?? 0) + 1);
   }
   const hubs = [...groups.entries()].filter(([, g]) => g.rows.length >= 6).sort((a, b) => b[1].rows.length - a[1].rows.length).map(([slug, g]) => {
-    const name = Object.values(MERGED).find(m => m.slug === slug)?.name ?? [...g.names.entries()].sort((a, b) => b[1] - a[1])[0][0];
+    const name = MUNICIPALITY_NAMES[slug] ?? [...g.names.entries()].sort((a, b) => b[1] - a[1])[0][0];
     return { city: { name, slug, aliases: [...g.names.keys()] } as CityTarget, rows: g.rows };
   });
   const pages: { city: CityTarget; rows: CrawlableRental[]; filter?: PageFilter }[] = hubs.slice(0, budget);

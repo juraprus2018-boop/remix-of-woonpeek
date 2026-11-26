@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { CrawlableRental } from "./searchSeoHtml";
 import { createCitySitemaps, createPropertySitemaps, sitemapIndex } from "./sitemapGeneration";
+import { propertyPath } from "./propertyUrl";
 
 const rental = (id: string, overrides: Partial<CrawlableRental> = {}): CrawlableRental => ({
   id,
@@ -35,6 +36,7 @@ describe("sitemap generation", () => {
     expect(files[1]?.urlCount).toBe(2);
     expect(files[1]?.xml).toContain("/huurwoning/den-haag/straat-1");
     expect(files[1]?.xml).toContain("/huurwoning/den-haag/straat-2");
+    expect(propertyPath({ id: "1", city: "'s-Gravenhage", listing_type: "huur", address_slug: "straat-1" })).toBe("/huurwoning/den-haag/straat-1");
     expect(files.every((file) => !file.xml.includes("<lastmod>"))).toBe(true);
   });
 

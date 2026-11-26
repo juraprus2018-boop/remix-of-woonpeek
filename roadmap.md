@@ -36,3 +36,15 @@
 - [ ] Dagelijkse mail aan alle abonnees + meer affiliateklikken (beperkt door regels voor app-mails)
 - [ ] Brevo koppelen + dagelijkse nieuwsbrief met Huurzone-tips
 - [ ] Huurzone-knop beter zichtbaar op woningpagina en zoekpagina
+
+# Masterplan 2.0
+- [x] Fase 0: architectuur, routes, data, SEO, affiliate, analytics en taken inventariseren in docs/MASTERPLAN.md.
+- [x] P0: server-HTML, metadata, canonieke URLs, foutstatussen en sitemaps op representatieve openbare pagina's verifiëren.
+- [x] P0: affiliate-attributie, commerciële labels en gebruikersmetingen controleren zonder bestaande bestemmingen te wijzigen.
+- [x] P0: eerste aantoonbare soft-404, misleidende interesse, canonieke alias-, tracking- en backendbeveiligingsproblemen herstellen.
+- [ ] P0: woninglookup op stad/type scoped maken en ontbrekende woningen route-level 404 geven; backendfouten niet als 404 behandelen.
+- [ ] P0: SEOHead mag route-eigen metadata na hydration niet overschrijven; voor/na hydration dezelfde canonical en robots testen.
+- [ ] P0: externe widgettoestemming, calculatorattributie en commerciële beloften per aanbieder rechttrekken zonder bestemmingen stil te wijzigen.
+- [ ] P0: afbeeldingvarianten, truncatiegrenzen en volledige sessie-/beheercontroles afzonderlijk verifiëren.
+- [ ] Fase 0/P0 afronden met acceptatiecriteria, open blokkades en volgende hoogste waardestap.
+- [ ] P1 t/m P4: pas na P0 en volgens de prioriteiten uit het masterplan uitvoeren.

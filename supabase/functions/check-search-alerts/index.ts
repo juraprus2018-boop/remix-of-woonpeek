@@ -1,10 +1,11 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 import { propertyUrl } from "../_shared/propertyUrl.ts";
 import { sendTemplateEmail } from "../_shared/transactional-email-templates/send-email.ts";
+import { requireAdmin } from "../_shared/auth.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret",
 };
 
 async function sendWhatsApp(phoneNumber: string, message: string) {
@@ -51,6 +52,11 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Alleen de scheduler, service-role of een beheerder mag service-role
+    // alertverwerking en uitgaande notificaties starten.
+    const { response: authResponse } = await requireAdmin(req, corsHeaders);
+    if (authResponse) return authResponse;
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
@@ -108,7 +114,11 @@ Deno.serve(async (req) => {
             templateData: { ...digestData(properties, properties.length, alert.city || "Nederland", `Jouw selectie: ${alert.name}`, "Dit aanbod sluit aan op de filters van jouw Woonmelding.", `Woonmelding: ${properties.length} nieuwe ${properties.length === 1 ? 'woning' : 'woningen'} voor "${alert.name}"`), manageUrl: "https://www.woonaanbod-nl.nl/radarmeldingen", partnerTipUrl: huurzoneUrl, partnerTipText: `Op zoek naar meer woningen in ${alert.city || "Nederland"}? Bekijk ook het particuliere aanbod via partner Huurzone.` },
             idempotencyKey: `alert-digest-search-${alert.id}-${new Date().toISOString().slice(0, 10)}`,
           });
-          await supabase.from("search_alerts").update({ last_notified_at: new Date().toISOString() }).eq("id", alert.id);
+          const { error: checkpointError } = await supabase.from("search_alerts").update({ last_notified_at: new Date().toISOString() }).eq("id", alert.id);
+          if (checkpointError) {
+            console.error(`Failed to update notification checkpoint for alert ${alert.id}:`, checkpointError);
+            continue;
+          }
           searchAlertNotificationsSent++;
         } catch (emailError) {
           console.error(`Failed to send email for alert ${alert.id}:`, emailError);
@@ -174,17 +184,20 @@ Deno.serve(async (req) => {
 
       const cityLabel = subscriberCity || "Nederland";
       const searchLabel = subscriber.search_label || `woningaanbod in ${cityLabel}`;
+      let emailSent = false;
       try {
         await sendTemplateEmail("alert-digest", subscriber.email, {
           templateData: { ...digestData(latestProperties, filteredCount, cityLabel, `Jouw selectie in ${cityLabel}`, `Je zoekopdracht: ${searchLabel}.`, alertSubject(cityLabel, filteredCount)), unsubscribeUrl: `https://www.woonaanbod-nl.nl/alerts/afmelden/${subscriber.id}`, partnerTipUrl: huurzoneUrl, partnerTipText: `Op zoek naar meer woningen in ${cityLabel}? Bekijk ook het particuliere aanbod via partner Huurzone.` },
           idempotencyKey: `alert-digest-daily-${subscriber.id}-${new Date().toISOString().slice(0, 10)}`,
         });
+        emailSent = true;
         dailySubscriberNotificationsSent++;
       } catch (emailError) {
         console.error(`Failed to send daily alert email to ${subscriber.email}:`, emailError);
       }
 
       // Send WhatsApp if enabled
+      let whatsappDelivered = true;
       if (subscriber.whatsapp_enabled && subscriber.phone_number) {
         const propertyList = latestProperties.slice(0, 3).map((p: any) => {
           const price = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", minimumFractionDigits: 0 }).format(p.price);
@@ -194,14 +207,20 @@ Deno.serve(async (req) => {
         const whatsappMessage = `🏠 *Woonaanbod NL Alert – ${cityLabel}*\n\n${filteredCount} nieuwe ${filteredCount === 1 ? 'woning' : 'woningen'} gevonden!\n\n${propertyList}\n\n👉 Bekijk alles: https://www.woonaanbod-nl.nl/nieuw-aanbod`;
 
         const sent = await sendWhatsApp(subscriber.phone_number, whatsappMessage);
+        whatsappDelivered = sent;
         if (sent) whatsappNotificationsSent++;
       }
 
-      // Update last_notified_at
-      await supabase
+      // Alleen na geslaagde aflevering checkpointen; anders blijft het werk opnieuw
+      // verwerkbaar en verdwijnen onbezorgde woningen niet stilletjes uit de alert.
+      if (!emailSent || !whatsappDelivered) continue;
+      const { error: checkpointError } = await supabase
         .from("daily_alert_subscribers")
         .update({ last_notified_at: new Date().toISOString() })
         .eq("id", subscriber.id);
+      if (checkpointError) {
+        console.error(`Failed to update notification checkpoint for subscriber ${subscriber.id}:`, checkpointError);
+      }
     }
 
 

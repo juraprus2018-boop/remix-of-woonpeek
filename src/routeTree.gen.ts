@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as CityIndexRouteImport } from './routes/$city/index'
 import { Route as AanbodToevoegenIndexRouteImport } from './routes/aanbod-toevoegen/index'
 import { Route as AanmeldenIndexRouteImport } from './routes/aanmelden/index'
@@ -443,6 +444,11 @@ import { Route as FrVerhuizenFromToIndexRouteImport } from './routes/fr/verhuize
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CityIndexRoute = CityIndexRouteImport.update({
@@ -2676,6 +2682,7 @@ const FrVerhuizenFromToIndexRoute = FrVerhuizenFromToIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/$city/': typeof CityIndexRoute
   '/aanbod-toevoegen/': typeof AanbodToevoegenIndexRoute
   '/aanmelden/': typeof AanmeldenIndexRoute
@@ -3108,6 +3115,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/$city': typeof CityIndexRoute
   '/aanbod-toevoegen': typeof AanbodToevoegenIndexRoute
   '/aanmelden': typeof AanmeldenIndexRoute
@@ -3541,6 +3549,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/$city/': typeof CityIndexRoute
   '/aanbod-toevoegen/': typeof AanbodToevoegenIndexRoute
   '/aanmelden/': typeof AanmeldenIndexRoute
@@ -3975,6 +3984,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$'
     | '/$city/'
     | '/aanbod-toevoegen/'
     | '/aanmelden/'
@@ -4407,6 +4417,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$'
     | '/$city'
     | '/aanbod-toevoegen'
     | '/aanmelden'
@@ -4839,6 +4850,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/$'
     | '/$city/'
     | '/aanbod-toevoegen/'
     | '/aanmelden/'
@@ -5272,6 +5284,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SplatRoute: typeof SplatRoute
   CityIndexRoute: typeof CityIndexRoute
   AanbodToevoegenIndexRoute: typeof AanbodToevoegenIndexRoute
   AanmeldenIndexRoute: typeof AanmeldenIndexRoute
@@ -5710,6 +5723,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$city/': {
@@ -8720,6 +8740,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SplatRoute: SplatRoute,
   CityIndexRoute: CityIndexRoute,
   AanbodToevoegenIndexRoute: AanbodToevoegenIndexRoute,
   AanmeldenIndexRoute: AanmeldenIndexRoute,
