@@ -52,4 +52,5 @@
 - [x] P3: Mijn reacties (status, bezichtiging, agenda-export) + 'Ik heb een woning gevonden' pauzeert alerts
 - [ ] Energiewidget/lastenberekeners: wacht op akkoord gebruiker (partnerlinks)
 - [x] P1 verhuisplanner (/mijn-verhuizing)
-- [ ] P3 huurdersprofiel, P4 zoeken in gewone taal, prijsgeschiedenis, experimenten
+- [x] P3 huurdersprofiel (/mijn-huurdersprofiel)
+- [ ] P4 zoeken in gewone taal, prijsgeschiedenis, experimenten

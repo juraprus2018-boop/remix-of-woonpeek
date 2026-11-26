@@ -2029,6 +2029,42 @@ export type Database = {
         }
         Relationships: []
       }
+      tenant_profiles: {
+        Row: {
+          employment: string | null
+          household_size: number | null
+          intro: string | null
+          monthly_income: number | null
+          move_in_from: string | null
+          pets: boolean
+          smoker: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          employment?: string | null
+          household_size?: number | null
+          intro?: string | null
+          monthly_income?: number | null
+          move_in_from?: string | null
+          pets?: boolean
+          smoker?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          employment?: string | null
+          household_size?: number | null
+          intro?: string | null
+          monthly_income?: number | null
+          move_in_from?: string | null
+          pets?: boolean
+          smoker?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       tiktok_oauth_tokens: {
         Row: {
           access_token: string

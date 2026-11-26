@@ -92,6 +92,13 @@
       "when": 1795712933447,
       "tag": "0012_moving_planner",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1795713300532,
+      "tag": "0013_tenant_profiles",
+      "breakpoints": true
     }
   ]
 }
