@@ -1002,6 +1002,45 @@ export type Database = {
         }
         Relationships: []
       }
+      housing_applications: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          property_id: string | null
+          status: string
+          title: string
+          updated_at: string
+          url: string | null
+          user_id: string
+          viewing_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          property_id?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+          url?: string | null
+          user_id: string
+          viewing_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          property_id?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          url?: string | null
+          user_id?: string
+          viewing_at?: string | null
+        }
+        Relationships: []
+      }
       import_jobs: {
         Row: {
           completed_at: string | null
