@@ -21,6 +21,7 @@ import Breadcrumbs from "@/components/seo/Breadcrumbs";
 import PropertyCard from "@/components/properties/PropertyCard";
 import NearbyAmenities from "@/components/properties/NearbyAmenities";
 import PropertyComments from "@/components/properties/PropertyComments";
+import PriceHistory from "@/components/properties/PriceHistory";
 import CompetitionMeter from "@/components/properties/CompetitionMeter";
 import {
   Heart,
@@ -703,6 +704,7 @@ const PropertyDetail = () => {
 
               {/* Alleen de werkelijk geregistreerde totale weergaven. */}
               <CompetitionMeter viewsCount={property.views_count || 0} />
+              <PriceHistory propertyId={property.id} perMonth={property.listing_type === "huur"} />
 
               {/* ── Description ── */}
               <section className="space-y-3 border-b pb-6" aria-label="Woning in het kort">

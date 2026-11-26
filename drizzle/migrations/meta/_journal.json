@@ -99,6 +99,13 @@
       "when": 1795713300532,
       "tag": "0013_tenant_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1795713591368,
+      "tag": "0014_property_price_history",
+      "breakpoints": true
     }
   ]
 }

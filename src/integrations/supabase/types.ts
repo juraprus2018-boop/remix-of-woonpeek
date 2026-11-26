@@ -1641,6 +1641,38 @@ export type Database = {
           },
         ]
       }
+      property_price_history: {
+        Row: {
+          changed_at: string
+          id: string
+          price: number | null
+          property_id: string
+          status: Database["public"]["Enums"]["property_status"] | null
+        }
+        Insert: {
+          changed_at?: string
+          id?: string
+          price?: number | null
+          property_id: string
+          status?: Database["public"]["Enums"]["property_status"] | null
+        }
+        Update: {
+          changed_at?: string
+          id?: string
+          price?: number | null
+          property_id?: string
+          status?: Database["public"]["Enums"]["property_status"] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_price_history_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       property_reports: {
         Row: {
           created_at: string

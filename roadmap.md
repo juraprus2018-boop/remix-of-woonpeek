@@ -53,4 +53,5 @@
 - [ ] Energiewidget/lastenberekeners: wacht op akkoord gebruiker (partnerlinks)
 - [x] P1 verhuisplanner (/mijn-verhuizing)
 - [x] P3 huurdersprofiel (/mijn-huurdersprofiel)
-- [ ] P4 zoeken in gewone taal, prijsgeschiedenis, experimenten
+- [x] Prijsgeschiedenis (automatisch vanaf 26 nov 2026)
+- [ ] P4 zoeken in gewone taal, experimenten
