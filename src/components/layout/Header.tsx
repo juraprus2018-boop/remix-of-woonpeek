@@ -270,6 +270,9 @@ const Header = () => {
                     <DropdownMenuItem asChild>
                       <Link to="/mijn-reacties" className="flex items-center gap-2"><MessageCircle className="h-4 w-4" />Mijn reacties</Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/mijn-verhuizing" className="flex items-center gap-2"><User className="h-4 w-4" />Mijn verhuizing</Link>
+                    </DropdownMenuItem>
                     {isAdmin && (
                       <>
                         <DropdownMenuSeparator />

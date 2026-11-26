@@ -43,6 +43,7 @@ import { Route as MakelaarPortalIndexRouteImport } from './routes/makelaar-porta
 import { Route as MakelaarsIndexRouteImport } from './routes/makelaars/index'
 import { Route as MijnAanbodIndexRouteImport } from './routes/mijn-aanbod/index'
 import { Route as MijnReactiesIndexRouteImport } from './routes/mijn-reacties/index'
+import { Route as MijnVerhuizingIndexRouteImport } from './routes/mijn-verhuizing/index'
 import { Route as NietGevondenIndexRouteImport } from './routes/niet-gevonden/index'
 import { Route as NieuwbouwIndexRouteImport } from './routes/nieuwbouw/index'
 import { Route as OpKaartIndexRouteImport } from './routes/op-kaart/index'
@@ -610,6 +611,11 @@ const MijnAanbodIndexRoute = MijnAanbodIndexRouteImport.update({
 const MijnReactiesIndexRoute = MijnReactiesIndexRouteImport.update({
   id: '/mijn-reacties/',
   path: '/mijn-reacties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MijnVerhuizingIndexRoute = MijnVerhuizingIndexRouteImport.update({
+  id: '/mijn-verhuizing/',
+  path: '/mijn-verhuizing/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NietGevondenIndexRoute = NietGevondenIndexRouteImport.update({
@@ -2721,6 +2727,7 @@ export interface FileRoutesByFullPath {
   '/makelaars/': typeof MakelaarsIndexRoute
   '/mijn-aanbod/': typeof MijnAanbodIndexRoute
   '/mijn-reacties/': typeof MijnReactiesIndexRoute
+  '/mijn-verhuizing/': typeof MijnVerhuizingIndexRoute
   '/niet-gevonden/': typeof NietGevondenIndexRoute
   '/nieuwbouw/': typeof NieuwbouwIndexRoute
   '/op-kaart/': typeof OpKaartIndexRoute
@@ -3155,6 +3162,7 @@ export interface FileRoutesByTo {
   '/makelaars': typeof MakelaarsIndexRoute
   '/mijn-aanbod': typeof MijnAanbodIndexRoute
   '/mijn-reacties': typeof MijnReactiesIndexRoute
+  '/mijn-verhuizing': typeof MijnVerhuizingIndexRoute
   '/niet-gevonden': typeof NietGevondenIndexRoute
   '/nieuwbouw': typeof NieuwbouwIndexRoute
   '/op-kaart': typeof OpKaartIndexRoute
@@ -3590,6 +3598,7 @@ export interface FileRoutesById {
   '/makelaars/': typeof MakelaarsIndexRoute
   '/mijn-aanbod/': typeof MijnAanbodIndexRoute
   '/mijn-reacties/': typeof MijnReactiesIndexRoute
+  '/mijn-verhuizing/': typeof MijnVerhuizingIndexRoute
   '/niet-gevonden/': typeof NietGevondenIndexRoute
   '/nieuwbouw/': typeof NieuwbouwIndexRoute
   '/op-kaart/': typeof OpKaartIndexRoute
@@ -4026,6 +4035,7 @@ export interface FileRouteTypes {
     | '/makelaars/'
     | '/mijn-aanbod/'
     | '/mijn-reacties/'
+    | '/mijn-verhuizing/'
     | '/niet-gevonden/'
     | '/nieuwbouw/'
     | '/op-kaart/'
@@ -4460,6 +4470,7 @@ export interface FileRouteTypes {
     | '/makelaars'
     | '/mijn-aanbod'
     | '/mijn-reacties'
+    | '/mijn-verhuizing'
     | '/niet-gevonden'
     | '/nieuwbouw'
     | '/op-kaart'
@@ -4894,6 +4905,7 @@ export interface FileRouteTypes {
     | '/makelaars/'
     | '/mijn-aanbod/'
     | '/mijn-reacties/'
+    | '/mijn-verhuizing/'
     | '/niet-gevonden/'
     | '/nieuwbouw/'
     | '/op-kaart/'
@@ -5329,6 +5341,7 @@ export interface RootRouteChildren {
   MakelaarsIndexRoute: typeof MakelaarsIndexRoute
   MijnAanbodIndexRoute: typeof MijnAanbodIndexRoute
   MijnReactiesIndexRoute: typeof MijnReactiesIndexRoute
+  MijnVerhuizingIndexRoute: typeof MijnVerhuizingIndexRoute
   NietGevondenIndexRoute: typeof NietGevondenIndexRoute
   NieuwbouwIndexRoute: typeof NieuwbouwIndexRoute
   OpKaartIndexRoute: typeof OpKaartIndexRoute
@@ -5967,6 +5980,13 @@ declare module '@tanstack/react-router' {
       path: '/mijn-reacties'
       fullPath: '/mijn-reacties/'
       preLoaderRoute: typeof MijnReactiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mijn-verhuizing/': {
+      id: '/mijn-verhuizing/'
+      path: '/mijn-verhuizing'
+      fullPath: '/mijn-verhuizing/'
+      preLoaderRoute: typeof MijnVerhuizingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/niet-gevonden/': {
@@ -8793,6 +8813,7 @@ const rootRouteChildren: RootRouteChildren = {
   MakelaarsIndexRoute: MakelaarsIndexRoute,
   MijnAanbodIndexRoute: MijnAanbodIndexRoute,
   MijnReactiesIndexRoute: MijnReactiesIndexRoute,
+  MijnVerhuizingIndexRoute: MijnVerhuizingIndexRoute,
   NietGevondenIndexRoute: NietGevondenIndexRoute,
   NieuwbouwIndexRoute: NieuwbouwIndexRoute,
   OpKaartIndexRoute: OpKaartIndexRoute,

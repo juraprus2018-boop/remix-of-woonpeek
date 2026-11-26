@@ -141,7 +141,7 @@ const MyApplications = () => {
               <p className="mt-1 text-sm text-muted-foreground">Pauzeer al je zoekalerts in één keer. Je gegevens blijven bewaard.</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button onClick={() => foundHome.mutate()} disabled={foundHome.isPending}>Ik heb een woning gevonden</Button>
-                <Button variant="outline" asChild><Link to="/verhuischecklist">Naar de verhuischecklist</Link></Button>
+                <Button variant="outline" asChild><Link to="/mijn-verhuizing">Start je verhuisplanner</Link></Button>
               </div>
             </section>
           </>

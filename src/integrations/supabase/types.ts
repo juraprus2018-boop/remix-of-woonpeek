@@ -1217,6 +1217,51 @@ export type Database = {
         }
         Relationships: []
       }
+      moving_plans: {
+        Row: {
+          moving_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          moving_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          moving_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      moving_tasks: {
+        Row: {
+          created_at: string
+          days_before: number
+          done: boolean
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          days_before?: number
+          done?: boolean
+          id?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          days_before?: number
+          done?: boolean
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       nearby_amenities_cache: {
         Row: {
           cache_key: string
