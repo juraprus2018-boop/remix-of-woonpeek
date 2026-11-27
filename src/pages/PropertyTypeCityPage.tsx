@@ -229,7 +229,7 @@ const PropertyTypeCityPage = ({ propertyType }: PropertyTypeCityPageProps) => {
           </div>
         </section>
 
-        <section className="w-full px-4 py-8 md:px-8">
+        <section className="container py-8">
           {/* Filters bovenaan, 1 regel */}
           <div className="mb-6 rounded-2xl border bg-card p-4">
             <SearchFilters
