@@ -61,13 +61,18 @@ export const optimizeImage = (src: string | undefined | null, opts: ImgOpts): st
   }
 };
 
-/** Generate a srcset string for responsive images. */
+/**
+ * Generate a srcset string for responsive images. Returns "" when the source
+ * cannot be resized (external proxy, local assets), so the browser is never
+ * told that identical files are different widths.
+ */
 export const buildSrcSet = (src: string | undefined | null, widths: number[], height?: number, quality = 70, format: ImgOpts["format"] = "webp"): string => {
-  if (!src) return "";
-  return widths
-    .map((w) => {
-      const h = height ? Math.round((height / widths[0]) * w) : undefined;
-      return `${optimizeImage(src, { width: w, height: h, quality, format })} ${w}w`;
-    })
-    .join(", ");
+  if (!src || widths.length === 0) return "";
+  const first = widths[0] ?? 1;
+  const entries = widths.map((w) => {
+    const h = height ? Math.round((height / first) * w) : undefined;
+    return { w, url: optimizeImage(src, { width: w, height: h, quality, format }) };
+  });
+  if (new Set(entries.map((e) => e.url)).size < entries.length) return "";
+  return entries.map((e) => `${e.url} ${e.w}w`).join(", ");
 };

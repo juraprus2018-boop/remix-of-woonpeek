@@ -173,7 +173,7 @@ Bij elke implementatiefase worden toegevoegd: gewijzigde bestanden, migraties, a
 - `SEOHead` kan route-eigen canonical/robots na hydration overschrijven; dit vraagt een voor/na-hydration-test en één duidelijke metadata-eigenaar.
 - Externe energiewidgets laden scripts zonder gebruikersactivatie; toestemming en downstream opslag moeten in de browser worden vastgesteld voordat gedrag verandert.
 - Woonlastenklikken gebruiken een eigen REST-flow en interne of netwerkmarketingbestemmingen; geen bestemming stil wijzigen, maar events en labels eerst harmoniseren.
-- Externe afbeeldingen adverteren srcset-varianten zonder echte transformatie; prestatie- en payloadmeting blijft open.
+- **Completed**: externe afbeeldingen krijgen geen nep-srcset meer; alleen echt verkleinbare opslagafbeeldingen adverteren breedtes.
 - Resultatencaps, niet-unieke pagineringsvolgorde, accountwisselcaches en beheerstatistieken boven bestaande limieten vereisen afzonderlijke regressietests.
 - De oude dagelijkse sitemapcron en niet-gedeployede backendwijzigingen zijn expliciet geen bewezen live verbetering.
 

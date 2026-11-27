@@ -118,7 +118,7 @@ const PropertyCard = ({ property, cityAvgPrice, userIncome, priority = false }: 
         <div className="relative w-full shrink-0 overflow-hidden sm:w-[280px] lg:w-[320px]">
           <div className="aspect-[16/10] h-full w-full sm:aspect-auto sm:h-[220px]">
             <picture>
-              {hasOwn && (
+              {hasOwn && buildSrcSet(heroSrc, [320, 480, 640], 400, 74, "webp") && (
                 <source
                   type="image/webp"
                   srcSet={buildSrcSet(heroSrc, [320, 480, 640], 400, 74, "webp")}
