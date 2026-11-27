@@ -64,3 +64,8 @@
   - Gelezen: desktopaccountmenu en mobiele menuvoorkeuren in Header, LocalizedLink/locale, alle drie accountpagina's en de NL/EN/DE/FR-routes. Mobiel verwijst naar de bestaande accountpagina; geen links naar deze drie functies in andere menu's of achtergrondtaken gevonden.
   - Hersteld: negen ontbrekende taalroutes en de link van Mijn reacties naar de verhuisplanner die de taal verloor. Gedeelde pagina's en bestaande gegevens/toegang blijven ongewijzigd.
   - Controle: negen accountmenudoorklikken ingelogd met testaccount, geen runtimefouten; vijftien regressietests geslaagd, inclusief taalbehoud naar de verhuisplanner.
+
+- [x] Security: uitsluitend openbare leestoegang tot tijdelijke buurtvoorzieningenopslag verwijderd; bestaande records en overige meldingen ongemoeid gelaten.
+  - Regel: bezoekers krijgen buurtvoorzieningen voor een woning, niet rechtstreekse toegang tot de volledige tijdelijke opslag.
+  - Gelezen: PropertyDetail, NearbyAmenities, de publieke voorzieningenservice en de databasepolicy. Geen cachegebruik in achtergrondfuncties of databasefuncties gevonden; de woningpagina gebruikt sessieopslag en de aparte service.
+  - Controle: databaseprivileges voor anon/authenticated ingetrokken en publieke policy verwijderd; SQL-regressiecontrole opgeslagen.

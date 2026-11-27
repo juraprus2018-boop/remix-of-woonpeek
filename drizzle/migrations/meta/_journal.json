@@ -113,6 +113,13 @@
       "when": 1795715629438,
       "tag": "0015_scope_price_history_read",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1795766056470,
+      "tag": "0016_restrict_nearby_amenities_cache_read",
+      "breakpoints": true
     }
   ]
 }
