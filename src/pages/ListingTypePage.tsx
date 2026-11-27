@@ -275,12 +275,12 @@ const ListingTypePage = ({ listingType }: ListingTypePageProps) => {
           </div>
         </section>
 
-        <div className="w-full px-4 md:px-8">
+        <div className="container">
           <AdSlot slotKey="city_page" advertiser="Huurwoningen.nl" />
         </div>
 
         {/* Properties */}
-        <section className="w-full px-4 py-8 md:px-8">
+        <section className="container py-8">
           {/* Filters bovenaan, 1 regel */}
           <div className="mb-4 rounded-2xl border bg-card p-4">
             <SearchFilters
