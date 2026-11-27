@@ -118,6 +118,7 @@ export const useProperties = (filters?: PropertyFilters) => {
           .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" })
           .order("provider_priority", { ascending: true })
           .order(sortConfig(filters?.sortBy).column, { ascending: sortConfig(filters?.sortBy).ascending })
+          .order("id", { ascending: true })
           .range(from, to);
 
         query = applyPropertyFilters(query, filters);
@@ -174,6 +175,7 @@ export const useInfiniteProperties = (filters?: Omit<PropertyFilters, "page" | "
         .select(PROPERTY_LIST_COLUMNS as string, { count: "exact" })
         .order("provider_priority", { ascending: true })
         .order("created_at", { ascending: false })
+        .order("id", { ascending: true })
         .range(from, to);
 
       query = applyPropertyFilters(query, { ...filters, page: pageParam, pageSize });

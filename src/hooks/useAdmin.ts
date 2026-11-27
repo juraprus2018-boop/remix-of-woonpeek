@@ -41,6 +41,7 @@ export const useAllProperties = () => {
           .from("properties")
           .select("id,status,city,source_site,property_type,title,price,facebook_posted_at,first_image:images->>0" as string)
           .order("created_at", { ascending: false })
+          .order("id", { ascending: true })
           .range(from, from + pageSize - 1)
           .overrideTypes<Summary[], { merge: false }>();
 
@@ -87,6 +88,7 @@ export const useAdminPropertiesPaginated = (
         .from("properties")
         .select("*")
         .order(sortCol, { ascending: sortAsc })
+        .order("id", { ascending: true })
         .range(from, to);
 
       // Apply filters to both queries

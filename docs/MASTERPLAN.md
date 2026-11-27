@@ -174,7 +174,7 @@ Bij elke implementatiefase worden toegevoegd: gewijzigde bestanden, migraties, a
 - Externe energiewidgets laden scripts zonder gebruikersactivatie; toestemming en downstream opslag moeten in de browser worden vastgesteld voordat gedrag verandert.
 - Woonlastenklikken gebruiken een eigen REST-flow en interne of netwerkmarketingbestemmingen; geen bestemming stil wijzigen, maar events en labels eerst harmoniseren.
 - **Completed**: externe afbeeldingen krijgen geen nep-srcset meer; alleen echt verkleinbare opslagafbeeldingen adverteren breedtes.
-- Resultatencaps, niet-unieke pagineringsvolgorde, accountwisselcaches en beheerstatistieken boven bestaande limieten vereisen afzonderlijke regressietests.
+- **Completed**: paginering heeft een id-tiebreaker (geen dubbele of gemiste woningen) en beheertellingen boven 1000 rijen zijn getest; accountwisselcaches blijven open.
 - De oude dagelijkse sitemapcron en niet-gedeployede backendwijzigingen zijn expliciet geen bewezen live verbetering.
 
 ### Huidige verificatie
