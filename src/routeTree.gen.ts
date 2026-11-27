@@ -136,6 +136,9 @@ import { Route as DeLoginIndexRouteImport } from './routes/de/login/index'
 import { Route as DeMakelaarPortalIndexRouteImport } from './routes/de/makelaar-portal/index'
 import { Route as DeMakelaarsIndexRouteImport } from './routes/de/makelaars/index'
 import { Route as DeMijnAanbodIndexRouteImport } from './routes/de/mijn-aanbod/index'
+import { Route as DeMijnHuurdersprofielIndexRouteImport } from './routes/de/mijn-huurdersprofiel/index'
+import { Route as DeMijnReactiesIndexRouteImport } from './routes/de/mijn-reacties/index'
+import { Route as DeMijnVerhuizingIndexRouteImport } from './routes/de/mijn-verhuizing/index'
 import { Route as DeNietGevondenIndexRouteImport } from './routes/de/niet-gevonden/index'
 import { Route as DeNieuwbouwIndexRouteImport } from './routes/de/nieuwbouw/index'
 import { Route as DeOpKaartIndexRouteImport } from './routes/de/op-kaart/index'
@@ -201,6 +204,9 @@ import { Route as EnLoginIndexRouteImport } from './routes/en/login/index'
 import { Route as EnMakelaarPortalIndexRouteImport } from './routes/en/makelaar-portal/index'
 import { Route as EnMakelaarsIndexRouteImport } from './routes/en/makelaars/index'
 import { Route as EnMijnAanbodIndexRouteImport } from './routes/en/mijn-aanbod/index'
+import { Route as EnMijnHuurdersprofielIndexRouteImport } from './routes/en/mijn-huurdersprofiel/index'
+import { Route as EnMijnReactiesIndexRouteImport } from './routes/en/mijn-reacties/index'
+import { Route as EnMijnVerhuizingIndexRouteImport } from './routes/en/mijn-verhuizing/index'
 import { Route as EnNietGevondenIndexRouteImport } from './routes/en/niet-gevonden/index'
 import { Route as EnNieuwbouwIndexRouteImport } from './routes/en/nieuwbouw/index'
 import { Route as EnOpKaartIndexRouteImport } from './routes/en/op-kaart/index'
@@ -266,6 +272,9 @@ import { Route as FrLoginIndexRouteImport } from './routes/fr/login/index'
 import { Route as FrMakelaarPortalIndexRouteImport } from './routes/fr/makelaar-portal/index'
 import { Route as FrMakelaarsIndexRouteImport } from './routes/fr/makelaars/index'
 import { Route as FrMijnAanbodIndexRouteImport } from './routes/fr/mijn-aanbod/index'
+import { Route as FrMijnHuurdersprofielIndexRouteImport } from './routes/fr/mijn-huurdersprofiel/index'
+import { Route as FrMijnReactiesIndexRouteImport } from './routes/fr/mijn-reacties/index'
+import { Route as FrMijnVerhuizingIndexRouteImport } from './routes/fr/mijn-verhuizing/index'
 import { Route as FrNietGevondenIndexRouteImport } from './routes/fr/niet-gevonden/index'
 import { Route as FrNieuwbouwIndexRouteImport } from './routes/fr/nieuwbouw/index'
 import { Route as FrOpKaartIndexRouteImport } from './routes/fr/op-kaart/index'
@@ -1090,6 +1099,22 @@ const DeMijnAanbodIndexRoute = DeMijnAanbodIndexRouteImport.update({
   path: '/de/mijn-aanbod/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DeMijnHuurdersprofielIndexRoute =
+  DeMijnHuurdersprofielIndexRouteImport.update({
+    id: '/de/mijn-huurdersprofiel/',
+    path: '/de/mijn-huurdersprofiel/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DeMijnReactiesIndexRoute = DeMijnReactiesIndexRouteImport.update({
+  id: '/de/mijn-reacties/',
+  path: '/de/mijn-reacties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeMijnVerhuizingIndexRoute = DeMijnVerhuizingIndexRouteImport.update({
+  id: '/de/mijn-verhuizing/',
+  path: '/de/mijn-verhuizing/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeNietGevondenIndexRoute = DeNietGevondenIndexRouteImport.update({
   id: '/de/niet-gevonden/',
   path: '/de/niet-gevonden/',
@@ -1425,6 +1450,22 @@ const EnMijnAanbodIndexRoute = EnMijnAanbodIndexRouteImport.update({
   path: '/en/mijn-aanbod/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnMijnHuurdersprofielIndexRoute =
+  EnMijnHuurdersprofielIndexRouteImport.update({
+    id: '/en/mijn-huurdersprofiel/',
+    path: '/en/mijn-huurdersprofiel/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EnMijnReactiesIndexRoute = EnMijnReactiesIndexRouteImport.update({
+  id: '/en/mijn-reacties/',
+  path: '/en/mijn-reacties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnMijnVerhuizingIndexRoute = EnMijnVerhuizingIndexRouteImport.update({
+  id: '/en/mijn-verhuizing/',
+  path: '/en/mijn-verhuizing/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnNietGevondenIndexRoute = EnNietGevondenIndexRouteImport.update({
   id: '/en/niet-gevonden/',
   path: '/en/niet-gevonden/',
@@ -1758,6 +1799,22 @@ const FrMakelaarsIndexRoute = FrMakelaarsIndexRouteImport.update({
 const FrMijnAanbodIndexRoute = FrMijnAanbodIndexRouteImport.update({
   id: '/fr/mijn-aanbod/',
   path: '/fr/mijn-aanbod/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrMijnHuurdersprofielIndexRoute =
+  FrMijnHuurdersprofielIndexRouteImport.update({
+    id: '/fr/mijn-huurdersprofiel/',
+    path: '/fr/mijn-huurdersprofiel/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const FrMijnReactiesIndexRoute = FrMijnReactiesIndexRouteImport.update({
+  id: '/fr/mijn-reacties/',
+  path: '/fr/mijn-reacties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FrMijnVerhuizingIndexRoute = FrMijnVerhuizingIndexRouteImport.update({
+  id: '/fr/mijn-verhuizing/',
+  path: '/fr/mijn-verhuizing/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FrNietGevondenIndexRoute = FrNietGevondenIndexRouteImport.update({
@@ -2827,6 +2884,9 @@ export interface FileRoutesByFullPath {
   '/de/makelaar-portal/': typeof DeMakelaarPortalIndexRoute
   '/de/makelaars/': typeof DeMakelaarsIndexRoute
   '/de/mijn-aanbod/': typeof DeMijnAanbodIndexRoute
+  '/de/mijn-huurdersprofiel/': typeof DeMijnHuurdersprofielIndexRoute
+  '/de/mijn-reacties/': typeof DeMijnReactiesIndexRoute
+  '/de/mijn-verhuizing/': typeof DeMijnVerhuizingIndexRoute
   '/de/niet-gevonden/': typeof DeNietGevondenIndexRoute
   '/de/nieuwbouw/': typeof DeNieuwbouwIndexRoute
   '/de/op-kaart/': typeof DeOpKaartIndexRoute
@@ -2892,6 +2952,9 @@ export interface FileRoutesByFullPath {
   '/en/makelaar-portal/': typeof EnMakelaarPortalIndexRoute
   '/en/makelaars/': typeof EnMakelaarsIndexRoute
   '/en/mijn-aanbod/': typeof EnMijnAanbodIndexRoute
+  '/en/mijn-huurdersprofiel/': typeof EnMijnHuurdersprofielIndexRoute
+  '/en/mijn-reacties/': typeof EnMijnReactiesIndexRoute
+  '/en/mijn-verhuizing/': typeof EnMijnVerhuizingIndexRoute
   '/en/niet-gevonden/': typeof EnNietGevondenIndexRoute
   '/en/nieuwbouw/': typeof EnNieuwbouwIndexRoute
   '/en/op-kaart/': typeof EnOpKaartIndexRoute
@@ -2957,6 +3020,9 @@ export interface FileRoutesByFullPath {
   '/fr/makelaar-portal/': typeof FrMakelaarPortalIndexRoute
   '/fr/makelaars/': typeof FrMakelaarsIndexRoute
   '/fr/mijn-aanbod/': typeof FrMijnAanbodIndexRoute
+  '/fr/mijn-huurdersprofiel/': typeof FrMijnHuurdersprofielIndexRoute
+  '/fr/mijn-reacties/': typeof FrMijnReactiesIndexRoute
+  '/fr/mijn-verhuizing/': typeof FrMijnVerhuizingIndexRoute
   '/fr/niet-gevonden/': typeof FrNietGevondenIndexRoute
   '/fr/nieuwbouw/': typeof FrNieuwbouwIndexRoute
   '/fr/op-kaart/': typeof FrOpKaartIndexRoute
@@ -3263,6 +3329,9 @@ export interface FileRoutesByTo {
   '/de/makelaar-portal': typeof DeMakelaarPortalIndexRoute
   '/de/makelaars': typeof DeMakelaarsIndexRoute
   '/de/mijn-aanbod': typeof DeMijnAanbodIndexRoute
+  '/de/mijn-huurdersprofiel': typeof DeMijnHuurdersprofielIndexRoute
+  '/de/mijn-reacties': typeof DeMijnReactiesIndexRoute
+  '/de/mijn-verhuizing': typeof DeMijnVerhuizingIndexRoute
   '/de/niet-gevonden': typeof DeNietGevondenIndexRoute
   '/de/nieuwbouw': typeof DeNieuwbouwIndexRoute
   '/de/op-kaart': typeof DeOpKaartIndexRoute
@@ -3328,6 +3397,9 @@ export interface FileRoutesByTo {
   '/en/makelaar-portal': typeof EnMakelaarPortalIndexRoute
   '/en/makelaars': typeof EnMakelaarsIndexRoute
   '/en/mijn-aanbod': typeof EnMijnAanbodIndexRoute
+  '/en/mijn-huurdersprofiel': typeof EnMijnHuurdersprofielIndexRoute
+  '/en/mijn-reacties': typeof EnMijnReactiesIndexRoute
+  '/en/mijn-verhuizing': typeof EnMijnVerhuizingIndexRoute
   '/en/niet-gevonden': typeof EnNietGevondenIndexRoute
   '/en/nieuwbouw': typeof EnNieuwbouwIndexRoute
   '/en/op-kaart': typeof EnOpKaartIndexRoute
@@ -3393,6 +3465,9 @@ export interface FileRoutesByTo {
   '/fr/makelaar-portal': typeof FrMakelaarPortalIndexRoute
   '/fr/makelaars': typeof FrMakelaarsIndexRoute
   '/fr/mijn-aanbod': typeof FrMijnAanbodIndexRoute
+  '/fr/mijn-huurdersprofiel': typeof FrMijnHuurdersprofielIndexRoute
+  '/fr/mijn-reacties': typeof FrMijnReactiesIndexRoute
+  '/fr/mijn-verhuizing': typeof FrMijnVerhuizingIndexRoute
   '/fr/niet-gevonden': typeof FrNietGevondenIndexRoute
   '/fr/nieuwbouw': typeof FrNieuwbouwIndexRoute
   '/fr/op-kaart': typeof FrOpKaartIndexRoute
@@ -3700,6 +3775,9 @@ export interface FileRoutesById {
   '/de/makelaar-portal/': typeof DeMakelaarPortalIndexRoute
   '/de/makelaars/': typeof DeMakelaarsIndexRoute
   '/de/mijn-aanbod/': typeof DeMijnAanbodIndexRoute
+  '/de/mijn-huurdersprofiel/': typeof DeMijnHuurdersprofielIndexRoute
+  '/de/mijn-reacties/': typeof DeMijnReactiesIndexRoute
+  '/de/mijn-verhuizing/': typeof DeMijnVerhuizingIndexRoute
   '/de/niet-gevonden/': typeof DeNietGevondenIndexRoute
   '/de/nieuwbouw/': typeof DeNieuwbouwIndexRoute
   '/de/op-kaart/': typeof DeOpKaartIndexRoute
@@ -3765,6 +3843,9 @@ export interface FileRoutesById {
   '/en/makelaar-portal/': typeof EnMakelaarPortalIndexRoute
   '/en/makelaars/': typeof EnMakelaarsIndexRoute
   '/en/mijn-aanbod/': typeof EnMijnAanbodIndexRoute
+  '/en/mijn-huurdersprofiel/': typeof EnMijnHuurdersprofielIndexRoute
+  '/en/mijn-reacties/': typeof EnMijnReactiesIndexRoute
+  '/en/mijn-verhuizing/': typeof EnMijnVerhuizingIndexRoute
   '/en/niet-gevonden/': typeof EnNietGevondenIndexRoute
   '/en/nieuwbouw/': typeof EnNieuwbouwIndexRoute
   '/en/op-kaart/': typeof EnOpKaartIndexRoute
@@ -3830,6 +3911,9 @@ export interface FileRoutesById {
   '/fr/makelaar-portal/': typeof FrMakelaarPortalIndexRoute
   '/fr/makelaars/': typeof FrMakelaarsIndexRoute
   '/fr/mijn-aanbod/': typeof FrMijnAanbodIndexRoute
+  '/fr/mijn-huurdersprofiel/': typeof FrMijnHuurdersprofielIndexRoute
+  '/fr/mijn-reacties/': typeof FrMijnReactiesIndexRoute
+  '/fr/mijn-verhuizing/': typeof FrMijnVerhuizingIndexRoute
   '/fr/niet-gevonden/': typeof FrNietGevondenIndexRoute
   '/fr/nieuwbouw/': typeof FrNieuwbouwIndexRoute
   '/fr/op-kaart/': typeof FrOpKaartIndexRoute
@@ -4138,6 +4222,9 @@ export interface FileRouteTypes {
     | '/de/makelaar-portal/'
     | '/de/makelaars/'
     | '/de/mijn-aanbod/'
+    | '/de/mijn-huurdersprofiel/'
+    | '/de/mijn-reacties/'
+    | '/de/mijn-verhuizing/'
     | '/de/niet-gevonden/'
     | '/de/nieuwbouw/'
     | '/de/op-kaart/'
@@ -4203,6 +4290,9 @@ export interface FileRouteTypes {
     | '/en/makelaar-portal/'
     | '/en/makelaars/'
     | '/en/mijn-aanbod/'
+    | '/en/mijn-huurdersprofiel/'
+    | '/en/mijn-reacties/'
+    | '/en/mijn-verhuizing/'
     | '/en/niet-gevonden/'
     | '/en/nieuwbouw/'
     | '/en/op-kaart/'
@@ -4268,6 +4358,9 @@ export interface FileRouteTypes {
     | '/fr/makelaar-portal/'
     | '/fr/makelaars/'
     | '/fr/mijn-aanbod/'
+    | '/fr/mijn-huurdersprofiel/'
+    | '/fr/mijn-reacties/'
+    | '/fr/mijn-verhuizing/'
     | '/fr/niet-gevonden/'
     | '/fr/nieuwbouw/'
     | '/fr/op-kaart/'
@@ -4574,6 +4667,9 @@ export interface FileRouteTypes {
     | '/de/makelaar-portal'
     | '/de/makelaars'
     | '/de/mijn-aanbod'
+    | '/de/mijn-huurdersprofiel'
+    | '/de/mijn-reacties'
+    | '/de/mijn-verhuizing'
     | '/de/niet-gevonden'
     | '/de/nieuwbouw'
     | '/de/op-kaart'
@@ -4639,6 +4735,9 @@ export interface FileRouteTypes {
     | '/en/makelaar-portal'
     | '/en/makelaars'
     | '/en/mijn-aanbod'
+    | '/en/mijn-huurdersprofiel'
+    | '/en/mijn-reacties'
+    | '/en/mijn-verhuizing'
     | '/en/niet-gevonden'
     | '/en/nieuwbouw'
     | '/en/op-kaart'
@@ -4704,6 +4803,9 @@ export interface FileRouteTypes {
     | '/fr/makelaar-portal'
     | '/fr/makelaars'
     | '/fr/mijn-aanbod'
+    | '/fr/mijn-huurdersprofiel'
+    | '/fr/mijn-reacties'
+    | '/fr/mijn-verhuizing'
     | '/fr/niet-gevonden'
     | '/fr/nieuwbouw'
     | '/fr/op-kaart'
@@ -5010,6 +5112,9 @@ export interface FileRouteTypes {
     | '/de/makelaar-portal/'
     | '/de/makelaars/'
     | '/de/mijn-aanbod/'
+    | '/de/mijn-huurdersprofiel/'
+    | '/de/mijn-reacties/'
+    | '/de/mijn-verhuizing/'
     | '/de/niet-gevonden/'
     | '/de/nieuwbouw/'
     | '/de/op-kaart/'
@@ -5075,6 +5180,9 @@ export interface FileRouteTypes {
     | '/en/makelaar-portal/'
     | '/en/makelaars/'
     | '/en/mijn-aanbod/'
+    | '/en/mijn-huurdersprofiel/'
+    | '/en/mijn-reacties/'
+    | '/en/mijn-verhuizing/'
     | '/en/niet-gevonden/'
     | '/en/nieuwbouw/'
     | '/en/op-kaart/'
@@ -5140,6 +5248,9 @@ export interface FileRouteTypes {
     | '/fr/makelaar-portal/'
     | '/fr/makelaars/'
     | '/fr/mijn-aanbod/'
+    | '/fr/mijn-huurdersprofiel/'
+    | '/fr/mijn-reacties/'
+    | '/fr/mijn-verhuizing/'
     | '/fr/niet-gevonden/'
     | '/fr/nieuwbouw/'
     | '/fr/op-kaart/'
@@ -5447,6 +5558,9 @@ export interface RootRouteChildren {
   DeMakelaarPortalIndexRoute: typeof DeMakelaarPortalIndexRoute
   DeMakelaarsIndexRoute: typeof DeMakelaarsIndexRoute
   DeMijnAanbodIndexRoute: typeof DeMijnAanbodIndexRoute
+  DeMijnHuurdersprofielIndexRoute: typeof DeMijnHuurdersprofielIndexRoute
+  DeMijnReactiesIndexRoute: typeof DeMijnReactiesIndexRoute
+  DeMijnVerhuizingIndexRoute: typeof DeMijnVerhuizingIndexRoute
   DeNietGevondenIndexRoute: typeof DeNietGevondenIndexRoute
   DeNieuwbouwIndexRoute: typeof DeNieuwbouwIndexRoute
   DeOpKaartIndexRoute: typeof DeOpKaartIndexRoute
@@ -5512,6 +5626,9 @@ export interface RootRouteChildren {
   EnMakelaarPortalIndexRoute: typeof EnMakelaarPortalIndexRoute
   EnMakelaarsIndexRoute: typeof EnMakelaarsIndexRoute
   EnMijnAanbodIndexRoute: typeof EnMijnAanbodIndexRoute
+  EnMijnHuurdersprofielIndexRoute: typeof EnMijnHuurdersprofielIndexRoute
+  EnMijnReactiesIndexRoute: typeof EnMijnReactiesIndexRoute
+  EnMijnVerhuizingIndexRoute: typeof EnMijnVerhuizingIndexRoute
   EnNietGevondenIndexRoute: typeof EnNietGevondenIndexRoute
   EnNieuwbouwIndexRoute: typeof EnNieuwbouwIndexRoute
   EnOpKaartIndexRoute: typeof EnOpKaartIndexRoute
@@ -5577,6 +5694,9 @@ export interface RootRouteChildren {
   FrMakelaarPortalIndexRoute: typeof FrMakelaarPortalIndexRoute
   FrMakelaarsIndexRoute: typeof FrMakelaarsIndexRoute
   FrMijnAanbodIndexRoute: typeof FrMijnAanbodIndexRoute
+  FrMijnHuurdersprofielIndexRoute: typeof FrMijnHuurdersprofielIndexRoute
+  FrMijnReactiesIndexRoute: typeof FrMijnReactiesIndexRoute
+  FrMijnVerhuizingIndexRoute: typeof FrMijnVerhuizingIndexRoute
   FrNietGevondenIndexRoute: typeof FrNietGevondenIndexRoute
   FrNieuwbouwIndexRoute: typeof FrNieuwbouwIndexRoute
   FrOpKaartIndexRoute: typeof FrOpKaartIndexRoute
@@ -6647,6 +6767,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DeMijnAanbodIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/de/mijn-huurdersprofiel/': {
+      id: '/de/mijn-huurdersprofiel/'
+      path: '/de/mijn-huurdersprofiel'
+      fullPath: '/de/mijn-huurdersprofiel/'
+      preLoaderRoute: typeof DeMijnHuurdersprofielIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/de/mijn-reacties/': {
+      id: '/de/mijn-reacties/'
+      path: '/de/mijn-reacties'
+      fullPath: '/de/mijn-reacties/'
+      preLoaderRoute: typeof DeMijnReactiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/de/mijn-verhuizing/': {
+      id: '/de/mijn-verhuizing/'
+      path: '/de/mijn-verhuizing'
+      fullPath: '/de/mijn-verhuizing/'
+      preLoaderRoute: typeof DeMijnVerhuizingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/de/niet-gevonden/': {
       id: '/de/niet-gevonden/'
       path: '/de/niet-gevonden'
@@ -7102,6 +7243,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnMijnAanbodIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/mijn-huurdersprofiel/': {
+      id: '/en/mijn-huurdersprofiel/'
+      path: '/en/mijn-huurdersprofiel'
+      fullPath: '/en/mijn-huurdersprofiel/'
+      preLoaderRoute: typeof EnMijnHuurdersprofielIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/mijn-reacties/': {
+      id: '/en/mijn-reacties/'
+      path: '/en/mijn-reacties'
+      fullPath: '/en/mijn-reacties/'
+      preLoaderRoute: typeof EnMijnReactiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/mijn-verhuizing/': {
+      id: '/en/mijn-verhuizing/'
+      path: '/en/mijn-verhuizing'
+      fullPath: '/en/mijn-verhuizing/'
+      preLoaderRoute: typeof EnMijnVerhuizingIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/en/niet-gevonden/': {
       id: '/en/niet-gevonden/'
       path: '/en/niet-gevonden'
@@ -7555,6 +7717,27 @@ declare module '@tanstack/react-router' {
       path: '/fr/mijn-aanbod'
       fullPath: '/fr/mijn-aanbod/'
       preLoaderRoute: typeof FrMijnAanbodIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fr/mijn-huurdersprofiel/': {
+      id: '/fr/mijn-huurdersprofiel/'
+      path: '/fr/mijn-huurdersprofiel'
+      fullPath: '/fr/mijn-huurdersprofiel/'
+      preLoaderRoute: typeof FrMijnHuurdersprofielIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fr/mijn-reacties/': {
+      id: '/fr/mijn-reacties/'
+      path: '/fr/mijn-reacties'
+      fullPath: '/fr/mijn-reacties/'
+      preLoaderRoute: typeof FrMijnReactiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fr/mijn-verhuizing/': {
+      id: '/fr/mijn-verhuizing/'
+      path: '/fr/mijn-verhuizing'
+      fullPath: '/fr/mijn-verhuizing/'
+      preLoaderRoute: typeof FrMijnVerhuizingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fr/niet-gevonden/': {
@@ -8928,6 +9111,9 @@ const rootRouteChildren: RootRouteChildren = {
   DeMakelaarPortalIndexRoute: DeMakelaarPortalIndexRoute,
   DeMakelaarsIndexRoute: DeMakelaarsIndexRoute,
   DeMijnAanbodIndexRoute: DeMijnAanbodIndexRoute,
+  DeMijnHuurdersprofielIndexRoute: DeMijnHuurdersprofielIndexRoute,
+  DeMijnReactiesIndexRoute: DeMijnReactiesIndexRoute,
+  DeMijnVerhuizingIndexRoute: DeMijnVerhuizingIndexRoute,
   DeNietGevondenIndexRoute: DeNietGevondenIndexRoute,
   DeNieuwbouwIndexRoute: DeNieuwbouwIndexRoute,
   DeOpKaartIndexRoute: DeOpKaartIndexRoute,
@@ -8994,6 +9180,9 @@ const rootRouteChildren: RootRouteChildren = {
   EnMakelaarPortalIndexRoute: EnMakelaarPortalIndexRoute,
   EnMakelaarsIndexRoute: EnMakelaarsIndexRoute,
   EnMijnAanbodIndexRoute: EnMijnAanbodIndexRoute,
+  EnMijnHuurdersprofielIndexRoute: EnMijnHuurdersprofielIndexRoute,
+  EnMijnReactiesIndexRoute: EnMijnReactiesIndexRoute,
+  EnMijnVerhuizingIndexRoute: EnMijnVerhuizingIndexRoute,
   EnNietGevondenIndexRoute: EnNietGevondenIndexRoute,
   EnNieuwbouwIndexRoute: EnNieuwbouwIndexRoute,
   EnOpKaartIndexRoute: EnOpKaartIndexRoute,
@@ -9060,6 +9249,9 @@ const rootRouteChildren: RootRouteChildren = {
   FrMakelaarPortalIndexRoute: FrMakelaarPortalIndexRoute,
   FrMakelaarsIndexRoute: FrMakelaarsIndexRoute,
   FrMijnAanbodIndexRoute: FrMijnAanbodIndexRoute,
+  FrMijnHuurdersprofielIndexRoute: FrMijnHuurdersprofielIndexRoute,
+  FrMijnReactiesIndexRoute: FrMijnReactiesIndexRoute,
+  FrMijnVerhuizingIndexRoute: FrMijnVerhuizingIndexRoute,
   FrNietGevondenIndexRoute: FrNietGevondenIndexRoute,
   FrNieuwbouwIndexRoute: FrNieuwbouwIndexRoute,
   FrOpKaartIndexRoute: FrOpKaartIndexRoute,

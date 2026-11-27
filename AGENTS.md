@@ -29,3 +29,5 @@
 - Property detail routes prefetch the listing in their loader via propertyQueryOptions and build head() from the shared propertySeo helper, with SSR query dehydration in the router, so the first HTML carries the full page, title and canonical.
 - Root head carries only sitewide tags; each page's title, description, robots, canonical and share tags come from its route head() or from SEOHead's React-hoisted tags (skipped when the route head sets a title), so server HTML always has exactly one page-specific title.
 - Experiments assign variants client-side after hydration with server HTML always rendering control, so tests never create SEO duplicates or flicker-dependent content.
+
+- Account features linked through LocalizedLink must have explicit NL/EN/DE/FR routes using the same page component and private-page metadata, so localized URLs never fall through to legacy city redirects.

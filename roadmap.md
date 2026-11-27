@@ -58,3 +58,9 @@
 - [x] Zoeken in gewone taal (regelgebaseerd, geen AI-kosten)
 - [x] Experimentenraamwerk (P4): vaste toekenning, controle in server-HTML, meting via GA na toestemming
 - [ ] Nieuwe accountpagina's staan nog niet live: /mijn-reacties, /mijn-verhuizing en /mijn-huurdersprofiel geven op het live domein een 404; publicatie nodig
+
+- [x] Monitoring: ontbrekende EN/DE/FR-routes voor reacties, verhuisplanner en huurdersprofiel toevoegen en accountmenu ingelogd controleren.
+  - Regel: accountlinks openen dezelfde functie in de gekozen taal, nooit een verzonnen stadspagina.
+  - Gelezen: desktopaccountmenu en mobiele menuvoorkeuren in Header, LocalizedLink/locale, alle drie accountpagina's en de NL/EN/DE/FR-routes. Mobiel verwijst naar de bestaande accountpagina; geen links naar deze drie functies in andere menu's of achtergrondtaken gevonden.
+  - Hersteld: negen ontbrekende taalroutes en de link van Mijn reacties naar de verhuisplanner die de taal verloor. Gedeelde pagina's en bestaande gegevens/toegang blijven ongewijzigd.
+  - Controle: negen accountmenudoorklikken ingelogd met testaccount, geen runtimefouten; vijftien regressietests geslaagd, inclusief taalbehoud naar de verhuisplanner.

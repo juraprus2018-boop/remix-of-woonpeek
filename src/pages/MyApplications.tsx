@@ -4,7 +4,7 @@ import { CalendarPlus, Home, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
-import { Link } from "@/lib/router-compat";
+import { L as Link } from "@/components/LocalizedLink";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
