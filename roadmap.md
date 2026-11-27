@@ -44,7 +44,7 @@
 - [x] P0: eerste aantoonbare soft-404, misleidende interesse, canonieke alias-, tracking- en backendbeveiligingsproblemen herstellen.
 - [x] P0: ontbrekende woningen geven route-level 404; backendfouten geven geen lege pagina meer.
 - [x] P0: SEOHead overschrijft route-eigen metadata na hydration niet meer.
-- [ ] P0: woninglookup ook op stad/type scoped maken; nu nog wereldwijde adres-slug-zoekopdracht.
+- [x] P0: woninglookup op stad/type scoped (adres in andere stad = 404)
 - [ ] P0: externe widgettoestemming, calculatorattributie en commerciële beloften per aanbieder rechttrekken zonder bestemmingen stil te wijzigen.
 - [ ] P0: afbeeldingvarianten, truncatiegrenzen en volledige sessie-/beheercontroles afzonderlijk verifiëren.
 - [ ] Fase 0/P0 afronden met acceptatiecriteria, open blokkades en volgende hoogste waardestap.

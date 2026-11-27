@@ -1,5 +1,6 @@
 import AgencyBadge from "@/components/properties/AgencyBadge";
 import { logAgencyEvent } from "@/lib/agency";
+import { scopeFromPath } from "@/lib/propertyLookup";
 import { useParams, Link, useLocation, Navigate } from "@/lib/router-compat";
 import propertyPlaceholder from "@/assets/property-placeholder.jpg";
 import { getStockPropertyImage } from "@/lib/stockImages";
@@ -100,8 +101,9 @@ const SOURCE_SITE_META: Record<string, { label: string; color: string }> = {
 };
 
 const PropertyDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const { data: rawProperty, isLoading } = useProperty(slug || "");
+  const { slug, city: cityParam } = useParams<{ slug: string; city?: string }>();
+  const { pathname: lookupPath } = useLocation();
+  const { data: rawProperty, isLoading } = useProperty(slug || "", scopeFromPath(lookupPath, cityParam));
   const property = rawProperty ? normalizePropertyDetail(rawProperty) : undefined;
   const { data: similarProperties } = useSimilarProperties(
     property?.id || "",

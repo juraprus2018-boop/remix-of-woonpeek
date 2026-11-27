@@ -1,3 +1,4 @@
+import { pickScopedProperty, type LookupScope } from "@/lib/propertyLookup";
 import { useQuery, useInfiniteQuery, useMutation, useQueryClient, queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -242,8 +243,8 @@ export const useMapProperties = (filters?: Omit<PropertyFilters, "page" | "pageS
 };
 
 /** Shared by the property route loader (SSR) and the detail page, so both use one cache entry. */
-export const propertyQueryOptions = (slugOrId: string) => queryOptions({
-    queryKey: ["property", slugOrId],
+export const propertyQueryOptions = (slugOrId: string, scope: LookupScope = {}) => queryOptions({
+    queryKey: ["property", slugOrId, scope.city ?? null, scope.listingType ?? null],
     queryFn: async () => {
       const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
       const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
@@ -269,10 +270,12 @@ export const propertyQueryOptions = (slugOrId: string) => queryOptions({
         .select("*")
         .eq("address_slug", slugOrId)
         .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+        .limit(25);
       if (addressError) throw addressError;
-      if (byAddress) return byAddress as Property;
+      if (byAddress && byAddress.length > 0) {
+        // Same street and number can exist in several cities: respect the city in the URL.
+        return pickScopedProperty(byAddress as Property[], scope);
+      }
 
       // Fallback: lookup by exact slug (legacy URLs)
       const { data, error } = await supabase
@@ -287,7 +290,7 @@ export const propertyQueryOptions = (slugOrId: string) => queryOptions({
     enabled: !!slugOrId,
   });
 
-export const useProperty = (slugOrId: string) => useQuery(propertyQueryOptions(slugOrId));
+export const useProperty = (slugOrId: string, scope: LookupScope = {}) => useQuery(propertyQueryOptions(slugOrId, scope));
 
 export const useCityList = () => {
   return useQuery({
